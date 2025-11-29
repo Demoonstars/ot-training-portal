@@ -438,3 +438,110 @@ a:focus {
     border-radius: 999px;
   }
 }
+/* Страница программ обучения */
+.page-title {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+}
+
+.page-lead {
+  font-size: 0.98rem;
+  color: #4b5563;
+}
+
+/* Сетка программ */
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.program-card {
+  background-color: #ffffff;
+  border-radius: 0.85rem;
+  padding: 1.1rem 1.15rem 1.2rem;
+  box-shadow: 0 2px 7px rgba(15, 23, 42, 0.05);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.program-card h3 {
+  margin: 0 0 0.55rem;
+  font-size: 1.1rem;
+  color: #111827;
+}
+
+.program-desc {
+  margin: 0 0 0.7rem;
+  font-size: 0.95rem;
+}
+
+.program-meta {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.7rem;
+  font-size: 0.9rem;
+}
+
+.program-meta li {
+  margin-bottom: 0.3rem;
+}
+
+/* Бейджи */
+.badge {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  margin-right: 0.4rem;
+  border: 1px solid transparent;
+}
+
+.badge-type {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+
+.badge-form {
+  background-color: #ecfdf5;
+  color: #16a34a;
+  border-color: #bbf7d0;
+}
+
+.badge-target {
+  background-color: #fef3c7;
+  color: #92400e;
+  border-color: #fde68a;
+}
+
+.program-note {
+  margin: 0 0 0.8rem;
+  font-size: 0.88rem;
+  color: #4b5563;
+}
+
+.program-link {
+  margin-top: auto;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1d4ed8;
+}
+
+.program-link:hover,
+.program-link:focus {
+  text-decoration: underline;
+}
+
+/* Адаптивность для программ */
+@media (max-width: 900px) {
+  .programs-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
