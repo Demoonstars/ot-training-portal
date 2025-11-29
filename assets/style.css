@@ -740,3 +740,28 @@ a:focus {
 .google-form-placeholder li {
   margin-bottom: 0.25rem;
 }
+
+/* ----------------------------------
+   Кнопка возврата на страницы курса
+-----------------------------------*/
+.back-button-wrapper {
+  margin-bottom: 0.9rem;
+}
+
+.back-button {
+  display: inline-block;
+  padding: 0.45rem 0.9rem;
+  background-color: #e5e7eb;
+  color: #111827;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 0.65rem;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.back-button:hover,
+.back-button:focus {
+  background-color: #d1d5db;
+  color: #000;
+}
