@@ -325,6 +325,12 @@ a:focus {
   border-color: rgba(15, 23, 42, 0.2);
 }
 
+/* Отдельный стиль для кнопок в карточках программ */
+.btn-program {
+  font-size: 0.9rem;
+  padding: 0.55rem 1.2rem;
+}
+
 /* CTA-блок на главной */
 .cta-section {
   margin-top: 2rem;
@@ -382,7 +388,24 @@ a:focus {
 .page-header {
   position: relative;
   overflow: hidden;
-  background: radial-gradient(circle at top left, #eff6ff 0%, #ffffff 60%, #e5f3ff 100%);
+  background: radial-gradient(circle at top left, #e0f2fe 0%, #ffffff 55%, #e5f3ff 100%);
+}
+
+.page-header::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle at top right, rgba(37, 99, 235, 0.18), transparent 55%),
+    radial-gradient(circle at bottom left, rgba(34, 197, 94, 0.16), transparent 50%);
+  opacity: 0.95;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page-header > * {
+  position: relative;
+  z-index: 1;
 }
 
 .page-header-label {
@@ -417,11 +440,10 @@ a:focus {
 
 /* Карточка программы */
 .program-card {
-  background-color: #ffffff;
   border-radius: 0.9rem;
-  padding: 1.05rem 1.15rem 1rem;
+  padding: 1.05rem 1.15rem 1.1rem;
   box-shadow: 0 2px 7px rgba(15, 23, 42, 0.05);
-  border: 1px solid rgba(148, 163, 184, 0.3);
+  border: 1px solid rgba(148, 163, 184, 0.35);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -430,12 +452,33 @@ a:focus {
   transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
 }
 
+/* Цветовые подложки по направлениям */
+.program-card-ot {
+  background: linear-gradient(145deg, #eff6ff 0%, #ffffff 55%, #e0f2fe 100%);
+  border-top: 3px solid #2563eb;
+}
+
+.program-card-fire {
+  background: linear-gradient(145deg, #fef3c7 0%, #ffffff 55%, #fee2e2 100%);
+  border-top: 3px solid #ea580c;
+}
+
+.program-card-first-aid {
+  background: linear-gradient(145deg, #e0f2fe 0%, #ffffff 55%, #dcfce7 100%);
+  border-top: 3px solid #16a34a;
+}
+
+.program-card-gochs {
+  background: linear-gradient(145deg, #ede9fe 0%, #ffffff 55%, #e0f2fe 100%);
+  border-top: 3px solid #7c3aed;
+}
+
 .program-card::before {
   content: "";
   position: absolute;
   inset: 0;
   opacity: 0;
-  background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.18), transparent 55%);
+  background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.16), transparent 60%);
   transition: opacity 0.2s ease;
   pointer-events: none;
 }
@@ -530,45 +573,10 @@ a:focus {
   color: #4b5563;
 }
 
-/* Цветовые акценты по направлениям */
-.program-card-ot {
-  border-top: 3px solid #2563eb;
-}
-
-.program-card-fire {
-  border-top: 3px solid #ea580c;
-}
-
-.program-card-first-aid {
-  border-top: 3px solid #16a34a;
-}
-
-.program-card-gochs {
-  border-top: 3px solid #7c3aed;
-}
-
 /* Ссылка-кнопка внизу карточки */
 .program-link {
-  position: relative;
-  z-index: 1;
   margin-top: auto;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #1d4ed8;
   align-self: flex-start;
-  padding-right: 1.1rem;
-}
-
-.program-link::after {
-  content: "→";
-  display: inline-block;
-  margin-left: 0.25rem;
-  transition: transform 0.15s ease;
-}
-
-.program-card:hover .program-link::after,
-.program-card:focus-within .program-link::after {
-  transform: translateX(2px);
 }
 
 /* -----------------------------
