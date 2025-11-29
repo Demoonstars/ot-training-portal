@@ -145,7 +145,7 @@ a:focus {
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.32);
 }
 
-/* Герой-блок с размытым фоном */
+/* Герой-блок с размытым фоном (главная) */
 .hero-blur {
   position: relative;
   min-height: 260px;
@@ -160,7 +160,7 @@ a:focus {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("hero-training.jpg");
+  background-image: url("hero-training.jpg"); /* файл лежит в assets/ рядом со style.css */
   background-size: cover;
   background-position: center;
   filter: blur(9px) brightness(0.5);
@@ -171,7 +171,7 @@ a:focus {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.1), rgba(0, 0, 0, 0.45));
+  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.12), rgba(0, 0, 0, 0.5));
   z-index: 2;
 }
 
@@ -325,7 +325,7 @@ a:focus {
   border-color: rgba(15, 23, 42, 0.2);
 }
 
-/* CTA-блок */
+/* CTA-блок на главной */
 .cta-section {
   margin-top: 2rem;
 }
@@ -374,7 +374,207 @@ a:focus {
   color: #6b7280;
 }
 
-/* Адаптивность */
+/* -----------------------------
+   Страница программ обучения
+------------------------------*/
+
+/* Заголовок страницы */
+.page-header {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at top left, #eff6ff 0%, #ffffff 60%, #e5f3ff 100%);
+}
+
+.page-header-label {
+  display: inline-block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background-color: #e0f2fe;
+  color: #0369a1;
+  margin-bottom: 0.4rem;
+}
+
+.page-title {
+  margin-top: 0;
+  margin-bottom: 0.55rem;
+  font-size: 1.4rem;
+}
+
+.page-lead {
+  font-size: 0.98rem;
+  color: #4b5563;
+}
+
+/* Сетка программ */
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+/* Карточка программы */
+.program-card {
+  background-color: #ffffff;
+  border-radius: 0.9rem;
+  padding: 1.05rem 1.15rem 1rem;
+  box-shadow: 0 2px 7px rgba(15, 23, 42, 0.05);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+
+.program-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.18), transparent 55%);
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.program-card:hover,
+.program-card:focus-within {
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.18);
+  transform: translateY(-2px);
+  border-color: rgba(59, 130, 246, 0.45);
+}
+
+.program-card:hover::before,
+.program-card:focus-within::before {
+  opacity: 1;
+}
+
+.program-card-body {
+  position: relative;
+  z-index: 1;
+}
+
+.program-card h3 {
+  margin: 0 0 0.55rem;
+  font-size: 1.1rem;
+  color: #111827;
+}
+
+.program-desc {
+  margin: 0 0 0.7rem;
+  font-size: 0.95rem;
+}
+
+/* Блок с параметрами программы */
+.program-meta {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.7rem;
+  font-size: 0.9rem;
+}
+
+.program-meta li {
+  margin-bottom: 0.3rem;
+  position: relative;
+  padding-left: 0.5rem;
+}
+
+.program-meta li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background-color: #9ca3af;
+}
+
+/* Бейджи */
+.badge {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  margin-right: 0.4rem;
+  border: 1px solid transparent;
+}
+
+.badge-type {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+
+.badge-form {
+  background-color: #ecfdf5;
+  color: #16a34a;
+  border-color: #bbf7d0;
+}
+
+.badge-target {
+  background-color: #fef3c7;
+  color: #92400e;
+  border-color: #fde68a;
+}
+
+.program-note {
+  margin: 0 0 0.8rem;
+  font-size: 0.88rem;
+  color: #4b5563;
+}
+
+/* Цветовые акценты по направлениям */
+.program-card-ot {
+  border-top: 3px solid #2563eb;
+}
+
+.program-card-fire {
+  border-top: 3px solid #ea580c;
+}
+
+.program-card-first-aid {
+  border-top: 3px solid #16a34a;
+}
+
+.program-card-gochs {
+  border-top: 3px solid #7c3aed;
+}
+
+/* Ссылка-кнопка внизу карточки */
+.program-link {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1d4ed8;
+  align-self: flex-start;
+  padding-right: 1.1rem;
+}
+
+.program-link::after {
+  content: "→";
+  display: inline-block;
+  margin-left: 0.25rem;
+  transition: transform 0.15s ease;
+}
+
+.program-card:hover .program-link::after,
+.program-card:focus-within .program-link::after {
+  transform: translateX(2px);
+}
+
+/* -----------------------------
+   Адаптивность
+------------------------------*/
+
 @media (max-width: 900px) {
   .header-inner {
     flex-direction: column;
@@ -387,6 +587,10 @@ a:focus {
 
   .nav-list {
     justify-content: flex-start;
+  }
+
+  .programs-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -436,112 +640,5 @@ a:focus {
 
   .nav-link {
     border-radius: 999px;
-  }
-}
-/* Страница программ обучения */
-.page-title {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  font-size: 1.4rem;
-}
-
-.page-lead {
-  font-size: 0.98rem;
-  color: #4b5563;
-}
-
-/* Сетка программ */
-.programs-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-}
-
-.program-card {
-  background-color: #ffffff;
-  border-radius: 0.85rem;
-  padding: 1.1rem 1.15rem 1.2rem;
-  box-shadow: 0 2px 7px rgba(15, 23, 42, 0.05);
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.program-card h3 {
-  margin: 0 0 0.55rem;
-  font-size: 1.1rem;
-  color: #111827;
-}
-
-.program-desc {
-  margin: 0 0 0.7rem;
-  font-size: 0.95rem;
-}
-
-.program-meta {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 0.7rem;
-  font-size: 0.9rem;
-}
-
-.program-meta li {
-  margin-bottom: 0.3rem;
-}
-
-/* Бейджи */
-.badge {
-  display: inline-block;
-  font-size: 0.78rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 0.1rem 0.4rem;
-  border-radius: 999px;
-  margin-right: 0.4rem;
-  border: 1px solid transparent;
-}
-
-.badge-type {
-  background-color: #eff6ff;
-  color: #1d4ed8;
-  border-color: #bfdbfe;
-}
-
-.badge-form {
-  background-color: #ecfdf5;
-  color: #16a34a;
-  border-color: #bbf7d0;
-}
-
-.badge-target {
-  background-color: #fef3c7;
-  color: #92400e;
-  border-color: #fde68a;
-}
-
-.program-note {
-  margin: 0 0 0.8rem;
-  font-size: 0.88rem;
-  color: #4b5563;
-}
-
-.program-link {
-  margin-top: auto;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #1d4ed8;
-}
-
-.program-link:hover,
-.program-link:focus {
-  text-decoration: underline;
-}
-
-/* Адаптивность для программ */
-@media (max-width: 900px) {
-  .programs-grid {
-    grid-template-columns: minmax(0, 1fr);
   }
 }
