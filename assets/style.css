@@ -62,7 +62,7 @@ a:focus {
   box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 20;
   backdrop-filter: blur(8px);
 }
 
@@ -145,9 +145,70 @@ a:focus {
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.32);
 }
 
+/* Герой-блок с размытым фоном */
+.hero-blur {
+  position: relative;
+  min-height: 260px;
+  padding: 3rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-blur::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("hero-training.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: blur(9px) brightness(0.5);
+  transform: scale(1.08);
+  z-index: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.1), rgba(0, 0, 0, 0.45));
+  z-index: 2;
+}
+
+.hero-blur-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: #ffffff;
+}
+
+.hero-blur-content h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.hero-blur-content p {
+  max-width: 720px;
+  margin: 0 auto 0.7rem;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.hero-blur-note {
+  font-size: 0.9rem;
+  opacity: 0.95;
+}
+
+.hero-btn {
+  margin-top: 0.9rem;
+  font-size: 1rem;
+  padding: 0.7rem 1.5rem;
+}
+
 /* Основной контент */
 .site-main {
-  padding: 1.5rem 0 2.75rem;
+  padding: 1.75rem 0 2.75rem;
 }
 
 /* Общие секции */
@@ -182,66 +243,6 @@ a:focus {
 
 .section-card-light {
   background-color: #f9fafb;
-}
-
-/* Hero-секция */
-.hero-section {
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
-  gap: 1rem;
-  margin-bottom: 1.75rem;
-}
-
-.hero-content p {
-  font-size: 0.98rem;
-}
-
-.hero-actions {
-  margin-top: 0.9rem;
-}
-
-.hero-note {
-  margin-top: 0.45rem;
-  font-size: 0.87rem;
-  color: #4b5563;
-}
-
-.hero-aside {
-  background: linear-gradient(145deg, #eff6ff 0%, #ffffff 55%, #e0f2fe 100%);
-}
-
-.hero-aside-title {
-  font-size: 1.12rem;
-}
-
-.hero-aside-text {
-  font-size: 0.9rem;
-  color: #374151;
-}
-
-/* Список тегов/групп пользователей */
-.tags-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 0.75rem;
-}
-
-.tags-list li {
-  position: relative;
-  padding-left: 1.1rem;
-  margin-bottom: 0.35rem;
-  font-size: 0.9rem;
-}
-
-.tags-list li::before {
-  content: "";
-  position: absolute;
-  left: 0.2rem;
-  top: 0.55rem;
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 50%;
-  background-color: #2563eb;
 }
 
 /* Список нормативных актов */
@@ -387,14 +388,6 @@ a:focus {
   .nav-list {
     justify-content: flex-start;
   }
-
-  .hero-section {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .hero-aside {
-    order: -1;
-  }
 }
 
 @media (max-width: 640px) {
@@ -414,10 +407,6 @@ a:focus {
     padding: 1rem 0.9rem 1.1rem;
   }
 
-  .hero-section {
-    gap: 0.85rem;
-  }
-
   .cta-card {
     padding: 1.15rem 1.05rem;
   }
@@ -425,6 +414,18 @@ a:focus {
   .nav-link {
     font-size: 0.86rem;
     padding: 0.33rem 0.7rem;
+  }
+
+  .hero-blur {
+    padding: 2.3rem 0 2.5rem;
+  }
+
+  .hero-blur-content h2 {
+    font-size: 1.35rem;
+  }
+
+  .hero-blur-content p {
+    font-size: 0.95rem;
   }
 }
 
