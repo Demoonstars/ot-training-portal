@@ -704,3 +704,39 @@ a:focus {
     border-radius: 999px;
   }
 }
+
+/* -----------------------------
+   Встроенный тест (Google Forms)
+------------------------------*/
+
+.google-form-wrapper {
+  margin-top: 0.9rem;
+  border-radius: 0.9rem;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background-color: #f9fafb;
+}
+
+/* iframe Google Формы растягиваем на ширину блока */
+.google-form-wrapper iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+}
+
+/* Временная заглушка, пока нет iframe */
+.google-form-placeholder {
+  padding: 1rem 1.1rem 1.1rem;
+  font-size: 0.93rem;
+  color: #374151;
+}
+
+.google-form-placeholder ol {
+  margin-top: 0.5rem;
+  padding-left: 1.1rem;
+  font-size: 0.9rem;
+}
+
+.google-form-placeholder li {
+  margin-bottom: 0.25rem;
+}
