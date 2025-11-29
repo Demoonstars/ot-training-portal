@@ -281,7 +281,7 @@ a:focus {
   color: #111827;
 }
 
-/* Кнопки */
+/* Кнопки: базовый стиль */
 .btn {
   display: inline-block;
   padding: 0.55rem 1.25rem;
@@ -295,6 +295,7 @@ a:focus {
     box-shadow 0.15s ease, transform 0.05s ease;
 }
 
+/* Синие кнопки (например, в герое и CTA) */
 .btn-primary {
   background-color: #1d4ed8;
   color: #ffffff;
@@ -312,6 +313,24 @@ a:focus {
   transform: translateY(-1px);
 }
 
+/* Бело-синие кнопки в карточках программ (чтобы текст был отлично виден) */
+.btn-program {
+  background-color: #ffffff;
+  color: #1d4ed8;
+  border-color: #1d4ed8;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.18);
+  font-size: 0.9rem;
+  padding: 0.55rem 1.2rem;
+}
+
+.btn-program:hover,
+.btn-program:focus {
+  background-color: #eff6ff;
+  border-color: #1d4ed8;
+  box-shadow: 0 3px 9px rgba(15, 23, 42, 0.24);
+}
+
+/* Контрастная кнопка (например, в CTA на главной) */
 .btn-contrast {
   background-color: #ffffff;
   color: #1e293b;
@@ -323,12 +342,6 @@ a:focus {
 .btn-contrast:focus {
   background-color: #f9fafb;
   border-color: rgba(15, 23, 42, 0.2);
-}
-
-/* Отдельный стиль для кнопок в карточках программ */
-.btn-program {
-  font-size: 0.9rem;
-  padding: 0.55rem 1.2rem;
 }
 
 /* CTA-блок на главной */
@@ -473,6 +486,7 @@ a:focus {
   border-top: 3px solid #7c3aed;
 }
 
+/* Мягкий подсвет при ховере */
 .program-card::before {
   content: "";
   position: absolute;
@@ -481,8 +495,46 @@ a:focus {
   background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.16), transparent 60%);
   transition: opacity 0.2s ease;
   pointer-events: none;
+  z-index: 0;
 }
 
+/* Полупрозрачные “иконки” на фоне для каждой программы */
+.program-card-ot::after,
+.program-card-fire::after,
+.program-card-first-aid::after,
+.program-card-gochs::after {
+  content: "";
+  position: absolute;
+  right: -0.5rem;
+  bottom: -0.8rem;
+  font-size: 4.6rem;
+  opacity: 0.08;
+  filter: blur(1px);
+  z-index: 0;
+}
+
+/* конкретные значки */
+.program-card-ot::after {
+  content: "⚙";
+  color: #1d4ed8;
+}
+
+.program-card-fire::after {
+  content: "🔥";
+  color: #ea580c;
+}
+
+.program-card-first-aid::after {
+  content: "✚";
+  color: #16a34a;
+}
+
+.program-card-gochs::after {
+  content: "⚠";
+  color: #7c3aed;
+}
+
+/* hover */
 .program-card:hover,
 .program-card:focus-within {
   box-shadow: 0 6px 16px rgba(15, 23, 42, 0.18);
@@ -573,10 +625,12 @@ a:focus {
   color: #4b5563;
 }
 
-/* Ссылка-кнопка внизу карточки */
+/* Кнопка внизу карточки */
 .program-link {
   margin-top: auto;
   align-self: flex-start;
+  position: relative;
+  z-index: 1;
 }
 
 /* -----------------------------
