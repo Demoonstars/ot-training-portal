@@ -762,11 +762,10 @@ a:focus {
   font-weight: 600;
   color: #111827;
   text-decoration: none;
-  transition:
-    background-color 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.08s ease;
+  transition: background-color 0.18s ease,
+              border-color 0.18s ease,
+              box-shadow 0.18s ease,
+              transform 0.08s ease;
 }
 
 .back-icon {
@@ -782,24 +781,15 @@ a:focus {
   font-size: 1rem;
   box-shadow: 0 2px 6px rgba(37, 99, 235, 0.5);
   transform: translateX(-1px);
-  transition:
-    transform 0.12s ease,
-    box-shadow 0.18s ease,
-    background 0.2s ease;
+  transition: transform 0.12s ease, box-shadow 0.18s ease, background 0.2s ease;
 }
 
-.back-text {
-  white-space: nowrap;
-}
-
-/* Ховер/фокус — делаем кнопку более "живой" */
 .back-link:hover,
 .back-link:focus {
   background-color: #f9fafb;
   border-color: #1d4ed8;
   box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2);
   transform: translateY(-1px);
-  text-decoration: none;
 }
 
 .back-link:hover .back-icon,
@@ -809,10 +799,8 @@ a:focus {
   box-shadow: 0 3px 9px rgba(37, 99, 235, 0.7);
 }
 
-/* На очень узких экранах позволяем перенести текст на новую строку */
 @media (max-width: 480px) {
   .back-text {
     white-space: normal;
   }
 }
-
