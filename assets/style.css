@@ -17,13 +17,29 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
     "Helvetica Neue", Arial, sans-serif;
   line-height: 1.6;
-  color: #1f2933;
-  background-color: #f5f7fa;
+  color: #111827;
+  background-color: #f3f4f6;
+}
+
+/* Ссылка для перехода к контенту (доступность) */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  padding: 0.5rem 1rem;
+  background-color: #111827;
+  color: #ffffff;
+  z-index: 100;
+  border-radius: 0 0 0.75rem 0.75rem;
+}
+
+.skip-link:focus {
+  left: 0.5rem;
 }
 
 /* Ссылки */
 a {
-  color: #005bb5;
+  color: #1d4ed8;
   text-decoration: none;
 }
 
@@ -41,29 +57,39 @@ a:focus {
 
 /* Шапка сайта */
 .site-header {
-  background-color: #ffffff;
+  background: radial-gradient(circle at top left, #eff6ff 0%, #ffffff 55%, #eef2ff 100%);
   border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
   position: sticky;
   top: 0;
   z-index: 10;
+  backdrop-filter: blur(8px);
 }
 
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
-  padding: 1rem 0;
+  gap: 1.75rem;
+  padding: 0.9rem 0;
 }
 
 .header-brand {
   flex: 1 1 auto;
+  min-width: 0;
+}
+
+.site-label {
+  margin: 0 0 0.15rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #4b5563;
 }
 
 .site-title {
-  margin: 0 0 0.25rem;
-  font-size: 1.35rem;
+  margin: 0 0 0.35rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: #111827;
 }
@@ -95,43 +121,46 @@ a:focus {
 
 .nav-link {
   display: inline-block;
-  padding: 0.4rem 0.75rem;
+  padding: 0.38rem 0.8rem;
   border-radius: 999px;
   font-size: 0.9rem;
   font-weight: 500;
-  color: #1f2933;
+  color: #111827;
   background-color: transparent;
   border: 1px solid transparent;
-  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .nav-link:hover,
 .nav-link:focus {
-  background-color: #e5efff;
-  border-color: #c3dafe;
+  background-color: #e5edff;
+  border-color: #c7d2fe;
 }
 
 .nav-link-active {
-  background-color: #005bb5;
+  background-color: #1d4ed8;
   color: #ffffff;
-  border-color: #005bb5;
+  border-color: #1d4ed8;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.32);
 }
 
 /* Основной контент */
 .site-main {
-  padding: 1.5rem 0 2.5rem;
+  padding: 1.5rem 0 2.75rem;
 }
 
+/* Общие секции */
 .section {
   margin-bottom: 1.5rem;
 }
 
 .section-card {
   background-color: #ffffff;
-  border-radius: 0.75rem;
-  padding: 1.25rem 1.25rem 1.4rem;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
-  border: 1px solid rgba(15, 23, 42, 0.04);
+  border-radius: 0.85rem;
+  padding: 1.2rem 1.3rem 1.3rem;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(148, 163, 184, 0.25);
 }
 
 .section-card h2 {
@@ -144,10 +173,75 @@ a:focus {
 .section-card p {
   margin-top: 0;
   margin-bottom: 0.75rem;
+  font-size: 0.96rem;
 }
 
 .section-card p:last-child {
   margin-bottom: 0;
+}
+
+.section-card-light {
+  background-color: #f9fafb;
+}
+
+/* Hero-секция */
+.hero-section {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.hero-content p {
+  font-size: 0.98rem;
+}
+
+.hero-actions {
+  margin-top: 0.9rem;
+}
+
+.hero-note {
+  margin-top: 0.45rem;
+  font-size: 0.87rem;
+  color: #4b5563;
+}
+
+.hero-aside {
+  background: linear-gradient(145deg, #eff6ff 0%, #ffffff 55%, #e0f2fe 100%);
+}
+
+.hero-aside-title {
+  font-size: 1.12rem;
+}
+
+.hero-aside-text {
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+/* Список тегов/групп пользователей */
+.tags-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.75rem;
+}
+
+.tags-list li {
+  position: relative;
+  padding-left: 1.1rem;
+  margin-bottom: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.tags-list li::before {
+  content: "";
+  position: absolute;
+  left: 0.2rem;
+  top: 0.55rem;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background-color: #2563eb;
 }
 
 /* Список нормативных актов */
@@ -157,7 +251,8 @@ a:focus {
 }
 
 .norm-list li {
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.45rem;
+  font-size: 0.95rem;
 }
 
 /* Примечания */
@@ -172,6 +267,7 @@ a:focus {
 .steps-list {
   margin: 0.25rem 0 0;
   padding-left: 1.25rem;
+  font-size: 0.96rem;
 }
 
 .steps-list li {
@@ -180,31 +276,8 @@ a:focus {
 
 .steps-list strong {
   display: block;
-  margin-bottom: 0.15rem;
-}
-
-/* CTA-блок */
-.cta-section {
-  margin-top: 2rem;
-}
-
-.cta-card {
-  background: linear-gradient(135deg, #005bb5 0%, #2563eb 100%);
-  border-radius: 0.9rem;
-  padding: 1.3rem 1.4rem;
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
-  text-align: left;
-}
-
-.cta-card h2 {
-  margin: 0 0 0.4rem;
-  font-size: 1.3rem;
-}
-
-.cta-card p {
-  margin: 0 0 0.9rem;
-  font-size: 0.97rem;
+  margin-bottom: 0.18rem;
+  color: #111827;
 }
 
 /* Кнопки */
@@ -222,28 +295,64 @@ a:focus {
 }
 
 .btn-primary {
-  background-color: #ffffff;
-  color: #0f172a;
-  border-color: rgba(15, 23, 42, 0.1);
-  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.18);
+  background-color: #1d4ed8;
+  color: #ffffff;
+  border-color: #1d4ed8;
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.33);
   text-decoration: none;
 }
 
 .btn-primary:hover,
 .btn-primary:focus {
-  background-color: #f9fafb;
-  border-color: rgba(15, 23, 42, 0.2);
-  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.22);
+  background-color: #1e40af;
+  border-color: #1e40af;
+  box-shadow: 0 4px 11px rgba(30, 64, 175, 0.42);
   text-decoration: none;
   transform: translateY(-1px);
 }
 
+.btn-contrast {
+  background-color: #ffffff;
+  color: #1e293b;
+  border-color: rgba(15, 23, 42, 0.1);
+  box-shadow: 0 3px 9px rgba(15, 23, 42, 0.28);
+}
+
+.btn-contrast:hover,
+.btn-contrast:focus {
+  background-color: #f9fafb;
+  border-color: rgba(15, 23, 42, 0.2);
+}
+
+/* CTA-блок */
+.cta-section {
+  margin-top: 2rem;
+}
+
+.cta-card {
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #22c55e 105%);
+  border-radius: 1rem;
+  padding: 1.35rem 1.4rem;
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.3);
+  text-align: left;
+}
+
+.cta-card h2 {
+  margin: 0 0 0.45rem;
+  font-size: 1.3rem;
+}
+
+.cta-card p {
+  margin: 0 0 0.95rem;
+  font-size: 0.97rem;
+}
+
 /* Подвал */
 .site-footer {
-  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  border-top: 1px solid rgba(148, 163, 184, 0.4);
   background-color: #ffffff;
-  padding: 1.25rem 0 1.5rem;
-  margin-top: auto;
+  padding: 1.25rem 0 1.6rem;
 }
 
 .footer-inner {
@@ -278,6 +387,14 @@ a:focus {
   .nav-list {
     justify-content: flex-start;
   }
+
+  .hero-section {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero-aside {
+    order: -1;
+  }
 }
 
 @media (max-width: 640px) {
@@ -297,13 +414,17 @@ a:focus {
     padding: 1rem 0.9rem 1.1rem;
   }
 
+  .hero-section {
+    gap: 0.85rem;
+  }
+
   .cta-card {
-    padding: 1.1rem 1rem;
+    padding: 1.15rem 1.05rem;
   }
 
   .nav-link {
-    font-size: 0.88rem;
-    padding: 0.35rem 0.7rem;
+    font-size: 0.86rem;
+    padding: 0.33rem 0.7rem;
   }
 }
 
