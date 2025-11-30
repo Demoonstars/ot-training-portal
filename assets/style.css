@@ -906,6 +906,33 @@ a:focus {
   z-index: 1;
 }
 
+/* Акцент для каталога программ */
+.page-header-accent-green {
+  background: radial-gradient(circle at top left, #ecfdf5 0%, #ffffff 45%, #e0f2fe 100%);
+  border: none;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header-accent-green::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(16, 185, 129, 0.35), transparent 60%),
+    radial-gradient(circle at 100% 120%, rgba(59, 130, 246, 0.25), transparent 55%);
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page-header-accent-green > * {
+  position: relative;
+  z-index: 1;
+}
+
+
 /* Чуть увеличим межстрочный */
 .page-header-accent-blue .page-lead,
 .page-header-accent-purple .page-lead {
@@ -1071,5 +1098,45 @@ a:focus {
 @media (max-width: 900px) {
   .info-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* -----------------------------
+   Компактная шапка на телефонах
+------------------------------*/
+@media (max-width: 640px) {
+  .site-header {
+    padding-top: 0.4rem;
+    padding-bottom: 0.35rem;
+  }
+
+  .header-inner {
+    gap: 0.4rem;
+  }
+
+  .site-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+  }
+
+  .site-title {
+    font-size: 1.15rem;
+    line-height: 1.25;
+    margin-bottom: 0.25rem;
+  }
+
+  .site-subtitle {
+    font-size: 0.78rem;
+    line-height: 1.35;
+    max-width: 34rem;
+  }
+
+  .main-nav {
+    margin-top: 0.3rem;
+  }
+
+  .nav-list {
+    gap: 0.75rem;
+    flex-wrap: wrap;
   }
 }
