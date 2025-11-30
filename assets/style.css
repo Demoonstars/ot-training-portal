@@ -148,54 +148,41 @@ a:focus {
 /* Герой-блок с размытым фоном (главная) */
 .hero-blur {
   position: relative;
-  color: #f9fafb;
+  margin: 0.75rem 1rem 1.8rem;
+  border-radius: 1.5rem;
   overflow: hidden;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25);
+  background-color: #111827;
 }
 
-/* Размытый фон только на псевдо-элементе, текст не страдает */
+/* Размытый фон только на псевдо-элементе, текст не размывается */
 .hero-blur::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("hero-training.jpg"); /* фон, как у тебя и был */
+  background-image: url("hero-training.jpg"); /* тот же файл, что и раньше */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: blur(6px);
-  transform: scale(1.08); /* чуть увеличиваем, чтобы не было жёсткого края после blur */
+  filter: blur(7px);
+  transform: scale(1.06); /* чуть увеличиваем, чтобы не было жёсткого края */
   transform-origin: center;
   z-index: 0;
 }
 
-/* затемнение поверх картинки */
+/* затемнение поверх размытой картинки */
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.85));
+  background: radial-gradient(circle at center, rgba(15, 23, 42, 0.35), rgba(15, 23, 42, 0.85));
   z-index: 1;
-}
-
-/* Мягкая маска по углам, чтобы фон “растворялся” */
-.hero-blur::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at top left, rgba(248, 250, 252, 0.95), transparent 55%),
-    radial-gradient(circle at top right, rgba(248, 250, 252, 0.9), transparent 55%),
-    radial-gradient(circle at bottom left, rgba(248, 250, 252, 0.9), transparent 55%),
-    radial-gradient(circle at bottom right, rgba(248, 250, 252, 0.95), transparent 55%);
-  mix-blend-mode: screen;
-  opacity: 0.55;
-  z-index: 2;
 }
 
 /* Контент героя поверх всех эффектов */
 .hero-blur-content {
   position: relative;
-  z-index: 3;
-  padding: 3rem 0 3.2rem;
+  z-index: 2;
+  padding: 2.7rem 0 3rem;
   text-align: center;
   color: #ffffff;
 }
@@ -226,8 +213,13 @@ a:focus {
 
 /* Адаптация под телефон именно для hero */
 @media (max-width: 640px) {
+  .hero-blur {
+    margin: 0.6rem 0.6rem 1.4rem;
+    border-radius: 1.2rem;
+  }
+
   .hero-blur-content {
-    padding: 2.3rem 0 2.4rem;
+    padding: 2.1rem 0 2.4rem;
   }
 
   .hero-blur-content h2 {
