@@ -866,3 +866,210 @@ a:focus {
   font-size: 0.92rem;
   color: #374151;
 }
+
+/* -----------------------------
+   Акцентные заголовки страниц
+------------------------------*/
+
+.page-header-accent-blue {
+  background: radial-gradient(circle at top left, #e0f2fe 0%, #ffffff 45%, #dbeafe 100%);
+  border: none;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header-accent-blue::before,
+.page-header-accent-purple::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.35), transparent 60%),
+    radial-gradient(circle at 90% 120%, rgba(16, 185, 129, 0.18), transparent 55%);
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page-header-accent-purple {
+  background: radial-gradient(circle at top left, #ede9fe 0%, #ffffff 45%, #e0e7ff 100%);
+  border: none;
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header-accent-blue > *,
+.page-header-accent-purple > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Чуть увеличим межстрочный */
+.page-header-accent-blue .page-lead,
+.page-header-accent-purple .page-lead {
+  line-height: 1.6;
+}
+
+/* -----------------------------
+   Усиленные карточки
+------------------------------*/
+
+.section-card-elevated {
+  border-radius: 1rem;
+  border: none;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.section-card-elevated-soft {
+  border-radius: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+}
+
+/* Панели внутри info-grid */
+.info-panel {
+  background-color: #f9fafb;
+  border-radius: 0.9rem;
+  padding: 0.9rem 1rem 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+/* -----------------------------
+   Таймлайн шагов
+------------------------------*/
+
+.steps-timeline {
+  position: relative;
+  padding-left: 0.2rem;
+}
+
+.steps-list-timeline {
+  list-style: none;
+  margin: 0.2rem 0 0;
+  padding-left: 0;
+  counter-reset: step-counter;
+}
+
+.steps-list-timeline li {
+  position: relative;
+  padding-left: 2.5rem;
+  padding-bottom: 0.9rem;
+  margin-bottom: 0.2rem;
+  font-size: 0.96rem;
+}
+
+.steps-list-timeline li::before {
+  counter-increment: step-counter;
+  content: counter(step-counter);
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, #ffffff 0%, #bfdbfe 40%, #2563eb 100%);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 9px rgba(37, 99, 235, 0.5);
+}
+
+.steps-list-timeline li::after {
+  content: "";
+  position: absolute;
+  left: 0.9rem;
+  top: 2.05rem;
+  width: 2px;
+  height: calc(100% - 0.2rem);
+  background: linear-gradient(to bottom, rgba(148, 163, 184, 0.7), transparent);
+}
+
+.steps-list-timeline li:last-child::after {
+  display: none;
+}
+
+.steps-list-timeline strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: #111827;
+}
+
+/* -----------------------------
+   Чек-листы и FAQ — усиление
+------------------------------*/
+
+.checklist li {
+  background-color: #f9fafb;
+  border-radius: 0.6rem;
+  padding: 0.35rem 0.75rem 0.4rem 1.6rem;
+  border: 1px solid rgba(209, 213, 219, 0.7);
+}
+
+.checklist li::before {
+  content: "✔";
+  position: absolute;
+  left: 0.55rem;
+  top: 0.52rem;
+  font-size: 0.8rem;
+  color: #16a34a;
+}
+
+/* FAQ в виде сетки карточек */
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+@media (max-width: 900px) {
+  .faq-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.faq-item {
+  margin-bottom: 0;
+  padding: 0.9rem 1rem;
+  border-radius: 0.9rem;
+  background: radial-gradient(circle at top left, #eff6ff 0%, #ffffff 40%, #e5e7eb 100%);
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.faq-item::before {
+  content: "?";
+  position: absolute;
+  right: -0.2rem;
+  bottom: -0.4rem;
+  font-size: 4rem;
+  color: rgba(148, 163, 184, 0.16);
+  font-weight: 700;
+}
+
+.faq-question {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  font-size: 0.96rem;
+}
+
+.faq-answer {
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+/* -----------------------------
+   Сетка info-grid на узких экранах
+------------------------------*/
+
+@media (max-width: 900px) {
+  .info-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
