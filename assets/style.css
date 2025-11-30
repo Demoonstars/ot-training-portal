@@ -1223,47 +1223,92 @@ a:focus {
   position: relative;
   padding: 1.2rem 1.4rem 1.3rem;
   border-radius: 1rem;
-  background: radial-gradient(circle at top left, #dbeafe 0%, #ecfdf5 30%, #ffffff 65%);
-  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.14);
-  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: linear-gradient(120deg, #2563eb 0%, #0ea5e9 40%, #22c55e 100%);
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.18);
+  border: 1px solid rgba(15, 23, 42, 0.16);
   overflow: hidden;
 }
 
+/* Лёгкий световой акцент справа */
 .cta-card::before {
   content: "";
   position: absolute;
   right: -80px;
   top: -40px;
-  width: 180px;
-  height: 180px;
+  width: 200px;
+  height: 200px;
   border-radius: 999px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.22), transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.55), transparent 70%);
+}
+
+/* Текст внутри CTA делаем тёмным и читаемым */
+.cta-card h2,
+.cta-card p {
+  position: relative;
+  z-index: 1;
 }
 
 .cta-card h2 {
   margin-top: 0;
   margin-bottom: 0.4rem;
+  font-size: 1.25rem;
+  color: #0f172a;
 }
 
 .cta-card p {
   max-width: 36rem;
   margin-bottom: 0.85rem;
+  font-size: 0.95rem;
+  color: #111827;
 }
 
+/* Белая "пилюля"-кнопка на ярком фоне */
 .btn-contrast {
   position: relative;
   z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.7rem;
+  border-radius: 999px;
+  background-color: #ffffff;
+  color: #1d4ed8;
+  font-weight: 600;
   font-size: 0.96rem;
-  padding-inline: 1.5rem;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.25);
+  border: none;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.btn-contrast:hover,
+.btn-contrast:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.35);
+  background-color: #eff6ff;
+  color: #1d4ed8;
 }
 
 /* На телефонах CTA чуть компактнее */
 @media (max-width: 640px) {
   .cta-card {
-    padding: 1rem 1rem 1.1rem;
+    padding: 1rem 1rem 1.05rem;
+  }
+
+  .cta-card h2 {
+    font-size: 1.1rem;
   }
 
   .cta-card p {
     font-size: 0.9rem;
+  }
+
+  .btn-contrast {
+    width: 100%;
+    justify-content: center;
   }
 }
