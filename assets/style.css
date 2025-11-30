@@ -1140,3 +1140,130 @@ a:focus {
     flex-wrap: wrap;
   }
 }
+
+/* -----------------------------
+   Hero: цветные метки направлений
+------------------------------*/
+
+.hero-tags {
+  margin-top: 0.65rem;
+  margin-bottom: 0.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.22rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  color: #111827;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+}
+
+/* Цветовые акценты под направления */
+.hero-tag-ot {
+  border-color: rgba(16, 185, 129, 0.8);
+  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+}
+
+.hero-tag-fire {
+  border-color: rgba(239, 68, 68, 0.85);
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+}
+
+.hero-tag-med {
+  border-color: rgba(59, 130, 246, 0.85);
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+}
+
+.hero-tag-gochs {
+  border-color: rgba(129, 140, 248, 0.85);
+  background: linear-gradient(135deg, #e0e7ff, #ddd6fe);
+}
+
+@media (max-width: 640px) {
+  .hero-tags {
+    gap: 0.3rem;
+  }
+
+  .hero-tag {
+    font-size: 0.74rem;
+    padding: 0.18rem 0.55rem;
+  }
+}
+
+/* -----------------------------
+   Главный таймлайн на главной
+------------------------------*/
+
+.main-steps-timeline {
+  margin-top: 0.6rem;
+}
+
+/* Чуть увеличим расстояния для главного таймлайна */
+.main-steps-timeline li {
+  padding-bottom: 1rem;
+}
+
+/* -----------------------------
+   CTA-блок "Начать обучение"
+------------------------------*/
+
+.cta-section {
+  margin-top: 1rem;
+}
+
+.cta-card {
+  position: relative;
+  padding: 1.2rem 1.4rem 1.3rem;
+  border-radius: 1rem;
+  background: radial-gradient(circle at top left, #dbeafe 0%, #ecfdf5 30%, #ffffff 65%);
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.14);
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  overflow: hidden;
+}
+
+.cta-card::before {
+  content: "";
+  position: absolute;
+  right: -80px;
+  top: -40px;
+  width: 180px;
+  height: 180px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.22), transparent 70%);
+}
+
+.cta-card h2 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+}
+
+.cta-card p {
+  max-width: 36rem;
+  margin-bottom: 0.85rem;
+}
+
+.btn-contrast {
+  position: relative;
+  z-index: 1;
+  font-size: 0.96rem;
+  padding-inline: 1.5rem;
+}
+
+/* На телефонах CTA чуть компактнее */
+@media (max-width: 640px) {
+  .cta-card {
+    padding: 1rem 1rem 1.1rem;
+  }
+
+  .cta-card p {
+    font-size: 0.9rem;
+  }
+}
