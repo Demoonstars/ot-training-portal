@@ -173,35 +173,37 @@
 
   <!-- Скрипт управления согласием и доступом к тесту -->
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const consentCheckbox = document.getElementById('pd-consent');
-      const startButton = document.getElementById('start-test-btn');
-      const overlay = document.getElementById('test-overlay');
-      const testUrl = 'https://onlinetestpad.com/3szjxbxlhjdeo';
+document.addEventListener('DOMContentLoaded', function () {
+  const consentCheckbox = document.getElementById('pd-consent');
+  const startButton = document.getElementById('start-test-btn');
+  const overlay = document.getElementById('test-overlay');
 
-      function updateState() {
-        const allowed = consentCheckbox.checked;
-        startButton.disabled = !allowed;
-        if (allowed) {
-          startButton.classList.remove('btn-disabled');
-          overlay.classList.add('test-overlay-hidden');
-        } else {
-          startButton.classList.add('btn-disabled');
-          overlay.classList.remove('test-overlay-hidden');
-        }
-      }
+  const testUrl = 'https://onlinetestpad.com/3szjxbxlhjdeo';
 
-      consentCheckbox.addEventListener('change', updateState);
+  function updateConsentState() {
+    const allowed = consentCheckbox.checked;
 
-      startButton.addEventListener('click', function () {
-        if (!startButton.disabled) {
-          window.open(testUrl, '_blank', 'noopener,noreferrer');
-        }
-      });
+    if (allowed) {
+      startButton.disabled = false;
+      startButton.classList.remove('btn-disabled');
+      overlay.classList.add('test-overlay-hidden');
+    } else {
+      startButton.disabled = true;
+      startButton.classList.add('btn-disabled');
+      overlay.classList.remove('test-overlay-hidden');
+    }
+  }
 
-      // начальное состояние
-      updateState();
-    });
-  </script>
+  consentCheckbox.addEventListener('change', updateConsentState);
+
+  startButton.addEventListener('click', function () {
+    if (!startButton.disabled) {
+      window.open(testUrl, '_blank', 'noopener,noreferrer');
+    }
+  });
+
+  updateConsentState();
+});
+</script>
 </body>
 </html>
