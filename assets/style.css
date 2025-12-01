@@ -1379,3 +1379,33 @@ a:focus {
     padding-bottom: 0.2rem;
   }
 }
+
+/* Модульный список для курса */
+.module-list {
+  margin: 0.5rem 0 1rem;
+  padding-left: 1.3rem;
+}
+
+.module-list li {
+  margin-bottom: 0.75rem;
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+/* Уточнение цветов для первой помощи */
+.badge-type {
+  background-color: #dbeafe;
+  border-color: #bfdbfe;
+  color: #1e40af;
+}
+
+.program-card-first-aid {
+  background: linear-gradient(145deg, #dbeafe 0%, #ffffff 55%, #dcfce7 100%);
+  border-top: 3px solid #0ea5e9;
+}
+
+.program-card-first-aid::after {
+  content: "✚";
+  color: #0ea5e9;
+  opacity: 0.1;
+}
