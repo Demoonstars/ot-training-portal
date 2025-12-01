@@ -65,32 +65,68 @@
         </p>
       </section>
 
+      <!-- Блок согласия с чекбоксом -->
+      <section class="section section-card">
+        <h2>Согласие на обработку персональных данных</h2>
 
-      <!-- ====== НАЧИНАЕТСЯ НОВЫЙ УЛУЧШЕННЫЙ БЛОК (кнопка + виджет) ====== -->
+        <p>
+          Перед началом прохождения итогового теста работник подтверждает, что ознакомлен(а) и принимает
+          следующие условия обработки персональных данных в соответствии с Федеральным законом № 152-ФЗ
+          «О персональных данных», Трудовым кодексом РФ и локальными нормативными актами работодателя.
+        </p>
+
+        <ul class="checklist">
+          <li>обработку персональных данных, указанных в тестовой форме (ФИО, дата рождения, должность, подразделение, наименование организации);</li>
+          <li>обработку результатов прохождения тестирования, включая количество набранных баллов, время прохождения и факт успешного/неуспешного завершения теста;</li>
+          <li>передачу указанных данных уполномоченным должностным лицам работодателя, ответственным за обучение и проверку знаний;</li>
+          <li>хранение данных в информационных системах работодателя в срок, установленный локальными актами (не менее срока хранения документов по обучению);</li>
+          <li>использование результатов теста для оформления протоколов проверки знаний, журналов регистрации, приказов и иных документов по обучению;</li>
+          <li>передачу данных оператору тестирующей платформы OnlineTestPad в объёме, необходимом для проведения тестирования.</li>
+        </ul>
+
+        <p class="note">
+          Обработка персональных данных осуществляется исключительно в целях организации и проведения обучения,
+          тестирования и последующего документального оформления результатов в соответствии с требованиями
+          законодательства РФ. Персональные данные не передаются третьим лицам, за исключением случаев,
+          предусмотренных законом.
+        </p>
+
+        <label class="consent-label">
+          <input type="checkbox" id="pd-consent">
+          <span>Я подтверждаю, что ознакомлен(а) с условиями обработки персональных данных и даю согласие на их обработку для целей обучения и тестирования.</span>
+        </label>
+      </section>
+
+      <!-- Прохождение теста: кнопка + виджет -->
       <section class="section section-card">
         <h2>Прохождение теста</h2>
         <p>
           Для сдачи итогового теста используйте встроенный ниже модуль OnlineTestPad.
-          Если встроенная форма не загрузилась, воспользуйтесь кнопкой для открытия теста в новой вкладке.
+          Если модуль не загрузился, можно открыть тест в новой вкладке.
         </p>
 
         <!-- Кнопка -->
         <div class="test-actions">
-          <a href="https://onlinetestpad.com/3szjxbxlhjdeo"
-             class="btn btn-primary btn-test-link"
-             target="_blank" rel="noopener noreferrer">
-            Открыть тест по первой помощи в новой вкладке
-          </a>
+          <button id="start-test-btn"
+                  class="btn btn-primary btn-test-link btn-disabled"
+                  type="button"
+                  disabled>
+            Перейти к тесту по первой помощи (в новой вкладке)
+          </button>
           <p class="test-hint">
-            Используйте кнопку, если тест не отображается ниже или доступ к сторонним скриптам ограничен.
+            Кнопка станет доступна после подтверждения согласия на обработку персональных данных.
           </p>
         </div>
 
-        <!-- Встроенный виджет OnlineTestPad -->
-        <div class="google-form-wrapper">
+        <!-- Встроенный виджет OnlineTestPad с блокировкой до согласия -->
+        <div class="google-form-wrapper test-wrapper-with-consent">
           <div id="otp_wgt_25zvn65rav464"></div>
+          <div id="test-overlay" class="test-overlay">
+            <p>Для доступа к тесту необходимо подтвердить согласие на обработку персональных данных выше.</p>
+          </div>
         </div>
 
+        <!-- Скрипт виджета OnlineTestPad -->
         <script type="text/javascript">
           var otp_wjs_dt = (new Date).getTime();
           (function (w, d, n, s, rp) {
@@ -113,12 +149,11 @@
         </script>
 
         <p class="note">
-          Обработка результатов тестирования осуществляется сервисом OnlineTestPad.  
-          Порядок передачи данных, хранения результатов и оформления документов определяется работодателем
-          в соответствии с локальными нормативными актами и требованиями законодательства РФ.
+          Обработка результатов тестирования осуществляется сервисом OnlineTestPad. Порядок передачи данных,
+          хранения результатов и оформления документов определяется работодателем в соответствии с локальными
+          нормативными актами и требованиями законодательства РФ.
         </p>
       </section>
-      <!-- ====== КОНЕЦ НОВОГО БЛОКА ====== -->
 
     </div>
   </main>
@@ -135,5 +170,38 @@
       </p>
     </div>
   </footer>
+
+  <!-- Скрипт управления согласием и доступом к тесту -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const consentCheckbox = document.getElementById('pd-consent');
+      const startButton = document.getElementById('start-test-btn');
+      const overlay = document.getElementById('test-overlay');
+      const testUrl = 'https://onlinetestpad.com/3szjxbxlhjdeo';
+
+      function updateState() {
+        const allowed = consentCheckbox.checked;
+        startButton.disabled = !allowed;
+        if (allowed) {
+          startButton.classList.remove('btn-disabled');
+          overlay.classList.add('test-overlay-hidden');
+        } else {
+          startButton.classList.add('btn-disabled');
+          overlay.classList.remove('test-overlay-hidden');
+        }
+      }
+
+      consentCheckbox.addEventListener('change', updateState);
+
+      startButton.addEventListener('click', function () {
+        if (!startButton.disabled) {
+          window.open(testUrl, '_blank', 'noopener,noreferrer');
+        }
+      });
+
+      // начальное состояние
+      updateState();
+    });
+  </script>
 </body>
 </html>
