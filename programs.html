@@ -33,45 +33,68 @@
   <main id="main-content" class="site-main">
     <div class="container">
       <!-- Заголовок страницы -->
-      <section class="section section-card page-header">
-        <div class="page-header-label">Каталог программ</div>
-        <h2 class="page-title">Программы дистанционного обучения</h2>
-        <p class="page-lead">
-          На этой странице представлены основные направления и типовые программы дистанционного обучения работников
-          по охране труда, пожарной безопасности, оказанию первой помощи пострадавшим и гражданской обороне/чрезвычайным
-          ситуациям. Конкретный перечень программ, категория обучаемых, периодичность и объём обучения определяется
-          работодателем в локальных нормативных актах.
-        </p>
-        <p>
-          Для начала обучения выберите нужное направление и перейдите на страницу соответствующего курса. На страницах
-          курсов размещаются видеолекции, методические материалы и ссылки на итоговые тесты.
-        </p>
-      </section>
+    <section class="section section-card page-header page-header-accent-green programs-header">
+  <div class="programs-header-grid">
+    <div class="programs-header-main">
+      <div class="page-header-label">Каталог программ</div>
+      <h2 class="page-title">Программы дистанционного обучения</h2>
+      <p class="page-lead">
+        На этой странице собраны ключевые направления и типовые программы дистанционного обучения работников
+        по охране труда, пожарной безопасности, оказанию первой помощи пострадавшим и гражданской обороне/ЧС.
+      </p>
+      <p class="programs-header-note">
+        Выберите направление, перейдите на страницу курса, изучите материалы и пройдите итоговый тест —
+        результаты используются для документального оформления обучения в организации.
+      </p>
+    </div>
+
+    <aside class="programs-header-aside" aria-label="Сводная информация по программам">
+      <div class="programs-stat-card">
+        <div class="programs-stat">
+          <span class="programs-stat-label">Направления</span>
+          <span class="programs-stat-value">4</span>
+          <span class="programs-stat-caption">ОТ, ПБ, первая помощь, ГО/ЧС</span>
+        </div>
+        <div class="programs-stat">
+          <span class="programs-stat-label">Формат</span>
+          <span class="programs-stat-value">Видео + тест</span>
+          <span class="programs-stat-caption">теория на портале, фиксация результатов теста</span>
+        </div>
+        <div class="programs-stat">
+          <span class="programs-stat-label">Использование</span>
+          <span class="programs-stat-caption">
+            при приёме на работу и периодической проверке знаний в соответствии с локальными актами работодателя
+          </span>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
 
       <!-- Сетка программ -->
       <section class="section">
         <div class="programs-grid">
           <!-- Охрана труда -->
-          <article class="program-card program-card-ot">
-            <div class="program-card-body">
-              <h3>Обучение по охране труда</h3>
-              <p class="program-desc">
-                Дистанционное обучение по требованиям охраны труда, безопасным методам и приёмам выполнения работ,
-                обязанностям работников и работодателя в области охраны труда.
-              </p>
-              <ul class="program-meta">
-                <li><span class="badge badge-type">Направление</span> Охрана труда</li>
-                <li><span class="badge badge-form">Форма</span> видеолекции, материалы, итоговый тест</li>
-                <li><span class="badge badge-target">Категории</span> руководители, специалисты, работники</li>
-              </ul>
-              <p class="program-note">
-                Может использоваться при первичном обучении и периодической проверке знаний требований охраны труда.
-              </p>
-            </div>
-            <a href="course-ot.html" class="program-link btn btn-primary btn-program">
-              Перейти к курсу по охране труда
-            </a>
-          </article>
+         <article class="program-card program-card-ot" id="course-ot">
+  <div class="program-card-body">
+    <div class="program-chip program-chip-ot">Направление: охрана труда</div>
+    <h3>Обучение по охране труда</h3>
+    <p class="program-desc">
+      Дистанционное обучение по требованиям охраны труда, безопасным методам и приёмам выполнения работ,
+      обязанностям работников и работодателя в области охраны труда.
+    </p>
+    <ul class="program-meta">
+      <li><span class="badge badge-type">Формат</span> видеолекции + материалы + итоговый тест</li>
+      <li><span class="badge badge-target">Категории</span> руководители, специалисты, работники</li>
+    </ul>
+    <p class="program-note">
+      Может использоваться при первичном обучении и периодической проверке знаний требований охраны труда.
+    </p>
+  </div>
+  <a href="course-ot.html" class="program-link btn btn-primary btn-program">
+    Перейти к курсу по охране труда
+  </a>
+</article>
 
           <!-- Пожарная безопасность -->
           <article class="program-card program-card-fire">
