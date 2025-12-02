@@ -2136,3 +2136,224 @@ a:focus {
   box-shadow: 0 10px 24px rgba(37, 99, 235, 0.28);
   border-color: rgba(37, 99, 235, 0.8);
 }
+
+/* ============================
+   Главная страница: усиление
+   ============================ */
+
+/* Верхний блок "Назначение портала" + мини-дашборд */
+.home-top-card {
+  margin-bottom: 1.7rem;
+}
+
+.home-top-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
+  gap: 1.1rem;
+  align-items: stretch;
+}
+
+.home-stats-card {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 0.9rem;
+  padding: 0.9rem 1rem;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.65rem;
+}
+
+.home-stat {
+  padding: 0.35rem 0.4rem;
+  border-radius: 0.6rem;
+  background-color: #f9fafb;
+}
+
+.home-stat-label {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-bottom: 0.1rem;
+}
+
+.home-stat-value {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.1rem;
+}
+
+.home-stat-caption {
+  display: block;
+  font-size: 0.86rem;
+  color: #4b5563;
+}
+
+/* На планшетах — одна колонка */
+@media (max-width: 900px) {
+  .home-top-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ============================
+   Быстрый выбор направления
+   ============================ */
+
+.home-directions h2 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+}
+
+.home-directions p {
+  margin-top: 0;
+  margin-bottom: 0.9rem;
+  font-size: 0.95rem;
+  color: #4b5563;
+}
+
+.direction-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .direction-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.direction-card {
+  position: relative;
+  border-radius: 1rem;
+  padding: 1rem 1.1rem 1.1rem;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.direction-card::after {
+  content: "";
+  position: absolute;
+  right: -0.4rem;
+  bottom: -0.8rem;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 999px;
+  opacity: 0.12;
+  filter: blur(1px);
+}
+
+/* Варианты по направлениям (цвет + лёгкая иконка-намёк) */
+.direction-card-ot {
+  border-top: 4px solid #16a34a;
+  background: radial-gradient(circle at top left, #ecfdf5 0%, #ffffff 55%, #e0f2fe 100%);
+}
+
+.direction-card-ot::after {
+  background: radial-gradient(circle at 30% 30%, #16a34a, transparent 70%);
+}
+
+.direction-card-fire {
+  border-top: 4px solid #f97316;
+  background: radial-gradient(circle at top left, #fff7ed 0%, #ffffff 55%, #fee2e2 100%);
+}
+
+.direction-card-fire::after {
+  background: radial-gradient(circle at 30% 30%, #f97316, transparent 70%);
+}
+
+.direction-card-med {
+  border-top: 4px solid #0ea5e9;
+  background: radial-gradient(circle at top left, #e0f2fe 0%, #ffffff 55%, #dcfce7 100%);
+}
+
+.direction-card-med::after {
+  background: radial-gradient(circle at 30% 30%, #0ea5e9, transparent 70%);
+}
+
+.direction-card-gochs {
+  border-top: 4px solid #7c3aed;
+  background: radial-gradient(circle at top left, #ede9fe 0%, #ffffff 55%, #e0f2fe 100%);
+}
+
+.direction-card-gochs::after {
+  background: radial-gradient(circle at 30% 30%, #7c3aed, transparent 70%);
+}
+
+.direction-card:hover,
+.direction-card:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.14);
+  border-color: rgba(59, 130, 246, 0.55);
+}
+
+/* Маленькая капсула-лейбл над заголовком */
+.direction-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.16rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.45rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  color: #4b5563;
+}
+
+.direction-card h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+  color: #111827;
+}
+
+.direction-card p {
+  margin: 0 0 0.55rem;
+  font-size: 0.93rem;
+  color: #374151;
+}
+
+/* Список внутри карточки */
+.direction-list {
+  list-style: none;
+  margin: 0 0 0.8rem;
+  padding-left: 0;
+  font-size: 0.9rem;
+  color: #111827;
+}
+
+.direction-list li {
+  position: relative;
+  padding-left: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.direction-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0.3rem;
+  top: 0.1rem;
+  font-size: 0.8rem;
+  color: #4b5563;
+}
+
+/* Кнопка внизу карточки */
+.direction-link {
+  margin-top: auto;
+  align-self: flex-start;
+}
