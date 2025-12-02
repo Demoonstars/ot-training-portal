@@ -2,10 +2,10 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Курсы по пожарной безопасности — Учебный портал</title>
+  <title>Курс по оказанию первой помощи пострадавшим — Учебный портал</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description"
-        content="Вводный курс по пожарной безопасности и первичный/повторный противопожарный инструктаж для офисных работников и рабочих. Видеоматериалы, учебное пособие и итоговые тесты.">
+        content="Дистанционный курс по оказанию первой помощи пострадавшим. Теоретические материалы, видеолекции, алгоритмы первой помощи и итоговое тестирование.">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 
@@ -26,8 +26,8 @@
       <ul class="nav-list">
         <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
         <li class="nav-item"><a href="programs.html" class="nav-link nav-link-active">Программы обучения</a></li>
-        <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции для сотрудников</a></li>
-        <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Информация для ответственных за обучение</a></li>
+        <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции</a></li>
+        <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Ответственным за обучение</a></li>
       </ul>
     </nav>
   </div>
@@ -36,272 +36,514 @@
 <main id="main-content" class="site-main">
   <div class="container">
 
-    <!-- Кнопка возврата -->
+    <!-- Возврат -->
     <nav class="back-nav">
       <a href="programs.html" class="back-link">
-        <span class="back-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" class="back-svg">
-            <path d="M15 6l-6 6 6 6"
-                  stroke="white"
-                  stroke-width="2"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round" />
-          </svg>
-        </span>
+        <span class="back-icon" aria-hidden="true">✚</span>
         <span class="back-text">Вернуться к программам обучения</span>
       </a>
     </nav>
 
-    <!-- Огненный герой-раздел "Пожарная безопасность" -->
-    <section class="section section-card fire-hero-card">
-      <div class="fire-hero-label">Направление</div>
-      <h2 class="fire-hero-title">Пожарная безопасность</h2>
-      <p class="fire-hero-lead">
-        Раздел включает две программы: вводный курс по пожарной безопасности для офисных работников и рабочих,
-        а также курс первичного и повторного противопожарного инструктажа на рабочем месте.
+    <!-- Заголовок курса -->
+    <section class="section section-card page-header page-header-accent-blue">
+      <div class="page-header-label">Курс</div>
+      <h2 class="page-title">Оказание первой помощи пострадавшим</h2>
+      <p class="page-lead">
+        Дистанционный курс, предназначенный для всех работников организации, обязанных владеть базовыми навыками
+        оказания первой помощи до прибытия медицинских работников.
       </p>
-      <p class="fire-hero-text">
-        Программы ориентированы на требования федерального законодательства о пожарной безопасности, Правил
-        противопожарного режима в Российской Федерации и приказов МЧС России, регламентирующих обучение и инструктажи
-        по пожарной безопасности.
+      <p>
+        Курс может использоваться работодателем в составе системы обучения по охране труда и
+        соответствует требованиям <strong>Приказа Минздрава России № 477н</strong> (в актуальной редакции),
+        а также ст. 214 и 228.1 Трудового кодекса РФ.
       </p>
-
-      <div class="fire-hero-tags">
-        <span class="fire-tag fire-tag-basic">Вводный инструктаж</span>
-        <span class="fire-tag fire-tag-workplace">Инструктаж на рабочем месте</span>
-        <span class="fire-tag fire-tag-law">ФЗ «О пожарной безопасности», ППР РФ</span>
-      </div>
     </section>
 
-    <!-- Два курса рядом/следом -->
-    <section class="section fire-courses-wrapper">
+    <!-- Контент + боковая колонка -->
+    <section class="section course-layout">
 
-      <!-- КУРС 1 -->
-      <article class="section-card fire-course-card fire-course-1" id="fire-course-intro">
-        <header class="fire-course-header">
-          <div class="course-chip course-chip-1">Курс 1</div>
-          <div>
-            <h2 class="fire-course-title">
-              Вводный курс по пожарной безопасности для офисных работников и рабочих
-            </h2>
-            <p class="fire-course-subtitle">
-              Вводный курс проводится со всеми принимаемыми на работу сотрудниками до начала трудовой деятельности.
-              Цель курса — сформировать базовые знания о требованиях пожарной безопасности, действиях при пожаре и
-              правилах эвакуации.
-            </p>
-          </div>
-        </header>
+      <!-- Основная колонка -->
+      <article class="section-card course-main">
 
-        <section aria-labelledby="intro-structure">
-          <h3 id="intro-structure" class="fire-block-title">Структура курса (8 уроков)</h3>
-          <ol class="module-list fire-module-list">
-            <li>
-              <strong>Нормативные правовые акты в области пожарной безопасности.</strong>
-              Основные законы и подзаконные акты, виды противопожарного инструктажа, общие обязанности работодателя
-              и работников.
-            </li>
-            <li>
-              <strong>Общие сведения о пожарной и взрывоопасной опасности.</strong>
-              Условия возникновения пожара, факторы, влияющие на развитие горения, меры предотвращения.
-            </li>
-            <li>
-              <strong>Эвакуационные пути и выходы.</strong>
-              Требования к путям эвакуации, планы эвакуации, системы оповещения и указатели.
-            </li>
-            <li>
-              <strong>Причины и последствия пожаров.</strong>
-              Статистика пожаров, основные причины возгораний, роль человеческого фактора.
-            </li>
-            <li>
-              <strong>Права, обязанности и ответственность работников.</strong>
-              Допустимые и запрещённые действия, административная и уголовная ответственность.
-            </li>
-            <li>
-              <strong>Система обеспечения пожарной безопасности в организации.</strong>
-              Система предотвращения пожара, противопожарная защита, организационно-технические мероприятия,
-              роль ответственных лиц и комиссий по ПБ.
-            </li>
-            <li>
-              <strong>Порядок действий работников при пожаре.</strong>
-              Сообщение о пожаре, вызов пожарной охраны, эвакуация людей, использование первичных средств пожаротушения.
-            </li>
-            <li>
-              <strong>Пожарная безопасность жилых помещений, гостиниц и общежитий.</strong>
-              Особенности безопасного поведения в быту, гостиницах и местах временного проживания.
-            </li>
-          </ol>
-        </section>
+        <h2>Структура курса</h2>
+        <p>
+          Программа курса соответствует перечню обязательных знаний по оказанию первой помощи, включённых
+          в нормативные правовые акты РФ. Содержание может корректироваться с учётом специфики организации.
+        </p>
 
-        <!-- Видеоматериалы -->
-        <section aria-labelledby="intro-video" class="fire-block">
-          <h3 id="intro-video" class="fire-block-title">Видеоматериалы по курсу</h3>
-          <p>
-            Рекомендуется последовательно посмотреть видеоролики, затем повторить ключевые положения по учебному
-            пособию и только после этого переходить к итоговому тесту.
-          </p>
+        <ol class="module-list">
+          <li>
+            <strong>Правовые основы оказания первой помощи.</strong>
+            Понятие первой помощи, обязанности работников, нормативные требования, ответственность.
+          </li>
+          <li>
+            <strong>Алгоритм действий при оказании первой помощи.</strong>
+            Оценка обстановки, безопасность спасателя, вызов экстренных служб, общая последовательность действий.
+          </li>
+          <li>
+            <strong>Первая помощь при нарушении сознания, дыхания и кровообращения.</strong>
+            Проверка сознания и дыхания, восстановление проходимости дыхательных путей, СЛР.
+          </li>
+          <li>
+            <strong>Первая помощь при кровотечениях и ранениях.</strong>
+            Внешние и внутренние кровотечения, перевязки, наложение жгута, особенности остановки кровотечения.
+          </li>
+          <li>
+            <strong>Первая помощь при травмах.</strong>
+            Переломы, травмы позвоночника и таза, иммобилизация, правила перемещения пострадавших.
+          </li>
+          <li>
+            <strong>Первая помощь при воздействии высоких и низких температур.</strong>
+            Ожоги, обморожения, перегрев и переохлаждение, алгоритмы действий.
+          </li>
+          <li>
+            <strong>Первая помощь при отравлениях и неотложных состояниях.</strong>
+            Отравления, судороги, шок, острые реакции на стресс, психологическая поддержка пострадавшего.
+          </li>
+          <li>
+            <strong>Итоговый модуль: закрепление знаний.</strong>
+            Обзор ключевых алгоритмов и проверочные вопросы перед итоговым тестом.
+          </li>
+        </ol>
 
-          <div class="video-grid-fire">
-            <article class="video-card-fire">
-              <h4>Как действовать во время пожара</h4>
+        <!-- Видеоматериалы курса -->
+        <h2>Видеоматериалы курса</h2>
+        <p>
+          Ниже представлены видеолекции по основным темам курса. Рекомендуется просматривать ролики
+          в указанной последовательности. После изучения видеоматериалов работник переходит к знакомству
+          с контрольными вопросами Минтруда России и итоговому тестированию.
+        </p>
+
+        <!-- Блок 1: Правовые основы и общий алгоритм -->
+        <section class="video-section">
+          <h3>1. Правовые основы и общий алгоритм действий</h3>
+          <div class="video-grid">
+
+            <article class="video-card">
+              <h4>Почему сотрудники вправе оказывать первую помощь и их за это не накажут</h4>
               <p class="video-desc">
-                Порядок действий при возникновении пожара: кого и как оповестить, как организовать эвакуацию,
-                какие действия недопустимы и могут привести к увеличению ущерба.
+                Правовые основания оказания первой помощи, ответственность работодателя и работника,
+                разъяснение, почему при соблюдении алгоритмов работник действует законно.
               </p>
-              <div class="video-frame-wrapper">
-                <iframe
-                  src="https://kinescope.io/embed/u1U8AdN9kBw4CAWTWZSSWV"
-                  allowfullscreen
-                  loading="lazy"
-                  title="Как действовать во время пожара"
-                ></iframe>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/6xBxgurJcjPdYfyF1DzHng"
+                        allowfullscreen
+                        loading="lazy"></iframe>
               </div>
             </article>
 
-            <article class="video-card-fire">
-              <h4>Как эвакуироваться при пожаре с высоты</h4>
+            <article class="video-card">
+              <h4>Алгоритм оказания первой помощи</h4>
               <p class="video-desc">
-                Использование приставной лестницы для эвакуации людей с высоты: требования к установке, порядок подъёма
-                и спуска пострадавших, ключевые меры безопасности.
+                Общий порядок действий при любой неотложной ситуации: оценка обстановки, обеспечение собственной
+                безопасности, последовательность оказания помощи пострадавшему.
               </p>
-              <div class="video-frame-wrapper">
-                <iframe
-                  src="https://kinescope.io/embed/uKtgnohc8FcQ8cgKrEZtCT"
-                  allowfullscreen
-                  loading="lazy"
-                  title="Как эвакуироваться при пожаре с высоты"
-                ></iframe>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/vmGbdzuLu6Q7htCrfxBjHc"
+                        allowfullscreen
+                        loading="lazy"></iframe>
               </div>
             </article>
+
+            <article class="video-card">
+              <h4>Вызов экстренных служб</h4>
+              <p class="video-desc">
+                Когда и как правильно вызывать скорую помощь и другие службы, какие сведения необходимо сообщить
+                диспетчеру, как организовать встречу бригады.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/idVv4ob1rrTc543LJhonYK"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
           </div>
         </section>
 
-        <!-- Учебные материалы -->
-        <section aria-labelledby="intro-materials" class="fire-block">
-          <h3 id="intro-materials" class="fire-block-title">Учебные материалы</h3>
-          <ul class="resource-links">
-            <li>
-              <a href="assets/Противопожарный инструктаж.pdf" target="_blank" rel="noopener">
-                Учебное пособие «Противопожарный инструктаж» (8 уроков, PDF)
-              </a>
-            </li>
-          </ul>
+        <!-- Блок 2: Дыхание, пульс, судороги, удушье -->
+        <section class="video-section">
+          <h3>2. Нарушение сознания, дыхания и судорожные состояния</h3>
+          <div class="video-grid">
+
+            <article class="video-card">
+              <h4>Как оказать помощь при остановке дыхания и пульса</h4>
+              <p class="video-desc">
+                Проверка дыхания и пульса, базовые шаги сердечно-лёгочной реанимации до прибытия медработников.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/corgtYkP8DpgBMqR713TCn"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+            <article class="video-card">
+              <h4>Как оказать первую помощь при судорожном приступе</h4>
+              <p class="video-desc">
+                Алгоритм действий при судорожных приступах, чего нельзя делать, как предотвратить травмы пострадавшего.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/mazG4fg1f9xcv5zfoEVod6"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+            <article class="video-card">
+              <h4>Первая помощь при попадании инородного тела в дыхательные пути</h4>
+              <p class="video-desc">
+                Приёмы устранения удушья у взрослых и детей, особенности выполнения приёмов Геймлиха.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/sUrkZyFhjZdvP3wqyGRYkm"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+            <article class="video-card">
+              <h4>Мифы при оказании первой помощи: как не навредить пострадавшему</h4>
+              <p class="video-desc">
+                Разбор распространённых ошибочных действий и опасных мифов, которые могут ухудшить состояние пострадавшего.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/7YvdPc8k7H5t1LkwDBe9Cd"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+          </div>
         </section>
 
-        <!-- Итоговый тест по вводному курсу -->
-        <section aria-labelledby="intro-test" class="fire-block fire-test-block">
-          <h3 id="intro-test" class="fire-block-title">Итоговый тест по вводному курсу</h3>
+        <!-- Блок 3: Кровотечения и ранения -->
+        <section class="video-section">
+          <h3>3. Кровотечения и ранения</h3>
+          <div class="video-grid">
+
+            <article class="video-card">
+              <h4>Что важно помнить, когда останавливаете кровотечение</h4>
+              <p class="video-desc">
+                Общие принципы остановки кровотечения, выбор метода, оценка состояния пострадавшего.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/dtdaCGweZhFCL29psZ8a28"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+            <article class="video-card">
+              <h4>Что поможет спасти пострадавшего при артериальном кровотечении</h4>
+              <p class="video-desc">
+                Особенности артериального кровотечения, признаки, экстренные меры по его остановке.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/pfvPhpf5cjKjAu87nFT334"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+            <article class="video-card">
+              <h4>Как остановить кровотечение</h4>
+              <p class="video-desc">
+                Демонстрация способов остановки кровотечения: прямое давление, повязки, жгут, импровизированные средства.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/6S8RRAJ2LzuZ61TzuaGbVv"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+            <article class="video-card">
+              <h4>Первая помощь при внутреннем кровотечении</h4>
+              <p class="video-desc">
+                Признаки внутреннего кровотечения, позиционирование пострадавшего, необходимость срочной госпитализации.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/mgMK6fEQaNeVNMB5RTk9t6"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+            <article class="video-card">
+              <h4>Как действовать, если в ране инородное тело</h4>
+              <p class="video-desc">
+                Почему нельзя самостоятельно извлекать инородные предметы из раны и как правильно их фиксировать.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/e7nnFWWp41d1TArQanD1YX"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+            <article class="video-card">
+              <h4>Как оказать помощь при ампутации конечностей</h4>
+              <p class="video-desc">
+                Действия при частичной или полной ампутации, сохранение ампутированной части, подготовка к транспортировке.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/ouiTPWw7RZNuH8SqzSLzDW"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- Блок 4: Травмы -->
+        <section class="video-section">
+          <h3>4. Травмы, переломы, повреждения позвоночника и таза</h3>
+          <div class="video-grid">
+
+            <article class="video-card">
+              <h4>Первая помощь при травмах и переломах</h4>
+              <p class="video-desc">
+                Основные признаки переломов и травм, правила иммобилизации и фиксации повреждённых конечностей.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/3JjUyx8WCZxjVJXHpxSkzw"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+            <article class="video-card">
+              <h4>Как оказать помощь при травме позвоночника</h4>
+              <p class="video-desc">
+                Особенности повреждений позвоночника, почему критично исключить лишние движения пострадавшего.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/15j9mNX9Rw1Aprn2dp8weM"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+            <article class="video-card">
+              <h4>Как оказать помощь при травме таза</h4>
+              <p class="video-desc">
+                Признаки травмы таза, правильное положение пострадавшего, особенности вызова экстренной помощи.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/j63CYRrTPdPvaJkRjZKzQp"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- Блок 5: Высокие и низкие температуры -->
+        <section class="video-section">
+          <h3>5. Перегрев, обморожение, переохлаждение, ожоги</h3>
+          <div class="video-grid">
+
+            <article class="video-card">
+              <h4>Первая помощь при перегреве</h4>
+              <p class="video-desc">
+                Признаки перегрева и теплового удара, алгоритм охлаждения пострадавшего.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/wFYBNXHj12EuwGUTB3rXqV"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+            <article class="video-card">
+              <h4>Первая помощь при обморожении</h4>
+              <p class="video-desc">
+                Особенности обморожения, чего нельзя делать, постепенное согревание и защита повреждённых участков.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/mtpPwpRZC658tPJ49vAz6s"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+            <article class="video-card">
+              <h4>Первая помощь при переохлаждении</h4>
+              <p class="video-desc">
+                Отличия переохлаждения от обморожения, оценка степени тяжести, алгоритм отапливания и наблюдения.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/ddtGWWdW95iUpr6kAQGkhh"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+            <article class="video-card">
+              <h4>Первая помощь при ожогах</h4>
+              <p class="video-desc">
+                Оценка площади и степени ожога, охлаждение, наложение повязок, недопустимые действия.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/vmaauqtFhVsYLjq98AMY7U"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- Блок 6: Отравления -->
+        <section class="video-section">
+          <h3>6. Отравления</h3>
+          <div class="video-grid">
+
+            <article class="video-card">
+              <h4>Отравления: виды и приёмы оказания первой помощи</h4>
+              <p class="video-desc">
+                Основные виды отравлений, общие принципы действий при подозрении на отравление, что можно и
+                чего нельзя делать до приезда медиков.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/eKLVmic9Xm94iiUkmtEtG7"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- Блок 7: Психологическая помощь -->
+        <section class="video-section">
+          <h3>7. Психологическая поддержка и острый стресс</h3>
+          <div class="video-grid">
+
+            <article class="video-card">
+              <h4>Как оказать психологическую поддержку</h4>
+              <p class="video-desc">
+                Общие принципы общения с пострадавшим, как снизить тревогу и помочь дождаться профессиональной помощи.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/rDp1LTa3XdsiycwsFwSgyY"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+            <article class="video-card">
+              <h4>Как оказать первую помощь при острой психологической реакции на стресс</h4>
+              <p class="video-desc">
+                Как помочь человеку с выраженной паникой, ступором или агрессией до прибытия специалистов.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/cmbyeyhjYiM8XYScVaztcd"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+            <article class="video-card">
+              <h4>Как помочь пострадавшему в состоянии шока</h4>
+              <p class="video-desc">
+                Признаки шока, правильное положение тела, поддержка пострадавшего до приезда скорой помощи.
+              </p>
+              <div class="video-embed">
+                <iframe src="https://kinescope.io/embed/gdPt3qoUpZhtN56p3Pz6MN"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- Вопросы Минтруда -->
+        <h2>Контрольные вопросы Минтруда России</h2>
+        <p>
+          В качестве дополнительного инструмента закрепления знаний рекомендуется использовать
+          <strong>контрольные вопросы Минтруда России по оказанию первой помощи</strong>. Они отражают
+          базовые требования к знаниям работников.
+        </p>
+        <p>
+          Вопросы могут использоваться:
+        </p>
+        <ul class="checklist">
+          <li>для самостоятельной подготовки работников перед итоговым тестом;</li>
+          <li>для очного опроса и обсуждения на инструктажах и тренировках;</li>
+          <li>как основа для разработки локальных проверочных материалов работодателя.</li>
+        </ul>
+
+        <p>
+          Файл с вопросами доступен для скачивания в формате PDF:
+        </p>
+        <p>
+          <a href="assets/Voprosi_Mintruda_PP.pdf"
+             class="btn btn-primary"
+             target="_blank"
+             rel="noopener">
+            Открыть вопросы Минтруда по первой помощи (PDF)
+          </a>
+        </p>
+
+        <p class="note">
+          Конкретный порядок использования данных вопросов (самоподготовка, опрос, включение в программы обучения)
+          определяется работодателем в локальных нормативных актах.
+        </p>
+
+      </article>
+
+      <!-- Боковая колонка -->
+      <aside class="course-sidebar">
+
+        <section class="section-card course-info-card">
+          <h2>Сведения о курсе</h2>
+          <ul class="course-info-list">
+            <li><span class="badge badge-type">Направление</span> Первая помощь</li>
+            <li><span class="badge badge-form">Форма</span> видеоматериалы, контрольные вопросы, итоговое тестирование</li>
+            <li><span class="badge badge-target">Категории</span> все работники организации</li>
+          </ul>
           <p>
-            После изучения всех восьми уроков и просмотра видеоматериалов работник проходит итоговый тест.
-            Результаты теста используются ответственными за обучение для оформления документов о прохождении
-            вводного противопожарного инструктажа.
+            Требования основаны на актуальной редакции Приказа Минздрава № 477н и положениях Трудового кодекса РФ.
+          </p>
+        </section>
+
+        <section class="section-card course-test-card">
+          <h2>Итоговый тест по курсу</h2>
+          <p>
+            После изучения видеоматериалов и контрольных вопросов работник проходит итоговое тестирование.
+            Результаты используются для оформления документов о прохождении обучения и проверки знаний.
+          </p>
+
+          <p class="note">
+            При прохождении теста работник должен корректно указать ФИО, подразделение, должность и организацию.
           </p>
 
           <div class="test-actions">
-            <a href="fire-intro-test.html" class="btn btn-primary btn-test-link">
-              Перейти к итоговому тесту по вводному курсу
+            <a href="first-aid-test.html" class="btn btn-primary btn-test-link">
+              Сдать итоговый тест по первой помощи
             </a>
-          </div>
-
-          <p class="test-hint">
-            Перед сдачей теста рекомендуется иметь под рукой учебное пособие и план эвакуации здания.
-          </p>
-        </section>
-      </article>
-
-      <!-- КУРС 2 -->
-      <article class="section-card fire-course-card fire-course-2" id="fire-course-workplace">
-        <header class="fire-course-header">
-          <div class="course-chip course-chip-2">Курс 2</div>
-          <div>
-            <h2 class="fire-course-title">
-              Первичный и повторный противопожарный инструктаж для офисных работников и рабочих
-            </h2>
-            <p class="fire-course-subtitle">
-              Курс предназначен для проведения первичного инструктажа на рабочем месте при приёме на работу,
-              переводе в другое подразделение либо изменении трудовой функции, а также для последующих повторных
-              инструктажей. Содержание курса конкретизирует общие требования пожарной безопасности применительно
-              к рабочим местам, оборудованию и технологическим процессам организации.
+            <p class="test-hint">
+              Перед переходом к тесту рекомендуется просмотреть все видеоматериалы и ознакомиться с вопросами Минтруда.
             </p>
           </div>
-        </header>
-
-        <section aria-labelledby="work-structure">
-          <h3 id="work-structure" class="fire-block-title">Структура курса</h3>
-          <ol class="module-list fire-module-list">
-            <li>
-              <strong>Пожароопасные факторы на рабочем месте.</strong>
-              Характеристика помещений, размещение оборудования, источники возможного возгорания.
-            </li>
-            <li>
-              <strong>Требования к содержанию путей эвакуации.</strong>
-              Запрещённые для хранения вещи, блокирование выходов, хранение горючих материалов на путях эвакуации.
-            </li>
-            <li>
-              <strong>Использование первичных средств пожаротушения.</strong>
-              Виды огнетушителей, правила размещения и применения, ограничения по назначению.
-            </li>
-            <li>
-              <strong>Порядок действий работников при пожаре на рабочем месте.</strong>
-              Сообщение руководителю, взаимодействие с подразделениями охраны, эвакуация людей и материальных ценностей.
-            </li>
-            <li>
-              <strong>Ответственность и личная дисциплина работника.</strong>
-              Типичные нарушения, последствия, примеры пожаров на аналогичных объектах.
-            </li>
-          </ol>
         </section>
-
-        <section aria-labelledby="work-materials" class="fire-block">
-          <h3 id="work-materials" class="fire-block-title">Материалы для инструктажа</h3>
-          <p>
-            В качестве базового материала для подготовки и проведения инструктажа рекомендуется использовать то же
-            учебное пособие:
-          </p>
-          <ul class="resource-links">
-            <li>
-              <a href="assets/Противопожарный инструктаж.pdf" target="_blank" rel="noopener">
-                Учебное пособие «Противопожарный инструктаж» (используется для подготовки к инструктажу)
-              </a>
-            </li>
-          </ul>
-        </section>
-
-        <section aria-labelledby="work-test" class="fire-block fire-test-block">
-          <h3 id="work-test" class="fire-block-title">
-            Итоговый тест по первичному и повторному инструктажу
-          </h3>
-          <p>
-            По результатам прохождения курса работник проходит тестирование по вопросам, отражающим специфику его
-            рабочего места. Результаты теста используются для оформления записей в журналах регистрации
-            противопожарного инструктажа и иных документов, предусмотренных локальными нормативными актами.
-          </p>
-
-          <div class="test-actions">
-            <a href="fire-workplace-test.html" class="btn btn-primary btn-test-link">
-              Перейти к тесту по первичному и повторному инструктажу
-            </a>
-          </div>
-
-          <p class="test-hint">
-            Сроки и периодичность повторного инструктажа устанавливаются работодателем с учётом требований
-            действующих правил пожарной безопасности.
-          </p>
-        </section>
-      </article>
+      </aside>
     </section>
 
-    <!-- Общий блок про использование результатов -->
-    <section class="section section-card fire-results-card">
+    <section class="section section-card">
       <h2>Использование результатов обучения</h2>
       <p>
-        Результаты прохождения курсов и итоговых тестов по пожарной безопасности могут использоваться работодателем
-        для оформления журналов регистрации противопожарного инструктажа, протоколов проверки знаний, приказов
-        о допуске к работе и иных документов, предусмотренных локальными нормативными актами.
+        Результаты тестирования по оказанию первой помощи могут использоваться работодателем для оформления журналов,
+        протоколов, приказов и иных документов, связанных с обучением и проверкой знаний работников.
       </p>
       <p class="note">
-        Конкретный порядок документального оформления (формы журналов, протоколов, сроки хранения) определяется
-        работодателем в локальных актах с учётом требований законодательства о пожарной безопасности и охране труда.
+        Конкретный порядок оформления и срок хранения документов определяются работодателем
+        в локальных нормативных актах с учётом требований законодательства РФ.
       </p>
     </section>
 
