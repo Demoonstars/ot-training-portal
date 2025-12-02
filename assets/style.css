@@ -1205,6 +1205,33 @@ a:focus {
   background: linear-gradient(135deg, #e0e7ff, #ddd6fe);
 }
 
+/* Иконки в капсулах направлений */
+.hero-tag-ot::before,
+.hero-tag-fire::before,
+.hero-tag-med::before,
+.hero-tag-gochs::before {
+  content: "";
+  margin-right: 0.35rem;
+  font-size: 0.95rem;
+}
+
+/* Конкретные значки для каждого направления */
+.hero-tag-ot::before {
+  content: "🛡";   /* охрана труда */
+}
+
+.hero-tag-fire::before {
+  content: "🔥";   /* пожарка */
+}
+
+.hero-tag-med::before {
+  content: "✚";   /* первая помощь */
+}
+
+.hero-tag-gochs::before {
+  content: "⚠";   /* ГО и ЧС */
+}
+
 @media (max-width: 640px) {
   .hero-tags {
     gap: 0.3rem;
