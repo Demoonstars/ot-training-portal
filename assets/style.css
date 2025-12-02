@@ -509,6 +509,86 @@ a:focus {
   gap: 1rem;
 }
 
+/* Усиленная шапка каталога программ */
+.programs-header {
+  padding-bottom: 1.4rem;
+}
+
+.programs-header-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
+  gap: 1.1rem;
+  align-items: stretch;
+}
+
+.programs-header-main {
+  min-width: 0;
+}
+
+.programs-header-note {
+  margin-top: 0.4rem;
+  margin-bottom: 0;
+  font-size: 0.94rem;
+  color: #1f2933;
+}
+
+.programs-header-aside {
+  display: flex;
+  align-items: stretch;
+}
+
+.programs-stat-card {
+  width: 100%;
+  border-radius: 0.95rem;
+  padding: 0.9rem 1rem;
+  background-color: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.14);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.55rem;
+}
+
+.programs-stat {
+  padding: 0.35rem 0.4rem;
+  border-radius: 0.7rem;
+  background-color: #f9fafb;
+}
+
+.programs-stat-label {
+  display: block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6b7280;
+  margin-bottom: 0.08rem;
+}
+
+.programs-stat-value {
+  display: block;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.08rem;
+}
+
+.programs-stat-caption {
+  display: block;
+  font-size: 0.86rem;
+  color: #4b5563;
+}
+
+/* Адаптивность шапки каталога */
+@media (max-width: 900px) {
+  .programs-header-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .programs-header-aside {
+    order: -1;
+  }
+}
+
 /* Карточка программы */
 .program-card {
   border-radius: 0.9rem;
