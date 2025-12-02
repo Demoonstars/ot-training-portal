@@ -2077,3 +2077,62 @@ a:focus {
   transform: translateY(-1px);
   box-shadow: 0 8px 20px rgba(22, 163, 74, 0.55);
 }
+
+/* ============================
+   Видеокарточки: курс первой помощи
+   ============================ */
+
+.course-main .video-card-med {
+  position: relative;
+  background: radial-gradient(circle at top left, #eff6ff 0%, #ffffff 45%, #e0f2fe 100%);
+  border-radius: 0.95rem;
+  border: 1px solid rgba(59, 130, 246, 0.45);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* Полупрозрачный медицинский крест на фоне */
+.course-main .video-card-med::before {
+  content: "✚";
+  position: absolute;
+  right: -0.3rem;
+  bottom: -0.7rem;
+  font-size: 4.8rem;
+  color: rgba(37, 99, 235, 0.12);
+  z-index: 0;
+}
+
+/* Контент поверх фона */
+.course-main .video-card-med > * {
+  position: relative;
+  z-index: 1;
+}
+
+.course-main .video-card-med h4 {
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+  font-size: 0.98rem;
+  color: #0f172a;
+}
+
+.course-main .video-card-med .video-desc {
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.course-main .video-card-med .video-embed {
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.25);
+  border-radius: 0.8rem;
+}
+
+/* Микро-анимация при наведении */
+.course-main .video-card-med:hover,
+.course-main .video-card-med:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.28);
+  border-color: rgba(37, 99, 235, 0.8);
+}
