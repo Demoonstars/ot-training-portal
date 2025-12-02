@@ -1630,3 +1630,301 @@ a:focus {
 .course-test-inline {
   margin-top: 1rem;
 }
+
+/* =========================================
+   Пожарная безопасность — огненный дизайн
+   ========================================= */
+
+/* Общий герой-блок направления */
+.fire-hero-card {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at top left, #fff7ed 0%, #fffbeb 40%, #fef3c7 100%);
+  border-radius: 1.2rem;
+  border: 1px solid rgba(248, 171, 85, 0.45);
+  box-shadow: 0 10px 30px rgba(248, 113, 22, 0.18);
+}
+
+.fire-hero-card::before {
+  content: "";
+  position: absolute;
+  right: -120px;
+  bottom: -160px;
+  width: 280px;
+  height: 280px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(248, 113, 22, 0.55), transparent 70%),
+    radial-gradient(circle at 70% 80%, rgba(234, 88, 12, 0.45), transparent 75%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.fire-hero-label {
+  display: inline-block;
+  padding: 0.18rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #b45309;
+  background-color: rgba(254, 243, 199, 0.9);
+  border: 1px solid rgba(248, 171, 85, 0.7);
+  position: relative;
+  z-index: 1;
+}
+
+.fire-hero-title {
+  margin: 0.4rem 0 0.35rem;
+  font-size: 1.45rem;
+  color: #7c2d12;
+  position: relative;
+  z-index: 1;
+}
+
+.fire-hero-lead,
+.fire-hero-text {
+  position: relative;
+  z-index: 1;
+  font-size: 0.97rem;
+  color: #7c2d12;
+}
+
+.fire-hero-lead {
+  font-weight: 500;
+}
+
+.fire-hero-tags {
+  position: relative;
+  z-index: 1;
+  margin-top: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.fire-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.22rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: 1px solid rgba(248, 171, 85, 0.8);
+  background-color: rgba(255, 248, 237, 0.95);
+  color: #7c2d12;
+  box-shadow: 0 2px 6px rgba(248, 113, 22, 0.25);
+}
+
+.fire-tag-basic {
+  background: linear-gradient(135deg, #fed7aa, #ffedd5);
+}
+
+.fire-tag-workplace {
+  background: linear-gradient(135deg, #fee2e2, #fef3c7);
+}
+
+.fire-tag-law {
+  background: linear-gradient(135deg, #fffbeb, #fee2e2);
+}
+
+/* Контейнер для двух курсов */
+.fire-courses-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Карточки курсов */
+.fire-course-card {
+  position: relative;
+  border-radius: 1.2rem;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+}
+
+.fire-course-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 0% 0%, rgba(248, 187, 109, 0.3), transparent 55%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.fire-course-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.fire-course-1 {
+  border-left: 5px solid #f97316;
+}
+
+.fire-course-2 {
+  border-left: 5px solid #2563eb;
+}
+
+/* Шапка курса */
+.fire-course-header {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 0.9rem;
+}
+
+.course-chip {
+  flex: 0 0 auto;
+  padding: 0.25rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.15);
+}
+
+.course-chip-1 {
+  background: linear-gradient(135deg, #f97316, #facc15);
+  color: #fff7ed;
+  border-color: rgba(248, 171, 85, 0.9);
+}
+
+.course-chip-2 {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #eff6ff;
+  border-color: rgba(37, 99, 235, 0.9);
+}
+
+.fire-course-title {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #111827;
+}
+
+.fire-course-subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.95rem;
+  color: #4b5563;
+}
+
+/* Общие блоки внутри курса */
+.fire-block {
+  margin-top: 1.1rem;
+}
+
+.fire-block-title {
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+  color: #111827;
+}
+
+/* Нумерованный список модулей — чуть более «живой» */
+.fire-module-list {
+  counter-reset: fire-step;
+}
+
+.fire-module-list > li {
+  position: relative;
+  margin-bottom: 0.55rem;
+  padding-left: 2.1rem;
+}
+
+.fire-module-list > li::before {
+  counter-increment: fire-step;
+  content: counter(fire-step);
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, #fee2e2 0%, #f97316 50%, #b91c1c 100%);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 9px rgba(248, 113, 22, 0.6);
+}
+
+/* Видео-карточки */
+.video-grid-fire {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 0.6rem;
+}
+
+@media (max-width: 900px) {
+  .video-grid-fire {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.video-card-fire {
+  background: radial-gradient(circle at top left, #fff7ed 0%, #fffbeb 40%, #fef3c7 100%);
+  border-radius: 0.95rem;
+  padding: 0.85rem 0.95rem 1rem;
+  border: 1px solid rgba(248, 171, 85, 0.7);
+  box-shadow: 0 4px 14px rgba(248, 113, 22, 0.18);
+}
+
+.video-card-fire h4 {
+  margin: 0 0 0.3rem;
+  font-size: 1rem;
+  color: #7c2d12;
+}
+
+.video-desc {
+  margin: 0 0 0.6rem;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+/* Обёртка для iframe, чтобы был аккуратный 16:9 */
+.video-frame-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.3);
+}
+
+.video-frame-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Блоки с тестами */
+.fire-test-block {
+  border-top: 1px dashed rgba(248, 171, 85, 0.6);
+  padding-top: 0.8rem;
+  margin-top: 1.2rem;
+}
+
+/* Общая карточка с результатами */
+.fire-results-card {
+  border-radius: 1.1rem;
+  border-color: rgba(148, 163, 184, 0.55);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+}
+
+/* Небольшая адаптация на телефоне */
+@media (max-width: 640px) {
+  .fire-course-header {
+    flex-direction: column;
+  }
+
+  .fire-course-title {
+    font-size: 1.08rem;
+  }
+}
