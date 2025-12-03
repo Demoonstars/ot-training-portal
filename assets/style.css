@@ -2078,6 +2078,130 @@ a:focus {
   box-shadow: 0 3px 9px rgba(248, 113, 22, 0.6);
 }
 
+/* Плитка "Учебные материалы" в курсах по ПБ */
+
+.course-materials {
+  margin-top: 0.8rem;
+}
+
+.material-download-card {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+
+  margin-top: 0.6rem;
+  padding: 0.8rem 1rem;
+
+  border-radius: 0.9rem;
+  background: radial-gradient(circle at top left, #fff7ed 0%, #fffbeb 45%, #fef3c7 100%);
+  border: 1px solid rgba(248, 171, 85, 0.7);
+  box-shadow: 0 4px 14px rgba(248, 113, 22, 0.18);
+
+  text-decoration: none;
+  color: #7c2d12;
+
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.material-download-card::before {
+  content: "";
+  position: absolute;
+  right: -60px;
+  bottom: -60px;
+  width: 140px;
+  height: 140px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, rgba(248, 113, 22, 0.45), transparent 70%);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.material-icon-wrap {
+  flex: 0 0 auto;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 0.8rem;
+  background: radial-gradient(circle at 30% 30%, #fee2e2 0%, #f97316 45%, #b91c1c 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 9px rgba(248, 113, 22, 0.5);
+}
+
+.material-icon {
+  font-size: 1.4rem;
+  color: #fff7ed;
+}
+
+.material-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.material-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #b45309;
+}
+
+.material-title {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #7c2d12;
+}
+
+.material-meta {
+  font-size: 0.86rem;
+  color: #9a3412;
+}
+
+.material-badge {
+  margin-left: auto;
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: #fff7ed;
+  color: #b45309;
+  border: 1px solid rgba(248, 171, 85, 0.9);
+  position: relative;
+  z-index: 1;
+}
+
+.material-download-card:hover,
+.material-download-card:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(248, 113, 22, 0.35);
+  border-color: #f97316;
+  background: radial-gradient(circle at top left, #fffbeb 0%, #fff7ed 45%, #fed7aa 100%);
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .material-download-card {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .material-badge {
+    margin-left: 0;
+    margin-top: 0.4rem;
+  }
+}
+
 /* Видео-карточки */
 .video-grid-fire {
   display: grid;
