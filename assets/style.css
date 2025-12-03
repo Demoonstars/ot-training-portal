@@ -760,11 +760,6 @@ a:focus {
   background-color: rgba(255, 255, 255, 0.92);
 }
 
-/* Чип в карточке ОТ — чуть ниже от верхней границы */
-.program-card-ot .program-chip {
-  margin-top: 0.25rem;
-}
-
 /* Цвет по направлениям */
 .program-chip-ot {
   border-color: rgba(34, 197, 94, 0.8);
