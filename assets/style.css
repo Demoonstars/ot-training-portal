@@ -726,8 +726,8 @@ a:focus {
 
 /* конкретные значки */
 .program-card-ot::after {
-  content: "⚙";
-  color: #1d4ed8;
+  content: "🛡";
+  color: #16a34a;    /* можно #1d4ed8 оставить, если больше нравится */
 }
 
 .program-card-fire::after {
@@ -758,6 +758,11 @@ a:focus {
   margin-bottom: 0.45rem;
   border: 1px solid rgba(148, 163, 184, 0.6);
   background-color: rgba(255, 255, 255, 0.92);
+}
+
+/* Чип в карточке ОТ — чуть ниже от верхней границы */
+.program-card-ot .program-chip {
+  margin-top: 0.25rem;
 }
 
 /* Цвет по направлениям */
