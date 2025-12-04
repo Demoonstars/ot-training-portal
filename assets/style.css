@@ -2707,3 +2707,32 @@ a:focus {
   margin-top: auto;
   align-self: flex-start;
 }
+
+/* ====== PDF VIEWER (улучшенный) ====== */
+
+.pdf-viewer {
+  position: relative;
+  width: 100%;
+  height: 85vh; /* почти весь экран */
+  max-height: 1100px;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: #000;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  margin-top: 1.5rem;
+}
+
+/* iframe теперь растягивается нормально */
+.pdf-viewer iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* На телефонах — ещё выше для удобства чтения */
+@media (max-width: 768px) {
+  .pdf-viewer {
+    height: 95vh;
+  }
+}
