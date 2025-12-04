@@ -2,10 +2,10 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Учебное пособие «Противопожарный инструктаж» — просмотр</title>
+  <title>Учебное пособие «Противопожарный инструктаж» — учебные материалы</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description"
-        content="Просмотр учебного пособия «Противопожарный инструктаж» (8 уроков) в формате PDF.">
+        content="Просмотр учебного пособия «Противопожарный инструктаж» (8 уроков) в формате PDF и скачивание файла на устройство.">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -35,9 +35,9 @@
 <main id="main-content" class="site-main">
   <div class="container">
 
-    <!-- Кнопка назад к курсу -->
+    <!-- Кнопка возврата: ВАЖНО — правильный путь -->
     <nav class="back-nav">
-      <a href="fire-courses.html#fire-course-intro" class="back-link">
+      <a href="course-fire-safety.html#fire-course-intro" class="back-link">
         <span class="back-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" class="back-svg">
             <path d="M15 6l-6 6 6 6"
@@ -52,25 +52,38 @@
       </a>
     </nav>
 
-    <section class="section section-card">
-      <h2>Учебное пособие «Противопожарный инструктаж» (8 уроков)</h2>
+    <!-- Карточка материалов -->
+    <section class="section section-card pdf-viewer-card">
+      <h1>Учебное пособие «Противопожарный инструктаж» (8 уроков)</h1>
+
       <p>
-        Ниже доступен для просмотра полный текст учебного пособия в формате PDF. 
-        Его можно пролистывать прямо на странице, а при необходимости — скачать на устройство.
+        Ниже доступен для просмотра полный текст учебного пособия в формате PDF. Его можно пролистывать прямо
+        на странице, а при необходимости — скачать на устройство.
       </p>
 
-      <div class="pdf-viewer">
+      <!-- Большой просмотрщик PDF -->
+      <div class="pdf-viewer-large">
         <iframe
-          src="assets/Противопожарный инструктаж.pdf#toolbar=1&zoom=page-fit"
+          class="pdf-viewer-frame"
+          src="assets/Противопожарный инструктаж.pdf"
           title="Учебное пособие «Противопожарный инструктаж»"
-        ></iframe>
+        >
+          Ваш браузер не поддерживает встроенный просмотр PDF. Вы можете
+          <a href="assets/Противопожарный инструктаж.pdf" target="_blank" rel="noopener">
+            скачать файл по ссылке
+          </a>.
+        </iframe>
       </div>
 
-      <p style="margin-top: 0.8rem;">
-        <a href="assets/Противопожарный инструктаж.pdf" class="btn btn-primary" target="_blank" rel="noopener">
+      <!-- Кнопка скачивания -->
+      <div class="pdf-download-actions">
+        <a href="assets/Противопожарный инструктаж.pdf"
+           class="btn btn-primary pdf-download-btn"
+           target="_blank"
+           rel="noopener">
           Скачать PDF-файл на устройство
         </a>
-      </p>
+      </div>
     </section>
 
   </div>
@@ -79,8 +92,7 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <p class="footer-text">
-      Учебный портал дистанционного обучения по охране труда, пожарной безопасности,
-      первой помощи и ГО/ЧС.
+      Учебный портал дистанционного обучения по охране труда, пожарной безопасности, первой помощи и ГО/ЧС.
     </p>
     <p class="footer-text footer-text-muted">
       Конкретный порядок обучения определяется работодателем.
