@@ -60,16 +60,16 @@
         и защите от чрезвычайных ситуаций. Рекомендуется предварительно изучить учебное пособие и материалы курса.
       </p>
 
-      <!-- Блок про персональные данные -->
+      <!-- Блок про персональные данные + согласие -->
       <section class="test-personal-data">
-        <h3>Заполнение персональных данных</h3>
+        <h3>Персональные данные и доступ к тесту</h3>
         <p>
           Перед началом тестирования внимательно заполните поля с персональными данными
           (Ф.И.О., должность, подразделение, наименование организации и иные запрашиваемые сведения).
           Эти данные необходимы для:
         </p>
         <ul class="module-list fire-module-list">
-          <li>оформления документов о прохождении обучения и проверке знаний;</li>
+          <li>оформления документов о прохождении обучения и проверке знаний по ГО и ЧС;</li>
           <li>ведения журналов/реестров учёта инструктажей по ГО и ЧС;</li>
           <li>подтверждения факта прохождения тестирования при проверках контролирующих органов.</li>
         </ul>
@@ -84,11 +84,36 @@
           за исключением случаев, предусмотренных законодательством РФ, и хранятся в сроки, установленные
           локальными нормативными актами организации.
         </p>
+
+        <!-- Чекбокс согласия + кнопка доступа к тесту -->
+        <div class="test-consent-controls">
+          <label class="test-consent-label">
+            <input type="checkbox" id="gochs-consent">
+            <span>Я подтверждаю, что ознакомился(лась) с условиями и даю согласие на обработку персональных данных для целей учёта прохождения обучения по ГО и ЧС.</span>
+          </label>
+
+          <button type="button"
+                  id="gochs-start-test"
+                  class="btn btn-primary btn-test-link btn-disabled">
+            Перейти к прохождению теста
+          </button>
+        </div>
       </section>
 
-      <!-- Виджет OnlineTestPad -->
-      <section class="test-widget-wrapper">
-        <!-- Online Test Pad Test Widget (#360809)-->
+      <!-- Обёртка с блокировкой доступа к виджету до согласия -->
+      <section class="test-wrapper-with-consent" aria-label="Итоговый тест по ГО и ЧС">
+        <!-- Оверлей, закрывающий виджет до согласия -->
+        <div id="gochs-test-overlay" class="test-overlay">
+          <div>
+            <p><strong>Для начала тестирования необходимо дать согласие на обработку персональных данных.</strong></p>
+            <p>
+              Поставьте отметку в чекбоксе выше и нажмите кнопку
+              «Перейти к прохождению теста». После этого тест станет доступен для выполнения.
+            </p>
+          </div>
+        </div>
+
+        <!-- Сам виджет Online Test Pad -->
         <div id="otp_wgt_ldxfcvjhloj6o"></div>
       </section>
 
@@ -124,6 +149,35 @@
     s.async = true;
     d.getElementsByTagName("head")[0].appendChild(s);
   })(this, this.document, "otp_widget_callbacks");
+</script>
+
+<!-- Логика согласия и открытия теста -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var consentCheckbox = document.getElementById('gochs-consent');
+    var startButton = document.getElementById('gochs-start-test');
+    var overlay = document.getElementById('gochs-test-overlay');
+
+    if (!consentCheckbox || !startButton || !overlay) return;
+
+    // Разблокировка кнопки при согласии
+    consentCheckbox.addEventListener('change', function () {
+      if (consentCheckbox.checked) {
+        startButton.classList.remove('btn-disabled');
+      } else {
+        startButton.classList.add('btn-disabled');
+      }
+    });
+
+    // Снятие оверлея и доступ к тесту
+    startButton.addEventListener('click', function (e) {
+      if (!consentCheckbox.checked) {
+        e.preventDefault();
+        return;
+      }
+      overlay.classList.add('test-overlay-hidden');
+    });
+  });
 </script>
 
 </body>
