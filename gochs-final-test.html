@@ -5,7 +5,7 @@
   <title>Итоговый тест по ГО и ЧС — Учебный портал</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description"
-        content="Итоговый тест по вводному инструктажу по гражданской обороне и чрезвычайным ситуациям. Прохождение теста с указанием персональных и организационных данных работника.">
+        content="Итоговый тест по вводному инструктажу по гражданской обороне и чрезвычайным ситуациям с указанием персональных и организационных данных работника.">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 
@@ -58,16 +58,29 @@
       <!-- Заголовок страницы теста -->
       <section class="section section-card">
         <header class="test-page-header">
+          <p class="attention-header">
+            <span aria-hidden="true">⚠</span>
+            <span>Важно перед началом теста</span>
+          </p>
+
           <h1>Итоговый тест по гражданской обороне и чрезвычайным ситуациям</h1>
+
           <p>
             Данный тест предназначен для проверки усвоения материалов вводного инструктажа по гражданской обороне
             и чрезвычайным ситуациям. Перед началом прохождения теста внимательно заполните персональные и
             организационные данные (Ф.И.О., дата рождения, должность, подразделение, наименование организации).
             Эти сведения используются для корректного оформления документов о прохождении обучения.
           </p>
+
           <p class="note">
             Невнесение или некорректное заполнение данных может привести к невозможности зачёта результатов обучения.
           </p>
+
+          <ul class="test-meta-list">
+            <li>Ориентировочное время прохождения теста: 10–15 минут.</li>
+            <li>Количество вопросов и порог прохождения устанавливаются работодателем.</li>
+            <li>Возможность повторной попытки определяется локальными нормативными актами организации.</li>
+          </ul>
         </header>
       </section>
 
@@ -130,30 +143,42 @@
         <p class="test-hint">
           Обработка персональных данных осуществляется исключительно в целях организации и проведения обучения,
           тестирования и последующего документального оформления результатов в соответствии с требованиями
-          законодательства РФ. Персональные данные не передаются третьим лицам, за исключением случаев,
-          предусмотренных законом.
+          законодательства РФ и локальными нормативными актами работодателя. Персональные данные не передаются
+          третьим лицам, за исключением случаев, предусмотренных законом.
+        </p>
+
+        <p class="test-hint">
+          Предоставление согласия является добровольным. В случае отказа от согласия прохождение теста и
+          документальное оформление результатов обучения будут невозможны.
         </p>
 
         <div class="test-consent-controls">
           <label class="test-consent-label">
-            <input type="checkbox" id="pd-consent">
+            <input
+              type="checkbox"
+              id="pd-consent"
+              aria-label="Согласие на обработку персональных данных для целей обучения и тестирования по ГО и ЧС"
+            >
             <span>
               Я подтверждаю, что ознакомлен(а) с условиями обработки персональных данных и даю согласие
               на их обработку для целей обучения и тестирования по ГО и ЧС.
             </span>
           </label>
 
-          <button type="button"
-                  id="start-test-btn"
-                  class="btn btn-primary btn-test-link btn-disabled"
-                  disabled>
-            Перейти к прохождению теста
+          <button
+            type="button"
+            id="start-test-btn"
+            class="btn btn-primary btn-test-link btn-disabled"
+            disabled
+          >
+            <span>Перейти к прохождению теста</span>
+            <span class="btn-icon" aria-hidden="true">⬇</span>
           </button>
         </div>
 
         <p class="test-hint">
-          Кнопка станет доступна после установки отметки в чекбоксе согласия.
-          Доступ к виджету теста открывается только после подтверждения согласия.
+          Кнопка станет доступна после установки отметки в чекбоксе согласия. Доступ к виджету теста
+          открывается только после подтверждения согласия.
         </p>
       </section>
 
@@ -162,16 +187,22 @@
         <h2>Прохождение итогового теста</h2>
         <p>
           Ниже размещён встроенный виджет сервиса OnlineTestPad. После подтверждения согласия на обработку
-          персональных данных и активации кнопки «Перейти к прохождению теста» вы сможете ответить на вопросы
-          и отправить результаты для последующей обработки ответственными лицами работодателя.
+          персональных данных вы сможете ответить на вопросы и отправить результаты для последующей обработки
+          ответственными лицами работодателя. Основным источником данных для зачёта является информация,
+          зафиксированная в системе OnlineTestPad.
         </p>
 
         <section class="test-wrapper-with-consent" aria-label="Итоговый тест по ГО и ЧС">
-          <div id="test-overlay" class="test-overlay">
-            <div>
+          <div
+            id="test-overlay"
+            class="test-overlay"
+            role="alert"
+          >
+            <div class="test-overlay-content">
               <p><strong>Доступ к тесту временно заблокирован.</strong></p>
               <p>
                 Для начала тестирования подтвердите согласие на обработку персональных данных выше.
+                После установки отметки доступ к вопросам теста будет открыт.
               </p>
             </div>
           </div>
@@ -226,8 +257,18 @@
       const overlay = document.getElementById('test-overlay');
       const widgetContainer = document.getElementById('otp_wgt_ldxfcvjhloj6o');
 
-      if (!consentCheckbox || !startButton || !overlay) {
+      if (!consentCheckbox || !startButton || !overlay || !widgetContainer) {
         return;
+      }
+
+      let hasScrolledToWidget = false;
+
+      function scrollToWidget() {
+        if (hasScrolledToWidget || !widgetContainer.scrollIntoView) {
+          return;
+        }
+        hasScrolledToWidget = true;
+        widgetContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
 
       function updateConsentState() {
@@ -237,12 +278,14 @@
           startButton.disabled = false;
           startButton.classList.remove('btn-disabled');
           overlay.classList.add('test-overlay-hidden');
+          scrollToWidget();
         } else {
           startButton.disabled = true;
           if (!startButton.classList.contains('btn-disabled')) {
             startButton.classList.add('btn-disabled');
           }
           overlay.classList.remove('test-overlay-hidden');
+          hasScrolledToWidget = false;
         }
       }
 
@@ -252,11 +295,10 @@
         if (startButton.disabled) {
           return;
         }
-        if (widgetContainer && widgetContainer.scrollIntoView) {
-          widgetContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        scrollToWidget();
       });
 
+      // Инициализация начального состояния
       updateConsentState();
     });
   </script>
