@@ -3347,32 +3347,54 @@ a:focus {
   color: #1d4ed8;
 }
 
-/* Единый стиль кнопки "Открыть пособие" в блоке итогового теста ГО и ЧС */
-.gochs-theme #gochs-test .btn-secondary {
-  display: inline-block;
-  width: 100%;
-  text-align: center;
-  padding: 1rem 1.25rem;
-  border-radius: 1rem;
-  font-size: 1rem;
+/* ===== ГО и ЧС: улучшенные нумерованные списки и интерлиньяж ===== */
+
+.gochs-theme .fire-course-card .fire-module-list {
+  margin: 0.25rem 0 0.75rem;
+  line-height: 1.6;          /* мягкий интерлиньяж */
+}
+
+/* Общие отступы для пунктов */
+.gochs-theme .fire-course-card .fire-module-list li {
+  margin-bottom: 0.25rem;
+}
+
+/* Красивые номера только для упорядоченных списков (ol) */
+.gochs-theme .fire-course-card ol.fire-module-list {
+  list-style: none;
+  padding-left: 0;
+  counter-reset: gochs-counter;
+}
+
+.gochs-theme .fire-course-card ol.fire-module-list li {
+  position: relative;
+  padding-left: 2.75rem;
+  counter-increment: gochs-counter;
+}
+
+/* Иконка-номер: аккуратный градиентный бейдж */
+.gochs-theme .fire-course-card ol.fire-module-list li::before {
+  content: counter(gochs-counter);
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   font-weight: 600;
-  border: 2px solid transparent;
+  font-size: 0.9rem;
+  color: #111827;
 
-  /* Белый фон + мягкая подсветка синего и оранжевого */
-  background: linear-gradient(#ffffff, #ffffff) padding-box,
-              linear-gradient(90deg, rgba(29,78,216,0.35), rgba(249,115,22,0.4)) border-box;
-
-  color: #1d4ed8;
-  transition: all 0.25s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  background: radial-gradient(circle at 30% 30%, #ffffff, #f97316);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
-.gochs-theme #gochs-test .btn-secondary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-}
-
-.gochs-theme #gochs-test .btn-secondary:active {
-  transform: translateY(0);
-  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+/* Для маркированных списков – чуть более спокойные отступы */
+.gochs-theme .fire-course-card ul.fire-module-list {
+  list-style: disc;
+  padding-left: 1.5rem;
 }
