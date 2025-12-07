@@ -18,7 +18,7 @@
         <p class="site-label">Дистанционный учебный портал</p>
         <h1 class="site-title">Охрана труда, пожарная безопасность, первая помощь, ГО/ЧС</h1>
         <p class="site-subtitle">
-          Итоговый тест по программе вводного инструктажа по гражданской обороне и чрезвычайным ситуациям.
+          Дистанционное обучение работников и проверка знаний требований охраны труда и безопасности.
         </p>
       </div>
 
@@ -78,16 +78,16 @@
         <p>
           Перед началом прохождения итогового теста работник подтверждает, что ознакомлен(а) и принимает
           следующие условия обработки персональных данных в соответствии с Федеральным законом № 152-ФЗ
-          «О персональных данных», Трудовым кодексом РФ и локальными нормативными актами работодателя.
+          «О персональных данных», Трудовым кодексом РФ и локальными нормативными актами работодателя:
         </p>
 
         <ul class="pd-consent-list">
           <li class="pd-consent-item">
             <span class="pd-consent-icon" aria-hidden="true">✓</span>
             <span class="pd-consent-text">
-              обработку персональных данных, указанных в тестовой форме (Ф.И.О., дата рождения, должность,
-              подразделение, наименование организации и иные сведения, необходимые для учёта прохождения
-              обучения по ГО и ЧС);
+              обработку персональных данных, указанных в тестовой форме
+              (Ф.И.О., дата рождения, должность, подразделение, наименование организации и иные сведения,
+              необходимые для учёта прохождения обучения по ГО и ЧС);
             </span>
           </li>
           <li class="pd-consent-item">
@@ -147,13 +147,13 @@
                   id="start-test-btn"
                   class="btn btn-primary btn-test-link btn-disabled"
                   disabled>
-            Перейти к прохождению теста (в новой вкладке)
+            Перейти к прохождению теста
           </button>
         </div>
 
         <p class="test-hint">
-          Кнопка станет доступна после установки отметки в чекбоксе согласия. Тест откроется в новой вкладке
-          сервиса OnlineTestPad.
+          Кнопка станет доступна после установки отметки в чекбоксе согласия.
+          Доступ к виджету теста открывается только после подтверждения согласия.
         </p>
       </section>
 
@@ -161,9 +161,9 @@
       <section class="section section-card">
         <h2>Прохождение итогового теста</h2>
         <p>
-          Ниже размещён встроенный виджет сервиса OnlineTestPad. В зависимости от настроек рабочего места
-          и политики безопасности браузера тест может открываться во встроенном окне или в новой вкладке.
-          Основным источником данных для зачёта является информация, зафиксированная в системе OnlineTestPad.
+          Ниже размещён встроенный виджет сервиса OnlineTestPad. После подтверждения согласия на обработку
+          персональных данных и активации кнопки «Перейти к прохождению теста» вы сможете ответить на вопросы
+          и отправить результаты для последующей обработки ответственными лицами работодателя.
         </p>
 
         <section class="test-wrapper-with-consent" aria-label="Итоговый тест по ГО и ЧС">
@@ -171,8 +171,7 @@
             <div>
               <p><strong>Доступ к тесту временно заблокирован.</strong></p>
               <p>
-                Для начала тестирования подтвердите согласие на обработку персональных данных выше
-                и нажмите кнопку «Перейти к прохождению теста».
+                Для начала тестирования подтвердите согласие на обработку персональных данных выше.
               </p>
             </div>
           </div>
@@ -219,49 +218,44 @@
     })(this, this.document, "otp_widget_callbacks");
   </script>
 
-  <!-- Скрипт управления согласием и доступом к тесту (этот же паттерн, что и в первой помощи) -->
+  <!-- Скрипт управления согласием и доступом к тесту (без открытия новой вкладки) -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const consentCheckbox = document.getElementById('pd-consent');
       const startButton = document.getElementById('start-test-btn');
       const overlay = document.getElementById('test-overlay');
-      const testUrl = 'https://onlinetestpad.com/ldxfcvjhloj6o';
+      const widgetContainer = document.getElementById('otp_wgt_ldxfcvjhloj6o');
+
+      if (!consentCheckbox || !startButton || !overlay) {
+        return;
+      }
 
       function updateConsentState() {
-        const allowed = consentCheckbox && consentCheckbox.checked;
+        const allowed = consentCheckbox.checked;
 
         if (allowed) {
-          if (startButton) {
-            startButton.disabled = false;
-            startButton.classList.remove('btn-disabled');
-          }
-          if (overlay) {
-            overlay.classList.add('test-overlay-hidden');
-          }
+          startButton.disabled = false;
+          startButton.classList.remove('btn-disabled');
+          overlay.classList.add('test-overlay-hidden');
         } else {
-          if (startButton) {
-            startButton.disabled = true;
-            if (!startButton.classList.contains('btn-disabled')) {
-              startButton.classList.add('btn-disabled');
-            }
+          startButton.disabled = true;
+          if (!startButton.classList.contains('btn-disabled')) {
+            startButton.classList.add('btn-disabled');
           }
-          if (overlay) {
-            overlay.classList.remove('test-overlay-hidden');
-          }
+          overlay.classList.remove('test-overlay-hidden');
         }
       }
 
-      if (consentCheckbox) {
-        consentCheckbox.addEventListener('change', updateConsentState);
-      }
+      consentCheckbox.addEventListener('change', updateConsentState);
 
-      if (startButton) {
-        startButton.addEventListener('click', function () {
-          if (!startButton.disabled && testUrl) {
-            window.open(testUrl, '_blank', 'noopener,noreferrer');
-          }
-        });
-      }
+      startButton.addEventListener('click', function () {
+        if (startButton.disabled) {
+          return;
+        }
+        if (widgetContainer && widgetContainer.scrollIntoView) {
+          widgetContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
 
       updateConsentState();
     });
