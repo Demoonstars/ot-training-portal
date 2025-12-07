@@ -8,7 +8,9 @@
         content="Итоговый тест по оказанию первой помощи пострадавшим с обязательным указанием персональных и организационных данных работника.">
   <link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
+
+<!-- Тема первой помощи: зелёный → белый -->
+<body class="first-aid-theme">
   <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
 
   <header class="site-header">
@@ -17,15 +19,18 @@
         <p class="site-label">Дистанционный учебный портал</p>
         <h1 class="site-title">Охрана труда, пожарная безопасность, первая помощь, ГО/ЧС</h1>
         <p class="site-subtitle">
-          Итоговый тест по программе обучения по оказанию первой помощи пострадавшим.
+          Дистанционное обучение работников и проверка знаний требований охраны труда и безопасности.
         </p>
       </div>
+
       <nav class="main-nav" aria-label="Основная навигация">
         <ul class="nav-list">
           <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
           <li class="nav-item"><a href="programs.html" class="nav-link nav-link-active">Программы обучения</a></li>
           <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции для сотрудников</a></li>
-          <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Информация для ответственных за обучение</a></li>
+          <li class="nav-item">
+            <a href="for-responsibles.html" class="nav-link">Информация для ответственных за обучение</a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -33,10 +38,10 @@
 
   <main id="main-content" class="site-main">
     <div class="container">
-      
-      <!-- Кнопка возврата к курсу -->
+
+      <!-- Назад к курсу по первой помощи -->
       <nav class="back-nav">
-        <a href="course-first-aid.html" class="back-link">
+        <a href="course-first-aid.html#first-aid-test" class="back-link">
           <span class="back-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" class="back-svg">
               <path d="M15 6l-6 6 6 6"
@@ -51,21 +56,44 @@
         </a>
       </nav>
 
-      <!-- Заголовок теста -->
-      <section class="section section-card test-page-header">
-        <div class="page-header-label">Итоговый тест</div>
-        <h2 class="page-title">Итоговый тест по оказанию первой помощи пострадавшим</h2>
-        <p class="page-lead">
-          Данный тест предназначен для фиксации результатов дистанционного обучения по оказанию первой помощи
-          пострадавшим. Перед началом тестирования работнику необходимо внимательно ознакомиться с материалами курса.
-        </p>
-        <p class="note">
-          При прохождении теста предусмотрено обязательное указание персональных и организационных данных.
-          Невнесение данных может привести к невозможности зачёта результатов обучения.
-        </p>
+      <!-- Заголовок страницы теста -->
+      <section class="section section-card">
+        <header class="test-page-header">
+          <p class="attention-header">
+            <span aria-hidden="true">⚠</span>
+            <span>Важно перед началом теста</span>
+          </p>
+
+          <h1>Итоговый тест по оказанию первой помощи пострадавшим</h1>
+
+          <!-- Краткая сводка по тесту (бейджи) -->
+          <div class="test-summary-badges">
+            <span class="test-badge">10 вопросов</span>
+            <span class="test-badge">Время: ~10–15 минут</span>
+            <span class="test-badge">Форма: зачет/незачет</span>
+          </div>
+
+          <p>
+            Тест предназначен для проверки усвоения материалов программы обучения по оказанию первой помощи
+            пострадавшим и оформления результатов обучения в установленном порядке.
+          </p>
+
+          <p><strong>Перед началом теста убедитесь, что:</strong></p>
+          <ul class="test-meta-list">
+            <li>вы прошли обучение (инструктаж) по оказанию первой помощи и просмотрели все рекомендованные материалы;</li>
+            <li>понимаете, как корректно указать персональные и организационные данные (Ф.И.О., дату рождения, должность, подразделение, организацию);</li>
+            <li>располагаете временем для прохождения теста без отвлечений (ориентировочно 10–15 минут);</li>
+            <li>используете устройство с устойчивым доступом в интернет (рекомендуется стационарный ПК или ноутбук).</li>
+          </ul>
+
+          <p class="note">
+            Некорректное заполнение персональных и организационных данных может привести к невозможности зачёта
+            результатов обучения и их оформления в документах работодателя.
+          </p>
+        </header>
       </section>
 
-      <!-- Блок согласия с чекбоксом -->
+      <!-- Блок согласия на обработку персональных данных -->
       <section class="section section-card">
         <h2>Согласие на обработку персональных данных</h2>
 
@@ -75,83 +103,163 @@
           «О персональных данных», Трудовым кодексом РФ и локальными нормативными актами работодателя.
         </p>
 
-        <ul class="checklist">
-          <li>обработку персональных данных, указанных в тестовой форме (ФИО, дата рождения, должность, подразделение, наименование организации);</li>
-          <li>обработку результатов прохождения тестирования, включая количество набранных баллов, время прохождения и факт успешного/неуспешного завершения теста;</li>
-          <li>передачу указанных данных уполномоченным должностным лицам работодателя, ответственным за обучение и проверку знаний;</li>
-          <li>хранение данных в информационных системах работодателя в срок, установленный локальными актами (не менее срока хранения документов по обучению);</li>
-          <li>использование результатов теста для оформления протоколов проверки знаний, журналов регистрации, приказов и иных документов по обучению;</li>
-          <li>передачу данных оператору тестирующей платформы OnlineTestPad в объёме, необходимом для проведения тестирования.</li>
+        <h3>Какие данные обрабатываются</h3>
+        <ul class="pd-consent-list">
+          <li class="pd-consent-item">
+            <span class="pd-consent-icon" aria-hidden="true">✓</span>
+            <span class="pd-consent-text">
+              персональные данные, указываемые в тестовой форме: Ф.И.О., дата рождения, должность,
+              структурное подразделение, наименование организации и иные сведения, необходимые для учёта
+              прохождения обучения по оказанию первой помощи;
+            </span>
+          </li>
+          <li class="pd-consent-item">
+            <span class="pd-consent-icon" aria-hidden="true">✓</span>
+            <span class="pd-consent-text">
+              результаты прохождения теста: ответы на вопросы, количество набранных баллов,
+              дата и время прохождения, факт успешного/неуспешного завершения тестирования.
+            </span>
+          </li>
         </ul>
 
-        <p class="note">
+        <h3>Для чего используются данные</h3>
+        <ul class="pd-consent-list">
+          <li class="pd-consent-item">
+            <span class="pd-consent-icon" aria-hidden="true">✓</span>
+            <span class="pd-consent-text">
+              оформление протоколов проверки знаний и иных документов по итогам обучения по оказанию первой помощи;
+            </span>
+          </li>
+          <li class="pd-consent-item">
+            <span class="pd-consent-icon" aria-hidden="true">✓</span>
+            <span class="pd-consent-text">
+              ведение журналов регистрации инструктажей и других учётных форм по обучению;
+            </span>
+          </li>
+          <li class="pd-consent-item">
+            <span class="pd-consent-icon" aria-hidden="true">✓</span>
+            <span class="pd-consent-text">
+              подтверждение факта прохождения обучения и проверки знаний в установленном работодателем порядке.
+            </span>
+          </li>
+        </ul>
+
+        <h3>Кто обрабатывает и получает доступ к данным</h3>
+        <ul class="pd-consent-list">
+          <li class="pd-consent-item">
+            <span class="pd-consent-icon" aria-hidden="true">✓</span>
+            <span class="pd-consent-text">
+              уполномоченные должностные лица работодателя, ответственные за организацию обучения
+              и проверку знаний требований по оказанию первой помощи;
+            </span>
+          </li>
+          <li class="pd-consent-item">
+            <span class="pd-consent-icon" aria-hidden="true">✓</span>
+            <span class="pd-consent-text">
+              оператор тестирующей платформы OnlineTestPad — в объёме, необходимом для проведения тестирования
+              и фиксации его результатов.
+            </span>
+          </li>
+        </ul>
+
+        <h3>Сроки и порядок хранения</h3>
+        <ul class="pd-consent-list">
+          <li class="pd-consent-item">
+            <span class="pd-consent-icon" aria-hidden="true">✓</span>
+            <span class="pd-consent-text">
+              персональные данные и результаты тестирования хранятся в информационных системах работодателя
+              в сроки, установленные локальными нормативными актами и номенклатурой дел (не менее сроков
+              хранения документов по обучению и инструктажам);
+            </span>
+          </li>
+        </ul>
+
+        <h3>Ваше согласие</h3>
+        <p class="test-hint">
           Обработка персональных данных осуществляется исключительно в целях организации и проведения обучения,
           тестирования и последующего документального оформления результатов в соответствии с требованиями
-          законодательства РФ. Персональные данные не передаются третьим лицам, за исключением случаев,
-          предусмотренных законом.
+          законодательства РФ и локальными нормативными актами работодателя. Персональные данные не передаются
+          третьим лицам, за исключением случаев, предусмотренных законом.
         </p>
 
-        <label class="consent-label">
-          <input type="checkbox" id="pd-consent">
-          <span>Я подтверждаю, что ознакомлен(а) с условиями обработки персональных данных и даю согласие на их обработку для целей обучения и тестирования.</span>
-        </label>
+        <p class="test-hint">
+          <strong>Предоставление согласия является добровольным.</strong>
+          В случае отказа от согласия прохождение теста и документальное оформление результатов обучения
+          будут невозможны.
+        </p>
+
+        <div class="test-consent-controls">
+          <label class="test-consent-label">
+            <input
+              type="checkbox"
+              id="pd-consent"
+              aria-label="Согласие на обработку персональных данных для целей обучения и тестирования по оказанию первой помощи"
+            >
+            <span>
+              Я подтверждаю, что ознакомлен(а) с условиями обработки персональных данных и даю согласие
+              на их обработку для целей обучения и тестирования по оказанию первой помощи.
+            </span>
+          </label>
+
+          <button
+            type="button"
+            id="start-test-btn"
+            class="btn btn-primary btn-test-link btn-disabled"
+            disabled
+          >
+            <span>Открыть тест и перейти к вопросам</span>
+            <span class="btn-icon" aria-hidden="true">⬇</span>
+          </button>
+        </div>
+
+        <p class="test-hint">
+          Кнопка станет доступна после установки отметки в чекбоксе согласия. Доступ к виджету теста
+          открывается только после подтверждения согласия.
+        </p>
       </section>
 
-      <!-- Прохождение теста: кнопка + виджет -->
+      <!-- Блок с виджетом теста и оверлеем -->
       <section class="section section-card">
-        <h2>Прохождение теста</h2>
-        <p>
-          Для сдачи итогового теста используйте встроенный ниже модуль OnlineTestPad.
-          Если модуль не загрузился, можно открыть тест в новой вкладке.
+        <h2>Прохождение итогового теста</h2>
+
+        <h3>Как пройти тест</h3>
+        <ul class="test-meta-list">
+          <li>подтвердите согласие на обработку персональных данных выше;</li>
+          <li>нажмите кнопку <strong>«Открыть тест и перейти к вопросам»</strong>;</li>
+          <li>дождитесь загрузки всех вопросов теста во встроенном окне;</li>
+          <li>ответьте на все вопросы и отправьте результаты в системе OnlineTestPad;</li>
+          <li>убедитесь, что тест завершён и система зафиксировала ваши ответы.</li>
+        </ul>
+
+        <p class="test-hint">
+          Основным источником данных для зачёта является информация, зафиксированная в системе OnlineTestPad.
+          В случае технических сбоев обратитесь к ответственному за обучение или специалисту по охране труда/первой помощи.
         </p>
 
-        <!-- Кнопка -->
-        <div class="test-actions">
-          <button id="start-test-btn"
-                  class="btn btn-primary btn-test-link btn-disabled"
-                  type="button"
-                  disabled>
-            Перейти к тесту по первой помощи (в новой вкладке)
-          </button>
-          <p class="test-hint">
-            Кнопка станет доступна после подтверждения согласия на обработку персональных данных.
-          </p>
-        </div>
-
-        <!-- Встроенный виджет OnlineTestPad с блокировкой до согласия -->
-        <div class="google-form-wrapper test-wrapper-with-consent">
-          <div id="otp_wgt_25zvn65rav464"></div>
-          <div id="test-overlay" class="test-overlay">
-            <p>Для доступа к тесту необходимо подтвердить согласие на обработку персональных данных выше.</p>
+        <section class="test-wrapper-with-consent" aria-label="Итоговый тест по оказанию первой помощи">
+          <div
+            id="test-overlay"
+            class="test-overlay"
+            role="alert"
+          >
+            <div class="test-overlay-content">
+              <p><strong>Доступ к тесту временно заблокирован.</strong></p>
+              <p>
+                Для начала тестирования подтвердите согласие на обработку персональных данных выше
+                и нажмите кнопку «Открыть тест и перейти к вопросам».
+              </p>
+            </div>
           </div>
-        </div>
 
-        <!-- Скрипт виджета OnlineTestPad -->
-        <script type="text/javascript">
-          var otp_wjs_dt = (new Date).getTime();
-          (function (w, d, n, s, rp) {
-            w[n] = w[n] || [];
-            rp = {};
-            w[n].push(function () {
-              otp_render_widget(
-                d.getElementById("otp_wgt_25zvn65rav464"),
-                'onlinetestpad.com',
-                '25zvn65rav464',
-                rp
-              );
-            });
-            s = d.createElement("script");
-            s.type = "text/javascript";
-            s.src = "https://onlinetestpad.com/js/widget.js?" + otp_wjs_dt;
-            s.async = true;
-            d.getElementsByTagName("head")[0].appendChild(s);
-          })(this, this.document, "otp_widget_callbacks");
-        </script>
+          <!-- Встроенный виджет OnlineTestPad -->
+          <div id="otp_wgt_25zvn65rav464"></div>
+        </section>
 
-        <p class="note">
-          Обработка результатов тестирования осуществляется сервисом OnlineTestPad. Порядок передачи данных,
-          хранения результатов и оформления документов определяется работодателем в соответствии с локальными
-          нормативными актами и требованиями законодательства РФ.
+        <h3>После прохождения теста</h3>
+        <p class="test-hint">
+          После успешного завершения теста результаты автоматически фиксируются в системе OnlineTestPad
+          и передаются уполномоченным специалистам работодателя. Информацию о зачёте и оформленных документах
+          вы можете уточнить у своего непосредственного руководителя или специалиста по охране труда/первой помощи.
         </p>
       </section>
 
@@ -165,45 +273,78 @@
         первой помощи и ГО/ЧС.
       </p>
       <p class="footer-text footer-text-muted">
-        Конкретные условия, порядок обучения и оформления документов устанавливаются работодателем
-        в локальных нормативных актах.
+        Конкретный порядок обучения и оформления результатов определяется работодателем.
       </p>
     </div>
   </footer>
 
-  <!-- Скрипт управления согласием и доступом к тесту -->
+  <!-- Скрипт виджета OnlineTestPad -->
+  <script type="text/javascript">
+    var otp_wjs_dt = (new Date).getTime();
+    (function (w, d, n, s, rp) {
+      w[n] = w[n] || [];
+      rp = {};
+      w[n].push(function () {
+        otp_render_widget(
+          d.getElementById("otp_wgt_25zvn65rav464"),
+          'onlinetestpad.com',
+          '25zvn65rav464',
+          rp
+        );
+      });
+      s = d.createElement("script");
+      s.type = "text/javascript";
+      s.src = "https://onlinetestpad.com/js/widget.js?" + otp_wjs_dt;
+      s.async = true;
+      d.getElementsByTagName("head")[0].appendChild(s);
+    })(this, this.document, "otp_widget_callbacks");
+  </script>
+
+  <!-- Скрипт управления согласием и доступом к тесту (аналог ГО/ЧС) -->
   <script>
-document.addEventListener('DOMContentLoaded', function () {
-  const consentCheckbox = document.getElementById('pd-consent');
-  const startButton = document.getElementById('start-test-btn');
-  const overlay = document.getElementById('test-overlay');
+    document.addEventListener('DOMContentLoaded', function () {
+      const consentCheckbox = document.getElementById('pd-consent');
+      const startButton = document.getElementById('start-test-btn');
+      const overlay = document.getElementById('test-overlay');
+      const widgetContainer = document.getElementById('otp_wgt_25zvn65rav464');
 
-  const testUrl = 'https://onlinetestpad.com/3szjxbxlhjdeo';
+      if (!consentCheckbox || !startButton || !overlay || !widgetContainer) {
+        return;
+      }
 
-  function updateConsentState() {
-    const allowed = consentCheckbox.checked;
+      function scrollToWidget() {
+        if (!widgetContainer.scrollIntoView) return;
+        widgetContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
 
-    if (allowed) {
-      startButton.disabled = false;
-      startButton.classList.remove('btn-disabled');
-      overlay.classList.add('test-overlay-hidden');
-    } else {
-      startButton.disabled = true;
-      startButton.classList.add('btn-disabled');
-      overlay.classList.remove('test-overlay-hidden');
-    }
-  }
+      function updateConsentState() {
+        const allowed = consentCheckbox.checked;
 
-  consentCheckbox.addEventListener('change', updateConsentState);
+        if (allowed) {
+          startButton.disabled = false;
+          startButton.classList.remove('btn-disabled');
+        } else {
+          startButton.disabled = true;
+          if (!startButton.classList.contains('btn-disabled')) {
+            startButton.classList.add('btn-disabled');
+          }
+          overlay.classList.remove('test-overlay-hidden');
+        }
+      }
 
-  startButton.addEventListener('click', function () {
-    if (!startButton.disabled) {
-      window.open(testUrl, '_blank', 'noopener,noreferrer');
-    }
-  });
+      consentCheckbox.addEventListener('change', updateConsentState);
 
-  updateConsentState();
-});
-</script>
+      startButton.addEventListener('click', function () {
+        if (startButton.disabled) {
+          return;
+        }
+        overlay.classList.add('test-overlay-hidden');
+        scrollToWidget();
+      });
+
+      // Инициализация начального состояния
+      updateConsentState();
+    });
+  </script>
 </body>
 </html>
