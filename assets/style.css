@@ -2920,3 +2920,173 @@ a:focus {
     text-align: center;
   }
 }
+
+/* ========================
+   ГО и ЧС — фирменная тема (синий → оранжевый)
+   Применяется на страницах с body.gochs-theme
+   ======================== */
+
+/* Акцент на ссылке "Назад" */
+.gochs-theme .back-link {
+  background: linear-gradient(135deg, #1d4ed8 0%, #0ea5e9 40%, #f97316 100%);
+  border: none;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.25);
+}
+
+.gochs-theme .back-link .back-text {
+  font-weight: 600;
+}
+
+/* Заголовок блока "Важно перед началом теста" */
+.gochs-theme .attention-header {
+  background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 40%, #fff7ed 100%);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  color: #1f2937;
+}
+
+/* Метаданные теста */
+.test-meta-list {
+  margin: 0.8rem 0 0;
+  padding-left: 1.2rem;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+/* Список условий согласия */
+.pd-consent-list {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.pd-consent-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+}
+
+.pd-consent-icon {
+  flex: 0 0 auto;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #dbeafe 0%, #dcfce7 100%);
+  color: #1e3a8a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.pd-consent-text {
+  display: block;
+  font-size: 0.9rem;
+  color: #111827;
+}
+
+/* Подсказки */
+.test-hint {
+  margin-top: 0.7rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+/* Блок с чекбоксом и кнопкой */
+.test-consent-controls {
+  margin-top: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  align-items: flex-start;
+}
+
+.test-consent-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: #111827;
+  cursor: pointer;
+}
+
+.test-consent-label input[type="checkbox"] {
+  margin-top: 0.2rem;
+}
+
+/* Кнопка теста в теме ГО/ЧС — градиент */
+.gochs-theme .btn-primary.btn-test-link {
+  background-image: linear-gradient(135deg, #1d4ed8 0%, #0ea5e9 40%, #f97316 100%);
+  border: none;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.35);
+}
+
+.gochs-theme .btn-primary.btn-test-link:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+.gochs-theme .btn-primary.btn-test-link:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.3);
+}
+
+/* Иконка внутри кнопки */
+.btn-icon {
+  display: inline-flex;
+  margin-left: 0.4rem;
+  font-size: 0.9rem;
+}
+
+/* Оверлей над тестом — более «стеклянный» в теме ГО/ЧС */
+.test-wrapper-with-consent {
+  position: relative;
+  width: 100%;
+  margin-top: 0.9rem;
+  min-height: 280px;
+}
+
+.gochs-theme .test-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  text-align: center;
+  background: radial-gradient(circle at 0% 0%, rgba(219, 234, 254, 0.96), rgba(255, 247, 237, 0.96));
+  backdrop-filter: blur(4px);
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.25);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+  z-index: 2;
+}
+
+.test-overlay-content p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: #111827;
+}
+
+.test-overlay-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Кнопка теста на мобильных — на всю ширину */
+@media (max-width: 640px) {
+  .test-consent-controls {
+    align-items: stretch;
+  }
+
+  .test-consent-controls .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
