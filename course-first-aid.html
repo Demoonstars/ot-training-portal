@@ -9,7 +9,8 @@
   <link rel="stylesheet" href="assets/style.css">
 </head>
 
-<body>
+<!-- Тема первой помощи: зелёный → белый -->
+<body class="first-aid-theme">
 <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
 
 <header class="site-header">
@@ -26,8 +27,8 @@
       <ul class="nav-list">
         <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
         <li class="nav-item"><a href="programs.html" class="nav-link nav-link-active">Программы обучения</a></li>
-        <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции</a></li>
-        <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Ответственным за обучение</a></li>
+        <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции для сотрудников</a></li>
+        <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Информация для ответственных за обучение</a></li>
       </ul>
     </nav>
   </div>
@@ -36,39 +37,63 @@
 <main id="main-content" class="site-main">
   <div class="container">
 
-    <!-- Возврат -->
+    <!-- Кнопка возврата -->
     <nav class="back-nav">
       <a href="programs.html" class="back-link">
-       <span class="back-icon" aria-hidden="true">
+        <span class="back-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" class="back-svg">
-              <path d="M15 6l-6 6 6 6"
-                    stroke="white"
-                    stroke-width="2"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round" />
-            </svg>
-          </span>
+            <path d="M15 6l-6 6 6 6"
+                  stroke="white"
+                  stroke-width="2"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round" />
+          </svg>
+        </span>
         <span class="back-text">Вернуться к программам обучения</span>
       </a>
     </nav>
 
-    <!-- Заголовок курса -->
-    <section class="section section-card page-header page-header-accent-blue">
-      <div class="page-header-label">Курс</div>
-      <h2 class="page-title">Оказание первой помощи пострадавшим</h2>
-      <p class="page-lead">
+    <!-- Герой-блок курса (эталон как в ГО и ЧС, но для первой помощи) -->
+    <section class="section section-card fire-hero-card">
+      <div class="fire-hero-label">Курс</div>
+      <h2 class="fire-hero-title">Оказание первой помощи пострадавшим</h2>
+      <p class="fire-hero-lead">
         Дистанционный курс, предназначенный для всех работников организации, обязанных владеть базовыми навыками
         оказания первой помощи до прибытия медицинских работников.
       </p>
+      <p class="fire-hero-text">
+        Курс может использоваться работодателем в составе системы обучения по охране труда и соответствует
+        требованиям <strong>Приказа Минздрава России от 03.05.2024 № 220н</strong>, а также ст. 214 и 228.1
+        Трудового кодекса РФ.
+      </p>
+
+      <div class="fire-hero-tags">
+        <span class="fire-tag fire-tag-basic">Первая помощь</span>
+        <span class="fire-tag fire-tag-workplace">Обязательное обучение</span>
+        <span class="fire-tag fire-tag-law">Приказ Минздрава № 220н, ТК РФ</span>
+      </div>
+    </section>
+
+    <!-- Быстрый переход к итоговому тесту (эталонный блок, как в ГО и ЧС) -->
+    <section class="section section-card fire-test-block">
+      <h2 class="fire-block-title">Уже проходили этот курс и уверены в своих знаниях?</h2>
       <p>
-        Курс может использоваться работодателем в составе системы обучения по охране труда и
-        соответствует требованиям <strong>Приказ Минздрава от 03.05.2024 № 220н</strong> ,
-        а также ст. 214 и 228.1 Трудового кодекса РФ.
+        Если вы ранее проходили обучение по оказанию первой помощи и вам необходимо только подтвердить знания,
+        можно сразу перейти к итоговому тесту по курсу без повторного просмотра всех материалов.
+      </p>
+      <div class="test-actions">
+        <a href="first-aid-test.html" class="btn btn-primary btn-test-link">
+          Перейти к итоговому тесту по первой помощи
+        </a>
+      </div>
+      <p class="test-hint">
+        При неудовлетворительном результате теста рекомендуется вернуться к урокам и повторно изучить темы,
+        по которым допущены ошибки.
       </p>
     </section>
 
-    <!-- Контент + боковая колонка -->
+    <!-- Основной макет: контент + боковая колонка (как было, но уже в общей теме) -->
     <section class="section course-layout">
 
       <!-- Основная колонка -->
@@ -472,7 +497,7 @@
           </div>
         </section>
 
-        <!-- Вопросы Минтруда -->
+        <!-- Контрольные вопросы Минтруда -->
         <h2>Контрольные вопросы Минтруда России</h2>
         <p>
           В качестве дополнительного инструмента закрепления знаний рекомендуется использовать
@@ -518,7 +543,7 @@
             <li><span class="badge badge-target">Категории</span> все работники организации</li>
           </ul>
           <p>
-            Требования основаны на актуальной редакции Приказа Минздрава № 477н и положениях Трудового кодекса РФ.
+            Требования основаны на актуальной редакции Приказа Минздрава России № 220н и положениях Трудового кодекса РФ.
           </p>
         </section>
 
