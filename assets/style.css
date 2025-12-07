@@ -3099,51 +3099,23 @@ a:focus {
 
 /* ========================
    ГО и ЧС — кнопка "Вернуться к курсу"
+   одна логика для всех экранов: position: sticky
    ======================== */
 
-/* ДЕСКТОП: кнопка всегда фиксирована под шапкой */
-@media (min-width: 1024px) {
-  .gochs-theme .back-nav {
-    position: fixed;
-    top: 5rem; /* под нижний край шапки, при необходимости можно подправить 4.8 / 5.2 */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 18;
+.gochs-theme .back-nav {
+  position: sticky;
+  /* отступ под шапкой: подобрано с запасом, чтобы точно не залезала под header */
+  top: 6.5rem;
+  z-index: 19;
 
-    /* убираем влияние потока */
-    margin: 0;
-    padding-top: 0.25rem;
-    padding-bottom: 0.4rem;
+  margin-bottom: 0.75rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.35rem;
 
-    background: linear-gradient(
-      to bottom,
-      rgba(249, 250, 251, 0.98),
-      rgba(249, 250, 251, 0.94),
-      rgba(249, 250, 251, 0)
-    );
-  }
-
-  /* Чтобы контент не прятался под фиксированной кнопкой */
-  .gochs-theme .site-main {
-    padding-top: 3.2rem;
-  }
+  background: linear-gradient(
+    to bottom,
+    rgba(249, 250, 251, 0.98),
+    rgba(249, 250, 251, 0.94),
+    rgba(249, 250, 251, 0)
+  );
 }
-
-/* ПЛАНШЕТ/МОБИЛЬНЫЕ: оставляем sticky, как сейчас, потому что там уже работает */
-@media (max-width: 1023.98px) {
-  .gochs-theme .back-nav {
-    position: sticky;
-    top: 4.4rem;
-    z-index: 18;
-    margin-bottom: 0.75rem;
-    padding-top: 0.25rem;
-    padding-bottom: 0.35rem;
-    background: linear-gradient(
-      to bottom,
-      rgba(249, 250, 251, 0.98),
-      rgba(249, 250, 251, 0.94),
-      rgba(249, 250, 251, 0)
-    );
-  }
-}
-
