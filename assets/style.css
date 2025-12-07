@@ -3140,3 +3140,71 @@ a:focus {
   color: #1f2937;
   border: 1px solid rgba(148, 163, 184, 0.7);
 }
+
+/* ========================
+   Первая помощь — зелёный → белый
+   ======================== */
+
+.first-aid-theme .back-link {
+  background: linear-gradient(135deg, #16a34a 0%, #22c55e 40%, #ecfdf5 100%);
+  border: none;
+  box-shadow: 0 8px 20px rgba(22, 163, 74, 0.28);
+  color: #0f172a;
+}
+
+.first-aid-theme .back-link .back-text {
+  font-weight: 600;
+}
+
+/* Маркер "Важно перед началом теста" в зелёной гамме */
+.first-aid-theme .attention-header {
+  background: linear-gradient(135deg, #ecfdf5 0%, #dcfce7 40%, #ffffff 100%);
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  color: #064e3b;
+}
+
+/* Иконки согласия (галочки) — зелёные */
+.first-aid-theme .pd-consent-icon {
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  color: #065f46;
+}
+
+/* Кнопка теста — зелёный градиент */
+.first-aid-theme .btn-primary.btn-test-link {
+  background-image: linear-gradient(135deg, #16a34a 0%, #22c55e 45%, #0ea5e9 100%);
+  border: none;
+  box-shadow: 0 10px 22px rgba(22, 163, 74, 0.35);
+}
+
+.first-aid-theme .btn-primary.btn-test-link:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+.first-aid-theme .btn-primary.btn-test-link:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px rgba(22, 163, 74, 0.3);
+}
+
+/* Оверлей над тестом — "медицинское стекло" в зелёных оттенках */
+.first-aid-theme .test-overlay {
+  background: radial-gradient(circle at 0% 0%, rgba(220, 252, 231, 0.96), rgba(240, 253, 250, 0.96));
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.2);
+}
+
+/* Прилипающая кнопка "Назад" как в ГО/ЧС */
+.first-aid-theme .back-nav {
+  position: sticky;
+  top: 6.5rem;
+  z-index: 19;
+  margin-bottom: 0.75rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.35rem;
+  background: linear-gradient(
+    to bottom,
+    rgba(249, 250, 251, 0.98),
+    rgba(249, 250, 251, 0.94),
+    rgba(249, 250, 251, 0)
+  );
+}
