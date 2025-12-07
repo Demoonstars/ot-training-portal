@@ -3538,3 +3538,8 @@ a:focus {
 .gochs-theme #gochs-chem .fire-block-title::before {
   content: "☢️";  /* химия / радиация */
 }
+
+.first-aid-theme .module-timeline > li::before {
+  background: linear-gradient(135deg, #16a34a, #4ade80);
+  color: #ffffff;
+}
