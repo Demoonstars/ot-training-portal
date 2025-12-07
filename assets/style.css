@@ -3237,3 +3237,64 @@ a:focus {
   font-weight: 500;
   white-space: nowrap;
 }
+
+/* Тема ГО и ЧС: синий → оранжевый */
+.gochs-theme .section-card.fire-hero-card,
+.gochs-theme .section-card.fire-course-card,
+.gochs-theme .section-card.fire-test-block {
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 20%, #f97316 55%, #ffffff 100%);
+  border-color: rgba(37, 99, 235, 0.25);
+}
+
+/* Метка "Курс" и чипы */
+.gochs-theme .fire-hero-label,
+.gochs-theme .course-chip-1 {
+  background: linear-gradient(90deg, #1d4ed8, #f97316);
+  color: #ffffff;
+}
+
+/* Заголовки блоков в курсе ГО и ЧС */
+.gochs-theme .fire-hero-title,
+.gochs-theme .fire-course-title,
+.gochs-theme .fire-block-title {
+  color: #0f172a;
+}
+
+/* Теги под героем */
+.gochs-theme .fire-hero-tags .fire-tag {
+  border-radius: 999px;
+  padding: 0.2rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.gochs-theme .fire-tag-basic {
+  background: rgba(37, 99, 235, 0.1);
+  color: #1d4ed8;
+}
+
+.gochs-theme .fire-tag-workplace {
+  background: rgba(249, 115, 22, 0.12);
+  color: #ea580c;
+}
+
+.gochs-theme .fire-tag-law {
+  background: rgba(15, 23, 42, 0.08);
+  color: #0f172a;
+}
+
+/* Маркеры списков внутри курса ГО и ЧС */
+.gochs-theme .fire-module-list li::marker {
+  color: #1d4ed8;
+}
+
+/* Кнопки в тестовом блоке ГО и ЧС слегка подтягиваем под тему */
+.gochs-theme .fire-test-block .btn-primary {
+  background: linear-gradient(90deg, #1d4ed8, #f97316);
+  border-color: transparent;
+}
+
+.gochs-theme .fire-test-block .btn-secondary {
+  border-color: rgba(37, 99, 235, 0.5);
+  color: #1d4ed8;
+}
