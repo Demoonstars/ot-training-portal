@@ -3238,29 +3238,23 @@ a:focus {
   white-space: nowrap;
 }
 
-/* Тема ГО и ЧС: синий → оранжевый */
-.gochs-theme .section-card.fire-hero-card,
-.gochs-theme .section-card.fire-course-card,
-.gochs-theme .section-card.fire-test-block {
-  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 20%, #f97316 55%, #ffffff 100%);
+/* ===== ТЕМА ГО И ЧС (обновлённая, более читаемая) ===== */
+
+/* Герой-карточка курса ГО и ЧС */
+.gochs-theme .section-card.fire-hero-card {
+  background: linear-gradient(135deg, #e0f2fe 0%, #bfdbfe 20%, #f97316 55%, #ffffff 100%);
   border-color: rgba(37, 99, 235, 0.25);
 }
 
-/* Метка "Курс" и чипы */
-.gochs-theme .fire-hero-label,
-.gochs-theme .course-chip-1 {
+.gochs-theme .fire-hero-label {
   background: linear-gradient(90deg, #1d4ed8, #f97316);
   color: #ffffff;
 }
 
-/* Заголовки блоков в курсе ГО и ЧС */
-.gochs-theme .fire-hero-title,
-.gochs-theme .fire-course-title,
-.gochs-theme .fire-block-title {
+.gochs-theme .fire-hero-title {
   color: #0f172a;
 }
 
-/* Теги под героем */
 .gochs-theme .fire-hero-tags .fire-tag {
   border-radius: 999px;
   padding: 0.2rem 0.85rem;
@@ -3283,18 +3277,72 @@ a:focus {
   color: #0f172a;
 }
 
-/* Маркеры списков внутри курса ГО и ЧС */
-.gochs-theme .fire-module-list li::marker {
-  color: #1d4ed8;
+/* Блок быстрого перехода к тесту по ГО и ЧС */
+.gochs-theme .section-card.fire-test-block {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 35%, #fee2e2 80%, #ffffff 100%);
+  border-color: rgba(37, 99, 235, 0.2);
 }
 
-/* Кнопки в тестовом блоке ГО и ЧС слегка подтягиваем под тему */
 .gochs-theme .fire-test-block .btn-primary {
   background: linear-gradient(90deg, #1d4ed8, #f97316);
   border-color: transparent;
 }
 
-.gochs-theme .fire-test-block .btn-secondary {
+/* ОСНОВНОЙ КОНТЕНТ КУРСА: белый фон + цветная шапка */
+.gochs-theme .section-card.fire-course-card {
+  background: #ffffff;
+  border-color: rgba(37, 99, 235, 0.2);
+}
+
+/* Цветные чипы и шапка внутри курса */
+.gochs-theme .course-chip.course-chip-1 {
+  background: #1d4ed8;
+  color: #ffffff;
+}
+
+/* Шапка "Структура и содержание курса" */
+.gochs-theme .fire-course-header {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin: -1.5rem -1.5rem 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 1rem;
+  background: linear-gradient(90deg, #1d4ed8, #2563eb, #f97316);
+  color: #ffffff;
+}
+
+.gochs-theme .fire-course-header .fire-course-title {
+  color: #ffffff;
+}
+
+.gochs-theme .fire-course-header .fire-course-subtitle {
+  color: rgba(241, 245, 249, 0.9);
+}
+
+/* Внутренние блоки (1, 2, 3...) — чистый текст на белом */
+.gochs-theme .fire-block {
+  background: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+.gochs-theme .fire-block-title {
+  color: #0f172a;
+}
+
+/* Маркеры списков в ГО и ЧС — синие, но текст тёмный */
+.gochs-theme .fire-module-list li::marker {
+  color: #1d4ed8;
+}
+
+/* Кнопки в нижнем блоке теста (внутри курса) */
+.gochs-theme #gochs-test .btn-primary {
+  background: linear-gradient(90deg, #1d4ed8, #f97316);
+  border-color: transparent;
+}
+
+.gochs-theme #gochs-test .btn-secondary {
   border-color: rgba(37, 99, 235, 0.5);
   color: #1d4ed8;
 }
