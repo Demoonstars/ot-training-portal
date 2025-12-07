@@ -3398,3 +3398,143 @@ a:focus {
   list-style: disc;
   padding-left: 1.5rem;
 }
+
+/* ===== ГО и ЧС: всплывающая навигация по урокам ===== */
+
+.gochs-theme .gochs-floating-nav {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 60;
+  font-size: 0.9rem;
+}
+
+/* Кнопка-«гамбургер» для мобильных */
+.gochs-theme .gochs-nav-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #1d4ed8, #f97316);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+}
+
+.gochs-theme .gochs-nav-toggle-icon {
+  font-size: 1.1rem;
+}
+
+/* Панель с ссылками */
+.gochs-theme .gochs-nav-panel {
+  margin-top: 0.5rem;
+  padding: 0.9rem 1rem;
+  border-radius: 1rem;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25);
+  max-width: 260px;
+
+  display: none;  /* по умолчанию скрыта на мобильных */
+}
+
+.gochs-theme .gochs-floating-nav--open .gochs-nav-panel {
+  display: block;
+}
+
+.gochs-theme .gochs-nav-title {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #111827;
+}
+
+.gochs-theme .gochs-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.gochs-theme .gochs-nav-list li + li {
+  margin-top: 0.25rem;
+}
+
+.gochs-theme .gochs-nav-list a {
+  text-decoration: none;
+  color: #1d4ed8;
+}
+
+.gochs-theme .gochs-nav-list a:hover {
+  text-decoration: underline;
+}
+
+/* На широких экранах – панель всегда открыта, кнопку можно спрятать текст или убрать */
+@media (min-width: 1024px) {
+  .gochs-theme .gochs-floating-nav {
+    top: 7rem;
+    right: 2rem;
+    bottom: auto;
+  }
+
+  .gochs-theme .gochs-nav-panel {
+    display: block;
+  }
+
+  .gochs-theme .gochs-nav-toggle-text {
+    display: none;
+  }
+}
+
+/* ===== ГО и ЧС: иконки в заголовках блоков ===== */
+
+.gochs-theme .fire-block-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Базовый стиль иконки */
+.gochs-theme .fire-block-title::before {
+  font-size: 1.25rem;
+}
+
+/* Конкретные иконки по разделам */
+.gochs-theme #gochs-rights .fire-block-title::before {
+  content: "📜";   /* права и обязанности */
+}
+
+.gochs-theme #gochs-types .fire-block-title::before {
+  content: "🌪️";  /* виды ЧС */
+}
+
+.gochs-theme #gochs-risks .fire-block-title::before {
+  content: "⚠️";  /* опасности на производстве */
+}
+
+.gochs-theme #gochs-protection .fire-block-title::before {
+  content: "🛡️";  /* способы защиты */
+}
+
+.gochs-theme #gochs-signals .fire-block-title::before {
+  content: "🚨";  /* сирена, сигналы ГО */
+}
+
+.gochs-theme #gochs-ppe .fire-block-title::before {
+  content: "🎒";  /* СИЗ / самоспасатели */
+}
+
+.gochs-theme #gochs-evacuation .fire-block-title::before {
+  content: "🚶‍♂️";  /* эвакуация */
+}
+
+.gochs-theme #gochs-shelters .fire-block-title::before {
+  content: "🏢";  /* защитные сооружения */
+}
+
+.gochs-theme #gochs-chem .fire-block-title::before {
+  content: "☢️";  /* химия / радиация */
+}
