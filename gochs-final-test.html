@@ -9,7 +9,8 @@
   <link rel="stylesheet" href="assets/style.css">
 </head>
 
-<body>
+<!-- Тема ГО и ЧС: синий → оранжевый -->
+<body class="gochs-theme">
   <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
 
   <header class="site-header">
@@ -187,9 +188,9 @@
         <h2>Прохождение итогового теста</h2>
         <p>
           Ниже размещён встроенный виджет сервиса OnlineTestPad. После подтверждения согласия на обработку
-          персональных данных вы сможете ответить на вопросы и отправить результаты для последующей обработки
-          ответственными лицами работодателя. Основным источником данных для зачёта является информация,
-          зафиксированная в системе OnlineTestPad.
+          персональных данных и нажатия на кнопку «Перейти к прохождению теста» вы сможете ответить на вопросы
+          и отправить результаты для последующей обработки ответственными лицами работодателя. Основным источником
+          данных для зачёта является информация, зафиксированная в системе OnlineTestPad.
         </p>
 
         <section class="test-wrapper-with-consent" aria-label="Итоговый тест по ГО и ЧС">
@@ -201,8 +202,8 @@
             <div class="test-overlay-content">
               <p><strong>Доступ к тесту временно заблокирован.</strong></p>
               <p>
-                Для начала тестирования подтвердите согласие на обработку персональных данных выше.
-                После установки отметки доступ к вопросам теста будет открыт.
+                Для начала тестирования подтвердите согласие на обработку персональных данных выше
+                и нажмите кнопку «Перейти к прохождению теста».
               </p>
             </div>
           </div>
@@ -249,7 +250,7 @@
     })(this, this.document, "otp_widget_callbacks");
   </script>
 
-  <!-- Скрипт управления согласием и доступом к тесту (без открытия новой вкладки) -->
+  <!-- Скрипт управления согласием и доступом к тесту (оверлей снимается по кнопке) -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const consentCheckbox = document.getElementById('pd-consent');
@@ -264,11 +265,9 @@
       let hasScrolledToWidget = false;
 
       function scrollToWidget() {
-        if (hasScrolledToWidget || !widgetContainer.scrollIntoView) {
-          return;
-        }
-        hasScrolledToWidget = true;
+        if (!widgetContainer.scrollIntoView) return;
         widgetContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        hasScrolledToWidget = true;
       }
 
       function updateConsentState() {
@@ -277,8 +276,7 @@
         if (allowed) {
           startButton.disabled = false;
           startButton.classList.remove('btn-disabled');
-          overlay.classList.add('test-overlay-hidden');
-          scrollToWidget();
+          // Оверлей снимаем не сразу, а по кнопке — чтобы пользователь видел эффект
         } else {
           startButton.disabled = true;
           if (!startButton.classList.contains('btn-disabled')) {
@@ -295,7 +293,10 @@
         if (startButton.disabled) {
           return;
         }
-        scrollToWidget();
+        overlay.classList.add('test-overlay-hidden');
+        if (!hasScrolledToWidget) {
+          scrollToWidget();
+        }
       });
 
       // Инициализация начального состояния
