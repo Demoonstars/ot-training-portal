@@ -75,7 +75,7 @@
       </div>
     </section>
 
-    <!-- Быстрый переход к итоговому тесту (эталонный блок, как в ГО и ЧС) -->
+    <!-- Быстрый переход к итоговому тесту (как в ГО и ЧС) -->
     <section class="section section-card fire-test-block">
       <h2 class="fire-block-title">Уже проходили этот курс и уверены в своих знаниях?</h2>
       <p>
@@ -93,19 +93,35 @@
       </p>
     </section>
 
-    <!-- Основной макет: контент + боковая колонка (как было, но уже в общей теме) -->
-    <section class="section course-layout">
+    <!-- Сведения о курсе (перенос из боковой колонки в основной поток) -->
+    <section class="section section-card course-info-card-inline">
+      <h2 class="fire-block-title">Сведения о курсе</h2>
+      <ul class="course-info-list">
+        <li><span class="badge badge-type">Направление</span> Первая помощь</li>
+        <li><span class="badge badge-form">Форма</span> видеоматериалы, контрольные вопросы, итоговое тестирование</li>
+        <li><span class="badge badge-target">Категории</span> все работники организации</li>
+      </ul>
+      <p>
+        Требования основаны на актуальной редакции Приказа Минздрава России № 220н и положениях Трудового кодекса РФ.
+      </p>
+    </section>
 
-      <!-- Основная колонка -->
-      <article class="section-card course-main">
+    <!-- Основной контент курса (одна колонка, как в ГО и ЧС) -->
+    <article class="section section-card fire-course-card" id="first-aid-course">
 
-        <h2>Структура курса</h2>
-        <p>
-          Программа курса соответствует перечню обязательных знаний по оказанию первой помощи, включённых
-          в нормативные правовые акты РФ. Содержание может корректироваться с учётом специфики организации.
-        </p>
+      <header class="fire-course-header">
+        <div class="course-chip course-chip-1">Первая помощь</div>
+        <div>
+          <h2 class="fire-course-title">Структура курса</h2>
+          <p class="fire-course-subtitle">
+            Программа курса соответствует перечню обязательных знаний по оказанию первой помощи, включённых
+            в нормативные правовые акты РФ. Содержание может корректироваться с учётом специфики организации.
+          </p>
+        </div>
+      </header>
 
-        <!-- Таймлайн модулей -->
+      <!-- Таймлайн модулей -->
+      <section class="fire-block">
         <ol class="module-list module-timeline">
           <li>
             <strong>Правовые основы оказания первой помощи.</strong>
@@ -140,382 +156,382 @@
             Обзор ключевых алгоритмов и проверочные вопросы перед итоговым тестом.
           </li>
         </ol>
+      </section>
 
-        <!-- Видеоматериалы курса -->
-        <h2>Видеоматериалы курса</h2>
+      <!-- Видеоматериалы курса -->
+      <section class="fire-block">
+        <h2 class="fire-block-title">Видеоматериалы курса</h2>
         <p>
           Ниже представлены видеолекции по основным темам курса. Рекомендуется просматривать ролики
           в указанной последовательности. После изучения видеоматериалов работник переходит к знакомству
           с контрольными вопросами Минтруда России и итоговому тестированию.
         </p>
+      </section>
 
-        <!-- Блок 1: Правовые основы и общий алгоритм -->
-        <section class="video-section">
-          <h3>1. Правовые основы и общий алгоритм действий</h3>
-          <div class="video-grid">
+      <!-- Блок 1: Правовые основы и общий алгоритм -->
+      <section class="video-section">
+        <h3>1. Правовые основы и общий алгоритм действий</h3>
+        <div class="video-grid">
 
-            <article class="video-card video-card-med">
-              <h4>Почему сотрудники вправе оказывать первую помощь и их за это не накажут</h4>
-              <p class="video-desc">
-                Правовые основания оказания первой помощи, ответственность работодателя и работника,
-                разъяснение, почему при соблюдении алгоритмов работник действует законно.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/6xBxgurJcjPdYfyF1DzHng"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Почему сотрудники вправе оказывать первую помощь и их за это не накажут</h4>
+            <p class="video-desc">
+              Правовые основания оказания первой помощи, ответственность работодателя и работника,
+              разъяснение, почему при соблюдении алгоритмов работник действует законно.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/6xBxgurJcjPdYfyF1DzHng"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-            <article class="video-card video-card-med">
-              <h4>Алгоритм оказания первой помощи</h4>
-              <p class="video-desc">
-                Общий порядок действий при любой неотложной ситуации: оценка обстановки, обеспечение собственной
-                безопасности, последовательность оказания помощи пострадавшему.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/vmGbdzuLu6Q7htCrfxBjHc"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Алгоритм оказания первой помощи</h4>
+            <p class="video-desc">
+              Общий порядок действий при любой неотложной ситуации: оценка обстановки, обеспечение собственной
+              безопасности, последовательность оказания помощи пострадавшему.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/vmGbdzuLu6Q7htCrfxBjHc"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-            <article class="video-card video-card-med">
-              <h4>Вызов экстренных служб</h4>
-              <p class="video-desc">
-                Когда и как правильно вызывать скорую помощь и другие службы, какие сведения необходимо сообщить
-                диспетчеру, как организовать встречу бригады.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/idVv4ob1rrTc543LJhonYK"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Вызов экстренных служб</h4>
+            <p class="video-desc">
+              Когда и как правильно вызывать скорую помощь и другие службы, какие сведения необходимо сообщить
+              диспетчеру, как организовать встречу бригады.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/idVv4ob1rrTc543LJhonYK"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-          </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- Блок 2: Дыхание, пульс, судороги, удушье -->
-        <section class="video-section">
-          <h3>2. Нарушение сознания, дыхания и судорожные состояния</h3>
-          <div class="video-grid">
+      <!-- Блок 2: Дыхание, пульс, судороги, удушье -->
+      <section class="video-section">
+        <h3>2. Нарушение сознания, дыхания и судорожные состояния</h3>
+        <div class="video-grid">
 
-            <article class="video-card video-card-med">
-              <h4>Как оказать помощь при остановке дыхания и пульса</h4>
-              <p class="video-desc">
-                Проверка дыхания и пульса, базовые шаги сердечно-лёгочной реанимации до прибытия медработников.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/corgtYkP8DpgBMqR713TCn"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Как оказать помощь при остановке дыхания и пульса</h4>
+            <p class="video-desc">
+              Проверка дыхания и пульса, базовые шаги сердечно-лёгочной реанимации до прибытия медработников.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/corgtYkP8DpgBMqR713TCn"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-            <article class="video-card video-card-med">
-              <h4>Как оказать первую помощь при судорожном приступе</h4>
-              <p class="video-desc">
-                Алгоритм действий при судорожных приступах, чего нельзя делать, как предотвратить травмы пострадавшего.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/mazG4fg1f9xcv5zfoEVod6"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Как оказать первую помощь при судорожном приступе</h4>
+            <p class="video-desc">
+              Алгоритм действий при судорожных приступах, чего нельзя делать, как предотвратить травмы пострадавшего.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/mazG4fg1f9xcv5zfoEVod6"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-            <article class="video-card video-card-med">
-              <h4>Первая помощь при попадании инородного тела в дыхательные пути</h4>
-              <p class="video-desc">
-                Приёмы устранения удушья у взрослых и детей, особенности выполнения приёмов Геймлиха.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/sUrkZyFhjZdvP3wqyGRYkm"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Первая помощь при попадании инородного тела в дыхательные пути</h4>
+            <p class="video-desc">
+              Приёмы устранения удушья у взрослых и детей, особенности выполнения приёмов Геймлиха.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/sUrkZyFhjZdvP3wqyGRYkm"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-            <article class="video-card video-card-med">
-              <h4>Мифы при оказании первой помощи: как не навредить пострадавшему</h4>
-              <p class="video-desc">
-                Разбор распространённых ошибочных действий и опасных мифов, которые могут ухудшить состояние пострадавшего.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/7YvdPc8k7H5t1LkwDBe9Cd"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Мифы при оказании первой помощи: как не навредить пострадавшему</h4>
+            <p class="video-desc">
+              Разбор распространённых ошибочных действий и опасных мифов, которые могут ухудшить состояние пострадавшего.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/7YvdPc8k7H5t1LkwDBe9Cd"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-          </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- Блок 3: Кровотечения и ранения -->
-        <section class="video-section">
-          <h3>3. Кровотечения и ранения</h3>
-          <div class="video-grid">
+      <!-- Блок 3: Кровотечения и ранения -->
+      <section class="video-section">
+        <h3>3. Кровотечения и ранения</h3>
+        <div class="video-grid">
 
-            <article class="video-card video-card-med">
-              <h4>Что важно помнить, когда останавливаете кровотечение</h4>
-              <p class="video-desc">
-                Общие принципы остановки кровотечения, выбор метода, оценка состояния пострадавшего.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/dtdaCGweZhFCL29psZ8a28"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Что важно помнить, когда останавливаете кровотечение</h4>
+            <p class="video-desc">
+              Общие принципы остановки кровотечения, выбор метода, оценка состояния пострадавшего.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/dtdaCGweZhFCL29psZ8a28"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-            <article class="video-card video-card-med">
-              <h4>Что поможет спасти пострадавшего при артериальном кровотечении</h4>
-              <p class="video-desc">
-                Особенности артериального кровотечения, признаки, экстренные меры по его остановке.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/pfvPhpf5cjKjAu87nFT334"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Что поможет спасти пострадавшего при артериальном кровотечении</h4>
+            <p class="video-desc">
+              Особенности артериального кровотечения, признаки, экстренные меры по его остановке.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/pfvPhpf5cjKjAu87nFT334"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-            <article class="video-card video-card-med">
-              <h4>Как остановить кровотечение</h4>
-              <p class="video-desc">
-                Демонстрация способов остановки кровотечения: прямое давление, повязки, жгут, импровизированные средства.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/6S8RRAJ2LzuZ61TzuaGbVv"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Как остановить кровотечение</h4>
+            <p class="video-desc">
+              Демонстрация способов остановки кровотечения: прямое давление, повязки, жгут, импровизированные средства.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/6S8RRAJ2LzuZ61TzuaGbVv"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-            <article class="video-card video-card-med">
-              <h4>Первая помощь при внутреннем кровотечении</h4>
-              <p class="video-desc">
-                Признаки внутреннего кровотечения, позиционирование пострадавшего, необходимость срочной госпитализации.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/mgMK6fEQaNeVNMB5RTk9t6"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Первая помощь при внутреннем кровотечении</h4>
+            <p class="video-desc">
+              Признаки внутреннего кровотечения, позиционирование пострадавшего, необходимость срочной госпитализации.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/mgMK6fEQaNeVNMB5RTk9t6"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-            <article class="video-card video-card-med">
-              <h4>Как действовать, если в ране инородное тело</h4>
-              <p class="video-desc">
-                Почему нельзя самостоятельно извлекать инородные предметы из раны и как правильно их фиксировать.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/e7nnFWWp41d1TArQanD1YX"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Как действовать, если в ране инородное тело</h4>
+            <p class="video-desc">
+              Почему нельзя самостоятельно извлекать инородные предметы из раны и как правильно их фиксировать.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/e7nnFWWp41d1TArQanD1YX"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-            <article class="video-card video-card-med">
-              <h4>Как оказать помощь при ампутации конечностей</h4>
-              <p class="video-desc">
-                Действия при частичной или полной ампутации, сохранение ампутированной части, подготовка к транспортировке.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/ouiTPWw7RZNuH8SqzSLzDW"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Как оказать помощь при ампутации конечностей</h4>
+            <p class="video-desc">
+              Действия при частичной или полной ампутации, сохранение ампутированной части, подготовка к транспортировке.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/ouiTPWw7RZNuH8SqzSLzDW"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-          </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- Блок 4: Травмы -->
-        <section class="video-section">
-          <h3>4. Травмы, переломы, повреждения позвоночника и таза</h3>
-          <div class="video-grid">
+      <!-- Блок 4: Травмы -->
+      <section class="video-section">
+        <h3>4. Травмы, переломы, повреждения позвоночника и таза</h3>
+        <div class="video-grid">
 
-            <article class="video-card video-card-med">
-              <h4>Первая помощь при травмах и переломах</h4>
-              <p class="video-desc">
-                Основные признаки переломов и травм, правила иммобилизации и фиксации повреждённых конечностей.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/3JjUyx8WCZxjVJXHpxSkzw"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Первая помощь при травмах и переломах</h4>
+            <p class="video-desc">
+              Основные признаки переломов и травм, правила иммобилизации и фиксации повреждённых конечностей.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/3JjUyx8WCZxjVJXHpxSkzw"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-            <article class="video-card video-card-med">
-              <h4>Как оказать помощь при травме позвоночника</h4>
-              <p class="video-desc">
-                Особенности повреждений позвоночника, почему критично исключить лишние движения пострадавшего.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/15j9mNX9Rw1Aprn2dp8weM"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Как оказать помощь при травме позвоночника</h4>
+            <p class="video-desc">
+              Особенности повреждений позвоночника, почему критично исключить лишние движения пострадавшего.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/15j9mNX9Rw1Aprn2dp8weM"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-            <article class="video-card video-card-med">
-              <h4>Как оказать помощь при травме таза</h4>
-              <p class="video-desc">
-                Признаки травмы таза, правильное положение пострадавшего, особенности вызова экстренной помощи.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/j63CYRrTPdPvaJkRjZKzQp"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Как оказать помощь при травме таза</h4>
+            <p class="video-desc">
+              Признаки травмы таза, правильное положение пострадавшего, особенности вызова экстренной помощи.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/j63CYRrTPdPvaJkRjZKzQp"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-          </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- Блок 5: Высокие и низкие температуры -->
-        <section class="video-section">
-          <h3>5. Перегрев, обморожение, переохлаждение, ожоги</h3>
-          <div class="video-grid">
+      <!-- Блок 5: Высокие и низкие температуры -->
+      <section class="video-section">
+        <h3>5. Перегрев, обморожение, переохлаждение, ожоги</h3>
+        <div class="video-grid">
 
-            <article class="video-card video-card-med">
-              <h4>Первая помощь при перегреве</h4>
-              <p class="video-desc">
-                Признаки перегрева и теплового удара, алгоритм охлаждения пострадавшего.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/wFYBNXHj12EuwGUTB3rXqV"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Первая помощь при перегреве</h4>
+            <p class="video-desc">
+              Признаки перегрева и теплового удара, алгоритм охлаждения пострадавшего.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/wFYBNXHj12EuwGUTB3rXqV"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-            <article class="video-card video-card-med">
-              <h4>Первая помощь при обморожении</h4>
-              <p class="video-desc">
-                Особенности обморожения, чего нельзя делать, постепенное согревание и защита повреждённых участков.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/mtpPwpRZC658tPJ49vAz6s"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Первая помощь при обморожении</h4>
+            <p class="video-desc">
+              Особенности обморожения, чего нельзя делать, постепенное согревание и защита повреждённых участков.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/mtpPwpRZC658tPJ49vAz6s"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-            <article class="video-card video-card-med">
-              <h4>Первая помощь при переохлаждении</h4>
-              <p class="video-desc">
-                Отличия переохлаждения от обморожения, оценка степени тяжести, алгоритм отапливания и наблюдения.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/ddtGWWdW95iUpr6kAQGkhh"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Первая помощь при переохлаждении</h4>
+            <p class="video-desc">
+              Отличия переохлаждения от обморожения, оценка степени тяжести, алгоритм отапливания и наблюдения.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/ddtGWWdW95iUpr6kAQGkhh"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-            <article class="video-card video-card-med">
-              <h4>Первая помощь при ожогах</h4>
-              <p class="video-desc">
-                Оценка площади и степени ожога, охлаждение, наложение повязок, недопустимые действия.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/vmaauqtFhVsYLjq98AMY7U"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Первая помощь при ожогах</h4>
+            <p class="video-desc">
+              Оценка площади и степени ожога, охлаждение, наложение повязок, недопустимые действия.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/vmaauqtFhVsYLjq98AMY7U"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-          </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- Блок 6: Отравления -->
-        <section class="video-section">
-          <h3>6. Отравления</h3>
-          <div class="video-grid">
+      <!-- Блок 6: Отравления -->
+      <section class="video-section">
+        <h3>6. Отравления</h3>
+        <div class="video-grid">
 
-            <article class="video-card video-card-med">
-              <h4>Отравления: виды и приёмы оказания первой помощи</h4>
-              <p class="video-desc">
-                Основные виды отравлений, общие принципы действий при подозрении на отравление, что можно и
-                чего нельзя делать до приезда медиков.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/eKLVmic9Xm94iiUkmtEtG7"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Отравления: виды и приёмы оказания первой помощи</h4>
+            <p class="video-desc">
+              Основные виды отравлений, общие принципы действий при подозрении на отравление, что можно и
+              чего нельзя делать до приезда медиков.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/eKLVmic9Xm94iiUkmtEtG7"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-          </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- Блок 7: Психологическая помощь -->
-        <section class="video-section">
-          <h3>7. Психологическая поддержка и острый стресс</h3>
-          <div class="video-grid">
+      <!-- Блок 7: Психологическая помощь -->
+      <section class="video-section">
+        <h3>7. Психологическая поддержка и острый стресс</h3>
+        <div class="video-grid">
 
-            <article class="video-card video-card-med">
-              <h4>Как оказать психологическую поддержку</h4>
-              <p class="video-desc">
-                Общие принципы общения с пострадавшим, как снизить тревогу и помочь дождаться профессиональной помощи.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/rDp1LTa3XdsiycwsFwSgyY"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Как оказать психологическую поддержку</h4>
+            <p class="video-desc">
+              Общие принципы общения с пострадавшим, как снизить тревогу и помочь дождаться профессиональной помощи.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/rDp1LTa3XdsiycwsFwSgyY"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-            <article class="video-card video-card-med">
-              <h4>Как оказать первую помощь при острой психологической реакции на стресс</h4>
-              <p class="video-desc">
-                Как помочь человеку с выраженной паникой, ступором или агрессией до прибытия специалистов.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/cmbyeyhjYiM8XYScVaztcd"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Как оказать первую помощь при острой психологической реакции на стресс</h4>
+            <p class="video-desc">
+              Как помочь человеку с выраженной паникой, ступором или агрессией до прибытия специалистов.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/cmbyeyhjYiM8XYScVaztcd"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-            <article class="video-card video-card-med">
-              <h4>Как помочь пострадавшему в состоянии шока</h4>
-              <p class="video-desc">
-                Признаки шока, правильное положение тела, поддержка пострадавшего до приезда скорой помощи.
-              </p>
-              <div class="video-embed">
-                <iframe src="https://kinescope.io/embed/gdPt3qoUpZhtN56p3Pz6MN"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-              </div>
-            </article>
+          <article class="video-card video-card-med">
+            <h4>Как помочь пострадавшему в состоянии шока</h4>
+            <p class="video-desc">
+              Признаки шока, правильное положение тела, поддержка пострадавшего до приезда скорой помощи.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/gdPt3qoUpZhtN56p3Pz6MN"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
 
-          </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- Контрольные вопросы Минтруда -->
-        <h2>Контрольные вопросы Минтруда России</h2>
+      <!-- Контрольные вопросы Минтруда -->
+      <section class="fire-block">
+        <h2 class="fire-block-title">Контрольные вопросы Минтруда России</h2>
         <p>
           В качестве дополнительного инструмента закрепления знаний рекомендуется использовать
           <strong>контрольные вопросы Минтруда России по оказанию первой помощи</strong>. Они отражают
           базовые требования к знаниям работников.
         </p>
-        <p>
-          Вопросы могут использоваться:
-        </p>
+        <p>Вопросы могут использоваться:</p>
         <ul class="checklist">
           <li>для самостоятельной подготовки работников перед итоговым тестом;</li>
           <li>для очного опроса и обсуждения на инструктажах и тренировках;</li>
           <li>как основа для разработки локальных проверочных материалов работодателя.</li>
         </ul>
 
-        <p>
-          Файл с вопросами доступен для скачивания в формате PDF:
-        </p>
+        <p>Файл с вопросами доступен для скачивания в формате PDF:</p>
         <p>
           <a href="assets/Voprosi_Mintruda_PP.pdf"
              class="btn btn-primary"
@@ -529,47 +545,34 @@
           Конкретный порядок использования данных вопросов (самоподготовка, опрос, включение в программы обучения)
           определяется работодателем в локальных нормативных актах.
         </p>
+      </section>
 
-      </article>
+      <!-- Итоговый тест (по эталону ГО и ЧС) -->
+      <section class="fire-block fire-test-block" id="first-aid-test">
+        <h3 class="fire-block-title">Итоговый тест по первой помощи</h3>
+        <p>
+          После изучения видеоматериалов и контрольных вопросов работник проходит итоговое тестирование.
+          Результаты используются для оформления документов о прохождении обучения и проверки знаний.
+        </p>
 
-      <!-- Боковая колонка -->
-      <aside class="course-sidebar">
+        <p class="note">
+          При прохождении теста работник должен корректно указать ФИО, подразделение, должность и организацию.
+        </p>
 
-        <section class="section-card course-info-card">
-          <h2>Сведения о курсе</h2>
-          <ul class="course-info-list">
-            <li><span class="badge badge-type">Направление</span> Первая помощь</li>
-            <li><span class="badge badge-form">Форма</span> видеоматериалы, контрольные вопросы, итоговое тестирование</li>
-            <li><span class="badge badge-target">Категории</span> все работники организации</li>
-          </ul>
-          <p>
-            Требования основаны на актуальной редакции Приказа Минздрава России № 220н и положениях Трудового кодекса РФ.
-          </p>
-        </section>
+        <div class="test-actions">
+          <a href="first-aid-test.html" class="btn btn-primary btn-test-link">
+            Перейти к итоговому тесту по первой помощи
+          </a>
+        </div>
 
-        <section class="section-card course-test-card">
-          <h2>Итоговый тест по курсу</h2>
-          <p>
-            После изучения видеоматериалов и контрольных вопросов работник проходит итоговое тестирование.
-            Результаты используются для оформления документов о прохождении обучения и проверки знаний.
-          </p>
+        <p class="test-hint">
+          Перед переходом к тесту рекомендуется просмотреть все видеоматериалы и ознакомиться с вопросами Минтруда.
+        </p>
+      </section>
 
-          <p class="note">
-            При прохождении теста работник должен корректно указать ФИО, подразделение, должность и организацию.
-          </p>
+    </article>
 
-          <div class="test-actions">
-            <a href="first-aid-test.html" class="btn btn-primary btn-test-link">
-              Сдать итоговый тест по первой помощи
-            </a>
-            <p class="test-hint">
-              Перед переходом к тесту рекомендуется просмотреть все видеоматериалы и ознакомиться с вопросами Минтруда.
-            </p>
-          </div>
-        </section>
-      </aside>
-    </section>
-
+    <!-- Использование результатов обучения -->
     <section class="section section-card">
       <h2>Использование результатов обучения</h2>
       <p>
