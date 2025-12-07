@@ -3220,3 +3220,20 @@ a:focus {
   box-shadow: 0 16px 40px rgba(15, 23, 42, 0.25);
   border-radius: 16px;
 }
+
+.test-summary-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.test-summary-badges .test-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px; /* Квадратные с лёгким скруглением, НЕ круглые */
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
