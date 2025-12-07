@@ -117,6 +117,30 @@
 
     <!-- Основной контент курса -->
     <article class="section section-card fire-course-card" id="gochs-course">
+
+      <!-- Всплывающее нав-меню по разделам курса ГО и ЧС -->
+      <nav class="gochs-floating-nav" aria-label="Навигация по разделам курса ГО и ЧС">
+        <button class="gochs-nav-toggle" type="button">
+          <span class="gochs-nav-toggle-icon">☰</span>
+          <span class="gochs-nav-toggle-text">Разделы курса</span>
+        </button>
+        <div class="gochs-nav-panel">
+          <p class="gochs-nav-title">Разделы курса</p>
+          <ul class="gochs-nav-list">
+            <li><a href="#gochs-rights">1. Права и обязанности граждан</a></li>
+            <li><a href="#gochs-types">2. ЧС природного и техногенного характера</a></li>
+            <li><a href="#gochs-risks">3. Опасности и действия работников</a></li>
+            <li><a href="#gochs-protection">4. Способы защиты работников</a></li>
+            <li><a href="#gochs-signals">5. Сигналы ГО и оповещение</a></li>
+            <li><a href="#gochs-ppe">6. СИЗ: выдача и проверка</a></li>
+            <li><a href="#gochs-evacuation">7. Эвакуация работников</a></li>
+            <li><a href="#gochs-shelters">8. Защитные сооружения ГО</a></li>
+            <li><a href="#gochs-chem">9. Химические и радиационные аварии</a></li>
+            <li><a href="#gochs-test">Итоговый тест по ГО и ЧС</a></li>
+          </ul>
+        </div>
+      </nav>
+
       <header class="fire-course-header">
         <div class="course-chip course-chip-1">ГО и ЧС</div>
         <div>
@@ -417,29 +441,28 @@
         </ul>
       </section>
 
-      <!-- Итоговый тест -->
+      <!-- Итоговый тест и повторное пособие -->
       <section class="fire-block fire-test-block" id="gochs-test">
         <h3 class="fire-block-title">Итоговый тест по ГО и ЧС</h3>
         <p>
           Перед прохождением теста рекомендуется ещё раз при необходимости просмотреть учебное пособие.
-          Открыть его можно по ссылке ниже.
+          Открыть его можно по карточке ниже.
         </p>
 
-        <div class="test-actions">
-          <a href="gochs-materials.html" class="material-download-card">
-        <span class="material-icon-wrap">
-          <span class="material-icon">📗</span>
-        </span>
+        <!-- Та же карточка учебного пособия, что и наверху -->
+        <a href="gochs-materials.html" class="material-download-card">
+          <span class="material-icon-wrap">
+            <span class="material-icon">📗</span>
+          </span>
 
-        <span class="material-text">
-          <span class="material-label">Учебное пособие</span>
-          <span class="material-title">«Вводный инструктаж по ГО и ЧС»</span>
-          <span class="material-meta">Полная версия • PDF</span>
-        </span>
+          <span class="material-text">
+            <span class="material-label">Учебное пособие</span>
+            <span class="material-title">«Вводный инструктаж по ГО и ЧС»</span>
+            <span class="material-meta">Полная версия • PDF</span>
+          </span>
 
-        <span class="material-badge">Открыть онлайн</span>
-      </a>
-        </div>
+          <span class="material-badge">Открыть онлайн</span>
+        </a>
 
         <p>
           После изучения всех уроков и материалов пройдите итоговый тест. Результаты используются ответственными
@@ -473,6 +496,20 @@
     </p>
   </div>
 </footer>
+
+<!-- Скрипт управления всплывающим меню навигации по курсу ГО и ЧС -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const nav = document.querySelector('.gochs-floating-nav');
+    const toggle = document.querySelector('.gochs-nav-toggle');
+
+    if (!nav || !toggle) return;
+
+    toggle.addEventListener('click', function () {
+      nav.classList.toggle('gochs-floating-nav--open');
+    });
+  });
+</script>
 
 </body>
 </html>
