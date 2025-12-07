@@ -3346,3 +3346,33 @@ a:focus {
   border-color: rgba(37, 99, 235, 0.5);
   color: #1d4ed8;
 }
+
+/* Единый стиль кнопки "Открыть пособие" в блоке итогового теста ГО и ЧС */
+.gochs-theme #gochs-test .btn-secondary {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 2px solid transparent;
+
+  /* Белый фон + мягкая подсветка синего и оранжевого */
+  background: linear-gradient(#ffffff, #ffffff) padding-box,
+              linear-gradient(90deg, rgba(29,78,216,0.35), rgba(249,115,22,0.4)) border-box;
+
+  color: #1d4ed8;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.gochs-theme #gochs-test .btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+.gochs-theme #gochs-test .btn-secondary:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
