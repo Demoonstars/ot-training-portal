@@ -3543,3 +3543,170 @@ a:focus {
   background: linear-gradient(135deg, #16a34a, #4ade80);
   color: #ffffff;
 }
+
+/* =========================================================
+   OT THEME (ОХРАНА ТРУДА) — зелёный → белый
+   Вставить в конец assets/style.css
+   ========================================================= */
+
+/* 1) Тема страницы (body class="ot-theme") */
+.ot-theme {
+  /* Основные цвета темы */
+  --accent-from: #22c55e;   /* зелёный */
+  --accent-to: #ffffff;     /* белый */
+  --accent-deep: #166534;   /* тёмно-зелёный для заголовков/иконок */
+  --accent-soft: #eafff3;   /* мягкий фон карточек */
+  --accent-border: rgba(34, 197, 94, 0.22);
+  --accent-shadow: rgba(34, 197, 94, 0.12);
+
+  /* Текст */
+  --text-strong: #0f172a;
+  --text-normal: #1f2937;
+  --text-muted: #475569;
+
+  /* Фон страницы */
+  --page-bg: #f3f4f6;
+
+  /* Кнопки */
+  --btn-text: #ffffff;
+}
+
+/* 2) Фон страницы в теме ОТ */
+.ot-theme body,
+body.ot-theme {
+  background: var(--page-bg);
+}
+
+/* 3) Универсальный “акцентный градиент” (карточки/герой) */
+.ot-theme .section-card {
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+/* Мягкая зелёная подложка для хедера/героя (если используешь общий класс) */
+.ot-theme .page-header,
+.ot-theme .fire-hero-card,
+.ot-theme .course-hero-card {
+  background: linear-gradient(135deg, var(--accent-soft), var(--accent-to));
+  border: 1px solid var(--accent-border);
+  box-shadow: 0 14px 34px var(--accent-shadow);
+}
+
+/* 4) Заголовки/подзаголовки — чтобы на градиенте читалось */
+.ot-theme .page-title,
+.ot-theme .fire-hero-title,
+.ot-theme .course-title,
+.ot-theme h1,
+.ot-theme h2,
+.ot-theme h3 {
+  color: var(--text-strong);
+}
+
+.ot-theme .page-lead,
+.ot-theme .fire-hero-lead,
+.ot-theme p {
+  color: var(--text-normal);
+}
+
+.ot-theme .note,
+.ot-theme .test-hint {
+  color: var(--text-muted);
+}
+
+/* 5) Кнопки — зелёные, читаемые, “как в эталоне” */
+.ot-theme .btn-primary {
+  background: linear-gradient(90deg, var(--accent-from), #86efac);
+  color: var(--btn-text);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  box-shadow: 0 10px 22px rgba(34, 197, 94, 0.18);
+}
+
+.ot-theme .btn-primary:hover {
+  filter: brightness(0.98);
+  transform: translateY(-1px);
+}
+
+.ot-theme .btn-secondary {
+  background: #ffffff;
+  color: var(--accent-deep);
+  border: 1px solid var(--accent-border);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
+}
+
+.ot-theme .btn-secondary:hover {
+  background: linear-gradient(135deg, #ffffff, var(--accent-soft));
+}
+
+/* 6) Бейджи (НЕ круглые) — для “10 вопросов”, “Время”, “Зачёт/незачёт” и т.п. */
+.ot-theme .test-badge,
+.ot-theme .badge,
+.ot-theme .chip,
+.ot-theme .course-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;               /* не круг, а аккуратный скруглённый прямоугольник */
+  background: linear-gradient(135deg, #ffffff, var(--accent-soft));
+  border: 1px solid var(--accent-border);
+  color: var(--accent-deep);
+  font-weight: 600;
+  line-height: 1;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.05);
+}
+
+/* 7) Нумерация/маркерные списки — убираем “синие” ощущения, делаем мягче */
+.ot-theme .module-list,
+.ot-theme .checklist,
+.ot-theme .fire-module-list {
+  line-height: 1.75;                 /* сглаживаем интерлиньяж */
+}
+
+.ot-theme .module-list li,
+.ot-theme .checklist li,
+.ot-theme .fire-module-list li {
+  margin: 10px 0;                    /* чуть больше воздуха */
+}
+
+/* Если у тебя есть “цифры в кружках/иконках” через ::marker или псевдоэлементы */
+.ot-theme ol.module-list li::marker {
+  color: var(--accent-deep);
+  font-weight: 800;
+}
+
+/* 8) Карточки-переходы (для “Вводный инструктаж”, “Программа А”, “Программа Б”, “Применение СИЗ”) */
+.ot-theme .route-card,
+.ot-theme .material-download-card,
+.ot-theme .program-card {
+  background: linear-gradient(135deg, #ffffff, var(--accent-soft));
+  border: 1px solid var(--accent-border);
+  box-shadow: 0 14px 34px var(--accent-shadow);
+}
+
+.ot-theme .route-card:hover,
+.ot-theme .material-download-card:hover,
+.ot-theme .program-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 42px rgba(34, 197, 94, 0.14);
+}
+
+/* 9) Ненавязчивые “иконки” рядом с заголовками секций (если используешь span с классом .mini-ico) */
+.ot-theme .mini-ico {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent-soft), #ffffff);
+  border: 1px solid var(--accent-border);
+  color: var(--accent-deep);
+  margin-right: 10px;
+}
+
+/* 10) Блоки “важно/предупреждение” (если у тебя есть .attention-header как в эталоне) */
+.ot-theme .attention-header {
+  background: linear-gradient(90deg, rgba(34,197,94,0.16), rgba(255,255,255,0));
+  border-left: 4px solid var(--accent-from);
+  color: var(--text-strong);
+}
