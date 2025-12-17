@@ -5,7 +5,7 @@
   <title>Учебный портал по охране труда и безопасности</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description"
-        content="Дистанционный учебный портал по охране труда, пожарной безопасности, первой помощи и гражданской обороне/чрезвычайным ситуациям. Используется для обучения работников и фиксации результатов тестирования.">
+        content="Дистанционный учебный портал по охране труда, пожарной безопасности, первой помощи и ГО/ЧС. Используется для обучения работников и фиксации результатов тестирования.">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -31,263 +31,350 @@
   </div>
 </header>
 
-<!-- Герой-блок с размытым фоном -->
-<section class="hero-blur">
-  <div class="hero-overlay"></div>
-  <div class="container hero-blur-content">
-    <h2>Учебный портал по охране труда и безопасности</h2>
-    <p>
-      Дистанционное обучение работников по охране труда, пожарной безопасности, оказанию первой помощи пострадавшим,
-      а также по вопросам гражданской обороны и защиты от чрезвычайных ситуаций.
-    </p>
+<!-- WOW HERO -->
+<section class="home-hero" aria-label="Главная витрина портала">
+  <div class="container">
 
-    <div class="hero-tags">
-      <span class="hero-tag hero-tag-ot">Охрана труда</span>
-      <span class="hero-tag hero-tag-fire">Пожарная безопасность</span>
-      <span class="hero-tag hero-tag-med">Первая помощь</span>
-      <span class="hero-tag hero-tag-gochs">ГО и ЧС</span>
+    <div class="home-split">
+      <!-- LEFT -->
+      <div class="home-hero-card">
+        <div class="home-hero-kicker">
+          <span aria-hidden="true">🧩</span>
+          <span>единый учебный портал</span>
+        </div>
+
+        <h2 class="home-hero-title">Обучение, материалы и тесты — в одном месте</h2>
+
+        <p class="home-hero-subtitle">
+          Портал помогает сотрудникам быстро проходить обучение по охране труда и безопасности,
+          а ответственным — удобно актуализировать материалы и фиксировать результаты проверки знаний
+          для последующего документального оформления.
+        </p>
+
+        <div class="home-pill-row" aria-label="Направления портала">
+          <span class="home-pill">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 3l8 4v6c0 5-3.5 8-8 8s-8-3-8-8V7l8-4z" stroke="currentColor" stroke-width="2" />
+            </svg>
+            Охрана труда
+          </span>
+          <span class="home-pill">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 3c2 3 3 5 3 7a3 3 0 11-6 0c0-2 1-4 3-7z" stroke="currentColor" stroke-width="2"/>
+              <path d="M8 14c0 4 2 7 4 7s4-3 4-7" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            Пожарная безопасность
+          </span>
+          <span class="home-pill">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            Первая помощь
+          </span>
+          <span class="home-pill">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2" opacity=".35"/>
+              <path d="M7 16c2-5 8-5 10 0" stroke="currentColor" stroke-width="2"/>
+              <path d="M8 9h8" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            ГО и ЧС
+          </span>
+        </div>
+
+        <div class="home-hero-actions">
+          <a href="programs.html" class="btn btn-primary hero-btn">Перейти к выбору программы обучения</a>
+          <a href="for-responsibles.html" class="home-btn-secondary">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 12a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="2"/>
+              <path d="M4 22c1.5-4 5-6 8-6s6.5 2 8 6" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            Ответственным за обучение
+          </a>
+        </div>
+
+        <p class="note" style="margin-top:14px;">
+          Результаты тестирования используются для последующего оформления документов (протоколы, журналы, приказы)
+          в порядке, установленном локальными нормативными актами работодателя.
+        </p>
+      </div>
+
+      <!-- RIGHT -->
+      <aside class="home-mini-dashboard" aria-label="Краткая сводка портала">
+        <div class="home-kpi">
+          <div class="home-kpi-item">
+            <div class="home-kpi-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 6h16M4 12h10M4 18h16" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <div>
+              <p class="home-kpi-title">Структурированные материалы</p>
+              <p class="home-kpi-text">Курсы, PDF-пособия, инструкции и видеоролики — в едином стиле.</p>
+            </div>
+          </div>
+
+          <div class="home-kpi-item">
+            <div class="home-kpi-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2"/>
+                <path d="M7 3h10v18H7z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <div>
+              <p class="home-kpi-title">Проверка знаний</p>
+              <p class="home-kpi-text">Итоговые тесты по каждому направлению с фиксированием результатов.</p>
+            </div>
+          </div>
+
+          <div class="home-kpi-item">
+            <div class="home-kpi-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 8v5l3 2" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 21a9 9 0 100-18 9 9 0 000 18z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <div>
+              <p class="home-kpi-title">Быстрый маршрут</p>
+              <p class="home-kpi-text">Откройте нужную программу и следуйте шагам “материалы → тест”.</p>
+            </div>
+          </div>
+        </div>
+      </aside>
     </div>
 
-    <p class="hero-blur-note">
-      Портал используется для размещения материалов, видеолекций и итоговых тестов. Результаты обучения
-      применяются для последующего документального оформления в организации.
-    </p>
-
-    <a href="programs.html" class="btn btn-primary hero-btn">
-      Перейти к выбору программы обучения
-    </a>
   </div>
 </section>
 
 <main id="main-content" class="site-main">
   <div class="container">
 
-    <!-- Карточка «Назначение портала» + быстрый обзор -->
-    <section class="section section-card page-header page-header-accent-blue home-top-card">
-      <div class="home-top-grid">
-        <div class="home-top-text">
-          <h2>Назначение портала</h2>
-          <p>
-            Портал предназначен для организации дистанционного обучения работников по охране труда,
-            пожарной безопасности, оказанию первой помощи пострадавшим, а также по вопросам гражданской обороны
-            и защиты от чрезвычайных ситуаций.
-          </p>
-          <p>
-            Материалы портала могут использоваться как при приёме на работу, так и при периодическом
-            обучении и проверке знаний требований охраны труда и безопасности работников.
-          </p>
-        </div>
+    <!-- ВИТРИНА НАПРАВЛЕНИЙ -->
+    <section class="section">
+      <h2 class="home-section-title">Быстрый выбор направления</h2>
+      <p class="home-section-lead">Нажмите на карточку — и перейдите к курсу, материалам и тестам по нужному направлению.</p>
 
-        <!-- Короткий «dashboard» по порталу -->
-        <div class="home-stats-card" aria-label="Краткая сводка по порталу">
-          <div class="home-stat">
-            <span class="home-stat-label">Направления</span>
-            <span class="home-stat-value">4</span>
-            <span class="home-stat-caption">ОТ, ПБ, первая помощь, ГО/ЧС</span>
+      <div class="home-showcase" aria-label="Направления обучения">
+        <article class="home-showcard home-showcard-ot">
+          <div class="home-showchip">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 3l8 4v6c0 5-3.5 8-8 8s-8-3-8-8V7l8-4z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            охрана труда
           </div>
-          <div class="home-stat">
-            <span class="home-stat-label">Формат</span>
-            <span class="home-stat-value">online</span>
-            <span class="home-stat-caption">видеолекции, материалы, тесты</span>
-          </div>
-          <div class="home-stat">
-            <span class="home-stat-label">Результаты</span>
-            <span class="home-stat-value">фиксируются</span>
-            <span class="home-stat-caption">для оформления протоколов, журналов, приказов</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Быстрый выбор направления (4 карточки) -->
-    <section class="section home-directions">
-      <h2>Быстрый выбор направления обучения</h2>
-      <p>
-        Выберите нужное направление и перейдите к подробному описанию программ и итоговых тестов.
-      </p>
-
-      <div class="direction-grid" aria-label="Направления обучения">
-        <article class="direction-card direction-card-ot">
-          <div class="direction-chip">Охрана труда</div>
-          <h3>Обучение по охране труда</h3>
-          <p>
-            Общие вопросы охраны труда, обязанности работодателя и работников, безопасные методы и приёмы работы,
-            специальная оценка условий труда.
+          <h3 class="home-showtitle">Программы по охране труда</h3>
+          <p class="home-showtext">
+            Обучение по программам, вводный инструктаж и блок по СИЗ — в едином курсе.
           </p>
-          <ul class="direction-list">
-            <li>вводное обучение и проверка знаний;</li>
-            <li>обоснование безопасных условий труда;</li>
-            <li>использование средств индивидуальной защиты.</li>
+          <ul class="home-showlist">
+            <li>вводный инструктаж;</li>
+            <li>программы обучения (А/Б и др.);</li>
+            <li>применение СИЗ.</li>
           </ul>
-          <a href="course-ot.html#ot" class="btn btn-program direction-link">
-            Перейти к программам по ОТ
+          <a class="home-showlink" href="course-ot.html">
+            Открыть курс по ОТ
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 17L17 7" stroke="currentColor" stroke-width="2"/>
+              <path d="M9 7h8v8" stroke="currentColor" stroke-width="2"/>
+            </svg>
           </a>
         </article>
 
-        <article class="direction-card direction-card-fire">
-          <div class="direction-chip">Пожарная безопасность</div>
-          <h3>Противопожарные инструктажи и обучение</h3>
-          <p>
-            Требования пожарной безопасности, действия при пожаре и задымлении, использование первичных средств
-            пожаротушения, эвакуация людей.
+        <article class="home-showcard home-showcard-fire">
+          <div class="home-showchip">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 3c2 3 3 5 3 7a3 3 0 11-6 0c0-2 1-4 3-7z" stroke="currentColor" stroke-width="2"/>
+              <path d="M8 14c0 4 2 7 4 7s4-3 4-7" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            пожарная безопасность
+          </div>
+          <h3 class="home-showtitle">Инструктажи и обучение по ПБ</h3>
+          <p class="home-showtext">
+            Вводный/первичный инструктажи, действия при пожаре, эвакуация и тесты.
           </p>
-          <ul class="direction-list">
-            <li>вводный и первичный инструктажи;</li>
-            <li>действия персонала при пожаре;</li>
-            <li>работа с огнетушителями и системами ПБ.</li>
+          <ul class="home-showlist">
+            <li>алгоритм действий при пожаре;</li>
+            <li>эвакуация и ПСПТ;</li>
+            <li>итоговые тесты.</li>
           </ul>
-          <a href="course-fire-safety.html#fire" class="btn btn-program direction-link">
-            Программы по пожарной безопасности
+          <a class="home-showlink" href="course-fire-safety.html">
+            Открыть курс по ПБ
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 17L17 7" stroke="currentColor" stroke-width="2"/>
+              <path d="M9 7h8v8" stroke="currentColor" stroke-width="2"/>
+            </svg>
           </a>
         </article>
 
-        <article class="direction-card direction-card-med">
-          <div class="direction-chip">Первая помощь</div>
-          <h3>Оказание первой помощи пострадавшим</h3>
-          <p>
-            Алгоритмы оказания первой помощи до прибытия медицинских работников, практические примеры и
-            разбор типовых неотложных состояний.
+        <article class="home-showcard home-showcard-med">
+          <div class="home-showchip">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            первая помощь
+          </div>
+          <h3 class="home-showtitle">Курс первой помощи</h3>
+          <p class="home-showtext">
+            Алгоритмы, примеры и видеоматериалы — затем итоговый тест для фиксации результата.
           </p>
-          <ul class="direction-list">
-            <li>правовые основы первой помощи;</li>
-            <li>реанимация, кровотечения, травмы;</li>
-            <li>ожоги, отравления, острый стресс.</li>
+          <ul class="home-showlist">
+            <li>СЛР, кровотечения, травмы;</li>
+            <li>ожоги, отравления, стресс;</li>
+            <li>контрольные материалы.</li>
           </ul>
-          <a href="course-first-aid.html#first-aid" class="btn btn-program direction-link">
-            Перейти к курсу по первой помощи
+          <a class="home-showlink" href="course-first-aid.html">
+            Открыть курс
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 17L17 7" stroke="currentColor" stroke-width="2"/>
+              <path d="M9 7h8v8" stroke="currentColor" stroke-width="2"/>
+            </svg>
           </a>
         </article>
 
-        <article class="direction-card direction-card-gochs">
-          <div class="direction-chip">ГО и ЧС</div>
-          <h3>Гражданская оборона и действия при ЧС</h3>
-          <p>
-            Основы гражданской обороны, оповещение и эвакуация, действия работников и ответственных лиц
-            при чрезвычайных ситуациях.
+        <article class="home-showcard home-showcard-gochs">
+          <div class="home-showchip">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 16c2-5 8-5 10 0" stroke="currentColor" stroke-width="2"/>
+              <path d="M8 9h8" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 2v20" stroke="currentColor" stroke-width="2" opacity=".35"/>
+            </svg>
+            ГО и ЧС
+          </div>
+          <h3 class="home-showtitle">ГО и действия при ЧС</h3>
+          <p class="home-showtext">
+            Оповещение, эвакуация, СИЗ, химические и радиационные аварии — с итоговой проверкой знаний.
           </p>
-          <ul class="direction-list">
-            <li>действия при авариях и катастрофах;</li>
-            <li>использование СИЗ и убежищ;</li>
-            <li>взаимодействие с экстренными службами.</li>
+          <ul class="home-showlist">
+            <li>сигналы и порядок действий;</li>
+            <li>эвакуация и укрытия;</li>
+            <li>итоговый тест.</li>
           </ul>
-          <a href="programs.html#gochs" class="btn btn-program direction-link">
-            Программы по ГО и ЧС
+          <a class="home-showlink" href="course-gochs.html">
+            Открыть курс
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 17L17 7" stroke="currentColor" stroke-width="2"/>
+              <path d="M9 7h8v8" stroke="currentColor" stroke-width="2"/>
+            </svg>
           </a>
         </article>
       </div>
     </section>
 
-    <!-- Нормативная база -->
-    <section class="section section-card">
-      <h2>Нормативная база</h2>
-      <p>
-        Организация обучения работников и проверки знаний требований охраны труда и безопасности
-        осуществляется с учётом требований действующего законодательства Российской Федерации, в том числе:
-      </p>
-      <ul class="norm-list">
-        <li>
-          статья 212 Трудового кодекса Российской Федерации — устанавливает обязанности работодателя
-          по обеспечению безопасных условий и охраны труда, включая обучение безопасным методам и приёмам работы;
-        </li>
-        <li>
-          Постановление Правительства Российской Федерации № 2464
-          «О порядке обучения по охране труда и проверки знания требований охраны труда» — определяет
-          общие требования к организации обучения и проверки знаний работников;
-        </li>
-        <li>
-          Приказа от 03.05.2024 № 220н — регламентирует перечень состояний, при которых оказывается первая помощь, 
-          и последовательность проведения мероприятий для их ликвидации.
-        </li>
-      </ul>
-      <p class="note">
-        Конкретные программы, сроки обучения и порядок документального оформления результатов устанавливаются
-        работодателем в локальных нормативных актах с учётом указанных документов.
-      </p>
-    </section>
-
-    <!-- Как проходит обучение (таймлайн) -->
+    <!-- КАК ПРОХОДИТ ОБУЧЕНИЕ (оставляем смысл, улучшаем подачу) -->
     <section class="section section-card section-card-elevated">
-      <h2>Как проходит обучение</h2>
+      <h2 class="home-section-title">Как проходит обучение на портале</h2>
+      <p class="home-section-lead">
+        Единый понятный маршрут: изучение материалов → тестирование → фиксация результата → оформление документов по правилам организации.
+      </p>
+
       <ol class="steps-list steps-list-timeline main-steps-timeline">
         <li>
-          <strong>Изучение видеолекций и материалов.</strong>
-          Сотрудник выбирает нужную программу, знакомится с видеолекциями, презентациями и методическими материалами,
-          размещёнными на страницах соответствующего курса.
+          <strong>Изучение материалов.</strong>
+          Откройте нужную программу и ознакомьтесь с видеолекциями, презентациями, PDF-пособиями и инструкциями.
         </li>
         <li>
           <strong>Прохождение итогового теста.</strong>
-          По завершении изучения материалов сотрудник заполняет итоговый тест (как правило, в форме
-          Google Forms или иной электронной форме), отвечая на контрольные вопросы по программе.
+          После изучения материала пройдите тест и корректно заполните персональные и организационные данные.
         </li>
         <li>
-          <strong>Автоматическая фиксация результатов.</strong>
-          Результаты тестирования автоматически фиксируются в системе (включая дату, время прохождения
-          и набранные баллы) для последующей обработки ответственными за обучение.
+          <strong>Фиксация результата.</strong>
+          Результаты тестирования сохраняются и используются ответственными за обучение.
         </li>
         <li>
           <strong>Оформление документов в организации.</strong>
-          При успешном прохождении теста в организации оформляются предусмотренные локальными актами документы
-          (журналы учёта обучения, протоколы проверки знаний, приказы и т. п.) в порядке, установленном работодателем.
+          Оформляются протоколы, журналы, приказы и иные документы — по локальным нормативным актам работодателя.
         </li>
       </ol>
+
       <p class="note">
-        При необходимости очного обучения, стажировки, инструктажей на рабочем месте, медицинских осмотров
-        и иных обязательных мероприятий портал используется в составе общей системы обучения и не заменяет
-        требования законодательства.
+        Портал используется как часть системы обучения и не отменяет обязательные мероприятия (инструктажи на рабочем месте,
+        стажировка, медосмотры и т. п.), если они требуются по закону/локальным актам.
       </p>
     </section>
 
-    <!-- Две колонки: сотрудники / ответственные -->
+    <!-- НОРМАТИВНАЯ БАЗА — делаем “дорогими” карточками -->
+    <section class="section section-card">
+      <h2 class="home-section-title">Нормативная база</h2>
+      <p class="home-section-lead">
+        Обучение и проверка знаний организуются с учётом требований законодательства РФ и локальных нормативных актов работодателя.
+      </p>
+
+      <div class="home-norm-grid" aria-label="Ключевые нормативные документы">
+        <article class="home-norm-card">
+          <h3>Трудовой кодекс РФ</h3>
+          <p>
+            Обязанности работодателя по обеспечению безопасных условий труда и организации обучения работников.
+          </p>
+        </article>
+
+        <article class="home-norm-card">
+          <h3>ПП РФ № 2464</h3>
+          <p>
+            Порядок обучения по охране труда и проверки знания требований охраны труда.
+          </p>
+        </article>
+
+        <article class="home-norm-card">
+          <h3>Приказ Минздрава № 220н</h3>
+          <p>
+            Перечень состояний для оказания первой помощи и последовательность мероприятий первой помощи.
+          </p>
+        </article>
+      </div>
+
+      <p class="note" style="margin-top:12px;">
+        Конкретные программы, сроки обучения и порядок документального оформления результатов устанавливаются работодателем
+        локальными нормативными актами.
+      </p>
+    </section>
+
+    <!-- Сотрудники / Ответственные (оставляем 2 колонки, усиливаем читаемость) -->
     <section class="section info-grid">
       <article class="section-card info-panel">
         <h2>Важная информация для сотрудников</h2>
         <p>
-          При прохождении итоговых тестов сотрудники обязаны корректно и полностью указывать свои персональные
-          и организационные данные в установленных полях формы теста. Эти данные используются для последующего
-          документального подтверждения прохождения обучения и проверки знаний в организации.
+          При прохождении тестов указывайте данные <strong>корректно и полностью</strong>.
+          Это необходимо для последующего оформления документов о прохождении обучения.
         </p>
         <ul class="checklist">
-          <li>ФИО, дата рождения и должность указываются без сокращений.</li>
-          <li>Необходимо верно указать подразделение и наименование организации.</li>
-          <li>Рекомендуется фиксировать прохождение теста в рабочее время по согласованию с руководителем.</li>
+          <li>ФИО, дата рождения, должность — без сокращений и ошибок.</li>
+          <li>Подразделение и организация — строго по установленному формату.</li>
+          <li>Прохождение теста — в рабочее время по согласованию с руководителем (если требуется).</li>
         </ul>
         <p class="note">
-          Указание недостоверных или неполных данных может привести к невозможности надлежащего оформления
-          документов о прохождении обучения и, при необходимости, к повторному тестированию.
+          Недостоверные/неполные данные могут привести к невозможности зачёта результата и необходимости повторного прохождения.
         </p>
       </article>
 
       <article class="section-card info-panel">
         <h2>Информация для ответственных за обучение</h2>
         <p>
-          Ответственные за организацию и проведение обучения могут использовать портал для:
+          Портал помогает централизованно управлять обучением и материалами:
         </p>
         <ul class="norm-list">
-          <li>формирования и актуализации программ обучения по направлениям (ОТ, ПБ, первая помощь, ГО/ЧС);</li>
-          <li>размещения видеолекций, инструкций, методических материалов и контрольных вопросов;</li>
-          <li>сбора и систематизации результатов тестирования сотрудников в электронной форме;</li>
-          <li>подготовки данных для оформления протоколов, приказов и записей в журналах учёта обучения.</li>
+          <li>актуализировать программы по направлениям (ОТ, ПБ, первая помощь, ГО/ЧС);</li>
+          <li>размещать видео, PDF-материалы, инструкции и контрольные вопросы;</li>
+          <li>собирать и систематизировать результаты тестирования;</li>
+          <li>готовить данные для протоколов, приказов и журналов.</li>
         </ul>
         <p class="note">
-          Рекомендуется утвердить порядок применения портала, перечень программ, периодичность обучения
-          и ответственных лиц за ведение и актуализацию материалов локальными нормативными актами работодателя.
+          Рекомендуется закрепить порядок использования портала и ответственных лиц локальным нормативным актом работодателя.
         </p>
       </article>
     </section>
 
-    <!-- Итоговый CTA -->
-    <section class="section cta-section">
-      <div class="cta-card">
-        <h2>Начать обучение</h2>
-        <p>
-          Перейдите в каталог программ обучения, выберите подходящее направление и следуйте инструкции
-          на странице соответствующего курса.
+    <!-- CTA -->
+    <section class="section">
+      <div class="home-cta">
+        <h2 class="home-section-title">Готовы начать обучение?</h2>
+        <p class="home-section-lead">
+          Перейдите в каталог программ, выберите направление и следуйте инструкциям на странице курса.
         </p>
         <a href="programs.html" class="btn btn-primary btn-contrast">
           Перейти к выбору программы обучения
         </a>
       </div>
     </section>
+
   </div>
 </main>
 
