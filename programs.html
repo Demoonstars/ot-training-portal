@@ -7,223 +7,455 @@
   <meta name="description" content="Каталог программ дистанционного обучения по охране труда, пожарной безопасности, первой помощи и ГО/ЧС.">
   <link rel="stylesheet" href="assets/style.css">
 </head>
+
 <body>
-  <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+<a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
 
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="header-brand">
-        <p class="site-label">Дистанционный учебный портал</p>
-        <h1 class="site-title">Охрана труда, пожарная безопасность, первая помощь, ГО/ЧС</h1>
-        <p class="site-subtitle">
-          Выбор программ для дистанционного обучения работников и проверки знаний требований охраны труда и безопасности.
-        </p>
-      </div>
-      <nav class="main-nav" aria-label="Основная навигация">
-        <ul class="nav-list">
-          <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
-          <li class="nav-item"><a href="programs.html" class="nav-link nav-link-active">Программы обучения</a></li>
-          <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции для сотрудников</a></li>
-          <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Информация для ответственных за обучение</a></li>
-        </ul>
-      </nav>
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="header-brand">
+      <p class="site-label">Дистанционный учебный портал</p>
+      <h1 class="site-title">Охрана труда, пожарная безопасность, первая помощь, ГО/ЧС</h1>
+      <p class="site-subtitle">
+        Выбор программ для дистанционного обучения работников и проверки знаний требований охраны труда и безопасности.
+      </p>
     </div>
-  </header>
+    <nav class="main-nav" aria-label="Основная навигация">
+      <ul class="nav-list">
+        <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
+        <li class="nav-item"><a href="programs.html" class="nav-link nav-link-active">Программы обучения</a></li>
+        <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции для сотрудников</a></li>
+        <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Информация для ответственных за обучение</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-  <main id="main-content" class="site-main">
-    <div class="container">
+<!-- HERO -->
+<section class="programs-hero">
+  <div class="container">
+    <div class="programs-hero-grid">
+      <div class="programs-hero-card">
+        <div class="programs-kicker">
+          <span aria-hidden="true">📚</span>
+          <span>каталог программ</span>
+        </div>
 
-      <!-- Заголовок страницы -->
-      <section class="section section-card page-header page-header-accent-green programs-header">
-        <div class="programs-header-grid">
-          <div class="programs-header-main">
-            <div class="page-header-label">Каталог программ</div>
-            <h2 class="page-title">Программы дистанционного обучения</h2>
-            <p class="page-lead">
-              На этой странице собраны ключевые направления и типовые программы дистанционного обучения работников
-              по охране труда, пожарной безопасности, оказанию первой помощи пострадавшим и гражданской обороне/ЧС.
-            </p>
-            <p class="programs-header-note">
-              Выберите направление, перейдите на страницу курса, изучите материалы и пройдите итоговый тест —
-              результаты используются для документального оформления обучения в организации.
-            </p>
+        <h2 class="programs-title">Программы дистанционного обучения</h2>
+        <p class="programs-lead">
+          На странице собраны ключевые направления обучения работников по охране труда, пожарной безопасности,
+          оказанию первой помощи и ГО/ЧС.
+        </p>
+        <p class="programs-hero-note">
+          Выберите направление → откройте страницу курса → изучите материалы и видеоролики → пройдите итоговый тест.
+          Результаты используются для документального оформления обучения в организации.
+        </p>
+
+        <!-- Панель поиска/фильтров -->
+        <div class="programs-toolbar" role="region" aria-label="Поиск и фильтр программ">
+          <label class="programs-search" aria-label="Поиск по программам">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M10.5 18a7.5 7.5 0 110-15 7.5 7.5 0 010 15z" stroke="currentColor" stroke-width="2"/>
+              <path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <input id="programSearch" type="search" placeholder="Поиск: охрана труда, пожарная безопасность, первая помощь, ГО/ЧС…">
+          </label>
+
+          <div class="programs-filters" aria-label="Фильтр по направлению">
+            <button class="programs-filter" type="button" data-filter="all" aria-pressed="true">
+              <span aria-hidden="true">✨</span> Все
+            </button>
+            <button class="programs-filter" type="button" data-filter="ot" aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3l8 4v6c0 5-3.5 8-8 8s-8-3-8-8V7l8-4z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              ОТ
+            </button>
+            <button class="programs-filter" type="button" data-filter="fire" aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3c2 3 3 5 3 7a3 3 0 11-6 0c0-2 1-4 3-7z" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 14c0 4 2 7 4 7s4-3 4-7" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              ПБ
+            </button>
+            <button class="programs-filter" type="button" data-filter="med" aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              Первая помощь
+            </button>
+            <button class="programs-filter" type="button" data-filter="gochs" aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 16c2-5 8-5 10 0" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 9h8" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              ГО/ЧС
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <aside class="programs-stats" aria-label="Сводка по программам">
+        <div class="programs-stat-row">
+          <div class="programs-stat-item">
+            <div class="programs-stat-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 6h16M4 12h10M4 18h16" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <div>
+              <p class="programs-stat-title">4 направления</p>
+              <p class="programs-stat-text">ОТ, ПБ, первая помощь, ГО/ЧС — единая структура и стиль.</p>
+            </div>
           </div>
 
-          <aside class="programs-header-aside" aria-label="Сводная информация по программам">
-            <div class="programs-stat-card">
-              <div class="programs-stat">
-                <span class="programs-stat-label">Направления</span>
-                <span class="programs-stat-value">4</span>
-                <span class="programs-stat-caption">ОТ, ПБ, первая помощь, ГО/ЧС</span>
-              </div>
-              <div class="programs-stat">
-                <span class="programs-stat-label">Формат</span>
-                <span class="programs-stat-value">Видео + тест</span>
-                <span class="programs-stat-caption">теория на портале, фиксация результатов теста</span>
-              </div>
-              <div class="programs-stat">
-                <span class="programs-stat-label">Использование</span>
-                <span class="programs-stat-caption">
-                  при приёме на работу и периодической проверке знаний в соответствии с локальными актами работодателя
-                </span>
-              </div>
+          <div class="programs-stat-item">
+            <div class="programs-stat-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/>
+                <path d="M9 11h6M9 14h4" stroke="currentColor" stroke-width="2"/>
+              </svg>
             </div>
-          </aside>
+            <div>
+              <p class="programs-stat-title">Формат</p>
+              <p class="programs-stat-text">Видео + материалы + тестирование с фиксацией результата.</p>
+            </div>
+          </div>
+
+          <div class="programs-stat-item">
+            <div class="programs-stat-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 8v5l3 2" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 21a9 9 0 100-18 9 9 0 000 18z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <div>
+              <p class="programs-stat-title">Использование</p>
+              <p class="programs-stat-text">При приёме на работу и периодической проверке знаний по локальным актам.</p>
+            </div>
+          </div>
         </div>
-      </section>
-
-      <!-- Сетка программ -->
-      <section class="section">
-        <div class="programs-grid">
-
-          <!-- Охрана труда -->
-          <article class="program-card program-card-ot" id="course-ot">
-            <div class="program-card-body">
-              <h3>Обучение по охране труда</h3>
-              <p class="program-desc">
-                Дистанционное обучение по требованиям охраны труда, безопасным методам и приёмам выполнения работ,
-                обязанностям работников и работодателя в области охраны труда.
-              </p>
-              <ul class="program-meta">
-                <li><span class="badge badge-type">Направление</span> охрана труда</li>
-                <li><span class="badge badge-form">Формат</span> видеолекции + материалы + итоговый тест</li>
-                <li><span class="badge badge-target">Категории</span> руководители, специалисты, работники</li>
-              </ul>
-              <p class="program-note">
-                Может использоваться при первичном обучении и периодической проверке знаний требований охраны труда.
-              </p>
-            </div>
-            <a href="course-ot.html" class="program-link btn btn-primary btn-program">
-              Перейти к курсу по охране труда
-            </a>
-          </article>
-
-          <!-- Пожарная безопасность -->
-          <article class="program-card program-card-fire">
-            <div class="program-card-body">
-              <h3>Пожарная безопасность</h3>
-              <p class="program-desc">
-                Обучение требованиям пожарной безопасности, действиям при пожаре, порядку эвакуации и использованию
-                первичных средств пожаротушения.
-              </p>
-              <ul class="program-meta">
-                <li><span class="badge badge-type">Направление</span> Пожарная безопасность</li>
-                <li><span class="badge badge-form">Форма</span> видеолекции, схемы, тестирование</li>
-                <li><span class="badge badge-target">Категории</span> работники, ответственные за ПБ</li>
-              </ul>
-              <p class="program-note">
-                Может использоваться в составе системы обучения и инструктажей по пожарной безопасности в организации.
-              </p>
-            </div>
-            <a href="course-fire-safety.html" class="program-link btn btn-primary btn-program">
-              Перейти к курсу по пожарной безопасности
-            </a>
-          </article>
-
-          <!-- Первая помощь -->
-          <article class="program-card program-card-first-aid">
-            <div class="program-card-body">
-              <h3>Оказание первой помощи пострадавшим</h3>
-              <p class="program-desc">
-                Обучение базовым навыкам оказания первой помощи пострадавшим до прибытия медицинских работников,
-                алгоритмам действий при наиболее распространённых неотложных состояниях.
-              </p>
-              <ul class="program-meta">
-                <li><span class="badge badge-type">Направление</span> Первая помощь</li>
-                <li><span class="badge badge-form">Форма</span> видеолекции, демонстрации, итоговый тест</li>
-                <li><span class="badge badge-target">Категории</span> работники, назначенные в качестве обученных лиц</li>
-              </ul>
-              <p class="program-note">
-                Используется для теоретической подготовки; практические навыки отрабатываются дополнительно
-                в очном формате по решению работодателя.
-              </p>
-            </div>
-            <a href="course-first-aid.html" class="program-link btn btn-primary btn-program">
-              Перейти к курсу по первой помощи
-            </a>
-          </article>
-
-          <!-- ГО и ЧС -->
-          <article class="program-card program-card-gochs">
-            <div class="program-card-body">
-              <h3>Гражданская оборона и защита в ЧС</h3>
-              <p class="program-desc">
-                Обучение основам гражданской обороны, действиям работников при объявлениях сигналов оповещения,
-                порядку поведения при чрезвычайных ситуациях природного и техногенного характера.
-              </p>
-              <ul class="program-meta">
-                <li><span class="badge badge-type">Направление</span> ГО/ЧС</li>
-                <li><span class="badge badge-form">Форма</span> видеолекции, методические материалы, тест</li>
-                <li><span class="badge badge-target">Категории</span> работники, руководители, ответственные за ГО/ЧС</li>
-              </ul>
-              <p class="program-note">
-                Может использоваться в составе системы обучения и инструктажей по ГО и действиям в чрезвычайных ситуациях.
-              </p>
-            </div>
-            <a href="course-gochs.html" class="program-link btn btn-primary btn-program">
-              Перейти к курсу по ГО/ЧС
-            </a>
-          </article>
-
-        </div>
-      </section>
-
-      <!-- Пояснения по выбору программы -->
-      <section class="section section-card">
-        <h2>Как выбрать программу обучения</h2>
-        <ol class="steps-list">
-          <li>
-            <strong>Определите категорию работника.</strong>
-            Например: руководитель, специалист, работник, член комиссии по проверке знаний,
-            ответственное лицо за ОТ/ПБ/ГО/ЧС и т. д.
-          </li>
-          <li>
-            <strong>Сопоставьте требования локальных актов организации.</strong>
-            Учитывайте перечень обязательных программ, периодичность обучения и форму проверки знаний,
-            установленную работодателем.
-          </li>
-          <li>
-            <strong>Выберите подходящий курс на портале.</strong>
-            Перейдите к описанию курса, ознакомьтесь с программой, списком материалов и формой итогового теста.
-          </li>
-          <li>
-            <strong>Организуйте прохождение обучения.</strong>
-            Направьте работников на дистанционное обучение с использованием портала и обеспечьте
-            последующее документальное оформление результатов в соответствии с требованиями законодательства
-            и локальных нормативных актов.
-          </li>
-        </ol>
-      </section>
-
-      <!-- Дополнительная информация -->
-      <section class="section section-card section-card-light">
-        <h2>Дополнительная информация</h2>
-        <p>
-          За подробной информацией о порядке организации обучения, формировании комиссий, ведении журналов,
-          оформлении протоколов и приказов рекомендуется воспользоваться разделом
-          <a href="for-responsibles.html">«Информация для ответственных за обучение»</a>.
-        </p>
-        <p>
-          Для работников, проходящих обучение, порядок доступа к материалам, сроки прохождения тестов и
-          последствия непрохождения обучения в срок могут быть определены в локальных документах работодателя
-          (положениях, регламентах, приказах).
-        </p>
-      </section>
-
+      </aside>
     </div>
-  </main>
+  </div>
+</section>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p class="footer-text">
-        Учебный портал дистанционного обучения по охране труда, пожарной безопасности,
-        первой помощи и ГО/ЧС.
+<main id="main-content" class="site-main">
+  <div class="container">
+
+    <!-- ВИТРИНА ПРОГРАММ -->
+    <section class="section" aria-label="Каталог программ">
+      <div class="programs-showcase" id="programCards">
+
+        <!-- ОХРАНА ТРУДА -->
+        <article class="programs-card programs-card-ot" data-cat="ot" data-title="охрана труда обучение по охране труда">
+          <div class="programs-card-top">
+            <span class="programs-chip">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3l8 4v6c0 5-3.5 8-8 8s-8-3-8-8V7l8-4z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              охрана труда
+            </span>
+            <span class="programs-badge-mini">Для всех категорий</span>
+          </div>
+
+          <h3>Обучение по охране труда</h3>
+          <p>
+            Курсы и программы по требованиям охраны труда, безопасным методам работы, обязанностям работников и работодателя,
+            а также применению СИЗ. Структура и периодичность — по локальным актам работодателя.
+          </p>
+
+          <ul class="programs-bullets">
+            <li>вводный инструктаж по ОТ;</li>
+            <li>программы обучения (А/Б и иные);</li>
+            <li>применение СИЗ и контроль знаний.</li>
+          </ul>
+
+          <div class="programs-cta-row">
+            <div class="programs-meta">
+              <span class="programs-pill">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                Видео + материалы
+              </span>
+              <span class="programs-pill">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2"/>
+                  <path d="M7 3h10v18H7z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                Тесты по разделам
+              </span>
+            </div>
+
+            <a href="course-ot.html" class="programs-link">
+              Открыть курс по ОТ
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2"/>
+                <path d="M9 7h8v8" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- ПОЖАРНАЯ БЕЗОПАСНОСТЬ -->
+        <article class="programs-card programs-card-fire" data-cat="fire" data-title="пожарная безопасность обучение">
+          <div class="programs-card-top">
+            <span class="programs-chip">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3c2 3 3 5 3 7a3 3 0 11-6 0c0-2 1-4 3-7z" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 14c0 4 2 7 4 7s4-3 4-7" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              пожарная безопасность
+            </span>
+            <span class="programs-badge-mini">Инструктажи + обучение</span>
+          </div>
+
+          <h3>Пожарная безопасность</h3>
+          <p>
+            Требования пожарной безопасности, действия при пожаре и задымлении, эвакуация и использование
+            первичных средств пожаротушения.
+          </p>
+
+          <ul class="programs-bullets">
+            <li>порядок действий персонала при пожаре;</li>
+            <li>эвакуация и средства пожаротушения;</li>
+            <li>итоговая проверка знаний.</li>
+          </ul>
+
+          <div class="programs-cta-row">
+            <div class="programs-meta">
+              <span class="programs-pill">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 12h16" stroke="currentColor" stroke-width="2"/>
+                  <path d="M12 4v16" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                Алгоритмы действий
+              </span>
+              <span class="programs-pill">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                Тестирование
+              </span>
+            </div>
+
+            <a href="course-fire-safety.html" class="programs-link">
+              Открыть курс по ПБ
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2"/>
+                <path d="M9 7h8v8" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- ПЕРВАЯ ПОМОЩЬ -->
+        <article class="programs-card programs-card-med" data-cat="med" data-title="первая помощь оказание первой помощи">
+          <div class="programs-card-top">
+            <span class="programs-chip">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              первая помощь
+            </span>
+            <span class="programs-badge-mini">Теория + видео</span>
+          </div>
+
+          <h3>Оказание первой помощи пострадавшим</h3>
+          <p>
+            Базовые навыки первой помощи до прибытия медицинских работников: СЛР, кровотечения, травмы,
+            ожоги, отравления, психологическая поддержка.
+          </p>
+
+          <ul class="programs-bullets">
+            <li>алгоритмы действий при неотложных состояниях;</li>
+            <li>видеолекции и контрольные вопросы;</li>
+            <li>итоговый тест по курсу.</li>
+          </ul>
+
+          <div class="programs-cta-row">
+            <div class="programs-meta">
+              <span class="programs-pill">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 3h10v18H7z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                Контрольные вопросы
+              </span>
+              <span class="programs-pill">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                Итоговый тест
+              </span>
+            </div>
+
+            <a href="course-first-aid.html" class="programs-link">
+              Открыть курс
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2"/>
+                <path d="M9 7h8v8" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- ГО/ЧС -->
+        <article class="programs-card programs-card-gochs" data-cat="gochs" data-title="го чс гражданская оборона чрезвычайные ситуации">
+          <div class="programs-card-top">
+            <span class="programs-chip">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 16c2-5 8-5 10 0" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 9h8" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              ГО и ЧС
+            </span>
+            <span class="programs-badge-mini">Оповещение + действия</span>
+          </div>
+
+          <h3>Гражданская оборона и защита в ЧС</h3>
+          <p>
+            Оповещение, эвакуация, порядок действий работников и ответственных лиц при ЧС природного и техногенного характера,
+            использование СИЗ и укрытий.
+          </p>
+
+          <ul class="programs-bullets">
+            <li>сигналы оповещения и информирование;</li>
+            <li>эвакуация, укрытия и меры защиты;</li>
+            <li>действия при химической/радиационной аварии.</li>
+          </ul>
+
+          <div class="programs-cta-row">
+            <div class="programs-meta">
+              <span class="programs-pill">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 6h16M4 12h10M4 18h16" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                Материалы + видео
+              </span>
+              <span class="programs-pill">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                Итоговый тест
+              </span>
+            </div>
+
+            <a href="course-gochs.html" class="programs-link">
+              Открыть курс
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2"/>
+                <path d="M9 7h8v8" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+      </div>
+
+      <p class="note" id="programsEmpty" style="display:none; margin-top:12px;">
+        По вашему запросу ничего не найдено. Попробуйте изменить текст поиска или снять фильтр.
       </p>
-      <p class="footer-text footer-text-muted">
-        Конкретные условия, порядок обучения и оформления документов устанавливаются работодателем
-        в локальных нормативных актах.
+    </section>
+
+    <!-- КАК ВЫБРАТЬ -->
+    <section class="section programs-steps">
+      <h2>Как выбрать программу обучения</h2>
+      <p class="programs-muted">
+        Ниже — универсальный алгоритм под любые локальные регламенты работодателя.
       </p>
-    </div>
-  </footer>
+
+      <ol class="steps-list steps-list-timeline">
+        <li>
+          <strong>Определите категорию работника.</strong>
+          Руководитель, специалист, работник, ответственное лицо, член комиссии и т. п.
+        </li>
+        <li>
+          <strong>Сопоставьте требования локальных актов.</strong>
+          Перечень обязательных программ, периодичность, формат проверки знаний, порядок допусков.
+        </li>
+        <li>
+          <strong>Выберите курс на портале.</strong>
+          Откройте страницу курса, ознакомьтесь с материалами и инструкциями.
+        </li>
+        <li>
+          <strong>Организуйте прохождение обучения и оформление.</strong>
+          По результатам тестов обеспечьте оформление документов (протоколы, журналы, приказы) по установленному порядку.
+        </li>
+      </ol>
+    </section>
+
+    <!-- ДОП. ИНФО -->
+    <section class="section section-card">
+      <h2>Дополнительная информация</h2>
+      <p>
+        За подробной информацией о порядке организации обучения, формировании комиссий, ведении журналов,
+        оформлении протоколов и приказов используйте раздел
+        <a href="for-responsibles.html">«Информация для ответственных за обучение»</a>.
+      </p>
+      <p class="note">
+        Порядок доступа к материалам, сроки прохождения тестов и последствия непрохождения обучения в срок
+        определяются локальными документами работодателя.
+      </p>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-text">
+      Учебный портал дистанционного обучения по охране труда, пожарной безопасности,
+      первой помощи и ГО/ЧС.
+    </p>
+    <p class="footer-text footer-text-muted">
+      Конкретные условия, порядок обучения и оформления документов устанавливаются работодателем
+      в локальных нормативных актах.
+    </p>
+  </div>
+</footer>
+
+<!-- Мини-JS: поиск + фильтр -->
+<script>
+  (function(){
+    const search = document.getElementById('programSearch');
+    const filters = document.querySelectorAll('.programs-filter');
+    const cards = Array.from(document.querySelectorAll('.programs-card'));
+    const empty = document.getElementById('programsEmpty');
+
+    let activeFilter = 'all';
+
+    function apply(){
+      const q = (search.value || '').trim().toLowerCase();
+      let shown = 0;
+
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-cat');
+        const hay = (card.getAttribute('data-title') || '') + ' ' + (card.textContent || '');
+        const okCat = (activeFilter === 'all') ? true : (cat === activeFilter);
+        const okQ = q ? hay.toLowerCase().includes(q) : true;
+
+        const visible = okCat && okQ;
+        card.classList.toggle('programs-hidden', !visible);
+        if (visible) shown++;
+      });
+
+      empty.style.display = shown ? 'none' : 'block';
+    }
+
+    filters.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filters.forEach(b => b.setAttribute('aria-pressed','false'));
+        btn.setAttribute('aria-pressed','true');
+        activeFilter = btn.getAttribute('data-filter') || 'all';
+        apply();
+      });
+    });
+
+    search.addEventListener('input', apply);
+    apply();
+  })();
+</script>
 </body>
 </html>
