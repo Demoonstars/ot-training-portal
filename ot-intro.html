@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Вводный инструктаж по охране труда — Учебный портал</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description"
-        content="Вводный инструктаж по охране труда: основы, обязанности, аварийные ситуации, ключевые алгоритмы. Материалы, видео и проверка знаний.">
-  <link rel="stylesheet" href="assets/style.css">
+        content="Вводный инструктаж по охране труда: полный материал для чтения на странице, видеоролики и проверка знаний." />
+  <link rel="stylesheet" href="assets/style.css" />
 </head>
 
 <body class="ot-theme">
@@ -42,8 +42,11 @@
         <span class="back-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" class="back-svg">
             <path d="M15 6l-6 6 6 6"
-                  stroke="white" stroke-width="2" fill="none"
-                  stroke-linecap="round" stroke-linejoin="round" />
+                  stroke="white"
+                  stroke-width="2"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
           </svg>
         </span>
         <span class="back-text">Вернуться к курсу «Охрана труда»</span>
@@ -62,7 +65,7 @@
 
       <p class="fire-hero-text">
         Программа вводного инструктажа разрабатывается работодателем на основе примерного перечня тем
-        и утверждается в установленном порядке. :contentReference[oaicite:0]{index=0}
+        и утверждается в установленном порядке (ПП РФ от 24.12.2021 № 2464).
       </p>
 
       <div class="fire-hero-tags">
@@ -72,14 +75,14 @@
       </div>
     </section>
 
-    <!-- Материалы (PDF) — красиво на странице + скачать -->
+    <!-- МАТЕРИАЛЫ: карточка + PDF внутри страницы -->
     <section class="section section-card course-materials">
       <h2 class="fire-block-title">Материалы вводного инструктажа</h2>
       <p>
-        Полный материал вводного инструктажа доступен в PDF: можно открыть онлайн или скачать для офлайн-просмотра.
+        Полный материал доступен прямо на этой странице: можно пролистывать онлайн или скачать PDF для офлайн-просмотра.
       </p>
 
-      <a href="assets/ot-intro.pdf" class="material-download-card" target="_blank" rel="noopener">
+      <a class="material-download-card" href="assets/ot-intro.pdf" target="_blank" rel="noopener">
         <span class="material-icon-wrap">
           <span class="material-icon">📘</span>
         </span>
@@ -90,142 +93,127 @@
           <span class="material-meta">Полная версия • PDF</span>
         </span>
 
-        <span class="material-badge">Открыть / скачать</span>
+        <span class="material-badge">ОТКРЫТЬ / СКАЧАТЬ</span>
       </a>
 
-      <p class="test-hint">
-        Если у вас открывается другой файл — проверьте, что PDF лежит по пути <strong>assets/ot-intro.pdf</strong>.
-      </p>
+      <!-- Встроенное чтение PDF на странице -->
+      <div class="section-card section-card-elevated" style="margin-top:16px;">
+        <h3 class="fire-block-title" style="margin-top:0;">Чтение материала на странице</h3>
+        <p class="note" style="margin-top:8px;">
+          Если PDF не отображается, проверьте путь к файлу: <strong>assets/ot-intro.pdf</strong>.
+        </p>
+
+        <div style="border-radius:16px; overflow:hidden; border:1px solid rgba(0,0,0,.08); background:#fff;">
+          <iframe
+            src="assets/ot-intro.pdf"
+            title="Вводный инструктаж по охране труда (PDF)"
+            style="width:100%; height:78vh; border:0;"
+            loading="lazy">
+          </iframe>
+        </div>
+      </div>
     </section>
 
-    <!-- Основной контент (красиво, без перегруза) -->
-    <article class="section section-card fire-course-card" id="ot-intro-course">
-
+    <!-- ВИДЕО + ключевые блоки (как в твоих курсах) -->
+    <article class="section section-card fire-course-card" id="ot-intro-content">
       <header class="fire-course-header">
         <div class="course-chip course-chip-1">ОТ</div>
         <div>
-          <h2 class="fire-course-title">Ключевые темы вводного инструктажа</h2>
+          <h2 class="fire-course-title">Видеоматериалы по ключевым темам</h2>
           <p class="fire-course-subtitle">
-            Ниже — структурированная “практическая выжимка” тем вводного инструктажа:
-            что это такое, кто проводит, какие обязанности и как действовать при опасных ситуациях. :contentReference[oaicite:1]{index=1}
+            Просмотрите видеоролики (в указанной последовательности), затем изучите материал в PDF выше и переходите к проверке знаний.
           </p>
         </div>
       </header>
 
-      <!-- 1 -->
-      <section class="fire-block" id="ot-what-is">
-        <h3 class="fire-block-title">1. Что такое вводный инструктаж и когда его проходят</h3>
+      <!-- Пожар -->
+      <section class="fire-block" id="ot-intro-fire">
+        <h3 class="fire-block-title">1) Как действовать во время пожара</h3>
         <p>
-          Вводный инструктаж проходят вновь принятые работники и иные лица, участвующие в производственной деятельности,
-          до допуска к выполнению работ. :contentReference[oaicite:2]{index=2}
-        </p>
-        <ul class="module-list fire-module-list">
-          <li>зачем он нужен и какие задачи решает;</li>
-          <li>общие требования охраны труда в организации;</li>
-          <li>как фиксируется прохождение (в установленном у работодателя порядке).</li>
-        </ul>
-      </section>
-
-      <!-- 2 -->
-      <section class="fire-block" id="ot-who">
-        <h3 class="fire-block-title">2. Кто проводит вводный инструктаж</h3>
-        <p>
-          Инструктаж проводит специалист по охране труда или иной уполномоченный работник; обязанность закрепляется приказом.
-          При отсутствии службы ОТ — работодатель (руководитель/ИП) либо уполномоченное лицо/организация по договору. :contentReference[oaicite:3]{index=3}
-        </p>
-      </section>
-
-      <!-- 3 -->
-      <section class="fire-block" id="ot-law">
-        <h3 class="fire-block-title">3. Нормативные основы и ответственность</h3>
-        <p>
-          В ходе инструктажа работнику разъясняются базовые нормы охраны труда и принцип: безопасные условия труда обеспечиваются
-          работодателем, а соблюдение требований — обязанность работника. :contentReference[oaicite:4]{index=4}
-        </p>
-      </section>
-
-      <!-- 4: аварийные ситуации — с видео -->
-      <section class="fire-block" id="ot-emergency">
-        <h3 class="fire-block-title">4. Действия в экстренных ситуациях</h3>
-        <p>
-          Отрабатываем понятный алгоритм поведения при пожаре, ЧС и террористической угрозе. :contentReference[oaicite:5]{index=5}
+          Посмотрите видео и запомните базовые действия: как реагировать на сигнал тревоги, как организовать эвакуацию,
+          как не допустить ошибок, которые приводят к травмам.
         </p>
 
         <div class="video-grid-fire">
           <article class="video-card-fire">
-            <h5>🔥 Как действовать во время пожара</h5>
-            <p class="video-desc">
-              Базовый алгоритм действий, эвакуация и типовые ошибки.
-            </p>
+            <h5>Действия при пожаре: алгоритм и примеры</h5>
             <div class="video-frame-wrapper">
               <iframe
                 src="https://kinescope.io/embed/u1U8AdN9kBw4CAWTWZSSWV"
                 allowfullscreen
                 loading="lazy"
-                title="Как действовать во время пожара"
-              ></iframe>
+                title="Как действовать во время пожара">
+              </iframe>
             </div>
           </article>
+        </div>
+      </section>
 
+      <!-- Террористическая угроза -->
+      <section class="fire-block" id="ot-intro-terror">
+        <h3 class="fire-block-title">2) Действия при террористической угрозе</h3>
+        <p>
+          В ролике — сценарии поведения при угрозе, рекомендации по снижению рисков, важные запреты и приоритеты безопасности.
+        </p>
+
+        <div class="video-grid-fire">
           <article class="video-card-fire">
-            <h5>🛡️ Террористическая угроза: как действовать</h5>
-            <p class="video-desc">
-              Сценарии угроз и рекомендации поведения для минимизации рисков.
-            </p>
+            <h5>Террористическая угроза: как действовать правильно</h5>
             <div class="video-frame-wrapper">
               <iframe
                 src="https://kinescope.io/embed/7c1BU5HmvydfpdG5tNUv7e"
                 allowfullscreen
                 loading="lazy"
-                title="Террористическая угроза: как действовать"
-              ></iframe>
+                title="Как действовать во время террористической угрозы">
+              </iframe>
             </div>
           </article>
         </div>
       </section>
 
-      <!-- 5: первая помощь — короткий блок + видео -->
-      <section class="fire-block" id="ot-first-aid">
-        <h3 class="fire-block-title">5. Первая помощь: что сделать в первые минуты</h3>
+      <!-- Первая помощь (в составе вводного) -->
+      <section class="fire-block" id="ot-intro-firstaid">
+        <h3 class="fire-block-title">3) Как действовать при несчастном случае: первая помощь</h3>
         <p>
-          В стрессовой ситуации важно действовать по единому алгоритму: оценка безопасности, вызов служб, первичные действия.
-          Видеоролик ниже показывает, что сделать перед началом оказания первой помощи. :contentReference[oaicite:6]{index=6}
+          Короткий ролик: что сделать до начала оказания первой помощи, как действовать по алгоритму и не потерять время.
         </p>
 
         <div class="video-grid-fire">
           <article class="video-card-fire">
-            <h5>🩹 Как действовать, если произошёл несчастный случай</h5>
-            <p class="video-desc">
-              Короткий алгоритм: что проверить и что сделать до прибытия медработников.
-            </p>
+            <h5>Алгоритм действий при несчастном случае</h5>
             <div class="video-frame-wrapper">
               <iframe
                 src="https://kinescope.io/embed/vmGbdzuLu6Q7htCrfxBjHc"
                 allowfullscreen
                 loading="lazy"
-                title="Как действовать, если произошёл несчастный случай"
-              ></iframe>
+                title="Как действовать, если произошёл несчастный случай">
+              </iframe>
             </div>
           </article>
         </div>
+
+        <p class="note" style="margin-top:12px;">
+          В подробном материале (PDF) есть расширенные пояснения, примеры ситуаций и разбор типичных ошибок.
+        </p>
       </section>
 
-      <!-- Проверка знаний -->
+      <!-- ПРОВЕРКА ЗНАНИЙ -->
       <section class="fire-block fire-test-block" id="ot-intro-test">
         <h3 class="fire-block-title">Проверка усвоения знаний</h3>
         <p>
-          После изучения материалов и просмотра видеороликов перейдите к тестированию по вводному инструктажу.
+          После просмотра видеоматериалов и ознакомления с полным материалом в PDF пройдите тест.
+          Результаты используются ответственными за обучение для оформления прохождения вводного инструктажа.
         </p>
 
         <div class="test-actions">
-          <!-- замени ссылку на фактическую страницу теста -->
+          <!-- Поставь свой реальный файл теста -->
           <a href="ot-intro-test.html" class="btn btn-primary btn-test-link">
             Перейти к тесту по вводному инструктажу
           </a>
         </div>
 
         <p class="test-hint">
-          При неудовлетворительном результате рекомендуется вернуться к материалам и повторить темы, по которым допущены ошибки.
+          Если результат неудовлетворительный — вернитесь к материалу и повторите темы, по которым допущены ошибки.
         </p>
       </section>
 
