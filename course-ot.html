@@ -7,6 +7,160 @@
   <meta name="description"
         content="Курс по охране труда: вводный инструктаж, программы обучения по охране труда (А и Б), применение СИЗ. Материалы, требования и переход к отдельным разделам обучения.">
   <link rel="stylesheet" href="assets/style.css">
+
+  <!-- Локальные улучшения только для этой страницы -->
+  <style>
+    /* “Супер-акцент” на вводный инструктаж без правок общего CSS */
+    .ot-hero-intro {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 18px 50px rgba(0,0,0,.25);
+    }
+    .ot-hero-intro::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(900px 240px at 18% 0%, rgba(255,255,255,.18), transparent 55%),
+        radial-gradient(700px 220px at 90% 30%, rgba(255,255,255,.10), transparent 60%),
+        linear-gradient(135deg, rgba(35, 200, 120, .22), rgba(255,255,255,.02));
+      pointer-events:none;
+    }
+    .ot-hero-intro > * { position: relative; }
+
+    .ot-intro-topline{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      margin-bottom:10px;
+    }
+    .ot-intro-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:999px;
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.14);
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+    .ot-intro-badge .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: rgba(35, 200, 120, .95);
+      box-shadow: 0 0 0 6px rgba(35, 200, 120, .18);
+    }
+    .ot-intro-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      font-weight:600;
+    }
+
+    .ot-intro-grid{
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap:16px;
+      align-items:stretch;
+      margin-top:14px;
+    }
+    @media (max-width: 920px){
+      .ot-intro-grid{ grid-template-columns:1fr; }
+    }
+
+    .ot-intro-cta{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      padding:14px;
+      border-radius:16px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.14);
+    }
+    .ot-intro-cta .mini-title{
+      font-weight:800;
+      letter-spacing:.2px;
+      margin:0;
+    }
+    .ot-intro-steps{
+      margin:0;
+      padding-left:18px;
+      line-height:1.55;
+    }
+
+    .route-card { margin-top: 12px; }
+    .route-card.is-primary{
+      border: 1px solid rgba(35, 200, 120, .40);
+      box-shadow: 0 18px 60px rgba(35, 200, 120, .12);
+      transform: translateZ(0);
+    }
+    .route-card.is-primary .material-badge{
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .route-card.is-primary .material-icon{
+      filter: drop-shadow(0 10px 22px rgba(35,200,120,.22));
+    }
+
+    .route-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:12px;
+    }
+    @media (max-width: 920px){
+      .route-grid{ grid-template-columns:1fr; }
+    }
+
+    .route-subtle{
+      opacity:.96;
+    }
+
+    .ot-divider{
+      height:1px;
+      background: rgba(255,255,255,.10);
+      margin: 14px 0;
+    }
+
+    .ot-soft-note{
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .ot-mini-kpis{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+    @media (max-width: 920px){
+      .ot-mini-kpis{ grid-template-columns:1fr; }
+    }
+    .ot-kpi{
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      padding: 12px;
+    }
+    .ot-kpi strong{
+      display:block;
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+    .ot-kpi span{
+      opacity:.9;
+      line-height:1.45;
+      display:block;
+    }
+  </style>
 </head>
 
 <body class="ot-theme">
@@ -53,8 +207,14 @@
       </a>
     </nav>
 
-    <!-- Герой -->
-    <section class="section section-card page-header">
+    <!-- ГЛАВНЫЙ ГЕРОЙ: ВВОДНЫЙ ИНСТРУКТАЖ -->
+    <section class="section section-card page-header ot-hero-intro">
+      <div class="ot-intro-topline">
+        <span class="ot-intro-badge"><span class="dot" aria-hidden="true"></span> Главный старт курса</span>
+        <span class="ot-intro-chip">Раздел 1 — обязателен для всех</span>
+        <span class="ot-intro-chip">Материалы + видео + тест</span>
+      </div>
+
       <p class="attention-header">
         <span aria-hidden="true">⚠</span>
         <span>Важно: обучение и проверка знаний оформляются работодателем</span>
@@ -64,133 +224,156 @@
       <h2 class="page-title">Обучение по охране труда</h2>
 
       <p class="page-lead">
-        На этой странице собраны основные разделы обучения по охране труда: <strong>вводный инструктаж</strong>,
-        <strong>программы обучения по охране труда</strong> (А и Б) и <strong>применение СИЗ</strong>.
-        Каждый раздел ведёт на отдельный лист курса со своими материалами и итоговым тестированием.
+        Главная точка входа для всех работников — <strong>вводный инструктаж по охране труда</strong>.
+        Он задаёт базовые правила безопасного поведения и единый порядок действий при инцидентах.
       </p>
 
-      <p>
-        Материалы размещены для дистанционного изучения работниками в составе СУОТ.
-        Конкретный состав программ, категории обучаемых, периодичность и оформление результатов
-        определяются локальными нормативными актами работодателя.
-      </p>
+      <div class="ot-intro-grid">
+        <div>
+          <p>
+            На этой странице собраны разделы обучения по ОТ:
+            <strong>вводный инструктаж</strong>, <strong>программы А/Б</strong> и <strong>применение СИЗ</strong>.
+            Каждый раздел ведёт на отдельный лист курса со своими материалами и итоговым тестированием.
+          </p>
 
-      <div class="test-summary-badges" aria-label="Ключевые блоки курса">
-        <span class="test-badge">Вводный инструктаж</span>
-        <span class="test-badge">Программы А / Б</span>
-        <span class="test-badge">Применение СИЗ</span>
+          <div class="ot-mini-kpis" aria-label="Ключевая логика">
+            <div class="ot-kpi">
+              <strong>1) Вводный</strong>
+              <span>обязательно перед допуском к работе</span>
+            </div>
+            <div class="ot-kpi">
+              <strong>2) Программа</strong>
+              <span>А или Б — по категории работника</span>
+            </div>
+            <div class="ot-kpi">
+              <strong>3) СИЗ</strong>
+              <span>если требуется по работам/рискам</span>
+            </div>
+          </div>
+
+          <div class="ot-divider"></div>
+
+          <p class="note">
+            На этой странице <strong>нет единого общего теста</strong>.
+            Итоговые тесты размещены внутри каждого раздела (вводный, программы А/Б, СИЗ).
+          </p>
+        </div>
+
+        <aside class="ot-intro-cta" aria-label="Рекомендуемый маршрут">
+          <p class="mini-title">Рекомендуемый маршрут (для новых работников)</p>
+          <ol class="ot-intro-steps">
+            <li><strong>Пройти вводный инструктаж</strong> и тест.</li>
+            <li>Далее — <strong>программа А</strong> или <strong>Б</strong> (по указанию руководителя/ответственного).</li>
+            <li>При необходимости — <strong>обучение по СИЗ</strong> и тест.</li>
+          </ol>
+          <div class="ot-soft-note">
+            <strong>Подсказка:</strong> если сомневаетесь, какой раздел выбрать — уточните у руководителя или ответственного за обучение.
+          </div>
+        </aside>
       </div>
 
-      <p class="note">
-        На этой странице <strong>нет единого общего теста</strong>.
-        Итоговые тесты размещены внутри каждого раздела (вводный, программы А/Б, СИЗ).
-      </p>
+      <!-- Супер-кнопка/карточка на вводный -->
+      <a class="material-download-card route-card is-primary" href="ot-intro.html" style="margin-top:16px;">
+        <span class="material-icon-wrap" aria-hidden="true">
+          <span class="material-icon">⭐</span>
+        </span>
+
+        <span class="material-text">
+          <span class="material-label">Раздел 1 — начать отсюда</span>
+          <span class="material-title">Вводный инструктаж по охране труда</span>
+          <span class="material-meta">Базовые правила, обязанности, порядок действий • Материалы + видеоролики + итоговый тест</span>
+        </span>
+
+        <span class="material-badge">Открыть вводный</span>
+      </a>
     </section>
 
     <!-- Основания и логика обучения -->
     <section class="section section-card">
-      <h2>Основания и порядок обучения</h2>
+      <h2>Основания и логика обучения</h2>
 
       <p>
-        Обучение по охране труда включает разные по назначению блоки. В практике удобнее разделять:
-        <strong>вводный инструктаж</strong> (для всех, кто допускается к работе),
-        <strong>обучение по программам</strong> (в зависимости от категории работника),
+        Обучение по охране труда состоит из нескольких блоков. В практической модели удобно разделять:
+        <strong>вводный инструктаж</strong> (для всех допускаемых к работе),
+        <strong>обучение по программам</strong> (по категории работника),
         а также <strong>обучение безопасному применению СИЗ</strong> — когда это требуется.
       </p>
 
       <ul class="module-list">
-        <li>
-          <strong>Вводный инструктаж по охране труда</strong> — базовые правила безопасного поведения,
-          общие требования, порядок действий при инцидентах, ответственность, взаимодействие с руководителем.
-        </li>
-        <li>
-          <strong>Программа обучения по охране труда (А)</strong> — общие требования охраны труда
-          для основной категории работников (в пределах принятой у работодателя структуры программ).
-        </li>
-        <li>
-          <strong>Программа обучения по охране труда (Б)</strong> — для работников, чья деятельность
-          требует расширенного объёма знаний (руководители, специалисты, отдельные категории/виды работ — по решению работодателя).
-        </li>
-        <li>
-          <strong>Применение СИЗ</strong> — правила выбора, ношения, контроля исправности, ограничения и запреты,
-          ответственность за несоблюдение требований.
-        </li>
+        <li><strong>Вводный инструктаж</strong> — минимальный обязательный базис для допуска к работе.</li>
+        <li><strong>Программы А/Б</strong> — разные уровни и объём знаний в зависимости от обязанностей/рисков.</li>
+        <li><strong>СИЗ</strong> — правила выбора, применения, контроля исправности, запреты и ответственность.</li>
       </ul>
 
       <p class="note">
-        Каждый раздел ниже — это “точка входа” в отдельную программу обучения со своим контентом и итоговой проверкой знаний.
+        Ниже — переходы на отдельные страницы программ. Каждая страница содержит материалы и собственный тест.
       </p>
     </section>
 
-    <!-- Переходы на разделы (карточки) -->
+    <!-- Остальные разделы (второстепенно) -->
     <section class="section section-card">
-      <h2>Разделы курса</h2>
-      <p>
-        Выберите нужный раздел. Рекомендуемый маршрут для новых работников: <strong>сначала вводный инструктаж</strong>,
-        затем — соответствующая программа обучения и (при необходимости) обучение по СИЗ.
+      <h2>Остальные разделы обучения по ОТ</h2>
+      <p class="route-subtle">
+        Эти разделы проходят после вводного инструктажа — по назначению/категории работника и требованиям работодателя.
       </p>
 
-      <!-- Карточка 1: Вводный -->
-      <a class="material-download-card route-card" href="ot-intro.html">
-        <span class="material-icon-wrap" aria-hidden="true">
-          <span class="material-icon">🟩</span>
-        </span>
+      <div class="route-grid" aria-label="Разделы обучения по ОТ">
+        <!-- Программа А -->
+        <a class="material-download-card route-card" href="ot-program-a.html">
+          <span class="material-icon-wrap" aria-hidden="true">
+            <span class="material-icon">📘</span>
+          </span>
 
-        <span class="material-text">
-          <span class="material-label">Раздел 1 — обязателен для всех</span>
-          <span class="material-title">Вводный инструктаж по охране труда</span>
-          <span class="material-meta">Правила, обязанности, порядок действий • Материалы + итоговый тест</span>
-        </span>
+          <span class="material-text">
+            <span class="material-label">Раздел 2</span>
+            <span class="material-title">Обучение по охране труда — Программа А</span>
+            <span class="material-meta">Базовая программа по ОТ • Материалы + итоговый тест</span>
+          </span>
 
-        <span class="material-badge">Открыть</span>
-      </a>
+          <span class="material-badge">Открыть</span>
+        </a>
 
-      <!-- Карточка 2: Программа А -->
-      <a class="material-download-card route-card" href="ot-program-a.html">
-        <span class="material-icon-wrap" aria-hidden="true">
-          <span class="material-icon">📘</span>
-        </span>
+        <!-- Программа Б -->
+        <a class="material-download-card route-card" href="ot-program-b.html">
+          <span class="material-icon-wrap" aria-hidden="true">
+            <span class="material-icon">📙</span>
+          </span>
 
-        <span class="material-text">
-          <span class="material-label">Раздел 2</span>
-          <span class="material-title">Обучение по охране труда — Программа А</span>
-          <span class="material-meta">Базовая программа по ОТ • Материалы + итоговый тест</span>
-        </span>
+          <span class="material-text">
+            <span class="material-label">Раздел 3</span>
+            <span class="material-title">Обучение по охране труда — Программа Б</span>
+            <span class="material-meta">Расширенная программа по ОТ • Материалы + итоговый тест</span>
+          </span>
 
-        <span class="material-badge">Открыть</span>
-      </a>
+          <span class="material-badge">Открыть</span>
+        </a>
 
-      <!-- Карточка 3: Программа Б -->
-      <a class="material-download-card route-card" href="ot-program-b.html">
-        <span class="material-icon-wrap" aria-hidden="true">
-          <span class="material-icon">📙</span>
-        </span>
+        <!-- СИЗ -->
+        <a class="material-download-card route-card" href="ot-ppe.html">
+          <span class="material-icon-wrap" aria-hidden="true">
+            <span class="material-icon">🦺</span>
+          </span>
 
-        <span class="material-text">
-          <span class="material-label">Раздел 3</span>
-          <span class="material-title">Обучение по охране труда — Программа Б</span>
-          <span class="material-meta">Расширенная программа по ОТ • Материалы + итоговый тест</span>
-        </span>
+          <span class="material-text">
+            <span class="material-label">Раздел 4</span>
+            <span class="material-title">Обучение безопасному применению СИЗ</span>
+            <span class="material-meta">Ношение/контроль/ограничения • Материалы + итоговый тест</span>
+          </span>
 
-        <span class="material-badge">Открыть</span>
-      </a>
+          <span class="material-badge">Открыть</span>
+        </a>
 
-      <!-- Карточка 4: СИЗ -->
-      <a class="material-download-card route-card" href="ot-ppe.html">
-        <span class="material-icon-wrap" aria-hidden="true">
-          <span class="material-icon">🦺</span>
-        </span>
+        <!-- Мини-памятка -->
+        <div class="ot-soft-note" style="display:flex; flex-direction:column; gap:8px;">
+          <strong>Важно:</strong>
+          <span style="opacity:.92; line-height:1.5;">
+            Раздел “СИЗ” нужен не всем. Проходите его, если так указано в вашей программе обучения/по результатам оценки рисков,
+            по должности или по видам выполняемых работ.
+          </span>
+        </div>
+      </div>
 
-        <span class="material-text">
-          <span class="material-label">Раздел 4</span>
-          <span class="material-title">Обучение безопасному применению СИЗ</span>
-          <span class="material-meta">Правила ношения/контроля/ограничения • Материалы + итоговый тест</span>
-        </span>
-
-        <span class="material-badge">Открыть</span>
-      </a>
-
-      <p class="test-hint">
+      <p class="test-hint" style="margin-top:12px;">
         Если вы не уверены, какой раздел вам нужен — ориентируйтесь на указания руководителя/ответственного за обучение
         и локальные документы работодателя.
       </p>
@@ -201,8 +384,8 @@
       <h2>Оформление результатов обучения</h2>
       <p>
         Результаты изучения материалов и прохождения тестирования по каждому разделу могут использоваться работодателем
-        для оформления документов по обучению и проверке знаний (журналы/протоколы/приказы и иные формы учёта — в зависимости
-        от принятого у работодателя порядка).
+        для оформления документов по обучению и проверке знаний (журналы/протоколы/приказы и иные формы учёта —
+        в зависимости от принятого у работодателя порядка).
       </p>
       <p class="note">
         Конкретный порядок оформления, ответственные лица, сроки хранения и состав учётных форм определяются
