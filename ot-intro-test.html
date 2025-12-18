@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Итоговый тест — Вводный инструктаж по охране труда</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+        content="Проверка усвоения вводного инструктажа по охране труда: заполнение персональных данных и прохождение итогового теста.">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body class="ot-theme">
+<a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="header-brand">
+      <p class="site-label">Дистанционный учебный портал</p>
+      <h1 class="site-title">Охрана труда, пожарная безопасность, первая помощь, ГО/ЧС</h1>
+      <p class="site-subtitle">
+        Проверка знаний по вводному инструктажу по охране труда.
+      </p>
+    </div>
+
+    <nav class="main-nav" aria-label="Основная навигация">
+      <ul class="nav-list">
+        <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
+        <li class="nav-item"><a href="programs.html" class="nav-link nav-link-active">Программы обучения</a></li>
+        <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции для сотрудников</a></li>
+        <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Информация для ответственных за обучение</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content" class="site-main">
+  <!-- HERO -->
+  <section class="ot-test-hero">
+    <div class="container">
+
+      <!-- Кнопка возврата -->
+      <nav class="back-nav" aria-label="Навигация назад">
+        <a href="ot-intro.html" class="back-link">
+          <span class="back-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="back-svg">
+              <path d="M15 6l-6 6 6 6"
+                    stroke="white"
+                    stroke-width="2"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+          </span>
+          <span class="back-text">Вернуться к вводному инструктажу по ОТ</span>
+        </a>
+      </nav>
+
+      <div class="ot-test-hero-card">
+        <div class="ot-test-kicker">
+          <span aria-hidden="true">🧾</span>
+          <span>проверка усвоения</span>
+        </div>
+
+        <h2 class="ot-test-title">Итоговый тест по вводному инструктажу по охране труда</h2>
+        <p class="ot-test-lead">
+          Перед началом тестирования убедитесь, что вы корректно укажете персональные и организационные данные.
+          Это необходимо для последующего документального оформления результатов обучения у работодателя.
+        </p>
+
+        <div class="ot-test-grid">
+          <!-- Левая панель: правила + данные -->
+          <section class="ot-test-panel" aria-label="Порядок заполнения и рекомендации">
+            <h3>Как заполнять данные</h3>
+            <p>
+              Заполняйте поля <strong>без сокращений</strong>, так, как это принято в кадровых документах организации.
+            </p>
+
+            <ul class="ot-test-checklist">
+              <li><strong>ФИО</strong> — полностью (Иванов Иван Иванович).</li>
+              <li><strong>Подразделение</strong> — официальное наименование (отдел/служба/цех).</li>
+              <li><strong>Должность</strong> — как в трудовом договоре/штатном расписании.</li>
+              <li><strong>Организация</strong> — полное наименование (или принятое у работодателя).</li>
+            </ul>
+
+            <div class="ot-test-note">
+              <strong>Важно:</strong> если данные указаны с ошибками, у ответственных за обучение могут возникнуть
+              сложности при оформлении протоколов/журналов, и вас могут попросить пройти тест повторно.
+            </div>
+
+            <h3 style="margin-top:14px;">Заполните перед стартом (рекомендовано)</h3>
+            <p>
+              Эти поля нужны, чтобы вы не забыли корректно подготовить данные перед заполнением формы теста.
+              Ничего не отправляется и не сохраняется на сайте.
+            </p>
+
+            <form class="ot-test-form" id="otTestPrepForm" autocomplete="off">
+              <div class="ot-test-field">
+                <label for="fio">ФИО полностью</label>
+                <input id="fio" name="fio" type="text" placeholder="Например: Иванов Иван Иванович">
+              </div>
+
+              <div class="ot-test-field">
+                <label for="dob">Дата рождения</label>
+                <input id="dob" name="dob" type="text" placeholder="Например: 01.01.1990">
+              </div>
+
+              <div class="ot-test-field">
+                <label for="org">Организация</label>
+                <input id="org" name="org" type="text" placeholder="Например: ООО «СОФРИНО»">
+              </div>
+
+              <div class="ot-test-field">
+                <label for="dept">Подразделение</label>
+                <input id="dept" name="dept" type="text" placeholder="Например: инженерная служба">
+              </div>
+
+              <div class="ot-test-field" style="grid-column: 1 / -1;">
+                <label for="pos">Должность</label>
+                <input id="pos" name="pos" type="text" placeholder="Например: специалист по охране труда">
+              </div>
+            </form>
+
+            <div class="ot-test-warning" id="otTestWarning" role="alert">
+              <strong>Проверьте заполнение:</strong> похоже, не все поля заполнены.  
+              Рекомендуется указать данные полностью, а затем переходить к тесту.
+            </div>
+
+            <div class="ot-test-actions">
+              <a class="ot-test-btn" href="#test-widget" id="toTestBtn">
+                Перейти к тесту
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </a>
+
+              <a class="ot-test-btn" href="course-ot.html">
+                К курсу «Охрана труда»
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17L17 7" stroke="currentColor" stroke-width="2"/>
+                  <path d="M9 7h8v8" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </a>
+            </div>
+          </section>
+
+          <!-- Правая панель: виджет теста -->
+          <section class="ot-test-widget-card" id="test-widget" aria-label="Тестирование">
+            <div class="ot-test-widget-head">
+              <h3>Тестирование</h3>
+              <a class="ot-test-anchor" href="#main-content">
+                Наверх
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 14l5-5 5 5" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </a>
+            </div>
+
+            <p class="ot-test-widget-hint">
+              Перед началом проверьте: <strong>ФИО, дата рождения, подразделение, должность, организация</strong>.
+              В тесте заполняйте поля так, как в кадровых документах.
+            </p>
+
+            <!-- Online Test Pad Test Widget (#363131)-->
+            <div id="otp_wgt_27gckuaakwvlm"></div>
+            <script type="text/javascript">
+              var otp_wjs_dt = (new Date).getTime();
+              (function (w, d, n, s, rp) {
+                w[n] = w[n] || [];
+                rp = {};
+                w[n].push(function () {
+                  otp_render_widget(d.getElementById("otp_wgt_27gckuaakwvlm"), 'onlinetestpad.com', '27gckuaakwvlm', rp);
+                });
+                s = d.createElement("script");
+                s.type = "text/javascript";
+                s.src = "//onlinetestpad.com/js/widget.js?" + otp_wjs_dt;
+                s.async = true;
+                d.getElementsByTagName("head")[0].appendChild(s);
+              })(this, this.document, "otp_widget_callbacks");
+            </script>
+          </section>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="container">
+    <section class="section section-card">
+      <h2>Результаты и оформление</h2>
+      <p>
+        Результаты прохождения теста используются ответственными за обучение для оформления документов,
+        подтверждающих прохождение вводного инструктажа по охране труда (журнал/протокол/приказ — в зависимости
+        от порядка, установленного работодателем).
+      </p>
+      <p class="note">
+        Если тест пройден с неудовлетворительным результатом — рекомендуется вернуться к материалам вводного инструктажа,
+        повторно изучить темы и пройти тест повторно.
+      </p>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-text">
+      Учебный портал дистанционного обучения по охране труда, пожарной безопасности,
+      первой помощи и ГО/ЧС.
+    </p>
+    <p class="footer-text footer-text-muted">
+      Конкретные условия, порядок обучения и оформления документов устанавливаются работодателем
+      в локальных нормативных актах.
+    </p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    const btn = document.getElementById('toTestBtn');
+    const warn = document.getElementById('otTestWarning');
+
+    function isFilled(id){
+      const el = document.getElementById(id);
+      return el && (el.value || '').trim().length >= 2;
+    }
+
+    btn.addEventListener('click', function(e){
+      const ok = isFilled('fio') && isFilled('dob') && isFilled('org') && isFilled('dept') && isFilled('pos');
+
+      if(!ok){
+        warn.style.display = 'block';
+        // не блокируем переход — только предупреждаем (UX)
+        setTimeout(() => { warn.style.display = 'none'; }, 8000);
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
