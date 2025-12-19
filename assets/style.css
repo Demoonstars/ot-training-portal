@@ -993,3 +993,62 @@ body.first-aid-theme :focus-visible{ outline-color: rgba(22,138,85,.30); }
     font-size: 13px;
   }
 }
+
+/* =========================================================
+   Mobile header/nav FIX (v2) — вставить в самый конец
+   Чинит "две колонки" текста в шапке и развал меню на мобилке
+   ========================================================= */
+
+@media (max-width: 820px){
+
+  /* 1) Бренд-блок: строго колонкой, без space-between */
+  .header-brand{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 4px !important;
+    min-width: 0; /* важно для переносов */
+  }
+
+  .site-label,
+  .site-title{
+    max-width: 100%;
+    white-space: normal;      /* разрешаем нормальный перенос */
+    word-break: normal;
+    overflow-wrap: anywhere;  /* не ломает слова странно */
+    line-height: 1.25;
+  }
+
+  /* 2) Навигация: одна строка + горизонтальный скролл, без переносов */
+  .main-nav .nav-list{
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    gap: 8px !important;
+    padding-bottom: 8px !important;
+    margin: 0 !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+  }
+
+  .main-nav .nav-list > li{
+    flex: 0 0 auto !important;
+    scroll-snap-align: start;
+  }
+
+  .main-nav .nav-link{
+    white-space: nowrap !important;
+    font-size: 14px !important;
+    padding: 8px 10px !important;
+  }
+}
+
+/* На очень узких — чуть компактнее кнопки */
+@media (max-width: 420px){
+  .main-nav .nav-link{
+    font-size: 13px !important;
+    padding: 7px 9px !important;
+  }
+}
