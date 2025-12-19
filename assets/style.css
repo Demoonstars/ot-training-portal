@@ -886,166 +886,65 @@ body.first-aid-theme :focus-visible{ outline-color: rgba(22,138,85,.30); }
 }
 
 /* =========================================================
-   Mobile rescue overrides (v1)
+   Mobile header minimal + SVG size clamp (v3)
    ВСТАВИТЬ В САМЫЙ КОНЕЦ assets/style.css
    ========================================================= */
 
 @media (max-width: 820px){
-  .container{ width: min(1100px, 94vw); }
-  .site-main{ padding: 14px 0 42px; }
 
-  /* Header/nav: prevent squish and overflow */
-  .header-inner{
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-    padding: 12px 0;
-  }
-  .header-brand{
-    display:flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  .site-title{ font-size: 16px; }
-  .site-label{ font-size: 11px; }
-
-  .main-nav .nav-list{
-    justify-content: flex-start;
-    gap: 8px;
-    flex-wrap: nowrap;          /* keep in one row */
-    overflow-x: auto;           /* scroll instead of breaking */
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 6px;
-  }
-  .main-nav .nav-list::-webkit-scrollbar{ height: 6px; }
-  .main-nav .nav-list::-webkit-scrollbar-thumb{
-    background: rgba(15,23,42,.16);
-    border-radius: 999px;
+  /* ШАПКА: оставляем только навигационные кнопки */
+  .site-header .header-brand{
+    display: none !important;
   }
 
-  .main-nav .nav-link{
-    white-space: nowrap;
-    padding: 8px 10px;
-    border-radius: 999px;
+  .site-header .header-inner{
+    padding: 10px 0 !important;
+    gap: 10px !important;
   }
 
-  /* Reduce heavy effects that look "dirty" on mobile */
-  body{ background-attachment: scroll; }
-  .fire-hero-card{ box-shadow: var(--shadow-md, 0 12px 30px rgba(15,23,42,.10)); }
-  .fire-hero-card::after{ display:none; } /* disable sheen animation on mobile */
-  .site-header{ backdrop-filter: blur(8px); }
-}
-
-@media (max-width: 560px){
-  /* Typography & spacing */
-  .home-section-title{ font-size: clamp(22px, 6vw, 32px); }
-  .home-section-lead{ font-size: 15px; }
-
-  .section h2{ font-size: 18px; }
-  .section-card{ padding: 14px; border-radius: 16px; }
-
-  /* Buttons: avoid tiny pills / overflow */
-  .btn-row{
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .btn, button.btn, a.btn{
-    width: 100%;
-    justify-content: center;
-  }
-
-  /* Materials grid: force 1 column */
-  .materials-grid{
-    grid-template-columns: 1fr !important;
-    gap: 12px;
-  }
-
-  /* Images/iframes: never overflow viewport */
-  img, video, iframe{
-    max-width: 100%;
-    height: auto;
-  }
-  iframe{
-    width: 100% !important;
-  }
-
-  /* Test overlay: make it fit small screens */
-  .test-overlay{
-    padding: 12px;
-  }
-  .test-overlay-content{
-    padding: 14px;
-    border-radius: 16px;
-  }
-
-  /* Back nav: full-width tap target */
-  .back-nav{
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 420px){
-  /* Extra small: make nav chips smaller */
-  .main-nav .nav-link{
-    padding: 7px 9px;
-    font-size: 13px;
-  }
-}
-
-/* =========================================================
-   Mobile header/nav FIX (v2) — вставить в самый конец
-   Чинит "две колонки" текста в шапке и развал меню на мобилке
-   ========================================================= */
-
-@media (max-width: 820px){
-
-  /* 1) Бренд-блок: строго колонкой, без space-between */
-  .header-brand{
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    justify-content: flex-start !important;
-    gap: 4px !important;
-    min-width: 0; /* важно для переносов */
-  }
-
-  .site-label,
-  .site-title{
-    max-width: 100%;
-    white-space: normal;      /* разрешаем нормальный перенос */
-    word-break: normal;
-    overflow-wrap: anywhere;  /* не ломает слова странно */
-    line-height: 1.25;
-  }
-
-  /* 2) Навигация: одна строка + горизонтальный скролл, без переносов */
+  /* Навигация: одна строка со скроллом */
   .main-nav .nav-list{
     display: flex !important;
     flex-wrap: nowrap !important;
     overflow-x: auto !important;
     overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
     gap: 8px !important;
     padding-bottom: 8px !important;
     margin: 0 !important;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x proximity;
   }
-
-  .main-nav .nav-list > li{
-    flex: 0 0 auto !important;
-    scroll-snap-align: start;
-  }
+  .main-nav .nav-list > li{ flex: 0 0 auto !important; }
 
   .main-nav .nav-link{
     white-space: nowrap !important;
     font-size: 14px !important;
     padding: 8px 10px !important;
   }
+
+  /* СТРОГИЙ СТОП "огромным значкам": ограничиваем SVG в интерфейсных блоках */
+  .programs-hero svg,
+  .programs-toolbar svg,
+  .programs-search svg,
+  .programs-filters svg,
+  .programs-chip svg,
+  .programs-pill svg,
+  .programs-link svg,
+  .programs-stat-icon svg{
+    width: 18px !important;
+    height: 18px !important;
+    max-width: 18px !important;
+    max-height: 18px !important;
+    flex: 0 0 auto !important;
+  }
+
+  /* И контейнеры иконок тоже фиксируем */
+  .programs-stat-icon{
+    width: 40px !important;
+    height: 40px !important;
+    flex: 0 0 40px !important;
+  }
 }
 
-/* На очень узких — чуть компактнее кнопки */
 @media (max-width: 420px){
   .main-nav .nav-link{
     font-size: 13px !important;
