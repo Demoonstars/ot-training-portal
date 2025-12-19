@@ -886,68 +886,69 @@ body.first-aid-theme :focus-visible{ outline-color: rgba(22,138,85,.30); }
 }
 
 /* =========================================================
-   Mobile header minimal + SVG size clamp (v3)
+   RESTORE old mobile header behavior + SVG clamp (v-final)
    ВСТАВИТЬ В САМЫЙ КОНЕЦ assets/style.css
    ========================================================= */
 
-@media (max-width: 820px){
+@media (max-width: 640px) {
 
-  /* ШАПКА: оставляем только навигационные кнопки */
-  .site-header .header-brand{
-    display: none !important;
+  /* 1) Шапка на мобилке: оставляем только кнопки */
+  .header-brand { display: none !important; }
+
+  .site-header{
+    padding-top: 0.2rem !important;
+    padding-bottom: 0.2rem !important;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12) !important;
   }
 
-  .site-header .header-inner{
-    padding: 10px 0 !important;
+  .header-inner{
+    justify-content: center !important;
+    padding-top: 0.35rem !important;
+    padding-bottom: 0.35rem !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
     gap: 10px !important;
   }
 
-  /* Навигация: одна строка со скроллом */
-  .main-nav .nav-list{
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    -webkit-overflow-scrolling: touch;
-    gap: 8px !important;
-    padding-bottom: 8px !important;
-    margin: 0 !important;
+  .main-nav{
+    width: 100% !important;
+    border-radius: 0.9rem !important;
+    padding-inline: 0.35rem !important;
   }
-  .main-nav .nav-list > li{ flex: 0 0 auto !important; }
 
-  .main-nav .nav-link{
+  .nav-list{
+    justify-content: space-between !important;
+    gap: 0.2rem !important;
+    flex-wrap: nowrap !important;    /* ключевое: не переносим в столбик */
+    overflow-x: hidden !important;   /* как было: без горизонтального скролла */
+  }
+
+  .nav-link{
+    font-size: 0.82rem !important;
+    padding: 0.38rem 0.65rem !important;
     white-space: nowrap !important;
-    font-size: 14px !important;
-    padding: 8px 10px !important;
   }
 
-  /* СТРОГИЙ СТОП "огромным значкам": ограничиваем SVG в интерфейсных блоках */
+  /* 2) Фикс "огромных значков": жёстко ограничиваем SVG в programs */
   .programs-hero svg,
   .programs-toolbar svg,
   .programs-search svg,
-  .programs-filters svg,
-  .programs-chip svg,
+  .programs-filter svg,
   .programs-pill svg,
-  .programs-link svg,
+  .programs-chip svg,
   .programs-stat-icon svg{
-    width: 18px !important;
-    height: 18px !important;
-    max-width: 18px !important;
-    max-height: 18px !important;
+    width: 20px !important;
+    height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
     flex: 0 0 auto !important;
+    display: inline-block !important;
   }
 
-  /* И контейнеры иконок тоже фиксируем */
   .programs-stat-icon{
     width: 40px !important;
     height: 40px !important;
     flex: 0 0 40px !important;
-  }
-}
-
-@media (max-width: 420px){
-  .main-nav .nav-link{
-    font-size: 13px !important;
-    padding: 7px 9px !important;
+    overflow: hidden !important; /* чтобы SVG точно не раздувал блок */
   }
 }
