@@ -952,3 +952,43 @@ body.first-aid-theme :focus-visible{ outline-color: rgba(22,138,85,.30); }
     overflow: hidden !important; /* чтобы SVG точно не раздувал блок */
   }
 }
+
+/* =========================================================
+   SVG icon clamp (v4) — чинит большие svg на index + косую стрелку
+   ВСТАВИТЬ В САМЫЙ КОНЕЦ assets/style.css
+   ========================================================= */
+
+@media (max-width: 820px){
+
+  /* 1) Любые SVG внутри кнопок/ссылок/навигации/бейджей/тегов — это ИКОНКИ */
+  a svg,
+  button svg,
+  .btn svg,
+  .nav-link svg,
+  .back-nav svg,
+  .test-badge svg,
+  .fire-tag svg,
+  .badge svg,
+  .pill svg{
+    width: 18px !important;
+    height: 18px !important;
+    max-width: 18px !important;
+    max-height: 18px !important;
+    flex: 0 0 auto !important;
+    display: inline-block !important;
+  }
+
+  /* 2) Частый случай: стрелка как псевдо-иконка внутри текста/кнопки */
+  .btn-row a::after,
+  .btn-row button::after{
+    font-size: 18px !important;
+    line-height: 1 !important;
+  }
+
+  /* 3) Страховка от "раздувания" отдельных svg-иконок */
+  a svg *,
+  button svg *{
+    vector-effect: non-scaling-stroke;
+  }
+}
+
