@@ -252,46 +252,16 @@ a:focus {
 }
 
 /* Герой-блок с размытым фоном (главная) */
-.hero-blur {
-  position: relative;
-  margin: 0.75rem 1rem 1.8rem;
-  border-radius: 1.5rem;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25);
-  background-color: #111827;
-}
+
 
 /* Размытый фон только на псевдо-элементе, текст не размывается */
-.hero-blur::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("hero-training.jpg"); /* тот же файл, что и раньше */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  filter: blur(7px);
-  transform: scale(1.06); /* чуть увеличиваем, чтобы не было жёсткого края */
-  transform-origin: center;
-  z-index: 0;
-}
+
 
 /* затемнение поверх размытой картинки */
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, rgba(15, 23, 42, 0.35), rgba(15, 23, 42, 0.85));
-  z-index: 1;
-}
+
 
 /* Контент героя поверх всех эффектов */
-.hero-blur-content {
-  position: relative;
-  z-index: 2;
-  padding: 2.7rem 0 3rem;
-  text-align: center;
-  color: #ffffff;
-}
+
 
 .hero-blur-content h2 {
   margin: 0 0 0.6rem;
@@ -306,10 +276,7 @@ a:focus {
   line-height: 1.55;
 }
 
-.hero-blur-note {
-  font-size: 0.9rem;
-  opacity: 0.95;
-}
+
 
 .hero-btn {
   margin-top: 0.9rem;
@@ -319,14 +286,9 @@ a:focus {
 
 /* Адаптация под телефон именно для hero */
 @media (max-width: 640px) {
-  .hero-blur {
-    margin: 0.6rem 0.6rem 1.4rem;
-    border-radius: 1.2rem;
-  }
+  
 
-  .hero-blur-content {
-    padding: 2.1rem 0 2.4rem;
-  }
+  
 
   .hero-blur-content h2 {
     font-size: 1.35rem;
@@ -445,21 +407,9 @@ a:focus {
 }
 
 /* Бело-синие кнопки в карточках программ (чтобы текст был отлично виден) */
-.btn-program {
-  background-color: #ffffff;
-  color: #1d4ed8;
-  border-color: #1d4ed8;
-  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.18);
-  font-size: 0.9rem;
-  padding: 0.55rem 1.2rem;
-}
 
-.btn-program:hover,
-.btn-program:focus {
-  background-color: #eff6ff;
-  border-color: #1d4ed8;
-  box-shadow: 0 3px 9px rgba(15, 23, 42, 0.24);
-}
+
+
 
 /* Контрастная кнопка (например, в CTA на главной) */
 .btn-contrast {
@@ -476,18 +426,9 @@ a:focus {
 }
 
 /* CTA-блок на главной */
-.cta-section {
-  margin-top: 2rem;
-}
 
-.cta-card {
-  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #22c55e 105%);
-  border-radius: 1rem;
-  padding: 1.35rem 1.4rem;
-  color: #ffffff;
-  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.3);
-  text-align: left;
-}
+
+
 
 .cta-card h2 {
   margin: 0 0 0.45rem;
@@ -576,214 +517,74 @@ a:focus {
 }
 
 /* Сетка программ */
-.programs-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-}
+
 
 /* Усиленная шапка каталога программ */
-.programs-header {
-  padding-bottom: 1.4rem;
-}
 
-.programs-header-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
-  gap: 1.1rem;
-  align-items: stretch;
-}
 
-.programs-header-main {
-  min-width: 0;
-}
 
-.programs-header-note {
-  margin-top: 0.4rem;
-  margin-bottom: 0;
-  font-size: 0.94rem;
-  color: #1f2933;
-}
 
-.programs-header-aside {
-  display: flex;
-  align-items: stretch;
-}
 
-.programs-stat-card {
-  width: 100%;
-  border-radius: 0.95rem;
-  padding: 0.9rem 1rem;
-  background-color: rgba(255, 255, 255, 0.94);
-  border: 1px solid rgba(148, 163, 184, 0.7);
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.14);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 0.55rem;
-}
 
-.programs-stat {
-  padding: 0.35rem 0.4rem;
-  border-radius: 0.7rem;
-  background-color: #f9fafb;
-}
 
-.programs-stat-label {
-  display: block;
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #6b7280;
-  margin-bottom: 0.08rem;
-}
 
-.programs-stat-value {
-  display: block;
-  font-size: 1.02rem;
-  font-weight: 700;
-  color: #111827;
-  margin-bottom: 0.08rem;
-}
 
-.programs-stat-caption {
-  display: block;
-  font-size: 0.86rem;
-  color: #4b5563;
-}
+
+
+
+
+
+
+
+
+
+
 
 /* Адаптивность шапки каталога */
 @media (max-width: 900px) {
-  .programs-header-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
+  
 
-  .programs-header-aside {
-    order: -1;
-  }
+  
 }
 
 /* Карточка программы */
-.program-card {
-  border-radius: 0.9rem;
-  padding: 1.05rem 1.15rem 1.1rem;
-  box-shadow: 0 2px 7px rgba(15, 23, 42, 0.05);
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  overflow: hidden;
-  transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
-}
+
 
 /* Цветовые подложки по направлениям */
-.program-card-ot {
-  background: linear-gradient(145deg, #eff6ff 0%, #ffffff 55%, #e0f2fe 100%);
-  border-top: 3px solid #2563eb;
-}
 
-.program-card-fire {
-  background: linear-gradient(145deg, #fef3c7 0%, #ffffff 55%, #fee2e2 100%);
-  border-top: 3px solid #ea580c;
-}
 
-.program-card-first-aid {
-  background: linear-gradient(145deg, #e0f2fe 0%, #ffffff 55%, #dcfce7 100%);
-  border-top: 3px solid #16a34a;
-}
 
-.program-card-gochs {
-  background: linear-gradient(145deg, #ede9fe 0%, #ffffff 55%, #e0f2fe 100%);
-  border-top: 3px solid #7c3aed;
-}
+
+
+
+
 
 /* Мягкий подсвет при ховере */
-.program-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.16), transparent 60%);
-  transition: opacity 0.2s ease;
-  pointer-events: none;
-  z-index: 0;
-}
+
 
 /* Полупрозрачные “иконки” на фоне для каждой программы */
-.program-card-ot::after,
-.program-card-fire::after,
-.program-card-first-aid::after,
-.program-card-gochs::after {
-  content: "";
-  position: absolute;
-  right: -0.5rem;
-  bottom: -0.8rem;
-  font-size: 4.6rem;
-  opacity: 0.08;
-  filter: blur(1px);
-  z-index: 0;
-}
+
 
 /* конкретные значки */
-.program-card-ot::after {
-  content: "🛡";
-  color: #16a34a;    /* можно #1d4ed8 оставить, если больше нравится */
-}
 
-.program-card-fire::after {
-  content: "🔥";
-  color: #ea580c;
-}
 
-.program-card-first-aid::after {
-  content: "✚";
-  color: #16a34a;
-}
 
-.program-card-gochs::after {
-  content: "⚠";
-  color: #7c3aed;
-}
+
+
+
+
 
 /* Чип-направление в карточках программ */
-.program-chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.18rem 0.7rem;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 0.45rem;
-  border: 1px solid rgba(148, 163, 184, 0.6);
-  background-color: rgba(255, 255, 255, 0.92);
-}
+
 
 /* Цвет по направлениям */
-.program-chip-ot {
-  border-color: rgba(34, 197, 94, 0.8);
-  color: #166534;
-  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
-}
 
-.program-chip-fire {
-  border-color: rgba(248, 113, 22, 0.8);
-  color: #9a3412;
-  background: linear-gradient(135deg, #ffedd5, #fed7aa);
-}
 
-.program-chip-first-aid {
-  border-color: rgba(37, 99, 235, 0.8);
-  color: #1d4ed8;
-  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-}
 
-.program-chip-gochs {
-  border-color: rgba(124, 58, 237, 0.8);
-  color: #5b21b6;
-  background: linear-gradient(135deg, #ede9fe, #e0e7ff);
-}
+
+
+
+
 
 /* Чуть больше воздуха в карточке под чип */
 .program-card h3 {
@@ -792,22 +593,11 @@ a:focus {
 }
 
 /* hover */
-.program-card:hover,
-.program-card:focus-within {
-  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.18);
-  transform: translateY(-2px);
-  border-color: rgba(59, 130, 246, 0.45);
-}
 
-.program-card:hover::before,
-.program-card:focus-within::before {
-  opacity: 1;
-}
 
-.program-card-body {
-  position: relative;
-  z-index: 1;
-}
+
+
+
 
 .program-card h3 {
   margin: 0 0 0.55rem;
@@ -815,18 +605,10 @@ a:focus {
   color: #111827;
 }
 
-.program-desc {
-  margin: 0 0 0.7rem;
-  font-size: 0.95rem;
-}
+
 
 /* Блок с параметрами программы */
-.program-meta {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 0.7rem;
-  font-size: 0.9rem;
-}
+
 
 .program-meta li {
   margin-bottom: 0.3rem;
@@ -876,19 +658,10 @@ a:focus {
   border-color: #fde68a;
 }
 
-.program-note {
-  margin: 0 0 0.8rem;
-  font-size: 0.88rem;
-  color: #4b5563;
-}
+
 
 /* Кнопка внизу карточки */
-.program-link {
-  margin-top: auto;
-  align-self: flex-start;
-  position: relative;
-  z-index: 1;
-}
+
 
 /* -----------------------------
    Адаптивность
@@ -908,9 +681,7 @@ a:focus {
     justify-content: flex-start;
   }
 
-  .programs-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
+  
 }
 
 @media (max-width: 640px) {
@@ -930,18 +701,14 @@ a:focus {
     padding: 1rem 0.9rem 1.1rem;
   }
 
-  .cta-card {
-    padding: 1.15rem 1.05rem;
-  }
+  
 
   .nav-link {
     font-size: 0.86rem;
     padding: 0.33rem 0.7rem;
   }
 
-  .hero-blur {
-    padding: 2.3rem 0 2.5rem;
-  }
+  
 
   .hero-blur-content h2 {
     font-size: 1.35rem;
@@ -1164,30 +931,11 @@ a:focus {
 }
 
 /* Акцент для каталога программ */
-.page-header-accent-green {
-  background: radial-gradient(circle at top left, #ecfdf5 0%, #ffffff 45%, #e0f2fe 100%);
-  border: none;
-  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.18);
-  position: relative;
-  overflow: hidden;
-}
 
-.page-header-accent-green::before {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  background:
-    radial-gradient(circle at 0% 0%, rgba(16, 185, 129, 0.35), transparent 60%),
-    radial-gradient(circle at 100% 120%, rgba(59, 130, 246, 0.25), transparent 55%);
-  opacity: 0.9;
-  pointer-events: none;
-  z-index: 0;
-}
 
-.page-header-accent-green > * {
-  position: relative;
-  z-index: 1;
-}
+
+
+
 
 
 /* Чуть увеличим межстрочный */
@@ -1362,84 +1110,35 @@ a:focus {
    Hero: цветные метки направлений
 ------------------------------*/
 
-.hero-tags {
-  margin-top: 0.65rem;
-  margin-bottom: 0.4rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-}
 
-.hero-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.22rem 0.65rem;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(148, 163, 184, 0.6);
-  color: #111827;
-  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
-}
+
+
 
 /* Цветовые акценты под направления */
-.hero-tag-ot {
-  border-color: rgba(16, 185, 129, 0.8);
-  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
-}
 
-.hero-tag-fire {
-  border-color: rgba(239, 68, 68, 0.85);
-  background: linear-gradient(135deg, #fee2e2, #fecaca);
-}
 
-.hero-tag-med {
-  border-color: rgba(59, 130, 246, 0.85);
-  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-}
 
-.hero-tag-gochs {
-  border-color: rgba(129, 140, 248, 0.85);
-  background: linear-gradient(135deg, #e0e7ff, #ddd6fe);
-}
+
+
+
+
 
 /* Иконки в капсулах направлений */
-.hero-tag-ot::before,
-.hero-tag-fire::before,
-.hero-tag-med::before,
-.hero-tag-gochs::before {
-  content: "";
-  margin-right: 0.35rem;
-  font-size: 0.95rem;
-}
+
 
 /* Конкретные значки для каждого направления */
-.hero-tag-ot::before {
-  content: "🛡";   /* охрана труда */
-}
 
-.hero-tag-fire::before {
-  content: "🔥";   /* пожарка */
-}
 
-.hero-tag-med::before {
-  content: "✚";   /* первая помощь */
-}
 
-.hero-tag-gochs::before {
-  content: "⚠";   /* ГО и ЧС */
-}
+
+
+
+
 
 @media (max-width: 640px) {
-  .hero-tags {
-    gap: 0.3rem;
-  }
+  
 
-  .hero-tag {
-    font-size: 0.74rem;
-    padding: 0.18rem 0.55rem;
-  }
+  
 }
 
 /* -----------------------------
@@ -1459,31 +1158,12 @@ a:focus {
    CTA-блок "Начать обучение"
 ------------------------------*/
 
-.cta-section {
-  margin-top: 1rem;
-}
 
-.cta-card {
-  position: relative;
-  padding: 1.2rem 1.4rem 1.3rem;
-  border-radius: 1rem;
-  background: linear-gradient(120deg, #2563eb 0%, #0ea5e9 40%, #22c55e 100%);
-  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.18);
-  border: 1px solid rgba(15, 23, 42, 0.16);
-  overflow: hidden;
-}
+
+
 
 /* Лёгкий световой акцент справа */
-.cta-card::before {
-  content: "";
-  position: absolute;
-  right: -80px;
-  top: -40px;
-  width: 200px;
-  height: 200px;
-  border-radius: 999px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.55), transparent 70%);
-}
+
 
 /* Текст внутри CTA делаем тёмным и читаемым */
 .cta-card h2,
@@ -1539,9 +1219,7 @@ a:focus {
 
 /* На телефонах CTA чуть компактнее */
 @media (max-width: 640px) {
-  .cta-card {
-    padding: 1rem 1rem 1.05rem;
-  }
+  
 
   .cta-card h2 {
     font-size: 1.1rem;
@@ -1625,16 +1303,9 @@ a:focus {
   color: #1e40af;
 }
 
-.program-card-first-aid {
-  background: linear-gradient(145deg, #dbeafe 0%, #ffffff 55%, #dcfce7 100%);
-  border-top: 3px solid #0ea5e9;
-}
 
-.program-card-first-aid::after {
-  content: "✚";
-  color: #0ea5e9;
-  opacity: 0.1;
-}
+
+
 
 /* FIX: Блокировка доступа к тесту поверх iframe */
 .test-wrapper-with-consent {
@@ -1739,66 +1410,20 @@ a:focus {
 }
 
 /* Акцент для пожарной безопасности (оранжевый) */
-.page-header-accent-orange {
-  background: radial-gradient(circle at top left, #fff7ed 0%, #ffffff 45%, #ffedd5 100%);
-  border: none;
-  box-shadow: 0 8px 24px rgba(248, 113, 113, 0.18);
-  position: relative;
-  overflow: hidden;
-}
 
-.page-header-accent-orange::before {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  background:
-    radial-gradient(circle at 0% 0%, rgba(249, 115, 22, 0.35), transparent 60%),
-    radial-gradient(circle at 100% 120%, rgba(248, 113, 113, 0.25), transparent 55%);
-  opacity: 0.9;
-  pointer-events: none;
-  z-index: 0;
-}
 
-.page-header-accent-orange > * {
-  position: relative;
-  z-index: 1;
-}
+
+
+
 
 /* Блоки курсов по пожарной безопасности */
-.course-fire-block {
-  margin-bottom: 1.4rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(248, 156, 60, 0.35);
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
-}
 
-.course-section-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 0.6rem;
-}
 
-.course-section-label {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.15rem 0.7rem;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  background-color: #fff7ed;
-  color: #c2410c;
-  border: 1px solid #fed7aa;
-}
 
-.course-section-title {
-  margin: 0;
-  font-size: 1.15rem;
-}
+
+
+
+
 
 /* Сетка видеороликов */
 .video-grid {
@@ -1853,9 +1478,7 @@ a:focus {
 }
 
 /* Компактный тестовый блок внутри курса */
-.course-test-inline {
-  margin-top: 1rem;
-}
+
 
 /* =========================================
    Пожарная безопасность — огненный дизайн
@@ -2283,37 +1906,17 @@ a:focus {
    Макет страницы курса
    ============================ */
 
-.course-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr);
-  gap: 1.25rem;
-  align-items: flex-start;
-}
 
-.course-main {
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
-}
 
-.course-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  position: sticky;
-  top: 5.5rem; /* под высоту шапки */
-}
+
+
+
 
 /* На планшетах всё в одну колонку */
 @media (max-width: 900px) {
-  .course-layout {
-    grid-template-columns: minmax(0, 1fr);
-  }
+  
 
-  .course-sidebar {
-    position: static;
-    top: auto;
-  }
+  
 }
 
 /* ============================
@@ -2378,36 +1981,14 @@ a:focus {
    Боковая колонка курса
    ============================ */
 
-.course-info-card {
-  border-left: 3px solid #0ea5e9;
-  background: radial-gradient(circle at top left, #eff6ff 0%, #ffffff 55%, #e5f3ff 100%);
-}
 
-.course-test-card {
-  position: relative;
-  border-left: 3px solid #16a34a;
-  background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 45%, #dcfce7 100%);
-  overflow: hidden;
-}
+
+
 
 /* Световой акцент в углу */
-.course-test-card::before {
-  content: "";
-  position: absolute;
-  right: -60px;
-  top: -40px;
-  width: 160px;
-  height: 160px;
-  border-radius: 999px;
-  background: radial-gradient(circle, rgba(34, 197, 94, 0.5), transparent 70%);
-  opacity: 0.7;
-  pointer-events: none;
-}
 
-.course-test-card > * {
-  position: relative;
-  z-index: 1;
-}
+
+
 
 .btn-test-link {
   display: inline-flex;
@@ -2492,62 +2073,23 @@ a:focus {
    ============================ */
 
 /* Верхний блок "Назначение портала" + мини-дашборд */
-.home-top-card {
-  margin-bottom: 1.7rem;
-}
 
-.home-top-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
-  gap: 1.1rem;
-  align-items: stretch;
-}
 
-.home-stats-card {
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 0.9rem;
-  padding: 0.9rem 1rem;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
-  border: 1px solid rgba(148, 163, 184, 0.45);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 0.65rem;
-}
 
-.home-stat {
-  padding: 0.35rem 0.4rem;
-  border-radius: 0.6rem;
-  background-color: #f9fafb;
-}
 
-.home-stat-label {
-  display: block;
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #6b7280;
-  margin-bottom: 0.1rem;
-}
 
-.home-stat-value {
-  display: block;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #111827;
-  margin-bottom: 0.1rem;
-}
 
-.home-stat-caption {
-  display: block;
-  font-size: 0.86rem;
-  color: #4b5563;
-}
+
+
+
+
+
+
+
 
 /* На планшетах — одна колонка */
 @media (max-width: 900px) {
-  .home-top-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
+  
 }
 
 /* ============================
@@ -2566,105 +2108,37 @@ a:focus {
   color: #4b5563;
 }
 
-.direction-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-}
+
 
 @media (max-width: 900px) {
-  .direction-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
+  
 }
 
-.direction-card {
-  position: relative;
-  border-radius: 1rem;
-  padding: 1rem 1.1rem 1.1rem;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
-  border: 1px solid rgba(148, 163, 184, 0.45);
-  background: #ffffff;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    border-color 0.15s ease;
-}
 
-.direction-card::after {
-  content: "";
-  position: absolute;
-  right: -0.4rem;
-  bottom: -0.8rem;
-  width: 4.5rem;
-  height: 4.5rem;
-  border-radius: 999px;
-  opacity: 0.12;
-  filter: blur(1px);
-}
+
+
 
 /* Варианты по направлениям (цвет + лёгкая иконка-намёк) */
-.direction-card-ot {
-  border-top: 4px solid #16a34a;
-  background: radial-gradient(circle at top left, #ecfdf5 0%, #ffffff 55%, #e0f2fe 100%);
-}
 
-.direction-card-ot::after {
-  background: radial-gradient(circle at 30% 30%, #16a34a, transparent 70%);
-}
 
-.direction-card-fire {
-  border-top: 4px solid #f97316;
-  background: radial-gradient(circle at top left, #fff7ed 0%, #ffffff 55%, #fee2e2 100%);
-}
 
-.direction-card-fire::after {
-  background: radial-gradient(circle at 30% 30%, #f97316, transparent 70%);
-}
 
-.direction-card-med {
-  border-top: 4px solid #0ea5e9;
-  background: radial-gradient(circle at top left, #e0f2fe 0%, #ffffff 55%, #dcfce7 100%);
-}
 
-.direction-card-med::after {
-  background: radial-gradient(circle at 30% 30%, #0ea5e9, transparent 70%);
-}
 
-.direction-card-gochs {
-  border-top: 4px solid #7c3aed;
-  background: radial-gradient(circle at top left, #ede9fe 0%, #ffffff 55%, #e0f2fe 100%);
-}
 
-.direction-card-gochs::after {
-  background: radial-gradient(circle at 30% 30%, #7c3aed, transparent 70%);
-}
 
-.direction-card:hover,
-.direction-card:focus-within {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.14);
-  border-color: rgba(59, 130, 246, 0.55);
-}
+
+
+
+
+
+
+
+
+
 
 /* Маленькая капсула-лейбл над заголовком */
-.direction-chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.16rem 0.65rem;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 0.45rem;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(148, 163, 184, 0.6);
-  color: #4b5563;
-}
+
 
 .direction-card h3 {
   margin: 0 0 0.4rem;
@@ -2679,13 +2153,7 @@ a:focus {
 }
 
 /* Список внутри карточки */
-.direction-list {
-  list-style: none;
-  margin: 0 0 0.8rem;
-  padding-left: 0;
-  font-size: 0.9rem;
-  color: #111827;
-}
+
 
 .direction-list li {
   position: relative;
@@ -2703,25 +2171,11 @@ a:focus {
 }
 
 /* Кнопка внизу карточки */
-.direction-link {
-  margin-top: auto;
-  align-self: flex-start;
-}
+
 
 /* ====== PDF VIEWER (улучшенный) ====== */
 
-.pdf-viewer {
-  position: relative;
-  width: 100%;
-  height: 85vh; /* почти весь экран */
-  max-height: 1100px;
-  border-radius: 1rem;
-  overflow: hidden;
-  border: 1px solid rgba(148, 163, 184, 0.4);
-  background: #000;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-  margin-top: 1.5rem;
-}
+
 
 /* iframe теперь растягивается нормально */
 .pdf-viewer iframe {
@@ -2732,9 +2186,7 @@ a:focus {
 
 /* На телефонах — ещё выше для удобства чтения */
 @media (max-width: 768px) {
-  .pdf-viewer {
-    height: 95vh;
-  }
+  
 }
 
 /* === Большой просмотрщик PDF === */
@@ -4475,93 +3927,9 @@ body.ot-theme {
 /* ===========================
    OT INTRO TEST PAGE (WOW)
    =========================== */
-
-.ot-test-hero{
-  position: relative;
-  overflow: hidden;
-  padding: clamp(22px, 4vw, 44px) 0 10px;
-}
-
-.ot-test-hero::before{
-  content:"";
-  position:absolute;
-  inset:-140px -80px;
-  background:
-    radial-gradient(closest-side at 18% 18%, rgba(34,197,94,.28), transparent 70%),
-    radial-gradient(closest-side at 86% 18%, rgba(16,185,129,.20), transparent 70%),
-    radial-gradient(closest-side at 82% 86%, rgba(59,130,246,.12), transparent 70%);
-  filter: blur(18px);
-  opacity: .95;
-}
-
-.ot-test-hero::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,.90) 60%, rgba(243,244,246,1));
-}
-
 .ot-test-hero .container{ position:relative; z-index:2; }
-
-.ot-test-hero-card{
-  border-radius: 22px;
-  background: rgba(255,255,255,.72);
-  border: 1px solid rgba(15,23,42,.10);
-  box-shadow: 0 16px 40px rgba(15,23,42,.12);
-  padding: clamp(16px, 3vw, 26px);
-  backdrop-filter: blur(10px);
-}
-
-.ot-test-kicker{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(15,23,42,.10);
-  background: rgba(255,255,255,.72);
-  font-weight: 800;
-  font-size: 12px;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  color: rgba(15,23,42,.78);
-}
-
-.ot-test-title{
-  margin: 12px 0 8px;
-  font-size: clamp(24px, 3.6vw, 36px);
-  line-height: 1.14;
-  letter-spacing: -0.02em;
-  color: rgba(15,23,42,.92);
-}
-
-.ot-test-lead{
-  margin: 0 0 12px;
-  color: rgba(15,23,42,.72);
-  line-height: 1.65;
-  max-width: 95ch;
-}
-
-.ot-test-grid{
-  display:grid;
-  grid-template-columns: 1.1fr .9fr;
-  gap: 14px;
-  margin-top: 12px;
-}
-
 @media (max-width: 980px){
-  .ot-test-grid{ grid-template-columns: 1fr; }
 }
-
-.ot-test-panel{
-  border-radius: 22px;
-  border: 1px solid rgba(15,23,42,.10);
-  background: rgba(255,255,255,.78);
-  box-shadow: 0 10px 26px rgba(15,23,42,.10);
-  padding: 16px;
-  backdrop-filter: blur(10px);
-}
-
 .ot-test-panel h3{
   margin: 0 0 8px;
   letter-spacing: -0.01em;
@@ -4573,64 +3941,17 @@ body.ot-theme {
   line-height: 1.6;
 }
 
-.ot-test-checklist{
-  margin: 0;
-  padding-left: 18px;
-  color: rgba(15,23,42,.78);
-  line-height: 1.6;
-}
-
-.ot-test-actions{
-  display:flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items:center;
-  margin-top: 12px;
-}
-
-.ot-test-btn{
-  display:inline-flex;
-  align-items:center;
-  gap: 10px;
-  padding: 12px 14px;
-  border-radius: 14px;
-  border: 1px solid rgba(15,23,42,.12);
-  background: rgba(255,255,255,.82);
-  font-weight: 900;
-  text-decoration:none;
-  box-shadow: 0 10px 26px rgba(15,23,42,.08);
-}
-
-.ot-test-btn:hover{ transform: translateY(-1px); }
-
 .ot-test-btn svg{ width:18px; height:18px; }
 
-.ot-test-note{
-  margin-top: 10px;
-  padding: 12px 14px;
-  border-radius: 18px;
-  border: 1px solid rgba(15,23,42,.10);
-  background: rgba(255,255,255,.78);
-  color: rgba(15,23,42,.72);
-  line-height: 1.6;
-}
 
-.ot-test-form{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 10px;
-}
+
+
 
 @media (max-width: 720px){
-  .ot-test-form{ grid-template-columns: 1fr; }
+  
 }
 
-.ot-test-field{
-  display:flex;
-  flex-direction: column;
-  gap: 6px;
-}
+
 
 .ot-test-field label{
   font-weight: 800;
@@ -4653,54 +3974,22 @@ body.ot-theme {
   box-shadow: 0 0 0 4px rgba(34,197,94,.14);
 }
 
-.ot-test-warning{
-  display:none;
-  margin-top: 10px;
-  padding: 12px 14px;
-  border-radius: 18px;
-  border: 1px solid rgba(239,68,68,.22);
-  background: rgba(239,68,68,.06);
-  color: rgba(15,23,42,.78);
-  line-height: 1.6;
-}
 
-.ot-test-widget-card{
-  border-radius: 22px;
-  border: 1px solid rgba(15,23,42,.10);
-  background: rgba(255,255,255,.86);
-  box-shadow: 0 16px 40px rgba(15,23,42,.12);
-  padding: 14px;
-  overflow:hidden;
-}
 
-.ot-test-widget-head{
-  display:flex;
-  align-items:center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 10px;
-}
+
+
+
 
 .ot-test-widget-head h3{
   margin: 0;
   letter-spacing: -0.01em;
 }
 
-.ot-test-anchor{
-  text-decoration:none;
-  font-weight: 900;
-  display:inline-flex;
-  align-items:center;
-  gap: 10px;
-}
+
 
 .ot-test-anchor svg{ width:18px; height:18px; }
 
-.ot-test-widget-hint{
-  margin: 0 0 10px;
-  color: rgba(15,23,42,.72);
-  line-height: 1.6;
-}
+
 
 /* Делает iframe/виджет визуально “встроенным” */
 #otp_wgt_27gckuaakwvlm{
