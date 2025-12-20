@@ -7,6 +7,14 @@
   <meta name="description"
         content="Итоговый тест по вводному инструктажу по охране труда с обязательным указанием персональных и организационных данных работника.">
   <link rel="stylesheet" href="assets/style.css">
+
+  <style>
+    /* UX теста: статус под кнопкой (локально для страницы) */
+    .test-consent-status{font-size:.88rem;color:#6b7280;margin-top:.25rem}
+    .test-consent-status strong{color:#111827}
+    .test-consent-status.is-ok{color:#065f46}
+    .test-consent-status.is-warn{color:#92400e}
+  </style>
 </head>
 
 <body class="ot-theme">
@@ -220,14 +228,14 @@
         <ul class="test-meta-list">
           <li>подтвердите согласие на обработку персональных данных выше;</li>
           <li>нажмите кнопку <strong>«Открыть тест и перейти к вопросам»</strong>;</li>
-          <li>дождитесь загрузки теста во встроенном окне;</li>
-          <li>введите персональные и организационные данные в форме теста корректно (без сокращений);</li>
-          <li>ответьте на вопросы и завершите тестирование в системе OnlineTestPad.</li>
+          <li>дождитесь загрузки всех вопросов теста во встроенном окне;</li>
+          <li>ответьте на все вопросы и отправьте результаты в системе OnlineTestPad;</li>
+          <li>убедитесь, что тест завершён и система зафиксировала ваши ответы.</li>
         </ul>
 
         <p class="test-hint">
           Основным источником данных для зачёта является информация, зафиксированная в системе OnlineTestPad.
-          В случае технических сбоев обратитесь к ответственному за обучение/специалисту по охране труда.
+          В случае технических сбоев обратитесь к ответственному за обучение или специалисту по охране труда.
         </p>
 
         <section class="test-wrapper-with-consent" aria-label="Итоговый тест по вводному инструктажу по охране труда">
@@ -251,8 +259,9 @@
 
         <h3>После прохождения теста</h3>
         <p class="test-hint">
-          После завершения теста результаты автоматически фиксируются в системе OnlineTestPad и доступны
-          уполномоченным специалистам работодателя для оформления документов по обучению и проверке знаний.
+          После успешного завершения теста результаты автоматически фиксируются в системе OnlineTestPad
+          и доступны уполномоченным специалистам работодателя. Информацию о зачёте и оформленных документах
+          вы можете уточнить у своего непосредственного руководителя или специалиста по охране труда.
         </p>
       </section>
 
@@ -266,8 +275,7 @@
         первой помощи и ГО/ЧС.
       </p>
       <p class="footer-text footer-text-muted">
-        Конкретные условия, порядок обучения и оформления документов устанавливаются работодателем
-        в локальных нормативных актах.
+        Конкретный порядок обучения и оформления результатов определяется работодателем.
       </p>
     </div>
   </footer>
@@ -294,7 +302,7 @@
     })(this, this.document, "otp_widget_callbacks");
   </script>
 
-  <!-- Скрипт управления согласием и доступом к тесту -->
+  <!-- Скрипт управления согласием и доступом к тесту (UX-улучшенная версия) -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const consentCheckbox = document.getElementById('pd-consent');
@@ -304,32 +312,68 @@
 
       if (!consentCheckbox || !startButton || !overlay || !widgetContainer) return;
 
-      function scrollToWidget() {
-        if (!widgetContainer.scrollIntoView) return;
-        widgetContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Статус для пользователя + a11y (aria-live)
+      let status = document.getElementById('test-consent-status');
+      if (!status) {
+        status = document.createElement('p');
+        status.id = 'test-consent-status';
+        status.className = 'test-consent-status is-warn';
+        status.setAttribute('aria-live', 'polite');
+
+        const controls = startButton.closest('.test-consent-controls');
+        if (controls) controls.appendChild(status);
+        else startButton.insertAdjacentElement('afterend', status);
+      }
+
+      function setStatus(text, mode) {
+        status.textContent = text;
+        status.classList.remove('is-ok', 'is-warn');
+        if (mode) status.classList.add(mode);
+      }
+
+      function getScrollTarget() {
+        return widgetContainer.closest('.test-wrapper-with-consent') || widgetContainer;
+      }
+
+      function scrollToTarget() {
+        const target = getScrollTarget();
+        const rect = target.getBoundingClientRect();
+        const offset = 12; // небольшой отступ сверху
+        const top = rect.top + window.pageYOffset - offset;
+        window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
       }
 
       function updateConsentState() {
         const allowed = consentCheckbox.checked;
 
+        startButton.disabled = !allowed;
+        startButton.setAttribute('aria-disabled', String(!allowed));
+
         if (allowed) {
-          startButton.disabled = false;
           startButton.classList.remove('btn-disabled');
+          setStatus('Доступ открыт. Нажмите кнопку, чтобы перейти к тесту.', 'is-ok');
         } else {
-          startButton.disabled = true;
-          if (!startButton.classList.contains('btn-disabled')) {
-            startButton.classList.add('btn-disabled');
-          }
+          startButton.classList.add('btn-disabled');
+
           overlay.classList.remove('test-overlay-hidden');
+          overlay.removeAttribute('aria-hidden');
+
+          setStatus('Поставьте отметку согласия, чтобы открыть доступ к тесту.', 'is-warn');
         }
       }
 
+      // Надёжнее для мобильных: change + input
       consentCheckbox.addEventListener('change', updateConsentState);
+      consentCheckbox.addEventListener('input', updateConsentState);
 
       startButton.addEventListener('click', function () {
         if (startButton.disabled) return;
+
         overlay.classList.add('test-overlay-hidden');
-        scrollToWidget();
+        overlay.setAttribute('aria-hidden', 'true');
+
+        setStatus('Доступ открыт. Прокручиваем к тесту…', 'is-ok');
+        scrollToTarget();
       });
 
       updateConsentState();
