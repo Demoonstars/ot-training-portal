@@ -97,7 +97,7 @@
     }
     .ot-intro-section-title .emoji { font-size: 1.15rem; }
 
-    /* Pre-test акцент (B) */
+    /* Pre-test акцент */
     .ot-pretest {
       border-radius: 16px;
       border: 1px solid rgba(17,24,39,0.10);
@@ -108,7 +108,28 @@
     .ot-pretest h4 { margin: 0 0 8px; font-size: 1rem; }
     .ot-pretest ul { margin: 10px 0 0; padding-left: 18px; }
 
-    /* Кнопка "Наверх" (C) */
+    /* VERY-PREMIUM блоки (A/B/C/D/E) */
+    .ot-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    @media (min-width: 768px) {
+      .ot-grid-2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    .ot-finish {
+      margin-top: 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(17,24,39,0.10);
+      background: rgba(255,255,255,0.85);
+      padding: clamp(12px, 3vw, 18px);
+    }
+    .ot-finish p { margin: 0; }
+    .ot-finish .muted { margin-top: 10px; color: #6b7280; font-size: 0.95rem; }
+
+    /* Кнопка "Наверх" */
     .to-top {
       position: fixed;
       right: 14px;
@@ -204,7 +225,6 @@
         а также порядком сообщения о происшествиях и оказания первой помощи.
       </p>
 
-      <!-- D: Почему это важно -->
       <div class="ot-callout" role="note" aria-label="Почему это важно">
         <h3>Почему это важно</h3>
         <p>
@@ -213,28 +233,24 @@
         </p>
       </div>
 
-      <!-- Маршрут обучения -->
       <div class="ot-ui-row" aria-label="Рекомендуемый порядок прохождения">
         <span class="ot-chip">🎬 Сначала: видеоматериалы</span>
         <span class="ot-chip">📘 Затем: изучить PDF</span>
         <span class="ot-chip">📝 После: пройти тест</span>
       </div>
 
-      <!-- Быстрая навигация -->
       <nav class="ot-nav" aria-label="Быстрая навигация по странице">
         <a href="#materials">К материалам (PDF)</a>
         <a href="#videos">К видеоматериалам</a>
         <a href="#test">К проверке знаний</a>
       </nav>
 
-      <!-- Бейджи -->
       <div class="ot-badges" aria-label="Сводка по разделу">
         <span class="ot-badge">⏱ PDF: ориентировочно 10–20 минут</span>
         <span class="ot-badge">🎞 Видео: 3 ролика по ключевым темам</span>
         <span class="ot-badge">✅ Итог: тест + фиксация результатов</span>
       </div>
 
-      <!-- Что важно запомнить -->
       <div class="ot-callout" role="note" aria-label="Что важно запомнить">
         <h3>Что важно запомнить по итогам изучения</h3>
         <ul>
@@ -257,7 +273,6 @@
         а затем при подготовке к тесту вернуться к ключевым разделам (действия при пожаре/ЧС, порядок сообщений, первая помощь).
       </p>
 
-      <!-- Одна главная CTA (без дублей) -->
       <a class="material-download-card" href="assets/ot-intro.pdf" target="_blank" rel="noopener">
         <span class="material-icon-wrap">
           <span class="material-icon">📘</span>
@@ -280,7 +295,6 @@
         </p>
       </div>
 
-      <!-- Встроенное чтение PDF (единый паттерн, адаптив уже в assets/style.css) -->
       <div class="pdf-viewer-large" aria-label="Просмотр PDF на странице">
         <iframe
           class="pdf-viewer-frame"
@@ -322,7 +336,6 @@
         </p>
       </div>
 
-      <!-- Пожар -->
       <section class="fire-block" id="ot-intro-fire">
         <h3 class="fire-block-title">1) Как действовать во время пожара</h3>
         <p>
@@ -354,7 +367,6 @@
         </div>
       </section>
 
-      <!-- Террористическая угроза -->
       <section class="fire-block" id="ot-intro-terror">
         <h3 class="fire-block-title">2) Действия при террористической угрозе</h3>
         <p>
@@ -385,7 +397,6 @@
         </div>
       </section>
 
-      <!-- Первая помощь -->
       <section class="fire-block" id="ot-intro-firstaid">
         <h3 class="fire-block-title">3) Как действовать при несчастном случае: первая помощь</h3>
         <p>
@@ -424,12 +435,37 @@
 
       <div class="ot-divider" aria-hidden="true"></div>
 
-      <!-- A: Результат изучения -->
       <section class="fire-block" aria-label="Результат изучения" id="outcome">
         <h3 class="fire-block-title">Результат изучения</h3>
         <p>
           Перед тестированием убедитесь, что вы можете кратко объяснить и воспроизвести основные алгоритмы действий.
         </p>
+
+        <!-- A + B: самопроверка и типичные ошибки -->
+        <div class="ot-grid-2" aria-label="Самопроверка и типичные ошибки">
+          <div class="ot-callout" role="note" aria-label="Самопроверка перед тестом">
+            <h3>Самопроверка: контрольные вопросы</h3>
+            <ul class="ot-mini-list">
+              <li>Что вы сделаете в первую минуту при обнаружении признаков пожара?</li>
+              <li>Какие действия при эвакуации категорически запрещены?</li>
+              <li>Что делать при обнаружении подозрительного предмета?</li>
+              <li>Кому и как сообщать о несчастном случае на рабочем месте?</li>
+              <li>С чего начинается оказание первой помощи (до начала действий)?</li>
+            </ul>
+          </div>
+
+          <div class="ot-callout" role="note" aria-label="Типичные ошибки работников">
+            <h3>Типичные ошибки (не делайте так)</h3>
+            <ul class="ot-mini-list">
+              <li>возвращаться за вещами при пожаре или пытаться “досмотреть” ситуацию;</li>
+              <li>пользоваться лифтом при эвакуации;</li>
+              <li>трогать/перемещать подозрительные предметы “чтобы проверить”;</li>
+              <li>оказывать первую помощь, не оценив безопасность места происшествия;</li>
+              <li>не сообщать о происшествии руководителю/ответственному “чтобы не было проблем”.</li>
+            </ul>
+          </div>
+        </div>
+
         <div class="ot-callout" role="note" aria-label="Что вы должны уметь">
           <h3>После изучения вы должны:</h3>
           <ul class="ot-mini-list">
@@ -441,7 +477,6 @@
         </div>
       </section>
 
-      <!-- Проверка знаний -->
       <section class="fire-block fire-test-block" id="test">
         <h3 class="fire-block-title">Проверка усвоения знаний</h3>
         <p>
@@ -449,7 +484,6 @@
           используются ответственными за обучение для оформления прохождения вводного инструктажа.
         </p>
 
-        <!-- B: Pre-test акцент -->
         <div class="ot-pretest" role="note" aria-label="Перед прохождением теста">
           <h4>Перед началом теста проверьте:</h4>
           <ul>
@@ -468,7 +502,27 @@
         <p class="test-hint">
           Если результат неудовлетворительный — вернитесь к материалу и повторите темы, по которым допущены ошибки.
         </p>
+
+        <!-- C: если что-то не открылось -->
+        <div class="ot-callout" role="note" aria-label="Если материал не открывается">
+          <h3>Если PDF или видео не открылись</h3>
+          <ul class="ot-mini-list">
+            <li>попробуйте открыть PDF в новой вкладке через кнопку «ОТКРЫТЬ / СКАЧАТЬ» выше;</li>
+            <li>обновите страницу и проверьте подключение к интернету;</li>
+            <li>если используете корпоративный браузер/сеть — попробуйте другой браузер или устройство;</li>
+            <li>если проблема сохраняется — обратитесь к ответственному за обучение.</li>
+          </ul>
+        </div>
       </section>
+
+      <!-- E + D: завершение + микро-юридическая подложка -->
+      <div class="ot-finish" role="note" aria-label="Завершение раздела">
+        <p><strong>Вы дошли до конца вводного инструктажа.</strong> После прохождения теста вы можете закрыть страницу или вернуться к курсу.</p>
+        <p class="muted">
+          Материал используется в рамках обучения работников требованиям охраны труда и может применяться при оформлении документов
+          о прохождении вводного инструктажа в соответствии с установленным порядком и локальными нормативными актами работодателя.
+        </p>
+      </div>
 
     </article>
 
@@ -487,10 +541,7 @@
   </div>
 </footer>
 
-<!-- C: Кнопка "Наверх" -->
-<button type="button" class="to-top" id="toTopBtn" aria-label="Наверх" title="Наверх">
-  ↑
-</button>
+<button type="button" class="to-top" id="toTopBtn" aria-label="Наверх" title="Наверх">↑</button>
 
 <script>
   (function () {
@@ -506,11 +557,8 @@
     }
 
     btn.addEventListener('click', function () {
-      if (prefersReducedMotion) {
-        window.scrollTo(0, 0);
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+      if (prefersReducedMotion) window.scrollTo(0, 0);
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
     window.addEventListener('scroll', onScroll, { passive: true });
