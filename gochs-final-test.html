@@ -7,6 +7,14 @@
   <meta name="description"
         content="Итоговый тест по вводному инструктажу по гражданской обороне и чрезвычайным ситуациям с указанием персональных и организационных данных работника.">
   <link rel="stylesheet" href="assets/style.css">
+
+  <style>
+    /* UX теста: статус под кнопкой (локально для страницы) */
+    .test-consent-status{font-size:.88rem;color:#6b7280;margin-top:.25rem}
+    .test-consent-status strong{color:#111827}
+    .test-consent-status.is-ok{color:#065f46}
+    .test-consent-status.is-warn{color:#92400e}
+  </style>
 </head>
 
 <!-- Тема ГО и ЧС: синий → оранжевый -->
@@ -67,27 +75,27 @@
           <h1>Итоговый тест по гражданской обороне и чрезвычайным ситуациям</h1>
 
           <div class="test-summary-badges">
-  <span class="test-badge">10 вопросов</span>
-  <span class="test-badge">Время: ~10–15 минут</span>
-  <span class="test-badge">Форма: зачет/незачет</span>
-</div>
-
+            <span class="test-badge">10 вопросов</span>
+            <span class="test-badge">Время: ~10–15 минут</span>
+            <span class="test-badge">Форма: зачет/незачет</span>
+          </div>
 
           <p>
             Тест предназначен для проверки усвоения материалов вводного инструктажа по гражданской обороне
-            и чрезвычайным ситуациям и оформления результатов обучения в установленном порядке.
+            и чрезвычайным ситуациям и используется работодателем для последующего документального оформления
+            результатов обучения в установленном порядке.
           </p>
 
           <p><strong>Перед началом теста убедитесь, что:</strong></p>
           <ul class="test-meta-list">
-            <li>вы прошли вводный инструктаж по ГО и ЧС и просмотрели все рекомендованные материалы;</li>
+            <li>вы ознакомились с учебными материалами вводного инструктажа по ГО и ЧС;</li>
             <li>понимаете, как корректно указать персональные и организационные данные (Ф.И.О., дату рождения, должность, подразделение, организацию);</li>
-            <li>располагаете временем для прохождения теста без отвлечений (ориентировочно 10–15 минут);</li>
-            <li>используете устройство с устойчивым доступом в интернет (рекомендуется стационарный ПК или ноутбук).</li>
+            <li>располагаете временем для прохождения теста без отвлечений;</li>
+            <li>используете устройство со стабильным доступом в интернет (рекомендуется ПК/ноутбук).</li>
           </ul>
 
           <p class="note">
-            Некорректное заполнение персональных и организационных данных может привести к невозможности зачёта
+            Некорректное заполнение персональных и организационных данных в форме теста может привести к невозможности зачёта
             результатов обучения и их оформления в документах работодателя.
           </p>
         </header>
@@ -99,7 +107,7 @@
 
         <p>
           Перед началом прохождения итогового теста работник подтверждает, что ознакомлен(а) и принимает
-          следующие условия обработки персональных данных в соответствии с Федеральным законом № 152-ФЗ
+          условия обработки персональных данных в соответствии с Федеральным законом № 152-ФЗ
           «О персональных данных», Трудовым кодексом РФ и локальными нормативными актами работодателя.
         </p>
 
@@ -108,9 +116,9 @@
           <li class="pd-consent-item">
             <span class="pd-consent-icon" aria-hidden="true">✓</span>
             <span class="pd-consent-text">
-              персональные данные, указываемые в тестовой форме: Ф.И.О., дата рождения, должность,
-              структурное подразделение, наименование организации и иные сведения, необходимые для учёта
-              прохождения обучения по ГО и ЧС;
+              персональные и организационные данные, указываемые в форме теста: Ф.И.О., дата рождения,
+              должность, структурное подразделение, наименование организации и иные сведения, необходимые
+              для учёта прохождения обучения по ГО и ЧС;
             </span>
           </li>
           <li class="pd-consent-item">
@@ -127,19 +135,13 @@
           <li class="pd-consent-item">
             <span class="pd-consent-icon" aria-hidden="true">✓</span>
             <span class="pd-consent-text">
-              оформление протоколов проверки знаний требований ГО и ЧС;
+              оформление протоколов проверки знаний, журналов учёта обучения и иных учётных документов работодателя;
             </span>
           </li>
           <li class="pd-consent-item">
             <span class="pd-consent-icon" aria-hidden="true">✓</span>
             <span class="pd-consent-text">
-              ведение журналов регистрации инструктажей и иных учетных форм по обучению;
-            </span>
-          </li>
-          <li class="pd-consent-item">
-            <span class="pd-consent-icon" aria-hidden="true">✓</span>
-            <span class="pd-consent-text">
-              подтверждение факта прохождения обучения и проверки знаний в установленном работодателем порядке.
+              подтверждение соблюдения работодателем требований по обучению и проверке знаний работников.
             </span>
           </li>
         </ul>
@@ -149,15 +151,13 @@
           <li class="pd-consent-item">
             <span class="pd-consent-icon" aria-hidden="true">✓</span>
             <span class="pd-consent-text">
-              уполномоченные должностные лица работодателя, ответственные за организацию обучения
-              и проверку знаний требований ГО и ЧС;
+              уполномоченные должностные лица работодателя, ответственные за организацию обучения и проверку знаний по ГО и ЧС;
             </span>
           </li>
           <li class="pd-consent-item">
             <span class="pd-consent-icon" aria-hidden="true">✓</span>
             <span class="pd-consent-text">
-              оператор тестирующей платформы OnlineTestPad — в объёме, необходимом для проведения тестирования
-              и фиксации его результатов.
+              оператор тестирующей платформы OnlineTestPad — в объёме, необходимом для проведения тестирования и фиксации результатов.
             </span>
           </li>
         </ul>
@@ -167,9 +167,8 @@
           <li class="pd-consent-item">
             <span class="pd-consent-icon" aria-hidden="true">✓</span>
             <span class="pd-consent-text">
-              персональные данные и результаты тестирования хранятся в информационных системах работодателя
-              в сроки, установленные локальными нормативными актами и номенклатурой дел (не менее сроков
-              хранения документов по обучению и инструктажам);
+              персональные данные и результаты тестирования хранятся в сроки и порядке, установленные локальными нормативными актами работодателя
+              и номенклатурой дел (не менее сроков хранения документов по обучению и проверке знаний).
             </span>
           </li>
         </ul>
@@ -177,15 +176,13 @@
         <h3>Ваше согласие</h3>
         <p class="test-hint">
           Обработка персональных данных осуществляется исключительно в целях организации и проведения обучения,
-          тестирования и последующего документального оформления результатов в соответствии с требованиями
-          законодательства РФ и локальными нормативными актами работодателя. Персональные данные не передаются
-          третьим лицам, за исключением случаев, предусмотренных законом.
+          тестирования и последующего документального оформления результатов в соответствии с требованиями законодательства РФ
+          и локальными нормативными актами работодателя.
         </p>
 
-       <p class="test-hint">
+        <p class="test-hint">
           <strong>Предоставление согласия является добровольным.</strong>
-          В случае отказа от согласия прохождение теста и документальное оформление результатов обучения
-          будут невозможны.
+          В случае отказа от согласия прохождение теста и документальное оформление результатов обучения будут невозможны.
         </p>
 
         <div class="test-consent-controls">
@@ -259,7 +256,7 @@
         <p class="test-hint">
           После успешного завершения теста результаты автоматически фиксируются в системе OnlineTestPad
           и передаются уполномоченным специалистам работодателя. Информацию о зачёте и оформленных документах
-          вы можете уточнить у своего непосредственного руководителя или специалиста по охране труда/ГО и ЧС.
+          вы можете уточнить у своего непосредственного руководителя или специалиста по ГО и ЧС.
         </p>
       </section>
 
@@ -300,7 +297,7 @@
     })(this, this.document, "otp_widget_callbacks");
   </script>
 
-  <!-- Скрипт управления согласием и доступом к тесту (оверлей снимается по кнопке) -->
+  <!-- Скрипт управления согласием и доступом к тесту (UX-улучшенная версия) -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const consentCheckbox = document.getElementById('pd-consent');
@@ -308,42 +305,72 @@
       const overlay = document.getElementById('test-overlay');
       const widgetContainer = document.getElementById('otp_wgt_ldxfcvjhloj6o');
 
-      if (!consentCheckbox || !startButton || !overlay || !widgetContainer) {
-        return;
+      if (!consentCheckbox || !startButton || !overlay || !widgetContainer) return;
+
+      // Статус для пользователя + a11y (aria-live)
+      let status = document.getElementById('test-consent-status');
+      if (!status) {
+        status = document.createElement('p');
+        status.id = 'test-consent-status';
+        status.className = 'test-consent-status is-warn';
+        status.setAttribute('aria-live', 'polite');
+
+        const controls = startButton.closest('.test-consent-controls');
+        if (controls) controls.appendChild(status);
+        else startButton.insertAdjacentElement('afterend', status);
       }
 
-      function scrollToWidget() {
-        if (!widgetContainer.scrollIntoView) return;
-        widgetContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      function setStatus(text, mode) {
+        status.textContent = text;
+        status.classList.remove('is-ok', 'is-warn');
+        if (mode) status.classList.add(mode);
+      }
+
+      function getScrollTarget() {
+        return widgetContainer.closest('.test-wrapper-with-consent') || widgetContainer;
+      }
+
+      function scrollToTarget() {
+        const target = getScrollTarget();
+        const rect = target.getBoundingClientRect();
+        const offset = 12; // небольшой отступ сверху
+        const top = rect.top + window.pageYOffset - offset;
+        window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
       }
 
       function updateConsentState() {
         const allowed = consentCheckbox.checked;
 
+        startButton.disabled = !allowed;
+        startButton.setAttribute('aria-disabled', String(!allowed));
+
         if (allowed) {
-          startButton.disabled = false;
           startButton.classList.remove('btn-disabled');
-          // Оверлей снимаем по нажатию кнопки, чтобы был понятный визуальный эффект
+          setStatus('Доступ открыт. Нажмите кнопку, чтобы перейти к тесту.', 'is-ok');
         } else {
-          startButton.disabled = true;
-          if (!startButton.classList.contains('btn-disabled')) {
-            startButton.classList.add('btn-disabled');
-          }
+          startButton.classList.add('btn-disabled');
+
           overlay.classList.remove('test-overlay-hidden');
+          overlay.removeAttribute('aria-hidden');
+
+          setStatus('Поставьте отметку согласия, чтобы открыть доступ к тесту.', 'is-warn');
         }
       }
 
+      // Надёжнее для мобильных: change + input
       consentCheckbox.addEventListener('change', updateConsentState);
+      consentCheckbox.addEventListener('input', updateConsentState);
 
       startButton.addEventListener('click', function () {
-        if (startButton.disabled) {
-          return;
-        }
+        if (startButton.disabled) return;
+
         overlay.classList.add('test-overlay-hidden');
-        scrollToWidget();
+        overlay.setAttribute('aria-hidden', 'true');
+
+        setStatus('Доступ открыт. Прокручиваем к тесту…', 'is-ok');
+        scrollToTarget();
       });
 
-      // Инициализация начального состояния
       updateConsentState();
     });
   </script>
