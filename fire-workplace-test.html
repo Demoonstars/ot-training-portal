@@ -7,6 +7,14 @@
   <meta name="description"
         content="Итоговый тест по программе первичного и повторного противопожарного инструктажа для офисных работников и рабочих с обязательным указанием персональных и организационных данных.">
   <link rel="stylesheet" href="assets/style.css">
+
+  <style>
+    /* UX теста: статус под кнопкой (локально для страницы) */
+    .test-consent-status{font-size:.88rem;color:#6b7280;margin-top:.25rem}
+    .test-consent-status strong{color:#111827}
+    .test-consent-status.is-ok{color:#065f46}
+    .test-consent-status.is-warn{color:#92400e}
+  </style>
 </head>
 
 <body class="fire-theme">
@@ -294,7 +302,7 @@
     })(this, this.document, "otp_widget_callbacks");
   </script>
 
-  <!-- Скрипт управления согласием и доступом к тесту -->
+  <!-- Скрипт управления согласием и доступом к тесту (UX-улучшенная версия) -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const consentCheckbox = document.getElementById('pd-consent');
@@ -302,38 +310,68 @@
       const overlay = document.getElementById('test-overlay');
       const widgetContainer = document.getElementById('otp_wgt_7jrxt34ibn3ea');
 
-      if (!consentCheckbox || !startButton || !overlay || !widgetContainer) {
-        return;
+      if (!consentCheckbox || !startButton || !overlay || !widgetContainer) return;
+
+      // Статус для пользователя + a11y (aria-live)
+      let status = document.getElementById('test-consent-status');
+      if (!status) {
+        status = document.createElement('p');
+        status.id = 'test-consent-status';
+        status.className = 'test-consent-status is-warn';
+        status.setAttribute('aria-live', 'polite');
+
+        const controls = startButton.closest('.test-consent-controls');
+        if (controls) controls.appendChild(status);
+        else startButton.insertAdjacentElement('afterend', status);
       }
 
-      function scrollToWidget() {
-        if (!widgetContainer.scrollIntoView) return;
-        widgetContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      function setStatus(text, mode) {
+        status.textContent = text;
+        status.classList.remove('is-ok', 'is-warn');
+        if (mode) status.classList.add(mode);
+      }
+
+      function getScrollTarget() {
+        return widgetContainer.closest('.test-wrapper-with-consent') || widgetContainer;
+      }
+
+      function scrollToTarget() {
+        const target = getScrollTarget();
+        const rect = target.getBoundingClientRect();
+        const offset = 12;
+        const top = rect.top + window.pageYOffset - offset;
+        window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
       }
 
       function updateConsentState() {
         const allowed = consentCheckbox.checked;
 
+        startButton.disabled = !allowed;
+        startButton.setAttribute('aria-disabled', String(!allowed));
+
         if (allowed) {
-          startButton.disabled = false;
           startButton.classList.remove('btn-disabled');
+          setStatus('Доступ открыт. Нажмите кнопку, чтобы перейти к тесту.', 'is-ok');
         } else {
-          startButton.disabled = true;
-          if (!startButton.classList.contains('btn-disabled')) {
-            startButton.classList.add('btn-disabled');
-          }
+          startButton.classList.add('btn-disabled');
           overlay.classList.remove('test-overlay-hidden');
+          overlay.removeAttribute('aria-hidden');
+          setStatus('Поставьте отметку согласия, чтобы открыть доступ к тесту.', 'is-warn');
         }
       }
 
+      // Надёжнее для мобильных
       consentCheckbox.addEventListener('change', updateConsentState);
+      consentCheckbox.addEventListener('input', updateConsentState);
 
       startButton.addEventListener('click', function () {
-        if (startButton.disabled) {
-          return;
-        }
+        if (startButton.disabled) return;
+
         overlay.classList.add('test-overlay-hidden');
-        scrollToWidget();
+        overlay.setAttribute('aria-hidden', 'true');
+
+        setStatus('Доступ открыт. Прокручиваем к тесту…', 'is-ok');
+        scrollToTarget();
       });
 
       updateConsentState();
