@@ -1,12 +1,67 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Вводный инструктаж по охране труда — Учебный портал</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description"
-        content="Вводный инструктаж по охране труда: полный материал для чтения на странице, видеоролики и проверка знаний." />
-  <link rel="stylesheet" href="assets/style.css" />
+        content="Вводный инструктаж по охране труда: видеоматериалы, PDF-документ и проверка знаний.">
+
+  <link rel="stylesheet" href="assets/style.css">
+
+  <!-- Локальные стили только для этой страницы -->
+  <style>
+    .learning-route {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: clamp(12px, 3vw, 20px) 0;
+    }
+    .route-chip {
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      background: #f1f5f9;
+      color: #0f172a;
+      white-space: nowrap;
+    }
+
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .page-nav a {
+      font-size: 0.85rem;
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .info-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .info-badge {
+      font-size: 0.85rem;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+    }
+
+    .pdf-reader {
+      margin-top: 16px;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #e5e7eb, transparent);
+      margin: clamp(24px, 5vw, 40px) 0;
+    }
+  </style>
 </head>
 
 <body class="ot-theme">
@@ -27,7 +82,7 @@
         <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
         <li class="nav-item"><a href="programs.html" class="nav-link nav-link-active">Программы обучения</a></li>
         <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции для сотрудников</a></li>
-        <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Информация для ответственных за обучение</a></li>
+        <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Информация для ответственных</a></li>
       </ul>
     </nav>
   </div>
@@ -36,173 +91,117 @@
 <main id="main-content" class="site-main">
   <div class="container">
 
-    <!-- Возврат -->
     <nav class="back-nav">
       <a href="course-ot.html" class="back-link">
         <span class="back-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" class="back-svg">
             <path d="M15 6l-6 6 6 6"
-                  stroke="white"
-                  stroke-width="2"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"></path>
+                  stroke="white" stroke-width="2" fill="none"
+                  stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </span>
         <span class="back-text">Вернуться к курсу «Охрана труда»</span>
       </a>
     </nav>
 
-    <!-- МАТЕРИАЛ (PDF) -->
+    <!-- Заголовок -->
     <section class="section section-card">
-      <h1>Вводный инструктаж по охране труда</h1>
+      <h1>🦺 Вводный инструктаж по охране труда</h1>
 
       <p>
-        Ниже — полный материал вводного инструктажа в формате PDF и видеоматериалы по ключевым темам.
-        Рекомендуемый порядок: <strong>видео → PDF → тест</strong>.
+        Материал предназначен для первичного ознакомления работников с основными требованиями
+        охраны труда, правилами поведения при аварийных ситуациях и порядке действий при несчастных случаях.
       </p>
+
+      <!-- Маршрут -->
+      <div class="learning-route">
+        <span class="route-chip">Видео</span>
+        <span class="route-chip">PDF-материал</span>
+        <span class="route-chip">Проверка знаний</span>
+      </div>
+
+      <!-- Навигация -->
+      <nav class="page-nav" aria-label="Навигация по странице">
+        <a href="#videos">К видеоматериалам</a>
+        <a href="#pdf">К PDF</a>
+        <a href="#test">К тесту</a>
+      </nav>
+
+      <div class="info-badges">
+        <span class="info-badge">⏱ Чтение PDF: ~10–15 минут</span>
+        <span class="info-badge">📝 Тест: 10 вопросов, зачёт/незачёт</span>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- PDF -->
+    <section class="section section-card" id="pdf">
+      <h2>Учебный материал (PDF)</h2>
 
       <a class="material-download-card" href="assets/ot-intro.pdf" target="_blank" rel="noopener">
         <span class="material-icon-wrap">
           <span class="material-icon">📘</span>
         </span>
-
         <span class="material-text">
           <span class="material-label">Учебный материал</span>
-          <span class="material-title">«Вводный инструктаж по охране труда»</span>
+          <span class="material-title">Вводный инструктаж по охране труда</span>
           <span class="material-meta">Полная версия • PDF</span>
         </span>
-
         <span class="material-badge">ОТКРЫТЬ / СКАЧАТЬ</span>
       </a>
 
-      <!-- Встроенное чтение PDF на странице -->
-      <div class="section-card section-card-elevated" style="margin-top:16px;">
-        <h3 class="fire-block-title" style="margin-top:0;">Чтение материала на странице</h3>
-        <p class="note" style="margin-top:8px;">
-          Если PDF не отображается во встроенном окне, воспользуйтесь кнопками ниже:
-          <strong>Открыть PDF</strong> или <strong>Скачать PDF</strong>.
-        </p>
+      <p class="note">
+        На мобильных устройствах удобнее открывать PDF в новой вкладке через кнопку выше.
+      </p>
 
-        <!-- Большой просмотрщик PDF (адаптивный) -->
-        <div class="pdf-viewer-large" aria-label="Просмотр PDF на странице">
-          <iframe
-            class="pdf-viewer-frame"
-            src="assets/ot-intro.pdf"
-            title="Вводный инструктаж по охране труда (PDF)"
-            loading="lazy">
-          </iframe>
-        </div>
-
-        <p class="test-hint" style="margin-top:12px;">
-          Подсказка: на телефоне удобнее открыть PDF в новой вкладке и использовать поиск по документу.
-        </p>
+      <div class="pdf-reader pdf-viewer-large">
+        <iframe
+          class="pdf-viewer-frame"
+          src="assets/ot-intro.pdf"
+          title="Вводный инструктаж по охране труда"
+          loading="lazy">
+        </iframe>
       </div>
     </section>
 
-    <!-- ВИДЕО + ключевые блоки (как в твоих курсах) -->
-    <article class="section section-card fire-course-card" id="ot-intro-content">
-      <header class="fire-course-header">
-        <div class="course-chip course-chip-1">ОТ</div>
-        <div>
-          <h2 class="fire-course-title">Видеоматериалы по ключевым темам</h2>
-          <p class="fire-course-subtitle">
-            Просмотрите видеоролики (в указанной последовательности), затем изучите материал в PDF выше и переходите к проверке знаний.
-          </p>
-        </div>
-      </header>
+    <div class="divider"></div>
 
-      <!-- Пожар -->
-      <section class="fire-block" id="ot-intro-fire">
-        <h3 class="fire-block-title">1) Как действовать во время пожара</h3>
-        <p>
-          Посмотрите видео и запомните базовые действия: как реагировать на сигнал тревоги, как организовать эвакуацию,
-          как не допустить ошибок, которые приводят к травмам.
-        </p>
+    <!-- Видео -->
+    <section class="section section-card" id="videos">
+      <h2>Видеоматериалы</h2>
+      <p>
+        Просмотрите видеоролики по ключевым темам перед изучением полного текста инструкции.
+      </p>
 
-        <div class="video-grid-fire">
-          <article class="video-card-fire">
-            <h5>Действия при пожаре: алгоритм и примеры</h5>
-            <div class="video-frame-wrapper">
-              <iframe
-                src="https://kinescope.io/embed/u1U8AdN9kBw4CAWTWZSSWV"
-                allowfullscreen
-                loading="lazy"
-                title="Как действовать во время пожара">
-              </iframe>
-            </div>
-          </article>
-        </div>
-      </section>
+      <div class="video-grid-fire">
+        <article class="video-card-fire">
+          <h5>Действия при пожаре</h5>
+          <div class="video-frame-wrapper">
+            <iframe src="https://kinescope.io/embed/u1U8AdN9kBw4CAWTWZSSWV"
+                    allowfullscreen loading="lazy"
+                    title="Действия при пожаре"></iframe>
+          </div>
+        </article>
+      </div>
+    </section>
 
-      <!-- Террористическая угроза -->
-      <section class="fire-block" id="ot-intro-terror">
-        <h3 class="fire-block-title">2) Действия при террористической угрозе</h3>
-        <p>
-          В ролике — сценарии поведения при угрозе, рекомендации по снижению рисков, важные запреты и приоритеты безопасности.
-        </p>
+    <div class="divider"></div>
 
-        <div class="video-grid-fire">
-          <article class="video-card-fire">
-            <h5>Террористическая угроза: как действовать правильно</h5>
-            <div class="video-frame-wrapper">
-              <iframe
-                src="https://kinescope.io/embed/7c1BU5HmvydfpdG5tNUv7e"
-                allowfullscreen
-                loading="lazy"
-                title="Как действовать во время террористической угрозы">
-              </iframe>
-            </div>
-          </article>
-        </div>
-      </section>
+    <!-- Тест -->
+    <section class="section section-card" id="test">
+      <h2>Проверка усвоения знаний</h2>
+      <p>
+        После ознакомления с видеоматериалами и PDF-документом пройдите тест.
+        Результаты используются для оформления вводного инструктажа.
+      </p>
 
-      <!-- Первая помощь (в составе вводного) -->
-      <section class="fire-block" id="ot-intro-firstaid">
-        <h3 class="fire-block-title">3) Как действовать при несчастном случае: первая помощь</h3>
-        <p>
-          Короткий ролик: что сделать до начала оказания первой помощи, как действовать по алгоритму и не потерять время.
-        </p>
-
-        <div class="video-grid-fire">
-          <article class="video-card-fire">
-            <h5>Алгоритм действий при несчастном случае</h5>
-            <div class="video-frame-wrapper">
-              <iframe
-                src="https://kinescope.io/embed/vmGbdzuLu6Q7htCrfxBjHc"
-                allowfullscreen
-                loading="lazy"
-                title="Как действовать, если произошёл несчастный случай">
-              </iframe>
-            </div>
-          </article>
-        </div>
-
-        <p class="note" style="margin-top:12px;">
-          В подробном материале (PDF) есть расширенные пояснения, примеры ситуаций и разбор типичных ошибок.
-        </p>
-      </section>
-
-      <!-- ПРОВЕРКА ЗНАНИЙ -->
-      <section class="fire-block fire-test-block" id="ot-intro-test">
-        <h3 class="fire-block-title">Проверка усвоения знаний</h3>
-        <p>
-          После просмотра видеоматериалов и ознакомления с полным материалом в PDF пройдите тест.
-          Результаты используются ответственными за обучение для оформления прохождения вводного инструктажа.
-        </p>
-
-        <div class="test-actions">
-          <a href="ot-intro-test.html" class="btn btn-primary btn-test-link">
-            Перейти к тесту по вводному инструктажу
-          </a>
-        </div>
-
-        <p class="test-hint">
-          Если результат неудовлетворительный — вернитесь к материалу и повторите темы, по которым допущены ошибки.
-        </p>
-      </section>
-
-    </article>
+      <div class="test-actions">
+        <a href="ot-intro-test.html" class="btn btn-primary btn-test-link">
+          Перейти к тесту
+        </a>
+      </div>
+    </section>
 
   </div>
 </main>
@@ -213,11 +212,7 @@
       Учебный портал дистанционного обучения по охране труда, пожарной безопасности,
       первой помощи и ГО/ЧС.
     </p>
-    <p class="footer-text footer-text-muted">
-      Конкретный порядок обучения определяется работодателем.
-    </p>
   </div>
 </footer>
-
 </body>
 </html>
