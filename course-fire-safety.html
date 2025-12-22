@@ -2,14 +2,273 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Курсы по пожарной безопасности — Учебный портал</title>
+  <title>Курс по пожарной безопасности — Учебный портал</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description"
-        content="Вводный курс по пожарной безопасности и первичный/повторный противопожарный инструктаж для офисных работников и рабочих. Видеоматериалы, учебное пособие и итоговые тесты.">
+  <meta name="description" content="Курс по пожарной безопасности: вводный противопожарный инструктаж и первичный/повторный инструктаж на рабочем месте, материалы и тестирование.">
   <link rel="stylesheet" href="assets/style.css">
+
+  <style>
+    body.fire-theme{
+      background:
+        radial-gradient(1000px 520px at 12% -10%, rgba(255,120,60,.14), transparent 62%),
+        radial-gradient(900px 520px at 92% 0%, rgba(37,99,235,.10), transparent 58%),
+        linear-gradient(to bottom, rgba(15,23,42,.02), rgba(15,23,42,.00));
+    }
+
+    .course-hero{
+      border-radius: 20px;
+      padding: clamp(16px, 3.2vw, 26px);
+      background:
+        linear-gradient(120deg, rgba(15,23,42,.86), rgba(15,23,42,.62)),
+        radial-gradient(900px 460px at 20% 10%, rgba(255,120,60,.22), transparent 60%),
+        radial-gradient(900px 460px at 86% 18%, rgba(37,99,235,.18), transparent 58%);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 18px 60px rgba(2, 6, 23, .14);
+      overflow:hidden;
+    }
+    .course-hero h2,
+    .course-hero p{ color:#fff !important; }
+
+    .hero-badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-bottom: 10px;
+    }
+    .hero-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.10);
+      color:#fff;
+      font-weight:700;
+      min-height: 40px;
+      max-width:100%;
+      white-space:nowrap;
+    }
+    .hero-badge.is-two{
+      border-color: rgba(255,120,60,.40);
+      background: rgba(255,120,60,.16);
+      box-shadow: 0 0 0 3px rgba(255,120,60,.10);
+    }
+    @media (max-width: 420px){
+      .hero-badge{ min-height:44px; }
+    }
+
+    .course-kpis{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+    @media (max-width: 920px){
+      .course-kpis{ grid-template-columns: 1fr; }
+    }
+    .course-kpi{
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      padding: 12px;
+    }
+    .course-kpi strong{
+      display:block;
+      font-size: 1rem;
+      margin-bottom: 4px;
+      color:#fff;
+    }
+    .course-kpi span{
+      display:block;
+      font-size: .95rem;
+      color: rgba(255,255,255,.82);
+    }
+
+    .course-nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 14px;
+    }
+    .course-nav a{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:44px;
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.10);
+      color:#fff;
+      text-decoration:none;
+      font-weight:800;
+      max-width: 100%;
+    }
+    .course-nav a.primary{
+      border-color: rgba(255,120,60,.45);
+      background: rgba(255,120,60,.16);
+      box-shadow: 0 0 0 3px rgba(255,120,60,.10);
+    }
+    .course-nav a:focus-visible{ outline:2px solid rgba(255,255,255,.85); outline-offset:2px; }
+
+    .course-divider{
+      height:1px;
+      background: linear-gradient(to right, transparent, rgba(17,24,39,0.12), transparent);
+      margin: clamp(18px, 4vw, 28px) 0;
+    }
+
+    .route-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    @media (max-width: 720px){
+      .route-grid{ grid-template-columns: 1fr; }
+    }
+
+    .route-card{
+      border-radius: 18px;
+      border: 1px solid rgba(17,24,39,0.10);
+      background: rgba(255,255,255,0.85);
+      padding: 14px;
+      box-shadow: 0 10px 26px rgba(2,6,23,.06);
+      overflow:hidden;
+    }
+
+    .route-card.is-primary{
+      border-color: rgba(255,120,60,.28);
+      background:
+        radial-gradient(900px 240px at 10% 0%, rgba(255,120,60,.14), transparent 60%),
+        rgba(255,255,255,0.90);
+      box-shadow: 0 22px 70px rgba(255,120,60,.16);
+    }
+
+    .route-top{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom: 10px;
+    }
+    .route-title{
+      margin:0;
+      font-size: 1.06rem;
+      line-height:1.2;
+      color:#0f172a;
+    }
+    .route-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      background: rgba(248,250,252,0.95);
+      border: 1px solid rgba(17,24,39,0.08);
+      font-size:.92rem;
+      color:#0f172a;
+      white-space:nowrap;
+      max-width: 100%;
+    }
+    .route-tag.is-time{
+      border-color: rgba(255,120,60,.25);
+      background: rgba(255,120,60,.08);
+      font-weight: 800;
+    }
+
+    .route-subtle{
+      margin: 0 0 10px;
+      color:#475569;
+      overflow-wrap:anywhere;
+    }
+
+    .route-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 10px;
+    }
+    .route-actions a{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:44px;
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid rgba(17,24,39,0.10);
+      background:#fff;
+      color:#2563eb;
+      font-weight:800;
+      text-decoration:none;
+    }
+    .route-actions a.primary{
+      border-color: rgba(255,120,60,.30);
+      color: #0f172a;
+      background: rgba(255,120,60,.14);
+    }
+    .route-actions a:focus-visible{ outline:2px solid #2563eb; outline-offset:2px; }
+
+    .course-notice{
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(17,24,39,0.10);
+      background: rgba(255,255,255,0.85);
+    }
+    .course-notice p{ margin:0; color:#475569; }
+
+    .course-tips{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    @media (max-width: 920px){
+      .course-tips{ grid-template-columns: 1fr; }
+    }
+    .tip{
+      border-radius: 16px;
+      border: 1px solid rgba(17,24,39,0.10);
+      background: rgba(255,255,255,0.85);
+      padding: 14px;
+    }
+    .tip h3{ margin:0 0 8px; font-size: 1rem; color:#0f172a; }
+    .tip p{ margin:0; color:#475569; }
+
+    .to-top {
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 50;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,0.12);
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.10);
+      color: #0f172a;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(6px);
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .to-top.is-visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .to-top:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
+    @media (max-width: 420px){ .to-top { right: 12px; bottom: 12px; } }
+    @media (prefers-reduced-motion: reduce){ .to-top { transition: none; } }
+  </style>
 </head>
 
-<body>
+<body class="fire-theme">
 <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
 
 <header class="site-header">
@@ -36,393 +295,118 @@
 <main id="main-content" class="site-main">
   <div class="container">
 
-    <!-- Кнопка возврата -->
     <nav class="back-nav">
       <a href="programs.html" class="back-link">
         <span class="back-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" class="back-svg">
-            <path d="M15 6l-6 6 6 6"
-                  stroke="white"
-                  stroke-width="2"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round" />
+            <path d="M15 6l-6 6 6 6" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </span>
         <span class="back-text">Вернуться к программам обучения</span>
       </a>
     </nav>
 
-    <!-- Огненный герой-раздел "Пожарная безопасность" -->
-    <section class="section section-card fire-hero-card">
-      <div class="fire-hero-label">Направление</div>
-      <h2 class="fire-hero-title">Пожарная безопасность</h2>
-      <p class="fire-hero-lead">
-        Раздел включает две программы: вводный курс по пожарной безопасности для офисных работников и рабочих,
-        а также курс первичного и повторного противопожарного инструктажа на рабочем месте.
-      </p>
-      <p class="fire-hero-text">
-        Программы ориентированы на требования федерального законодательства о пожарной безопасности, Правил
-        противопожарного режима в Российской Федерации и приказов МЧС России, регламентирующих обучение и инструктажи
-        по пожарной безопасности.
+    <section class="section section-card course-hero">
+      <div class="hero-badges" aria-label="Статус курса">
+        <span class="hero-badge is-two">🧯 Два раздела: вводный + первичный/повторный</span>
+        <span class="hero-badge">⏱ 35–40 минут на раздел</span>
+      </div>
+
+      <h2>🔥 Курс: Пожарная безопасность</h2>
+      <p>
+        Курс состоит из двух частей: <strong>вводный противопожарный инструктаж</strong> и
+        <strong>первичный/повторный инструктаж на рабочем месте</strong>.
+        Рекомендуем проходить по порядку: сначала вводный, затем первичный/повторный. После изучения — тестирование.
       </p>
 
-      <div class="fire-hero-tags">
-        <span class="fire-tag fire-tag-basic">Вводный инструктаж</span>
-        <span class="fire-tag fire-tag-workplace">Инструктаж на рабочем месте</span>
-        <span class="fire-tag fire-tag-law">ФЗ «О пожарной безопасности», ППР РФ</span>
+      <div class="course-kpis" aria-label="Краткие характеристики курса">
+        <div class="course-kpi">
+          <strong>⏱ Тайминг</strong>
+          <span>≈ 2×(35–40 мин) — общий ориентир 70–80 мин</span>
+        </div>
+        <div class="course-kpi">
+          <strong>📘 Формат</strong>
+          <span>PDF-материалы + тестирование</span>
+        </div>
+        <div class="course-kpi">
+          <strong>📝 Результат</strong>
+          <span>Изучение двух разделов и проверка знаний</span>
+        </div>
+      </div>
+
+      <div class="course-nav" aria-label="Быстрые действия">
+        <a class="primary" href="#route">Открыть маршрут</a>
+        <a href="#how">Как проходить</a>
       </div>
     </section>
 
-    <!-- Два курса рядом/следом -->
-    <section class="section fire-courses-wrapper">
+    <div class="course-divider" aria-hidden="true"></div>
 
-      <!-- КУРС 1 -->
-      <article class="section-card fire-course-card fire-course-1" id="fire-course-intro">
-        <header class="fire-course-header">
-          <div class="course-chip course-chip-1">Курс 1</div>
-          <div>
-            <h2 class="fire-course-title">
-              Вводный курс по пожарной безопасности для офисных работников и рабочих
-            </h2>
-            <p class="fire-course-subtitle">
-              Вводный курс проводится со всеми принимаемыми на работу сотрудниками до начала трудовой деятельности.
-              Цель курса — сформировать базовые знания о требованиях пожарной безопасности, действиях при пожаре и
-              правилах эвакуации.
-            </p>
+    <section class="section section-card" id="route">
+      <h2 class="page-title">Маршрут курса</h2>
+      <p class="page-lead">
+        Проходите по порядку. Это снижает ошибки в тесте и делает алгоритмы действий более понятными.
+      </p>
+
+      <div class="course-notice" role="note" aria-label="Подсказка по прохождению">
+        <p>
+          Совет: сначала изучите материал, затем откройте тест. Если допущены ошибки — вернитесь к разделу и повторите.
+        </p>
+      </div>
+
+      <div class="route-grid" aria-label="Разделы курса по пожарной безопасности">
+
+        <article class="route-card is-primary">
+          <div class="route-top">
+            <h3 class="route-title">1) Вводный противопожарный инструктаж</h3>
+            <span class="route-tag is-time">⏱ 35–40 мин</span>
           </div>
-        </header>
-
-        <section aria-labelledby="intro-structure">
-          <h3 id="intro-structure" class="fire-block-title">Структура курса (8 уроков)</h3>
-          <ol class="module-list fire-module-list">
-            <li>
-              <strong>Нормативные правовые акты в области пожарной безопасности.</strong>
-              Основные законы и подзаконные акты, виды противопожарного инструктажа, общие обязанности работодателя
-              и работников.
-            </li>
-            <li>
-              <strong>Общие сведения о пожарной и взрывоопасной опасности.</strong>
-              Условия возникновения пожара, факторы, влияющие на развитие горения, меры предотвращения.
-            </li>
-            <li>
-              <strong>Эвакуационные пути и выходы.</strong>
-              Требования к путям эвакуации, планы эвакуации, системы оповещения и указатели.
-            </li>
-            <li>
-              <strong>Причины и последствия пожаров.</strong>
-              Статистика пожаров, основные причины возгораний, роль человеческого фактора.
-            </li>
-            <li>
-              <strong>Права, обязанности и ответственность работников.</strong>
-              Допустимые и запрещённые действия, административная и уголовная ответственность.
-            </li>
-            <li>
-              <strong>Система обеспечения пожарной безопасности в организации.</strong>
-              Система предотвращения пожара, противопожарная защита, организационно-технические мероприятия,
-              роль ответственных лиц и комиссий по ПБ.
-            </li>
-            <li>
-              <strong>Порядок действий работников при пожаре.</strong>
-              Сообщение о пожаре, вызов пожарной охраны, эвакуация людей, использование первичных средств пожаротушения.
-            </li>
-            <li>
-              <strong>Пожарная безопасность жилых помещений, гостиниц и общежитий.</strong>
-              Особенности безопасного поведения в быту, гостиницах и местах временного проживания.
-            </li>
-          </ol>
-        </section>
-
-        <!-- Видеоматериалы -->
-        <section aria-labelledby="intro-video" class="fire-block">
-          <h3 id="intro-video" class="fire-block-title">Видеоматериалы по курсу</h3>
-          <p>
-            Рекомендуется последовательно посмотреть видеоролики, затем повторить ключевые положения по учебному
-            пособию и только после этого переходить к итоговому тесту.
+          <p class="route-subtle">
+            Общие требования пожарной безопасности, действия при пожаре, эвакуация, запреты, первичные средства тушения.
           </p>
-
-          <div class="video-grid-fire">
-            <article class="video-card-fire">
-              <h4>Как действовать во время пожара</h4>
-              <p class="video-desc">
-                Порядок действий при возникновении пожара: кого и как оповестить, как организовать эвакуацию,
-                какие действия недопустимы и могут привести к увеличению ущерба.
-              </p>
-              <div class="video-frame-wrapper">
-                <iframe
-                  src="https://kinescope.io/embed/u1U8AdN9kBw4CAWTWZSSWV"
-                  allowfullscreen
-                  loading="lazy"
-                  title="Как действовать во время пожара"
-                ></iframe>
-              </div>
-            </article>
-
-            <article class="video-card-fire">
-              <h4>Как эвакуироваться при пожаре с высоты</h4>
-              <p class="video-desc">
-                Использование приставной лестницы для эвакуации людей с высоты: требования к установке, порядок подъёма
-                и спуска пострадавших, ключевые меры безопасности.
-              </p>
-              <div class="video-frame-wrapper">
-                <iframe
-                  src="https://kinescope.io/embed/uKtgnohc8FcQ8cgKrEZtCT"
-                  allowfullscreen
-                  loading="lazy"
-                  title="Как эвакуироваться при пожаре с высоты"
-                ></iframe>
-              </div>
-            </article>
+          <div class="route-actions">
+            <a class="primary" href="fire-intro-materials.html">Открыть материалы</a>
+            <a href="fire-intro-test.html">Перейти к тесту</a>
           </div>
-        </section>
+        </article>
 
-        <!-- Учебные материалы — плитка -->
-        <section aria-labelledby="intro-materials" class="fire-block course-materials">
-          <h3 id="intro-materials" class="fire-block-title">Учебные материалы</h3>
-
-          <a href="fire-intro-materials.html" class="material-download-card">
-            <span class="material-icon-wrap">
-              <span class="material-icon">📘</span>
-            </span>
-
-            <span class="material-text">
-              <span class="material-label">Учебное пособие</span>
-              <span class="material-title">«Противопожарный инструктаж»</span>
-              <span class="material-meta">8 уроков • PDF</span>
-            </span>
-
-            <span class="material-badge">Просмотреть</span>
-          </a>
-        </section>
-
-        <!-- Итоговый тест по вводному курсу -->
-        <section aria-labelledby="intro-test" class="fire-block fire-test-block">
-          <h3 id="intro-test" class="fire-block-title">Итоговый тест по вводному курсу</h3>
-          <p>
-            После изучения всех восьми уроков и просмотра видеоматериалов работник проходит итоговый тест.
-            Результаты теста используются ответственными за обучение для оформления документов о прохождении
-            вводного противопожарного инструктажа.
-          </p>
-
-          <div class="test-actions">
-            <a href="fire-intro-test.html" class="btn btn-primary btn-test-link">
-              Перейти к итоговому тесту по вводному курсу
-            </a>
+        <article class="route-card">
+          <div class="route-top">
+            <h3 class="route-title">2) Первичный/повторный инструктаж на рабочем месте</h3>
+            <span class="route-tag is-time">⏱ 35–40 мин</span>
           </div>
-
-          <p class="test-hint">
-            Перед сдачей теста рекомендуется иметь под рукой учебное пособие и план эвакуации здания.
+          <p class="route-subtle">
+            Требования для рабочего места, порядок действий, ответственность, типовые риски и меры профилактики.
           </p>
-        </section>
-      </article>
-
-      <!-- КУРС 2 -->
-      <article class="section-card fire-course-card fire-course-2" id="fire-course-workplace">
-        <header class="fire-course-header">
-          <div class="course-chip course-chip-2">Курс 2</div>
-          <div>
-            <h2 class="fire-course-title">
-              Первичный и повторный противопожарный инструктаж для офисных работников и рабочих
-            </h2>
-            <p class="fire-course-subtitle">
-              Курс предназначен для проведения первичного инструктажа на рабочем месте при приёме на работу,
-              переводе в другое подразделение либо изменении трудовой функции, а также для последующих повторных
-              инструктажей. Содержание курса конкретизирует общие требования пожарной безопасности применительно
-              к рабочим местам, оборудованию и технологическим процессам организации.
-            </p>
+          <div class="route-actions">
+            <a class="primary" href="fire-workplace-materials.html">Открыть материалы</a>
+            <a href="fire-workplace-test.html">Перейти к тесту</a>
           </div>
-        </header>
+        </article>
 
-        <section aria-labelledby="work-structure">
-          <h3 id="work-structure" class="fire-block-title">Структура курса</h3>
-          <ol class="module-list fire-module-list">
-            <li>
-              <strong>Пожароопасные факторы на рабочем месте.</strong>
-              Характеристика помещений, размещение оборудования, источники возможного возгорания.
-            </li>
-            <li>
-              <strong>Требования к содержанию путей эвакуации.</strong>
-              Запрещённые для хранения вещи, блокирование выходов, хранение горючих материалов на путях эвакуации.
-            </li>
-            <li>
-              <strong>Использование первичных средств пожаротушения.</strong>
-              Виды огнетушителей и покрывал, правила размещения и применения, ограничения по назначению.
-            </li>
-            <li>
-              <strong>Порядок действий работников при пожаре на рабочем месте.</strong>
-              Сообщение руководителю, взаимодействие с подразделениями охраны, эвакуация людей и материальных ценностей.
-            </li>
-            <li>
-              <strong>Средства защиты и самоспасатели.</strong>
-              Средства индивидуальной защиты от дыма и продуктов горения, правила применения самоспасателей, ограничения.
-            </li>
-            <li>
-              <strong>Первая помощь при ожогах.</strong>
-              Виды и степени ожогов, алгоритм оказания первой помощи пострадавшим до прибытия медработников.
-            </li>
-            <li>
-              <strong>Пожарная безопасность жилых помещений и гостиниц.</strong>
-              Требования к жилым помещениям, гостиницам и общежитиям, типичные нарушения и последствия.
-            </li>
-            <li>
-              <strong>Ответственность и личная дисциплина работника.</strong>
-              Типичные нарушения, административная и уголовная ответственность, примеры пожаров на аналогичных объектах.
-            </li>
-          </ol>
-        </section>
-
-        <!-- Видеоматериалы по инструктажу -->
-        <section aria-labelledby="work-video" class="fire-block">
-          <h3 id="work-video" class="fire-block-title">Видеоматериалы для первичного и повторного инструктажа</h3>
-          <p>
-            Перед проведением инструктажа на рабочем месте рекомендуется последовательно просмотреть видеоролики,
-            затем закрепить материал по учебному пособию и только после этого переходить к итоговому тесту.
-          </p>
-
-          <div class="video-grid-fire">
-            <article class="video-card-fire">
-              <h4>Как применять средства пожаротушения</h4>
-              <p class="video-desc">
-                Порядок хранения и использования огнетушителей и противопожарных покрывал. Практические примеры
-                применения первичных средств пожаротушения для ликвидации возгораний разных классов.
-              </p>
-              <div class="video-frame-wrapper">
-                <iframe
-                  src="https://kinescope.io/embed/pHmhTFE57f5YxuHn8q3bkx"
-                  allowfullscreen
-                  loading="lazy"
-                  title="Как применять средства пожаротушения"
-                ></iframe>
-              </div>
-            </article>
-
-            <article class="video-card-fire">
-              <h4>Как действовать во время пожара</h4>
-              <p class="video-desc">
-                Алгоритм действий работника при пожаре: сообщение о возгорании, вызов пожарной охраны,
-                эвакуация людей, взаимодействие с руководителем и службами охраны.
-              </p>
-              <div class="video-frame-wrapper">
-                <iframe
-                  src="https://kinescope.io/embed/u1U8AdN9kBw4CAWTWZSSWV"
-                  allowfullscreen
-                  loading="lazy"
-                  title="Как действовать во время пожара"
-                ></iframe>
-              </div>
-            </article>
-
-            <article class="video-card-fire">
-              <h4>Самоспасатели: учимся применять средства защиты от пожара</h4>
-              <p class="video-desc">
-                Виды самоспасателей, принципы работы и время защитного действия. Демонстрация использования
-                средств защиты органов дыхания при эвакуации через задымлённые зоны.
-              </p>
-              <div class="video-frame-wrapper">
-                <iframe
-                  src="https://kinescope.io/embed/jfFxBm3WECacPQrpGMpakZ"
-                  allowfullscreen
-                  loading="lazy"
-                  title="Самоспасатели: учимся применять средства защиты от пожара"
-                ></iframe>
-              </div>
-            </article>
-
-            <article class="video-card-fire">
-              <h4>Первая помощь при ожогах</h4>
-              <p class="video-desc">
-                Виды и степени ожогов, типичные ошибки при оказании помощи. Алгоритм охлаждения ожоговой поверхности,
-                вызов скорой помощи и дальнейшие действия до прибытия медиков.
-              </p>
-              <div class="video-frame-wrapper">
-                <iframe
-                  src="https://kinescope.io/embed/vmaauqtFhVsYLjq98AMY7U"
-                  allowfullscreen
-                  loading="lazy"
-                  title="Первая помощь при ожогах"
-                ></iframe>
-              </div>
-            </article>
-
-            <article class="video-card-fire">
-              <h4>Эвакуация при пожаре: тренировка с противопожарной службой</h4>
-              <p class="video-desc">
-                Практическая тренировка по эвакуации при пожаре с участием подразделений МЧС: порядок оповещения,
-                построения колонн, движение по путям эвакуации и взаимодействие с пожарными.
-              </p>
-              <div class="video-frame-wrapper">
-                <iframe
-                  src="https://kinescope.io/embed/qPSRzTJ6fPKBV5Lh9Gm3Tc"
-                  allowfullscreen
-                  loading="lazy"
-                  title="Эвакуация при пожаре: тренировка с противопожарной службой"
-                ></iframe>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <!-- Материалы для инструктажа — плитка -->
-        <section aria-labelledby="work-materials" class="fire-block course-materials">
-          <h3 id="work-materials" class="fire-block-title">Материалы для инструктажа</h3>
-          <p>
-            В качестве базового материала для подготовки и проведения инструктажа рекомендуется использовать
-            учебное пособие по первичному инструктажу. При необходимости работодатель может дополнительно
-            применять и иные локальные материалы.
-          </p>
-
-          <a href="fire-workplace-materials.html" class="material-download-card">
-            <span class="material-icon-wrap">
-              <span class="material-icon">📘</span>
-            </span>
-
-            <span class="material-text">
-              <span class="material-label">Учебное пособие</span>
-              <span class="material-title">«Первичный инструктаж по пожарной безопасности»</span>
-              <span class="material-meta">PDF</span>
-            </span>
-
-            <span class="material-badge">Просмотреть</span>
-          </a>
-        </section>
-
-        <!-- Итоговый тест -->
-        <section aria-labelledby="work-test" class="fire-block fire-test-block">
-          <h3 id="work-test" class="fire-block-title">
-            Итоговый тест по первичному и повторному инструктажу
-          </h3>
-          <p>
-            По результатам прохождения курса работник проходит тестирование по вопросам, отражающим специфику его
-            рабочего места. Результаты теста используются для оформления записей в журналах регистрации
-            противопожарного инструктажа и иных документов, предусмотренных локальными нормативными актами.
-          </p>
-
-          <div class="test-actions">
-            <a href="fire-workplace-test.html" class="btn btn-primary btn-test-link">
-              Перейти к тесту по первичному и повторному инструктажу
-            </a>
-          </div>
-
-          <p class="test-hint">
-            Сроки и периодичность повторного инструктажа устанавливаются работодателем с учётом требований
-            действующих правил пожарной безопасности.
-          </p>
-        </section>
-      </article>
+      </div>
     </section>
 
-    <!-- Общий блок про использование результатов -->
-    <section class="section section-card fire-results-card">
-      <h2>Использование результатов обучения</h2>
-      <p>
-        Результаты прохождения курсов и итоговых тестов по пожарной безопасности могут использоваться работодателем
-        для оформления журналов регистрации противопожарного инструктажа, протоколов проверки знаний, приказов
-        о допуске к работе и иных документов, предусмотренных локальными нормативными актами.
-      </p>
-      <p class="note">
-        Конкретный порядок документального оформления (формы журналов, протоколов, сроки хранения) определяется
-        работодателем в локальных актах с учётом требований законодательства о пожарной безопасности и охране труда.
-      </p>
+    <div class="course-divider" aria-hidden="true"></div>
+
+    <section class="section section-card" id="how">
+      <h2>Как проходить курс без ошибок</h2>
+      <p class="page-lead">Небольшие подсказки, чтобы быстрее пройти материал и корректно сдать тест.</p>
+
+      <div class="course-tips" aria-label="Подсказки по прохождению">
+        <div class="tip">
+          <h3>1) Начните с вводного</h3>
+          <p>Он задаёт общие правила и алгоритмы действий. Потом легче проходить “рабочее место”.</p>
+        </div>
+        <div class="tip">
+          <h3>2) На телефоне открывайте PDF в новой вкладке</h3>
+          <p>Так проще искать по документу и не терять место при возврате к тесту.</p>
+        </div>
+        <div class="tip">
+          <h3>3) Тест — после материала</h3>
+          <p>Если результат неудовлетворительный — вернитесь к разделам, где были ошибки, и повторите.</p>
+        </div>
+      </div>
     </section>
 
   </div>
@@ -431,14 +415,39 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <p class="footer-text">
-      Учебный портал дистанционного обучения по охране труда, пожарной безопасности,
-      первой помощи и ГО/ЧС.
+      Учебный портал дистанционного обучения по охране труда, пожарной безопасности, первой помощи и ГО/ЧС.
     </p>
     <p class="footer-text footer-text-muted">
-      Конкретный порядок обучения определяется работодателем.
+      Конкретный порядок обучения и оформления результатов определяется работодателем.
     </p>
   </div>
 </footer>
+
+<button type="button" class="to-top" id="toTopBtn" aria-label="Наверх" title="Наверх">↑</button>
+
+<script>
+  (function () {
+    const btn = document.getElementById('toTopBtn');
+    if (!btn) return;
+
+    const prefersReducedMotion =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function onScroll() {
+      const y = window.scrollY || document.documentElement.scrollTop || 0;
+      if (y > 700) btn.classList.add('is-visible');
+      else btn.classList.remove('is-visible');
+    }
+
+    btn.addEventListener('click', function () {
+      if (prefersReducedMotion) window.scrollTo(0, 0);
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
 
 </body>
 </html>
