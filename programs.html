@@ -6,6 +6,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Каталог программ дистанционного обучения по охране труда, пожарной безопасности, первой помощи и ГО/ЧС.">
   <link rel="stylesheet" href="assets/style.css">
+  <style>
+    /* Page-local, safe additions */
+    .programs-search { position: relative; }
+    .programs-search-clear{
+      position:absolute;
+      right:10px;
+      top:50%;
+      transform:translateY(-50%);
+      width:36px;
+      height:36px;
+      border-radius:999px;
+      border:1px solid rgba(17,24,39,0.10);
+      background:rgba(255,255,255,0.92);
+      color:#0f172a;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size:20px;
+      line-height:1;
+      cursor:pointer;
+    }
+    .programs-search-clear:focus-visible{ outline:2px solid #2563eb; outline-offset:2px; }
+    @media (max-width: 420px){
+      .programs-search-clear{ width:44px; height:44px; right:8px; }
+    }
+  </style>
 </head>
 
 <body>
@@ -17,9 +43,10 @@
       <p class="site-label">Дистанционный учебный портал</p>
       <h1 class="site-title">Охрана труда, пожарная безопасность, первая помощь, ГО/ЧС</h1>
       <p class="site-subtitle">
-        Выбор программ для дистанционного обучения работников и проверки знаний требований охраны труда и безопасности.
+        Дистанционное обучение работников и проверка знаний требований охраны труда и безопасности.
       </p>
     </div>
+
     <nav class="main-nav" aria-label="Основная навигация">
       <ul class="nav-list">
         <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
@@ -32,108 +59,67 @@
 </header>
 
 <!-- HERO -->
-<section class="programs-hero">
+<section class="hero hero-programs">
   <div class="container">
-    <div class="programs-hero-grid">
-      <div class="programs-hero-card">
-        <div class="programs-kicker">
-          <span aria-hidden="true">📚</span>
-          <span>каталог программ</span>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <h2 class="hero-title">Программы обучения</h2>
+        <p class="hero-subtitle">
+          Выберите программу и перейдите к материалам и тестированию. Для удобства используйте поиск и фильтры.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#programCards">Перейти к программам</a>
+          <a class="btn btn-secondary" href="for-responsibles.html">Информация для ответственных</a>
         </div>
+      </div>
 
-        <h2 class="programs-title">Программы дистанционного обучения</h2>
-        <p class="programs-lead">
-          На странице собраны ключевые направления обучения работников по охране труда, пожарной безопасности,
-          оказанию первой помощи и ГО/ЧС.
-        </p>
-        <p class="programs-hero-note">
-          Выберите направление → откройте страницу курса → изучите материалы и видеоролики → пройдите итоговый тест.
-          Результаты используются для документального оформления обучения в организации.
-        </p>
-
-        <!-- Панель поиска/фильтров -->
-        <div class="programs-toolbar" role="region" aria-label="Поиск и фильтр программ">
+      <!-- Боковая панель фильтров -->
+      <aside class="hero-aside" aria-label="Поиск и фильтры программ">
+        <div class="hero-aside-card">
           <label class="programs-search" aria-label="Поиск по программам">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M10.5 18a7.5 7.5 0 110-15 7.5 7.5 0 010 15z" stroke="currentColor" stroke-width="2"/>
               <path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2"/>
             </svg>
-            <input id="programSearch" type="search" placeholder="Поиск: охрана труда, пожарная безопасность, первая помощь, ГО/ЧС…">
+            <input id="programSearch" type="search" autocomplete="off" spellcheck="false" placeholder="Поиск: охрана труда, пожарная безопасность, первая помощь, ГО/ЧС…" />
+            <button class="programs-search-clear" type="button" id="programSearchClear" aria-label="Очистить поиск" title="Очистить поиск" hidden>×</button>
           </label>
 
           <div class="programs-filters" aria-label="Фильтр по направлению">
             <button class="programs-filter" type="button" data-filter="all" aria-pressed="true">
               <span aria-hidden="true">✨</span> Все
             </button>
+
             <button class="programs-filter" type="button" data-filter="ot" aria-pressed="false">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M12 3l8 4v6c0 5-3.5 8-8 8s-8-3-8-8V7l8-4z" stroke="currentColor" stroke-width="2"/>
               </svg>
               ОТ
             </button>
+
             <button class="programs-filter" type="button" data-filter="fire" aria-pressed="false">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 3c2 3 3 5 3 7a3 3 0 11-6 0c0-2 1-4 3-7z" stroke="currentColor" stroke-width="2"/>
-                <path d="M8 14c0 4 2 7 4 7s4-3 4-7" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 3c2 3 4 4 4 7a4 4 0 11-8 0c0-3 2-4 4-7z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 12c1.2 1.7 2 2.5 2 4a2 2 0 11-4 0c0-1.5.8-2.3 2-4z" stroke="currentColor" stroke-width="2"/>
               </svg>
               ПБ
             </button>
-            <button class="programs-filter" type="button" data-filter="med" aria-pressed="false">
+
+            <button class="programs-filter" type="button" data-filter="firstaid" aria-pressed="false">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4z" stroke="currentColor" stroke-width="2"/>
+                <path d="M10 3h4v4h4v4h-4v4h-4v-4H6V7h4V3z" stroke="currentColor" stroke-width="2"/>
               </svg>
               Первая помощь
             </button>
+
             <button class="programs-filter" type="button" data-filter="gochs" aria-pressed="false">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 16c2-5 8-5 10 0" stroke="currentColor" stroke-width="2"/>
-                <path d="M8 9h8" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 2l9 5v6c0 5-4 9-9 9S3 18 3 13V7l9-5z" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 12h8" stroke="currentColor" stroke-width="2"/>
               </svg>
               ГО/ЧС
             </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- STATS -->
-      <aside class="programs-stats" aria-label="Сводка по программам">
-        <div class="programs-stat-row">
-          <div class="programs-stat-item">
-            <div class="programs-stat-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 6h16M4 12h10M4 18h16" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </div>
-            <div>
-              <p class="programs-stat-title">4 направления</p>
-              <p class="programs-stat-text">ОТ, ПБ, первая помощь, ГО/ЧС — единая структура и стиль.</p>
-            </div>
-          </div>
-
-          <div class="programs-stat-item">
-            <div class="programs-stat-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/>
-                <path d="M9 11h6M9 14h4" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </div>
-            <div>
-              <p class="programs-stat-title">Формат</p>
-              <p class="programs-stat-text">Видео + материалы + тестирование с фиксацией результата.</p>
-            </div>
-          </div>
-
-          <div class="programs-stat-item">
-            <div class="programs-stat-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 8v5l3 2" stroke="currentColor" stroke-width="2"/>
-                <path d="M12 21a9 9 0 100-18 9 9 0 000 18z" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </div>
-            <div>
-              <p class="programs-stat-title">Использование</p>
-              <p class="programs-stat-text">При приёме на работу и периодической проверке знаний по локальным актам.</p>
-            </div>
           </div>
         </div>
       </aside>
@@ -167,30 +153,24 @@
           </p>
 
           <ul class="programs-bullets">
-            <li>вводный инструктаж по ОТ;</li>
-            <li>программы обучения (А/Б и иные);</li>
-            <li>применение СИЗ и контроль знаний.</li>
+            <li>вводный инструктаж (общие требования);</li>
+            <li>общие вопросы ОТ и функционирование СУОТ;</li>
+            <li>итоговая проверка знаний.</li>
           </ul>
 
           <div class="programs-cta-row">
             <div class="programs-meta">
               <span class="programs-pill">
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M12 8v4l2.5 2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M12 21a9 9 0 100-18 9 9 0 000 18z" stroke="currentColor" stroke-width="2"/>
                 </svg>
-                Видео + материалы
-              </span>
-              <span class="programs-pill">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2"/>
-                  <path d="M7 3h10v18H7z" stroke="currentColor" stroke-width="2"/>
-                </svg>
-                Тесты по разделам
+                15–30 мин
               </span>
             </div>
 
-            <a href="course-ot.html" class="programs-link">
-              Открыть курс по ОТ
+            <a class="programs-link" href="course-ot.html">
+              Открыть курс
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M7 17L17 7" stroke="currentColor" stroke-width="2"/>
                 <path d="M9 7h8v8" stroke="currentColor" stroke-width="2"/>
@@ -200,21 +180,21 @@
         </article>
 
         <!-- ПОЖАРНАЯ БЕЗОПАСНОСТЬ -->
-        <article class="programs-card programs-card-fire" data-cat="fire" data-title="пожарная безопасность обучение">
+        <article class="programs-card programs-card-fire" data-cat="fire" data-title="пожарная безопасность противопожарный инструктаж первичный инструктаж">
           <div class="programs-card-top">
             <span class="programs-chip">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 3c2 3 3 5 3 7a3 3 0 11-6 0c0-2 1-4 3-7z" stroke="currentColor" stroke-width="2"/>
-                <path d="M8 14c0 4 2 7 4 7s4-3 4-7" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 3c2 3 4 4 4 7a4 4 0 11-8 0c0-3 2-4 4-7z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 12c1.2 1.7 2 2.5 2 4a2 2 0 11-4 0c0-1.5.8-2.3 2-4z" stroke="currentColor" stroke-width="2"/>
               </svg>
               пожарная безопасность
             </span>
-            <span class="programs-badge-mini">Инструктажи + обучение</span>
+            <span class="programs-badge-mini">Инструктаж + тест</span>
           </div>
 
           <h3>Пожарная безопасность</h3>
           <p>
-            Требования пожарной безопасности, действия при пожаре и задымлении, эвакуация и использование
+            Материалы по правилам поведения при пожаре, эвакуации, использованию огнетушителей и
             первичных средств пожаротушения.
           </p>
 
@@ -228,21 +208,15 @@
             <div class="programs-meta">
               <span class="programs-pill">
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 12h16" stroke="currentColor" stroke-width="2"/>
-                  <path d="M12 4v16" stroke="currentColor" stroke-width="2"/>
+                  <path d="M12 8v4l2.5 2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M12 21a9 9 0 100-18 9 9 0 000 18z" stroke="currentColor" stroke-width="2"/>
                 </svg>
-                Алгоритмы действий
-              </span>
-              <span class="programs-pill">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2"/>
-                </svg>
-                Тестирование
+                15–30 мин
               </span>
             </div>
 
-            <a href="course-fire-safety.html" class="programs-link">
-              Открыть курс по ПБ
+            <a class="programs-link" href="course-fire-safety.html">
+              Открыть курс
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M7 17L17 7" stroke="currentColor" stroke-width="2"/>
                 <path d="M9 7h8v8" stroke="currentColor" stroke-width="2"/>
@@ -252,46 +226,41 @@
         </article>
 
         <!-- ПЕРВАЯ ПОМОЩЬ -->
-        <article class="programs-card programs-card-med" data-cat="med" data-title="первая помощь оказание первой помощи">
+        <article class="programs-card programs-card-firstaid" data-cat="firstaid" data-title="первая помощь оказание первой помощи пострадавшим">
           <div class="programs-card-top">
             <span class="programs-chip">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4z" stroke="currentColor" stroke-width="2"/>
+                <path d="M10 3h4v4h4v4h-4v4h-4v-4H6V7h4V3z" stroke="currentColor" stroke-width="2"/>
               </svg>
               первая помощь
             </span>
-            <span class="programs-badge-mini">Теория + видео</span>
+            <span class="programs-badge-mini">Практика + тест</span>
           </div>
 
-          <h3>Оказание первой помощи пострадавшим</h3>
+          <h3>Оказание первой помощи</h3>
           <p>
-            Базовые навыки первой помощи до прибытия медицинских работников: СЛР, кровотечения, травмы,
-            ожоги, отравления, психологическая поддержка.
+            Учебный материал по алгоритмам оказания первой помощи пострадавшим до прибытия медработников:
+            оценка состояния, вызов помощи, базовые действия и запреты.
           </p>
 
           <ul class="programs-bullets">
-            <li>алгоритмы действий при неотложных состояниях;</li>
-            <li>видеолекции и контрольные вопросы;</li>
-            <li>итоговый тест по курсу.</li>
+            <li>алгоритм и приоритеты действий;</li>
+            <li>типовые ситуации и ошибки;</li>
+            <li>итоговая проверка знаний.</li>
           </ul>
 
           <div class="programs-cta-row">
             <div class="programs-meta">
               <span class="programs-pill">
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M7 3h10v18H7z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M12 8v4l2.5 2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M12 21a9 9 0 100-18 9 9 0 000 18z" stroke="currentColor" stroke-width="2"/>
                 </svg>
-                Контрольные вопросы
-              </span>
-              <span class="programs-pill">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2"/>
-                </svg>
-                Итоговый тест
+                15–25 мин
               </span>
             </div>
 
-            <a href="course-first-aid.html" class="programs-link">
+            <a class="programs-link" href="course-first-aid.html">
               Открыть курс
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M7 17L17 7" stroke="currentColor" stroke-width="2"/>
@@ -302,47 +271,42 @@
         </article>
 
         <!-- ГО/ЧС -->
-        <article class="programs-card programs-card-gochs" data-cat="gochs" data-title="го чс гражданская оборона чрезвычайные ситуации">
+        <article class="programs-card programs-card-gochs" data-cat="gochs" data-title="го чс гражданская оборона чрезвычайные ситуации вводный инструктаж">
           <div class="programs-card-top">
             <span class="programs-chip">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 16c2-5 8-5 10 0" stroke="currentColor" stroke-width="2"/>
-                <path d="M8 9h8" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 2l9 5v6c0 5-4 9-9 9S3 18 3 13V7l9-5z" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 12h8" stroke="currentColor" stroke-width="2"/>
               </svg>
-              ГО и ЧС
+              ГО/ЧС
             </span>
-            <span class="programs-badge-mini">Оповещение + действия</span>
+            <span class="programs-badge-mini">Материал + тест</span>
           </div>
 
-          <h3>Гражданская оборона и защита в ЧС</h3>
+          <h3>Вводный инструктаж по ГО и ЧС</h3>
           <p>
-            Оповещение, эвакуация, порядок действий работников и ответственных лиц при ЧС природного и техногенного характера,
-            использование СИЗ и укрытий.
+            Базовые правила поведения при чрезвычайных ситуациях: сигналы оповещения, порядок действий,
+            эвакуация и взаимодействие с ответственными лицами и службами.
           </p>
 
           <ul class="programs-bullets">
-            <li>сигналы оповещения и информирование;</li>
-            <li>эвакуация, укрытия и меры защиты;</li>
-            <li>действия при химической/радиационной аварии.</li>
+            <li>сигналы оповещения и действия по ним;</li>
+            <li>эвакуация и запреты;</li>
+            <li>итоговая проверка знаний.</li>
           </ul>
 
           <div class="programs-cta-row">
             <div class="programs-meta">
               <span class="programs-pill">
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 6h16M4 12h10M4 18h16" stroke="currentColor" stroke-width="2"/>
+                  <path d="M12 8v4l2.5 2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M12 21a9 9 0 100-18 9 9 0 000 18z" stroke="currentColor" stroke-width="2"/>
                 </svg>
-                Материалы + видео
-              </span>
-              <span class="programs-pill">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2"/>
-                </svg>
-                Итоговый тест
+                10–20 мин
               </span>
             </div>
 
-            <a href="course-gochs.html" class="programs-link">
+            <a class="programs-link" href="course-gochs.html">
               Открыть курс
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M7 17L17 7" stroke="currentColor" stroke-width="2"/>
@@ -380,24 +344,10 @@
           Откройте страницу курса, ознакомьтесь с материалами и инструкциями.
         </li>
         <li>
-          <strong>Организуйте прохождение обучения и оформление.</strong>
-          По результатам тестов обеспечьте оформление документов (протоколы, журналы, приказы) по установленному порядку.
+          <strong>Пройдите материал и тест.</strong>
+          Изучите материалы и пройдите итоговое тестирование. Результаты фиксируются на платформе.
         </li>
       </ol>
-    </section>
-
-    <!-- ДОП. ИНФО -->
-    <section class="section section-card">
-      <h2>Дополнительная информация</h2>
-      <p>
-        За подробной информацией о порядке организации обучения, формировании комиссий, ведении журналов,
-        оформлении протоколов и приказов используйте раздел
-        <a href="for-responsibles.html">«Информация для ответственных за обучение»</a>.
-      </p>
-      <p class="note">
-        Порядок доступа к материалам, сроки прохождения тестов и последствия непрохождения обучения в срок
-        определяются локальными документами работодателя.
-      </p>
     </section>
 
   </div>
@@ -406,42 +356,73 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <p class="footer-text">
-      Учебный портал дистанционного обучения по охране труда, пожарной безопасности,
-      первой помощи и ГО/ЧС.
+      Учебный портал дистанционного обучения по охране труда, пожарной безопасности, первой помощи и ГО/ЧС.
     </p>
     <p class="footer-text footer-text-muted">
-      Конкретные условия, порядок обучения и оформления документов устанавливаются работодателем
-      в локальных нормативных актах.
+      Конкретный порядок обучения и оформления результатов определяется работодателем.
     </p>
   </div>
 </footer>
 
-<!-- Мини-JS: поиск + фильтр -->
 <script>
   (function(){
     const search = document.getElementById('programSearch');
+    const clearBtn = document.getElementById('programSearchClear');
     const filters = document.querySelectorAll('.programs-filter');
     const cards = Array.from(document.querySelectorAll('.programs-card'));
     const empty = document.getElementById('programsEmpty');
 
     let activeFilter = 'all';
 
+    function getActiveFilterLabel(){
+      const activeBtn = Array.from(filters).find(b => b.getAttribute('aria-pressed') === 'true');
+      return activeBtn ? (activeBtn.textContent || '').trim() : 'Все';
+    }
+
+    function updateClear(){
+      const has = !!(search.value && search.value.trim());
+      if (!clearBtn) return;
+      clearBtn.hidden = !has;
+    }
+
+    function updateEmptyText(q){
+      if (!empty) return;
+      const fLabel = getActiveFilterLabel();
+      const qText = q ? `«${q}»` : '';
+      const fText = (activeFilter && activeFilter !== 'all') ? ` (фильтр: ${fLabel})` : '';
+      empty.textContent = qText
+        ? `По вашему запросу ${qText} ничего не найдено${fText}. Попробуйте изменить текст поиска или снять фильтр.`
+        : `По выбранным параметрам ничего не найдено${fText}. Попробуйте снять фильтр или изменить запрос.`;
+    }
+
     function apply(){
-      const q = (search.value || '').trim().toLowerCase();
+      const qRaw = (search.value || '').trim();
+      const q = qRaw.toLowerCase();
       let shown = 0;
 
       cards.forEach(card => {
         const cat = card.getAttribute('data-cat');
-        const hay = (card.getAttribute('data-title') || '') + ' ' + (card.textContent || '');
+        const hay = ((card.getAttribute('data-title') || '') + ' ' + (card.textContent || '')).toLowerCase();
+
         const okCat = (activeFilter === 'all') ? true : (cat === activeFilter);
-        const okQ = q ? hay.toLowerCase().includes(q) : true;
+        const okQ = q ? hay.includes(q) : true;
 
         const visible = okCat && okQ;
         card.classList.toggle('programs-hidden', !visible);
         if (visible) shown++;
       });
 
-      empty.style.display = shown ? 'none' : 'block';
+      updateClear();
+      updateEmptyText(qRaw);
+      if (empty) empty.style.display = shown ? 'none' : 'block';
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        search.value = '';
+        search.focus();
+        apply();
+      });
     }
 
     filters.forEach(btn => {
@@ -454,6 +435,15 @@
     });
 
     search.addEventListener('input', apply);
+    search.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (search.value) {
+          search.value = '';
+          apply();
+        }
+      }
+    });
+
     apply();
   })();
 </script>
