@@ -4,161 +4,231 @@
   <meta charset="UTF-8">
   <title>Курс по охране труда — Учебный портал</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description"
-        content="Курс по охране труда: вводный инструктаж, программы обучения по охране труда (А и Б), применение СИЗ. Материалы, требования и переход к отдельным разделам обучения.">
+  <meta name="description" content="Курс по охране труда: вводный инструктаж, программы обучения А/Б, обучение по СИЗ и итоговое тестирование.">
   <link rel="stylesheet" href="assets/style.css">
 
   <!-- Локальные улучшения только для этой страницы -->
   <style>
-    /* “Супер-акцент” на вводный инструктаж без правок общего CSS */
-    .ot-hero-intro {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: 0 18px 50px rgba(0,0,0,.25);
-    }
-    .ot-hero-intro::before{
-      content:"";
-      position:absolute;
-      inset:-2px;
+    /* Hero / theme */
+    body.ot-theme{
       background:
-        radial-gradient(900px 240px at 18% 0%, rgba(255,255,255,.18), transparent 55%),
-        radial-gradient(700px 220px at 90% 30%, rgba(255,255,255,.10), transparent 60%),
-        linear-gradient(135deg, rgba(35, 200, 120, .22), rgba(255,255,255,.02));
-      pointer-events:none;
-    }
-    .ot-hero-intro > * { position: relative; }
-
-    .ot-intro-topline{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-      margin-bottom:10px;
-    }
-    .ot-intro-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 12px;
-      border-radius:999px;
-      background: rgba(0,0,0,.22);
-      border: 1px solid rgba(255,255,255,.14);
-      font-weight:700;
-      letter-spacing:.2px;
-    }
-    .ot-intro-badge .dot{
-      width:10px;height:10px;border-radius:50%;
-      background: rgba(35, 200, 120, .95);
-      box-shadow: 0 0 0 6px rgba(35, 200, 120, .18);
-    }
-    .ot-intro-chip{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 10px;
-      border-radius:999px;
-      background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.12);
-      font-weight:600;
+        radial-gradient(1000px 520px at 12% -10%, rgba(35,200,120,.14), transparent 62%),
+        radial-gradient(900px 520px at 92% 0%, rgba(37,99,235,.10), transparent 58%),
+        linear-gradient(to bottom, rgba(15,23,42,.02), rgba(15,23,42,.00));
     }
 
-    .ot-intro-grid{
-      display:grid;
-      grid-template-columns: 1.35fr .65fr;
-      gap:16px;
-      align-items:stretch;
-      margin-top:14px;
+    .course-hero{
+      border-radius: 20px;
+      padding: clamp(16px, 3.2vw, 26px);
+      background:
+        linear-gradient(120deg, rgba(15,23,42,.82), rgba(15,23,42,.64)),
+        radial-gradient(900px 460px at 20% 10%, rgba(35,200,120,.22), transparent 60%),
+        radial-gradient(900px 460px at 86% 18%, rgba(37,99,235,.18), transparent 58%);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 18px 60px rgba(2, 6, 23, .14);
+      overflow:hidden;
     }
-    @media (max-width: 920px){
-      .ot-intro-grid{ grid-template-columns:1fr; }
+    .course-hero h2{
+      margin: 0 0 10px;
+      font-size: clamp(1.35rem, 2.3vw, 2rem);
+      line-height: 1.15;
     }
-
-    .ot-intro-cta{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      padding:14px;
-      border-radius:16px;
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.14);
-    }
-    .ot-intro-cta .mini-title{
-      font-weight:800;
-      letter-spacing:.2px;
-      margin:0;
-    }
-    .ot-intro-steps{
-      margin:0;
-      padding-left:18px;
-      line-height:1.55;
+    .course-hero p{
+      margin: 0;
+      color: rgba(255,255,255,.9);
+      max-width: 70ch;
     }
 
-    .route-card { margin-top: 12px; }
-    .route-card.is-primary{
-      border: 1px solid rgba(35, 200, 120, .40);
-      box-shadow: 0 18px 60px rgba(35, 200, 120, .12);
-      transform: translateZ(0);
-    }
-    .route-card.is-primary .material-badge{
-      font-weight:800;
-      letter-spacing:.2px;
-    }
-    .route-card.is-primary .material-icon{
-      filter: drop-shadow(0 10px 22px rgba(35,200,120,.22));
-    }
-
-    .route-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-      margin-top:12px;
-    }
-    @media (max-width: 920px){
-      .route-grid{ grid-template-columns:1fr; }
-    }
-
-    .route-subtle{
-      opacity:.96;
-    }
-
-    .ot-divider{
-      height:1px;
-      background: rgba(255,255,255,.10);
-      margin: 14px 0;
-    }
-
-    .ot-soft-note{
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 14px;
-      padding: 12px;
-    }
-
-    .ot-mini-kpis{
+    .course-kpis{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
-      gap:10px;
-      margin-top:12px;
+      gap: 10px;
+      margin-top: 14px;
     }
     @media (max-width: 920px){
-      .ot-mini-kpis{ grid-template-columns:1fr; }
+      .course-kpis{ grid-template-columns: 1fr; }
     }
-    .ot-kpi{
+    .course-kpi{
       background: rgba(0,0,0,.18);
       border: 1px solid rgba(255,255,255,.12);
       border-radius: 14px;
       padding: 12px;
     }
-    .ot-kpi strong{
+    .course-kpi strong{
       display:block;
-      font-size: 18px;
+      font-size: 1rem;
       margin-bottom: 4px;
     }
-    .ot-kpi span{
-      opacity:.9;
-      line-height:1.45;
+    .course-kpi span{
       display:block;
+      font-size: .95rem;
+      color: rgba(255,255,255,.82);
+    }
+
+    .course-nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 14px;
+    }
+    .course-nav a{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:44px;
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.10);
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
+      max-width: 100%;
+    }
+    .course-nav a:focus-visible{ outline:2px solid rgba(255,255,255,.85); outline-offset:2px; }
+
+    /* Route grid/cards */
+    .route-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    @media (max-width: 720px){
+      .route-grid{ grid-template-columns: 1fr; }
+    }
+
+    .route-card{
+      border-radius: 18px;
+      border: 1px solid rgba(17,24,39,0.10);
+      background: rgba(255,255,255,0.85);
+      padding: 14px;
+      box-shadow: 0 10px 26px rgba(2,6,23,.06);
+      overflow:hidden;
+    }
+
+    .route-card.is-primary{
+      border-color: rgba(35,200,120,.25);
+      box-shadow: 0 18px 60px rgba(35, 200, 120, .12);
+      transform: translateZ(0);
+    }
+
+    .route-top{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom: 10px;
+    }
+    .route-title{
+      margin:0;
+      font-size: 1.05rem;
+      line-height:1.2;
+      color:#0f172a;
+    }
+    .route-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      background: rgba(248,250,252,0.95);
+      border: 1px solid rgba(17,24,39,0.08);
+      font-size:.92rem;
+      color:#0f172a;
+      white-space:nowrap;
+    }
+
+    .route-subtle{
+      margin: 0 0 10px;
+      color:#475569;
+      overflow-wrap:anywhere;
+    }
+
+    .route-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 10px;
+    }
+    .route-actions a{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:44px;
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid rgba(17,24,39,0.10);
+      background:#fff;
+      color:#2563eb;
+      font-weight:800;
+      text-decoration:none;
+    }
+    .route-actions a:focus-visible{ outline:2px solid #2563eb; outline-offset:2px; }
+
+    /* “Как проходить” cards */
+    .course-tips{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    @media (max-width: 920px){
+      .course-tips{ grid-template-columns: 1fr; }
+    }
+    .tip{
+      border-radius: 16px;
+      border: 1px solid rgba(17,24,39,0.10);
+      background: rgba(255,255,255,0.85);
+      padding: 14px;
+    }
+    .tip h3{ margin:0 0 8px; font-size: 1rem; }
+    .tip p{ margin:0; color:#475569; }
+
+    /* Divider */
+    .course-divider{
+      height:1px;
+      background: linear-gradient(to right, transparent, rgba(17,24,39,0.12), transparent);
+      margin: clamp(18px, 4vw, 28px) 0;
+    }
+
+    /* To top */
+    .to-top {
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 50;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,0.12);
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.10);
+      color: #0f172a;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(6px);
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .to-top.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .to-top:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
+    @media (max-width: 420px){
+      .to-top { right: 12px; bottom: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .to-top { transition: none; }
     }
   </style>
 </head>
@@ -190,206 +260,145 @@
 <main id="main-content" class="site-main">
   <div class="container">
 
-    <!-- Кнопка возврата -->
+    <!-- Назад -->
     <nav class="back-nav">
       <a href="programs.html" class="back-link">
         <span class="back-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" class="back-svg">
-            <path d="M15 6l-6 6 6 6"
-                  stroke="white"
-                  stroke-width="2"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round" />
+            <path d="M15 6l-6 6 6 6" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </span>
         <span class="back-text">Вернуться к программам обучения</span>
       </a>
     </nav>
 
-    <!-- ГЛАВНЫЙ ГЕРОЙ: ВВОДНЫЙ ИНСТРУКТАЖ -->
-    <section class="section section-card page-header ot-hero-intro">
-      <div class="ot-intro-topline">
-        <span class="ot-intro-badge"><span class="dot" aria-hidden="true"></span> Главный старт курса</span>
-        <span class="ot-intro-chip">Раздел 1 — обязателен для всех</span>
-        <span class="ot-intro-chip">Материалы + видео + тест</span>
-      </div>
-
-      <p class="attention-header">
-        <span aria-hidden="true">⚠</span>
-        <span>Важно: обучение и проверка знаний оформляются работодателем</span>
-      </p>
-
-      <div class="page-header-label">Курс</div>
-      <h2 class="page-title">Обучение по охране труда</h2>
-
-      <p class="page-lead">
-        Главная точка входа для всех работников — <strong>вводный инструктаж по охране труда</strong>.
-        Он задаёт базовые правила безопасного поведения и единый порядок действий при инцидентах.
-      </p>
-
-      <div class="ot-intro-grid">
-        <div>
-          <p>
-            На этой странице собраны разделы обучения по ОТ:
-            <strong>вводный инструктаж</strong>, <strong>программы А/Б</strong> и <strong>применение СИЗ</strong>.
-            Каждый раздел ведёт на отдельный лист курса со своими материалами и итоговым тестированием.
-          </p>
-
-          <div class="ot-mini-kpis" aria-label="Ключевая логика">
-            <div class="ot-kpi">
-              <strong>1) Вводный</strong>
-              <span>обязательно перед допуском к работе</span>
-            </div>
-            <div class="ot-kpi">
-              <strong>2) Программа</strong>
-              <span>А или Б — по категории работника</span>
-            </div>
-            <div class="ot-kpi">
-              <strong>3) СИЗ</strong>
-              <span>если требуется по работам/рискам</span>
-            </div>
-          </div>
-
-          <div class="ot-divider"></div>
-
-          <p class="note">
-            На этой странице <strong>нет единого общего теста</strong>.
-            Итоговые тесты размещены внутри каждого раздела (вводный, программы А/Б, СИЗ).
-          </p>
-        </div>
-
-        <aside class="ot-intro-cta" aria-label="Рекомендуемый маршрут">
-          <p class="mini-title">Рекомендуемый маршрут (для новых работников)</p>
-          <ol class="ot-intro-steps">
-            <li><strong>Пройти вводный инструктаж</strong> и тест.</li>
-            <li>Далее — <strong>программа А</strong> или <strong>Б</strong> (по указанию руководителя/ответственного).</li>
-            <li>При необходимости — <strong>обучение по СИЗ</strong> и тест.</li>
-          </ol>
-          <div class="ot-soft-note">
-            <strong>Подсказка:</strong> если сомневаетесь, какой раздел выбрать — уточните у руководителя или ответственного за обучение.
-          </div>
-        </aside>
-      </div>
-
-      <!-- Супер-кнопка/карточка на вводный -->
-      <a class="material-download-card route-card is-primary" href="ot-intro.html" style="margin-top:16px;">
-        <span class="material-icon-wrap" aria-hidden="true">
-          <span class="material-icon">⭐</span>
-        </span>
-
-        <span class="material-text">
-          <span class="material-label">Раздел 1 — начать отсюда</span>
-          <span class="material-title">Вводный инструктаж по охране труда</span>
-          <span class="material-meta">Базовые правила, обязанности, порядок действий • Материалы + видеоролики + итоговый тест</span>
-        </span>
-
-        <span class="material-badge">Открыть вводный</span>
-      </a>
-    </section>
-
-    <!-- Основания и логика обучения -->
-    <section class="section section-card">
-      <h2>Основания и логика обучения</h2>
-
+    <!-- HERO -->
+    <section class="section section-card course-hero">
+      <h2>🛡️ Курс: Охрана труда (комплекс программ)</h2>
       <p>
-        Обучение по охране труда состоит из нескольких блоков. В практической модели удобно разделять:
-        <strong>вводный инструктаж</strong> (для всех допускаемых к работе),
-        <strong>обучение по программам</strong> (по категории работника),
-        а также <strong>обучение безопасному применению СИЗ</strong> — когда это требуется.
+        Этот курс объединяет несколько частей: <strong>вводный инструктаж</strong>, обучение по программам <strong>А</strong> и <strong>Б</strong>,
+        а также обучение по <strong>СИЗ</strong>. Общая длительность комплекса может составлять <strong>до 72 часов</strong>
+        (в зависимости от требований работодателя и выбранного набора программ).
       </p>
 
-      <ul class="module-list">
-        <li><strong>Вводный инструктаж</strong> — минимальный обязательный базис для допуска к работе.</li>
-        <li><strong>Программы А/Б</strong> — разные уровни и объём знаний в зависимости от обязанностей/рисков.</li>
-        <li><strong>СИЗ</strong> — правила выбора, применения, контроля исправности, запреты и ответственность.</li>
-      </ul>
+      <div class="course-kpis" aria-label="Краткие характеристики курса">
+        <div class="course-kpi">
+          <strong>⏱ Длительность</strong>
+          <span>Комплекс до 72 часов (модули проходят по отдельности)</span>
+        </div>
+        <div class="course-kpi">
+          <strong>🧩 Состав</strong>
+          <span>Вводный → Программа А → Программа Б → СИЗ</span>
+        </div>
+        <div class="course-kpi">
+          <strong>📝 Результат</strong>
+          <span>Изучение материалов + тестирование по модулям</span>
+        </div>
+      </div>
 
-      <p class="note">
-        Ниже — переходы на отдельные страницы программ. Каждая страница содержит материалы и собственный тест.
-      </p>
+      <div class="course-nav" aria-label="Быстрые действия">
+        <a href="#route">Перейти к маршруту</a>
+        <a href="#how">Как проходить</a>
+      </div>
     </section>
 
-    <!-- Остальные разделы (второстепенно) -->
-    <section class="section section-card">
-      <h2>Остальные разделы обучения по ОТ</h2>
-      <p class="route-subtle">
-        Эти разделы проходят после вводного инструктажа — по назначению/категории работника и требованиям работодателя.
+    <div class="course-divider" aria-hidden="true"></div>
+
+    <!-- Маршрут -->
+    <section class="section section-card" id="route">
+      <h2 class="page-title">Маршрут курса</h2>
+      <p class="page-lead">
+        Рекомендуемый порядок прохождения: от вводного блока к более специализированным программам.
+        Каждый модуль открывается отдельно и имеет свои материалы/тестирование.
       </p>
 
-      <div class="route-grid" aria-label="Разделы обучения по ОТ">
-        <!-- Программа А -->
-        <a class="material-download-card route-card" href="ot-program-a.html">
-          <span class="material-icon-wrap" aria-hidden="true">
-            <span class="material-icon">📘</span>
-          </span>
+      <div class="route-grid" aria-label="Модули курса по охране труда">
 
-          <span class="material-text">
-            <span class="material-label">Раздел 2</span>
-            <span class="material-title">Обучение по охране труда — Программа А</span>
-            <span class="material-meta">Базовая программа по ОТ • Материалы + итоговый тест</span>
-          </span>
+        <!-- 1) Вводный -->
+        <article class="route-card is-primary">
+          <div class="route-top">
+            <h3 class="route-title">1) Вводный инструктаж по охране труда</h3>
+            <span class="route-tag">📌 Старт</span>
+          </div>
+          <p class="route-subtle">
+            Базовые требования и “скелет” курса: что обязан знать каждый сотрудник перед началом работы.
+          </p>
+          <div class="route-actions">
+            <a href="ot-intro.html">Открыть модуль</a>
+          </div>
+        </article>
 
-          <span class="material-badge">Открыть</span>
-        </a>
+        <!-- 2) Программа А -->
+        <article class="route-card">
+          <div class="route-top">
+            <h3 class="route-title">2) Программа обучения А</h3>
+            <span class="route-tag">🧩 Модуль</span>
+          </div>
+          <p class="route-subtle">
+            Программа А (содержание определяется требованиями работодателя и категорией работников).
+          </p>
+          <div class="route-actions">
+            <a href="ot-program-a.html">Открыть модуль</a>
+          </div>
+        </article>
 
-        <!-- Программа Б -->
-        <a class="material-download-card route-card" href="ot-program-b.html">
-          <span class="material-icon-wrap" aria-hidden="true">
-            <span class="material-icon">📙</span>
-          </span>
+        <!-- 3) Программа Б -->
+        <article class="route-card">
+          <div class="route-top">
+            <h3 class="route-title">3) Программа обучения Б</h3>
+            <span class="route-tag">🧩 Модуль</span>
+          </div>
+          <p class="route-subtle">
+            Программа Б (углубление по направлениям/факторам/условиям труда — зависит от должности и работ).
+          </p>
+          <div class="route-actions">
+            <a href="ot-program-b.html">Открыть модуль</a>
+          </div>
+        </article>
 
-          <span class="material-text">
-            <span class="material-label">Раздел 3</span>
-            <span class="material-title">Обучение по охране труда — Программа Б</span>
-            <span class="material-meta">Расширенная программа по ОТ • Материалы + итоговый тест</span>
-          </span>
+        <!-- 4) СИЗ -->
+        <article class="route-card">
+          <div class="route-top">
+            <h3 class="route-title">4) Обучение по СИЗ</h3>
+            <span class="route-tag">🦺 СИЗ</span>
+          </div>
+          <p class="route-subtle">
+            Порядок применения, хранения и проверки СИЗ. Важно для допуска к работам и снижения рисков.
+          </p>
+          <div class="route-actions">
+            <a href="ot-ppe.html">Открыть модуль</a>
+          </div>
+        </article>
 
-          <span class="material-badge">Открыть</span>
-        </a>
+      </div>
+    </section>
 
-        <!-- СИЗ -->
-        <a class="material-download-card route-card" href="ot-ppe.html">
-          <span class="material-icon-wrap" aria-hidden="true">
-            <span class="material-icon">🦺</span>
-          </span>
+    <div class="course-divider" aria-hidden="true"></div>
 
-          <span class="material-text">
-            <span class="material-label">Раздел 4</span>
-            <span class="material-title">Обучение безопасному применению СИЗ</span>
-            <span class="material-meta">Ношение/контроль/ограничения • Материалы + итоговый тест</span>
-          </span>
+    <!-- Как проходить -->
+    <section class="section section-card" id="how">
+      <h2>Как проходить курс, чтобы не “застрять”</h2>
+      <p class="page-lead">
+        Это подсказки для обучающихся (особенно полезно на мобилке), чтобы проходить без ошибок и повторов.
+      </p>
 
-          <span class="material-badge">Открыть</span>
-        </a>
-
-        <!-- Мини-памятка -->
-        <div class="ot-soft-note" style="display:flex; flex-direction:column; gap:8px;">
-          <strong>Важно:</strong>
-          <span style="opacity:.92; line-height:1.5;">
-            Раздел “СИЗ” нужен не всем. Проходите его, если так указано в вашей программе обучения/по результатам оценки рисков,
-            по должности или по видам выполняемых работ.
-          </span>
+      <div class="course-tips" aria-label="Подсказки по прохождению">
+        <div class="tip">
+          <h3>1) Двигайтесь по маршруту</h3>
+          <p>Сначала вводный, затем А/Б, потом СИЗ. Так проще понимать термины и логику требований.</p>
+        </div>
+        <div class="tip">
+          <h3>2) Материал → самопроверка → тест</h3>
+          <p>Если тест не сдался — вернитесь к разделам, где были ошибки, и пройдите повторно.</p>
+        </div>
+        <div class="tip">
+          <h3>3) На телефоне открывайте PDF в новой вкладке</h3>
+          <p>Так удобнее искать по документу и не терять место. На страницах материалов есть кнопка “Открыть/скачать”.</p>
         </div>
       </div>
 
       <p class="test-hint" style="margin-top:12px;">
-        Если вы не уверены, какой раздел вам нужен — ориентируйтесь на указания руководителя/ответственного за обучение
-        и локальные документы работодателя.
-      </p>
-    </section>
-
-    <!-- Оформление результатов -->
-    <section class="section section-card">
-      <h2>Оформление результатов обучения</h2>
-      <p>
-        Результаты изучения материалов и прохождения тестирования по каждому разделу могут использоваться работодателем
-        для оформления документов по обучению и проверке знаний (журналы/протоколы/приказы и иные формы учёта —
-        в зависимости от принятого у работодателя порядка).
-      </p>
-      <p class="note">
-        Конкретный порядок оформления, ответственные лица, сроки хранения и состав учётных форм определяются
-        локальными нормативными актами работодателя.
+        Примечание: состав модулей и порядок фиксации результатов определяется локальными актами работодателя.
       </p>
     </section>
 
@@ -399,15 +408,39 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <p class="footer-text">
-      Учебный портал дистанционного обучения по охране труда, пожарной безопасности,
-      первой помощи и ГО/ЧС.
+      Учебный портал дистанционного обучения по охране труда, пожарной безопасности, первой помощи и ГО/ЧС.
     </p>
     <p class="footer-text footer-text-muted">
-      Конкретные условия, порядок обучения и оформления документов устанавливаются работодателем
-      в локальных нормативных актах.
+      Конкретный порядок обучения и оформления результатов определяется работодателем.
     </p>
   </div>
 </footer>
+
+<button type="button" class="to-top" id="toTopBtn" aria-label="Наверх" title="Наверх">↑</button>
+
+<script>
+  (function () {
+    const btn = document.getElementById('toTopBtn');
+    if (!btn) return;
+
+    const prefersReducedMotion =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function onScroll() {
+      const y = window.scrollY || document.documentElement.scrollTop || 0;
+      if (y > 700) btn.classList.add('is-visible');
+      else btn.classList.remove('is-visible');
+    }
+
+    btn.addEventListener('click', function () {
+      if (prefersReducedMotion) window.scrollTo(0, 0);
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
 
 </body>
 </html>
