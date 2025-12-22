@@ -1,13 +1,166 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Учебное пособие «Противопожарный инструктаж» — учебные материалы</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description"
-        content="Просмотр учебного пособия «Противопожарный инструктаж» (8 уроков) в формате PDF и скачивание файла на устройство.">
-  <link rel="stylesheet" href="assets/style.css">
+        content="Просмотр учебного пособия «Противопожарный инструктаж» (8 уроков) в формате PDF, скачивание и переход к тесту." />
+  <link rel="stylesheet" href="assets/style.css" />
+
+  <!-- Локальные стили только для этой страницы -->
+  <style>
+    .f-hero h1 { margin: 0; }
+    .f-hero p { margin-top: 10px; }
+
+    .f-ui-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: clamp(12px, 2.5vw, 18px) 0;
+    }
+
+    .f-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      line-height: 1;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(17,24,39,0.08);
+      color: #0f172a;
+      white-space: nowrap;
+      max-width: 100%;
+    }
+
+    .f-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .f-nav a {
+      font-size: 0.9rem;
+      text-decoration: none;
+      padding: 7px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(17,24,39,0.08);
+      background: #fff;
+      color: #2563eb;
+    }
+    .f-nav a:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
+
+    .f-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0 0;
+    }
+    .f-badge {
+      font-size: 0.9rem;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      max-width: 100%;
+    }
+
+    .f-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(17,24,39,0.12), transparent);
+      margin: clamp(18px, 4vw, 28px) 0;
+    }
+
+    .f-callout {
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,0.08);
+      background: rgba(255,255,255,0.7);
+      padding: clamp(12px, 3vw, 16px);
+      margin-top: 14px;
+    }
+    .f-callout h3 { margin: 0 0 8px; font-size: 1rem; }
+    .f-callout p { margin: 0; }
+    .f-callout ul { margin: 10px 0 0; padding-left: 18px; }
+
+    .f-mini-list {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    .f-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 0;
+    }
+    .f-title-row .emoji { font-size: 1.15rem; }
+
+    /* Самопроверка/ошибки: 1 колонка на мобилке, 2 на планшете+ */
+    .f-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    @media (min-width: 768px) {
+      .f-grid-2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Финал */
+    .f-finish {
+      margin-top: 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(17,24,39,0.10);
+      background: rgba(255,255,255,0.85);
+      padding: clamp(12px, 3vw, 18px);
+    }
+    .f-finish p { margin: 0; }
+    .f-finish .muted { margin-top: 10px; color: #6b7280; font-size: 0.95rem; }
+
+    /* Кнопка "Наверх" */
+    .to-top {
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 50;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,0.12);
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.10);
+      color: #0f172a;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(6px);
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .to-top.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .to-top:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
+
+    @media (max-width: 420px) {
+      .f-chip { font-size: 0.86rem; padding: 7px 10px; }
+      .f-nav a { font-size: 0.88rem; padding: 7px 9px; }
+      .f-badge { font-size: 0.88rem; }
+      .to-top { right: 12px; bottom: 12px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .to-top { transition: none; }
+    }
+  </style>
 </head>
+
 <body>
 <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
 
@@ -24,7 +177,7 @@
     <nav class="main-nav" aria-label="Основная навигация">
       <ul class="nav-list">
         <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
-        <li class="nav-item"><a href="programs.html" class="nav-link">Программы обучения</a></li>
+        <li class="nav-item"><a href="programs.html" class="nav-link nav-link-active">Программы обучения</a></li>
         <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции для сотрудников</a></li>
         <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Информация для ответственных за обучение</a></li>
       </ul>
@@ -33,56 +186,213 @@
 </header>
 
 <main id="main-content" class="site-main">
-  <div class="container">
+  <div class="container" id="page-top">
 
-    <!-- Кнопка возврата: ВАЖНО — правильный путь -->
+    <!-- Назад к курсу ПБ -->
     <nav class="back-nav">
       <a href="course-fire-safety.html#fire-course-intro" class="back-link">
         <span class="back-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" class="back-svg">
             <path d="M15 6l-6 6 6 6"
-                  stroke="white"
-                  stroke-width="2"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round" />
+                  stroke="white" stroke-width="2" fill="none"
+                  stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </span>
-        <span class="back-text">Вернуться к вводному курсу по пожарной безопасности</span>
+        <span class="back-text">Вернуться к курсу «Пожарная безопасность»</span>
       </a>
     </nav>
 
-    <!-- Карточка материалов -->
-    <section class="section section-card pdf-viewer-card">
-      <h1>Учебное пособие «Противопожарный инструктаж» (8 уроков)</h1>
+    <!-- HERO -->
+    <section class="section section-card f-hero">
+      <h1>🔥 Учебное пособие «Противопожарный инструктаж» (8 уроков)</h1>
 
       <p>
-        Ниже доступен для просмотра полный текст учебного пособия в формате PDF. Его можно пролистывать прямо
-        на странице, а при необходимости — скачать на устройство.
+        На этой странице вы можете изучить учебное пособие по противопожарному инструктажу:
+        прочитать материал в формате PDF прямо на странице, открыть его в новой вкладке или скачать,
+        затем — пройти тест для фиксации результата.
       </p>
 
-      <!-- Большой просмотрщик PDF -->
-      <div class="pdf-viewer-large">
+      <div class="f-callout" role="note" aria-label="Почему это важно">
+        <h3>Почему это важно</h3>
+        <p>
+          При пожаре “первые минуты” решают всё. Правильные действия помогают избежать паники, организовать эвакуацию
+          и снизить риск травм. Тест — это подтверждение, что ключевые алгоритмы усвоены.
+        </p>
+      </div>
+
+      <div class="f-ui-row" aria-label="Рекомендуемый порядок прохождения">
+        <span class="f-chip">📘 Сначала: изучить PDF</span>
+        <span class="f-chip">✅ Затем: самопроверка</span>
+        <span class="f-chip">📝 После: пройти тест</span>
+      </div>
+
+      <nav class="f-nav" aria-label="Быстрая навигация по странице">
+        <a href="#materials">К материалам (PDF)</a>
+        <a href="#outcome">К самопроверке</a>
+        <a href="#test">К тесту</a>
+      </nav>
+
+      <div class="f-badges" aria-label="Сводка по разделу">
+        <span class="f-badge">⏱ PDF: ориентировочно 10–25 минут</span>
+        <span class="f-badge">🧯 Фокус: эвакуация, запреты, первичные средства</span>
+        <span class="f-badge">✅ Итог: тест + фиксация результата</span>
+      </div>
+
+      <div class="f-callout" role="note" aria-label="Что важно запомнить">
+        <h3>Что важно запомнить по итогам изучения</h3>
+        <ul>
+          <li>как распознать пожар/задымление и что делать в первую минуту;</li>
+          <li>как организовать эвакуацию и какие действия запрещены (лифты, возвращение за вещами);</li>
+          <li>когда допустимо применять первичные средства пожаротушения и когда нельзя рисковать;</li>
+          <li>как действовать по указаниям ответственных лиц и служб.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="f-divider" aria-hidden="true"></div>
+
+    <!-- MATERIALS (PDF) -->
+    <section class="section section-card pdf-viewer-card" id="materials">
+      <h2 class="f-title-row"><span class="emoji" aria-hidden="true">📘</span><span>Учебный материал (PDF)</span></h2>
+
+      <p>
+        Ниже доступен полный текст учебного пособия в формате PDF. Его можно пролистывать на странице.
+        Для смартфонов обычно удобнее открыть PDF в новой вкладке.
+      </p>
+
+      <!-- Одна главная CTA (без дублей) -->
+      <a class="material-download-card" href="assets/Противопожарный инструктаж.pdf" target="_blank" rel="noopener">
+        <span class="material-icon-wrap">
+          <span class="material-icon">📘</span>
+        </span>
+        <span class="material-text">
+          <span class="material-label">Учебный материал</span>
+          <span class="material-title">«Противопожарный инструктаж» (8 уроков)</span>
+          <span class="material-meta">Полная версия • PDF</span>
+        </span>
+        <span class="material-badge">ОТКРЫТЬ / СКАЧАТЬ</span>
+      </a>
+
+      <div class="f-callout" role="note" aria-label="Подсказка для телефонов">
+        <h3>Подсказка для телефонов</h3>
+        <p>
+          На мобильных устройствах удобнее открыть PDF через кнопку «ОТКРЫТЬ / СКАЧАТЬ» и использовать поиск по документу
+          (по ключевым словам: «эвакуация», «задымление», «огнетушитель», «112/101» и т.д.).
+        </p>
+      </div>
+
+      <!-- Встроенный просмотр -->
+      <div class="pdf-viewer-large" aria-label="Просмотр PDF на странице">
         <iframe
           class="pdf-viewer-frame"
           src="assets/Противопожарный инструктаж.pdf"
           title="Учебное пособие «Противопожарный инструктаж»"
-        >
-          Ваш браузер не поддерживает встроенный просмотр PDF. Вы можете
-          <a href="assets/Противопожарный инструктаж.pdf" target="_blank" rel="noopener">
-            скачать файл по ссылке
-          </a>.
-        </iframe>
+          loading="lazy"></iframe>
       </div>
 
-      <!-- Кнопка скачивания -->
-      <div class="pdf-download-actions">
-        <a href="assets/Противопожарный инструктаж.pdf"
-           class="btn btn-primary pdf-download-btn"
-           target="_blank"
-           rel="noopener">
-          Скачать PDF-файл на устройство
+      <div class="f-callout" role="note" aria-label="Как читать эффективно">
+        <h3>Как читать материал эффективно</h3>
+        <ul class="f-mini-list">
+          <li>посмотрите структуру и заголовки — выделите основные сценарии (пожар/задымление/эвакуация);</li>
+          <li>прочитайте разделы про запреты и порядок эвакуации — они часто встречаются в тесте;</li>
+          <li>после чтения ответьте на вопросы самопроверки ниже.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="f-divider" aria-hidden="true"></div>
+
+    <!-- OUTCOME / SELF-CHECK -->
+    <section class="section section-card" id="outcome">
+      <h2 class="f-title-row"><span class="emoji" aria-hidden="true">✅</span><span>Самопроверка и типичные ошибки</span></h2>
+
+      <p>
+        Перед тестом проверьте себя: если на вопросы ниже вы отвечаете уверенно — вы готовы.
+      </p>
+
+      <div class="f-grid-2" aria-label="Самопроверка и типичные ошибки">
+        <!-- Самопроверка -->
+        <div class="f-callout" role="note" aria-label="Самопроверка: контрольные вопросы">
+          <h3>Самопроверка: контрольные вопросы</h3>
+          <ul class="f-mini-list">
+            <li>Что вы сделаете в первую минуту при обнаружении признаков пожара/задымления?</li>
+            <li>Какие действия при эвакуации категорически запрещены?</li>
+            <li>Когда допустимо применять огнетушитель и когда нужно сразу эвакуироваться?</li>
+            <li>Что важно сообщить при вызове экстренных служб?</li>
+            <li>Как действовать, если эвакуационный путь частично задымлён?</li>
+          </ul>
+        </div>
+
+        <!-- Типичные ошибки -->
+        <div class="f-callout" role="note" aria-label="Типичные ошибки (не делайте так)">
+          <h3>Типичные ошибки (не делайте так)</h3>
+          <ul class="f-mini-list">
+            <li>возвращаться за вещами или пытаться “досмотреть” ситуацию;</li>
+            <li>пользоваться лифтом при эвакуации;</li>
+            <li>терять время на самостоятельные “разборки” вместо вызова помощи и эвакуации;</li>
+            <li>пытаться тушить пожар, если есть риск для жизни/нет безопасного пути отхода;</li>
+            <li>создавать панику и игнорировать указания ответственных лиц.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="f-callout" role="note" aria-label="Результат изучения">
+        <h3>Результат изучения</h3>
+        <ul class="f-mini-list">
+          <li>вы понимаете алгоритм действий при пожаре и порядок эвакуации;</li>
+          <li>знаете ключевые запреты и типичные ошибки;</li>
+          <li>можете объяснить, когда безопасно применять первичные средства тушения;</li>
+          <li>готовы к прохождению теста.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="f-divider" aria-hidden="true"></div>
+
+    <!-- TEST -->
+    <section class="section section-card" id="test">
+      <h2 class="f-title-row"><span class="emoji" aria-hidden="true">📝</span><span>Проверка знаний</span></h2>
+
+      <p>
+        После изучения PDF и самопроверки пройдите тест. Результаты фиксируются в системе и используются ответственными
+        за обучение для подтверждения прохождения инструктажа.
+      </p>
+
+      <div class="f-callout" role="note" aria-label="Перед началом теста">
+        <h3>Перед началом теста проверьте</h3>
+        <ul class="f-mini-list">
+          <li>вы ознакомились с материалом и понимаете основные алгоритмы действий;</li>
+          <li>у вас есть 10–15 минут без отвлечений и стабильный интернет;</li>
+          <li>в тесте вы укажете корректные персональные/организационные данные.</li>
+        </ul>
+      </div>
+
+      <div class="test-actions">
+        <a href="fire-intro-test.html" class="btn btn-primary btn-test-link">
+          Перейти к тесту по противопожарному инструктажу
         </a>
+      </div>
+
+      <p class="test-hint">
+        Если результат неудовлетворительный — вернитесь к материалу и повторите темы, где были ошибки.
+      </p>
+
+      <div class="f-callout" role="note" aria-label="Если PDF не открывается">
+        <h3>Если PDF не открывается</h3>
+        <ul class="f-mini-list">
+          <li>нажмите «ОТКРЫТЬ / СКАЧАТЬ» выше и откройте PDF в новой вкладке;</li>
+          <li>обновите страницу и проверьте подключение к интернету;</li>
+          <li>попробуйте другой браузер или устройство (иногда ограничивает корпоративная сеть);</li>
+          <li>если проблема сохраняется — обратитесь к ответственному за обучение.</li>
+        </ul>
+      </div>
+
+      <div class="f-finish" role="note" aria-label="Завершение раздела">
+        <p><strong>Вы дошли до конца учебных материалов по противопожарному инструктажу.</strong> После теста вы можете закрыть страницу или вернуться к курсу.</p>
+        <p class="muted">
+          Материал используется в рамках обучения работников и может применяться при оформлении документов о прохождении
+          инструктажа в соответствии с установленным порядком и локальными нормативными актами работодателя.
+        </p>
       </div>
     </section>
 
@@ -99,5 +409,33 @@
     </p>
   </div>
 </footer>
+
+<!-- Кнопка "Наверх" -->
+<button type="button" class="to-top" id="toTopBtn" aria-label="Наверх" title="Наверх">↑</button>
+
+<script>
+  (function () {
+    const btn = document.getElementById('toTopBtn');
+    if (!btn) return;
+
+    const prefersReducedMotion =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function onScroll() {
+      const y = window.scrollY || document.documentElement.scrollTop || 0;
+      if (y > 600) btn.classList.add('is-visible');
+      else btn.classList.remove('is-visible');
+    }
+
+    btn.addEventListener('click', function () {
+      if (prefersReducedMotion) window.scrollTo(0, 0);
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+
 </body>
 </html>
