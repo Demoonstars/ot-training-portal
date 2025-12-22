@@ -4035,13 +4035,20 @@ body.ot-theme {
   color: #92400e;
 }
 
-/* FIX: бейджи hero не должны вылезать на мобилке */
-@media (max-width: 520px){
-  .hero-badge{
+/* === FIX mobile overflow for hero badges (all courses) === */
+@media (max-width: 520px) {
+  .hero-badges{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-badges .hero-badge{
+    width: 100%;
     max-width: 100%;
-    white-space: normal;      /* ключевое: разрешаем перенос */
-    overflow-wrap: anywhere;  /* ломаем длинные куски, если нужно */
-    word-break: break-word;   /* fallback */
+    min-width: 0;                 /* ключевое для flex-элементов */
+    white-space: normal !important;/* перебить возможный nowrap из базовых стилей */
+    overflow-wrap: anywhere;
+    word-break: break-word;
     hyphens: auto;
     line-height: 1.25;
   }
