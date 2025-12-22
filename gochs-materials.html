@@ -1,14 +1,167 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Учебное пособие по ГО и ЧС — просмотр PDF</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <title>Вводный инструктаж по ГО и ЧС — материалы</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description"
-        content="Онлайн-просмотр учебного пособия «Вводный инструктаж по ГО и ЧС» в формате PDF и скачивание файла на устройство.">
-  <link rel="stylesheet" href="assets/style.css">
+        content="Материалы вводного инструктажа по ГО и ЧС: просмотр PDF, скачивание и переход к итоговому тесту." />
+  <link rel="stylesheet" href="assets/style.css" />
+
+  <!-- Локальные стили только для этой страницы -->
+  <style>
+    .g-hero h1 { margin: 0; }
+    .g-hero p { margin-top: 10px; }
+
+    .g-ui-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: clamp(12px, 2.5vw, 18px) 0;
+    }
+
+    .g-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      line-height: 1;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(17,24,39,0.08);
+      color: #0f172a;
+      white-space: nowrap;
+      max-width: 100%;
+    }
+
+    .g-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .g-nav a {
+      font-size: 0.9rem;
+      text-decoration: none;
+      padding: 7px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(17,24,39,0.08);
+      background: #fff;
+      color: #2563eb;
+    }
+    .g-nav a:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
+
+    .g-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0 0;
+    }
+    .g-badge {
+      font-size: 0.9rem;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      max-width: 100%;
+    }
+
+    .g-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(17,24,39,0.12), transparent);
+      margin: clamp(18px, 4vw, 28px) 0;
+    }
+
+    .g-callout {
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,0.08);
+      background: rgba(255,255,255,0.7);
+      padding: clamp(12px, 3vw, 16px);
+      margin-top: 14px;
+    }
+    .g-callout h3 { margin: 0 0 8px; font-size: 1rem; }
+    .g-callout p { margin: 0; }
+    .g-callout ul { margin: 10px 0 0; padding-left: 18px; }
+
+    .g-mini-list {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    .g-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 0;
+    }
+    .g-title-row .emoji { font-size: 1.15rem; }
+
+    /* A/B блоки в 2 колонки на планшете/ПК */
+    .g-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    @media (min-width: 768px) {
+      .g-grid-2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Финал */
+    .g-finish {
+      margin-top: 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(17,24,39,0.10);
+      background: rgba(255,255,255,0.85);
+      padding: clamp(12px, 3vw, 18px);
+    }
+    .g-finish p { margin: 0; }
+    .g-finish .muted { margin-top: 10px; color: #6b7280; font-size: 0.95rem; }
+
+    /* Кнопка "Наверх" */
+    .to-top {
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 50;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,0.12);
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.10);
+      color: #0f172a;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(6px);
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .to-top.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .to-top:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
+
+    @media (max-width: 420px) {
+      .g-chip { font-size: 0.86rem; padding: 7px 10px; }
+      .g-nav a { font-size: 0.88rem; padding: 7px 9px; }
+      .g-badge { font-size: 0.88rem; }
+      .to-top { right: 12px; bottom: 12px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .to-top { transition: none; }
+    }
+  </style>
 </head>
-<body>
+
+<body class="gochs-theme">
 <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
 
 <header class="site-header">
@@ -33,44 +186,217 @@
 </header>
 
 <main id="main-content" class="site-main">
-  <div class="container">
+  <div class="container" id="page-top">
 
-    <!-- Назад к курсу ГО и ЧС -->
+    <!-- Назад к курсу ГО/ЧС -->
     <nav class="back-nav">
       <a href="course-gochs.html#gochs-course" class="back-link">
         <span class="back-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" class="back-svg">
             <path d="M15 6l-6 6 6 6"
-                  stroke="white"
-                  stroke-width="2"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round" />
+                  stroke="white" stroke-width="2" fill="none"
+                  stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </span>
         <span class="back-text">Вернуться к курсу вводного инструктажа по ГО и ЧС</span>
       </a>
     </nav>
 
-    <section class="section section-card pdf-viewer-card">
-      <h2 class="fire-block-title">Учебное пособие «Вводный инструктаж по ГО и ЧС»</h2>
+    <!-- HERO -->
+    <section class="section section-card g-hero">
+      <h1>🛡️ Вводный инструктаж по ГО и ЧС</h1>
+
       <p>
-        Ниже доступен для просмотра полный текст учебного пособия в формате PDF. Его можно пролистывать прямо на
-        странице, а при необходимости — скачать на устройство.
+        Этот раздел помогает сотрудникам ориентироваться в базовых правилах гражданской обороны и действиях при
+        чрезвычайных ситуациях: что означают сигналы оповещения, как действовать при угрозах и ЧС, как сохранять
+        безопасность и не создавать паники.
       </p>
 
-      <div class="pdf-viewer-container">
+      <div class="g-callout" role="note" aria-label="Почему это важно">
+        <h3>Почему это важно</h3>
+        <p>
+          Правильные действия в первые минуты ЧС снижают риски для жизни и здоровья, помогают организовать эвакуацию и
+          взаимодействие с ответственными лицами и службами. Это знание — практическое, не “формальность”.
+        </p>
+      </div>
+
+      <div class="g-ui-row" aria-label="Рекомендуемый порядок прохождения">
+        <span class="g-chip">📘 Сначала: изучить PDF</span>
+        <span class="g-chip">✅ Затем: самопроверка</span>
+        <span class="g-chip">📝 После: итоговый тест</span>
+      </div>
+
+      <nav class="g-nav" aria-label="Быстрая навигация по странице">
+        <a href="#materials">К материалам (PDF)</a>
+        <a href="#outcome">К самопроверке</a>
+        <a href="#test">К итоговому тесту</a>
+      </nav>
+
+      <div class="g-badges" aria-label="Сводка по разделу">
+        <span class="g-badge">⏱ PDF: ориентировочно 10–20 минут</span>
+        <span class="g-badge">📝 Итог: тест + фиксация результата</span>
+        <span class="g-badge">📌 Фокус: сигналы, эвакуация, порядок действий</span>
+      </div>
+
+      <div class="g-callout" role="note" aria-label="Что важно запомнить">
+        <h3>Что важно запомнить по итогам изучения</h3>
+        <ul>
+          <li>как действовать при получении сигналов оповещения и указаний ответственных лиц;</li>
+          <li>что делать при эвакуации и как помогать другим без паники;</li>
+          <li>какие действия запрещены (самовольные решения, распространение слухов, игнорирование распоряжений);</li>
+          <li>куда обращаться при угрозе/происшествии согласно установленному порядку.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="g-divider" aria-hidden="true"></div>
+
+    <!-- MATERIALS (PDF) -->
+    <section class="section section-card" id="materials">
+      <h2 class="g-title-row"><span class="emoji" aria-hidden="true">📘</span><span>Учебное пособие (PDF)</span></h2>
+
+      <p>
+        Ниже доступен полный текст учебного пособия в формате PDF. Рекомендуем изучить документ целиком, затем пройти
+        самопроверку и перейти к итоговому тесту.
+      </p>
+
+      <!-- Одна главная CTA (без дублей) -->
+      <a class="material-download-card" href="assets/Вводный инструктаж по ГО и ЧС.pdf" target="_blank" rel="noopener">
+        <span class="material-icon-wrap">
+          <span class="material-icon">📘</span>
+        </span>
+
+        <span class="material-text">
+          <span class="material-label">Учебный материал</span>
+          <span class="material-title">«Вводный инструктаж по ГО и ЧС»</span>
+          <span class="material-meta">Полная версия • PDF</span>
+        </span>
+
+        <span class="material-badge">ОТКРЫТЬ / СКАЧАТЬ</span>
+      </a>
+
+      <div class="g-callout" role="note" aria-label="Подсказка для телефонов">
+        <h3>Подсказка для телефонов</h3>
+        <p>
+          На мобильных устройствах удобнее открыть PDF в новой вкладке через кнопку «ОТКРЫТЬ / СКАЧАТЬ» выше и использовать
+          поиск по документу (по ключевым словам).
+        </p>
+      </div>
+
+      <!-- Встроенное чтение PDF (единый паттерн) -->
+      <div class="pdf-viewer-large" aria-label="Просмотр PDF на странице">
         <iframe
           class="pdf-viewer-frame"
           src="assets/Вводный инструктаж по ГО и ЧС.pdf#view=FitH"
           title="Учебное пособие «Вводный инструктаж по ГО и ЧС»"
-        ></iframe>
+          loading="lazy"></iframe>
+      </div>
+
+      <div class="g-callout" role="note" aria-label="Как читать эффективно">
+        <h3>Как читать материал эффективно</h3>
+        <ul class="g-mini-list">
+          <li>посмотрите оглавление и выделите ключевые разделы (сигналы, эвакуация, действия при угрозах);</li>
+          <li>прочитайте разделы про порядок действий и запреты — это часто встречается в тесте;</li>
+          <li>после чтения ответьте на вопросы самопроверки ниже.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="g-divider" aria-hidden="true"></div>
+
+    <!-- OUTCOME / SELF-CHECK -->
+    <section class="section section-card" id="outcome">
+      <h2 class="g-title-row"><span class="emoji" aria-hidden="true">✅</span><span>Самопроверка и типичные ошибки</span></h2>
+
+      <p>
+        Перед итоговым тестом проверьте себя: если на вопросы ниже вы отвечаете уверенно — вы готовы.
+      </p>
+
+      <div class="g-grid-2" aria-label="Самопроверка и типичные ошибки">
+        <!-- A: Самопроверка -->
+        <div class="g-callout" role="note" aria-label="Самопроверка: контрольные вопросы">
+          <h3>Самопроверка: контрольные вопросы</h3>
+          <ul class="g-mini-list">
+            <li>Что вы сделаете при получении сигнала оповещения и указаний ответственного лица?</li>
+            <li>Каковы ваши действия при начале эвакуации (по шагам)?</li>
+            <li>Какие вещи/действия при эвакуации запрещены и почему?</li>
+            <li>Кому сообщить о происшествии/угрозе согласно установленному порядку?</li>
+            <li>Что важно сделать в первые минуты, чтобы не создавать паники?</li>
+          </ul>
+        </div>
+
+        <!-- B: Типичные ошибки -->
+        <div class="g-callout" role="note" aria-label="Типичные ошибки (не делайте так)">
+          <h3>Типичные ошибки (не делайте так)</h3>
+          <ul class="g-mini-list">
+            <li>игнорировать сигнал/указания ответственных лиц или “действовать по-своему”;</li>
+            <li>возвращаться за вещами, задерживаться и мешать движению потока;</li>
+            <li>создавать давку/паническое поведение и распространять слухи;</li>
+            <li>пытаться “проверить” информацию на месте вместо выполнения алгоритма;</li>
+            <li>не сообщать о происшествии, надеясь “само пройдёт”.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="g-callout" role="note" aria-label="Результат изучения">
+        <h3>Результат изучения</h3>
+        <ul class="g-mini-list">
+          <li>вы понимаете базовые сигналы/порядок оповещения и действия по ним;</li>
+          <li>умеете описать алгоритм эвакуации и ключевые запреты;</li>
+          <li>знаете порядок уведомления ответственных лиц/служб;</li>
+          <li>понимаете, как действовать без паники и помогать другим.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="g-divider" aria-hidden="true"></div>
+
+    <!-- TEST -->
+    <section class="section section-card" id="test">
+      <h2 class="g-title-row"><span class="emoji" aria-hidden="true">📝</span><span>Итоговый тест по ГО и ЧС</span></h2>
+
+      <p>
+        После изучения PDF и самопроверки пройдите итоговый тест. Результаты используются ответственными за обучение
+        для фиксации прохождения вводного инструктажа.
+      </p>
+
+      <div class="g-callout" role="note" aria-label="Перед началом теста">
+        <h3>Перед началом теста проверьте</h3>
+        <ul class="g-mini-list">
+          <li>вы ознакомились с PDF и понимаете основные алгоритмы действий;</li>
+          <li>у вас есть 10–15 минут без отвлечений и стабильный интернет;</li>
+          <li>в тесте вы укажете корректные персональные/организационные данные.</li>
+        </ul>
       </div>
 
       <div class="test-actions">
-        <a href="assets/Вводный инструктаж по ГО и ЧС.pdf" class="btn btn-primary" target="_blank" rel="noopener">
-          Скачать PDF-файл на устройство
+        <a href="gochs-final-test.html" class="btn btn-primary btn-test-link">
+          Перейти к итоговому тесту по ГО и ЧС
         </a>
+      </div>
+
+      <p class="test-hint">
+        Если результат неудовлетворительный — вернитесь к материалу и повторите темы, где были ошибки.
+      </p>
+
+      <!-- C: если не открылось -->
+      <div class="g-callout" role="note" aria-label="Если материал не открывается">
+        <h3>Если PDF не открывается</h3>
+        <ul class="g-mini-list">
+          <li>нажмите «ОТКРЫТЬ / СКАЧАТЬ» выше и откройте PDF в новой вкладке;</li>
+          <li>обновите страницу и проверьте подключение к интернету;</li>
+          <li>попробуйте другой браузер или устройство (иногда ограничивает корпоративная сеть);</li>
+          <li>если проблема сохраняется — обратитесь к ответственному за обучение.</li>
+        </ul>
+      </div>
+
+      <!-- E + D: завершение + микро-юридическая подложка -->
+      <div class="g-finish" role="note" aria-label="Завершение раздела">
+        <p><strong>Вы дошли до конца материалов по ГО и ЧС.</strong> После прохождения теста вы можете закрыть страницу или вернуться к курсу.</p>
+        <p class="muted">
+          Материал используется в рамках обучения работников и может применяться при оформлении документов о прохождении
+          вводного инструктажа в соответствии с установленным порядком и локальными нормативными актами работодателя.
+        </p>
       </div>
     </section>
 
@@ -88,6 +414,32 @@
     </p>
   </div>
 </footer>
+
+<!-- Кнопка "Наверх" -->
+<button type="button" class="to-top" id="toTopBtn" aria-label="Наверх" title="Наверх">↑</button>
+
+<script>
+  (function () {
+    const btn = document.getElementById('toTopBtn');
+    if (!btn) return;
+
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function onScroll() {
+      const y = window.scrollY || document.documentElement.scrollTop || 0;
+      if (y > 600) btn.classList.add('is-visible');
+      else btn.classList.remove('is-visible');
+    }
+
+    btn.addEventListener('click', function () {
+      if (prefersReducedMotion) window.scrollTo(0, 0);
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
 
 </body>
 </html>
