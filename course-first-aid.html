@@ -2,326 +2,15 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Курс по оказанию первой помощи — Учебный портал</title>
+  <title>Курс по оказанию первой помощи пострадавшим — Учебный портал</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Курс по оказанию первой помощи: видеолекция (≈ 2 часа), материал PDF (≈ 40 минут — будет добавлен), и итоговое тестирование.">
+  <meta name="description"
+        content="Дистанционный курс по оказанию первой помощи пострадавшим. Теоретические материалы, видеолекции, алгоритмы первой помощи и итоговое тестирование.">
   <link rel="stylesheet" href="assets/style.css">
-
-  <style>
-    body.aid-theme{
-      background:
-        radial-gradient(1000px 520px at 12% -10%, rgba(37,99,235,.14), transparent 62%),
-        radial-gradient(900px 520px at 92% 0%, rgba(34,197,94,.10), transparent 58%),
-        linear-gradient(to bottom, rgba(15,23,42,.02), rgba(15,23,42,.00));
-    }
-
-    .course-hero{
-      border-radius: 20px;
-      padding: clamp(16px, 3.2vw, 26px);
-      background:
-        linear-gradient(120deg, rgba(15,23,42,.86), rgba(15,23,42,.62)),
-        radial-gradient(900px 460px at 20% 10%, rgba(37,99,235,.22), transparent 60%),
-        radial-gradient(900px 460px at 86% 18%, rgba(34,197,94,.18), transparent 58%);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 18px 60px rgba(2, 6, 23, .14);
-      overflow:hidden;
-    }
-    .course-hero h2,
-    .course-hero p{ color:#fff !important; }
-
-    .hero-badges{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-bottom: 10px;
-    }
-    .hero-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.10);
-      color:#fff;
-      font-weight:700;
-      min-height: 40px;
-      max-width:100%;
-      white-space: nowrap;
-    }
-    .hero-badge.is-main{
-      border-color: rgba(37,99,235,.40);
-      background: rgba(37,99,235,.16);
-      box-shadow: 0 0 0 3px rgba(37,99,235,.10);
-    }
-    .hero-badge.is-soon{
-      border-color: rgba(255,255,255,.18);
-      background: rgba(0,0,0,.14);
-      font-weight:600;
-      white-space: normal;
-      line-height: 1.25;
-    }
-    @media (max-width: 420px){
-      .hero-badge{ min-height:44px; }
-    }
-
-    /* Фикс (как мы согласовали) — на мобилке бейджи в колонку */
-    @media (max-width: 520px) {
-      .hero-badges{
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .hero-badges .hero-badge{
-        width: 100%;
-        max-width: 100%;
-        min-width: 0;
-        white-space: normal !important;
-        overflow-wrap: anywhere;
-        word-break: break-word;
-        hyphens: auto;
-        line-height: 1.25;
-      }
-    }
-
-    .course-kpis{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 14px;
-    }
-    @media (max-width: 920px){
-      .course-kpis{ grid-template-columns: 1fr; }
-    }
-    .course-kpi{
-      background: rgba(0,0,0,.18);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 14px;
-      padding: 12px;
-    }
-    .course-kpi strong{
-      display:block;
-      font-size: 1rem;
-      margin-bottom: 4px;
-      color:#fff;
-    }
-    .course-kpi span{
-      display:block;
-      font-size: .95rem;
-      color: rgba(255,255,255,.82);
-    }
-
-    .course-nav{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top: 14px;
-    }
-    .course-nav a{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      min-height:44px;
-      padding:10px 14px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.10);
-      color:#fff;
-      text-decoration:none;
-      font-weight:800;
-      max-width: 100%;
-    }
-    .course-nav a.primary{
-      border-color: rgba(37,99,235,.45);
-      background: rgba(37,99,235,.16);
-      box-shadow: 0 0 0 3px rgba(37,99,235,.10);
-    }
-    .course-nav a:focus-visible{ outline:2px solid rgba(255,255,255,.85); outline-offset:2px; }
-
-    .course-divider{
-      height:1px;
-      background: linear-gradient(to right, transparent, rgba(17,24,39,0.12), transparent);
-      margin: clamp(18px, 4vw, 28px) 0;
-    }
-
-    .route-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 12px;
-    }
-    @media (max-width: 720px){
-      .route-grid{ grid-template-columns: 1fr; }
-    }
-
-    .route-card{
-      border-radius: 18px;
-      border: 1px solid rgba(17,24,39,0.10);
-      background: rgba(255,255,255,0.85);
-      padding: 14px;
-      box-shadow: 0 10px 26px rgba(2,6,23,.06);
-      overflow:hidden;
-    }
-
-    .route-card.is-primary{
-      border-color: rgba(37,99,235,.28);
-      background:
-        radial-gradient(900px 240px at 10% 0%, rgba(37,99,235,.12), transparent 60%),
-        rgba(255,255,255,0.90);
-      box-shadow: 0 22px 70px rgba(37,99,235,.14);
-    }
-
-    .route-top{
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom: 10px;
-    }
-    .route-title{
-      margin:0;
-      font-size: 1.06rem;
-      line-height:1.2;
-      color:#0f172a;
-    }
-    .route-tag{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:7px 10px;
-      border-radius:999px;
-      background: rgba(248,250,252,0.95);
-      border: 1px solid rgba(17,24,39,0.08);
-      font-size:.92rem;
-      color:#0f172a;
-      white-space:nowrap;
-      max-width: 100%;
-    }
-    .route-tag.is-time{
-      border-color: rgba(37,99,235,.22);
-      background: rgba(37,99,235,.08);
-      font-weight: 900;
-    }
-    .route-tag.is-soon{
-      border-color: rgba(148,163,184,.25);
-      background: rgba(148,163,184,.10);
-      font-weight: 800;
-      white-space: normal;
-      line-height: 1.2;
-    }
-
-    .route-subtle{
-      margin: 0 0 10px;
-      color:#475569;
-      overflow-wrap:anywhere;
-    }
-
-    .route-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top: 10px;
-    }
-    .route-actions a{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      min-height:44px;
-      padding:10px 14px;
-      border-radius:14px;
-      border:1px solid rgba(17,24,39,0.10);
-      background:#fff;
-      color:#2563eb;
-      font-weight:800;
-      text-decoration:none;
-    }
-    .route-actions a.primary{
-      border-color: rgba(37,99,235,.28);
-      color: #0f172a;
-      background: rgba(37,99,235,.12);
-    }
-    .route-actions a.disabled{
-      opacity: .65;
-      pointer-events: none;
-      cursor: not-allowed;
-    }
-    .route-actions a:focus-visible{ outline:2px solid #2563eb; outline-offset:2px; }
-
-    .course-notice{
-      margin-top: 12px;
-      padding: 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(17,24,39,0.10);
-      background: rgba(255,255,255,0.85);
-    }
-    .course-notice p{ margin:0; color:#475569; }
-    .course-notice strong{ color:#0f172a; }
-
-    .course-tips{
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 12px;
-      margin-top: 12px;
-    }
-    @media (max-width: 920px){
-      .course-tips{ grid-template-columns: 1fr; }
-    }
-    .tip{
-      border-radius: 16px;
-      border: 1px solid rgba(17,24,39,0.10);
-      background: rgba(255,255,255,0.85);
-      padding: 14px;
-    }
-    .tip h3{ margin:0 0 8px; font-size: 1rem; color:#0f172a; }
-    .tip p{ margin:0; color:#475569; }
-
-    /* Видео: безопасный responsive контейнер */
-    .video-wrap{
-      margin-top: 12px;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(17,24,39,0.10);
-      background: rgba(255,255,255,0.85);
-    }
-    .video-frame{
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      display:block;
-      border:0;
-    }
-
-    .to-top {
-      position: fixed;
-      right: 14px;
-      bottom: 14px;
-      z-index: 50;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      border-radius: 999px;
-      border: 1px solid rgba(17,24,39,0.12);
-      background: rgba(255,255,255,0.92);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.10);
-      color: #0f172a;
-      cursor: pointer;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(6px);
-      transition: opacity .2s ease, transform .2s ease;
-    }
-    .to-top.is-visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-    .to-top:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
-    @media (max-width: 420px){ .to-top { right: 12px; bottom: 12px; } }
-    @media (prefers-reduced-motion: reduce){ .to-top { transition: none; } }
-  </style>
 </head>
 
-<body class="aid-theme">
+<!-- Тема первой помощи: зелёный → белый -->
+<body class="first-aid-theme">
 <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
 
 <header class="site-header">
@@ -348,144 +37,572 @@
 <main id="main-content" class="site-main">
   <div class="container">
 
+    <!-- Кнопка возврата -->
     <nav class="back-nav">
       <a href="programs.html" class="back-link">
         <span class="back-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" class="back-svg">
-            <path d="M15 6l-6 6 6 6" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M15 6l-6 6 6 6"
+                  stroke="white"
+                  stroke-width="2"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round" />
           </svg>
         </span>
         <span class="back-text">Вернуться к программам обучения</span>
       </a>
     </nav>
 
-    <section class="section section-card course-hero">
-      <div class="hero-badges" aria-label="Статус курса">
-        <span class="hero-badge is-main">🩺 Видеолекция — основа курса</span>
-        <span class="hero-badge">⏱ ≈ 2 часа</span>
-        <span class="hero-badge is-soon">📄 PDF-материал будет добавлен (≈ 40 минут)</span>
-      </div>
-
-      <h2>🩹 Курс: Оказание первой помощи пострадавшим</h2>
-      <p>
-        Курс построен вокруг видеолекции (примерно 2 часа). Дополнительный PDF-материал будет добавлен — он поможет закрепить
-        алгоритмы действий и быстрее подготовиться к тестированию.
+    <!-- Герой-блок курса (эталон как в ГО и ЧС, но для первой помощи) -->
+    <section class="section section-card fire-hero-card">
+      <div class="fire-hero-label">Курс</div>
+      <h2 class="fire-hero-title">Оказание первой помощи пострадавшим</h2>
+      <p class="fire-hero-lead">
+        Дистанционный курс, предназначенный для всех работников организации, обязанных владеть базовыми навыками
+        оказания первой помощи до прибытия медицинских работников.
+      </p>
+      <p class="fire-hero-text">
+        Курс может использоваться работодателем в составе системы обучения по охране труда и соответствует
+        требованиям <strong>Приказа Минздрава России от 03.05.2024 № 220н</strong>, а также ст. 214 и 228.1
+        Трудового кодекса РФ.
       </p>
 
-      <div class="course-kpis" aria-label="Краткие характеристики курса">
-        <div class="course-kpi">
-          <strong>🎥 Видеолекция</strong>
-          <span>≈ 2 часа (рекомендуем смотреть полностью)</span>
-        </div>
-        <div class="course-kpi">
-          <strong>📄 Материал PDF</strong>
-          <span>≈ 40 минут (скоро будет доступен)</span>
-        </div>
-        <div class="course-kpi">
-          <strong>📝 Итог</strong>
-          <span>Тестирование после изучения материалов</span>
-        </div>
-      </div>
-
-      <div class="course-nav" aria-label="Быстрые действия">
-        <a class="primary" href="#video">Перейти к видео</a>
-        <a href="#route">Открыть маршрут</a>
-        <a href="#how">Как проходить</a>
+      <div class="fire-hero-tags">
+        <span class="fire-tag fire-tag-basic">Первая помощь</span>
+        <span class="fire-tag fire-tag-workplace">Обязательное обучение</span>
+        <span class="fire-tag fire-tag-law">Приказ Минздрава № 220н, ТК РФ</span>
       </div>
     </section>
 
-    <div class="course-divider" aria-hidden="true"></div>
-
-    <section class="section section-card" id="video">
-      <h2 class="page-title">Видеолекция</h2>
-      <p class="page-lead">Просмотрите видеолекцию полностью — это основной материал курса.</p>
-
-      <div class="video-wrap" aria-label="Видеолекция по оказанию первой помощи">
-        <!-- ВСТАВЬ сюда свой iframe/плеер. Пока оставляю безопасный пример. -->
-        <iframe
-          class="video-frame"
-          src=""
-          title="Видеолекция: оказание первой помощи"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
+    <!-- Быстрый переход к итоговому тесту (как в ГО и ЧС) -->
+    <section class="section section-card fire-test-block">
+      <h2 class="fire-block-title">Уже проходили этот курс и уверены в своих знаниях?</h2>
+      <p>
+        Если вы ранее проходили обучение по оказанию первой помощи и вам необходимо только подтвердить знания,
+        можно сразу перейти к итоговому тесту по курсу без повторного просмотра всех материалов.
+      </p>
+      <div class="test-actions">
+        <a href="first-aid-test.html" class="btn btn-primary btn-test-link">
+          Перейти к итоговому тесту по первой помощи
+        </a>
       </div>
-
-      <div class="course-notice" role="note" aria-label="Подсказка">
-        <p><strong>Совет:</strong> если видео длинное — смотрите частями, но обязательно возвращайтесь и досматривайте до конца перед тестом.</p>
-      </div>
+      <p class="test-hint">
+        При неудовлетворительном результате теста рекомендуется вернуться к урокам и повторно изучить темы,
+        по которым допущены ошибки.
+      </p>
     </section>
 
-    <div class="course-divider" aria-hidden="true"></div>
-
-    <section class="section section-card" id="route">
-      <h2 class="page-title">Маршрут курса</h2>
-      <p class="page-lead">Рекомендуемая последовательность: видео → (PDF) → тест.</p>
-
-      <div class="route-grid" aria-label="Шаги курса первой помощи">
-
-        <article class="route-card is-primary">
-          <div class="route-top">
-            <h3 class="route-title">1) Видеолекция</h3>
-            <span class="route-tag is-time">⏱ ≈ 2 часа</span>
-          </div>
-          <p class="route-subtle">
-            Основной материал курса. Смотрите полностью — в видео заложены ключевые алгоритмы первой помощи.
-          </p>
-          <div class="route-actions">
-            <a class="primary" href="#video">Смотреть видео</a>
-          </div>
-        </article>
-
-        <article class="route-card">
-          <div class="route-top">
-            <h3 class="route-title">2) PDF-материал</h3>
-            <span class="route-tag is-soon">📄 Скоро • ≈ 40 минут</span>
-          </div>
-          <p class="route-subtle">
-            Конспект и шпаргалки по алгоритмам. Раздел будет добавлен — после этого появится кнопка “Открыть PDF”.
-          </p>
-          <div class="route-actions">
-            <a class="disabled" href="#" aria-disabled="true">Открыть PDF (скоро)</a>
-          </div>
-        </article>
-
-        <article class="route-card">
-          <div class="route-top">
-            <h3 class="route-title">3) Итоговый тест</h3>
-            <span class="route-tag is-time">📝 после материалов</span>
-          </div>
-          <p class="route-subtle">
-            Проходите тест после просмотра видео (и после PDF — когда он будет добавлен).
-          </p>
-          <div class="route-actions">
-            <a class="primary" href="first-aid-test.html">Перейти к тесту</a>
-          </div>
-        </article>
-
-      </div>
+    <!-- Сведения о курсе (перенос из боковой колонки в основной поток) -->
+    <section class="section section-card course-info-card-inline">
+      <h2 class="fire-block-title">Сведения о курсе</h2>
+      <ul class="course-info-list">
+        <li><span class="badge badge-type">Направление</span> Первая помощь</li>
+        <li><span class="badge badge-form">Форма</span> видеоматериалы, контрольные вопросы, итоговое тестирование</li>
+        <li><span class="badge badge-target">Категории</span> все работники организации</li>
+      </ul>
+      <p>
+        Требования основаны на актуальной редакции Приказа Минздрава России № 220н и положениях Трудового кодекса РФ.
+      </p>
     </section>
 
-    <div class="course-divider" aria-hidden="true"></div>
+    <!-- Основной контент курса (одна колонка, как в ГО и ЧС) -->
+    <article class="section section-card fire-course-card" id="first-aid-course">
 
-    <section class="section section-card" id="how">
-      <h2>Как проходить курс без ошибок</h2>
-      <p class="page-lead">Короткие подсказки, которые реально помогают сдать с первого раза.</p>
+      <header class="fire-course-header">
+        <div class="course-chip course-chip-1">Первая помощь</div>
+        <div>
+          <h2 class="fire-course-title">Структура курса</h2>
+          <p class="fire-course-subtitle">
+            Программа курса соответствует перечню обязательных знаний по оказанию первой помощи, включённых
+            в нормативные правовые акты РФ. Содержание может корректироваться с учётом специфики организации.
+          </p>
+        </div>
+      </header>
 
-      <div class="course-tips" aria-label="Подсказки по прохождению">
-        <div class="tip">
-          <h3>1) Не пропускайте видео</h3>
-          <p>Вопросы в тесте опираются на алгоритмы из видеолекции.</p>
+      <!-- Таймлайн модулей -->
+      <section class="fire-block">
+        <ol class="module-list module-timeline">
+          <li>
+            <strong>Правовые основы оказания первой помощи.</strong>
+            Понятие первой помощи, обязанности работников, нормативные требования, ответственность.
+          </li>
+          <li>
+            <strong>Алгоритм действий при оказании первой помощи.</strong>
+            Оценка обстановки, безопасность спасателя, вызов экстренных служб, общая последовательность действий.
+          </li>
+          <li>
+            <strong>Первая помощь при нарушении сознания, дыхания и кровообращения.</strong>
+            Проверка сознания и дыхания, восстановление проходимости дыхательных путей, СЛР.
+          </li>
+          <li>
+            <strong>Первая помощь при кровотечениях и ранениях.</strong>
+            Внешние и внутренние кровотечения, перевязки, наложение жгута, особенности остановки кровотечения.
+          </li>
+          <li>
+            <strong>Первая помощь при травмах.</strong>
+            Переломы, травмы позвоночника и таза, иммобилизация, правила перемещения пострадавших.
+          </li>
+          <li>
+            <strong>Первая помощь при воздействии высоких и низких температур.</strong>
+            Ожоги, обморожения, перегрев и переохлаждение, алгоритмы действий.
+          </li>
+          <li>
+            <strong>Первая помощь при отравлениях и неотложных состояниях.</strong>
+            Отравления, судороги, шок, острые реакции на стресс, психологическая поддержка пострадавшего.
+          </li>
+          <li>
+            <strong>Итоговый модуль: закрепление знаний.</strong>
+            Обзор ключевых алгоритмов и проверочные вопросы перед итоговым тестом.
+          </li>
+        </ol>
+      </section>
+
+      <!-- Видеоматериалы курса -->
+      <section class="fire-block">
+        <h2 class="fire-block-title">Видеоматериалы курса</h2>
+        <p>
+          Ниже представлены видеолекции по основным темам курса. Рекомендуется просматривать ролики
+          в указанной последовательности. После изучения видеоматериалов работник переходит к знакомству
+          с контрольными вопросами Минтруда России и итоговому тестированию.
+        </p>
+      </section>
+
+      <!-- Блок 1: Правовые основы и общий алгоритм -->
+      <section class="video-section">
+        <h3>1. Правовые основы и общий алгоритм действий</h3>
+        <div class="video-grid">
+
+          <article class="video-card video-card-med">
+            <h4>Почему сотрудники вправе оказывать первую помощь и их за это не накажут</h4>
+            <p class="video-desc">
+              Правовые основания оказания первой помощи, ответственность работодателя и работника,
+              разъяснение, почему при соблюдении алгоритмов работник действует законно.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/6xBxgurJcjPdYfyF1DzHng"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+          <article class="video-card video-card-med">
+            <h4>Алгоритм оказания первой помощи</h4>
+            <p class="video-desc">
+              Общий порядок действий при любой неотложной ситуации: оценка обстановки, обеспечение собственной
+              безопасности, последовательность оказания помощи пострадавшему.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/vmGbdzuLu6Q7htCrfxBjHc"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+          <article class="video-card video-card-med">
+            <h4>Вызов экстренных служб</h4>
+            <p class="video-desc">
+              Когда и как правильно вызывать скорую помощь и другие службы, какие сведения необходимо сообщить
+              диспетчеру, как организовать встречу бригады.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/idVv4ob1rrTc543LJhonYK"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
         </div>
-        <div class="tip">
-          <h3>2) Закрепляйте алгоритмы</h3>
-          <p>Когда PDF появится — пройдитесь по нему перед тестом: это быстрее, чем пересматривать видео.</p>
+      </section>
+
+      <!-- Блок 2: Дыхание, пульс, судороги, удушье -->
+      <section class="video-section">
+        <h3>2. Нарушение сознания, дыхания и судорожные состояния</h3>
+        <div class="video-grid">
+
+          <article class="video-card video-card-med">
+            <h4>Как оказать помощь при остановке дыхания и пульса</h4>
+            <p class="video-desc">
+              Проверка дыхания и пульса, базовые шаги сердечно-лёгочной реанимации до прибытия медработников.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/corgtYkP8DpgBMqR713TCn"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+          <article class="video-card video-card-med">
+            <h4>Как оказать первую помощь при судорожном приступе</h4>
+            <p class="video-desc">
+              Алгоритм действий при судорожных приступах, чего нельзя делать, как предотвратить травмы пострадавшего.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/mazG4fg1f9xcv5zfoEVod6"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+          <article class="video-card video-card-med">
+            <h4>Первая помощь при попадании инородного тела в дыхательные пути</h4>
+            <p class="video-desc">
+              Приёмы устранения удушья у взрослых и детей, особенности выполнения приёмов Геймлиха.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/sUrkZyFhjZdvP3wqyGRYkm"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+          <article class="video-card video-card-med">
+            <h4>Мифы при оказании первой помощи: как не навредить пострадавшему</h4>
+            <p class="video-desc">
+              Разбор распространённых ошибочных действий и опасных мифов, которые могут ухудшить состояние пострадавшего.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/7YvdPc8k7H5t1LkwDBe9Cd"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
         </div>
-        <div class="tip">
-          <h3>3) Повтор при ошибках</h3>
-          <p>Если тест не сдан — вернитесь к теме ошибок и повторите материал.</p>
+      </section>
+
+      <!-- Блок 3: Кровотечения и ранения -->
+      <section class="video-section">
+        <h3>3. Кровотечения и ранения</h3>
+        <div class="video-grid">
+
+          <article class="video-card video-card-med">
+            <h4>Что важно помнить, когда останавливаете кровотечение</h4>
+            <p class="video-desc">
+              Общие принципы остановки кровотечения, выбор метода, оценка состояния пострадавшего.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/dtdaCGweZhFCL29psZ8a28"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+          <article class="video-card video-card-med">
+            <h4>Что поможет спасти пострадавшего при артериальном кровотечении</h4>
+            <p class="video-desc">
+              Особенности артериального кровотечения, признаки, экстренные меры по его остановке.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/pfvPhpf5cjKjAu87nFT334"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+          <article class="video-card video-card-med">
+            <h4>Как остановить кровотечение</h4>
+            <p class="video-desc">
+              Демонстрация способов остановки кровотечения: прямое давление, повязки, жгут, импровизированные средства.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/6S8RRAJ2LzuZ61TzuaGbVv"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+          <article class="video-card video-card-med">
+            <h4>Первая помощь при внутреннем кровотечении</h4>
+            <p class="video-desc">
+              Признаки внутреннего кровотечения, позиционирование пострадавшего, необходимость срочной госпитализации.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/mgMK6fEQaNeVNMB5RTk9t6"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+          <article class="video-card video-card-med">
+            <h4>Как действовать, если в ране инородное тело</h4>
+            <p class="video-desc">
+              Почему нельзя самостоятельно извлекать инородные предметы из раны и как правильно их фиксировать.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/e7nnFWWp41d1TArQanD1YX"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+          <article class="video-card video-card-med">
+            <h4>Как оказать помощь при ампутации конечностей</h4>
+            <p class="video-desc">
+              Действия при частичной или полной ампутации, сохранение ампутированной части, подготовка к транспортировке.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/ouiTPWw7RZNuH8SqzSLzDW"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
         </div>
-      </div>
+      </section>
+
+      <!-- Блок 4: Травмы -->
+      <section class="video-section">
+        <h3>4. Травмы, переломы, повреждения позвоночника и таза</h3>
+        <div class="video-grid">
+
+          <article class="video-card video-card-med">
+            <h4>Первая помощь при травмах и переломах</h4>
+            <p class="video-desc">
+              Основные признаки переломов и травм, правила иммобилизации и фиксации повреждённых конечностей.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/3JjUyx8WCZxjVJXHpxSkzw"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+          <article class="video-card video-card-med">
+            <h4>Как оказать помощь при травме позвоночника</h4>
+            <p class="video-desc">
+              Особенности повреждений позвоночника, почему критично исключить лишние движения пострадавшего.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/15j9mNX9Rw1Aprn2dp8weM"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+          <article class="video-card video-card-med">
+            <h4>Как оказать помощь при травме таза</h4>
+            <p class="video-desc">
+              Признаки травмы таза, правильное положение пострадавшего, особенности вызова экстренной помощи.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/j63CYRrTPdPvaJkRjZKzQp"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Блок 5: Высокие и низкие температуры -->
+      <section class="video-section">
+        <h3>5. Перегрев, обморожение, переохлаждение, ожоги</h3>
+        <div class="video-grid">
+
+          <article class="video-card video-card-med">
+            <h4>Первая помощь при перегреве</h4>
+            <p class="video-desc">
+              Признаки перегрева и теплового удара, алгоритм охлаждения пострадавшего.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/wFYBNXHj12EuwGUTB3rXqV"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+          <article class="video-card video-card-med">
+            <h4>Первая помощь при обморожении</h4>
+            <p class="video-desc">
+              Особенности обморожения, чего нельзя делать, постепенное согревание и защита повреждённых участков.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/mtpPwpRZC658tPJ49vAz6s"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+          <article class="video-card video-card-med">
+            <h4>Первая помощь при переохлаждении</h4>
+            <p class="video-desc">
+              Отличия переохлаждения от обморожения, оценка степени тяжести, алгоритм отапливания и наблюдения.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/ddtGWWdW95iUpr6kAQGkhh"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+          <article class="video-card video-card-med">
+            <h4>Первая помощь при ожогах</h4>
+            <p class="video-desc">
+              Оценка площади и степени ожога, охлаждение, наложение повязок, недопустимые действия.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/vmaauqtFhVsYLjq98AMY7U"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Блок 6: Отравления -->
+      <section class="video-section">
+        <h3>6. Отравления</h3>
+        <div class="video-grid">
+
+          <article class="video-card video-card-med">
+            <h4>Отравления: виды и приёмы оказания первой помощи</h4>
+            <p class="video-desc">
+              Основные виды отравлений, общие принципы действий при подозрении на отравление, что можно и
+              чего нельзя делать до приезда медиков.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/eKLVmic9Xm94iiUkmtEtG7"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Блок 7: Психологическая помощь -->
+      <section class="video-section">
+        <h3>7. Психологическая поддержка и острый стресс</h3>
+        <div class="video-grid">
+
+          <article class="video-card video-card-med">
+            <h4>Как оказать психологическую поддержку</h4>
+            <p class="video-desc">
+              Общие принципы общения с пострадавшим, как снизить тревогу и помочь дождаться профессиональной помощи.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/rDp1LTa3XdsiycwsFwSgyY"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+          <article class="video-card video-card-med">
+            <h4>Как оказать первую помощь при острой психологической реакции на стресс</h4>
+            <p class="video-desc">
+              Как помочь человеку с выраженной паникой, ступором или агрессией до прибытия специалистов.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/cmbyeyhjYiM8XYScVaztcd"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+          <article class="video-card video-card-med">
+            <h4>Как помочь пострадавшему в состоянии шока</h4>
+            <p class="video-desc">
+              Признаки шока, правильное положение тела, поддержка пострадавшего до приезда скорой помощи.
+            </p>
+            <div class="video-embed">
+              <iframe src="https://kinescope.io/embed/gdPt3qoUpZhtN56p3Pz6MN"
+                      allowfullscreen
+                      loading="lazy"></iframe>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Контрольные вопросы Минтруда -->
+      <section class="fire-block">
+        <h2 class="fire-block-title">Контрольные вопросы Минтруда России</h2>
+        <p>
+          В качестве дополнительного инструмента закрепления знаний рекомендуется использовать
+          <strong>контрольные вопросы Минтруда России по оказанию первой помощи</strong>. Они отражают
+          базовые требования к знаниям работников.
+        </p>
+        <p>Вопросы могут использоваться:</p>
+        <ul class="checklist">
+          <li>для самостоятельной подготовки работников перед итоговым тестом;</li>
+          <li>для очного опроса и обсуждения на инструктажах и тренировках;</li>
+          <li>как основа для разработки локальных проверочных материалов работодателя.</li>
+        </ul>
+
+        <p>Файл с вопросами доступен для скачивания в формате PDF:</p>
+        <p>
+          <a href="assets/Voprosi_Mintruda_PP.pdf"
+             class="btn btn-primary"
+             target="_blank"
+             rel="noopener">
+            Открыть вопросы Минтруда по первой помощи (PDF)
+          </a>
+        </p>
+
+        <p class="note">
+          Конкретный порядок использования данных вопросов (самоподготовка, опрос, включение в программы обучения)
+          определяется работодателем в локальных нормативных актах.
+        </p>
+      </section>
+
+      <!-- Итоговый тест (по эталону ГО и ЧС) -->
+      <section class="fire-block fire-test-block" id="first-aid-test">
+        <h3 class="fire-block-title">Итоговый тест по первой помощи</h3>
+        <p>
+          После изучения видеоматериалов и контрольных вопросов работник проходит итоговое тестирование.
+          Результаты используются для оформления документов о прохождении обучения и проверки знаний.
+        </p>
+
+        <p class="note">
+          При прохождении теста работник должен корректно указать ФИО, подразделение, должность и организацию.
+        </p>
+
+        <div class="test-actions">
+          <a href="first-aid-test.html" class="btn btn-primary btn-test-link">
+            Перейти к итоговому тесту по первой помощи
+          </a>
+        </div>
+
+        <p class="test-hint">
+          Перед переходом к тесту рекомендуется просмотреть все видеоматериалы и ознакомиться с вопросами Минтруда.
+        </p>
+      </section>
+
+    </article>
+
+    <!-- Использование результатов обучения -->
+    <section class="section section-card">
+      <h2>Использование результатов обучения</h2>
+      <p>
+        Результаты тестирования по оказанию первой помощи могут использоваться работодателем для оформления журналов,
+        протоколов, приказов и иных документов, связанных с обучением и проверкой знаний работников.
+      </p>
+      <p class="note">
+        Конкретный порядок оформления и срок хранения документов определяются работодателем
+        в локальных нормативных актах с учётом требований законодательства РФ.
+      </p>
+    </section>
+
+    <!-- Блок про НПА и автора курса -->
+    <section class="section section-card section-card-elevated">
+      <h2>Источник материалов и автор курса</h2>
+      <p>
+        Учебные материалы курса по оказанию первой помощи пострадавшим разработаны
+        на основе действующих нормативных правовых актов Российской Федерации и
+        официальных методических рекомендаций по обучению работников.
+      </p>
+
+      <ul class="norm-list">
+        <li>Трудовой кодекс РФ (в том числе ст. 214, 225, 228.1).</li>
+        <li>Приказ Минздрава от 03.05.2024 № 220н.</li>
+        <li>Иные действующие нормативные правовые акты РФ в области охраны труда и первой помощи.</li>
+      </ul>
+
+      <p class="note">
+        <strong>Автор разработки проекта:</strong> Попихин Антон Юрьевич.<br>
+      </p>
     </section>
 
   </div>
@@ -494,39 +611,14 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <p class="footer-text">
-      Учебный портал дистанционного обучения по охране труда, пожарной безопасности, первой помощи и ГО/ЧС.
+      Учебный портал дистанционного обучения по охране труда, пожарной безопасности,
+      первой помощи и ГО/ЧС.
     </p>
     <p class="footer-text footer-text-muted">
-      Конкретный порядок обучения и оформления результатов определяется работодателем.
+      Конкретный порядок обучения определяется работодателем.
     </p>
   </div>
 </footer>
-
-<button type="button" class="to-top" id="toTopBtn" aria-label="Наверх" title="Наверх">↑</button>
-
-<script>
-  (function () {
-    const btn = document.getElementById('toTopBtn');
-    if (!btn) return;
-
-    const prefersReducedMotion =
-      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    function onScroll() {
-      const y = window.scrollY || document.documentElement.scrollTop || 0;
-      if (y > 700) btn.classList.add('is-visible');
-      else btn.classList.remove('is-visible');
-    }
-
-    btn.addEventListener('click', function () {
-      if (prefersReducedMotion) window.scrollTo(0, 0);
-      else window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  })();
-</script>
 
 </body>
 </html>
