@@ -4035,23 +4035,14 @@ body.ot-theme {
   color: #92400e;
 }
 
-.hero-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 10px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.16);
-  background: rgba(255,255,255,.10);
-  color:#fff;
-  font-weight:700;
-  min-height: 40px;
-
-  /* FIX overflow */
-  max-width: 100%;
-  white-space: normal;           /* было nowrap → ломало перенос */
-  overflow-wrap: anywhere;       /* спасает длинные слова */
-  word-break: break-word;        /* fallback */
-  hyphens: auto;                 /* аккуратные переносы (где поддерживается) */
-  line-height: 1.25;
+/* FIX: бейджи hero не должны вылезать на мобилке */
+@media (max-width: 520px){
+  .hero-badge{
+    max-width: 100%;
+    white-space: normal;      /* ключевое: разрешаем перенос */
+    overflow-wrap: anywhere;  /* ломаем длинные куски, если нужно */
+    word-break: break-word;   /* fallback */
+    hyphens: auto;
+    line-height: 1.25;
+  }
 }
