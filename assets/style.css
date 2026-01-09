@@ -4053,3 +4053,180 @@ body.ot-theme {
     line-height: 1.25;
   }
 }
+
+/* =========================================
+   ДОБАВЛЕНИЕ: НОВЫЕ КОМПОНЕНТЫ И БИБЛИОТЕКА
+   ========================================= */
+
+/* 1. Хлебные крошки (Breadcrumbs) */
+.breadcrumbs {
+  margin-bottom: 1.2rem;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.breadcrumbs li {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumbs li + li::before {
+  content: "/";
+  margin: 0 0.6rem;
+  color: #9ca3af;
+  font-size: 0.8em;
+}
+
+.breadcrumbs a {
+  color: #4b5563;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.breadcrumbs a:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.breadcrumbs li[aria-current="page"] {
+  color: #111827;
+  font-weight: 600;
+  cursor: default;
+}
+
+/* 2. Прогресс-бар для курсов */
+.course-progress-container {
+  margin: 1rem 0 2rem;
+  padding: 1rem 1.2rem;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid rgba(15,23,42,0.08);
+  box-shadow: 0 4px 12px rgba(15,23,42,0.04);
+}
+
+.course-progress-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.course-progress-track {
+  width: 100%;
+  height: 8px;
+  background-color: #f3f4f6;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.course-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  border-radius: 999px;
+  transition: width 0.5s ease-out;
+}
+
+/* 3. Стили для страницы БИБЛИОТЕКА */
+.library-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.doc-card {
+  display: flex;
+  align-items: flex-start; /* выравнивание по верху */
+  gap: 1rem;
+  padding: 1.2rem;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(15,23,42,0.08);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+}
+
+.doc-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(15,23,42,0.08);
+  border-color: rgba(37,99,235,0.3);
+}
+
+.doc-icon {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  background: #eff6ff;
+  color: #2563eb;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  border: 1px solid rgba(37,99,235,0.1);
+}
+
+/* Разные цвета иконок для типов документов */
+.doc-card[data-cat="fire"] .doc-icon { background: #fff7ed; color: #ea580c; border-color: rgba(234,88,12,0.1); }
+.doc-card[data-cat="med"] .doc-icon { background: #f0fdf4; color: #16a34a; border-color: rgba(22,163,74,0.1); }
+.doc-card[data-cat="law"] .doc-icon { background: #f8fafc; color: #475569; border-color: rgba(71,85,105,0.1); }
+
+.doc-content {
+  flex: 1;
+  min-width: 0; /* фикс для переполнения текста */
+}
+
+.doc-title {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #111827;
+}
+
+.doc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.doc-tag {
+  background: #f3f4f6;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.doc-download-icon {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  color: #9ca3af;
+  transition: color 0.2s;
+}
+
+.doc-card:hover .doc-download-icon {
+  color: #2563eb;
+}
+
+/* Адаптив для библиотеки */
+@media (max-width: 480px) {
+  .library-grid {
+    grid-template-columns: 1fr;
+  }
+}
