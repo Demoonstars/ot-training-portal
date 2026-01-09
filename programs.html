@@ -2,293 +2,11 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Программы обучения — Учебный портал по охране труда и безопасности</title>
+  <title>Программы обучения — Учебный портал</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Каталог программ дистанционного обучения по охране труда, пожарной безопасности, первой помощи и ГО/ЧС.">
+  <meta name="description" content="Каталог программ дистанционного обучения: охрана труда, пожарная безопасность, первая помощь, ГО и ЧС.">
   <link rel="stylesheet" href="assets/style.css">
-
-  <!-- Page-local styles: безопасно, без глобальных поломок -->
-  <style>
-    /* Панель поиска */
-    .programs-search { position: relative; }
-    .programs-search input[type="search"] { padding-right: 52px; }
-    .programs-search-clear{
-      position:absolute;
-      right:10px;
-      top:50%;
-      transform:translateY(-50%);
-      width:36px;
-      height:36px;
-      border-radius:999px;
-      border:1px solid rgba(17,24,39,0.10);
-      background:rgba(255,255,255,0.92);
-      color:#0f172a;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      font-size:20px;
-      line-height:1;
-      cursor:pointer;
-    }
-    .programs-search-clear:focus-visible{ outline:2px solid #2563eb; outline-offset:2px; }
-    @media (max-width: 420px){
-      .programs-search-clear{ width:44px; height:44px; right:8px; }
-      .programs-search input[type="search"] { padding-right: 60px; }
-    }
-
-    /* Приводим категорийные фильтры к виду чипов (как quick chips) */
-    .programs-filters{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:12px;
-    }
-    .programs-filters .programs-filter{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(17,24,39,0.10);
-      background:rgba(255,255,255,0.92);
-      color:#0f172a;
-      cursor:pointer;
-      font-size:0.92rem;
-      line-height:1.1;
-      user-select:none;
-      min-height:44px; /* a11y tap target */
-    }
-    .programs-filters .programs-filter svg{ width:18px; height:18px; }
-    .programs-filters .programs-filter[aria-pressed="true"]{
-      border-color: rgba(37,99,235,0.35);
-      box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
-    }
-    .programs-filters .programs-filter:focus-visible{ outline:2px solid #2563eb; outline-offset:2px; }
-
-    /* Быстрые чипы (Power UX) */
-    .programs-quickbar{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:12px;
-    }
-    .programs-quickchip{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(17,24,39,0.10);
-      background:rgba(255,255,255,0.92);
-      color:#0f172a;
-      cursor:pointer;
-      font-size:0.92rem;
-      line-height:1.1;
-      user-select:none;
-      min-height:44px; /* a11y tap target */
-    }
-    .programs-quickchip[aria-pressed="true"]{
-      border-color: rgba(37,99,235,0.35);
-      box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
-    }
-    .programs-quickchip:focus-visible{ outline:2px solid #2563eb; outline-offset:2px; }
-
-    /* Строка состояния */
-    .programs-status{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-      margin: 14px 0 8px;
-    }
-    .programs-count{
-      font-size:0.95rem;
-      color:#334155;
-    }
-    .programs-reset{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      min-height:44px;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid rgba(17,24,39,0.10);
-      background:#fff;
-      color:#0f172a;
-      cursor:pointer;
-      font-size:0.95rem;
-    }
-    .programs-reset:focus-visible{ outline:2px solid #2563eb; outline-offset:2px; }
-
-    /* Карточки: ритм + метки + “кнопочный” CTA */
-    .programs-card{
-      position:relative;
-      overflow:hidden;
-    }
-    .programs-card h3{
-      margin: 10px 0 8px;
-      line-height:1.2;
-    }
-
-    /* Ограничиваем описание для “ровных” карточек (safe) */
-    .programs-card p{
-      margin: 0 0 10px;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      overflow-wrap:anywhere;
-    }
-
-    .programs-meta-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin: 10px 0 10px;
-    }
-    .programs-pill-mini{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:7px 10px;
-      border-radius:999px;
-      background: rgba(248,250,252,0.9);
-      border: 1px solid rgba(17,24,39,0.08);
-      font-size:0.9rem;
-      line-height:1;
-      color:#0f172a;
-      max-width:100%;
-      white-space:nowrap;
-    }
-    @media (max-width: 420px){
-      .programs-pill-mini{ font-size:0.88rem; }
-    }
-
-    /* CTA как кнопка */
-    .programs-link{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      min-height:44px;
-      padding:10px 14px;
-      border-radius:14px;
-      border:1px solid rgba(17,24,39,0.10);
-      background: rgba(255,255,255,0.96);
-      text-decoration:none;
-      color:#2563eb;
-      font-weight:600;
-      width:fit-content;
-      max-width:100%;
-    }
-
-    /* Вся карточка кликабельна */
-    .programs-card.is-clickable{
-      cursor:pointer;
-      transition: transform .18s ease, box-shadow .18s ease;
-    }
-    @media (hover:hover){
-      .programs-card.is-clickable:hover{
-        transform: translateY(-2px);
-        box-shadow: 0 14px 34px rgba(2, 6, 23, 0.10);
-      }
-    }
-    .programs-card.is-clickable:focus-visible{
-      outline: 3px solid rgba(37,99,235,0.35);
-      outline-offset: 3px;
-      border-radius: 18px;
-    }
-
-    /* Пустое состояние */
-    .programs-empty{
-      display:none;
-      margin-top:12px;
-      padding:14px;
-      border-radius:16px;
-      border:1px solid rgba(17,24,39,0.10);
-      background: rgba(255,255,255,0.85);
-    }
-    .programs-empty p{ margin:0; }
-    .programs-empty .hint{
-      margin-top:10px;
-      color:#64748b;
-      font-size:0.95rem;
-    }
-    .programs-empty .actions{
-      margin-top:12px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-    .programs-suggest{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid rgba(17,24,39,0.10);
-      background:#fff;
-      color:#0f172a;
-      cursor:pointer;
-      min-height:44px;
-      font-size:0.95rem;
-    }
-    .programs-suggest:focus-visible{ outline:2px solid #2563eb; outline-offset:2px; }
-
-    /* a11y helper */
-    .sr-only{
-      position:absolute;
-      width:1px;
-      height:1px;
-      padding:0;
-      margin:-1px;
-      overflow:hidden;
-      clip:rect(0,0,0,0);
-      white-space:nowrap;
-      border:0;
-    }
-
-    /* Кнопка "Наверх" (на будущее, когда программ станет больше) */
-    .to-top {
-      position: fixed;
-      right: 14px;
-      bottom: 14px;
-      z-index: 50;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      border-radius: 999px;
-      border: 1px solid rgba(17,24,39,0.12);
-      background: rgba(255,255,255,0.92);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.10);
-      color: #0f172a;
-      cursor: pointer;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(6px);
-      transition: opacity .2s ease, transform .2s ease;
-    }
-    .to-top.is-visible {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-    .to-top:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
-    @media (max-width: 420px){
-      .to-top { right: 12px; bottom: 12px; }
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      .programs-card.is-clickable{ transition:none; }
-      .to-top { transition:none; }
-    }
-  </style>
 </head>
-
 <body>
 <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
 
@@ -298,405 +16,231 @@
       <p class="site-label">Дистанционный учебный портал</p>
       <h1 class="site-title">Охрана труда, пожарная безопасность, первая помощь, ГО/ЧС</h1>
       <p class="site-subtitle">
-        Дистанционное обучение работников и проверка знаний требований охраны труда и безопасности.
+        Единое пространство для дистанционного обучения сотрудников и фиксации результатов.
       </p>
     </div>
-
     <nav class="main-nav" aria-label="Основная навигация">
       <ul class="nav-list">
         <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
         <li class="nav-item"><a href="programs.html" class="nav-link nav-link-active">Программы обучения</a></li>
-        <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции для сотрудников</a></li>
-        <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Информация для ответственных за обучение</a></li>
+        <li class="nav-item"><a href="library.html" class="nav-link">Библиотека</a></li> <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции</a></li>
+        <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Ответственным</a></li>
       </ul>
     </nav>
   </div>
 </header>
 
-<section class="hero hero-programs">
-  <div class="container">
-    <div class="hero-inner">
-      <div class="hero-content">
-        <h2 class="hero-title">Программы обучения</h2>
-        <p class="hero-subtitle">
-          Выберите программу, изучите материалы и пройдите тест. Для удобства используйте поиск, фильтры и быстрые чипы.
-        </p>
-
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#programCards">Перейти к программам</a>
-          <a class="btn btn-secondary" href="for-responsibles.html">Информация для ответственных</a>
-        </div>
-
-        <p class="note" style="margin-top:12px;">
-          Рекомендуемый маршрут: <strong>ОТ → ПБ → Первая помощь → ГО/ЧС</strong>.
-        </p>
-      </div>
-
-      <aside class="hero-aside" aria-label="Поиск и фильтры программ">
-        <div class="hero-aside-card">
-          <label class="programs-search" aria-label="Поиск по программам">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M10.5 18a7.5 7.5 0 110-15 7.5 7.5 0 010 15z" stroke="currentColor" stroke-width="2"/>
-              <path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2"/>
-            </svg>
-
-            <input
-              id="programSearch"
-              type="search"
-              autocomplete="off"
-              spellcheck="false"
-              placeholder="Поиск: охрана труда, ПБ, первая помощь, ГО/ЧС…"
-            />
-
-            <button
-              class="programs-search-clear"
-              type="button"
-              id="programSearchClear"
-              aria-label="Очистить поиск"
-              title="Очистить поиск"
-              hidden>×</button>
-          </label>
-
-          <!-- Категорийные фильтры (теперь выглядят как чипы) -->
-          <div class="programs-filters" aria-label="Фильтр по направлению">
-            <button class="programs-filter" type="button" data-filter="all" aria-pressed="true">
-              <span aria-hidden="true">✨</span> Все
-            </button>
-
-            <button class="programs-filter" type="button" data-filter="ot" aria-pressed="false">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 3l8 4v6c0 5-3.5 8-8 8s-8-3-8-8V7l8-4z" stroke="currentColor" stroke-width="2"/>
-              </svg>
-              ОТ
-            </button>
-
-            <button class="programs-filter" type="button" data-filter="fire" aria-pressed="false">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 3c2 3 4 4 4 7a4 4 0 11-8 0c0-3 2-4 4-7z" stroke="currentColor" stroke-width="2"/>
-                <path d="M12 12c1.2 1.7 2 2.5 2 4a2 2 0 11-4 0c0-1.5.8-2.3 2-4z" stroke="currentColor" stroke-width="2"/>
-              </svg>
-              ПБ
-            </button>
-
-            <button class="programs-filter" type="button" data-filter="firstaid" aria-pressed="false">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M10 3h4v4h4v4h-4v4h-4v-4H6V7h4V3z" stroke="currentColor" stroke-width="2"/>
-              </svg>
-              Первая помощь
-            </button>
-
-            <button class="programs-filter" type="button" data-filter="gochs" aria-pressed="false">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 2l9 5v6c0 5-4 9-9 9S3 18 3 13V7l9-5z" stroke="currentColor" stroke-width="2"/>
-                <path d="M8 12h8" stroke="currentColor" stroke-width="2"/>
-              </svg>
-              ГО/ЧС
-            </button>
-          </div>
-
-          <!-- Быстрые фильтры (обновили длительность: до 1 часа, 2+ часа) -->
-          <div class="programs-quickbar" aria-label="Быстрые фильтры">
-            <button class="programs-quickchip" type="button" data-quick="hasTest" aria-pressed="false">📝 Только с тестом</button>
-            <button class="programs-quickchip" type="button" data-quick="under60" aria-pressed="false">⏱ До 1 часа</button>
-            <button class="programs-quickchip" type="button" data-quick="over120" aria-pressed="false">⏱ 2+ часа</button>
-            <button class="programs-quickchip" type="button" data-quick="intro" aria-pressed="false">📌 Вводные</button>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </div>
-</section>
-
 <main id="main-content" class="site-main">
   <div class="container">
 
-    <section class="section" aria-label="Каталог программ">
-      <div class="programs-status" aria-label="Статус фильтрации">
-        <div class="programs-count" id="programsCount" aria-live="polite">Показано: —</div>
-        <button class="programs-reset" type="button" id="programsResetBtn" aria-label="Сбросить фильтры и поиск">
-          ↺ Сбросить
-        </button>
-      </div>
-
-      <div class="programs-showcase" id="programCards">
-
-        <!-- ОХРАНА ТРУДА (комплекс: вводный + A/B + СИЗ) -->
-        <article
-          class="programs-card programs-card-ot is-clickable"
-          data-cat="ot"
-          data-href="course-ot.html"
-          data-has-test="true"
-          data-duration="4320"
-          data-format="pdf,video"
-          data-kind="program"
-          data-keywords="охрана труда от суот вводный инструктаж программа а программа б сизы обучение 72 часа тест"
-          tabindex="0"
-          role="link"
-          aria-label="Открыть курс: Обучение по охране труда (комплекс программ)">
-          <div class="programs-card-top">
-            <span class="programs-chip">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 3l8 4v6c0 5-3.5 8-8 8s-8-3-8-8V7l8-4z" stroke="currentColor" stroke-width="2"/>
-              </svg>
-              охрана труда
-            </span>
-            <span class="programs-badge-mini">Комплекс</span>
-          </div>
-
-          <h3>Охрана труда (вводный + программы A/Б + СИЗ)</h3>
-          <p>
-            Набор программ обучения по охране труда: вводный блок, программы A/Б и обучение по СИЗ.
-            Общая длительность комплекса — до 72 часов (в зависимости от требований работодателя).
-          </p>
-
-          <div class="programs-meta-row" aria-label="Краткие характеристики">
-            <span class="programs-pill-mini">⏱ до 72 часов</span>
-            <span class="programs-pill-mini">📝 Есть тесты</span>
-            <span class="programs-pill-mini">📘 PDF + 🎬 видео</span>
-          </div>
-
-          <ul class="programs-bullets">
-            <li>вводный инструктаж по ОТ;</li>
-            <li>программы обучения A/Б;</li>
-            <li>СИЗ и проверка знаний.</li>
-          </ul>
-
-          <div class="programs-cta-row">
-            <div class="programs-meta">
-              <span class="programs-pill">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M12 8v4l2.5 2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M12 21a9 9 0 100-18 9 9 0 000 18z" stroke="currentColor" stroke-width="2"/>
-                </svg>
-                до 72 часов
-              </span>
+    <section class="programs-hero">
+      <div class="container">
+        <div class="programs-hero-card">
+          <div class="programs-hero-grid">
+            <div>
+              <div class="programs-kicker">
+                <span aria-hidden="true">🎓</span>
+                <span>Каталог курсов</span>
+              </div>
+              <h2 class="programs-title">Выберите программу обучения</h2>
+              <p class="programs-lead">
+                Все необходимые курсы, инструктажи и проверки знаний собраны в едином каталоге.
+                Используйте поиск или фильтры, чтобы быстро найти нужный материал.
+              </p>
+              
+              <div class="programs-toolbar">
+                <div class="programs-search">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <input type="text" id="searchInput" placeholder="Найти программу (например: пожар, А, Б)..." aria-label="Поиск программ">
+                </div>
+                
+                <div class="programs-filters" role="group" aria-label="Фильтр по направлениям">
+                  <button type="button" class="programs-filter" aria-pressed="true" data-filter="all">Все</button>
+                  <button type="button" class="programs-filter" aria-pressed="false" data-filter="ot">Охрана труда</button>
+                  <button type="button" class="programs-filter" aria-pressed="false" data-filter="fire">Пож. безопасность</button>
+                  <button type="button" class="programs-filter" aria-pressed="false" data-filter="med">Первая помощь</button>
+                  <button type="button" class="programs-filter" aria-pressed="false" data-filter="gochs">ГО и ЧС</button>
+                </div>
+              </div>
             </div>
 
-            <a class="programs-link" href="course-ot.html" data-stop-card-nav>
-              Открыть курс
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2"/>
-                <path d="M9 7h8v8" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </a>
+            <aside class="programs-stats">
+              <div class="programs-stat-row">
+                <div class="programs-stat-item">
+                  <div class="programs-stat-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                  </div>
+                  <div>
+                    <p class="programs-stat-title">4 направления</p>
+                    <p class="programs-stat-text">Полный цикл обязательного обучения.</p>
+                  </div>
+                </div>
+                <div class="programs-stat-item">
+                  <div class="programs-stat-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  </div>
+                  <div>
+                    <p class="programs-stat-title">Онлайн-тесты</p>
+                    <p class="programs-stat-text">Автоматическая фиксация результатов.</p>
+                  </div>
+                </div>
+              </div>
+            </aside>
           </div>
-        </article>
-
-        <!-- ПОЖАРНАЯ БЕЗОПАСНОСТЬ (2 раздела) -->
-        <article
-          class="programs-card programs-card-fire is-clickable"
-          data-cat="fire"
-          data-href="course-fire-safety.html"
-          data-has-test="true"
-          data-duration="80"
-          data-format="pdf"
-          data-kind="program"
-          data-keywords="пожарная безопасность пб противопожарный инструктаж вводный первичный повторный эвакуация огнетушитель 35 40 минут раздел тест"
-          tabindex="0"
-          role="link"
-          aria-label="Открыть курс: Пожарная безопасность (2 раздела)">
-          <div class="programs-card-top">
-            <span class="programs-chip">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 3c2 3 4 4 4 7a4 4 0 11-8 0c0-3 2-4 4-7z" stroke="currentColor" stroke-width="2"/>
-                <path d="M12 12c1.2 1.7 2 2.5 2 4a2 2 0 11-4 0c0-1.5.8-2.3 2-4z" stroke="currentColor" stroke-width="2"/>
-              </svg>
-              пожарная безопасность
-            </span>
-            <span class="programs-badge-mini">2 раздела</span>
-          </div>
-
-          <h3>Пожарная безопасность</h3>
-          <p>
-            Два раздела: вводный противопожарный инструктаж и первичный/повторный инструктаж на рабочем месте.
-            Ориентир по времени — 35–40 минут на каждый раздел.
-          </p>
-
-          <div class="programs-meta-row" aria-label="Краткие характеристики">
-            <span class="programs-pill-mini">⏱ 2× (35–40 мин)</span>
-            <span class="programs-pill-mini">📝 Есть тесты</span>
-            <span class="programs-pill-mini">📘 PDF + 🎬 видео</span>
-          </div>
-
-          <ul class="programs-bullets">
-            <li>вводный противопожарный инструктаж;</li>
-            <li>первичный/повторный инструктаж;</li>
-            <li>проверка знаний по каждому разделу.</li>
-          </ul>
-
-          <div class="programs-cta-row">
-            <div class="programs-meta">
-              <span class="programs-pill">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M12 8v4l2.5 2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M12 21a9 9 0 100-18 9 9 0 000 18z" stroke="currentColor" stroke-width="2"/>
-                </svg>
-                ≈ 70–80 мин
-              </span>
-            </div>
-
-            <a class="programs-link" href="course-fire-safety.html" data-stop-card-nav>
-              Открыть курс
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2"/>
-                <path d="M9 7h8v8" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </a>
-          </div>
-        </article>
-
-        <!-- ПЕРВАЯ ПОМОЩЬ (видео 2ч + PDF ~40 мин) -->
-        <article
-          class="programs-card programs-card-firstaid is-clickable"
-          data-cat="firstaid"
-          data-href="course-first-aid.html"
-          data-has-test="true"
-          data-duration="160"
-          data-format="video,pdf"
-          data-kind="core"
-          data-keywords="первая помощь оказание первой помощи пострадавшим видеолекция 2 часа pdf 40 минут реанимация кровотечение тест"
-          tabindex="0"
-          role="link"
-          aria-label="Открыть курс: Оказание первой помощи (видео + PDF)">
-          <div class="programs-card-top">
-            <span class="programs-chip">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M10 3h4v4h4v4h-4v4h-4v-4H6V7h4V3z" stroke="currentColor" stroke-width="2"/>
-              </svg>
-              первая помощь
-            </span>
-            <span class="programs-badge-mini">Видео + материал</span>
-          </div>
-
-          <h3>Оказание первой помощи</h3>
-          <p>
-            Видеолекция (~2 часа) и учебный материал PDF (планируется, ориентир ~40 минут).
-            После изучения — итоговый тест для фиксации результата.
-          </p>
-
-          <div class="programs-meta-row" aria-label="Краткие характеристики">
-            <span class="programs-pill-mini">⏱ ≈ 2ч 40м</span>
-            <span class="programs-pill-mini">📝 Есть тест</span>
-            <span class="programs-pill-mini">🎬 Видео + 📘 PDF</span>
-          </div>
-
-          <ul class="programs-bullets">
-            <li>алгоритм и приоритеты действий;</li>
-            <li>типовые ситуации и ошибки;</li>
-            <li>итоговая проверка знаний.</li>
-          </ul>
-
-          <div class="programs-cta-row">
-            <div class="programs-meta">
-              <span class="programs-pill">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M12 8v4l2.5 2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M12 21a9 9 0 100-18 9 9 0 000 18z" stroke="currentColor" stroke-width="2"/>
-                </svg>
-                ≈ 2ч 40м
-              </span>
-            </div>
-
-            <a class="programs-link" href="course-first-aid.html" data-stop-card-nav>
-              Открыть курс
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2"/>
-                <path d="M9 7h8v8" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </a>
-          </div>
-        </article>
-
-        <!-- ГО/ЧС (как было — верно) -->
-        <article
-          class="programs-card programs-card-gochs is-clickable"
-          data-cat="gochs"
-          data-href="course-gochs.html"
-          data-has-test="true"
-          data-duration="20"
-          data-format="pdf"
-          data-kind="intro"
-          data-keywords="го чс гражданская оборона чрезвычайные ситуации оповещение эвакуация сигнал тест 10 20 минут"
-          tabindex="0"
-          role="link"
-          aria-label="Открыть курс: Вводный инструктаж по ГО и ЧС">
-          <div class="programs-card-top">
-            <span class="programs-chip">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 2l9 5v6c0 5-4 9-9 9S3 18 3 13V7l9-5z" stroke="currentColor" stroke-width="2"/>
-                <path d="M8 12h8" stroke="currentColor" stroke-width="2"/>
-              </svg>
-              ГО/ЧС
-            </span>
-            <span class="programs-badge-mini">Вводный</span>
-          </div>
-
-          <h3>Вводный инструктаж по ГО и ЧС</h3>
-          <p>
-            Сигналы оповещения, порядок действий, эвакуация, запреты и взаимодействие с ответственными лицами и службами.
-          </p>
-
-          <div class="programs-meta-row" aria-label="Краткие характеристики">
-            <span class="programs-pill-mini">⏱ 10–20 мин</span>
-            <span class="programs-pill-mini">📝 Есть тест</span>
-            <span class="programs-pill-mini">📘 PDF + 🎬 видео</span>
-          </div>
-
-          <ul class="programs-bullets">
-            <li>сигналы и порядок оповещения;</li>
-            <li>эвакуация и запреты;</li>
-            <li>итоговая проверка знаний.</li>
-          </ul>
-
-          <div class="programs-cta-row">
-            <div class="programs-meta">
-              <span class="programs-pill">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M12 8v4l2.5 2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M12 21a9 9 0 100-18 9 9 0 000 18z" stroke="currentColor" stroke-width="2"/>
-                </svg>
-                10–20 мин
-              </span>
-            </div>
-
-            <a class="programs-link" href="course-gochs.html" data-stop-card-nav>
-              Открыть курс
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2"/>
-                <path d="M9 7h8v8" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </a>
-          </div>
-        </article>
-
-      </div>
-
-      <div class="programs-empty" id="programsEmpty" role="status" aria-live="polite">
-        <p><strong>Ничего не найдено.</strong> Попробуйте изменить запрос, снять фильтр или воспользоваться подсказками ниже.</p>
-        <p class="hint" id="programsEmptyHint">—</p>
-        <div class="actions">
-          <button class="programs-suggest" type="button" data-suggest="пб">🔎 «ПБ»</button>
-          <button class="programs-suggest" type="button" data-suggest="первая">🔎 «первая»</button>
-          <button class="programs-suggest" type="button" data-suggest="го чс">🔎 «го чс»</button>
-          <button class="programs-reset" type="button" id="programsEmptyReset">↺ Сбросить фильтры</button>
         </div>
       </div>
-
-      <span class="sr-only" id="programsLive" aria-live="polite"></span>
     </section>
 
-    <section class="section programs-steps">
-      <h2>Как выбрать программу обучения</h2>
-      <p class="programs-muted">
-        Ниже — универсальный алгоритм под любые локальные регламенты работодателя.
-      </p>
+    <section class="section" style="margin-top: -20px;">
+      <div class="container">
+        
+        <div id="noResultsMessage" class="programs-hidden" style="text-align: center; padding: 40px; color: #6b7280;">
+          <h3>Ничего не найдено 😔</h3>
+          <p>Попробуйте изменить поисковый запрос или сбросить фильтры.</p>
+        </div>
 
-      <ol class="steps-list steps-list-timeline">
-        <li><strong>Определите категорию работника.</strong> Руководитель, специалист, работник, ответственное лицо и т. п.</li>
-        <li><strong>Сопоставьте требования локальных актов.</strong> Перечень программ, периодичность, формат проверки знаний.</li>
-        <li><strong>Выберите курс на портале.</strong> Откройте страницу курса и ознакомьтесь с материалами.</li>
-        <li><strong>Пройдите материал и тест.</strong> Результаты фиксируются на платформе.</li>
-      </ol>
+        <div class="programs-showcase" id="programsGrid">
+          
+          <article class="programs-card programs-card-ot" data-type="ot">
+            <div class="programs-card-top">
+              <span class="programs-chip" style="color:#166534; border-color:rgba(34,197,94,0.3);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v6c0 5-3.5 8-8 8s-8-3-8-8V7l8-4z"/></svg>
+                Охрана труда
+              </span>
+              <span class="programs-badge-mini">Программа В + СИЗ</span>
+            </div>
+            
+            <h3>Общий курс по охране труда</h3>
+            <p>Включает вводный инструктаж, программу Б (безопасные методы выполнения работ) и применение СИЗ.</p>
+            
+            <ul class="programs-bullets">
+              <li>вводный инструктаж;</li>
+              <li>общие вопросы ОТ и функционирования СУОТ;</li>
+              <li>применение средств индивидуальной защиты (СИЗ).</li>
+            </ul>
+
+            <div class="programs-meta">
+              <span class="programs-pill">⏱ 40–60 минут</span>
+              <span class="programs-pill">📝 Тест: 10 вопросов</span>
+            </div>
+
+            <div class="programs-cta-row">
+              <a href="course-ot.html" class="programs-link" style="color:#15803d;">
+                Перейти к курсу
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <article class="programs-card programs-card-fire" data-type="fire">
+            <div class="programs-card-top">
+              <span class="programs-chip" style="color:#9a3412; border-color:rgba(249,115,22,0.3);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3c2 3 3 5 3 7a3 3 0 11-6 0c0-2 1-4 3-7z"/><path d="M8 14c0 4 2 7 4 7s4-3 4-7"/></svg>
+                Пожарная безопасность
+              </span>
+              <span class="programs-badge-mini">Инструктажи</span>
+            </div>
+            
+            <h3>Пожарная безопасность</h3>
+            <p>Обучение мерам пожарной безопасности, действия при пожаре, использование огнетушителей и эвакуация.</p>
+            
+            <ul class="programs-bullets">
+              <li>вводный и первичный инструктажи;</li>
+              <li>действия при пожаре и эвакуация;</li>
+              <li>ПСПТ (практические средства пожаротушения).</li>
+            </ul>
+
+            <div class="programs-meta">
+              <span class="programs-pill">⏱ 30–45 минут</span>
+              <span class="programs-pill">📝 Тест: 10 вопросов</span>
+            </div>
+
+            <div class="programs-cta-row">
+              <a href="course-fire-safety.html" class="programs-link" style="color:#c2410c;">
+                Перейти к курсу
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <article class="programs-card programs-card-med" data-type="med">
+            <div class="programs-card-top">
+              <span class="programs-chip" style="color:#15803d; border-color:rgba(22,163,74,0.3);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4z"/></svg>
+                Первая помощь
+              </span>
+              <span class="programs-badge-mini">ПП пострадавшим</span>
+            </div>
+            
+            <h3>Оказание первой помощи</h3>
+            <p>Алгоритмы оказания первой помощи пострадавшим на производстве при травмах, ожогах и неотложных состояниях.</p>
+            
+            <ul class="programs-bullets">
+              <li>универсальный алгоритм оказания ПП;</li>
+              <li>остановка кровотечений и СЛР;</li>
+              <li>помощь при травмах и отравлениях.</li>
+            </ul>
+
+            <div class="programs-meta">
+              <span class="programs-pill">⏱ 40–50 минут</span>
+              <span class="programs-pill">📝 Тест: 20 вопросов</span>
+            </div>
+
+            <div class="programs-cta-row">
+              <a href="course-first-aid.html" class="programs-link" style="color:#15803d;">
+                Перейти к курсу
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <article class="programs-card programs-card-gochs" data-type="gochs">
+            <div class="programs-card-top">
+              <span class="programs-chip" style="color:#1d4ed8; border-color:rgba(37,99,235,0.3);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20" opacity=".35"/><path d="M7 16c2-5 8-5 10 0"/><path d="M8 9h8"/></svg>
+                ГО и ЧС
+              </span>
+              <span class="programs-badge-mini">Вводный инструктаж</span>
+            </div>
+            
+            <h3>ГО и действия при ЧС</h3>
+            <p>Вводный инструктаж по гражданской обороне. Действия при сигналах оповещения, эвакуации и угрозах природного/техногенного характера.</p>
+            
+            <ul class="programs-bullets">
+              <li>сигналы оповещения и действия по ним;</li>
+              <li>средства коллективной и индивидуальной защиты;</li>
+              <li>действия при авариях и катастрофах.</li>
+            </ul>
+
+            <div class="programs-meta">
+              <span class="programs-pill">⏱ 20–30 минут</span>
+              <span class="programs-pill">📝 Тест: 10 вопросов</span>
+            </div>
+
+            <div class="programs-cta-row">
+              <a href="course-gochs.html" class="programs-link" style="color:#1d4ed8;">
+                Перейти к курсу
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="programs-steps">
+          <h3 style="margin-top:0;">Как выбрать программу?</h3>
+          <p class="programs-muted" style="margin-bottom:0;">
+            Перечень обязательных для вас программ определяет ваш непосредственный руководитель или специалист по охране труда
+            при приеме на работу. Если вы не уверены, какую программу проходить — обратитесь к ответственному за обучение.
+          </p>
+        </div>
+      </div>
     </section>
 
   </div>
@@ -708,229 +252,10 @@
       Учебный портал дистанционного обучения по охране труда, пожарной безопасности, первой помощи и ГО/ЧС.
     </p>
     <p class="footer-text footer-text-muted">
-      Конкретный порядок обучения и оформления результатов определяется работодателем.
+      Конкретные условия, порядок обучения и оформления документов устанавливаются работодателем в локальных нормативных актах.
     </p>
   </div>
 </footer>
-
-<!-- Кнопка "Наверх" -->
-<button type="button" class="to-top" id="toTopBtn" aria-label="Наверх" title="Наверх">↑</button>
-
-<script>
-  (function(){
-    const search = document.getElementById('programSearch');
-    const clearBtn = document.getElementById('programSearchClear');
-
-    const filters = Array.from(document.querySelectorAll('.programs-filter'));
-    const quick = Array.from(document.querySelectorAll('.programs-quickchip'));
-
-    const cards = Array.from(document.querySelectorAll('.programs-card'));
-    const countEl = document.getElementById('programsCount');
-
-    const emptyBox = document.getElementById('programsEmpty');
-    const emptyHint = document.getElementById('programsEmptyHint');
-    const emptyReset = document.getElementById('programsEmptyReset');
-
-    const resetBtn = document.getElementById('programsResetBtn');
-    const live = document.getElementById('programsLive');
-
-    // To top
-    const toTop = document.getElementById('toTopBtn');
-    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    let activeFilter = 'all';
-    const quickState = { hasTest:false, under60:false, over120:false, intro:false };
-
-    function norm(str){
-      if (!str) return '';
-      let s = String(str).toLowerCase().trim();
-      s = s.replace(/ё/g,'е');
-      s = s.replace(/го\/?чс|го-чс|гочс/g, 'го чс');
-      s = s.replace(/\bпб\b/g, 'пожарная безопасность');
-      s = s.replace(/\bот\b/g, 'охрана труда');
-      s = s.replace(/перва(я|ой)\s+помощ(ь|и)/g, 'первая помощь');
-      s = s.replace(/\s+/g, ' ');
-      return s;
-    }
-
-    function getActiveFilterLabel(){
-      const activeBtn = filters.find(b => b.getAttribute('aria-pressed') === 'true');
-      return activeBtn ? (activeBtn.textContent || '').trim() : 'Все';
-    }
-
-    function updateClear(){
-      const has = !!(search.value && search.value.trim());
-      if (clearBtn) clearBtn.hidden = !has;
-    }
-
-    function setEmptyHint(qRaw){
-      const fLabel = getActiveFilterLabel();
-      const qText = qRaw ? `Запрос: «${qRaw}». ` : '';
-      const fText = (activeFilter !== 'all') ? `Фильтр: ${fLabel}. ` : '';
-      const q2 = qRaw ? `Подсказки: «пб», «первая», «го чс», «от».` : `Попробуйте снять фильтр или переключить быстрые чипы.`;
-      if (emptyHint) emptyHint.textContent = qText + fText + q2;
-    }
-
-    function apply(){
-      const qRaw = (search.value || '').trim();
-      const q = norm(qRaw);
-
-      let shown = 0;
-
-      cards.forEach(card => {
-        const cat = card.getAttribute('data-cat') || '';
-        const hasTest = (card.getAttribute('data-has-test') || 'false') === 'true';
-        const duration = parseInt(card.getAttribute('data-duration') || '999999', 10);
-        const kind = (card.getAttribute('data-kind') || '').toLowerCase();
-
-        const keys = norm(card.getAttribute('data-keywords') || '');
-        const text = norm(card.textContent || '');
-        const hay = (keys + ' ' + text).trim();
-
-        const okCat = (activeFilter === 'all') ? true : (cat === activeFilter);
-        const okTest = quickState.hasTest ? hasTest : true;
-        const okUnder60 = quickState.under60 ? (duration <= 60) : true;
-        const okOver120 = quickState.over120 ? (duration >= 120) : true;
-        const okIntro = quickState.intro ? (kind === 'intro') : true;
-
-        const okQ = q ? hay.includes(q) : true;
-
-        const visible = okCat && okTest && okUnder60 && okOver120 && okIntro && okQ;
-
-        card.classList.toggle('programs-hidden', !visible);
-        if (visible) shown++;
-      });
-
-      updateClear();
-
-      const total = cards.length;
-      const label = (activeFilter === 'all')
-        ? `Показано: ${shown} из ${total}`
-        : `Показано: ${shown} (фильтр: ${getActiveFilterLabel()})`;
-
-      if (countEl) countEl.textContent = label;
-      if (live) live.textContent = label;
-
-      if (emptyBox) {
-        if (shown === 0){
-          emptyBox.style.display = 'block';
-          setEmptyHint(qRaw);
-        } else {
-          emptyBox.style.display = 'none';
-        }
-      }
-    }
-
-    function setFilter(val){
-      activeFilter = val || 'all';
-      filters.forEach(b => b.setAttribute('aria-pressed','false'));
-      const btn = filters.find(b => (b.getAttribute('data-filter') || '') === activeFilter);
-      if (btn) btn.setAttribute('aria-pressed','true');
-      apply();
-    }
-
-    function setQuick(key, value){
-      quickState[key] = !!value;
-      const btn = quick.find(b => (b.getAttribute('data-quick') || '') === key);
-      if (btn) btn.setAttribute('aria-pressed', quickState[key] ? 'true' : 'false');
-      apply();
-    }
-
-    function resetAll(){
-      search.value = '';
-      if (clearBtn) clearBtn.hidden = true;
-      setFilter('all');
-      Object.keys(quickState).forEach(k => setQuick(k, false));
-      apply();
-      search.focus();
-    }
-
-    // Clickable card
-    function openCard(card){
-      const href = card.getAttribute('data-href');
-      if (href) window.location.href = href;
-    }
-
-    cards.forEach(card => {
-      card.addEventListener('click', (e) => {
-        const stop = e.target.closest('[data-stop-card-nav]');
-        if (stop) return;
-        openCard(card);
-      });
-
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openCard(card);
-        }
-      });
-    });
-
-    // Filters
-    filters.forEach(btn => {
-      btn.addEventListener('click', () => setFilter(btn.getAttribute('data-filter') || 'all'));
-    });
-
-    // Quick chips
-    quick.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const key = btn.getAttribute('data-quick');
-        if (!key) return;
-        setQuick(key, !quickState[key]);
-      });
-    });
-
-    // Search
-    if (clearBtn) {
-      clearBtn.addEventListener('click', () => {
-        search.value = '';
-        search.focus();
-        apply();
-      });
-    }
-    search.addEventListener('input', apply);
-    search.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        if (search.value) {
-          search.value = '';
-          apply();
-        }
-      }
-    });
-
-    // Reset buttons
-    if (resetBtn) resetBtn.addEventListener('click', resetAll);
-    if (emptyReset) emptyReset.addEventListener('click', resetAll);
-
-    // Suggest buttons
-    document.querySelectorAll('[data-suggest]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const v = btn.getAttribute('data-suggest') || '';
-        search.value = v;
-        search.focus();
-        apply();
-      });
-    });
-
-    // To top visibility + click
-    function onScroll(){
-      if (!toTop) return;
-      const y = window.scrollY || document.documentElement.scrollTop || 0;
-      if (y > 700) toTop.classList.add('is-visible');
-      else toTop.classList.remove('is-visible');
-    }
-    if (toTop){
-      toTop.addEventListener('click', () => {
-        if (prefersReducedMotion) window.scrollTo(0, 0);
-        else window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-      window.addEventListener('scroll', onScroll, { passive:true });
-      onScroll();
-    }
-
-    apply();
-  })();
-</script>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
