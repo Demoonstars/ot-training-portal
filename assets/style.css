@@ -4230,3 +4230,59 @@ body.ot-theme {
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================================
+   МОБИЛЬНАЯ АДАПТАЦИЯ (Mobile Tweaks)
+   Вставить в конец style.css
+   ========================================= */
+
+@media (max-width: 768px) {
+  
+  /* 1. Герой-блок (верхняя часть) выстраивается в колонку */
+  .programs-hero-grid {
+    grid-template-columns: 1fr !important; /* Одна колонка */
+    gap: 20px;
+  }
+
+  /* 2. Заголовки чуть меньше, чтобы влезали */
+  .programs-title {
+    font-size: 1.6rem !important; /* 26px */
+  }
+
+  /* 3. Поиск и фильтры на всю ширину */
+  .programs-toolbar {
+    flex-direction: column; /* В столбик */
+    align-items: stretch;   /* Растянуть на всю ширину */
+  }
+
+  .programs-search {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  /* 4. Фильтры можно листать пальцем горизонтально, если их много */
+  .programs-filters {
+    display: flex;
+    flex-wrap: nowrap;      /* Не переносить на новую строку */
+    overflow-x: auto;       /* Разрешить скролл пальцем влево-вправо */
+    padding-bottom: 10px;   /* Место для скроллбара */
+    gap: 8px;
+    -webkit-overflow-scrolling: touch; /* Плавный скролл на iOS */
+  }
+
+  /* Убираем скроллбар визуально, но скролл остается */
+  .programs-filters::-webkit-scrollbar {
+    display: none; 
+  }
+
+  /* 5. Карточки программ в одну колонку */
+  .programs-showcase {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 6. Кнопки внутри карточки на всю ширину */
+  .programs-cta-row .programs-link {
+    width: 100%;
+    justify-content: center;
+  }
+}
