@@ -932,5 +932,53 @@
   })();
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.querySelector('.programs-search input');
+  const filterBtns = document.querySelectorAll('.programs-filter');
+  const cards = document.querySelectorAll('.programs-card');
+
+  // 1. Поиск по тексту
+  searchInput.addEventListener('input', (e) => {
+    const val = e.target.value.toLowerCase();
+    filterCards(val, getActiveFilter());
+  });
+
+  // 2. Фильтрация по кнопкам
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Сброс активного класса
+      filterBtns.forEach(b => b.setAttribute('aria-pressed', 'false'));
+      btn.setAttribute('aria-pressed', 'true');
+      
+      filterCards(searchInput.value.toLowerCase(), btn.dataset.filter);
+    });
+  });
+
+  function getActiveFilter() {
+    const activeBtn = document.querySelector('.programs-filter[aria-pressed="true"]');
+    return activeBtn ? activeBtn.dataset.filter : 'all';
+  }
+
+  function filterCards(text, category) {
+    cards.forEach(card => {
+      // Получаем текст из заголовка и чипов карточки
+      const title = card.querySelector('h3').innerText.toLowerCase();
+      const type = card.dataset.type; // Нужно добавить data-type="ot" в HTML карточек!
+      
+      // Логика совпадения
+      const matchesText = title.includes(text);
+      const matchesCategory = category === 'all' || type === category;
+
+      if (matchesText && matchesCategory) {
+        card.classList.remove('programs-hidden');
+      } else {
+        card.classList.add('programs-hidden');
+      }
+    });
+  }
+});
+</script>
+
 </body>
 </html>
