@@ -4053,3 +4053,26 @@ body.ot-theme {
     line-height: 1.25;
   }
 }
+
+/* =========================================
+   ЗАЩИТА ОТ КОПИРОВАНИЯ (NO-COPY)
+   ========================================= */
+
+body {
+  /* Запрещаем выделение текста во всем документе */
+  -webkit-user-select: none; /* Safari / Chrome */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE 10+ */
+  user-select: none;         /* Стандарт */
+}
+
+/* ВАЖНО: Разрешаем выделение в полях ввода, 
+   иначе люди не смогут печатать ответы в тестах! */
+input, 
+textarea, 
+[contenteditable] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
