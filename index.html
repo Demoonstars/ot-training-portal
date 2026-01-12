@@ -2,239 +2,162 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Учебный портал | Охрана труда и безопасность</title>
+  <title>СДО | Система дистанционного обучения и проверки знаний</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description"
-        content="Единый портал обучения: охрана труда, пожарная безопасность, первая помощь и ГО ЧС. Тестирование и материалы.">
+  <meta name="description" content="Корпоративный портал обучения требованиям охраны труда, пожарной безопасности, ГО и ЧС. Автоматизация проверки знаний.">
   <link rel="stylesheet" href="assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
 </head>
-<body class="modern-theme">
-
-<div class="bg-orb orb-1"></div>
-<div class="bg-orb orb-2"></div>
+<body class="masterpiece-theme">
 
 <a class="skip-link" href="#main-content">Перейти к контенту</a>
 
-<header class="site-header glass-header">
-  <div class="container header-inner">
-    <div class="header-brand">
-      <div class="brand-badge">Учебный портал</div>
-      <h1 class="site-title">Система дистанционного обучения</h1>
-      <p class="site-subtitle">Охрана труда • ПБ • Первая помощь • ГО ЧС</p>
+<div class="glass-wrapper">
+  
+  <header class="site-header transparent-header">
+    <div class="container header-inner">
+      <div class="header-brand">
+        <div class="brand-logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <h1 class="site-title-mini">СДО «Парк-Отель Софрино»</h1>
+          <p class="site-subtitle-mini">Система управления охраной труда</p>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link active">Главная</a></li>
+          <li><a href="programs.html" class="nav-link">Каталог программ</a></li>
+          <li><a href="instructions.html" class="nav-link">Инструкции</a></li>
+          <li><a href="for-responsibles.html" class="nav-link">Ответственным</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav class="main-nav" aria-label="Меню">
-      <ul class="nav-list">
-        <li><a href="index.html" class="nav-link nav-link-active">Главная</a></li>
-        <li><a href="programs.html" class="nav-link">Программы</a></li>
-        <li><a href="instructions.html" class="nav-link">Инструкции</a></li>
-        <li><a href="for-responsibles.html" class="nav-link">Ответственным</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+  </header>
 
-<section class="home-hero">
-  <div class="container">
-    <div class="home-split">
-      
-      <div class="home-hero-content reveal-on-scroll">
-        <div class="kicker-badge">⚡️ Единая платформа знаний</div>
-        
-        <h2 class="hero-display-title">
-          Безопасность труда <br>
-          <span class="text-gradient">на новом уровне</span>
-        </h2>
+  <main id="main-content" class="site-main">
+    <div class="container">
 
-        <p class="hero-desc">
-          Проходите обучение, изучайте материалы и сдавайте тесты в удобном формате. 
-          Все результаты фиксируются автоматически для оформления документов.
-        </p>
+      <section class="hero-section">
+        <div class="hero-content reveal-up">
+          <div class="status-badge">
+            <span class="status-dot"></span> Система функционирует штатно
+          </div>
+          
+          <h2 class="hero-title">
+            Единая среда обучения <br>
+            и <span class="gradient-text">контроля знаний</span>
+          </h2>
+          
+          <p class="hero-lead">
+            Обеспечение компетентности персонала в соответствии с Постановлением Правительства РФ № 2464, 
+            требованиями Минтруда и МЧС России. Все инструктажи и протоколы в едином цифровом контуре.
+          </p>
+        </div>
 
-        <div class="hero-badges-grid">
-          <a href="course-ot.html" class="glass-badge badge-ot">
-            <div class="badge-icon">🛡️</div>
-            <div class="badge-content">
-              <span class="badge-title">Охрана труда</span>
-              <span class="badge-sub">Вводный + Программы</span>
+        <div class="hero-grid reveal-up delay-100">
+          
+          <a href="course-ot.html" class="glass-card card-ot">
+            <div class="card-icon-bg">🛡️</div>
+            <div class="card-header">
+              <h3>Охрана труда</h3>
+              <span class="arrow-icon">➔</span>
             </div>
-            <div class="badge-arrow">→</div>
+            <p class="card-desc">Программы А, Б, В. Применение СИЗ. Вводный инструктаж.</p>
+            <div class="card-footer">
+              <span class="meta-tag">Пост. 2464</span>
+            </div>
           </a>
 
-          <a href="course-fire-safety.html" class="glass-badge badge-fire">
-            <div class="badge-icon">🔥</div>
-            <div class="badge-content">
-              <span class="badge-title">Пож. безопасность</span>
-              <span class="badge-sub">Инструктажи</span>
+          <a href="course-fire-safety.html" class="glass-card card-fire">
+            <div class="card-icon-bg">🔥</div>
+            <div class="card-header">
+              <h3>Пожарная безопасность</h3>
+              <span class="arrow-icon">➔</span>
             </div>
-            <div class="badge-arrow">→</div>
+            <p class="card-desc">Противопожарные инструктажи. Действия при эвакуации.</p>
+            <div class="card-footer">
+              <span class="meta-tag">Пр. МЧС № 806</span>
+            </div>
           </a>
 
-          <a href="course-first-aid.html" class="glass-badge badge-aid">
-            <div class="badge-icon">🩹</div>
-            <div class="badge-content">
-              <span class="badge-title">Первая помощь</span>
-              <span class="badge-sub">Оказание помощи</span>
+          <a href="course-first-aid.html" class="glass-card card-aid">
+            <div class="card-icon-bg">🩹</div>
+            <div class="card-header">
+              <h3>Первая помощь</h3>
+              <span class="arrow-icon">➔</span>
             </div>
-            <div class="badge-arrow">→</div>
+            <p class="card-desc">Алгоритмы оказания помощи пострадавшим на производстве.</p>
+            <div class="card-footer">
+              <span class="meta-tag">Пр. МЗ № 220н</span>
+            </div>
           </a>
 
-          <a href="course-gochs.html" class="glass-badge badge-gochs">
-            <div class="badge-icon">📢</div>
-            <div class="badge-content">
-              <span class="badge-title">ГО и ЧС</span>
-              <span class="badge-sub">Гражданская оборона</span>
+          <a href="course-gochs.html" class="glass-card card-gochs">
+            <div class="card-icon-bg">📢</div>
+            <div class="card-header">
+              <h3>ГО и ЧС</h3>
+              <span class="arrow-icon">➔</span>
             </div>
-            <div class="badge-arrow">→</div>
+            <p class="card-desc">Вводный инструктаж по гражданской обороне. Действия при ЧС.</p>
+            <div class="card-footer">
+              <span class="meta-tag">ФЗ № 68</span>
+            </div>
+          </a>
+
+        </div>
+
+        <div class="hero-actions reveal-up delay-200">
+          <a href="programs.html" class="btn-main">
+            Перейти к выбору программы
+          </a>
+          <a href="for-responsibles.html" class="btn-ghost">
+            <span>Информация для руководителей</span>
           </a>
         </div>
-        
-        <div class="hero-actions">
-          <a href="programs.html" class="btn btn-primary btn-glow">Выбрать программу</a>
-          <a href="for-responsibles.html" class="btn btn-text">
-            <span>Ответственным за обучение</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
+      </section>
+
+      <section class="info-dashboard reveal-up delay-300">
+        <div class="dash-card">
+          <div class="dash-icon">📋</div>
+          <h4>Регламент</h4>
+          <p>Обучение проводится в рабочее время согласно утвержденным графикам.</p>
         </div>
-      </div>
+        <div class="dash-card">
+          <div class="dash-icon">⚖️</div>
+          <h4>Ответственность</h4>
+          <p>Результаты тестов являются основанием для допуска к самостоятельной работе.</p>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon">📁</div>
+          <h4>Документооборот</h4>
+          <p>Протоколы проверки знаний формируются автоматически на основе тестов.</p>
+        </div>
+      </section>
 
     </div>
-  </div>
-</section>
+  </main>
 
-<main id="main-content" class="site-main">
-  <div class="container">
+  <footer class="glass-footer">
+    <div class="container">
+      <p>© 2026 Служба Охраны Труда. Внутренний корпоративный ресурс.</p>
+    </div>
+  </footer>
 
-    <section class="section kpi-section reveal-on-scroll">
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <div class="kpi-icon">📚</div>
-          <h3>Все материалы</h3>
-          <p>Видео, PDF и инструкции в одном окне.</p>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-icon">✅</div>
-          <h3>Авто-тесты</h3>
-          <p>Мгновенная проверка знаний и фиксация.</p>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-icon">🚀</div>
-          <h3>Быстрый старт</h3>
-          <p>Без регистрации — заходите и учитесь.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-header reveal-on-scroll">
-        <h2 class="section-title">Каталог программ</h2>
-        <p class="section-lead">Выберите направление для старта обучения</p>
-      </div>
-
-      <div class="home-showcase">
-        
-        <article class="show-card card-ot reveal-on-scroll">
-          <div class="card-bg-icon">🛡️</div>
-          <div class="card-top">
-            <span class="chip chip-green">Охрана труда</span>
-          </div>
-          <h3>Общий курс по ОТ</h3>
-          <p>Включает вводный инструктаж, программы обучения (А, Б) и применение СИЗ.</p>
-          <a href="course-ot.html" class="card-link">Начать обучение</a>
-        </article>
-
-        <article class="show-card card-fire reveal-on-scroll">
-          <div class="card-bg-icon">🔥</div>
-          <div class="card-top">
-            <span class="chip chip-orange">Пожарная безопасность</span>
-          </div>
-          <h3>Пожарная безопасность</h3>
-          <p>Действия при пожаре, эвакуация, огнетушители и инструктажи.</p>
-          <a href="course-fire-safety.html" class="card-link">Начать обучение</a>
-        </article>
-
-        <article class="show-card card-med reveal-on-scroll">
-          <div class="card-bg-icon">🩹</div>
-          <div class="card-top">
-            <span class="chip chip-red">Первая помощь</span>
-          </div>
-          <h3>Первая помощь</h3>
-          <p>Алгоритмы СЛР, остановка кровотечений, помощь при травмах.</p>
-          <a href="course-first-aid.html" class="card-link">Начать обучение</a>
-        </article>
-
-        <article class="show-card card-blue reveal-on-scroll">
-          <div class="card-bg-icon">📢</div>
-          <div class="card-top">
-            <span class="chip chip-blue">ГО и ЧС</span>
-          </div>
-          <h3>Гражданская оборона</h3>
-          <p>Действия при сигналах оповещения и ЧС природного характера.</p>
-          <a href="course-gochs.html" class="card-link">Начать обучение</a>
-        </article>
-      </div>
-    </section>
-
-    <section class="section reveal-on-scroll">
-      <div class="timeline-box">
-        <h2 class="section-title text-center">Как это работает?</h2>
-        <div class="steps-grid">
-          <div class="step-item">
-            <div class="step-num">1</div>
-            <h4>Изучите материал</h4>
-            <p>Видео или PDF на странице.</p>
-          </div>
-          <div class="step-arrow">➔</div>
-          <div class="step-item">
-            <div class="step-num">2</div>
-            <h4>Сдайте тест</h4>
-            <p>Ответьте на вопросы.</p>
-          </div>
-          <div class="step-arrow">➔</div>
-          <div class="step-item">
-            <div class="step-num">3</div>
-            <h4>Результат</h4>
-            <p>Данные уйдут в отдел кадров.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section info-grid reveal-on-scroll">
-      <article class="info-card warning-card">
-        <h3>⚠️ Важно сотруднику</h3>
-        <p>Заполняйте ФИО и должность в тесте без сокращений. Это юридический документ.</p>
-      </article>
-      <article class="info-card standard-card">
-        <h3>⚖️ Нормативная база</h3>
-        <p>Обучение соответствует ТК РФ и Постановлению № 2464.</p>
-      </article>
-    </section>
-
-  </div>
-</main>
-
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <p>© 2024–2026 Учебный портал ОТ и ПБ. Внутренний ресурс.</p>
-  </div>
-</footer>
-
-<script>
-  // Простой скрипт, который добавляет класс .visible, когда элемент появляется на экране
-  const observerOptions = {
-    threshold: 0.1
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+</div> <script>
+  // Простой скрипт появления элементов при загрузке
+  document.addEventListener("DOMContentLoaded", function() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
     });
-  }, observerOptions);
-
-  document.querySelectorAll('.reveal-on-scroll').forEach(el => {
-    observer.observe(el);
+    document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
   });
 </script>
 
