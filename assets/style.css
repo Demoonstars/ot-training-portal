@@ -4588,3 +4588,70 @@ body.masterpiece-theme {
   .hero-actions { flex-direction: column; width: 100%; }
   .btn-main, .btn-ghost { width: 100%; text-align: center; }
 }
+
+
+/* 1. Базовая кнопка */
+.btn-magic-border {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 32px; /* Размер кнопки */
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff; /* Цвет текста */
+  background: rgba(15, 23, 42, 1); /* Цвет фона кнопки (темно-синий) */
+  border-radius: 999px; /* Овальная форма */
+  text-decoration: none;
+  overflow: hidden; /* Обрезаем все лишнее */
+  z-index: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none; /* Убираем обычные рамки */
+}
+
+/* 2. Вращающийся градиент (Сама магия) */
+.btn-magic-border::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;  /* Делаем запас по ширине */
+  height: 300%; /* Делаем запас по высоте */
+  background: conic-gradient(
+    transparent 0deg, 
+    transparent 260deg, 
+    #22d3ee 280deg,  /* Светло-голубой хвост */
+    #a855f7 320deg,  /* Фиолетовый центр */
+    #ec4899 360deg   /* Розовая голова */
+  );
+  transform: translate(-50%, -50%) rotate(0deg); /* Центрируем */
+  animation: rotate-border 4s linear infinite; /* Запуск вращения */
+  z-index: -2; /* Кладем в самый низ */
+}
+
+/* 3. Внутренняя подложка (чтобы скрыть центр градиента) */
+.btn-magic-border::after {
+  content: "";
+  position: absolute;
+  inset: 2px; /* Толщина рамки (чем больше число, тем тоньше рамка) */
+  background: #0f172a; /* Цвет фона кнопки (должен совпадать с основным) */
+  border-radius: 999px;
+  z-index: -1; /* Кладем между текстом и градиентом */
+}
+
+/* 4. Анимация вращения */
+@keyframes rotate-border {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* 5. Эффекты при наведении */
+.btn-magic-border:hover {
+  transform: scale(1.05); /* Легкое увеличение */
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.5); /* Фиолетовое свечение */
+}
+
+/* Ускоряем вращение при наведении для динамики */
+.btn-magic-border:hover::before {
+  animation-duration: 2s;
+}
