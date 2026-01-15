@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <title>СДО | Обучение требованиям ОТ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Комплексная программа обучения требованиям охраны труда (ПП РФ № 2464). Вводный инструктаж и специализированные программы.">
+  <meta name="description" content="Обучение требованиям охраны труда в соответствии с Постановлением Правительства РФ № 2464. Вводный инструктаж, программы А, Б и применение СИЗ.">
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@1,700&display=swap" rel="stylesheet">
 
   <style>
     /* === LMS LAYOUT === */
@@ -149,7 +149,7 @@
       box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
     }
 
-    /* КАЛЕНДАРЬ (STYLE UPDATE) */
+    /* КАЛЕНДАРЬ */
     .calendar-widget { margin-bottom: 30px; }
     .calendar-header {
       display: flex; justify-content: space-between; align-items: center;
@@ -164,36 +164,74 @@
       width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
       border-radius: 8px; color: #334155; font-weight: 500; transition: 0.2s; cursor: default;
     }
-    
-    /* Стили дней */
     .cal-day.today {
       background: #10b981; color: #fff; font-weight: 700;
       box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
     }
-    .cal-day.weekend { color: #ef4444; background: #fef2f2; } /* Красный для выходных */
+    .cal-day.weekend { color: #ef4444; background: #fef2f2; }
     .cal-day.holiday { 
       color: #dc2626; background: #fee2e2; border: 1px solid #fecaca; font-weight: 700;
     }
     .cal-day.empty { pointer-events: none; }
 
-    /* ДОКУМЕНТЫ (QUICK DOCS) */
-    .quick-docs-title { font-size: 0.95rem; font-weight: 700; color: #0f172a; margin: 0 0 10px; }
-    .quick-doc-link {
-      display: flex; align-items: center; gap: 10px; padding: 10px;
+    /* НПА WIDGET (Консультант+) */
+    .npa-widget {
+      margin-bottom: 30px;
+    }
+    .npa-title { font-size: 0.95rem; font-weight: 700; color: #0f172a; margin: 0 0 10px; display: flex; align-items: center; gap: 8px; }
+    
+    .npa-link {
+      display: flex; align-items: flex-start; gap: 10px; padding: 10px;
       background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
       text-decoration: none; color: #334155; font-size: 0.85rem; margin-bottom: 8px;
       transition: 0.2s;
     }
-    .quick-doc-link:hover { border-color: #3b82f6; color: #2563eb; transform: translateX(3px); }
+    .npa-link:hover { border-color: #2563eb; color: #2563eb; transform: translateX(3px); }
+    .npa-icon { font-size: 1.1rem; flex-shrink: 0; }
 
-    /* Support Widget */
-    .support-widget {
-      background: #f8fafc; border-radius: 16px; padding: 15px;
-      border: 1px dashed #cbd5e1; text-align: center; margin-top: 20px;
+    /* === RGB QUOTE WIDGET (WOW) === */
+    .rgb-quote-card {
+      position: relative;
+      padding: 3px; /* Толщина RGB рамки */
+      border-radius: 16px;
+      background: #fff;
+      overflow: hidden;
+      margin-top: 20px;
     }
-    .support-link { color: #2563eb; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+    
+    /* Бегущий градиент */
+    .rgb-quote-card::before {
+      content: "";
+      position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: conic-gradient(
+        transparent, 
+        #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000
+      );
+      animation: rgb-rotate 4s linear infinite;
+      z-index: 0;
+    }
+    
+    .rgb-content {
+      position: relative;
+      background: #ffffff;
+      border-radius: 14px; /* Чуть меньше родителя */
+      padding: 20px;
+      z-index: 1;
+      text-align: center;
+    }
+    
+    .quote-text {
+      font-family: 'Merriweather', serif; /* Красивый шрифт с засечками */
+      font-style: italic;
+      font-weight: 700;
+      color: #1e293b;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
 
-    /* TOAST NOTIFICATION */
+    @keyframes rgb-rotate { 100% { transform: rotate(1turn); } }
+    
+    /* TOAST */
     .toast-notification {
       position: fixed; bottom: 30px; right: 30px;
       background: #fff; border-left: 4px solid #f97316;
@@ -281,7 +319,7 @@
             <span class="course-badge">ПП РФ № 2464</span>
             <h1 class="course-title"><span id="greeting-text">Добрый день</span>, коллега!</h1>
             <p class="course-desc">
-              Это раздел обучения требованиям охраны труда. Начните с обязательного вводного инструктажа, а затем переходите к специализированным программам, если они вам назначены.
+              Это раздел обучения требованиям охраны труда. Процесс организован в строгом соответствии с Правилами обучения по охране труда и проверки знания требований охраны труда.
             </p>
           </div>
 
@@ -291,8 +329,7 @@
               <span style="font-size: 2rem;">🛡️</span> Вводный инструктаж
             </h2>
             <p class="mandatory-text">
-              Базовый курс по правилам поведения на территории организации, правам и обязанностям работника. 
-              Проходится однократно при приеме на работу.
+              Базовая программа обучения для вновь принятых работников. Включает общие вопросы охраны труда, правила внутреннего трудового распорядка и основы безопасности.
             </p>
             
             <a href="ot-intro.html" class="btn-start-big">
@@ -302,7 +339,7 @@
 
           <h3 style="margin-bottom: 20px; font-size: 1.4rem; color: #0f172a;" class="reveal-up delay-200">
             Специализированные программы
-            <span style="font-size:0.9rem; color:#64748b; font-weight:400; margin-left:10px;">(по назначению)</span>
+            <span style="font-size:0.9rem; color:#64748b; font-weight:400; margin-left:10px;">(программы А, Б, СИЗ)</span>
           </h3>
 
           <div class="programs-grid reveal-up delay-200">
@@ -313,7 +350,7 @@
                 <span class="prog-badge">Программа А</span>
               </div>
               <h3 class="prog-title">Общие вопросы охраны труда</h3>
-              <p class="prog-desc">Система управления охраной труда (СУОТ). Оценка профрисков и нормативная база.</p>
+              <p class="prog-desc">Система управления охраной труда (СУОТ). Оценка профессиональных рисков и нормативная база.</p>
               <a href="ot-program-a.html" class="btn-prog-link">Перейти к Программе А</a>
             </div>
 
@@ -323,7 +360,7 @@
                 <span class="prog-badge">Программа Б</span>
               </div>
               <h3 class="prog-title">Безопасные методы работ</h3>
-              <p class="prog-desc">Приемы выполнения работ при воздействии вредных и опасных факторов.</p>
+              <p class="prog-desc">Приемы выполнения работ при воздействии вредных и (или) опасных производственных факторов.</p>
               <a href="ot-program-b.html" class="btn-prog-link">Перейти к Программе Б</a>
             </div>
 
@@ -333,7 +370,7 @@
                 <span class="prog-badge">СИЗ</span>
               </div>
               <h3 class="prog-title">Применение СИЗ</h3>
-              <p class="prog-desc">Правила ношения, проверки и хранения средств индивидуальной защиты.</p>
+              <p class="prog-desc">Правила ношения и применения средств индивидуальной защиты, не требующих практических навыков.</p>
               <a href="ot-ppe.html" class="btn-prog-link">Перейти к модулю СИЗ</a>
             </div>
 
@@ -351,23 +388,26 @@
               </div>
           </div>
 
-          <div class="quick-docs">
-            <h4 class="quick-docs-title">Скачать бланки</h4>
-            <a href="#" class="quick-doc-link">
-              <span>📄</span> Журнал инструктажа (Образец)
+          <div class="npa-widget">
+            <h4 class="npa-title">⚖️ Нормативная база</h4>
+            
+            <a href="http://www.consultant.ru/document/cons_doc_LAW_404457/" target="_blank" class="npa-link">
+              <span class="npa-icon">📜</span>
+              <span>Постановление Правительства РФ № 2464 (Порядок обучения)</span>
             </a>
-            <a href="#" class="quick-doc-link">
-              <span>📝</span> Личная карточка СИЗ
+            
+            <a href="http://www.consultant.ru/document/cons_doc_LAW_34683/" target="_blank" class="npa-link">
+              <span class="npa-icon">🏛️</span>
+              <span>Трудовой кодекс РФ (Раздел X. Охрана труда)</span>
             </a>
           </div>
 
-          <div class="support-widget">
-            <div style="font-size: 1.5rem; margin-bottom: 5px;">👨‍💼</div>
-            <h4 style="margin: 0 0 5px; font-size: 0.9rem;">Есть вопросы?</h4>
-            <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 10px;">
-              По назначению программ и срокам сдачи обращайтесь к руководителю.
-            </p>
-            <a href="mailto:support@company.ru" class="support-link">Написать в ОТ</a>
+          <div class="rgb-quote-card">
+            <div class="rgb-content">
+              <div class="quote-text">
+                "Настоящая безопасность начинается там, где ответственность становится приоритетом"
+              </div>
+            </div>
           </div>
 
         </aside>
@@ -387,7 +427,7 @@
     <div style="font-size: 1.5rem;">🔔</div>
     <div>
       <div style="font-weight: 700; font-size: 0.9rem; color: #0f172a;">Напоминание</div>
-      <div style="font-size: 0.85rem; color: #64748b;">Проверьте сроки сдачи вводного инструктажа.</div>
+      <div style="font-size: 0.85rem; color: #64748b;">Проверьте сроки прохождения вводного инструктажа.</div>
     </div>
     <div class="toast-close" onclick="document.getElementById('courseToast').style.display='none'">✕</div>
   </div>
@@ -418,7 +458,7 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
 
-    // 4. Умный календарь (С праздниками и выходными)
+    // 4. Умный календарь (С праздниками 2026)
     function generateCalendar() {
       const grid = document.getElementById('calendar-grid');
       const title = document.getElementById('cal-month-name');
@@ -443,9 +483,16 @@
       const lastDayDate = new Date(year, month + 1, 0);
       const daysInMonth = lastDayDate.getDate();
 
-      // Праздники РФ (Примерный список основных)
-      // Формат: "D.M" (без ведущих нулей для простоты)
-      const holidays = ['1.1', '2.1', '3.1', '4.1', '5.1', '6.1', '7.1', '8.1', '23.2', '8.3', '1.5', '9.5', '12.6', '4.11'];
+      // ОФИЦИАЛЬНЫЕ ПРАЗДНИКИ РФ 2026 (Январь + Основные)
+      const holidays = [
+        '1.1', '2.1', '3.1', '4.1', '5.1', '6.1', '7.1', '8.1', '9.1', // Новогодние
+        '23.2', // 23 февраля
+        '9.3',  // 8 марта
+        '1.5', '11.5', // Майские
+        '12.6', // День России
+        '4.11',  // День народного единства
+        '31.12',  // НГ
+      ];
 
       for (let i = 1; i < startDay; i++) {
         const empty = document.createElement('div');
@@ -458,17 +505,17 @@
         dayEl.className = 'cal-day';
         dayEl.textContent = i;
         
-        // Проверка на сегодня
+        // Сегодня
         if (i === today) dayEl.classList.add('today');
 
-        // Проверка на выходной (вычисляем день недели)
+        // Выходной (Сб, Вс)
         const currentDayDate = new Date(year, month, i);
         const dayOfWeek = currentDayDate.getDay(); // 0-Sun, 6-Sat
         if (dayOfWeek === 0 || dayOfWeek === 6) {
           dayEl.classList.add('weekend');
         }
 
-        // Проверка на праздник
+        // Праздник (Государственный)
         const dateKey = `${i}.${month + 1}`;
         if (holidays.includes(dateKey)) {
           dayEl.classList.add('holiday');
@@ -480,7 +527,7 @@
     }
     generateCalendar();
 
-    // 5. Авто-скрытие уведомления через 8 сек
+    // 5. Авто-скрытие уведомления
     setTimeout(() => {
         const toast = document.getElementById('courseToast');
         if(toast) {
