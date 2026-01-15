@@ -2,29 +2,177 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Информация для ответственных за обучение — Учебный портал</title>
+  <title>СДО | Кабинет ответственного</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Рекомендации для ответственных за обучение по организации дистанционного обучения и фиксации результатов на учебном портале.">
+  <meta name="description" content="Панель управления обучением: инструкции для ответственных лиц, регламенты, отчетность и фиксация результатов.">
   <link rel="stylesheet" href="assets/style.css">
-</head>
-<body class="responsibles-page">
-  <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <header class="site-header">
+  <style>
+    /* HERO BLOCK (АДМИНСКАЯ ПАНЕЛЬ) */
+    .admin-hero {
+      text-align: center;
+      padding: 40px 20px;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .admin-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(124, 58, 237, 0.1); border: 1px solid rgba(124, 58, 237, 0.2);
+      color: #7c3aed; padding: 6px 14px; border-radius: 99px;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 15px;
+    }
+    .admin-title { font-size: 2.2rem; font-weight: 800; color: #0f172a; margin-bottom: 10px; }
+    .admin-lead { font-size: 1.1rem; color: #475569; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+
+    /* BENTO GRID (ПЛИТКИ ЗАДАЧ) */
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    
+    .admin-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid rgba(148,163,184,0.15);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .admin-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px -5px rgba(0,0,0,0.1); }
+    
+    /* Акцентная полоска сверху */
+    .admin-card::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #7c3aed, #a855f7);
+    }
+    .card-purple::after { background: linear-gradient(90deg, #7c3aed, #d8b4fe); }
+    .card-blue::after { background: linear-gradient(90deg, #2563eb, #93c5fd); }
+    .card-orange::after { background: linear-gradient(90deg, #f97316, #fdba74); }
+
+    .card-icon-wrap {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: #f5f3ff; color: #7c3aed;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 15px;
+    }
+    .icon-blue { background: #eff6ff; color: #2563eb; }
+    .icon-orange { background: #fff7ed; color: #ea580c; }
+
+    .card-title { font-size: 1.1rem; font-weight: 700; color: #1e293b; margin: 0 0 10px; }
+    
+    .task-list { list-style: none; padding: 0; margin: 0; }
+    .task-list li {
+      position: relative; padding-left: 24px; margin-bottom: 8px;
+      font-size: 0.9rem; color: #475569;
+    }
+    .task-list li::before {
+      content: "•"; position: absolute; left: 6px; color: #cbd5e1; font-size: 1.2rem; line-height: 1;
+    }
+
+    /* PROCESS TIMELINE (ГОРИЗОНТАЛЬНАЯ ДЛЯ ДЕСКТОПА) */
+    .process-steps {
+      display: flex; gap: 20px; margin: 40px 0;
+      overflow-x: auto; padding-bottom: 20px;
+    }
+    .process-card {
+      min-width: 260px; flex: 1;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid #fff;
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+      position: relative;
+    }
+    
+    /* Номер шага */
+    .process-num {
+      font-size: 3rem; font-weight: 900; color: rgba(148,163,184,0.15);
+      position: absolute; top: 10px; right: 20px; line-height: 1;
+    }
+    
+    .process-title { font-weight: 700; color: #0f172a; margin-bottom: 8px; font-size: 1rem; position: relative; }
+    .process-text { font-size: 0.85rem; color: #64748b; line-height: 1.5; position: relative; }
+
+    /* DOCUMENTATION LINKS (DOCS STYLE) */
+    .docs-container {
+      background: #f8fafc; border-radius: 20px; padding: 30px;
+      border: 1px dashed #cbd5e1;
+    }
+    .doc-item {
+      display: flex; align-items: center; gap: 15px;
+      padding: 12px; background: #fff; border-radius: 12px;
+      border: 1px solid rgba(148,163,184,0.2); margin-bottom: 10px;
+      transition: transform 0.2s;
+    }
+    .doc-item:hover { transform: translateX(5px); border-color: #2563eb; }
+    .doc-icon { font-size: 1.5rem; }
+    .doc-info h4 { margin: 0; font-size: 0.95rem; color: #1e293b; }
+    .doc-info p { margin: 2px 0 0; font-size: 0.8rem; color: #64748b; }
+
+    /* MOBILE ADAPTATION */
+    @media (max-width: 768px) {
+      .process-steps { flex-direction: column; overflow: visible; }
+      .process-card { min-width: 0; }
+    }
+
+    /* Анимация статуса в шапке (дубль) */
+    .system-status-pulse {
+      display: inline-block; width: 8px; height: 8px;
+      background-color: #10b981; border-radius: 50%;
+      box-shadow: 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulse-green 2s infinite; margin-right: 6px;
+    }
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .header-meta {
+      font-size: 0.75rem; color: #64748b; font-weight: 500;
+      display: flex; align-items: center; gap: 15px; margin-left: auto;
+    }
+    @media (max-width: 900px) { .header-meta { display: none; } }
+  </style>
+</head>
+<body class="masterpiece-theme">
+
+<a class="skip-link" href="#main-content">Перейти к контенту</a>
+
+<div class="glass-wrapper">
+  
+  <header class="site-header transparent-header">
     <div class="container header-inner">
       <div class="header-brand">
-        <p class="site-label">Дистанционный учебный портал</p>
-        <h1 class="site-title">Охрана труда, пожарная безопасность, первая помощь, ГО/ЧС</h1>
-        <p class="site-subtitle">
-          Организация дистанционного обучения работников и проверка знаний требований охраны труда и безопасности.
-        </p>
+        <div class="brand-logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <h1 class="site-title-mini">СДО</h1>
+          <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
+        </div>
       </div>
-      <nav class="main-nav" aria-label="Основная навигация">
+      
+      <div class="header-meta">
+        <span id="current-date">Загрузка...</span>
+        <span style="display:flex; align-items:center;">
+            <span class="system-status-pulse"></span> Online
+        </span>
+      </div>
+
+      <nav class="main-nav">
         <ul class="nav-list">
-          <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
-          <li class="nav-item"><a href="programs.html" class="nav-link">Программы обучения</a></li>
-          <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции для сотрудников</a></li>
-          <li class="nav-item"><a href="for-responsibles.html" class="nav-link nav-link-active">Информация для ответственных за обучение</a></li>
+          <li><a href="index.html" class="nav-link">Главная</a></li>
+          <li><a href="programs.html" class="nav-link">Каталог программ</a></li>
+          <li><a href="instructions.html" class="nav-link">Инструкции</a></li>
+          <li><a href="for-responsibles.html" class="nav-link nav-link-active active">Ответственным</a></li>
         </ul>
       </nav>
     </div>
@@ -33,147 +181,145 @@
   <main id="main-content" class="site-main">
     <div class="container">
 
-      <!-- Заголовок страницы с фиолетовым акцентом -->
-      <section class="section section-card page-header page-header-accent-purple">
-        <div class="page-header-label">Ответственным за обучение</div>
-        <h2 class="page-title">Информация для ответственных за обучение и проверку знаний</h2>
-        <p class="page-lead">
-          Страница предназначена для специалистов и должностных лиц, отвечающих за организацию обучения работников
-          по охране труда, пожарной безопасности, оказанию первой помощи пострадавшим и гражданской обороне/ЧС
-          с использованием данного учебного портала.
-        </p>
-        <p>
-          Конкретные полномочия, обязанности и порядок взаимодействия ответственных лиц определяются работодателем
-          в должностных инструкциях, локальных нормативных актах и приказах.
+      <section class="admin-hero reveal-up">
+        <div class="admin-badge">Зона ответственности</div>
+        <h2 class="admin-title">Управление обучением персонала</h2>
+        <p class="admin-lead">
+          Методические рекомендации для руководителей подразделений и специалистов, 
+          ответственных за организацию проверки знаний.
         </p>
       </section>
 
-      <!-- Роли и зона ответственности -->
-      <section class="section section-card section-card-elevated">
-        <h2>Роли и зона ответственности</h2>
-        <div class="info-grid">
-          <div class="info-panel">
-            <h3>Основные задачи ответственного</h3>
-            <ul class="checklist">
-              <li>формировать перечень работников по каждой программе обучения;</li>
-              <li>обеспечивать работников актуальными ссылками на курсы и итоговые тесты;</li>
-              <li>контролировать сроки прохождения обучения и выполнения тестов;</li>
-              <li>фиксировать результаты обучения, формировать отчёты и материалы для оформления документов;</li>
-              <li>информировать руководство о ходе и результатах обучения.</li>
+      <section class="section">
+        <div class="admin-grid">
+          
+          <div class="admin-card card-purple reveal-up delay-100">
+            <div class="card-icon-wrap">📋</div>
+            <h3 class="card-title">Функции ответственного</h3>
+            <ul class="task-list">
+              <li>Формирование списков на обучение.</li>
+              <li>Рассылка ссылок на тесты сотрудникам.</li>
+              <li>Контроль сроков сдачи.</li>
+              <li>Сбор протоколов (выгрузка).</li>
             </ul>
           </div>
-          <div class="info-panel">
-            <h3>Нормативная основа</h3>
-            <p>
-              При организации обучения рекомендуется учитывать требования трудового законодательства и подзаконных
-              актов, а также локальных документов работодателя, в частности:
-            </p>
-            <ul class="norm-list">
-              <li>обязанности работодателя по обеспечению обучения работников вопросам охраны труда;</li>
-              <li>требования к обучению по охране труда и проверке знаний в установленном порядке;</li>
-              <li>требования к обучению по пожарной безопасности, первой помощи и ГО/ЧС;</li>
-              <li>локальные положения об обучении, проверке знаний и документационном оформлении.</li>
+
+          <div class="admin-card card-blue reveal-up delay-200">
+            <div class="card-icon-wrap icon-blue">⚖️</div>
+            <h3 class="card-title">Нормативная база</h3>
+            <ul class="task-list">
+              <li>ТК РФ (Обязанности работодателя).</li>
+              <li>Постановление № 2464 (Порядок обучения).</li>
+              <li>Приказ МЧС № 806 (Инструктажи ПБ).</li>
+              <li>Локальные акты предприятия.</li>
             </ul>
-            <p class="note">
-              Конкретные ссылки на статьи законодательства и нормативные акты приводятся в локальных документах
-              организации и методических материалах для ответственных лиц.
-            </p>
           </div>
+
+          <div class="admin-card card-orange reveal-up delay-300">
+            <div class="card-icon-wrap icon-orange">⚙️</div>
+            <h3 class="card-title">Работа с результатами</h3>
+            <ul class="task-list">
+              <li>Выгрузка из Google Forms / Excel.</li>
+              <li>Сверка ФИО и должностей.</li>
+              <li>Оформление журналов инструктажа.</li>
+              <li>Архивирование протоколов.</li>
+            </ul>
+          </div>
+
         </div>
       </section>
 
-      <!-- Организация обучения на портале (шаги) -->
-      <section class="section section-card section-card-elevated">
-        <h2>Организация обучения с использованием портала</h2>
-        <div class="steps-timeline">
-          <ol class="steps-list steps-list-timeline">
-            <li>
-              <strong>Определение программ обучения.</strong>
-              На основании локальных актов и штатного расписания сформируйте перечень работников по каждой программе
-              (охрана труда, пожарная безопасность, первая помощь, ГО/ЧС).
-            </li>
-            <li>
-              <strong>Назначение курсов и информирование работников.</strong>
-              Направьте работникам ссылки на соответствующие курсы и укажите сроки, в которые необходимо пройти
-              обучение и тестирование.
-            </li>
-            <li>
-              <strong>Контроль доступа к материалам.</strong>
-              Убедитесь, что работники имеют техническую возможность просмотра видеоматериалов и доступа
-              к формам тестирования.
-            </li>
-            <li>
-              <strong>Фиксация результатов тестирования.</strong>
-              Используйте отчёты системы тестирования (например, Google Forms) для выгрузки результатов и
-              сопоставления их с утверждёнными списками обучающихся.
-            </li>
-            <li>
-              <strong>Документальное оформление.</strong>
-              На основании результатов обучения оформляйте предусмотренные локальными актами журналы, протоколы,
-              приказы и иную документацию.
-            </li>
-          </ol>
+      <section class="section reveal-up">
+        <h2 style="margin-bottom: 20px; font-size: 1.5rem;">Алгоритм организации обучения</h2>
+        <div class="process-steps">
+          
+          <div class="process-card">
+            <div class="process-num">1</div>
+            <h4 class="process-title">Планирование</h4>
+            <p class="process-text">Определите категории работников и необходимые программы (ОТ, ПБ, Первая помощь) согласно штатному расписанию.</p>
+          </div>
+
+          <div class="process-card">
+            <div class="process-num">2</div>
+            <h4 class="process-title">Информирование</h4>
+            <p class="process-text">Направьте сотрудникам ссылки на соответствующие страницы портала. Установите дедлайн сдачи тестов.</p>
+          </div>
+
+          <div class="process-card">
+            <div class="process-num">3</div>
+            <h4 class="process-title">Контроль</h4>
+            <p class="process-text">Отслеживайте прохождение через сводную таблицу результатов. Напоминайте должникам.</p>
+          </div>
+
+          <div class="process-card">
+            <div class="process-num">4</div>
+            <h4 class="process-title">Оформление</h4>
+            <p class="process-text">На основании успешных тестов подпишите протоколы и внесите записи в журналы инструктажей.</p>
+          </div>
+
         </div>
       </section>
 
-      <!-- Документы и фиксация результатов -->
-      <section class="section section-card section-card-elevated">
-        <h2>Рекомендации по фиксации результатов обучения</h2>
-        <div class="info-grid">
-          <div class="info-panel">
-            <h3>Работа с результатами тестов</h3>
-            <ul class="checklist">
-              <li>регулярно выгружайте результаты тестов из системы тестирования;</li>
-              <li>проверяйте корректность персональных данных в ответах;</li>
-              <li>сопоставляйте результаты с утверждёнными списками обучающихся;</li>
-              <li>выделяйте работников, не прошедших обучение или не набравших минимальный балл;</li>
-              <li>обеспечивайте соблюдение требований по защите персональных данных.</li>
-            </ul>
+      <section class="section reveal-up">
+        <div class="docs-container">
+          <h3 style="margin-top: 0; margin-bottom: 20px;">Полезные материалы</h3>
+          
+          <div class="doc-item">
+            <div class="doc-icon">📑</div>
+            <div class="doc-info">
+              <h4>Памятка по выгрузке отчетов</h4>
+              <p>Инструкция по экспорту данных из Google Forms в Excel для секретарей.</p>
+            </div>
           </div>
-          <div class="info-panel">
-            <h3>Оформление документов</h3>
-            <p>На основании результатов обучения и тестирования могут оформляться:</p>
-            <ul class="checklist">
-              <li>журналы учёта проведения инструктажей и обучения;</li>
-              <li>протоколы проверки знаний требований охраны труда и/или пожарной безопасности;</li>
-              <li>приказы (распоряжения) о допуске к работе и назначении на должности;</li>
-              <li>отчётные формы для руководства и контролирующих органов при необходимости;</li>
-              <li>иные документы, предусмотренные локальными нормативными актами работодателя.</li>
-            </ul>
-            <p class="note">
-              Формы документов, сроки хранения и порядок согласования рекомендуется закрепить в отдельных
-              локальных актах и согласовать с кадровой службой, службой по охране труда и юридической службой.
-            </p>
-          </div>
-        </div>
-      </section>
 
-      <!-- Технические и организационные рекомендации -->
-      <section class="section section-card section-card-light section-card-elevated-soft">
-        <h2>Технические и организационные рекомендации</h2>
-        <ul class="checklist">
-          <li>подготовьте краткие памятки по работе с порталом и тестами для работников и руководителей;</li>
-          <li>обеспечьте наличие контактных данных ответственного лица для консультаций;</li>
-          <li>при изменении программ обучения своевременно обновляйте ссылочный список и материалы на портале;</li>
-          <li>согласуйте порядок доступа к результатам тестирования с кадровой службой и службой по ОТ;</li>
-          <li>учитывайте требования по защите персональных данных при доработке портала и обработке результатов.</li>
-        </ul>
+          <div class="doc-item">
+            <div class="doc-icon">📎</div>
+            <div class="doc-info">
+              <h4>Образец приказа о допуске</h4>
+              <p>Шаблон документа для оформления допуска сотрудника после проверки знаний.</p>
+            </div>
+          </div>
+
+          <div class="doc-item">
+            <div class="doc-icon">🔒</div>
+            <div class="doc-info">
+              <h4>Регламент защиты данных</h4>
+              <p>Правила обработки персональных данных при тестировании.</p>
+            </div>
+          </div>
+
+        </div>
       </section>
 
     </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p class="footer-text">
-        Учебный портал дистанционного обучения по охране труда, пожарной безопасности,
-        первой помощи и ГО/ЧС.
-      </p>
-      <p class="footer-text footer-text-muted">
-        Конкретные условия, порядок обучения и оформления документов устанавливаются работодателем
-        в локальных нормативных актах.
-      </p>
+  <footer class="glass-footer">
+    <div class="container">
+      <p>© 2026 Служба Охраны Труда. Внутренний ресурс.</p>
     </div>
   </footer>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    
+    // 1. Дата в шапке
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateStr = new Date().toLocaleDateString('ru-RU', dateOptions);
+    const dateEl = document.getElementById('current-date');
+    if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+
+    // 2. Анимация появления
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
+  });
+</script>
+
 </body>
 </html>
