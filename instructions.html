@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* 1. HERO BLOCK (Заголовок) */
+    /* 1. HERO BLOCK */
     .instr-hero {
       text-align: center;
       padding: 40px 20px;
@@ -20,20 +20,20 @@
     .instr-title { font-size: 2.2rem; font-weight: 800; color: #0f172a; margin-bottom: 15px; }
     .instr-lead { font-size: 1.1rem; color: #475569; max-width: 800px; margin: 0 auto; line-height: 1.6; }
 
-    /* 2. TIMELINE (Дорожная карта) - Вертикальная */
+    /* 2. TIMELINE (ВАУ-ВЕРСИЯ) */
     .timeline-container {
       position: relative;
-      max-width: 800px;
+      max-width: 900px;
       margin: 40px auto;
       padding: 20px 0;
     }
-    /* Линия по центру */
+    /* Линия */
     .timeline-container::before {
       content: '';
       position: absolute;
-      top: 0; bottom: 0; left: 24px; /* Смещена влево для мобильных */
-      width: 4px;
-      background: #e2e8f0;
+      top: 20px; bottom: 0; left: 24px; /* Мобильный вид */
+      width: 3px;
+      background: linear-gradient(to bottom, #3b82f6, #e2e8f0 80%, transparent); /* Градиентная линия */
       border-radius: 4px;
     }
     
@@ -43,35 +43,61 @@
 
     .timeline-item {
       position: relative;
-      margin-bottom: 40px;
+      margin-bottom: 50px;
       width: 100%;
       display: flex;
-      justify-content: flex-end; /* По умолчанию справа */
-      padding-left: 60px; /* Отступ от линии */
+      justify-content: flex-end;
+      padding-left: 70px;
     }
 
-    /* Чередование на десктопе */
+    /* Чередование (Zig-Zag) */
     @media (min-width: 768px) {
       .timeline-item:nth-child(odd) { justify-content: flex-start; padding-left: 0; padding-right: 50%; }
       .timeline-item:nth-child(even) { justify-content: flex-end; padding-left: 50%; padding-right: 0; }
       
-      /* Контент внутри item */
       .timeline-content { width: 90%; }
-      .timeline-item:nth-child(odd) .timeline-content { margin-right: 40px; text-align: right; }
-      .timeline-item:nth-child(even) .timeline-content { margin-left: 40px; text-align: left; }
+      .timeline-item:nth-child(odd) .timeline-content { margin-right: 50px; text-align: right; }
+      .timeline-item:nth-child(even) .timeline-content { margin-left: 50px; text-align: left; }
+      
+      /* Соединительная линия к карточке */
+      .timeline-item:nth-child(odd)::after {
+        content: ''; position: absolute; top: 25px; right: 50%; width: 50px; height: 2px; background: #bfdbfe; z-index: 0;
+      }
+      .timeline-item:nth-child(even)::after {
+        content: ''; position: absolute; top: 25px; left: 50%; width: 50px; height: 2px; background: #bfdbfe; z-index: 0;
+      }
     }
 
-    /* Точка на линии */
+    /* КРУГ (DOT) - Исправленный контраст */
     .timeline-dot {
       position: absolute;
-      left: 14px; /* На линии мобильной */
+      left: 0; /* На мобильном */
       top: 0;
-      width: 24px; height: 24px;
-      background: #3b82f6;
-      border: 4px solid #fff;
+      width: 50px; height: 50px;
+      
+      /* Градиентный фон для круга */
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff; /* Белый текст */
+      
       border-radius: 50%;
-      box-shadow: 0 0 0 4px rgba(59,130,246,0.2);
+      box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.8), 0 8px 20px rgba(37, 99, 235, 0.4);
       z-index: 2;
+      
+      /* Центрирование цифры */
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1.1rem;
+      border: 2px solid #fff;
+    }
+
+    /* Пульсация круга */
+    .timeline-dot::before {
+      content: ''; position: absolute; inset: -4px; border-radius: 50%;
+      border: 2px solid rgba(37, 99, 235, 0.3);
+      animation: ripple 2s infinite;
+    }
+    @keyframes ripple {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.6); opacity: 0; }
     }
 
     @media (min-width: 768px) {
@@ -79,88 +105,110 @@
     }
 
     .timeline-content {
-      background: rgba(255,255,255,0.6);
-      border: 1px solid rgba(255,255,255,0.8);
-      border-radius: 16px;
-      padding: 20px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      background: rgba(255,255,255,0.7);
+      border: 1px solid #fff;
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
       transition: transform 0.3s;
+      position: relative; z-index: 1;
     }
-    .timeline-content:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); background: #fff; }
+    .timeline-content:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.15); background: #fff; }
 
-    .step-num { font-size: 0.8rem; font-weight: 700; color: #3b82f6; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
-    .step-title { font-size: 1.1rem; font-weight: 700; color: #0f172a; margin: 0 0 8px; }
-    .step-desc { font-size: 0.95rem; color: #475569; margin: 0; line-height: 1.5; }
+    .step-title { font-size: 1.2rem; font-weight: 800; color: #0f172a; margin: 0 0 10px; }
+    .step-desc { font-size: 0.95rem; color: #475569; margin: 0; line-height: 1.6; }
+    .step-desc a { color: #2563eb; font-weight: 600; text-decoration: none; border-bottom: 1px dashed; }
 
-    /* 3. CHECKLIST PANEL */
+    /* 3. CHECKLIST PANEL (3D CARDS) */
     .requirements-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      gap: 24px;
       margin-top: 40px;
     }
-    .req-card {
+    
+    /* Класс для 3D эффекта (как на главной) */
+    .tilt-card {
       background: #fff;
-      border-radius: 20px;
-      padding: 24px;
-      border: 1px solid rgba(148,163,184,0.2);
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      border-radius: 24px;
+      padding: 30px;
+      border: 1px solid rgba(148,163,184,0.15);
+      box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03);
+      transition: transform 0.1s; /* Быстрая реакция для скрипта */
+      position: relative; overflow: hidden;
     }
-    .req-icon { font-size: 2rem; margin-bottom: 15px; }
+    
+    /* Свечение */
+    .tilt-card::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(37,99,235,0.05), transparent 40%);
+      opacity: 0; transition: opacity 0.5s; pointer-events: none;
+    }
+    .tilt-card:hover::before { opacity: 1; }
+
+    .req-icon { 
+      font-size: 2.5rem; margin-bottom: 20px; 
+      display: inline-block; 
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    }
+    .req-title { font-size: 1.2rem; font-weight: 700; margin: 0 0 15px; color: #1e293b; }
+    
     .req-list { list-style: none; padding: 0; margin: 0; }
     .req-list li {
-      position: relative;
-      padding-left: 24px;
-      margin-bottom: 10px;
-      font-size: 0.95rem;
-      color: #334155;
+      position: relative; padding-left: 28px; margin-bottom: 12px;
+      font-size: 0.95rem; color: #334155; line-height: 1.5;
     }
     .req-list li::before {
       content: "✔";
-      position: absolute; left: 0; color: #10b981; font-weight: bold;
+      position: absolute; left: 0; top: 0;
+      color: #10b981; font-weight: 800; font-size: 1rem;
+      /* Анимация галочки */
+      animation: checkPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      opacity: 0; transform: scale(0);
     }
+    
+    /* Задержка анимации для галочек */
+    .req-card:hover li::before { opacity: 1; transform: scale(1); }
+    .req-card:hover li:nth-child(1)::before { animation-delay: 0.1s; }
+    .req-card:hover li:nth-child(2)::before { animation-delay: 0.2s; }
+    .req-card:hover li:nth-child(3)::before { animation-delay: 0.3s; }
+
+    @keyframes checkPop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
 
     /* 4. FAQ ACCORDION */
     .faq-accordion { max-width: 800px; margin: 40px auto; }
     .faq-item {
-      background: #fff;
+      background: rgba(255,255,255,0.8);
       border: 1px solid rgba(148,163,184,0.2);
-      border-radius: 12px;
-      margin-bottom: 10px;
+      border-radius: 16px;
+      margin-bottom: 12px;
       overflow: hidden;
+      backdrop-filter: blur(5px);
+      transition: box-shadow 0.3s;
     }
+    .faq-item:hover { box-shadow: 0 8px 20px -5px rgba(0,0,0,0.06); border-color: rgba(37,99,235,0.3); }
+
     .faq-trigger {
-      width: 100%;
-      text-align: left;
-      padding: 16px 20px;
-      background: none;
-      border: none;
-      font-weight: 600;
-      color: #0f172a;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 1rem;
+      width: 100%; text-align: left; padding: 20px 24px;
+      background: none; border: none; font-weight: 700; color: #1e293b;
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+      font-size: 1.05rem;
     }
-    .faq-trigger:hover { background: #f8fafc; }
-    .faq-icon { transition: transform 0.3s; }
-    .faq-trigger[aria-expanded="true"] .faq-icon { transform: rotate(180deg); }
+    .faq-icon { 
+      width: 24px; height: 24px; border-radius: 50%; background: #f1f5f9; color: #2563eb;
+      display: flex; align-items: center; justify-content: center; font-size: 0.8rem;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .faq-trigger[aria-expanded="true"] .faq-icon { transform: rotate(180deg); background: #2563eb; color: #fff; }
     
     .faq-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease-out;
-      padding: 0 20px;
-      color: #475569;
-      line-height: 1.6;
+      max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;
+      padding: 0 24px; color: #475569; line-height: 1.7;
     }
-    .faq-trigger[aria-expanded="true"] + .faq-content {
-      padding-bottom: 20px;
-    }
+    .faq-trigger[aria-expanded="true"] + .faq-content { padding-bottom: 24px; }
 
-    /* Анимация статуса в шапке (дубль) */
+    /* Анимация статуса (дубль) */
     .system-status-pulse {
       display: inline-block; width: 8px; height: 8px;
       background-color: #10b981; border-radius: 50%;
@@ -219,10 +267,9 @@
     <div class="container">
 
       <section class="instr-hero reveal-up">
-        <h2 class="instr-title">Регламент прохождения обучения</h2>
+        <h2 class="instr-title">Регламент обучения</h2>
         <p class="instr-lead">
-          Пошаговый алгоритм действий сотрудника при дистанционном обучении и проверке знаний 
-          на корпоративном портале.
+          Пошаговый алгоритм действий сотрудника при дистанционном обучении и проверке знаний.
         </p>
       </section>
 
@@ -230,49 +277,42 @@
         <div class="timeline-container">
           
           <div class="timeline-item reveal-up delay-100">
-            <div class="timeline-dot"></div>
+            <div class="timeline-dot">01</div>
             <div class="timeline-content">
-              <div class="step-num">Этап 01</div>
               <h3 class="step-title">Назначение обучения</h3>
               <p class="step-desc">
-                Получите от руководителя уведомление о необходимости обучения. 
-                Уточните вид программы (ОТ, ПБ или Первая помощь) и установленные сроки прохождения.
+                Получите от руководителя уведомление. Уточните вид программы (ОТ, ПБ или Первая помощь) и сроки.
               </p>
             </div>
           </div>
 
           <div class="timeline-item reveal-up delay-100">
-            <div class="timeline-dot"></div>
+            <div class="timeline-dot">02</div>
             <div class="timeline-content">
-              <div class="step-num">Этап 02</div>
               <h3 class="step-title">Изучение материалов</h3>
               <p class="step-desc">
-                Перейдите в <a href="programs.html">Каталог программ</a>. Откройте нужный курс. 
-                Внимательно изучите видеолекции и PDF-инструкции.
+                Перейдите в <a href="programs.html">Каталог программ</a>. Выберите нужный курс и изучите видеолекции.
               </p>
             </div>
           </div>
 
           <div class="timeline-item reveal-up delay-100">
-            <div class="timeline-dot"></div>
+            <div class="timeline-dot">03</div>
             <div class="timeline-content">
-              <div class="step-num">Этап 03</div>
               <h3 class="step-title">Идентификация</h3>
               <p class="step-desc">
-                Перед началом теста заполните форму: ФИО (полностью), должность и подразделение. 
-                <strong>Данные должны совпадать с кадровыми документами.</strong>
+                Перед началом теста заполните форму: ФИО, должность, подразделение. 
+                <strong>Данные строго как в паспорте и трудовом договоре.</strong>
               </p>
             </div>
           </div>
 
           <div class="timeline-item reveal-up delay-100">
-            <div class="timeline-dot"></div>
+            <div class="timeline-dot">04</div>
             <div class="timeline-content">
-              <div class="step-num">Этап 04</div>
               <h3 class="step-title">Проверка знаний</h3>
               <p class="step-desc">
-                Пройдите итоговое тестирование. Необходимо набрать проходной балл (85%). 
-                Результаты автоматически отправляются в службу ОТ.
+                Пройдите итоговое тестирование. Проходной балл — 85%.
               </p>
             </div>
           </div>
@@ -281,36 +321,36 @@
       </section>
 
       <section class="section reveal-up">
-        <h2 style="text-align: center; margin-bottom: 20px;">Критерии допуска к тестированию</h2>
+        <h2 style="text-align: center; margin-bottom: 30px;">Критерии допуска</h2>
         <div class="requirements-grid">
           
-          <div class="req-card">
+          <div class="tilt-card">
             <div class="req-icon">🆔</div>
-            <h3>Персональные данные</h3>
+            <h3 class="req-title">Персональные данные</h3>
             <ul class="req-list">
-              <li>ФИО вводится полностью (Иванов Иван Иванович).</li>
-              <li>Должность — строго по штатному расписанию.</li>
-              <li>Подразделение</li>
+              <li>ФИО вводится полностью.</li>
+              <li>Должность по штатному расписанию.</li>
+              <li>Подразделение (Цех/Отдел).</li>
             </ul>
           </div>
 
-          <div class="req-card">
+          <div class="tilt-card">
             <div class="req-icon">💻</div>
-            <h3>Технические требования</h3>
+            <h3 class="req-title">Технические условия</h3>
             <ul class="req-list">
-              <li>Стабильное интернет-соединение.</li>
-              <li>Не закрывайте вкладку браузера во время теста.</li>
-              <li>Время на тестирование не ограничено (если не указано иное).</li>
+              <li>Стабильный интернет.</li>
+              <li>Не закрывайте вкладку при тесте.</li>
+              <li>Включите звук для видеолекций.</li>
             </ul>
           </div>
 
-          <div class="req-card">
+          <div class="tilt-card">
             <div class="req-icon">⚖️</div>
-            <h3>Ответственность</h3>
+            <h3 class="req-title">Ответственность</h3>
             <ul class="req-list">
-              <li>Запрещено передавать доступ третьим лицам.</li>
-              <li>Недостоверные данные аннулируют результат.</li>
-              <li>Несдача теста в срок влечёт отстранение от работы.</li>
+              <li>Запрещено участие третьих лиц.</li>
+              <li>Подлог данных аннулирует тест.</li>
+              <li>Соблюдайте сроки сдачи.</li>
             </ul>
           </div>
 
@@ -318,37 +358,37 @@
       </section>
 
       <section class="section reveal-up" style="margin-top: 60px;">
-        <h2 style="text-align: center; margin-bottom: 30px;">Типовые вопросы (FAQ)</h2>
+        <h2 style="text-align: center; margin-bottom: 30px;">Частые вопросы</h2>
         
         <div class="faq-accordion">
           
           <div class="faq-item">
             <button class="faq-trigger" aria-expanded="false">
-              Что делать при техническом сбое во время теста?
+              Сбой во время теста. Что делать?
               <span class="faq-icon">▼</span>
             </button>
             <div class="faq-content">
-              <p>Обновите страницу и попробуйте зайти снова. Если проблема сохраняется, сделайте скриншот ошибки и отправьте ответственному за обучение. Ваш прогресс в незавершенном тесте может не сохраниться.</p>
+              <p>Обновите страницу (F5). Если тест прервался, зайдите заново. При повторной ошибке сделайте скриншот и отправьте в службу техподдержки.</p>
             </div>
           </div>
 
           <div class="faq-item">
             <button class="faq-trigger" aria-expanded="false">
-              Можно ли пересдать тест при неудаче?
+              Сколько попыток дается на сдачу?
               <span class="faq-icon">▼</span>
             </button>
             <div class="faq-content">
-              <p>Да, количество попыток технически не ограничено, если иное не установлено вашим руководителем. Рекомендуется повторно изучить материалы перед следующей попыткой.</p>
+              <p>Количество попыток технически не ограничено, если иное не установлено вашим руководителем. Рекомендуем повторить материал перед пересдачей.</p>
             </div>
           </div>
 
           <div class="faq-item">
             <button class="faq-trigger" aria-expanded="false">
-              Как я узнаю результат?
+              Где посмотреть мой результат?
               <span class="faq-icon">▼</span>
             </button>
             <div class="faq-content">
-              <p>Результат (балл) отображается сразу после завершения теста. Официальный протокол проверки знаний оформляется службой охраны труда в течение 3 рабочих дней.</p>
+              <p>Результат (балл и статус "Сдано/Не сдано") отображается на экране сразу после отправки формы. Копия протокола уходит ответственному.</p>
             </div>
           </div>
 
@@ -375,19 +415,12 @@
     const dateEl = document.getElementById('current-date');
     if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
 
-    // 2. Аккордеон FAQ
+    // 2. Аккордеон
     const triggers = document.querySelectorAll('.faq-trigger');
     triggers.forEach(trigger => {
       trigger.addEventListener('click', () => {
         const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
         const content = trigger.nextElementSibling;
-        
-        // Закрыть все остальные (опционально)
-        // document.querySelectorAll('.faq-trigger').forEach(t => {
-        //   t.setAttribute('aria-expanded', 'false');
-        //   t.nextElementSibling.style.maxHeight = null;
-        // });
-
         trigger.setAttribute('aria-expanded', !isExpanded);
         if (!isExpanded) {
           content.style.maxHeight = content.scrollHeight + "px";
@@ -397,15 +430,37 @@
       });
     });
 
-    // 3. Анимация появления
+    // 3. Анимация скролла
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
+
+    // 4. 3D Tilt для карточек требований (только десктоп)
+    if (window.matchMedia("(min-width: 768px)").matches) {
+      const cards = document.querySelectorAll('.tilt-card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -3; 
+          const rotateY = ((x - centerX) / centerX) * 3;
+          
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+        });
+      });
+    }
   });
 </script>
 
