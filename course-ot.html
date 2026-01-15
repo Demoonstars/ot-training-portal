@@ -14,8 +14,8 @@
     /* === LMS LAYOUT === */
     .course-layout {
       display: grid;
-      grid-template-columns: 1fr 320px; /* Сайдбар чуть уже для аккуратности */
-      gap: 30px;
+      grid-template-columns: 1fr 340px;
+      gap: 40px;
       margin-top: 30px;
       align-items: start;
     }
@@ -55,7 +55,7 @@
       background: #fff;
       border-radius: 24px;
       padding: 30px;
-      border: 2px solid #10b981; /* Зеленая рамка */
+      border: 2px solid #10b981;
       box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1), 0 20px 40px -10px rgba(16, 185, 129, 0.15);
       position: relative;
       overflow: hidden;
@@ -64,7 +64,6 @@
     }
     .mandatory-block:hover { transform: translateY(-2px); }
 
-    /* Метка "Обязательно" */
     .mandatory-label {
       position: absolute; top: 0; right: 0;
       background: #10b981; color: #fff;
@@ -89,7 +88,6 @@
     }
     .btn-start-big:hover { transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(16, 185, 129, 0.6); }
     
-    /* Блик на кнопке */
     .btn-start-big::after {
       content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
@@ -143,7 +141,7 @@
     .course-sidebar {
       position: sticky;
       top: 30px; 
-      background: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.8);
       backdrop-filter: blur(15px);
       border: 1px solid #fff;
       border-radius: 24px;
@@ -151,49 +149,72 @@
       box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
     }
 
-    /* КАЛЕНДАРЬ WIDGET */
-    .calendar-widget {
-      margin-bottom: 30px;
-    }
+    /* КАЛЕНДАРЬ (STYLE UPDATE) */
+    .calendar-widget { margin-bottom: 30px; }
     .calendar-header {
       display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 15px; font-weight: 700; color: #0f172a; text-transform: capitalize;
     }
     .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 6px;
-      font-size: 0.8rem;
-      text-align: center;
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;
+      font-size: 0.8rem; text-align: center;
     }
-    .cal-day-name { color: #94a3b8; font-weight: 500; margin-bottom: 5px; }
+    .cal-day-name { color: #94a3b8; font-weight: 500; margin-bottom: 5px; font-size: 0.7rem; }
     .cal-day {
       width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
-      border-radius: 8px; color: #334155; font-weight: 500; transition: 0.2s;
+      border-radius: 8px; color: #334155; font-weight: 500; transition: 0.2s; cursor: default;
     }
+    
+    /* Стили дней */
     .cal-day.today {
       background: #10b981; color: #fff; font-weight: 700;
       box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
     }
-    .cal-day:hover:not(.today):not(.empty) { background: #f1f5f9; }
+    .cal-day.weekend { color: #ef4444; background: #fef2f2; } /* Красный для выходных */
+    .cal-day.holiday { 
+      color: #dc2626; background: #fee2e2; border: 1px solid #fecaca; font-weight: 700;
+    }
     .cal-day.empty { pointer-events: none; }
+
+    /* ДОКУМЕНТЫ (QUICK DOCS) */
+    .quick-docs-title { font-size: 0.95rem; font-weight: 700; color: #0f172a; margin: 0 0 10px; }
+    .quick-doc-link {
+      display: flex; align-items: center; gap: 10px; padding: 10px;
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
+      text-decoration: none; color: #334155; font-size: 0.85rem; margin-bottom: 8px;
+      transition: 0.2s;
+    }
+    .quick-doc-link:hover { border-color: #3b82f6; color: #2563eb; transform: translateX(3px); }
 
     /* Support Widget */
     .support-widget {
       background: #f8fafc; border-radius: 16px; padding: 15px;
-      border: 1px dashed #cbd5e1; text-align: center;
+      border: 1px dashed #cbd5e1; text-align: center; margin-top: 20px;
     }
     .support-link { color: #2563eb; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+
+    /* TOAST NOTIFICATION */
+    .toast-notification {
+      position: fixed; bottom: 30px; right: 30px;
+      background: #fff; border-left: 4px solid #f97316;
+      padding: 16px 20px; border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      z-index: 100; display: flex; align-items: flex-start; gap: 12px;
+      max-width: 320px;
+      animation: slideIn 0.5s ease-out forwards;
+    }
+    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    .toast-close { margin-left: auto; cursor: pointer; color: #94a3b8; }
 
     @media (max-width: 900px) {
       .course-layout { grid-template-columns: 1fr; }
       .course-sidebar { position: relative; top: 0; order: -1; margin-bottom: 30px; }
       .mandatory-title { font-size: 1.3rem; }
+      .toast-notification { left: 20px; right: 20px; bottom: 20px; max-width: none; }
     }
 
     @keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
     
-    /* Header Animation (Pulse) */
     .system-status-pulse {
       display: inline-block; width: 8px; height: 8px;
       background-color: #10b981; border-radius: 50%;
@@ -258,10 +279,9 @@
           
           <div class="course-header-card reveal-up">
             <span class="course-badge">ПП РФ № 2464</span>
-            <h1 class="course-title">Обучение требованиям охраны труда</h1>
+            <h1 class="course-title"><span id="greeting-text">Добрый день</span>, коллега!</h1>
             <p class="course-desc">
-              Комплексная программа подготовки. Выберите необходимый модуль для начала обучения. 
-              <strong>Вводный инструктаж обязателен для всех категорий персонала.</strong>
+              Это раздел обучения требованиям охраны труда. Начните с обязательного вводного инструктажа, а затем переходите к специализированным программам, если они вам назначены.
             </p>
           </div>
 
@@ -325,10 +345,20 @@
           
           <div class="calendar-widget">
             <div class="calendar-header">
-              <span id="cal-month-name">Январь 2026</span>
+              <span id="cal-month-name">Загрузка...</span>
             </div>
             <div class="calendar-grid" id="calendar-grid">
               </div>
+          </div>
+
+          <div class="quick-docs">
+            <h4 class="quick-docs-title">Скачать бланки</h4>
+            <a href="#" class="quick-doc-link">
+              <span>📄</span> Журнал инструктажа (Образец)
+            </a>
+            <a href="#" class="quick-doc-link">
+              <span>📝</span> Личная карточка СИЗ
+            </a>
           </div>
 
           <div class="support-widget">
@@ -353,17 +383,34 @@
     </div>
   </footer>
 
+  <div class="toast-notification" id="courseToast">
+    <div style="font-size: 1.5rem;">🔔</div>
+    <div>
+      <div style="font-weight: 700; font-size: 0.9rem; color: #0f172a;">Напоминание</div>
+      <div style="font-size: 0.85rem; color: #64748b;">Проверьте сроки сдачи вводного инструктажа.</div>
+    </div>
+    <div class="toast-close" onclick="document.getElementById('courseToast').style.display='none'">✕</div>
+  </div>
+
 </div>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     // 1. Дата в шапке
+    const now = new Date();
     const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const dateStr = new Date().toLocaleDateString('ru-RU', dateOptions);
+    const dateStr = now.toLocaleDateString('ru-RU', dateOptions);
     const dateEl = document.getElementById('current-date');
     if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
 
-    // 2. Анимация появления
+    // 2. Динамическое приветствие
+    const hours = now.getHours();
+    let greeting = "Добрый день";
+    if (hours < 12) greeting = "Доброе утро";
+    else if (hours >= 17) greeting = "Добрый вечер";
+    document.getElementById('greeting-text').textContent = greeting;
+
+    // 3. Анимация появления
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -371,19 +418,16 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
 
-    // 3. Генератор Календаря (Текущий месяц)
+    // 4. Умный календарь (С праздниками и выходными)
     function generateCalendar() {
       const grid = document.getElementById('calendar-grid');
       const title = document.getElementById('cal-month-name');
-      const now = new Date();
       const year = now.getFullYear();
-      const month = now.getMonth(); // 0-11
+      const month = now.getMonth(); 
       const today = now.getDate();
 
-      // Название месяца
       title.textContent = now.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' });
 
-      // Дни недели
       const days = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
       days.forEach(d => {
         const el = document.createElement('div');
@@ -392,33 +436,60 @@
         grid.appendChild(el);
       });
 
-      // Первый день месяца
       const firstDayDate = new Date(year, month, 1);
-      let startDay = firstDayDate.getDay(); // 0 (Вс) - 6 (Сб)
-      if (startDay === 0) startDay = 7; // Делаем Пн=1 ... Вс=7
+      let startDay = firstDayDate.getDay(); 
+      if (startDay === 0) startDay = 7;
 
-      // Последний день месяца
       const lastDayDate = new Date(year, month + 1, 0);
       const daysInMonth = lastDayDate.getDate();
 
-      // Пустые ячейки до начала месяца
+      // Праздники РФ (Примерный список основных)
+      // Формат: "D.M" (без ведущих нулей для простоты)
+      const holidays = ['1.1', '2.1', '3.1', '4.1', '5.1', '6.1', '7.1', '8.1', '23.2', '8.3', '1.5', '9.5', '12.6', '4.11'];
+
       for (let i = 1; i < startDay; i++) {
         const empty = document.createElement('div');
         empty.className = 'cal-day empty';
         grid.appendChild(empty);
       }
 
-      // Дни месяца
       for (let i = 1; i <= daysInMonth; i++) {
         const dayEl = document.createElement('div');
         dayEl.className = 'cal-day';
         dayEl.textContent = i;
+        
+        // Проверка на сегодня
         if (i === today) dayEl.classList.add('today');
+
+        // Проверка на выходной (вычисляем день недели)
+        const currentDayDate = new Date(year, month, i);
+        const dayOfWeek = currentDayDate.getDay(); // 0-Sun, 6-Sat
+        if (dayOfWeek === 0 || dayOfWeek === 6) {
+          dayEl.classList.add('weekend');
+        }
+
+        // Проверка на праздник
+        const dateKey = `${i}.${month + 1}`;
+        if (holidays.includes(dateKey)) {
+          dayEl.classList.add('holiday');
+          dayEl.title = "Праздничный день";
+        }
+
         grid.appendChild(dayEl);
       }
     }
-    
     generateCalendar();
+
+    // 5. Авто-скрытие уведомления через 8 сек
+    setTimeout(() => {
+        const toast = document.getElementById('courseToast');
+        if(toast) {
+            toast.style.transition = "opacity 0.5s, transform 0.5s";
+            toast.style.opacity = "0";
+            toast.style.transform = "translateX(100%)";
+            setTimeout(() => toast.style.display = 'none', 500);
+        }
+    }, 8000);
   });
 </script>
 
