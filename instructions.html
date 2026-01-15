@@ -2,29 +2,214 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Инструкции для сотрудников — Учебный портал</title>
+  <title>Регламент обучения | Инструкции</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Порядок прохождения дистанционного обучения для сотрудников: инструкции по работе с учебным порталом, требования к заполнению данных и выполнению тестов.">
+  <meta name="description" content="Порядок допуска к самостоятельной работе: инструкции по работе с порталом, требования к тестированию и оформлению результатов.">
   <link rel="stylesheet" href="assets/style.css">
-</head>
-<body class="instructions-page">
-  <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <header class="site-header">
+  <style>
+    /* 1. HERO BLOCK (Заголовок) */
+    .instr-hero {
+      text-align: center;
+      padding: 40px 20px;
+      margin-bottom: 20px;
+    }
+    .instr-title { font-size: 2.2rem; font-weight: 800; color: #0f172a; margin-bottom: 15px; }
+    .instr-lead { font-size: 1.1rem; color: #475569; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+
+    /* 2. TIMELINE (Дорожная карта) - Вертикальная */
+    .timeline-container {
+      position: relative;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px 0;
+    }
+    /* Линия по центру */
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; left: 24px; /* Смещена влево для мобильных */
+      width: 4px;
+      background: #e2e8f0;
+      border-radius: 4px;
+    }
+    
+    @media (min-width: 768px) {
+      .timeline-container::before { left: 50%; transform: translateX(-50%); }
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end; /* По умолчанию справа */
+      padding-left: 60px; /* Отступ от линии */
+    }
+
+    /* Чередование на десктопе */
+    @media (min-width: 768px) {
+      .timeline-item:nth-child(odd) { justify-content: flex-start; padding-left: 0; padding-right: 50%; }
+      .timeline-item:nth-child(even) { justify-content: flex-end; padding-left: 50%; padding-right: 0; }
+      
+      /* Контент внутри item */
+      .timeline-content { width: 90%; }
+      .timeline-item:nth-child(odd) .timeline-content { margin-right: 40px; text-align: right; }
+      .timeline-item:nth-child(even) .timeline-content { margin-left: 40px; text-align: left; }
+    }
+
+    /* Точка на линии */
+    .timeline-dot {
+      position: absolute;
+      left: 14px; /* На линии мобильной */
+      top: 0;
+      width: 24px; height: 24px;
+      background: #3b82f6;
+      border: 4px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(59,130,246,0.2);
+      z-index: 2;
+    }
+
+    @media (min-width: 768px) {
+      .timeline-dot { left: 50%; transform: translateX(-50%); }
+    }
+
+    .timeline-content {
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(255,255,255,0.8);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      transition: transform 0.3s;
+    }
+    .timeline-content:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); background: #fff; }
+
+    .step-num { font-size: 0.8rem; font-weight: 700; color: #3b82f6; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+    .step-title { font-size: 1.1rem; font-weight: 700; color: #0f172a; margin: 0 0 8px; }
+    .step-desc { font-size: 0.95rem; color: #475569; margin: 0; line-height: 1.5; }
+
+    /* 3. CHECKLIST PANEL */
+    .requirements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .req-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid rgba(148,163,184,0.2);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+    .req-icon { font-size: 2rem; margin-bottom: 15px; }
+    .req-list { list-style: none; padding: 0; margin: 0; }
+    .req-list li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      color: #334155;
+    }
+    .req-list li::before {
+      content: "✔";
+      position: absolute; left: 0; color: #10b981; font-weight: bold;
+    }
+
+    /* 4. FAQ ACCORDION */
+    .faq-accordion { max-width: 800px; margin: 40px auto; }
+    .faq-item {
+      background: #fff;
+      border: 1px solid rgba(148,163,184,0.2);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .faq-trigger {
+      width: 100%;
+      text-align: left;
+      padding: 16px 20px;
+      background: none;
+      border: none;
+      font-weight: 600;
+      color: #0f172a;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1rem;
+    }
+    .faq-trigger:hover { background: #f8fafc; }
+    .faq-icon { transition: transform 0.3s; }
+    .faq-trigger[aria-expanded="true"] .faq-icon { transform: rotate(180deg); }
+    
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      padding: 0 20px;
+      color: #475569;
+      line-height: 1.6;
+    }
+    .faq-trigger[aria-expanded="true"] + .faq-content {
+      padding-bottom: 20px;
+    }
+
+    /* Анимация статуса в шапке (дубль) */
+    .system-status-pulse {
+      display: inline-block; width: 8px; height: 8px;
+      background-color: #10b981; border-radius: 50%;
+      box-shadow: 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulse-green 2s infinite; margin-right: 6px;
+    }
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .header-meta {
+      font-size: 0.75rem; color: #64748b; font-weight: 500;
+      display: flex; align-items: center; gap: 15px; margin-left: auto;
+    }
+    @media (max-width: 900px) { .header-meta { display: none; } }
+  </style>
+</head>
+<body class="masterpiece-theme">
+
+<a class="skip-link" href="#main-content">Перейти к контенту</a>
+
+<div class="glass-wrapper">
+  
+  <header class="site-header transparent-header">
     <div class="container header-inner">
       <div class="header-brand">
-        <p class="site-label">Дистанционный учебный портал</p>
-        <h1 class="site-title">Охрана труда, пожарная безопасность, первая помощь, ГО/ЧС</h1>
-        <p class="site-subtitle">
-          Дистанционное обучение работников и проверка знаний требований охраны труда и безопасности.
-        </p>
+        <div class="brand-logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <h1 class="site-title-mini">СДО «Безопасность»</h1>
+          <p class="site-subtitle-mini">Система управления охраной труда</p>
+        </div>
       </div>
-      <nav class="main-nav" aria-label="Основная навигация">
+      
+      <div class="header-meta">
+        <span id="current-date">Загрузка...</span>
+        <span style="display:flex; align-items:center;">
+            <span class="system-status-pulse"></span> Online
+        </span>
+      </div>
+
+      <nav class="main-nav">
         <ul class="nav-list">
-          <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
-          <li class="nav-item"><a href="programs.html" class="nav-link">Программы обучения</a></li>
-          <li class="nav-item"><a href="instructions.html" class="nav-link nav-link-active">Инструкции для сотрудников</a></li>
-          <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Информация для ответственных за обучение</a></li>
+          <li><a href="index.html" class="nav-link">Главная</a></li>
+          <li><a href="programs.html" class="nav-link">Каталог программ</a></li>
+          <li><a href="instructions.html" class="nav-link nav-link-active active">Инструкции</a></li>
+          <li><a href="for-responsibles.html" class="nav-link">Ответственным</a></li>
         </ul>
       </nav>
     </div>
@@ -33,156 +218,196 @@
   <main id="main-content" class="site-main">
     <div class="container">
 
-      <!-- Заголовок страницы с ярким акцентом -->
-      <section class="section section-card page-header page-header-accent-blue">
-        <div class="page-header-label">Инструкции</div>
-        <h2 class="page-title">Инструкции для сотрудников по работе с учебным порталом</h2>
-        <p class="page-lead">
-          На этой странице собран пошаговый порядок прохождения дистанционного обучения, а также требования к
-          заполнению данных и выполнению тестов для работников, проходящих обучение по охране труда, пожарной
-          безопасности, оказанию первой помощи пострадавшим и гражданской обороне/ЧС.
-        </p>
-        <p>
-          Конкретные сроки обучения, перечень обязательных программ и последствия непрохождения обучения в срок
-          определяются работодателем в локальных нормативных актах и доводятся до сведения работника отдельно.
+      <section class="instr-hero reveal-up">
+        <h2 class="instr-title">Регламент прохождения обучения</h2>
+        <p class="instr-lead">
+          Пошаговый алгоритм действий сотрудника при дистанционном обучении и проверке знаний 
+          на корпоративном портале.
         </p>
       </section>
 
-      <!-- Порядок прохождения обучения (таймлайн + чек-лист) -->
-      <section class="section section-card section-card-elevated">
-        <h2>Порядок прохождения дистанционного обучения</h2>
-        <div class="info-grid">
-          <div class="steps-timeline">
-            <ol class="steps-list steps-list-timeline">
-              <li>
-                <strong>Получите информацию от ответственного лица.</strong>
-                Ответственный за обучение сообщает, какие программы необходимо пройти, в какие сроки и какие ссылки
-                использовать для доступа к материалам и тестам.
-              </li>
-              <li>
-                <strong>Перейдите на учебный портал.</strong>
-                По предоставленной ссылке откройте соответствующий курс (охрана труда, пожарная безопасность,
-                первая помощь, ГО/ЧС) и ознакомьтесь с описанием программы.
-              </li>
-              <li>
-                <strong>Изучите материалы курса.</strong>
-                Просмотрите видеолекции, презентации и текстовые материалы. При необходимости используйте конспекты
-                или распечатанные памятки.
-              </li>
-              <li>
-                <strong>Перейдите к итоговому тесту.</strong>
-                После изучения материалов используйте ссылку <em>«Сдать итоговый тест»</em> на странице курса.
-              </li>
-              <li>
-                <strong>Заполните персональные и организационные данные.</strong>
-                В верхней части теста корректно заполните все обязательные поля формы перед ответами на вопросы.
-              </li>
-              <li>
-                <strong>Ответьте на вопросы и отправьте форму.</strong>
-                После завершения теста отправьте форму и убедитесь, что система подтвердила успешную отправку.
-              </li>
-            </ol>
+      <section class="section">
+        <div class="timeline-container">
+          
+          <div class="timeline-item reveal-up delay-100">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="step-num">Этап 01</div>
+              <h3 class="step-title">Назначение обучения</h3>
+              <p class="step-desc">
+                Получите от руководителя уведомление о необходимости обучения. 
+                Уточните вид программы (ОТ, ПБ или Первая помощь) и установленные сроки прохождения.
+              </p>
+            </div>
           </div>
 
-          <div class="info-panel">
-            <h3>Что важно учитывать</h3>
-            <ul class="checklist">
-              <li>проходите обучение лично, не передавайте ссылку на тест другим лицам;</li>
-              <li>не используйте чужие персональные данные при заполнении формы;</li>
-              <li>следите за соответствием указанных ФИО, должности и подразделения кадровым документам;</li>
-              <li>при технических неполадках (ошибка доступа, не открывается форма) обращайтесь к ответственному за обучение;</li>
-              <li>соблюдайте установленные работодателем сроки прохождения обучения и тестирования.</li>
-            </ul>
+          <div class="timeline-item reveal-up delay-100">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="step-num">Этап 02</div>
+              <h3 class="step-title">Изучение материалов</h3>
+              <p class="step-desc">
+                Перейдите в <a href="programs.html">Каталог программ</a>. Откройте нужный курс. 
+                Внимательно изучите видеолекции и PDF-инструкции.
+              </p>
+            </div>
           </div>
+
+          <div class="timeline-item reveal-up delay-100">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="step-num">Этап 03</div>
+              <h3 class="step-title">Идентификация</h3>
+              <p class="step-desc">
+                Перед началом теста заполните форму: ФИО (полностью), должность и подразделение. 
+                <strong>Данные должны совпадать с кадровыми документами.</strong>
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal-up delay-100">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="step-num">Этап 04</div>
+              <h3 class="step-title">Проверка знаний</h3>
+              <p class="step-desc">
+                Пройдите итоговое тестирование. Необходимо набрать проходной балл (обычно 80%). 
+                Результаты автоматически отправляются в службу ОТ.
+              </p>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <!-- Требования к заполнению данных и тестам -->
-      <section class="section section-card section-card-elevated">
-        <h2>Требования к заполнению данных и выполнению тестов</h2>
-        <div class="info-grid">
-          <div class="info-panel">
-            <h3>Персональные и организационные данные</h3>
-            <ul class="checklist">
-              <li>вводите данные полностью, без необоснованных сокращений;</li>
-              <li>используйте официальное наименование организации и подразделения;</li>
-              <li>указывайте фактическую дату трудоустройства по кадровым документам;</li>
-              <li>перед отправкой формы проверьте правильность введённых сведений.</li>
-            </ul>
-            <p class="note">
-              Указанные данные используются для оформления документов, подтверждающих прохождение обучения и проверку
-              знаний. Ошибки в данных могут потребовать дополнительного оформления или повторного тестирования.
-            </p>
-          </div>
-          <div class="info-panel">
-            <h3>Выполнение тестовых заданий</h3>
-            <ul class="checklist">
-              <li>внимательно читайте формулировку вопросов и варианты ответов;</li>
-              <li>обращайте внимание на указание о количестве правильных ответов (один или несколько);</li>
-              <li>не обновляйте страницу во время прохождения теста, чтобы не потерять введённые ответы;</li>
-              <li>после завершения проверяйте, что форма успешно отправлена и сообщение об этом отображено;</li>
-              <li>при необходимости уточняйте у ответственного минимальный балл для зачёта.</li>
+      <section class="section reveal-up">
+        <h2 style="text-align: center; margin-bottom: 20px;">Критерии допуска к тестированию</h2>
+        <div class="requirements-grid">
+          
+          <div class="req-card">
+            <div class="req-icon">🆔</div>
+            <h3>Персональные данные</h3>
+            <ul class="req-list">
+              <li>ФИО вводится полностью (Иванов Иван Иванович).</li>
+              <li>Должность — строго по штатному расписанию.</li>
+              <li>Дата приёма — фактическая (для протокола).</li>
             </ul>
           </div>
+
+          <div class="req-card">
+            <div class="req-icon">💻</div>
+            <h3>Технические требования</h3>
+            <ul class="req-list">
+              <li>Стабильное интернет-соединение.</li>
+              <li>Не закрывайте вкладку браузера во время теста.</li>
+              <li>Время на тестирование не ограничено (если не указано иное).</li>
+            </ul>
+          </div>
+
+          <div class="req-card">
+            <div class="req-icon">⚖️</div>
+            <h3>Ответственность</h3>
+            <ul class="req-list">
+              <li>Запрещено передавать доступ третьим лицам.</li>
+              <li>Недостоверные данные аннулируют результат.</li>
+              <li>Несдача теста в срок влечёт отстранение от работы.</li>
+            </ul>
+          </div>
+
         </div>
       </section>
 
-      <!-- FAQ -->
-      <section class="section section-card section-card-elevated">
-        <h2>Часто задаваемые вопросы</h2>
-
-        <div class="faq-grid">
+      <section class="section reveal-up" style="margin-top: 60px;">
+        <h2 style="text-align: center; margin-bottom: 30px;">Типовые вопросы (FAQ)</h2>
+        
+        <div class="faq-accordion">
+          
           <div class="faq-item">
-            <div class="faq-question">Что делать, если я ошибся в персональных данных при отправке теста?</div>
-            <div class="faq-answer">
-              Сообщите об этом ответственному за обучение по указанным в организации контактам. При необходимости
-              может быть назначено повторное прохождение теста либо выполнена корректировка данных при оформлении
-              документов.
+            <button class="faq-trigger" aria-expanded="false">
+              Что делать при техническом сбое во время теста?
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-content">
+              <p>Обновите страницу и попробуйте зайти снова. Если проблема сохраняется, сделайте скриншот ошибки и отправьте ответственному за обучение. Ваш прогресс в незавершенном тесте может не сохраниться.</p>
             </div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-question">Можно ли проходить тест несколько раз?</div>
-            <div class="faq-answer">
-              Возможность повторного прохождения теста и минимально допустимый результат определяются локальными
-              документами работодателя. Информация о количестве попыток и критериях зачёта доводится до работников
-              ответственным за обучение.
+            <button class="faq-trigger" aria-expanded="false">
+              Можно ли пересдать тест при неудаче?
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-content">
+              <p>Да, количество попыток технически не ограничено, если иное не установлено вашим руководителем. Рекомендуется повторно изучить материалы перед следующей попыткой.</p>
             </div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-question">Что делать, если во время теста пропал интернет или выключился компьютер?</div>
-            <div class="faq-answer">
-              После восстановления доступа к сети повторно перейдите по ссылке на тест и сообщите ответственному
-              за обучение о произошедшем. Он примет решение о необходимости повторного прохождения теста.
+            <button class="faq-trigger" aria-expanded="false">
+              Как я узнаю результат?
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-content">
+              <p>Результат (балл) отображается сразу после завершения теста. Официальный протокол проверки знаний оформляется службой охраны труда в течение 3 рабочих дней.</p>
             </div>
           </div>
 
-          <div class="faq-item">
-            <div class="faq-question">Будут ли результаты теста использованы при последующих проверках знаний?</div>
-            <div class="faq-answer">
-              Результаты теста могут использоваться для подтверждения прохождения обучения, проведения проверок знаний
-              и формирования отчётности в порядке, установленном локальными актами работодателя и требованиями
-              законодательства.
-            </div>
-          </div>
         </div>
       </section>
 
     </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p class="footer-text">
-        Учебный портал дистанционного обучения по охране труда, пожарной безопасности,
-        первой помощи и ГО/ЧС.
-      </p>
-      <p class="footer-text footer-text-muted">
-        Конкретные условия, порядок обучения и оформления документов устанавливаются работодателем
-        в локальных нормативных актах.
-      </p>
+  <footer class="glass-footer">
+    <div class="container">
+      <p>© 2026 Служба Охраны Труда. Внутренний ресурс.</p>
     </div>
   </footer>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    
+    // 1. Дата в шапке
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateStr = new Date().toLocaleDateString('ru-RU', dateOptions);
+    const dateEl = document.getElementById('current-date');
+    if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+
+    // 2. Аккордеон FAQ
+    const triggers = document.querySelectorAll('.faq-trigger');
+    triggers.forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+        const content = trigger.nextElementSibling;
+        
+        // Закрыть все остальные (опционально)
+        // document.querySelectorAll('.faq-trigger').forEach(t => {
+        //   t.setAttribute('aria-expanded', 'false');
+        //   t.nextElementSibling.style.maxHeight = null;
+        // });
+
+        trigger.setAttribute('aria-expanded', !isExpanded);
+        if (!isExpanded) {
+          content.style.maxHeight = content.scrollHeight + "px";
+        } else {
+          content.style.maxHeight = null;
+        }
+      });
+    });
+
+    // 3. Анимация появления
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
+  });
+</script>
+
 </body>
 </html>
