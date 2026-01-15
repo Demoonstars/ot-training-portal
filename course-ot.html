@@ -14,8 +14,8 @@
     /* === LMS LAYOUT === */
     .course-layout {
       display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 40px;
+      grid-template-columns: 1fr 320px; /* Сайдбар чуть уже для аккуратности */
+      gap: 30px;
       margin-top: 30px;
       align-items: start;
     }
@@ -143,43 +143,47 @@
     .course-sidebar {
       position: sticky;
       top: 30px; 
-      background: rgba(255,255,255,0.8);
-      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(15px);
       border: 1px solid #fff;
       border-radius: 24px;
       padding: 24px;
       box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
     }
 
-    .sidebar-title { 
-      font-size: 1rem; font-weight: 700; color: #0f172a; margin: 0 0 15px; 
-      display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px;
+    /* КАЛЕНДАРЬ WIDGET */
+    .calendar-widget {
+      margin-bottom: 30px;
     }
-    
-    .progress-list { list-style: none; padding: 0; margin: 0; }
-    .progress-item {
-      display: flex; align-items: center; gap: 12px;
-      padding: 12px 0;
-      color: #64748b; font-size: 0.9rem;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
+    .calendar-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 15px; font-weight: 700; color: #0f172a; text-transform: capitalize;
     }
-    .progress-item:last-child { border-bottom: none; }
-    
-    /* Статусы */
-    .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #cbd5e1; }
-    .status-dot.active { background: #10b981; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); }
-    .status-dot.optional { background: #3b82f6; }
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+    .cal-day-name { color: #94a3b8; font-weight: 500; margin-bottom: 5px; }
+    .cal-day {
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      border-radius: 8px; color: #334155; font-weight: 500; transition: 0.2s;
+    }
+    .cal-day.today {
+      background: #10b981; color: #fff; font-weight: 700;
+      box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+    }
+    .cal-day:hover:not(.today):not(.empty) { background: #f1f5f9; }
+    .cal-day.empty { pointer-events: none; }
 
-    /* Кнопка теста */
-    .btn-test-action {
-      display: flex; align-items: center; justify-content: center; width: 100%;
-      margin-top: 25px; padding: 14px;
-      background: #0f172a;
-      color: #fff; font-weight: 600; border-radius: 14px;
-      text-decoration: none;
-      transition: transform 0.2s;
+    /* Support Widget */
+    .support-widget {
+      background: #f8fafc; border-radius: 16px; padding: 15px;
+      border: 1px dashed #cbd5e1; text-align: center;
     }
-    .btn-test-action:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(15,23,42,0.2); }
+    .support-link { color: #2563eb; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
 
     @media (max-width: 900px) {
       .course-layout { grid-template-columns: 1fr; }
@@ -318,38 +322,24 @@
         </div>
 
         <aside class="course-sidebar reveal-up delay-100">
-          <div class="sidebar-title">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-            Структура курса
-          </div>
           
-          <ul class="progress-list">
-            <li class="progress-item" style="color: #10b981; font-weight: 600;">
-              <span class="status-dot active"></span> 
-              <span>Вводный инструктаж</span>
-            </li>
-            <li class="progress-item">
-              <span class="status-dot optional"></span> 
-              <span>Программа А (Офис)</span>
-            </li>
-            <li class="progress-item">
-              <span class="status-dot optional"></span> 
-              <span>Программа Б (Рабочие)</span>
-            </li>
-            <li class="progress-item">
-              <span class="status-dot optional"></span> 
-              <span>Обучение СИЗ</span>
-            </li>
-          </ul>
-
-          <div style="margin-top: 30px; border-top: 1px dashed #cbd5e1; padding-top: 20px;">
-            <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 10px;">
-              Завершили обучение по всем назначенным программам?
-            </p>
-            <a href="ot-test.html" class="btn-test-action">
-              Проверка знаний (Тест) ➔
-            </a>
+          <div class="calendar-widget">
+            <div class="calendar-header">
+              <span id="cal-month-name">Январь 2026</span>
+            </div>
+            <div class="calendar-grid" id="calendar-grid">
+              </div>
           </div>
+
+          <div class="support-widget">
+            <div style="font-size: 1.5rem; margin-bottom: 5px;">👨‍💼</div>
+            <h4 style="margin: 0 0 5px; font-size: 0.9rem;">Есть вопросы?</h4>
+            <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 10px;">
+              По назначению программ и срокам сдачи обращайтесь к руководителю.
+            </p>
+            <a href="mailto:support@company.ru" class="support-link">Написать в ОТ</a>
+          </div>
+
         </aside>
 
       </div>
@@ -367,7 +357,7 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    // 1. Дата
+    // 1. Дата в шапке
     const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const dateStr = new Date().toLocaleDateString('ru-RU', dateOptions);
     const dateEl = document.getElementById('current-date');
@@ -380,6 +370,55 @@
       });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
+
+    // 3. Генератор Календаря (Текущий месяц)
+    function generateCalendar() {
+      const grid = document.getElementById('calendar-grid');
+      const title = document.getElementById('cal-month-name');
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth(); // 0-11
+      const today = now.getDate();
+
+      // Название месяца
+      title.textContent = now.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' });
+
+      // Дни недели
+      const days = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+      days.forEach(d => {
+        const el = document.createElement('div');
+        el.className = 'cal-day-name';
+        el.textContent = d;
+        grid.appendChild(el);
+      });
+
+      // Первый день месяца
+      const firstDayDate = new Date(year, month, 1);
+      let startDay = firstDayDate.getDay(); // 0 (Вс) - 6 (Сб)
+      if (startDay === 0) startDay = 7; // Делаем Пн=1 ... Вс=7
+
+      // Последний день месяца
+      const lastDayDate = new Date(year, month + 1, 0);
+      const daysInMonth = lastDayDate.getDate();
+
+      // Пустые ячейки до начала месяца
+      for (let i = 1; i < startDay; i++) {
+        const empty = document.createElement('div');
+        empty.className = 'cal-day empty';
+        grid.appendChild(empty);
+      }
+
+      // Дни месяца
+      for (let i = 1; i <= daysInMonth; i++) {
+        const dayEl = document.createElement('div');
+        dayEl.className = 'cal-day';
+        dayEl.textContent = i;
+        if (i === today) dayEl.classList.add('today');
+        grid.appendChild(dayEl);
+      }
+    }
+    
+    generateCalendar();
   });
 </script>
 
