@@ -12,10 +12,18 @@
 
   <style>
     /* === ЖИВОЙ ФОН === */
-    body.masterpiece-theme {
-      background: radial-gradient(circle at 50% 0%, #f1f5f9, #e2e8f0);
-      min-height: 100vh;
-    }
+body.masterpiece-theme {
+  background: linear-gradient(-45deg, #f1f5f9, #e0f2fe, #f0fdf4, #fff7ed);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  min-height: 100vh;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
     /* === DASHBOARD LAYOUT === */
     .dashboard-container {
