@@ -36,33 +36,67 @@
     }
 
     /* === 2. HERO СЕКЦИЯ === */
-    .programs-hero {
+.programs-hero {
       text-align: center;
       padding: 60px 20px 40px;
       position: relative;
     }
+
     .hero-title {
       font-size: 3rem;
-      font-weight: 800;
-      /* Градиент более контрастный */
-      background: linear-gradient(135deg, #020617 0%, #1e293b 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 15px;
+      font-weight: 900; /* Сделали максимально жирным */
+      
+      /* 🔍 ИЗМЕНЕНО: Убрали прозрачный градиент, поставили плотный темный цвет */
+      color: #0f172a; 
+      background: none;
+      -webkit-text-fill-color: initial; 
+      -webkit-background-clip: border-box;
+      
+      margin-bottom: 20px;
       letter-spacing: -1px;
-      /* Добавим легкую тень для четкости */
-      text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      
+      /* 🔍 НОВОЕ: Белая "обводка" тенью, чтобы текст читался на любом фоне */
+      text-shadow: 
+        3px 3px 0px #ffffff, 
+        -1px -1px 0 #ffffff,
+        1px -1px 0 #ffffff,
+        -1px 1px 0 #ffffff,
+        1px 1px 0 #ffffff,
+        0 10px 30px rgba(0,0,0,0.15); /* Дальняя тень для объема */
     }
+
     .hero-lead {
-        /* Цвет текста темнее для читаемости */
-        color: #475569 !important; 
-        max-width: 600px; margin: 0 auto; font-size: 1.1rem; font-weight: 500;
+      /* 🔍 ИЗМЕНЕНО: Цвет текста стал насыщенным темным */
+      color: #1e293b !important; 
+      
+      max-width: 650px; 
+      margin: 0 auto; 
+      font-size: 1.15rem; 
+      font-weight: 600; /* Жирность повышена */
+      line-height: 1.6;
+      
+      /* 🔍 НОВОЕ: Полупрозрачная подложка под текст описания */
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(8px); /* Размытие фона под текстом */
+      padding: 15px 30px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.8);
+      
+      display: inline-block; /* Чтобы плашка облегала текст */
+      box-shadow: 0 4px 20px rgba(148, 163, 184, 0.15);
     }
+
     .cursor-blink {
-      display: inline-block; width: 4px; height: 1em; background: #2563eb;
-      margin-left: 5px; animation: blink 1s infinite; vertical-align: middle;
+      display: inline-block; width: 6px; height: 1em; background: #2563eb;
+      margin-left: 8px; animation: blink 1s infinite; vertical-align: middle;
+      border-radius: 4px;
+      box-shadow: 0 0 15px rgba(37,99,235, 0.6); /* Светящийся курсор */
     }
     @keyframes blink { 50% { opacity: 0; } }
+    
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2.2rem; }
+    }
 
     /* === 3. ПАНЕЛЬ УПРАВЛЕНИЯ (Более матовая) === */
     .control-panel {
