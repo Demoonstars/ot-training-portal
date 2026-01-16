@@ -2,568 +2,372 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Вводный инструктаж по охране труда — Учебный портал</title>
+  <title>СДО | Вводный инструктаж по охране труда</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description"
-        content="Вводный инструктаж по охране труда: PDF-материал, видеоматериалы и проверка знаний." />
+  <meta name="description" content="Вводный инструктаж по охране труда: изучение нормативной базы, видеоматериалы и итоговое тестирование." />
   <link rel="stylesheet" href="assets/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Локальные стили только для этой страницы (без вмешательства в общий CSS) -->
   <style>
-    .ot-intro-hero h1 { margin: 0; }
-    .ot-intro-hero p { margin-top: 10px; }
-
-    .ot-ui-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: clamp(12px, 2.5vw, 18px) 0;
+    /* === ЛОКАЛЬНЫЕ СТИЛИ (Профессиональная тема) === */
+    body {
+      background-color: #f8fafc;
+      color: #334155;
     }
 
-    .ot-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      line-height: 1;
-      background: rgba(255,255,255,0.7);
-      border: 1px solid rgba(17,24,39,0.08);
-      color: #0f172a;
+    /* 1. НАВИГАЦИЯ "НАЗАД" */
+    .back-nav-wrap {
+      padding: 20px 0;
+    }
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none; color: #64748b; font-weight: 600;
+      transition: 0.2s; font-size: 0.9rem;
+    }
+    .back-btn:hover { color: #2563eb; transform: translateX(-3px); }
+
+    /* 2. ЗАГОЛОВОК И БЫСТРЫЙ СТАРТ */
+    .intro-header {
+      margin-bottom: 30px;
+    }
+    .page-title {
+      font-size: 2.2rem; font-weight: 800; color: #0f172a; margin: 0 0 15px;
+      line-height: 1.2;
+    }
+    .page-desc {
+      font-size: 1.1rem; color: #475569; max-width: 800px; line-height: 1.6;
+    }
+
+    /* БЛОК FAST TRACK (Для опытных) */
+    .fast-track-card {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 1px solid #bfdbfe;
+      border-left: 5px solid #2563eb; /* Акцент слева */
+      border-radius: 16px;
+      padding: 20px 25px;
+      margin-top: 25px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.1);
+      transition: transform 0.2s;
+    }
+    .fast-track-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15); }
+    
+    .ft-content h3 { margin: 0 0 5px; font-size: 1.1rem; font-weight: 700; color: #1e40af; display: flex; align-items: center; gap: 8px; }
+    .ft-content p { margin: 0; font-size: 0.95rem; color: #3b82f6; }
+    
+    .ft-btn {
       white-space: nowrap;
-      max-width: 100%;
+      padding: 10px 20px;
+      background: #2563eb; color: #fff;
+      border-radius: 10px; font-weight: 600; text-decoration: none;
+      font-size: 0.9rem; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+      transition: 0.2s;
     }
+    .ft-btn:hover { background: #1d4ed8; }
 
-    .ot-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 12px;
-    }
-    .ot-nav a {
-      font-size: 0.9rem;
-      text-decoration: none;
-      padding: 7px 10px;
-      border-radius: 10px;
-      border: 1px solid rgba(17,24,39,0.08);
+    /* 3. ОСНОВНОЙ КОНТЕНТ (КАРТОЧКИ) */
+    .content-section {
       background: #fff;
-      color: #2563eb;
+      border-radius: 24px;
+      border: 1px solid #e2e8f0;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
     }
-    .ot-nav a:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
+    .section-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 25px; border-bottom: 1px solid #f1f5f9; padding-bottom: 15px;
+    }
+    .section-icon { font-size: 1.5rem; }
+    .section-title { margin: 0; font-size: 1.4rem; font-weight: 700; color: #0f172a; }
 
-    .ot-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 14px 0 0;
+    /* PDF Viewer styling */
+    .pdf-card {
+      background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px;
+      display: flex; flex-direction: column; gap: 20px;
     }
-    .ot-badge {
-      font-size: 0.9rem;
-      padding: 8px 10px;
-      border-radius: 12px;
-      background: #f8fafc;
-      border: 1px solid #e5e7eb;
-      max-width: 100%;
+    .pdf-meta {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;
     }
+    .pdf-info h4 { margin: 0 0 5px; font-size: 1.1rem; }
+    .pdf-info span { font-size: 0.85rem; color: #64748b; background: #e2e8f0; padding: 4px 8px; border-radius: 6px; }
+    
+    .btn-download {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px; background: #fff; border: 1px solid #cbd5e1;
+      border-radius: 10px; color: #334155; font-weight: 600; text-decoration: none;
+      transition: 0.2s;
+    }
+    .btn-download:hover { background: #f1f5f9; border-color: #94a3b8; color: #0f172a; }
 
-    .ot-divider {
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(17,24,39,0.12), transparent);
-      margin: clamp(18px, 4vw, 28px) 0;
+    .pdf-frame-wrapper {
+      width: 100%; height: 600px; border-radius: 12px; overflow: hidden; border: 1px solid #cbd5e1; background: #525659;
     }
+    .pdf-frame-wrapper iframe { width: 100%; height: 100%; border: none; }
 
-    .ot-callout {
-      border-radius: 14px;
-      border: 1px solid rgba(17,24,39,0.08);
-      background: rgba(255,255,255,0.7);
-      padding: clamp(12px, 3vw, 16px);
-      margin-top: 14px;
+    /* VIDEO GRID */
+    .video-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;
     }
-    .ot-callout h3 { margin: 0 0 8px; font-size: 1rem; }
-    .ot-callout p { margin: 0; }
-    .ot-callout ul { margin: 10px 0 0; padding-left: 18px; }
+    .video-card {
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .video-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+    
+    .video-wrapper {
+      position: relative; padding-bottom: 56.25%; /* 16:9 aspect ratio */ height: 0; background: #000;
+    }
+    .video-wrapper iframe {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
+    }
+    .video-body { padding: 15px; }
+    .video-title { margin: 0 0 5px; font-weight: 700; color: #1e293b; font-size: 1rem; }
+    .video-desc { font-size: 0.85rem; color: #64748b; margin: 0; line-height: 1.5; }
 
-    .ot-mini-list {
-      margin: 10px 0 0;
-      padding-left: 18px;
+    /* CHECKLIST (Что запомнить) */
+    .checklist-box {
+      background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 20px;
+      margin-top: 20px;
     }
+    .checklist-title { font-weight: 700; color: #166534; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .checklist-ul { margin: 0; padding-left: 20px; color: #15803d; font-size: 0.95rem; }
+    .checklist-ul li { margin-bottom: 6px; }
 
-    .ot-intro-section-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 0;
+    /* 4. ФИНАЛЬНЫЙ БЛОК ТЕСТА (СЕРЬЕЗНЫЙ) */
+    .test-section-wrapper {
+      border-top: 2px dashed #cbd5e1;
+      margin-top: 40px;
+      padding-top: 40px;
     }
-    .ot-intro-section-title .emoji { font-size: 1.15rem; }
-
-    /* Pre-test акцент */
-    .ot-pretest {
-      border-radius: 16px;
-      border: 1px solid rgba(17,24,39,0.10);
-      background: rgba(255,255,255,0.85);
-      padding: clamp(12px, 3vw, 18px);
-      margin-top: 14px;
+    .test-cta-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 24px;
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
     }
-    .ot-pretest h4 { margin: 0 0 8px; font-size: 1rem; }
-    .ot-pretest ul { margin: 10px 0 0; padding-left: 18px; }
-
-    /* VERY-PREMIUM блоки (A/B/C/D/E) */
-    .ot-grid-2 {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-      margin-top: 14px;
-    }
-    @media (min-width: 768px) {
-      .ot-grid-2 { grid-template-columns: 1fr 1fr; }
-    }
-
-    .ot-finish {
-      margin-top: 16px;
-      border-radius: 16px;
-      border: 1px solid rgba(17,24,39,0.10);
-      background: rgba(255,255,255,0.85);
-      padding: clamp(12px, 3vw, 18px);
-    }
-    .ot-finish p { margin: 0; }
-    .ot-finish .muted { margin-top: 10px; color: #6b7280; font-size: 0.95rem; }
-
-    /* Кнопка "Наверх" */
-    .to-top {
-      position: fixed;
-      right: 14px;
-      bottom: 14px;
-      z-index: 50;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      border-radius: 999px;
-      border: 1px solid rgba(17,24,39,0.12);
-      background: rgba(255,255,255,0.92);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.10);
-      color: #0f172a;
-      cursor: pointer;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(6px);
-      transition: opacity .2s ease, transform .2s ease;
-    }
-    .to-top.is-visible {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-    .to-top:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
-
-    @media (max-width: 420px) {
-      .ot-chip { font-size: 0.86rem; padding: 7px 10px; }
-      .ot-nav a { font-size: 0.88rem; padding: 7px 9px; }
-      .ot-badge { font-size: 0.88rem; }
-      .to-top { right: 12px; bottom: 12px; }
+    /* Декоративная полоса сверху */
+    .test-cta-card::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .to-top { transition: none; }
+    .test-title { font-size: 1.8rem; font-weight: 800; color: #0f172a; margin-bottom: 15px; }
+    .test-subtitle { font-size: 1.1rem; color: #64748b; max-width: 600px; margin: 0 auto 30px; }
+    
+    .pre-test-check {
+      display: inline-block; text-align: left;
+      background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;
+      padding: 15px 25px; margin-bottom: 30px;
+    }
+    .check-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.9rem; color: #475569; }
+    .check-item:last-child { margin-bottom: 0; }
+    .check-icon { color: #10b981; font-weight: bold; }
+
+    /* БРОНЕБОЙНАЯ КНОПКА (Как просили) */
+    .btn-super-cta {
+      display: inline-flex; align-items: center; justify-content: center; gap: 15px;
+      padding: 20px 40px;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 1.2rem;
+      font-weight: 800;
+      border-radius: 99px;
+      text-decoration: none;
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.5);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative; overflow: hidden;
+    }
+    .btn-super-cta span {
+      color: #bef264; /* Салатовая стрелка */
+      font-size: 1.4em;
+      transition: transform 0.3s ease;
+    }
+    .btn-super-cta:hover {
+      background: #1d4ed8;
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.7);
+    }
+    .btn-super-cta:hover span { transform: translateX(8px); }
+
+    /* FOOTER */
+    .legal-note {
+      text-align: center; font-size: 0.85rem; color: #94a3b8; margin-top: 20px;
+      max-width: 700px; margin-left: auto; margin-right: auto;
+    }
+
+    /* АДАПТИВ */
+    @media (max-width: 768px) {
+      .fast-track-card { flex-direction: column; align-items: flex-start; gap: 15px; }
+      .ft-btn { width: 100%; text-align: center; }
+      .pdf-frame-wrapper { height: 400px; }
+      .test-cta-card { padding: 25px 15px; }
+      .btn-super-cta { width: 100%; font-size: 1rem; padding: 16px 20px; }
     }
   </style>
 </head>
 
 <body class="ot-theme">
-<a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
 
-<header class="site-header">
-  <div class="container header-inner">
-    <div class="header-brand">
-      <p class="site-label">Дистанционный учебный портал</p>
-      <h1 class="site-title">Охрана труда, пожарная безопасность, первая помощь, ГО/ЧС</h1>
-      <p class="site-subtitle">
-        Дистанционное обучение работников и проверка знаний требований охраны труда и безопасности.
-      </p>
+<div class="container">
+  
+  <nav class="back-nav-wrap">
+    <a href="course-ot.html" class="back-btn">
+      ← Вернуться к курсу «Охрана труда»
+    </a>
+  </nav>
+
+  <header class="intro-header">
+    <h1 class="page-title">Вводный инструктаж по охране труда</h1>
+    <p class="page-desc">
+      Базовый курс для ознакомления с требованиями охраны труда, правилами поведения на территории, действиями при ЧС и оказанием первой помощи.
+    </p>
+
+    <div class="fast-track-card">
+      <div class="ft-content">
+        <h3>⚡ Уверенный пользователь?</h3>
+        <p>Если вы уже ознакомлены с материалами вводного инструктажа, вы можете пропустить обучение и перейти сразу к проверке знаний.</p>
+      </div>
+      <a href="#final-test-anchor" class="ft-btn">Перейти к тесту →</a>
+    </div>
+  </header>
+
+  <section class="content-section" id="materials">
+    <div class="section-header">
+      <div class="section-icon">📘</div>
+      <h2 class="section-title">Учебное пособие (PDF)</h2>
     </div>
 
-    <nav class="main-nav" aria-label="Основная навигация">
-      <ul class="nav-list">
-        <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
-        <li class="nav-item"><a href="programs.html" class="nav-link nav-link-active">Программы обучения</a></li>
-        <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции для сотрудников</a></li>
-        <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Информация для ответственных за обучение</a></li>
+    <div class="pdf-card">
+      <div class="pdf-meta">
+        <div class="pdf-info">
+          <h4>Полный текст вводного инструктажа</h4>
+          <span>Версия от 12.01.2026 • 24 страницы</span>
+        </div>
+        <a href="assets/ot-intro.pdf" target="_blank" class="btn-download">
+          Скачать / Открыть в новой вкладке 📥
+        </a>
+      </div>
+      
+      <div class="pdf-frame-wrapper">
+        <iframe src="assets/ot-intro.pdf" title="Вводный инструктаж PDF"></iframe>
+      </div>
+
+      <div class="checklist-box" style="background: #f8fafc; border-color: #e2e8f0;">
+        <div class="checklist-title" style="color: #475569;">💡 На что обратить внимание:</div>
+        <ul class="checklist-ul" style="color: #64748b;">
+            <li>Раздел 3: Права и обязанности работника в области охраны труда.</li>
+            <li>Раздел 5: Опасные и вредные производственные факторы.</li>
+            <li>Раздел 8: Действия работника при возникновении аварийной ситуации.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section" id="videos">
+    <div class="section-header">
+      <div class="section-icon">🎬</div>
+      <h2 class="section-title">Видеоматериалы</h2>
+    </div>
+    
+    <div class="video-grid">
+      
+      <article class="video-card">
+        <div class="video-wrapper">
+          <iframe src="https://kinescope.io/embed/u1U8AdN9kBw4CAWTWZSSWV" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="video-body">
+          <h3 class="video-title">Действия при пожаре</h3>
+          <p class="video-desc">Алгоритм эвакуации, использование огнетушителей, кнопки тревоги.</p>
+        </div>
+      </article>
+
+      <article class="video-card">
+        <div class="video-wrapper">
+          <iframe src="https://kinescope.io/embed/7c1BU5HmvydfpdG5tNUv7e" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="video-body">
+          <h3 class="video-title">Террористическая угроза</h3>
+          <p class="video-desc">Правила поведения при обнаружении подозрительных предметов.</p>
+        </div>
+      </article>
+
+      <article class="video-card">
+        <div class="video-wrapper">
+          <iframe src="https://kinescope.io/embed/vmGbdzuLu6Q7htCrfxBjHc" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="video-body">
+          <h3 class="video-title">Несчастный случай</h3>
+          <p class="video-desc">Первые действия, вызов помощи и уведомление руководителя.</p>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="checklist-box">
+      <div class="checklist-title">✅ По итогам изучения вы должны знать:</div>
+      <ul class="checklist-ul">
+        <li>Как действовать при пожаре и как организовать эвакуацию без паники.</li>
+        <li>Что делать при обнаружении посторонних предметов (угроза теракта).</li>
+        <li>Кому и как сообщать о любой травме или несчастном случае на производстве.</li>
       </ul>
-    </nav>
-  </div>
-</header>
+    </div>
+  </section>
 
-<main id="main-content" class="site-main">
-  <div class="container" id="page-top">
-
-    <!-- Возврат -->
-    <nav class="back-nav">
-      <a href="course-ot.html" class="back-link">
-        <span class="back-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" class="back-svg">
-            <path d="M15 6l-6 6 6 6"
-                  stroke="white"
-                  stroke-width="2"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"></path>
-          </svg>
-        </span>
-        <span class="back-text">Вернуться к курсу «Охрана труда»</span>
-      </a>
-    </nav>
-
-    <!-- HERO / Введение -->
-    <section class="section section-card ot-intro-hero">
-      <h1>🦺 Вводный инструктаж по охране труда</h1>
-
-      <p>
-        Этот раздел предназначен для первичного ознакомления работников с базовыми требованиями охраны труда:
-        общими правилами безопасного поведения на территории и рабочем месте, алгоритмами действий при ЧС,
-        а также порядком сообщения о происшествиях и оказания первой помощи.
+  <div class="test-section-wrapper" id="final-test-anchor">
+    <section class="test-cta-card">
+      
+      <h2 class="test-title">Проверка знаний</h2>
+      <p class="test-subtitle">
+        Вы завершили изучение материалов вводного инструктажа. 
+        Для фиксации результатов обучения необходимо пройти итоговое тестирование.
       </p>
 
-      <div class="ot-callout" role="note" aria-label="Почему это важно">
-        <h3>Почему это важно</h3>
-        <p>
-          Эти знания нужны не “для галочки”. Они помогают действовать правильно в реальной ситуации (пожар, угроза, травма),
-          а работодателю — подтверждать выполнение требований по обучению и проверке знаний работников.
-        </p>
+      <div class="pre-test-check">
+        <div class="check-item"><span class="check-icon">✔</span> У вас есть 10-15 минут свободного времени</div>
+        <div class="check-item"><span class="check-icon">✔</span> Вы изучили PDF и видеоматериалы</div>
+        <div class="check-item"><span class="check-icon">✔</span> Вы готовы указать свои ФИО и должность</div>
       </div>
 
-      <div class="ot-ui-row" aria-label="Рекомендуемый порядок прохождения">
-        <span class="ot-chip">🎬 Сначала: видеоматериалы</span>
-        <span class="ot-chip">📘 Затем: изучить PDF</span>
-        <span class="ot-chip">📝 После: пройти тест</span>
+      <div>
+        <a href="ot-intro-test.html" class="btn-super-cta">
+          Пройти итоговый тест
+          <span>➔</span>
+        </a>
       </div>
 
-      <nav class="ot-nav" aria-label="Быстрая навигация по странице">
-        <a href="#materials">К материалам (PDF)</a>
-        <a href="#videos">К видеоматериалам</a>
-        <a href="#test">К проверке знаний</a>
-      </nav>
-
-      <div class="ot-badges" aria-label="Сводка по разделу">
-        <span class="ot-badge">⏱ PDF: ориентировочно 10–20 минут</span>
-        <span class="ot-badge">🎞 Видео: 3 ролика по ключевым темам</span>
-        <span class="ot-badge">✅ Итог: тест + фиксация результатов</span>
+      <div class="legal-note">
+        Результаты тестирования автоматически сохраняются в базе данных СДО. 
+        В случае неудачи у вас будет возможность пройти тест повторно.
       </div>
 
-      <div class="ot-callout" role="note" aria-label="Что важно запомнить">
-        <h3>Что важно запомнить по итогам изучения</h3>
-        <ul>
-          <li>как действовать при пожаре и как организовать эвакуацию без паники;</li>
-          <li>как вести себя при угрозе теракта (что делать и чего делать нельзя);</li>
-          <li>что делать при несчастном случае и порядок уведомления;</li>
-          <li>где искать локальные инструкции и кому сообщать о выявленных рисках/неисправностях.</li>
-        </ul>
-      </div>
     </section>
-
-    <div class="ot-divider" aria-hidden="true"></div>
-
-    <!-- МАТЕРИАЛЫ (PDF) -->
-    <section class="section section-card" id="materials">
-      <h2 class="ot-intro-section-title"><span class="emoji" aria-hidden="true">📘</span><span>Материалы вводного инструктажа</span></h2>
-
-      <p>
-        Ниже представлен полный материал вводного инструктажа в формате PDF. Рекомендуем изучить документ целиком,
-        а затем при подготовке к тесту вернуться к ключевым разделам (действия при пожаре/ЧС, порядок сообщений, первая помощь).
-      </p>
-
-      <a class="material-download-card" href="assets/ot-intro.pdf" target="_blank" rel="noopener">
-        <span class="material-icon-wrap">
-          <span class="material-icon">📘</span>
-        </span>
-
-        <span class="material-text">
-          <span class="material-label">Учебный материал</span>
-          <span class="material-title">«Вводный инструктаж по охране труда»</span>
-          <span class="material-meta">Полная версия • PDF</span>
-        </span>
-
-        <span class="material-badge">ОТКРЫТЬ / СКАЧАТЬ</span>
-      </a>
-
-      <div class="ot-callout" role="note" aria-label="Подсказка для телефонов">
-        <h3>Подсказка для телефонов</h3>
-        <p>
-          На мобильных устройствах удобнее открыть PDF в новой вкладке через кнопку «ОТКРЫТЬ / СКАЧАТЬ» выше
-          и использовать поиск по документу (ключевые слова/разделы).
-        </p>
-      </div>
-
-      <div class="pdf-viewer-large" aria-label="Просмотр PDF на странице">
-        <iframe
-          class="pdf-viewer-frame"
-          src="assets/ot-intro.pdf"
-          title="Вводный инструктаж по охране труда (PDF)"
-          loading="lazy">
-        </iframe>
-      </div>
-
-      <div class="ot-callout" role="note" aria-label="Как читать материал эффективно">
-        <h3>Как читать материал эффективно</h3>
-        <ul class="ot-mini-list">
-          <li>пробегитесь по структуре документа и заголовкам;</li>
-          <li>внимательно прочитайте разделы про действия при пожаре/ЧС и порядок сообщения о происшествиях;</li>
-          <li>после просмотра видео вернитесь к PDF и закрепите алгоритмы.</li>
-        </ul>
-      </div>
-    </section>
-
-    <div class="ot-divider" aria-hidden="true"></div>
-
-    <!-- ВИДЕО -->
-    <article class="section section-card fire-course-card" id="videos">
-      <header class="fire-course-header">
-        <div class="course-chip course-chip-1">ОТ</div>
-        <div>
-          <h2 class="fire-course-title">Видеоматериалы по ключевым темам</h2>
-          <p class="fire-course-subtitle">
-            Просмотрите видеоролики в указанной последовательности. После видео закрепите материал по PDF и переходите к проверке знаний.
-          </p>
-        </div>
-      </header>
-
-      <div class="ot-callout" role="note" aria-label="Зачем нужны видео">
-        <h3>Зачем эти видео</h3>
-        <p>
-          Видеоматериалы помогают быстрее запомнить алгоритмы действий и типичные ошибки. Это важно для ситуаций,
-          где время реакции критично: пожар, угроза теракта, несчастный случай.
-        </p>
-      </div>
-
-      <section class="fire-block" id="ot-intro-fire">
-        <h3 class="fire-block-title">1) Как действовать во время пожара</h3>
-        <p>
-          Фокус: сигнал тревоги, вызов экстренных служб, эвакуация, помощь коллегам и недопущение опасных действий.
-          Важно: не пользоваться лифтами, не возвращаться за вещами, двигаться к выходам по плану эвакуации.
-        </p>
-
-        <div class="video-grid-fire">
-          <article class="video-card-fire">
-            <h5>Действия при пожаре: алгоритм и примеры</h5>
-            <div class="video-frame-wrapper">
-              <iframe
-                src="https://kinescope.io/embed/u1U8AdN9kBw4CAWTWZSSWV"
-                allowfullscreen
-                loading="lazy"
-                title="Как действовать во время пожара">
-              </iframe>
-            </div>
-          </article>
-        </div>
-
-        <div class="ot-callout" role="note" aria-label="Мини-памятка по пожару">
-          <h3>Мини-памятка: 3 шага при пожаре</h3>
-          <ul class="ot-mini-list">
-            <li>сообщите/вызовите помощь и предупредите окружающих;</li>
-            <li>эвакуируйтесь по путям эвакуации, помогая тем, кому сложно;</li>
-            <li>после выхода — сообщите руководителю/ответственному и дождитесь инструкций.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="fire-block" id="ot-intro-terror">
-        <h3 class="fire-block-title">2) Действия при террористической угрозе</h3>
-        <p>
-          Фокус: как распознавать подозрительные признаки, как действовать при угрозах, что запрещено
-          (самостоятельно трогать подозрительные предметы, провоцировать конфликт, игнорировать указания служб).
-        </p>
-
-        <div class="video-grid-fire">
-          <article class="video-card-fire">
-            <h5>Террористическая угроза: как действовать правильно</h5>
-            <div class="video-frame-wrapper">
-              <iframe
-                src="https://kinescope.io/embed/7c1BU5HmvydfpdG5tNUv7e"
-                allowfullscreen
-                loading="lazy"
-                title="Как действовать при террористической угрозе">
-              </iframe>
-            </div>
-          </article>
-        </div>
-
-        <div class="ot-callout" role="note" aria-label="Подсказка по угрозе">
-          <h3>Подсказка</h3>
-          <p>
-            Если видите подозрительный предмет — не трогайте его. Отойдите на безопасное расстояние,
-            предупредите людей рядом и действуйте по установленному порядку уведомления.
-          </p>
-        </div>
-      </section>
-
-      <section class="fire-block" id="ot-intro-firstaid">
-        <h3 class="fire-block-title">3) Как действовать при несчастном случае: первая помощь</h3>
-        <p>
-          Фокус: первичная оценка безопасности, вызов помощи, алгоритм действий, фиксация обстоятельств и уведомление
-          руководителя/ответственного лица. Главный принцип — действовать по простому алгоритму и не навредить.
-        </p>
-
-        <div class="video-grid-fire">
-          <article class="video-card-fire">
-            <h5>Алгоритм действий при несчастном случае</h5>
-            <div class="video-frame-wrapper">
-              <iframe
-                src="https://kinescope.io/embed/vmGbdzuLu6Q7htCrfxBjHc"
-                allowfullscreen
-                loading="lazy"
-                title="Как действовать при несчастном случае">
-              </iframe>
-            </div>
-          </article>
-        </div>
-
-        <div class="ot-callout" role="note" aria-label="Мини-алгоритм первой помощи">
-          <h3>Мини-алгоритм</h3>
-          <ul class="ot-mini-list">
-            <li>убедитесь, что место безопасно для вас и пострадавшего;</li>
-            <li>вызовите помощь и уведомьте ответственное лицо;</li>
-            <li>окажите первую помощь в пределах компетенций и доступных средств;</li>
-            <li>обеспечьте сопровождение до передачи медикам.</li>
-          </ul>
-        </div>
-
-        <p class="note" style="margin-top:12px;">
-          В PDF-материале выше есть расширенные пояснения и разбор типовых ситуаций.
-        </p>
-      </section>
-
-      <div class="ot-divider" aria-hidden="true"></div>
-
-      <section class="fire-block" aria-label="Результат изучения" id="outcome">
-        <h3 class="fire-block-title">Результат изучения</h3>
-        <p>
-          Перед тестированием убедитесь, что вы можете кратко объяснить и воспроизвести основные алгоритмы действий.
-        </p>
-
-        <!-- A + B: самопроверка и типичные ошибки -->
-        <div class="ot-grid-2" aria-label="Самопроверка и типичные ошибки">
-          <div class="ot-callout" role="note" aria-label="Самопроверка перед тестом">
-            <h3>Самопроверка: контрольные вопросы</h3>
-            <ul class="ot-mini-list">
-              <li>Что вы сделаете в первую минуту при обнаружении признаков пожара?</li>
-              <li>Какие действия при эвакуации категорически запрещены?</li>
-              <li>Что делать при обнаружении подозрительного предмета?</li>
-              <li>Кому и как сообщать о несчастном случае на рабочем месте?</li>
-              <li>С чего начинается оказание первой помощи (до начала действий)?</li>
-            </ul>
-          </div>
-
-          <div class="ot-callout" role="note" aria-label="Типичные ошибки работников">
-            <h3>Типичные ошибки (не делайте так)</h3>
-            <ul class="ot-mini-list">
-              <li>возвращаться за вещами при пожаре или пытаться “досмотреть” ситуацию;</li>
-              <li>пользоваться лифтом при эвакуации;</li>
-              <li>трогать/перемещать подозрительные предметы “чтобы проверить”;</li>
-              <li>оказывать первую помощь, не оценив безопасность места происшествия;</li>
-              <li>не сообщать о происшествии руководителю/ответственному “чтобы не было проблем”.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="ot-callout" role="note" aria-label="Что вы должны уметь">
-          <h3>После изучения вы должны:</h3>
-          <ul class="ot-mini-list">
-            <li>назвать порядок действий при пожаре и ключевые запреты;</li>
-            <li>описать, как действовать при угрозе теракта и при обнаружении подозрительного предмета;</li>
-            <li>назвать базовый алгоритм действий при несчастном случае и порядок уведомления;</li>
-            <li>понимать, где искать локальные инструкции и кому сообщать о выявленных рисках.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="fire-block fire-test-block" id="test">
-        <h3 class="fire-block-title">Проверка усвоения знаний</h3>
-        <p>
-          После просмотра всех видеоматериалов и изучения PDF пройдите тест. Результаты фиксируются в системе и
-          используются ответственными за обучение для оформления прохождения вводного инструктажа.
-        </p>
-
-        <div class="ot-pretest" role="note" aria-label="Перед прохождением теста">
-          <h4>Перед началом теста проверьте:</h4>
-          <ul>
-            <li>вы просмотрели 3 видео и ознакомились с PDF;</li>
-            <li>в форме теста вы укажете корректные персональные/организационные данные;</li>
-            <li>у вас есть 10–15 минут без отвлечений и стабильный интернет.</li>
-          </ul>
-        </div>
-
-        <div class="test-actions">
-          <a href="ot-intro-test.html" class="btn btn-primary btn-test-link">
-            Перейти к тесту по вводному инструктажу
-          </a>
-        </div>
-
-        <p class="test-hint">
-          Если результат неудовлетворительный — вернитесь к материалу и повторите темы, по которым допущены ошибки.
-        </p>
-
-        <!-- C: если что-то не открылось -->
-        <div class="ot-callout" role="note" aria-label="Если материал не открывается">
-          <h3>Если PDF или видео не открылись</h3>
-          <ul class="ot-mini-list">
-            <li>попробуйте открыть PDF в новой вкладке через кнопку «ОТКРЫТЬ / СКАЧАТЬ» выше;</li>
-            <li>обновите страницу и проверьте подключение к интернету;</li>
-            <li>если используете корпоративный браузер/сеть — попробуйте другой браузер или устройство;</li>
-            <li>если проблема сохраняется — обратитесь к ответственному за обучение.</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- E + D: завершение + микро-юридическая подложка -->
-      <div class="ot-finish" role="note" aria-label="Завершение раздела">
-        <p><strong>Вы дошли до конца вводного инструктажа.</strong> После прохождения теста вы можете закрыть страницу или вернуться к курсу.</p>
-        <p class="muted">
-          Материал используется в рамках обучения работников требованиям охраны труда и может применяться при оформлении документов
-          о прохождении вводного инструктажа в соответствии с установленным порядком и локальными нормативными актами работодателя.
-        </p>
-      </div>
-
-    </article>
-
   </div>
-</main>
 
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <p class="footer-text">
-      Учебный портал дистанционного обучения по охране труда, пожарной безопасности,
-      первой помощи и ГО/ЧС.
-    </p>
-    <p class="footer-text footer-text-muted">
-      Конкретный порядок обучения и оформления результатов определяется работодателем.
-    </p>
-  </div>
-</footer>
+  <footer style="text-align:center; padding: 40px 20px; color: #94a3b8; font-size: 0.9rem;">
+    <p>© 2026 Служба Охраны Труда. Внутренний ресурс.</p>
+  </footer>
 
-<button type="button" class="to-top" id="toTopBtn" aria-label="Наверх" title="Наверх">↑</button>
+</div>
 
+<button type="button" class="to-top" id="toTopBtn" aria-label="Наверх">↑</button>
+<style>
+  .to-top { position: fixed; right: 20px; bottom: 20px; width: 45px; height: 45px; border-radius: 50%; background: #fff; border: 1px solid #e2e8f0; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; opacity: 0; transition: 0.3s; z-index: 100; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; color: #1e293b; }
+  .to-top.is-visible { opacity: 1; }
+  .to-top:hover { background: #2563eb; color: #fff; }
+</style>
 <script>
-  (function () {
-    const btn = document.getElementById('toTopBtn');
-    if (!btn) return;
-
-    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    function onScroll() {
-      const y = window.scrollY || document.documentElement.scrollTop || 0;
-      if (y > 600) btn.classList.add('is-visible');
-      else btn.classList.remove('is-visible');
-    }
-
-    btn.addEventListener('click', function () {
-      if (prefersReducedMotion) window.scrollTo(0, 0);
-      else window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  })();
+  const btn = document.getElementById('toTopBtn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) btn.classList.add('is-visible');
+    else btn.classList.remove('is-visible');
+  });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 </script>
 
 </body>
