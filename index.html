@@ -11,105 +11,143 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@1,700&display=swap" rel="stylesheet">
 
   <style>
+    /* === ЖИВОЙ ФОН === */
+    body.masterpiece-theme {
+      background: radial-gradient(circle at 50% 0%, #f1f5f9, #e2e8f0);
+      min-height: 100vh;
+    }
+
     /* === DASHBOARD LAYOUT === */
     .dashboard-container {
       display: grid;
-      grid-template-columns: 1.4fr 0.8fr; /* Левая часть шире */
+      grid-template-columns: 1.4fr 0.8fr;
       gap: 30px;
       margin-top: 30px;
       align-items: start;
     }
 
-    /* === HERO SECTION (Приветствие) === */
+    /* === HERO SECTION (3D TILT) === */
     .hero-welcome {
-      background: radial-gradient(circle at 0% 0%, #ffffff 0%, #f8fafc 100%);
-      border: 1px solid rgba(255,255,255,0.6);
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(255,255,255,0.9);
       border-radius: 24px;
       padding: 40px;
       margin-bottom: 30px;
       position: relative;
       overflow: hidden;
       box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
+      backdrop-filter: blur(20px);
+      /* Настройки для 3D */
+      transform-style: preserve-3d;
+      transform: perspective(1000px);
+      transition: transform 0.1s ease;
     }
     
-    /* Декор на фоне */
-    .hero-welcome::before {
+    .hero-welcome::after {
       content: "";
-      position: absolute; top: -50px; right: -50px;
-      width: 300px; height: 300px;
-      background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%);
-      filter: blur(40px); z-index: 0;
+      position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(37,99,235,0.05) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
     }
+
+    .welcome-content { position: relative; z-index: 2; pointer-events: none; } /* Текст поверх фона */
+    .welcome-content a { pointer-events: auto; } /* Кнопка кликабельна */
 
     .welcome-badge {
       display: inline-flex; align-items: center; gap: 6px;
       background: #eff6ff; color: #2563eb; border: 1px solid rgba(37,99,235,0.1);
       padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700;
       text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 15px;
-      position: relative; z-index: 1;
     }
 
     .welcome-title {
       font-size: 2.2rem; font-weight: 800; color: #0f172a; margin: 0 0 15px;
-      line-height: 1.1; position: relative; z-index: 1;
+      line-height: 1.1;
     }
     
     .welcome-text {
       font-size: 1.05rem; color: #475569; line-height: 1.6; max-width: 95%;
-      margin-bottom: 30px; position: relative; z-index: 1;
+      margin-bottom: 30px;
     }
 
-    /* === MAGIC BUTTON (GOOGLE AI STYLE) === */
+    /* === MAGIC BUTTON === */
     .btn-magic {
       position: relative;
       display: inline-flex; justify-content: center; align-items: center;
       padding: 16px 32px;
       font-size: 1rem; font-weight: 700; color: #ffffff;
       background: #0f172a; border-radius: 99px;
-      text-decoration: none; overflow: hidden; z-index: 1;
+      text-decoration: none; overflow: hidden; z-index: 10;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2);
+      border: none; cursor: pointer;
     }
-    
-    /* Вращающийся градиент */
     .btn-magic::before {
       content: ""; position: absolute; top: 50%; left: 50%; width: 300%; height: 300%;
       background: conic-gradient(transparent 0deg, transparent 260deg, #3b82f6 280deg, #a855f7 320deg, #ec4899 360deg);
       transform: translate(-50%, -50%);
       animation: rotate-border 4s linear infinite; z-index: -2;
     }
-    
-    /* Подложка */
     .btn-magic::after {
       content: ""; position: absolute; inset: 2px;
       background: #0f172a; border-radius: 99px; z-index: -1;
     }
-    
     .btn-magic:hover { transform: scale(1.03); box-shadow: 0 15px 30px rgba(124, 58, 237, 0.3); }
     @keyframes rotate-border { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
 
-    /* === ABOUT PORTAL (INFO BLOCKS) === */
+    /* === INFO BLOCKS (SPOTLIGHT EFFECT) === */
     .info-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
     }
     
-    .info-card {
-      background: rgba(255,255,255,0.7); border: 1px solid rgba(148,163,184,0.15);
-      border-radius: 20px; padding: 24px; backdrop-filter: blur(10px);
-      transition: transform 0.2s;
+    /* Карточка с эффектом прожектора */
+    .spotlight-card {
+      background: rgba(255,255,255,0.8);
+      border-radius: 20px;
+      padding: 2px; /* Отступ для рамки */
+      position: relative;
+      overflow: hidden;
     }
-    .info-card:hover { transform: translateY(-3px); background: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
     
-    .info-icon { font-size: 2rem; margin-bottom: 15px; }
+    /* Слой для градиента рамки */
+    .spotlight-card::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(
+        800px circle at var(--mouse-x) var(--mouse-y),
+        rgba(37, 99, 235, 0.4),
+        transparent 40%
+      );
+      opacity: 0; transition: opacity 0.5s; z-index: 0;
+    }
+    .spotlight-card:hover::before { opacity: 1; }
+
+    /* Внутренний контент карточки */
+    .spotlight-inner {
+      background: #fff;
+      border-radius: 18px;
+      padding: 24px;
+      height: 100%;
+      position: relative; z-index: 1;
+    }
+
+    .info-icon { 
+      font-size: 2rem; margin-bottom: 15px; 
+      display: inline-block;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .spotlight-card:hover .info-icon { transform: scale(1.2) rotate(5deg); }
+
     .info-title { font-size: 1.1rem; font-weight: 700; color: #1e293b; margin: 0 0 10px; }
     .info-desc { font-size: 0.9rem; color: #64748b; line-height: 1.5; }
 
-    /* === SIDEBAR (RIGHT COLUMN) === */
+    /* === SIDEBAR === */
     .sidebar-widget {
-      background: #fff; border-radius: 24px; padding: 24px;
-      border: 1px solid rgba(148,163,184,0.15);
+      background: rgba(255,255,255,0.85); border-radius: 24px; padding: 24px;
+      border: 1px solid rgba(255,255,255,1);
       box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
       margin-bottom: 24px;
+      backdrop-filter: blur(12px);
     }
 
     /* CALENDAR */
@@ -126,16 +164,16 @@
       width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
       border-radius: 8px; color: #334155; font-weight: 500; cursor: default;
     }
-    .cal-day.today { background: #2563eb; color: #fff; font-weight: 700; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3); }
+    .cal-day.today { background: #10b981; color: #fff; font-weight: 700; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); }
     .cal-day.weekend { color: #ef4444; background: #fef2f2; }
     .cal-day.holiday { color: #dc2626; background: #fee2e2; border: 1px solid #fecaca; font-weight: 700; }
     .cal-day.empty { pointer-events: none; }
 
-    /* LEGAL LINKS (НПА) */
+    /* NPA LINKS */
     .npa-title { font-size: 1rem; font-weight: 700; color: #0f172a; margin: 0 0 15px; display: flex; align-items: center; gap: 8px; }
     .npa-item {
       display: flex; align-items: flex-start; gap: 12px; padding: 12px;
-      background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;
+      background: #fff; border-radius: 12px; border: 1px solid #e2e8f0;
       text-decoration: none; color: #334155; transition: 0.2s; margin-bottom: 10px;
     }
     .npa-item:hover { border-color: #2563eb; background: #eff6ff; transform: translateX(3px); }
@@ -146,6 +184,7 @@
     .rgb-quote-card {
       position: relative; padding: 3px; border-radius: 20px;
       background: #fff; overflow: hidden; margin-top: 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
     }
     .rgb-quote-card::before {
       content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
@@ -161,14 +200,13 @@
     }
     @keyframes rgb-rotate { 100% { transform: rotate(1turn); } }
 
-    /* MOBILE ADAPTATION */
     @media (max-width: 900px) {
       .dashboard-container { grid-template-columns: 1fr; }
       .info-grid { grid-template-columns: 1fr; }
       .welcome-title { font-size: 2rem; }
     }
 
-    /* Анимация статуса в шапке (дубль) */
+    /* HEADER STATUS */
     .system-status-pulse {
       display: inline-block; width: 8px; height: 8px;
       background-color: #10b981; border-radius: 50%;
@@ -226,50 +264,60 @@
         
         <div class="main-column">
           
-          <div class="hero-welcome reveal-up">
-            <span class="welcome-badge">Корпоративный портал</span>
-            <h2 class="welcome-title"><span id="greeting-text">Добрый день</span>, коллега!</h2>
-            <p class="welcome-text">
-              Добро пожаловать в систему дистанционного обучения и проверки знаний. Портал предназначен для автоматизации процессов обучения, инструктажей и проверки знания требований охраны труда в соответствии с <strong>Постановлением Правительства РФ № 2464</strong>.
-            </p>
-            
-            <a href="programs.html" class="btn-magic">
-              Перейти в реестр программ ➔
-            </a>
+          <div class="hero-welcome reveal-up" id="tilt-hero">
+            <div class="welcome-content">
+              <span class="welcome-badge">Корпоративный портал</span>
+              <h2 class="welcome-title"><span id="greeting-text">Добрый день</span>, коллега!</h2>
+              <p class="welcome-text">
+                Добро пожаловать в единую систему управления обучением. Портал предназначен для автоматизации процессов инструктажа и проверки знания требований охраны труда в соответствии с <strong>Постановлением № 2464</strong>.
+              </p>
+              
+              <a href="programs.html" class="btn-magic">
+                Перейти в реестр программ
+              </a>
+            </div>
           </div>
 
           <div class="info-grid reveal-up delay-100">
             
-            <div class="info-card">
-              <div class="info-icon">🎯</div>
-              <h3 class="info-title">Функционирование СУОТ</h3>
-              <p class="info-desc">
-                Обеспечение компетентности работников в области охраны труда, снижение уровня профессиональных рисков и повышение культуры безопасности.
-              </p>
+            <div class="spotlight-card">
+              <div class="spotlight-inner">
+                <div class="info-icon" style="color: #10b981;">🎯</div>
+                <h3 class="info-title">Функционирование СУОТ</h3>
+                <p class="info-desc">
+                  Обеспечение компетентности работников, снижение уровня профрисков и повышение культуры безопасности.
+                </p>
+              </div>
             </div>
 
-            <div class="info-card">
-              <div class="info-icon">⚖️</div>
-              <h3 class="info-title">Легитимность</h3>
-              <p class="info-desc">
-                Учебно-методические материалы разработаны на основе действующих нормативных правовых актов (НПА) и актуализируются 24/7.
-              </p>
+            <div class="spotlight-card">
+              <div class="spotlight-inner">
+                <div class="info-icon" style="color: #3b82f6;">⚖️</div>
+                <h3 class="info-title">Легитимность</h3>
+                <p class="info-desc">
+                  Материалы разработаны на основе действующих НПА и регулярно актуализируются.
+                </p>
+              </div>
             </div>
 
-            <div class="info-card">
-              <div class="info-icon">📊</div>
-              <h3 class="info-title">Реестр обученных лиц</h3>
-              <p class="info-desc">
-                Автоматическая фиксация результатов тестирования. Формирование цифрового следа и протоколов проверки знаний без бумажной волокиты.
-              </p>
+            <div class="spotlight-card">
+              <div class="spotlight-inner">
+                <div class="info-icon" style="color: #8b5cf6;">📊</div>
+                <h3 class="info-title">Цифровой след</h3>
+                <p class="info-desc">
+                  Автоматическая фиксация результатов.
+                </p>
+              </div>
             </div>
 
-            <div class="info-card">
-              <div class="info-icon">🔒</div>
-              <h3 class="info-title">Доступность</h3>
-              <p class="info-desc">
-                Круглосуточный доступ к видеолекциям, инструкциям и тестам с любого устройства. Прозрачная процедура допуска к самостоятельной работе.
-              </p>
+            <div class="spotlight-card">
+              <div class="spotlight-inner">
+                <div class="info-icon" style="color: #f59e0b;">🔒</div>
+                <h3 class="info-title">Доступность 24/7</h3>
+                <p class="info-desc">
+                  Проходите обучение и тесты с любого устройства без установки дополнительного ПО.
+                </p>
+              </div>
             </div>
 
           </div>
@@ -362,14 +410,14 @@
     const dateEl = document.getElementById('current-date');
     if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
 
-    // 2. Динамическое приветствие
+    // 2. Приветствие
     const hours = now.getHours();
     let greeting = "Добрый день";
     if (hours < 12) greeting = "Доброе утро";
     else if (hours >= 17) greeting = "Добрый вечер";
     document.getElementById('greeting-text').textContent = greeting;
 
-    // 3. Анимация появления
+    // 3. Анимация скролла
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -377,7 +425,7 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
 
-    // 4. Умный календарь (С праздниками РФ 2026 + 9 января)
+    // 4. Календарь (С учетом праздников РФ + 9 января)
     function generateCalendar() {
       const grid = document.getElementById('calendar-grid');
       const title = document.getElementById('cal-month-name');
@@ -402,15 +450,9 @@
       const lastDayDate = new Date(year, month + 1, 0);
       const daysInMonth = lastDayDate.getDate();
 
-      // ОФИЦИАЛЬНЫЕ ПРАЗДНИКИ РФ 2026 + 9 ЯНВАРЯ
       const holidays = [
-        '1.1', '2.1', '3.1', '4.1', '5.1', '6.1', '7.1', '8.1', '9.1', // Новогодние
-        '23.2', // 23 февраля
-        '9.3',  // 8 марта
-        '1.5', '11.5', // Майские
-        '12.6', // День России
-        '4.11',  // День народного единства
-        '31.12',  // НГ
+        '1.1', '2.1', '3.1', '4.1', '5.1', '6.1', '7.1', '8.1', '9.1', 
+        '23.2', '8.3', '1.5', '9.5', '12.6', '4.11', '31.12'
       ];
 
       for (let i = 1; i < startDay; i++) {
@@ -424,17 +466,14 @@
         dayEl.className = 'cal-day';
         dayEl.textContent = i;
         
-        // Сегодня
         if (i === today) dayEl.classList.add('today');
 
-        // Выходной (Сб, Вс)
         const currentDayDate = new Date(year, month, i);
-        const dayOfWeek = currentDayDate.getDay(); // 0-Sun, 6-Sat
+        const dayOfWeek = currentDayDate.getDay(); 
         if (dayOfWeek === 0 || dayOfWeek === 6) {
           dayEl.classList.add('weekend');
         }
 
-        // Праздник (Красный)
         const dateKey = `${i}.${month + 1}`;
         if (holidays.includes(dateKey)) {
           dayEl.classList.add('holiday');
@@ -445,6 +484,44 @@
       }
     }
     generateCalendar();
+
+    // 5. 3D TILT EFFECT (На десктопе)
+    const hero = document.getElementById('tilt-hero');
+    if (window.matchMedia("(min-width: 768px)").matches && hero) {
+      hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        // Ограничиваем угол наклона
+        const rotateX = ((y - centerY) / centerY) * -2; 
+        const rotateY = ((x - centerX) / centerX) * 2;
+
+        hero.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      hero.addEventListener('mouseleave', () => {
+        hero.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+      });
+    }
+
+    // 6. SPOTLIGHT EFFECT (Прожектор для карточек)
+    const cards = document.querySelectorAll('.spotlight-card');
+    if (window.matchMedia("(min-width: 768px)").matches) {
+      cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+      });
+    }
+
   });
 </script>
 
