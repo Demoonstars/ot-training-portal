@@ -2,372 +2,346 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>СДО | Вводный инструктаж по охране труда</title>
+  <title>Вводный инструктаж по охране труда | Обучение</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Вводный инструктаж по охране труда: изучение нормативной базы, видеоматериалы и итоговое тестирование." />
+  <meta name="description" content="Программа вводного инструктажа по охране труда (ПП РФ № 2464). Видеоматериалы, нормативная база и алгоритмы первой помощи." />
   <link rel="stylesheet" href="assets/style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@1,700&display=swap" rel="stylesheet">
 
   <style>
-    /* === ЛОКАЛЬНЫЕ СТИЛИ (Профессиональная тема) === */
-    body {
-      background-color: #f8fafc;
+    /* === 1. ГЛОБАЛЬНЫЕ НАСТРОЙКИ СТРАНИЦЫ === */
+    body.masterpiece-theme {
+      background: #f1f5f9; /* Светлый профессиональный фон */
       color: #334155;
     }
 
-    /* 1. НАВИГАЦИЯ "НАЗАД" */
-    .back-nav-wrap {
-      padding: 20px 0;
-    }
-    .back-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      text-decoration: none; color: #64748b; font-weight: 600;
-      transition: 0.2s; font-size: 0.9rem;
-    }
-    .back-btn:hover { color: #2563eb; transform: translateX(-3px); }
-
-    /* 2. ЗАГОЛОВОК И БЫСТРЫЙ СТАРТ */
-    .intro-header {
-      margin-bottom: 30px;
-    }
-    .page-title {
-      font-size: 2.2rem; font-weight: 800; color: #0f172a; margin: 0 0 15px;
-      line-height: 1.2;
-    }
-    .page-desc {
-      font-size: 1.1rem; color: #475569; max-width: 800px; line-height: 1.6;
+    /* === 2. ШАПКА (Стеклянная, как на главной) === */
+    /* Используем стили из style.css, но убедимся, что они здесь работают */
+    .site-header {
+        position: sticky; top: 0; z-index: 1000;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255,255,255,0.6);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
     }
 
-    /* БЛОК FAST TRACK (Для опытных) */
-    .fast-track-card {
-      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-      border: 1px solid #bfdbfe;
-      border-left: 5px solid #2563eb; /* Акцент слева */
-      border-radius: 16px;
-      padding: 20px 25px;
-      margin-top: 25px;
-      display: flex; align-items: center; justify-content: space-between; gap: 20px;
-      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.1);
-      transition: transform 0.2s;
+    /* === 3. ХЛЕБНЫЕ КРОШКИ (Навигация назад) === */
+    .breadcrumbs-bar {
+        padding: 15px 0;
+        background: transparent;
     }
-    .fast-track-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15); }
+    .breadcrumb-link {
+        display: inline-flex; align-items: center; gap: 8px;
+        text-decoration: none; color: #64748b; font-size: 0.9rem; font-weight: 500;
+        transition: 0.2s; padding: 8px 16px; border-radius: 99px; background: rgba(255,255,255,0.6);
+    }
+    .breadcrumb-link:hover { background: #fff; color: #2563eb; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+
+    /* === 4. HERO SECTION (Заголовок) === */
+    .intro-hero {
+        background: #fff; border-radius: 24px; padding: 40px; margin-bottom: 30px;
+        box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
+        position: relative; overflow: hidden;
+        border: 1px solid #e2e8f0;
+    }
+    .intro-hero::after {
+        content: ""; position: absolute; right: -5%; top: -10%; width: 300px; height: 300px;
+        background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .hero-badge {
+        display: inline-block; padding: 6px 12px; background: #eff6ff; color: #2563eb;
+        border-radius: 8px; font-weight: 700; font-size: 0.8rem; margin-bottom: 15px;
+        text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .hero-title { font-size: 2.4rem; font-weight: 800; color: #0f172a; margin: 0 0 15px; line-height: 1.1; }
+    .hero-desc { font-size: 1.1rem; color: #475569; max-width: 800px; line-height: 1.6; }
+
+    /* === 5. PDF READER (ШЕДЕВРАЛЬНЫЙ) === */
+    .pdf-viewer-section {
+        background: #fff; border-radius: 24px; overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;
+        margin-bottom: 40px;
+    }
+    .pdf-toolbar {
+        background: #f8fafc; padding: 20px 30px; border-bottom: 1px solid #e2e8f0;
+        display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+    }
+    .doc-meta h3 { margin: 0; font-size: 1.2rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 10px; }
+    .doc-meta span { font-size: 0.9rem; color: #64748b; font-weight: 400; }
     
-    .ft-content h3 { margin: 0 0 5px; font-size: 1.1rem; font-weight: 700; color: #1e40af; display: flex; align-items: center; gap: 8px; }
-    .ft-content p { margin: 0; font-size: 0.95rem; color: #3b82f6; }
+    .btn-download-lg {
+        display: inline-flex; align-items: center; gap: 10px;
+        padding: 12px 24px; background: #2563eb; color: #fff; border-radius: 12px;
+        font-weight: 600; text-decoration: none; transition: 0.3s;
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.25);
+    }
+    .btn-download-lg:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35); }
+
+    .pdf-frame-container {
+        height: 800px; /* Крупный размер для удобства */
+        background: #525659; /* Темный фон как в Acrobat Reader */
+        position: relative;
+    }
+    .pdf-frame-container iframe { width: 100%; height: 100%; border: none; }
+
+    /* === 6. SYLLABUS (Контент из PDF) === */
+    .syllabus-grid {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 40px;
+    }
+    .syllabus-card {
+        background: #fff; padding: 25px; border-radius: 20px; border: 1px solid #e2e8f0;
+        transition: 0.3s;
+    }
+    .syllabus-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
+    .syl-icon { font-size: 2rem; margin-bottom: 15px; display: block; }
+    .syl-title { font-size: 1.1rem; font-weight: 700; margin: 0 0 10px; color: #0f172a; }
+    .syl-list { padding-left: 20px; margin: 0; color: #475569; font-size: 0.95rem; line-height: 1.6; }
+    .syl-list li { margin-bottom: 5px; }
+
+    /* === 7. ВИДЕО (CINEMA MODE) === */
+    .cinema-section {
+        background: #0f172a; /* Темный фон для кинотеатра */
+        color: #fff;
+        border-radius: 30px;
+        padding: 40px;
+        margin-bottom: 40px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        position: relative; overflow: hidden;
+    }
+    /* Фоновый эффект */
+    .cinema-section::before {
+        content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+        background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 60%); pointer-events: none;
+    }
+
+    .cinema-header { text-align: center; margin-bottom: 30px; position: relative; z-index: 2; }
+    .cinema-title { font-size: 2rem; font-weight: 700; margin-bottom: 10px; }
+    .cinema-subtitle { color: #94a3b8; font-size: 1.1rem; }
+
+    .video-showcase {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; position: relative; z-index: 2;
+    }
     
-    .ft-btn {
-      white-space: nowrap;
-      padding: 10px 20px;
-      background: #2563eb; color: #fff;
-      border-radius: 10px; font-weight: 600; text-decoration: none;
-      font-size: 0.9rem; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
-      transition: 0.2s;
+    .video-item {
+        background: #1e293b; border-radius: 16px; overflow: hidden; border: 1px solid #334155;
+        transition: transform 0.3s;
     }
-    .ft-btn:hover { background: #1d4ed8; }
-
-    /* 3. ОСНОВНОЙ КОНТЕНТ (КАРТОЧКИ) */
-    .content-section {
-      background: #fff;
-      border-radius: 24px;
-      border: 1px solid #e2e8f0;
-      padding: 30px;
-      margin-bottom: 30px;
-      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
-    }
-    .section-header {
-      display: flex; align-items: center; gap: 12px; margin-bottom: 25px; border-bottom: 1px solid #f1f5f9; padding-bottom: 15px;
-    }
-    .section-icon { font-size: 1.5rem; }
-    .section-title { margin: 0; font-size: 1.4rem; font-weight: 700; color: #0f172a; }
-
-    /* PDF Viewer styling */
-    .pdf-card {
-      background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px;
-      display: flex; flex-direction: column; gap: 20px;
-    }
-    .pdf-meta {
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;
-    }
-    .pdf-info h4 { margin: 0 0 5px; font-size: 1.1rem; }
-    .pdf-info span { font-size: 0.85rem; color: #64748b; background: #e2e8f0; padding: 4px 8px; border-radius: 6px; }
+    .video-item:hover { transform: scale(1.02); box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-color: #3b82f6; }
     
-    .btn-download {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 18px; background: #fff; border: 1px solid #cbd5e1;
-      border-radius: 10px; color: #334155; font-weight: 600; text-decoration: none;
-      transition: 0.2s;
+    .video-container {
+        position: relative; padding-bottom: 56.25%; /* 16:9 */ height: 0; background: #000;
     }
-    .btn-download:hover { background: #f1f5f9; border-color: #94a3b8; color: #0f172a; }
-
-    .pdf-frame-wrapper {
-      width: 100%; height: 600px; border-radius: 12px; overflow: hidden; border: 1px solid #cbd5e1; background: #525659;
-    }
-    .pdf-frame-wrapper iframe { width: 100%; height: 100%; border: none; }
-
-    /* VIDEO GRID */
-    .video-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;
-    }
-    .video-card {
-      background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .video-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
     
-    .video-wrapper {
-      position: relative; padding-bottom: 56.25%; /* 16:9 aspect ratio */ height: 0; background: #000;
-    }
-    .video-wrapper iframe {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
-    }
-    .video-body { padding: 15px; }
-    .video-title { margin: 0 0 5px; font-weight: 700; color: #1e293b; font-size: 1rem; }
-    .video-desc { font-size: 0.85rem; color: #64748b; margin: 0; line-height: 1.5; }
+    .video-caption { padding: 15px 20px; }
+    .vid-title { font-size: 1.1rem; font-weight: 600; margin: 0 0 5px; color: #f1f5f9; }
+    .vid-desc { font-size: 0.9rem; color: #94a3b8; line-height: 1.4; }
 
-    /* CHECKLIST (Что запомнить) */
-    .checklist-box {
-      background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 20px;
-      margin-top: 20px;
+    /* === 8. ФИНАЛЬНЫЙ CTA (ТЕСТ) === */
+    .test-zone {
+        background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+        border: 2px solid #e2e8f0; border-radius: 30px;
+        padding: 50px 30px; text-align: center;
+        box-shadow: 0 20px 60px -10px rgba(0,0,0,0.08);
     }
-    .checklist-title { font-weight: 700; color: #166534; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-    .checklist-ul { margin: 0; padding-left: 20px; color: #15803d; font-size: 0.95rem; }
-    .checklist-ul li { margin-bottom: 6px; }
-
-    /* 4. ФИНАЛЬНЫЙ БЛОК ТЕСТА (СЕРЬЕЗНЫЙ) */
-    .test-section-wrapper {
-      border-top: 2px dashed #cbd5e1;
-      margin-top: 40px;
-      padding-top: 40px;
-    }
-    .test-cta-card {
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 24px;
-      padding: 40px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
-    }
-    /* Декоративная полоса сверху */
-    .test-cta-card::before {
-      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
-      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-    }
-
-    .test-title { font-size: 1.8rem; font-weight: 800; color: #0f172a; margin-bottom: 15px; }
-    .test-subtitle { font-size: 1.1rem; color: #64748b; max-width: 600px; margin: 0 auto 30px; }
+    .test-zone h2 { font-size: 2rem; color: #0f172a; margin-bottom: 15px; }
+    .test-zone p { color: #64748b; font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px; }
     
-    .pre-test-check {
-      display: inline-block; text-align: left;
-      background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;
-      padding: 15px 25px; margin-bottom: 30px;
-    }
-    .check-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.9rem; color: #475569; }
-    .check-item:last-child { margin-bottom: 0; }
-    .check-icon { color: #10b981; font-weight: bold; }
-
-    /* БРОНЕБОЙНАЯ КНОПКА (Как просили) */
     .btn-super-cta {
       display: inline-flex; align-items: center; justify-content: center; gap: 15px;
-      padding: 20px 40px;
-      background: #2563eb;
-      color: #ffffff;
-      font-size: 1.2rem;
-      font-weight: 800;
-      border-radius: 99px;
-      text-decoration: none;
-      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.5);
+      padding: 22px 45px;
+      background: #2563eb; color: #ffffff;
+      font-size: 1.3rem; font-weight: 800;
+      border-radius: 99px; text-decoration: none;
+      box-shadow: 0 15px 35px -5px rgba(37, 99, 235, 0.4);
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       position: relative; overflow: hidden;
     }
-    .btn-super-cta span {
-      color: #bef264; /* Салатовая стрелка */
-      font-size: 1.4em;
-      transition: transform 0.3s ease;
-    }
-    .btn-super-cta:hover {
-      background: #1d4ed8;
-      transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.7);
-    }
+    .btn-super-cta span { color: #bef264; font-size: 1.4em; transition: transform 0.3s ease; }
+    .btn-super-cta:hover { background: #1d4ed8; transform: translateY(-4px) scale(1.02); box-shadow: 0 25px 50px -10px rgba(37, 99, 235, 0.6); }
     .btn-super-cta:hover span { transform: translateX(8px); }
 
-    /* FOOTER */
-    .legal-note {
-      text-align: center; font-size: 0.85rem; color: #94a3b8; margin-top: 20px;
-      max-width: 700px; margin-left: auto; margin-right: auto;
-    }
-
-    /* АДАПТИВ */
+    /* АДАПТИВНОСТЬ */
     @media (max-width: 768px) {
-      .fast-track-card { flex-direction: column; align-items: flex-start; gap: 15px; }
-      .ft-btn { width: 100%; text-align: center; }
-      .pdf-frame-wrapper { height: 400px; }
-      .test-cta-card { padding: 25px 15px; }
-      .btn-super-cta { width: 100%; font-size: 1rem; padding: 16px 20px; }
+        .intro-hero { padding: 25px; }
+        .hero-title { font-size: 1.8rem; }
+        .pdf-frame-container { height: 450px; } /* Чуть меньше на мобильном, но все еще читаемо */
+        .cinema-section { padding: 25px 15px; }
+        .video-showcase { grid-template-columns: 1fr; }
+        .btn-super-cta { width: 100%; font-size: 1.1rem; padding: 18px 25px; }
     }
   </style>
 </head>
 
-<body class="ot-theme">
+<body class="masterpiece-theme">
 
-<div class="container">
+<div class="glass-wrapper">
   
-  <nav class="back-nav-wrap">
-    <a href="course-ot.html" class="back-btn">
-      ← Вернуться к курсу «Охрана труда»
-    </a>
-  </nav>
-
-  <header class="intro-header">
-    <h1 class="page-title">Вводный инструктаж по охране труда</h1>
-    <p class="page-desc">
-      Базовый курс для ознакомления с требованиями охраны труда, правилами поведения на территории, действиями при ЧС и оказанием первой помощи.
-    </p>
-
-    <div class="fast-track-card">
-      <div class="ft-content">
-        <h3>⚡ Уверенный пользователь?</h3>
-        <p>Если вы уже ознакомлены с материалами вводного инструктажа, вы можете пропустить обучение и перейти сразу к проверке знаний.</p>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="header-brand">
+        <div class="brand-logo">
+          <img src="assets/Филин от.png" alt="Логотип" style="width: 100%; height: 100%; object-fit: contain;">
+        </div>
+        <div>
+          <h1 class="site-title-mini">СДО</h1>
+          <p class="site-subtitle-mini">Учебный портал</p>
+        </div>
       </div>
-      <a href="#final-test-anchor" class="ft-btn">Перейти к тесту →</a>
+      
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Главная</a></li>
+          <li><a href="programs.html" class="nav-link nav-link-active">Каталог</a></li>
+          <li><a href="instructions.html" class="nav-link">Инструкции</a></li>
+          <li><a href="for-responsibles.html" class="nav-link">Ответственным</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
-  <section class="content-section" id="materials">
-    <div class="section-header">
-      <div class="section-icon">📘</div>
-      <h2 class="section-title">Учебное пособие (PDF)</h2>
-    </div>
+  <main id="main-content" class="site-main">
+    <div class="container">
 
-    <div class="pdf-card">
-      <div class="pdf-meta">
-        <div class="pdf-info">
-          <h4>Полный текст вводного инструктажа</h4>
-          <span>Версия от 12.01.2026 • 24 страницы</span>
-        </div>
-        <a href="assets/ot-intro.pdf" target="_blank" class="btn-download">
-          Скачать / Открыть в новой вкладке 📥
+      <div class="breadcrumbs-bar">
+        <a href="course-ot.html" class="breadcrumb-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Вернуться в раздел «Охрана труда»
         </a>
       </div>
-      
-      <div class="pdf-frame-wrapper">
-        <iframe src="assets/ot-intro.pdf" title="Вводный инструктаж PDF"></iframe>
+
+      <section class="intro-hero">
+        <span class="hero-badge">Согласно Постановлению № 2464</span>
+        <h1 class="hero-title">Вводный инструктаж по охране труда</h1>
+        <p class="hero-desc">
+          Обязательный этап для всех новых сотрудников. В этом разделе вы изучите права и обязанности, 
+          правила поведения на территории организации и порядок действий при возникновении опасностей.
+        </p>
+      </section>
+
+      <div class="syllabus-grid">
+        <div class="syllabus-card">
+          <span class="syl-icon">⚖️</span>
+          <h3 class="syl-title">Права и обязанности</h3>
+          <ul class="syl-list">
+             <li>Трудовой договор и рабочее время.</li>
+             <li>Право на безопасное рабочее место.</li>
+             <li>Обязанность соблюдать требования ОТ.</li>
+          </ul>
+        </div>
+
+        <div class="syllabus-card">
+            <span class="syl-icon">⚠️</span>
+            <h3 class="syl-title">Опасные факторы</h3>
+            <ul class="syl-list">
+               <li>Движущиеся машины и механизмы.</li>
+               <li>Электрический ток и освещение.</li>
+               <li>Шум, вибрация и работа на высоте.</li>
+            </ul>
+          </div>
+
+        <div class="syllabus-card">
+          <span class="syl-icon">🩹</span>
+          <h3 class="syl-title">Первая помощь</h3>
+          <ul class="syl-list">
+             <li>Алгоритм из 11 шагов.</li>
+             <li>Оценка безопасности места происшествия.</li>
+             <li>Сердечно-легочная реанимация.</li>
+          </ul>
+        </div>
       </div>
 
-      <div class="checklist-box" style="background: #f8fafc; border-color: #e2e8f0;">
-        <div class="checklist-title" style="color: #475569;">💡 На что обратить внимание:</div>
-        <ul class="checklist-ul" style="color: #64748b;">
-            <li>Раздел 3: Права и обязанности работника в области охраны труда.</li>
-            <li>Раздел 5: Опасные и вредные производственные факторы.</li>
-            <li>Раздел 8: Действия работника при возникновении аварийной ситуации.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="content-section" id="videos">
-    <div class="section-header">
-      <div class="section-icon">🎬</div>
-      <h2 class="section-title">Видеоматериалы</h2>
-    </div>
-    
-    <div class="video-grid">
-      
-      <article class="video-card">
-        <div class="video-wrapper">
-          <iframe src="https://kinescope.io/embed/u1U8AdN9kBw4CAWTWZSSWV" allowfullscreen loading="lazy"></iframe>
+      <section class="pdf-viewer-section" id="materials">
+        <div class="pdf-toolbar">
+          <div class="doc-meta">
+            <h3>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                Текстовая версия инструктажа
+            </h3>
+            <span>PDF • 24 страницы • Официальная редакция</span>
+          </div>
+          <a href="assets/ot-intro (1).pdf" target="_blank" class="btn-download-lg">
+            Скачать на устройство 📥
+          </a>
         </div>
-        <div class="video-body">
-          <h3 class="video-title">Действия при пожаре</h3>
-          <p class="video-desc">Алгоритм эвакуации, использование огнетушителей, кнопки тревоги.</p>
+        
+        <div class="pdf-frame-container">
+          <iframe src="assets/ot-intro (1).pdf#toolbar=1&view=FitH" title="Вводный инструктаж PDF"></iframe>
         </div>
-      </article>
+      </section>
 
-      <article class="video-card">
-        <div class="video-wrapper">
-          <iframe src="https://kinescope.io/embed/7c1BU5HmvydfpdG5tNUv7e" allowfullscreen loading="lazy"></iframe>
+      <section class="cinema-section" id="videos">
+        <div class="cinema-header">
+            <h2 class="cinema-title">Видеоматериалы</h2>
+            <p class="cinema-subtitle">Наглядная демонстрация действий в экстренных ситуациях</p>
         </div>
-        <div class="video-body">
-          <h3 class="video-title">Террористическая угроза</h3>
-          <p class="video-desc">Правила поведения при обнаружении подозрительных предметов.</p>
+
+        <div class="video-showcase">
+            <article class="video-item">
+                <div class="video-container">
+                    <iframe src="https://kinescope.io/embed/u1U8AdN9kBw4CAWTWZSSWV" allowfullscreen></iframe>
+                </div>
+                <div class="video-caption">
+                    <h4 class="vid-title">Пожарная безопасность</h4>
+                    <p class="vid-desc">Действия при срабатывании сигнализации и эвакуация.</p>
+                </div>
+            </article>
+
+            <article class="video-item">
+                <div class="video-container">
+                    <iframe src="https://kinescope.io/embed/vmGbdzuLu6Q7htCrfxBjHc" allowfullscreen></iframe>
+                </div>
+                <div class="video-caption">
+                    <h4 class="vid-title">Несчастный случай</h4>
+                    <p class="vid-desc">Порядок оповещения руководства и вызов скорой.</p>
+                </div>
+            </article>
         </div>
-      </article>
+      </section>
 
-      <article class="video-card">
-        <div class="video-wrapper">
-          <iframe src="https://kinescope.io/embed/vmGbdzuLu6Q7htCrfxBjHc" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="video-body">
-          <h3 class="video-title">Несчастный случай</h3>
-          <p class="video-desc">Первые действия, вызов помощи и уведомление руководителя.</p>
-        </div>
-      </article>
-
-    </div>
-
-    <div class="checklist-box">
-      <div class="checklist-title">✅ По итогам изучения вы должны знать:</div>
-      <ul class="checklist-ul">
-        <li>Как действовать при пожаре и как организовать эвакуацию без паники.</li>
-        <li>Что делать при обнаружении посторонних предметов (угроза теракта).</li>
-        <li>Кому и как сообщать о любой травме или несчастном случае на производстве.</li>
-      </ul>
-    </div>
-  </section>
-
-  <div class="test-section-wrapper" id="final-test-anchor">
-    <section class="test-cta-card">
-      
-      <h2 class="test-title">Проверка знаний</h2>
-      <p class="test-subtitle">
-        Вы завершили изучение материалов вводного инструктажа. 
-        Для фиксации результатов обучения необходимо пройти итоговое тестирование.
-      </p>
-
-      <div class="pre-test-check">
-        <div class="check-item"><span class="check-icon">✔</span> У вас есть 10-15 минут свободного времени</div>
-        <div class="check-item"><span class="check-icon">✔</span> Вы изучили PDF и видеоматериалы</div>
-        <div class="check-item"><span class="check-icon">✔</span> Вы готовы указать свои ФИО и должность</div>
-      </div>
-
-      <div>
+      <div class="test-zone">
+        <h2>Готовы проверить знания?</h2>
+        <p>
+            Если вы изучили PDF-материал и просмотрели видеоролики, переходите к итоговому тестированию.
+            Результат будет зафиксирован в системе.
+        </p>
         <a href="ot-intro-test.html" class="btn-super-cta">
-          Пройти итоговый тест
-          <span>➔</span>
+            Приступить к тестированию
+            <span>➔</span>
         </a>
       </div>
 
-      <div class="legal-note">
-        Результаты тестирования автоматически сохраняются в базе данных СДО. 
-        В случае неудачи у вас будет возможность пройти тест повторно.
-      </div>
+    </div>
+  </main>
 
-    </section>
-  </div>
-
-  <footer style="text-align:center; padding: 40px 20px; color: #94a3b8; font-size: 0.9rem;">
-    <p>© 2026 Служба Охраны Труда. Внутренний ресурс.</p>
+  <footer class="glass-footer">
+    <div class="container">
+      <p>© 2026 Служба Охраны Труда. Внутренний ресурс.</p>
+    </div>
   </footer>
 
 </div>
 
 <button type="button" class="to-top" id="toTopBtn" aria-label="Наверх">↑</button>
+
 <style>
-  .to-top { position: fixed; right: 20px; bottom: 20px; width: 45px; height: 45px; border-radius: 50%; background: #fff; border: 1px solid #e2e8f0; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; opacity: 0; transition: 0.3s; z-index: 100; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; color: #1e293b; }
-  .to-top.is-visible { opacity: 1; }
-  .to-top:hover { background: #2563eb; color: #fff; }
+  .to-top { position: fixed; right: 20px; bottom: 20px; width: 50px; height: 50px; border-radius: 50%; background: #fff; border: 1px solid #e2e8f0; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; opacity: 0; transition: 0.3s; z-index: 100; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; color: #1e293b; }
+  .to-top.is-visible { opacity: 1; transform: translateY(0); }
+  .to-top:hover { background: #2563eb; color: #fff; transform: translateY(-3px); }
 </style>
+
 <script>
-  const btn = document.getElementById('toTopBtn');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 400) btn.classList.add('is-visible');
-    else btn.classList.remove('is-visible');
+  document.addEventListener("DOMContentLoaded", function() {
+    const btn = document.getElementById('toTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) btn.classList.add('is-visible');
+      else btn.classList.remove('is-visible');
+    });
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   });
-  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 </script>
 
 </body>
