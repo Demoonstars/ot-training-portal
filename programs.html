@@ -36,66 +36,60 @@
     }
 
     /* === 2. HERO СЕКЦИЯ === */
-.programs-hero {
+      .programs-hero {
       text-align: center;
       padding: 60px 20px 40px;
       position: relative;
+      z-index: 10; /* Поднимаем выше всего */
     }
 
     .hero-title {
-      font-size: 3rem;
-      font-weight: 900; /* Сделали максимально жирным */
-      
-      /* 🔍 ИЗМЕНЕНО: Убрали прозрачный градиент, поставили плотный темный цвет */
-      color: #0f172a; 
-      background: none;
-      -webkit-text-fill-color: initial; 
-      -webkit-background-clip: border-box;
-      
-      margin-bottom: 20px;
+      font-size: 3.5rem; /* Увеличили размер */
+      font-weight: 900; /* Максимальная жирность */
+      color: #000000; /* Абсолютно черный цвет */
+      margin-bottom: 25px;
       letter-spacing: -1px;
+      position: relative;
       
-      /* 🔍 НОВОЕ: Белая "обводка" тенью, чтобы текст читался на любом фоне */
+      /* Мощная белая обводка текста (Stroke effect) + Тень */
       text-shadow: 
-        3px 3px 0px #ffffff, 
-        -1px -1px 0 #ffffff,
-        1px -1px 0 #ffffff,
-        -1px 1px 0 #ffffff,
-        1px 1px 0 #ffffff,
-        0 10px 30px rgba(0,0,0,0.15); /* Дальняя тень для объема */
+        3px 0 0 #fff, -3px 0 0 #fff, 0 3px 0 #fff, 0 -3px 0 #fff,
+        2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff,
+        0 10px 30px rgba(0,0,0,0.2); /* Тень, чтобы оторвать от фона */
     }
 
     .hero-lead {
-      /* 🔍 ИЗМЕНЕНО: Цвет текста стал насыщенным темным */
-      color: #1e293b !important; 
-      
-      max-width: 650px; 
+      color: #000000 !important; /* Черный текст */
+      max-width: 750px; 
       margin: 0 auto; 
-      font-size: 1.15rem; 
-      font-weight: 600; /* Жирность повышена */
+      font-size: 1.25rem; /* Текст стал крупнее */
+      font-weight: 700; /* Жирный шрифт */
       line-height: 1.6;
       
-      /* 🔍 НОВОЕ: Полупрозрачная подложка под текст описания */
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(8px); /* Размытие фона под текстом */
-      padding: 15px 30px;
+      /* Полностью белая плашка (непрозрачная) */
+      background: #ffffff;
+      padding: 20px 30px;
       border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.8);
       
-      display: inline-block; /* Чтобы плашка облегала текст */
-      box-shadow: 0 4px 20px rgba(148, 163, 184, 0.15);
+      /* Четкая рамка и глубокая тень */
+      border: 2px solid #e2e8f0;
+      box-shadow: 
+        0 0 0 4px rgba(255,255,255,0.5), /* Внешнее свечение */
+        0 20px 50px rgba(0,0,0,0.15); /* Тень */
+        
+      display: inline-block; /* Плашка по размеру текста */
     }
 
     .cursor-blink {
-      display: inline-block; width: 6px; height: 1em; background: #2563eb;
-      margin-left: 8px; animation: blink 1s infinite; vertical-align: middle;
-      border-radius: 4px;
-      box-shadow: 0 0 15px rgba(37,99,235, 0.6); /* Светящийся курсор */
+      display: inline-block; width: 8px; height: 1em; background: #000; /* Черный курсор */
+      margin-left: 5px; animation: blink 1s infinite; vertical-align: middle;
+      box-shadow: 0 0 0 2px #fff; /* Обводка курсора */
     }
     @keyframes blink { 50% { opacity: 0; } }
     
     @media (max-width: 768px) {
-      .hero-title { font-size: 2.2rem; }
+      .hero-title { font-size: 2.5rem; }
+      .hero-lead { font-size: 1.1rem; padding: 15px; }
     }
 
     /* === 3. ПАНЕЛЬ УПРАВЛЕНИЯ (Более матовая) === */
