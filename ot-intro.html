@@ -394,18 +394,12 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     
-    // ДАТА
-    const dateStr = new Date().toLocaleDateString('ru-RU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+ // 1. Дата в шапке
+    const now = new Date();
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateStr = now.toLocaleDateString('ru-RU', dateOptions);
     const dateEl = document.getElementById('current-date');
     if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
-
-    // ПРОГРЕСС БАР ЧТЕНИЯ
-    window.addEventListener('scroll', () => {
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (scrollTop / scrollHeight) * 100;
-        document.getElementById('progressBar').style.width = scrolled + "%";
-    });
 
     // ПОДСВЕТКА АКТИВНОГО ПУНКТА МЕНЮ ПРИ СКРОЛЛЕ
     const observerOptions = { root: null, rootMargin: '-100px 0px -70% 0px', threshold: 0 };
