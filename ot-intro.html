@@ -26,15 +26,16 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* === 2. ШАПКА (FIX) === */
-    /* Принудительно выравниваем элементы шапки как на главной */
+/* === БЛОК 2. ШАПКА === */
     .header-inner {
       display: flex;
+      justify-content: space-between; /* Распределяем пространство */
       align-items: center;
-      gap: 20px;
     }
     .header-brand {
-      margin-right: auto; /* Логотип слева, остальное толкаем вправо */
+      display: flex;
+      align-items: center;
+      gap: 15px;
     }
     .header-meta {
       font-size: 0.75rem; 
@@ -43,56 +44,20 @@
       display: flex; 
       align-items: center; 
       gap: 15px; 
-      order: 2; /* Дата справа */
-    }
-    .main-nav {
-      order: 3; /* Меню еще правее */
+      margin-left: auto; /* Жестко толкаем дату вправо */
+      margin-right: 30px; /* Отступ от меню */
     }
     @media (max-width: 900px) { .header-meta { display: none; } }
 
-    /* === 3. КАРТОЧКИ С ПОДСВЕТКОЙ (Spotlight) === */
-    .syllabus-grid { 
-      display: grid; 
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-      gap: 20px; 
-      margin-bottom: 40px; 
+    /* === БЛОК 3. LAYOUT  === */
+    .course-layout {
+      /* Было grid, делаем одну колонку по центру */
+      display: block;
+      max-width: 1000px;
+      margin: 40px auto;
     }
-    .syllabus-card { 
-      background: rgba(255,255,255,0.8); 
-      border-radius: 20px; 
-      padding: 2px; /* Место для рамки-свечения */
-      position: relative; 
-      overflow: hidden; 
-    }
-    /* Слой свечения */
-    .syllabus-card::before {
-      content: ""; 
-      position: absolute; 
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(
-        800px circle at var(--mouse-x) var(--mouse-y), 
-        rgba(37, 99, 235, 0.4), 
-        transparent 40%
-      );
-      opacity: 0; 
-      transition: opacity 0.5s; 
-      z-index: 0; 
-    }
-    .syllabus-card:hover::before { opacity: 1; }
-    
-    .syllabus-inner { 
-      background: #fff; 
-      border-radius: 18px; 
-      padding: 24px; 
-      height: 100%; 
-      position: relative; 
-      z-index: 1; /* Контент поверх свечения */
-    }
-    .syl-icon { font-size: 2rem; margin-bottom: 10px; display: inline-block; transition: transform 0.3s; }
-    .syllabus-card:hover .syl-icon { transform: scale(1.2) rotate(5deg); }
-    .syl-title { font-size: 1.2rem; font-weight: 700; color: #1e293b; margin: 0 0 10px; }
-    .syl-list { margin: 0; padding-left: 20px; color: #64748b; font-size: 0.95rem; line-height: 1.6; }
-    .syl-list li { margin-bottom: 5px; }
+    /* Скрываем сайдбар, если он остался в HTML, но лучше удалить */
+    .course-sidebar { display: none; }
 
     /* === 4. КНОПКА "ЗМЕЙКА" (Magic Button) === */
     .btn-magic {
@@ -223,25 +188,11 @@
         </a>
       </div>
 
-      <div class="course-layout">
+<div class="course-layout">
         
-        <aside class="course-sidebar">
-          <div class="sidebar-title">Навигация по уроку</div>
-          <nav>
-            <a href="#intro" class="toc-link active">Введение</a>
-            <a href="#syllabus" class="toc-link">Программа</a>
-            <a href="#myth-busters" class="toc-link">Мифы vs Реальность</a>
-            <a href="#materials" class="toc-link">Учебник (PDF)</a>
-            <a href="#videos" class="toc-link">Видеокурс</a>
-            <a href="#test" class="toc-link">Тестирование</a>
-          </nav>
-          
-          </div>
-        </aside>
-
         <div class="course-content">
 
-          <section id="intro" class="glass-hero" id="tilt-hero">
+          <section class="glass-hero" id="tilt-hero">
             <span class="hero-badge">Вводный инструктаж</span>
             <h1 class="hero-title">Основы охраны труда</h1>
             <p class="hero-desc">
