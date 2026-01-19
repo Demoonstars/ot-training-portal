@@ -155,13 +155,13 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
 <!-- Online Test Pad Test Widget (#363131)-->
-<div id="otp_wgt_27gckuaakwvlm"></div>
-<script type="text/javascript">
+function loadTestWidget() {
     var otp_wjs_dt = (new Date).getTime();
     (function (w, d, n, s, rp) {
         w[n] = w[n] || [];
         rp = {};
         w[n].push(function () {
+            // ВАШ ID: 27gckuaakwvlm
             otp_render_widget(d.getElementById("otp_wgt_27gckuaakwvlm"), 'onlinetestpad.com', '27gckuaakwvlm', rp);
         }); 
         s = d.createElement("script");
@@ -169,8 +169,9 @@ document.addEventListener("DOMContentLoaded", function() {
         s.src = "//onlinetestpad.com/js/widget.js?" + otp_wjs_dt;
         s.async = true;
         d.getElementsByTagName("head")[0].appendChild(s);
-    })(this, this.document, "otp_widget_callbacks");
-
+    })(window, document, "otp_widget_callbacks");
+  }
+  
   // 3. ЛОГИКА РАЗБЛОКИРОВКИ
   const checkbox = document.getElementById('legal-checkbox');
   const btn = document.getElementById('unlock-btn');
