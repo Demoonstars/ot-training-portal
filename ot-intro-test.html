@@ -154,8 +154,9 @@ document.addEventListener("DOMContentLoaded", function() {
       }
   });
 
-  // 2. СКРИПТ ВАШЕГО ВИДЖЕТА
-  function loadTestWidget() {
+<!-- Online Test Pad Test Widget (#363131)-->
+<div id="otp_wgt_27gckuaakwvlm"></div>
+<script type="text/javascript">
     var otp_wjs_dt = (new Date).getTime();
     (function (w, d, n, s, rp) {
         w[n] = w[n] || [];
@@ -168,8 +169,7 @@ document.addEventListener("DOMContentLoaded", function() {
         s.src = "//onlinetestpad.com/js/widget.js?" + otp_wjs_dt;
         s.async = true;
         d.getElementsByTagName("head")[0].appendChild(s);
-    })(window, document, "otp_widget_callbacks");
-  }
+    })(this, this.document, "otp_widget_callbacks");
 
   // 3. ЛОГИКА РАЗБЛОКИРОВКИ
   const checkbox = document.getElementById('legal-checkbox');
