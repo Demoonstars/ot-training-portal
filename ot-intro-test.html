@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="assets/style.css">
 
    <style>
+     /* === Анимация статуса === */
      .system-status-pulse {
       display: inline-block; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%;
       box-shadow: 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse-green 2s infinite; margin-right: 6px;
@@ -26,6 +27,14 @@
       .cinema-section { padding: 20px; }
       .steps-container { gap: 10px; }
     }
+
+     /* === FIX SCROLL JUMP === */
+    .test-wrapper {
+        min-height: 800px !important; 
+        display: flex; 
+        flex-direction: column;
+        justify-content: flex-start; /* Чтобы тест начинался сверху */
+        transition: min-height 0.3s ease;
     </style>
 </head>
 <body class="masterpiece-theme">
