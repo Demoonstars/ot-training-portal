@@ -15,8 +15,6 @@
 
    <style>
 
-     /* === Анимация статуса === */
-
      .system-status-pulse {
 
       display: inline-block; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%;
@@ -53,21 +51,6 @@
       .steps-container { gap: 10px; }
 
     }
-
-
-     /* === FIX SCROLL JUMP === */
-
-    .test-wrapper {
-
-        min-height: 800px !important; 
-
-        display: flex; 
-
-        flex-direction: column;
-
-        justify-content: flex-start; /* Чтобы тест начинался сверху */
-
-        transition: min-height 0.3s ease;
 
     </style>
 
@@ -276,8 +259,11 @@
   // 1. ДАТА В ШАПКЕ
 
 document.addEventListener("DOMContentLoaded", function() {
+
       const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
       const dateStr = new Date().toLocaleDateString('ru-RU', dateOptions);
+
       const dateEl = document.getElementById('current-date');
 
       // Проверка: если элемент найден на странице, вставляем текст
@@ -291,43 +277,65 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
 
- <!-- Скрипт виджета OnlineTestPad -->
-  <div id="otp_wgt_27gckuaakwvlm"></div>
-    function loadTestWidget() {
-  var otp_wjs_dt = (new Date).getTime();
-    (function (w, d, n, s, rp) {
-      w[n] = w[n] || [];
-      rp = {};
-      w[n].push(function () {
-        otp_render_widget(
-          d.getElementById("otp_wgt_ldxfcvjhloj6o"),
-          'onlinetestpad.com',
-          'ldxfcvjhloj6o',
-          rp
-        );
-      });
-      s = d.createElement("script");
-      s.type = "text/javascript";
-      s.src = "https://onlinetestpad.com/js/widget.js?" + otp_wjs_dt;
-      s.async = true;
-      d.getElementsByTagName("head")[0].appendChild(s);
-    })(this, this.document, "otp_widget_callbacks");
-      }
+  // 2. СКРИПТ ВАШЕГО ВИДЖЕТА
+  
+ <script type="text/javascript">
+  function loadTestWidget() {
 
+    var otp_wjs_dt = (new Date).getTime();
+
+    (function (w, d, n, s, rp) {
+
+        w[n] = w[n] || [];
+
+        rp = {};
+
+        w[n].push(function () {
+
+            otp_render_widget(d.getElementById("otp_wgt_27gckuaakwvlm"), 'onlinetestpad.com', '27gckuaakwvlm', rp);
+
+        }); 
+
+        s = d.createElement("script");
+
+        s.type = "text/javascript";
+
+        s.src = "//onlinetestpad.com/js/widget.js?" + otp_wjs_dt;
+
+        s.async = true;
+
+        d.getElementsByTagName("head")[0].appendChild(s);
+
+    })(window, document, "otp_widget_callbacks");
+
+  }
+ </script>
 
   // 3. ЛОГИКА РАЗБЛОКИРОВКИ
 
   const checkbox = document.getElementById('legal-checkbox');
+
   const btn = document.getElementById('unlock-btn');
+
   const lock = document.getElementById('test-lock');
+
   const consentSection = document.getElementById('consent-section');
+
   let widgetLoaded = false;
+
+
   checkbox.addEventListener('change', function() {
+
     if (this.checked) {
+
       btn.disabled = false;
+
       btn.classList.remove('btn-disabled');
+
     } else {
+
       btn.disabled = true;
+
       btn.classList.add('btn-disabled');
 
     }
