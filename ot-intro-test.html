@@ -2,382 +2,174 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Итоговый тест по вводному инструктажу по охране труда — Учебный портал</title>
+  <title>Тест: Вводный инструктаж по охране труда</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description"
-        content="Итоговый тест по вводному инструктажу по охране труда с обязательным указанием персональных и организационных данных работника.">
   <link rel="stylesheet" href="assets/style.css">
-
-  <style>
-    /* UX теста: статус под кнопкой (локально для страницы) */
-    .test-consent-status{font-size:.88rem;color:#6b7280;margin-top:.25rem}
-    .test-consent-status strong{color:#111827}
-    .test-consent-status.is-ok{color:#065f46}
-    .test-consent-status.is-warn{color:#92400e}
-  </style>
 </head>
+<body class="masterpiece-theme">
 
-<body class="ot-theme">
-  <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
-
+<div class="glass-wrapper">
+  
   <header class="site-header">
     <div class="container header-inner">
       <div class="header-brand">
-        <p class="site-label">Дистанционный учебный портал</p>
-        <h1 class="site-title">Охрана труда, пожарная безопасность, первая помощь, ГО/ЧС</h1>
-        <p class="site-subtitle">
-          Дистанционное обучение работников и проверка знаний требований охраны труда и безопасности.
-        </p>
+        <img src="assets/Филин от.png" alt="Логотип" class="brand-logo">
+        <div>
+          <h1 class="site-title-mini">СДО</h1>
+          <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
+        </div>
       </div>
-
-      <nav class="main-nav" aria-label="Основная навигация">
+      <nav class="main-nav">
         <ul class="nav-list">
-          <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
-          <li class="nav-item"><a href="programs.html" class="nav-link nav-link-active">Программы обучения</a></li>
-          <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции для сотрудников</a></li>
-          <li class="nav-item">
-            <a href="for-responsibles.html" class="nav-link">Информация для ответственных за обучение</a>
-          </li>
+          <li><a href="index.html" class="nav-link">Главная</a></li>
+          <li><a href="programs.html" class="nav-link">Программы</a></li>
+          <li><a href="instructions.html" class="nav-link">Инструкции</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <main id="main-content" class="site-main">
-    <div class="container">
+  <main class="container" style="padding-top: 30px;">
+    
+    <a href="ot-intro.html" class="back-link">
+      <span>←</span> Вернуться к материалам курса
+    </a>
 
-      <!-- Назад к вводному инструктажу по ОТ -->
-      <nav class="back-nav">
-        <a href="ot-intro.html" class="back-link">
-          <span class="back-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" class="back-svg">
-              <path d="M15 6l-6 6 6 6"
-                    stroke="white"
-                    stroke-width="2"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round" />
-            </svg>
+    <section class="section-card spotlight-card">
+      <div class="status-badge" style="margin-bottom: 15px; color: var(--primary);">
+        <span class="pulse-dot"></span> Обязательный контроль
+      </div>
+      <h1>Итоговый тест: Вводный инструктаж по охране труда</h1>
+      <p>
+        Результаты тестирования фиксируются в автоматической системе протоколирования
+        согласно Постановлению Правительства РФ № 2464.
+      </p>
+      
+      <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+        <span class="status-badge">10 Вопросов</span>
+        <span class="status-badge">Мин. порог 85%</span>
+        <span class="status-badge">Время: ~10 мин</span>
+      </div>
+    </section>
+
+    <section class="section-card" id="consent-section">
+      <h3>🔐 Доступ к тестированию</h3>
+      <p>
+        В соответствии с 152-ФЗ "О персональных данных", для начала тестирования и оформления протокола
+        необходимо ваше согласие на обработку ФИО, должности и подразделения.
+      </p>
+
+      <div class="legal-box">
+        <label class="consent-label">
+          <input type="checkbox" id="legal-checkbox">
+          <span class="consent-text">
+            Я подтверждаю, что ознакомлен с Политикой конфиденциальности, и даю согласие на обработку моих
+            персональных данных для целей оформления результатов обучения.
           </span>
-          <span class="back-text">Вернуться к вводному инструктажу по охране труда</span>
-        </a>
-      </nav>
+        </label>
+        
+        <button id="unlock-btn" class="btn btn-magic btn-disabled" disabled style="width: 100%; justify-content: center;">
+          <span>🔓 Подтвердить и начать тест</span>
+        </button>
+      </div>
+    </section>
 
-      <!-- Заголовок страницы теста -->
-      <section class="section section-card">
-        <header class="test-page-header">
-          <p class="attention-header">
-            <span aria-hidden="true">🦺</span>
-            <span>Важно перед началом теста</span>
-          </p>
-
-          <h1>Итоговый тест по вводному инструктажу по охране труда</h1>
-
-          <div class="test-summary-badges">
-            <span class="test-badge">Проверка усвоения</span>
-            <span class="test-badge">Форма: зачет/незачет</span>
-            <span class="test-badge">Проходится онлайн</span>
-          </div>
-
-          <p>
-            Тест предназначен для подтверждения усвоения материалов вводного инструктажа по охране труда и
-            используется работодателем для последующего документального оформления результатов обучения
-            в установленном порядке.
-          </p>
-
-          <p><strong>Перед началом теста убедитесь, что:</strong></p>
-          <ul class="test-meta-list">
-            <li>вы ознакомились с материалами вводного инструктажа по охране труда;</li>
-            <li>понимаете, как корректно указать персональные и организационные данные (Ф.И.О., дату рождения, должность, подразделение, организацию);</li>
-            <li>располагаете временем для прохождения теста без отвлечений;</li>
-            <li>используете устройство со стабильным доступом в интернет (рекомендуется ПК/ноутбук).</li>
-          </ul>
-
-          <p class="note">
-            Некорректное заполнение персональных и организационных данных в форме теста может привести к невозможности зачёта
-            результатов обучения и их оформления в документах работодателя.
-          </p>
-        </header>
-      </section>
-
-      <!-- Блок согласия на обработку персональных данных -->
-      <section class="section section-card">
-        <h2>Согласие на обработку персональных данных</h2>
-
-        <p>
-          Перед началом прохождения итогового теста работник подтверждает, что ознакомлен(а) и принимает
-          условия обработки персональных данных в соответствии с Федеральным законом № 152-ФЗ
-          «О персональных данных», Трудовым кодексом РФ и локальными нормативными актами работодателя.
-        </p>
-
-        <h3>Какие данные обрабатываются</h3>
-        <ul class="pd-consent-list">
-          <li class="pd-consent-item">
-            <span class="pd-consent-icon" aria-hidden="true">✓</span>
-            <span class="pd-consent-text">
-              персональные и организационные данные, указываемые в форме теста: Ф.И.О., дата рождения,
-              должность, структурное подразделение, наименование организации и иные сведения, необходимые
-              для учёта прохождения обучения по охране труда;
-            </span>
-          </li>
-          <li class="pd-consent-item">
-            <span class="pd-consent-icon" aria-hidden="true">✓</span>
-            <span class="pd-consent-text">
-              результаты прохождения теста: ответы на вопросы, количество набранных баллов,
-              дата и время прохождения, факт успешного/неуспешного завершения тестирования.
-            </span>
-          </li>
-        </ul>
-
-        <h3>Для чего используются данные</h3>
-        <ul class="pd-consent-list">
-          <li class="pd-consent-item">
-            <span class="pd-consent-icon" aria-hidden="true">✓</span>
-            <span class="pd-consent-text">
-              оформление протоколов проверки знаний требований охраны труда и иных учётных документов работодателя;
-            </span>
-          </li>
-          <li class="pd-consent-item">
-            <span class="pd-consent-icon" aria-hidden="true">✓</span>
-            <span class="pd-consent-text">
-              ведение журналов (реестров) обучения/инструктажей по охране труда и подтверждение факта прохождения проверки знаний;
-            </span>
-          </li>
-          <li class="pd-consent-item">
-            <span class="pd-consent-icon" aria-hidden="true">✓</span>
-            <span class="pd-consent-text">
-              подтверждение соблюдения работодателем требований по обучению и проверке знаний работников.
-            </span>
-          </li>
-        </ul>
-
-        <h3>Кто обрабатывает и получает доступ к данным</h3>
-        <ul class="pd-consent-list">
-          <li class="pd-consent-item">
-            <span class="pd-consent-icon" aria-hidden="true">✓</span>
-            <span class="pd-consent-text">
-              уполномоченные должностные лица работодателя, ответственные за организацию обучения и проверку знаний по охране труда;
-            </span>
-          </li>
-          <li class="pd-consent-item">
-            <span class="pd-consent-icon" aria-hidden="true">✓</span>
-            <span class="pd-consent-text">
-              оператор тестирующей платформы OnlineTestPad — в объёме, необходимом для проведения тестирования и фиксации результатов.
-            </span>
-          </li>
-        </ul>
-
-        <h3>Сроки и порядок хранения</h3>
-        <ul class="pd-consent-list">
-          <li class="pd-consent-item">
-            <span class="pd-consent-icon" aria-hidden="true">✓</span>
-            <span class="pd-consent-text">
-              персональные данные и результаты тестирования хранятся в сроки и порядке, установленные локальными нормативными актами работодателя
-              и номенклатурой дел (не менее сроков хранения документов по обучению и проверке знаний).
-            </span>
-          </li>
-        </ul>
-
-        <h3>Ваше согласие</h3>
-        <p class="test-hint">
-          Обработка персональных данных осуществляется исключительно в целях организации и проведения обучения,
-          тестирования и последующего документального оформления результатов в соответствии с требованиями законодательства РФ
-          и локальными нормативными актами работодателя.
-        </p>
-
-        <p class="test-hint">
-          <strong>Предоставление согласия является добровольным.</strong>
-          В случае отказа от согласия прохождение теста и документальное оформление результатов обучения будут невозможны.
-        </p>
-
-        <div class="test-consent-controls">
-          <label class="test-consent-label">
-            <input
-              type="checkbox"
-              id="pd-consent"
-              aria-label="Согласие на обработку персональных данных для целей обучения и тестирования по охране труда"
-            >
-            <span>
-              Я подтверждаю, что ознакомлен(а) с условиями обработки персональных данных и даю согласие
-              на их обработку для целей обучения и тестирования по охране труда.
-            </span>
-          </label>
-
-          <button
-            type="button"
-            id="start-test-btn"
-            class="btn btn-primary btn-test-link btn-disabled"
-            disabled
-          >
-            <span>Открыть тест и перейти к вопросам</span>
-            <span class="btn-icon" aria-hidden="true">⬇</span>
-          </button>
+    <section class="section-card test-wrapper">
+      
+      <div class="test-overlay" id="test-lock">
+        <div>
+          <span class="lock-icon">🔒</span>
+          <h3>Тест заблокирован</h3>
+          <p>Пожалуйста, подтвердите согласие выше, чтобы загрузить вопросы.</p>
         </div>
+      </div>
 
-        <p class="test-hint">
-          Кнопка станет доступна после установки отметки в чекбоксе согласия. Доступ к виджету теста
-          открывается только после подтверждения согласия.
-        </p>
-      </section>
+      <div id="otp_wgt_ot_intro"></div>
+      
+    </section>
 
-      <!-- Блок с виджетом теста и оверлеем -->
-      <section class="section section-card">
-        <h2>Прохождение итогового теста</h2>
-
-        <h3>Как пройти тест</h3>
-        <ul class="test-meta-list">
-          <li>подтвердите согласие на обработку персональных данных выше;</li>
-          <li>нажмите кнопку <strong>«Открыть тест и перейти к вопросам»</strong>;</li>
-          <li>дождитесь загрузки всех вопросов теста во встроенном окне;</li>
-          <li>ответьте на все вопросы и отправьте результаты в системе OnlineTestPad;</li>
-          <li>убедитесь, что тест завершён и система зафиксировала ваши ответы.</li>
-        </ul>
-
-        <p class="test-hint">
-          Основным источником данных для зачёта является информация, зафиксированная в системе OnlineTestPad.
-          В случае технических сбоев обратитесь к ответственному за обучение или специалисту по охране труда.
-        </p>
-
-        <section class="test-wrapper-with-consent" aria-label="Итоговый тест по вводному инструктажу по охране труда">
-          <div
-            id="test-overlay"
-            class="test-overlay"
-            role="alert"
-          >
-            <div class="test-overlay-content">
-              <p><strong>Доступ к тесту временно заблокирован.</strong></p>
-              <p>
-                Для начала тестирования подтвердите согласие на обработку персональных данных выше
-                и нажмите кнопку «Открыть тест и перейти к вопросам».
-              </p>
-            </div>
-          </div>
-
-          <!-- Встроенный виджет OnlineTestPad -->
-          <div id="otp_wgt_27gckuaakwvlm"></div>
-        </section>
-
-        <h3>После прохождения теста</h3>
-        <p class="test-hint">
-          После успешного завершения теста результаты автоматически фиксируются в системе OnlineTestPad
-          и доступны уполномоченным специалистам работодателя. Информацию о зачёте и оформленных документах
-          вы можете уточнить у своего непосредственного руководителя или специалиста по охране труда.
-        </p>
-      </section>
-
-    </div>
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <p class="footer-text">
-        Учебный портал дистанционного обучения по охране труда, пожарной безопасности,
-        первой помощи и ГО/ЧС.
-      </p>
-      <p class="footer-text footer-text-muted">
-        Конкретный порядок обучения и оформления результатов определяется работодателем.
-      </p>
+    <div class="container">
+      © 2026 Служба Охраны Труда. Внутренний ресурс.
     </div>
   </footer>
+</div>
 
-  <!-- Скрипт виджета OnlineTestPad -->
-  <script type="text/javascript">
+<script>
+  // 1. КОНФИГУРАЦИЯ ТЕСТА (ВСТАВЬТЕ ID СЮДА)
+  const WIDGET_ID = 'm72u667w343de'; // <--- ЗАМЕНИТЕ НА РЕАЛЬНЫЙ ID ЕСЛИ ОН ДРУГОЙ
+
+  // 2. Логика разблокировки
+  const checkbox = document.getElementById('legal-checkbox');
+  const btn = document.getElementById('unlock-btn');
+  const lock = document.getElementById('test-lock');
+  const consentSection = document.getElementById('consent-section');
+  let widgetLoaded = false;
+
+  // Активация кнопки
+  checkbox.addEventListener('change', function() {
+    if (this.checked) {
+      btn.disabled = false;
+      btn.classList.remove('btn-disabled');
+    } else {
+      btn.disabled = true;
+      btn.classList.add('btn-disabled');
+    }
+  });
+
+  // Запуск теста
+  btn.addEventListener('click', function() {
+    if (!btn.disabled) {
+      // Скрываем замок
+      lock.classList.add('hidden');
+      
+      // Инициализируем виджет (если еще не загружен)
+      if (!widgetLoaded) {
+        initWidget();
+        widgetLoaded = true;
+      }
+
+      // Скролл к тесту
+      setTimeout(() => {
+        lock.parentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+
+      // Блокируем галочку (чтобы не отвлекала)
+      consentSection.style.opacity = '0.5';
+      consentSection.style.pointerEvents = 'none';
+    }
+  });
+
+  // Функция загрузки OnlineTestPad
+  function initWidget() {
     var otp_wjs_dt = (new Date).getTime();
-    (function (w, d, n, s, rp) {
-      w[n] = w[n] || [];
-      rp = {};
-      w[n].push(function () {
-        otp_render_widget(
-          d.getElementById("otp_wgt_27gckuaakwvlm"),
-          'onlinetestpad.com',
-          '27gckuaakwvlm',
-          rp
-        );
-      });
-      s = d.createElement("script");
-      s.type = "text/javascript";
-      s.src = "https://onlinetestpad.com/js/widget.js?" + otp_wjs_dt;
-      s.async = true;
-      d.getElementsByTagName("head")[0].appendChild(s);
-    })(this, this.document, "otp_widget_callbacks");
-  </script>
-
-  <!-- Скрипт управления согласием и доступом к тесту (UX-улучшенная версия) -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const consentCheckbox = document.getElementById('pd-consent');
-      const startButton = document.getElementById('start-test-btn');
-      const overlay = document.getElementById('test-overlay');
-      const widgetContainer = document.getElementById('otp_wgt_27gckuaakwvlm');
-
-      if (!consentCheckbox || !startButton || !overlay || !widgetContainer) return;
-
-      // Статус для пользователя + a11y (aria-live)
-      let status = document.getElementById('test-consent-status');
-      if (!status) {
-        status = document.createElement('p');
-        status.id = 'test-consent-status';
-        status.className = 'test-consent-status is-warn';
-        status.setAttribute('aria-live', 'polite');
-
-        const controls = startButton.closest('.test-consent-controls');
-        if (controls) controls.appendChild(status);
-        else startButton.insertAdjacentElement('afterend', status);
-      }
-
-      function setStatus(text, mode) {
-        status.textContent = text;
-        status.classList.remove('is-ok', 'is-warn');
-        if (mode) status.classList.add(mode);
-      }
-
-      function getScrollTarget() {
-        return widgetContainer.closest('.test-wrapper-with-consent') || widgetContainer;
-      }
-
-      function scrollToTarget() {
-        const target = getScrollTarget();
-        const rect = target.getBoundingClientRect();
-        const offset = 12; // небольшой отступ сверху
-        const top = rect.top + window.pageYOffset - offset;
-        window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
-      }
-
-      function updateConsentState() {
-        const allowed = consentCheckbox.checked;
-
-        startButton.disabled = !allowed;
-        startButton.setAttribute('aria-disabled', String(!allowed));
-
-        if (allowed) {
-          startButton.classList.remove('btn-disabled');
-          setStatus('Доступ открыт. Нажмите кнопку, чтобы перейти к тесту.', 'is-ok');
-        } else {
-          startButton.classList.add('btn-disabled');
-
-          overlay.classList.remove('test-overlay-hidden');
-          overlay.removeAttribute('aria-hidden');
-
-          setStatus('Поставьте отметку согласия, чтобы открыть доступ к тесту.', 'is-warn');
-        }
-      }
-
-      // Надёжнее для мобильных: change + input
-      consentCheckbox.addEventListener('change', updateConsentState);
-      consentCheckbox.addEventListener('input', updateConsentState);
-
-      startButton.addEventListener('click', function () {
-        if (startButton.disabled) return;
-
-        overlay.classList.add('test-overlay-hidden');
-        overlay.setAttribute('aria-hidden', 'true');
-
-        setStatus('Доступ открыт. Прокручиваем к тесту…', 'is-ok');
-        scrollToTarget();
-      });
-
-      updateConsentState();
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "//onlinetestpad.com/js/widget.js?" + otp_wjs_dt;
+    script.async = true;
+    
+    // Коллбек после загрузки скрипта
+    window.otp_widget_callbacks = window.otp_widget_callbacks || [];
+    window.otp_widget_callbacks.push(function () {
+        otp_render_widget(document.getElementById("otp_wgt_ot_intro"), 'onlinetestpad.com', WIDGET_ID, {});
     });
-  </script>
+    
+    document.getElementsByTagName("head")[0].appendChild(script);
+  }
+  
+  // Spotlight Effect (для красоты на ПК)
+  if (window.matchMedia("(hover: hover)").matches) {
+    document.querySelectorAll('.spotlight-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+      });
+    });
+  }
+</script>
+
 </body>
 </html>
