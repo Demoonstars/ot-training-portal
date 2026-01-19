@@ -154,14 +154,13 @@ document.addEventListener("DOMContentLoaded", function() {
       }
   });
 
-<!-- Online Test Pad Test Widget (#363131)-->
-function loadTestWidget() {
+// 2. ФУНКЦИЯ ЗАГРУЗКИ ВИДЖЕТА
+  function loadTestWidget() {
     var otp_wjs_dt = (new Date).getTime();
     (function (w, d, n, s, rp) {
         w[n] = w[n] || [];
         rp = {};
         w[n].push(function () {
-            // ВАШ ID: 27gckuaakwvlm
             otp_render_widget(d.getElementById("otp_wgt_27gckuaakwvlm"), 'onlinetestpad.com', '27gckuaakwvlm', rp);
         }); 
         s = d.createElement("script");
@@ -170,6 +169,32 @@ function loadTestWidget() {
         s.async = true;
         d.getElementsByTagName("head")[0].appendChild(s);
     })(window, document, "otp_widget_callbacks");
+
+    // Запускаем "Анти-Прыгун" после загрузки виджета
+    activateScrollGuard();
+  }
+
+  // 3. "АНТИ-ПРЫГУН" (Scroll Guard)
+  // Этот скрипт следит: если виджет меняется, он держит экран на тесте
+  function activateScrollGuard() {
+    const testAnchor = document.getElementById('test-anchor');
+    const observer = new MutationObserver((mutations) => {
+       // Если внутри теста что-то поменялось (нажали кнопку)
+       // Мы ждем 50мс и проверяем, не убежала ли страница вверх
+       setTimeout(() => {
+          const rect = testAnchor.getBoundingClientRect();
+          // Если верх теста улетел далеко вниз (страница прыгнула вверх)
+          if (rect.top > window.innerHeight) {
+             testAnchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+       }, 100);
+    });
+
+    // Начинаем следить за контейнером виджета
+    const widgetContainer = document.getElementById('otp_wgt_27gckuaakwvlm');
+    if(widgetContainer) {
+        observer.observe(widgetContainer, { childList: true, subtree: true });
+    }
   }
   
   // 3. ЛОГИКА РАЗБЛОКИРОВКИ
