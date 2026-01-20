@@ -34,7 +34,6 @@
       position: relative; overflow: hidden;
       backdrop-filter: blur(20px);
       box-shadow: 0 20px 40px -10px rgba(225, 29, 72, 0.1);
-      /* 3D */
       transform-style: preserve-3d;
       transform: perspective(1000px);
       transition: transform 0.1s ease;
@@ -101,7 +100,7 @@
     .alert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
     .alert-item { display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #9f1239; font-weight: 500; }
 
-    /* === VIDEO GRID (MOBILE FIX) === */
+    /* === VIDEO GRID (STABLE) === */
     .video-section-title { 
         font-size: 1.4rem; font-weight: 800; margin: 50px 0 25px; color: #be123c; 
         display: flex; align-items: center; gap: 10px;
@@ -110,21 +109,21 @@
     
     .video-grid { 
         display: grid; 
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
         gap: 25px; 
     }
     .video-card {
       background: #fff; border-radius: 20px; overflow: hidden;
       border: 1px solid rgba(226, 232, 240, 0.8); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: 0.3s;
       
-      /* FIX: Принудительная видимость */
+      /* Принудительная видимость */
       opacity: 1 !important;
       transform: none !important;
     }
     
     .video-container { 
         position: relative; 
-        padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+        padding-bottom: 56.25%; 
         height: 0; 
         background: #000; 
         z-index: 10;
@@ -159,6 +158,23 @@
     .flip-icon { font-size: 3rem; margin-bottom: 10px; }
     .flip-text { font-size: 1rem; font-weight: 600; line-height: 1.4; }
     .flip-label { text-transform: uppercase; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 10px; opacity: 0.7; }
+
+    /* === FAQ ACCORDION (NEW) === */
+    .faq-section { margin: 40px 0; }
+    .faq-title { text-align: center; font-size: 1.8rem; font-weight: 700; color: #0f172a; margin-bottom: 25px; }
+    .faq-item {
+      background: #fff; border-radius: 16px; margin-bottom: 10px; border: 1px solid #e2e8f0;
+      overflow: hidden; transition: 0.3s;
+    }
+    .faq-item:hover { border-color: #cbd5e1; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+    .faq-summary {
+      padding: 18px 24px; cursor: pointer; font-weight: 600; color: #1e293b;
+      display: flex; justify-content: space-between; align-items: center; list-style: none;
+    }
+    .faq-summary::-webkit-details-marker { display: none; }
+    .faq-summary::after { content: "+"; font-size: 1.5rem; color: #94a3b8; transition: 0.3s; }
+    details[open] .faq-summary::after { transform: rotate(45deg); color: #be123c; } /* Red accent */
+    .faq-content { padding: 0 24px 24px; color: #64748b; font-size: 0.95rem; line-height: 1.6; }
 
     /* === PDF & CTA === */
     .pdf-placeholder {
@@ -432,6 +448,38 @@
         </div>
       </section>
 
+      <section class="faq-section">
+        <h2 class="faq-title">Частые вопросы</h2>
+        
+        <details class="faq-item">
+            <summary class="faq-summary">Могу ли я давать пострадавшему лекарства?</summary>
+            <div class="faq-content">
+                <strong>НЕТ.</strong> В рамках первой помощи давать лекарства запрещено. Вы не знаете анамнез пострадавшего, и любая таблетка может вызвать смертельную аллергическую реакцию. Помощь оказывается без медикаментов.
+            </div>
+        </details>
+        
+        <details class="faq-item">
+            <summary class="faq-summary">Что если я сломаю ребра при СЛР?</summary>
+            <div class="faq-content">
+                В соответствии со ст. 39 УК РФ (Крайняя необходимость), вред, причиненный при спасении жизни, не является преступлением, если он меньше предотвращенного вреда. Сломанное ребро заживет, а смерть необратима. Продолжайте реанимацию.
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary class="faq-summary">Я боюсь заразиться. Что делать?</summary>
+            <div class="faq-content">
+                Собственная безопасность — приоритет №1. Всегда используйте медицинские перчатки из аптечки. Для искусственного дыхания применяйте устройство "Рот-Устройство-Рот". Если средств защиты нет и есть риск прямого контакта с кровью — ограничьтесь безопасными действиями (вызов скорой).
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary class="faq-summary">Обязан ли я оказывать помощь?</summary>
+            <div class="faq-content">
+                Обычные граждане имеют <strong>право</strong>, но не обязанность. Однако оставление в опасности (ст. 125 УК РФ) может наступить, если вы сами поставили человека в опасное состояние. Педагоги, водители и сотрудники служб могут иметь должностные обязанности по оказанию помощи.
+            </div>
+        </details>
+      </section>
+
       <div class="pdf-placeholder">
         <span class="pdf-icon">📄</span>
         <div class="pdf-title">Текстовые материалы и конспекты</div>
@@ -468,7 +516,7 @@
     const dateEl = document.getElementById('current-date');
     if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
 
-    // 2. Анимация появления (Только для элементов с классом reveal-up)
+    // 2. Анимация появления
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
