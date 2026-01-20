@@ -24,7 +24,7 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* === HERO CARD (3D TILT) === */
+    /* === HERO CARD === */
     .hero-card {
       background: radial-gradient(circle at 100% 0%, rgba(225, 29, 72, 0.1) 0%, rgba(255, 255, 255, 0.9) 100%);
       border: 1px solid rgba(255,255,255,0.9);
@@ -34,7 +34,7 @@
       position: relative; overflow: hidden;
       backdrop-filter: blur(20px);
       box-shadow: 0 20px 40px -10px rgba(225, 29, 72, 0.1);
-      /* 3D настройки */
+      /* 3D */
       transform-style: preserve-3d;
       transform: perspective(1000px);
       transition: transform 0.1s ease;
@@ -110,23 +110,25 @@
     
     .video-grid { 
         display: grid; 
-        /* Уменьшили минимум до 250px для узких экранов */
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
         gap: 25px; 
     }
     .video-card {
       background: #fff; border-radius: 20px; overflow: hidden;
       border: 1px solid rgba(226, 232, 240, 0.8); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: 0.3s;
+      
+      /* FIX: Принудительная видимость */
+      opacity: 1 !important;
+      transform: none !important;
     }
     
-    /* FIX: Принудительные стили для контейнера видео */
     .video-container { 
         position: relative; 
         padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
         height: 0; 
         background: #000; 
-        z-index: 10; /* Поднимаем слой */
-        transform: translateZ(0); /* Аппаратное ускорение */
+        z-index: 10;
+        transform: translateZ(0); 
     }
     .video-container iframe { 
         position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; 
@@ -278,17 +280,17 @@
         </div>
       </div>
 
-      <div class="reveal-up delay-200">
+      <div>
         
         <h2 class="video-section-title">1. Правовые основы и алгоритмы</h2>
         <div class="video-grid">
           <article class="video-card">
             <div class="video-container"><iframe src="https://kinescope.io/embed/6xBxgurJcjPdYfyF1DzHng" allowfullscreen></iframe></div>
-            <div class="video-meta"><h3 class="vid-title">Правовые аспекты</h3><p class="vid-desc">Почему вы имеете право оказывать помощь.</p></div>
+            <div class="video-meta"><h3 class="vid-title">Правовые аспекты</h3><p class="vid-desc">Почему вы имеете право оказывать помощь по закону.</p></div>
           </article>
           <article class="video-card">
             <div class="video-container"><iframe src="https://kinescope.io/embed/vmGbdzuLu6Q7htCrfxBjHc" allowfullscreen></iframe></div>
-            <div class="video-meta"><h3 class="vid-title">Универсальный алгоритм</h3><p class="vid-desc">Порядок действий на месте происшествия.</p></div>
+            <div class="video-meta"><h3 class="vid-title">Универсальный алгоритм</h3><p class="vid-desc">Оценка обстановки и порядок действий.</p></div>
           </article>
           <article class="video-card">
             <div class="video-container"><iframe src="https://kinescope.io/embed/idVv4ob1rrTc543LJhonYK" allowfullscreen></iframe></div>
@@ -466,7 +468,7 @@
     const dateEl = document.getElementById('current-date');
     if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
 
-    // 2. Анимация появления
+    // 2. Анимация появления (Только для элементов с классом reveal-up)
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
