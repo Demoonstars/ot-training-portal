@@ -2,181 +2,229 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>СДО | Обучение требованиям ОТ</title>
+  <title>СДО | Реестр программ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Обучение требованиям охраны труда по ПП РФ № 2464. Вводный инструктаж, программы А, Б и СИЗ.">
+  <meta name="description" content="Реестр программ дистанционного обучения по охране труда и безопасности.">
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* === LMS LAYOUT === */
-    .course-layout {
-      display: grid;
-      grid-template-columns: 1fr 300px; /* Сайдбар чуть уже */
-      gap: 30px;
-      margin-top: 30px;
-      align-items: start;
+    /* === 1. ЖИВОЙ ФОН === */
+    body.masterpiece-theme {
+      background: linear-gradient(-45deg, #f1f5f9, #e0f2fe, #f0fdf4, #fff7ed);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
     }
 
-    /* === HERO CARD (Glass + Gradient) === */
-    .course-hero {
-      background: radial-gradient(circle at 100% 0%, rgba(16, 185, 129, 0.15) 0%, rgba(37, 99, 235, 0.05) 100%), rgba(255,255,255,0.8);
-      border: 1px solid rgba(255,255,255,0.9);
-      border-radius: 24px;
-      padding: 40px;
-      margin-bottom: 30px;
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    /* === 2. HERO СЕКЦИЯ (Обновленная) === */
+    .programs-hero {
+      text-align: center;
+      padding: 60px 20px 40px;
       position: relative;
-      overflow: hidden;
+      z-index: 10;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #0f172a; /* Эталонный цвет текста */
+      margin-bottom: 20px;
+      line-height: 1.2;
+      
+      /* FIX: Резервируем место, чтобы не прыгало */
+      min-height: 3.6rem; /* Высота одной строки на ПК */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-lead {
+      color: #475569; /* Эталонный цвет подзаголовка */
+      max-width: 700px; 
+      margin: 0 auto; 
+      font-size: 1.1rem;
+      line-height: 1.6;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(5px);
+      padding: 15px 25px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+
+    .cursor-blink {
+      display: inline-block; width: 4px; height: 1em; background: #2563eb;
+      margin-left: 5px; animation: blink 1s infinite; vertical-align: bottom;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    
+    @media (max-width: 768px) {
+      .hero-title { 
+        font-size: 2rem; 
+        /* FIX MOBILE: Резервируем место под 2 строки, если текст длинный */
+        min-height: 4.8rem; 
+        align-items: flex-start; /* Текст начинается сверху */
+      }
+      .hero-lead { font-size: 1rem; padding: 15px; }
+    }
+
+    /* === 3. ПАНЕЛЬ УПРАВЛЕНИЯ === */
+    .control-panel {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 24px;
+      padding: 24px;
       backdrop-filter: blur(20px);
       box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
+      margin-bottom: 40px;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
     }
+
+    .search-input-wrap {
+      position: relative; margin-bottom: 20px; transition: transform 0.2s;
+    }
+    .search-input-wrap:focus-within { transform: scale(1.01); }
     
-    .course-hero::before {
-      content: "🛡️";
-      position: absolute; right: -20px; bottom: -40px; font-size: 12rem;
-      opacity: 0.08; transform: rotate(-15deg); pointer-events: none;
+    .search-icon {
+      position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
+      color: #64748b; transition: 0.3s; z-index: 2;
+    }
+    .search-input {
+      width: 100%;
+      padding: 16px 20px 16px 50px;
+      border-radius: 16px;
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      font-size: 1rem; font-weight: 500; color: #0f172a;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+      outline: none; transition: all 0.3s;
+    }
+    .search-input:focus {
+      border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
     }
 
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: #ecfdf5; color: #047857; border: 1px solid #d1fae5;
-      padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700;
-      margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;
+    .filters-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .filter-chip {
+      padding: 8px 20px; border-radius: 99px;
+      border: 1px solid #e2e8f0;
+      background: #fff;
+      font-weight: 600; color: #64748b; font-size: 0.9rem;
+      cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .filter-chip:hover {
+      transform: translateY(-2px); color: #1e293b; border-color: #cbd5e1;
+    }
+    .filter-chip[aria-pressed="true"] {
+      background: #0f172a; color: #fff; border-color: #0f172a;
+      box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2); transform: scale(1.05);
     }
 
-    .hero-title { font-size: 2rem; font-weight: 800; color: #0f172a; margin: 0 0 15px; line-height: 1.1; }
-    .hero-desc { font-size: 1.05rem; color: #475569; max-width: 650px; line-height: 1.6; }
+    /* === 4. КАРТОЧКИ С ПРОЖЕКТОРОМ === */
+    .programs-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px;
+    }
 
-    /* === MANDATORY BLOCK (Акцентный) === */
-    .mandatory-block {
-      background: #ffffff;
+    .program-card {
+      background: rgba(255, 255, 255, 0.9);
       border-radius: 24px;
       padding: 30px;
-      border: 2px solid #10b981; /* Зеленая рамка */
-      box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(226, 232, 240, 0.8);
       position: relative;
       overflow: hidden;
-      margin-bottom: 40px;
-      transition: transform 0.3s ease;
-    }
-    .mandatory-block:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -5px rgba(16, 185, 129, 0.25); }
-
-    .mandatory-label {
-      position: absolute; top: 0; right: 0;
-      background: #10b981; color: #fff;
-      font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
-      padding: 6px 16px; border-bottom-left-radius: 16px;
-    }
-
-    .mandatory-title { font-size: 1.5rem; font-weight: 800; color: #0f172a; margin: 0 0 10px; display: flex; align-items: center; gap: 10px; }
-    .mandatory-text { font-size: 1rem; color: #64748b; margin-bottom: 25px; max-width: 90%; }
-
-    /* Кнопка старта */
-    .btn-start-big {
-      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      width: 100%; padding: 16px;
-      background: #10b981; color: #fff; font-size: 1.1rem; font-weight: 700;
-      border-radius: 16px; text-decoration: none;
-      box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.4);
-      transition: all 0.3s; position: relative; overflow: hidden;
-    }
-    .btn-start-big:hover { background: #059669; transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(16, 185, 129, 0.5); }
-    
-    .btn-start-big::after {
-      content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-      animation: shine 3s infinite;
-    }
-
-    /* === SPECIAL PROGRAMS GRID === */
-    .programs-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
-    }
-
-    /* Карточки с прожектором (Spotlight) */
-    .prog-card {
-      background: rgba(255,255,255,0.9);
-      border-radius: 20px; padding: 24px;
-      border: 1px solid rgba(226, 232, 240, 0.8);
-      position: relative; overflow: hidden;
       display: flex; flex-direction: column;
-      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0; transform: translateY(30px);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s;
     }
+
     /* Слой прожектора */
-    .prog-card::before {
+    .program-card::before {
       content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(37, 99, 235, 0.1), transparent 40%);
+      background: radial-gradient(800px circle at var(--mouse-x, center) var(--mouse-y, center), rgba(37, 99, 235, 0.1), transparent 40%);
       opacity: 0; transition: opacity 0.5s; z-index: 0; pointer-events: none;
     }
-    .prog-card:hover::before { opacity: 1; }
-    .prog-card:hover { transform: translateY(-4px); border-color: #3b82f6; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
-
-    .prog-content { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; }
-
-    .prog-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
-    .prog-icon { font-size: 2rem; background: #f8fafc; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: 1px solid #e2e8f0; }
-    .prog-badge { font-size: 0.7rem; font-weight: 700; color: #64748b; background: #fff; padding: 4px 8px; border-radius: 6px; border: 1px solid #e2e8f0; }
-
-    .prog-title { font-size: 1.1rem; font-weight: 700; color: #1e293b; margin: 0 0 8px; }
-    .prog-desc { font-size: 0.9rem; color: #64748b; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
-
-    .btn-prog-link {
-      display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px;
-      background: #f8fafc; color: #334155; border: 1px solid #e2e8f0;
-      border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 0.9rem;
-      transition: 0.2s;
-    }
-    .btn-prog-link:hover { background: #0f172a; color: #fff; border-color: #0f172a; }
-
-    /* === SIDEBAR (Sticky) === */
-    .course-sidebar {
-      position: sticky; top: 100px;
-      background: rgba(255,255,255,0.6); backdrop-filter: blur(15px);
-      border: 1px solid rgba(255,255,255,0.8); border-radius: 20px; padding: 20px;
+    .program-card:hover::before { opacity: 1; }
+    .program-card:hover {
+        border-color: rgba(59, 130, 246, 0.4);
+        box-shadow: 0 20px 50px -10px rgba(0,0,0,0.1);
+        transform: translateY(-5px);
     }
 
-    .npa-title { font-size: 0.9rem; font-weight: 700; color: #0f172a; margin: 0 0 15px; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    /* Контент карточки */
+    .card-content { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; }
+
+    .card-top {
+      display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;
+    }
+    .card-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: 0 4px 15px -3px rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .status-tag {
+      font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+      padding: 6px 10px; border-radius: 8px;
+      background: #fff; color: #475569; border: 1px solid #e2e8f0;
+    }
+
+    .card-title {
+      font-size: 1.25rem; font-weight: 700; color: #0f172a;
+      margin: 0 0 12px; line-height: 1.3;
+    }
     
-    .npa-link {
-      display: flex; align-items: flex-start; gap: 10px; padding: 12px;
-      background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
-      text-decoration: none; color: #334155; font-size: 0.85rem; margin-bottom: 10px;
-      transition: 0.2s;
+    .visual-progress {
+      height: 4px; width: 100%; background: #e2e8f0; border-radius: 2px; margin-bottom: 15px; overflow: hidden;
     }
-    .npa-link:hover { border-color: #2563eb; transform: translateX(3px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-    .npa-icon { font-size: 1.2rem; flex-shrink: 0; }
-
-    /* === TOAST === */
-    .toast-notification {
-      position: fixed; bottom: 30px; right: 30px;
-      background: #fff; border-left: 4px solid #f97316;
-      padding: 16px 20px; border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-      z-index: 100; display: flex; align-items: flex-start; gap: 12px;
-      animation: slideIn 0.5s ease-out forwards;
-    }
-    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-    @keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
-
-    @media (max-width: 900px) {
-      .course-layout { grid-template-columns: 1fr; }
-      .course-sidebar { position: relative; top: 0; margin-bottom: 30px; }
-      .toast-notification { left: 20px; right: 20px; bottom: 20px; }
+    .visual-progress-bar {
+      height: 100%; background: #10b981; width: 0%; border-radius: 2px;
     }
 
-    /* Header & Pulse */
+    .card-desc { 
+        font-size: 0.95rem; color: #64748b; 
+        margin-bottom: 25px; flex-grow: 1; line-height: 1.6;
+    }
+
+    .card-btn {
+      margin-top: auto;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 12px; width: 100%;
+      border-radius: 12px;
+      background: #0f172a; color: #fff;
+      font-weight: 600; text-decoration: none; font-size: 0.95rem;
+      transition: 0.3s;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    }
+    .card-btn:hover { background: #1e293b; box-shadow: 0 10px 25px rgba(15,23,42,0.25); transform: translateY(-2px); }
+
+    @keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
+
+    /* Header Status */
     .system-status-pulse {
-      display: inline-block; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%;
-      box-shadow: 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse-green 2s infinite; margin-right: 6px;
+      display: inline-block; width: 8px; height: 8px;
+      background-color: #10b981; border-radius: 50%;
+      box-shadow: 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulse-green 2s infinite; margin-right: 6px;
     }
     @keyframes pulse-green {
       0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
       70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
       100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
     }
-    .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
+    .header-meta {
+      font-size: 0.75rem; color: #64748b; font-weight: 500;
+      display: flex; align-items: center; gap: 15px; margin-left: auto;
+    }
     @media (max-width: 900px) { .header-meta { display: none; } }
   </style>
 </head>
@@ -197,10 +245,14 @@
           <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
         </div>
       </div>
+      
       <div class="header-meta">
         <span id="current-date">Загрузка...</span>
-        <span style="display:flex; align-items:center;"><span class="system-status-pulse"></span> Online</span>
+        <span style="display:flex; align-items:center;">
+            <span class="system-status-pulse"></span> Online
+        </span>
       </div>
+
       <nav class="main-nav">
         <ul class="nav-list">
           <li><a href="index.html" class="nav-link">Главная</a></li>
@@ -215,107 +267,113 @@
   <main id="main-content" class="site-main">
     <div class="container">
 
-      <nav class="breadcrumbs" style="margin-bottom: 20px; font-size: 0.9rem; color: #64748b;">
-        <a href="programs.html" style="color: inherit; text-decoration: none; transition: 0.2s;">← Каталог программ</a>
-        <span style="margin: 0 8px; opacity: 0.5;">/</span>
-        <span style="color: #0f172a; font-weight: 600;">Охрана труда</span>
-      </nav>
+      <div class="programs-hero">
+        <h2 class="hero-title">
+          <span id="typing-text"></span><span class="cursor-blink"></span>
+        </h2>
+        <p class="hero-lead">
+          Реестр актуальных программ обучения. Выберите направление, соответствующее вашим должностным обязанностям.
+        </p>
+      </div>
 
-      <div class="course-layout">
-        
-        <div class="course-content">
-          
-          <div class="course-hero reveal-up">
-            <span class="hero-badge">ПП РФ № 2464</span>
-            <h1 class="hero-title"><span id="greeting-text">Добрый день</span>, коллега!</h1>
-            <p class="hero-desc">
-              Это раздел обучения требованиям охраны труда. Процесс организован в строгом соответствии с Правилами обучения и проверки знания требований ОТ.
-            </p>
-          </div>
-
-          <div class="mandatory-block reveal-up delay-100">
-            <div class="mandatory-label">Основной этап</div>
-            <h2 class="mandatory-title">
-              <span style="font-size: 2rem;">🛡️</span> Вводный инструктаж
-            </h2>
-            <p class="mandatory-text">
-              Базовая программа обучения для вновь принятых работников. Включает общие вопросы охраны труда, правила внутреннего трудового распорядка и основы безопасности.
-            </p>
-            
-            <a href="ot-intro.html" class="btn-start-big">
-              Начать вводный инструктаж ➔
-            </a>
-          </div>
-
-          <h3 style="margin-bottom: 20px; font-size: 1.4rem; color: #0f172a;" class="reveal-up delay-200">
-            Специализированные программы
-            <span style="font-size:0.9rem; color:#64748b; font-weight:400; margin-left:10px;">(программы А, Б, СИЗ)</span>
-          </h3>
-
-          <div class="programs-grid reveal-up delay-200">
-            
-            <div class="prog-card">
-              <div class="prog-content">
-                <div class="prog-header">
-                  <div class="prog-icon">🅰️</div>
-                  <span class="prog-badge">Программа А</span>
-                </div>
-                <h3 class="prog-title">Общие вопросы ОТ</h3>
-                <p class="prog-desc">Система управления охраной труда (СУОТ). Оценка рисков и НПА.</p>
-                <a href="ot-program-a.html" class="btn-prog-link">Перейти к обучению</a>
-              </div>
-            </div>
-
-            <div class="prog-card">
-              <div class="prog-content">
-                <div class="prog-header">
-                  <div class="prog-icon">🅱️</div>
-                  <span class="prog-badge">Программа Б</span>
-                </div>
-                <h3 class="prog-title">Безопасные методы</h3>
-                <p class="prog-desc">Приемы выполнения работ при воздействии вредных факторов.</p>
-                <a href="ot-program-b.html" class="btn-prog-link">Перейти к обучению</a>
-              </div>
-            </div>
-
-            <div class="prog-card">
-              <div class="prog-content">
-                <div class="prog-header">
-                  <div class="prog-icon">🦺</div>
-                  <span class="prog-badge">СИЗ</span>
-                </div>
-                <h3 class="prog-title">Применение СИЗ</h3>
-                <p class="prog-desc">Правила ношения и применения средств защиты.</p>
-                <a href="ot-ppe.html" class="btn-prog-link">Перейти к обучению</a>
-              </div>
-            </div>
-
-          </div>
-
+      <div class="control-panel">
+        <div class="search-input-wrap">
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="Поиск по названию или ключевым словам...">
         </div>
+        
+        <div class="filters-row">
+          <button class="filter-chip" aria-pressed="true" data-filter="all">Все программы</button>
+          <button class="filter-chip" aria-pressed="false" data-filter="ot">Охрана труда</button>
+          <button class="filter-chip" aria-pressed="false" data-filter="fire">Пожарная безопасность</button>
+          <button class="filter-chip" aria-pressed="false" data-filter="med">Первая помощь</button>
+          <button class="filter-chip" aria-pressed="false" data-filter="gochs">ГО и ЧС</button>
+        </div>
+        
+        <div id="resultsCount" style="text-align: center; margin-top: 15px; font-size: 0.85rem; color: #64748b; font-weight: 600;">
+          Доступно курсов: 4
+        </div>
+      </div>
 
-        <aside class="course-sidebar reveal-up delay-100">
-          
-          <h4 class="npa-title">⚖️ Нормативная база</h4>
-          
-          <a href="https://www.consultant.ru/document/cons_doc_LAW_405174/" target="_blank" class="npa-link">
-            <span class="npa-icon">📜</span>
-            <div>
-              <div style="font-weight: 600;">Постановление № 2464</div>
-              <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Порядок обучения</div>
-            </div>
-          </a>
-          
-          <a href="https://www.consultant.ru/document/cons_doc_LAW_34683/68eed3fd8007a14b9a146cfe56ec8581ad2b98e5/" target="_blank" class="npa-link">
-            <span class="npa-icon">🏛️</span>
-            <div>
-              <div style="font-weight: 600;">Трудовой кодекс РФ</div>
-              <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Раздел X. Охрана труда</div>
-            </div>
-          </a>
+      <div class="programs-grid" id="programsGrid">
 
-        </aside>
+        <article class="program-card" data-cat="ot" data-keywords="вводный инструктаж сиз 2464 охрана труда">
+          <div class="card-content">
+              <div class="card-top">
+                <div class="card-icon" style="background: #ecfdf5; color: #047857;">🛡️</div>
+                <span class="status-tag">ПП № 2464</span>
+              </div>
+              <h3 class="card-title">Охрана труда (Комплекс)</h3>
+              <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
+              <p class="card-desc">
+                Комплексная программа: Вводный инструктаж, программы А, Б и применение СИЗ.
+              </p>
+              <a href="course-ot.html" class="card-btn">
+                Перейти к обучению <span>➔</span>
+              </a>
+          </div>
+        </article>
 
+        <article class="program-card" data-cat="fire" data-keywords="пожар мчс 1120 огнетушитель эвакуация">
+          <div class="card-content">
+              <div class="card-top">
+                <div class="card-icon" style="background: #fff7ed; color: #c2410c;">🔥</div>
+                <span class="status-tag">МЧС №1120</span>
+              </div>
+              <h3 class="card-title">Пожарная безопасность</h3>
+              <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
+              <p class="card-desc">
+                Противопожарные инструктажи. Действия при пожаре, эвакуация и огнетушители.
+              </p>
+              <a href="course-fire-safety.html" class="card-btn">
+                Перейти к обучению <span>➔</span>
+              </a>
+          </div>
+        </article>
+
+        <article class="program-card" data-cat="med" data-keywords="помощь медицина 220н травма кровь">
+          <div class="card-content">
+              <div class="card-top">
+                <div class="card-icon" style="background: #fef2f2; color: #b91c1c;">🩹</div>
+                <span class="status-tag">Минздрав 220н</span>
+              </div>
+              <h3 class="card-title">Первая помощь</h3>
+              <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
+              <p class="card-desc">
+                Алгоритм оказания помощи. СЛР, остановка кровотечений, помощь при травмах.
+              </p>
+              <a href="course-first-aid.html" class="card-btn">
+                Перейти к обучению <span>➔</span>
+              </a>
+          </div>
+        </article>
+
+        <article class="program-card" data-cat="gochs" data-keywords="го чс гражданская оборона сирена">
+          <div class="card-content">
+              <div class="card-top">
+                <div class="card-icon" style="background: #eff6ff; color: #1d4ed8;">📢</div>
+                <span class="status-tag">ФЗ №28 / №68</span>
+              </div>
+              <h3 class="card-title">ГО и защита от ЧС</h3>
+              <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
+              <p class="card-desc">
+                Вводный инструктаж по ГО. Сигналы оповещения и действия при угрозах.
+              </p>
+              <a href="course-gochs.html" class="card-btn">
+                Перейти к обучению <span>➔</span>
+              </a>
+          </div>
+        </article>
+
+      </div>
+
+      <div id="noResults" style="display:none; text-align:center; padding: 60px 20px; color: #64748b;">
+        <div style="font-size: 3rem; margin-bottom: 20px; opacity: 0.7;">🔍</div>
+        <h3 style="margin: 0 0 10px; color: #1e293b; font-size: 1.5rem;">Ничего не найдено</h3>
+        <p style="color: #475569;">Попробуйте изменить запрос или сбросить фильтры.</p>
+        <button onclick="resetFilters()" style="margin-top:20px; padding:12px 24px; border-radius:12px; background:#fff; border:1px solid #cbd5e1; cursor:pointer; font-weight:600; color: #334155; box-shadow:0 4px 10px rgba(0,0,0,0.05); transition: 0.2s;">
+          Сбросить все фильтры
+        </button>
       </div>
 
     </div>
@@ -327,62 +385,137 @@
     </div>
   </footer>
 
-  <div class="toast-notification" id="courseToast">
-    <div style="font-size: 1.5rem;">🔔</div>
-    <div>
-      <div style="font-weight: 700; font-size: 0.9rem; color: #0f172a;">Напоминание</div>
-      <div style="font-size: 0.85rem; color: #64748b;">Проверьте сроки прохождения вводного инструктажа.</div>
-    </div>
-    <div class="toast-close" style="margin-left:auto; cursor:pointer; color:#94a3b8;" onclick="document.getElementById('courseToast').style.display='none'">✕</div>
-  </div>
-
 </div>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    // 1. Дата
-    const now = new Date();
+    
+    // 1. ДАТА
     const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const dateStr = now.toLocaleDateString('ru-RU', dateOptions);
+    const dateStr = new Date().toLocaleDateString('ru-RU', dateOptions);
     const dateEl = document.getElementById('current-date');
     if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
 
-    // 2. Приветствие
-    const hours = now.getHours();
-    let greeting = "Добрый день";
-    if (hours < 12) greeting = "Доброе утро";
-    else if (hours >= 17) greeting = "Добрый вечер";
-    document.getElementById('greeting-text').textContent = greeting;
+    // 2. ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ (БЕЗ СКАЧКОВ)
+    const textElement = document.getElementById('typing-text');
+    const texts = ["Реестр программ обучения", "Актуальные знания", "Безопасность труда"];
+    let textIndex = 0; charIndex = 0; isDeleting = false;
 
-    // 3. Анимация появления
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
+    function typeEffect() {
+      const currentText = texts[textIndex];
+      if (isDeleting) {
+        textElement.textContent = currentText.substring(0, charIndex - 1); charIndex--;
+      } else {
+        textElement.textContent = currentText.substring(0, charIndex + 1); charIndex++;
+      }
+      let typeSpeed = isDeleting ? 50 : 100;
+      if (!isDeleting && charIndex === currentText.length) {
+        isDeleting = true; typeSpeed = 2000;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false; textIndex = (textIndex + 1) % texts.length; typeSpeed = 500;
+      }
+      setTimeout(typeEffect, typeSpeed);
+    }
+    typeEffect();
+
+    // 3. АНИМАЦИЯ ПОЯВЛЕНИЯ КАРТОЧЕК
+    const cards = document.querySelectorAll('.program-card');
+    function animateCards() {
+      cards.forEach((card, index) => {
+        if(getComputedStyle(card).display !== 'none'){
+          card.style.animation = `slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards ${index * 0.1}s`;
+        }
       });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
+    }
+    animateCards();
 
-    // 4. SPOTLIGHT EFFECT (Для карточек программ)
+
+    // 4. ПОИСК И ФИЛЬТРЫ
+    const searchInput = document.getElementById('searchInput');
+    const filterBtns = document.querySelectorAll('.filter-chip');
+    const noResults = document.getElementById('noResults');
+    const resultsCount = document.getElementById('resultsCount');
+
+    function filterPrograms() {
+      const searchText = searchInput.value.toLowerCase();
+      const activeBtn = document.querySelector('.filter-chip[aria-pressed="true"]');
+      const category = activeBtn ? activeBtn.dataset.filter : 'all';
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        card.style.animation = 'none'; card.style.opacity = '0';
+      });
+
+      let delayCounter = 0;
+      cards.forEach(card => {
+        const title = card.querySelector('.card-title').textContent.toLowerCase();
+        const desc = card.querySelector('.card-desc').textContent.toLowerCase();
+        const keywords = card.dataset.keywords ? card.dataset.keywords.toLowerCase() : '';
+        const type = card.dataset.cat;
+
+        const matchesText = title.includes(searchText) || desc.includes(searchText) || keywords.includes(searchText);
+        const matchesCategory = category === 'all' || type === category;
+
+        if (matchesText && matchesCategory) {
+          card.style.display = "flex";
+          card.style.animation = `slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards ${delayCounter * 0.1}s`;
+          visibleCount++; delayCounter++;
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      resultsCount.textContent = `Доступно курсов: ${visibleCount}`;
+      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      if (visibleCount === 0) {
+        noResults.style.opacity = '0'; noResults.style.transform = 'translateY(10px)';
+        setTimeout(() => { noResults.style.transition = 'all 0.5s ease'; noResults.style.opacity = '1'; noResults.style.transform = 'translateY(0)'; }, 50);
+      }
+    }
+
+    searchInput.addEventListener('input', filterPrograms);
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.setAttribute('aria-pressed', 'false'));
+        btn.setAttribute('aria-pressed', 'true'); filterPrograms();
+      });
+    });
+
+    window.resetFilters = function() {
+      searchInput.value = '';
+      filterBtns.forEach(b => b.setAttribute('aria-pressed', 'false'));
+      document.querySelector('.filter-chip[data-filter="all"]').setAttribute('aria-pressed', 'true');
+      filterPrograms();
+    };
+
+    // 3D TILT + ПРОЖЕКТОР (Слежение за мышью)
     if (window.matchMedia("(min-width: 768px)").matches) {
-      document.querySelectorAll('.prog-card').forEach(card => {
-        card.addEventListener('mousemove', e => {
+      cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
           const rect = card.getBoundingClientRect();
-          card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-          card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          // Обновляем переменные для прожектора
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+
+          // Tilt эффект
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -3; 
+          const rotateY = ((x - centerX) / centerX) * 3;
+          
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+          // Сброс трансформации при уходе курсора
+          card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
         });
       });
     }
 
-    // 5. Авто-скрытие уведомления
-    setTimeout(() => {
-        const toast = document.getElementById('courseToast');
-        if(toast) {
-            toast.style.transition = "opacity 0.5s, transform 0.5s";
-            toast.style.opacity = "0";
-            toast.style.transform = "translateX(100%)";
-            setTimeout(() => toast.style.display = 'none', 500);
-        }
-    }, 8000);
   });
 </script>
 
