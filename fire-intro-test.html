@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Тест: Вводный противопожарный инструктаж</title>
+  <title>Итоговый тест: Вводный противопожарный инструктаж</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/style.css">
 
@@ -20,15 +20,20 @@
        100% { background-position: 0% 50%; }
      }
 
-     /* === Pulse Animation (Orange) === */
+     /* === HEADER STATUS (GREEN FORCED) === */
+     /* Принудительно зеленый, чтобы не пугать "красным" статусом */
      .system-status-pulse {
-       display: inline-block; width: 8px; height: 8px; background-color: #ea580c; border-radius: 50%;
-       box-shadow: 0 0 0 rgba(234, 88, 12, 0.7); animation: pulse-orange 2s infinite; margin-right: 6px;
+       display: inline-block; width: 8px; height: 8px; 
+       background-color: #10b981; /* Green */
+       border-radius: 50%;
+       box-shadow: 0 0 0 rgba(16, 185, 129, 0.7); 
+       animation: pulse-green 2s infinite; 
+       margin-right: 6px;
      }
-     @keyframes pulse-orange {
-       0% { box-shadow: 0 0 0 0 rgba(234, 88, 12, 0.7); }
-       70% { box-shadow: 0 0 0 6px rgba(234, 88, 12, 0); }
-       100% { box-shadow: 0 0 0 0 rgba(234, 88, 12, 0); }
+     @keyframes pulse-green {
+       0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+       70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+       100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
      }
 
      /* === Responsive Header === */
@@ -79,7 +84,9 @@
       </div>
       <div class="header-meta">
         <span id="current-date">Загрузка...</span>
-        <span style="display:flex; align-items:center;"><span class="system-status-pulse"></span> Online</span>
+        <span style="display:flex; align-items:center;">
+            <span class="system-status-pulse"></span> Online
+        </span>
       </div>
       <nav class="main-nav">
         <ul class="nav-list">
@@ -96,14 +103,14 @@
     <div class="container">
     
     <a href="fire-intro-materials.html" class="back-link">
-      <span>←</span> Вернуться к материалам
+      <span>←</span> Вернуться к материалам курса
     </a>
 
     <section class="section-card spotlight-card" id="info-card">
       <div class="status-badge" style="margin-bottom: 15px; color: #c2410c; border-color: #fdba74;">
         <span class="pulse-dot" style="background-color: #ea580c;"></span> Итоговый контроль
       </div>
-      <h1>Тест: Вводный противопожарный инструктаж</h1>
+      <h1>Итоговый тест: Вводный противопожарный инструктаж</h1>
       <p>
         Проверка знаний требований пожарной безопасности, действий при пожаре и правил использования огнетушителей.
         Результаты фиксируются в журнале учета инструктажей.
@@ -111,23 +118,22 @@
       
       <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
         <span class="status-badge">Вопросов: 10</span>
-        <span class="status-badge">Порог: 85%</span> <span class="status-badge">Время: ~15 мин</span>
+        <span class="status-badge">Порог: 85%</span>
+        <span class="status-badge">Время: ~15 мин</span>
       </div>
     </section>
 
     <section class="section-card" id="consent-section">
       <h3>🔐 Доступ к тестированию</h3>
       <p>
-        В соответствии с 152-ФЗ "О персональных данных", для формирования протокола (журнала) проверки знаний
-        необходимо ваше согласие на обработку ФИО, должности и подразделения.
+        В соответствии с 152-ФЗ "О персональных данных", для начала тестирования и оформления протокола необходимо ваше согласие на обработку ФИО, должности и подразделения.
       </p>
 
       <div class="legal-box">
         <label class="consent-label">
           <input type="checkbox" id="legal-checkbox">
           <span class="consent-text">
-            Я подтверждаю, что ознакомлен с Политикой конфиденциальности, и даю согласие на обработку моих
-            персональных данных для оформления результатов обучения.
+            Я подтверждаю, что ознакомлен с Политикой конфиденциальности, и даю согласие на обработку моих персональных данных для целей оформления результатов обучения.
           </span>
         </label>
         
@@ -171,7 +177,7 @@
       }
   });
 
-  // 2. СКРИПТ ВАШЕГО ВИДЖЕТА (Пожарная безопасность)
+  // 2. СКРИПТ ВАШЕГО ВИДЖЕТА (Пожарная безопасность - Вводный)
   function loadTestWidget() {
     var otp_wjs_dt = (new Date).getTime();
     (function (w, d, n, s, rp) {
@@ -231,7 +237,7 @@
 
   // 4. VISUAL EFFECTS (3D TILT + SPOTLIGHT)
   if (window.matchMedia("(min-width: 768px)").matches) {
-    const card = document.getElementById('info-card'); // Главная карточка
+    const card = document.getElementById('info-card');
 
     // Логика прожектора (Spotlight)
     document.querySelectorAll('.spotlight-card').forEach(c => {
@@ -242,7 +248,7 @@
       });
     });
 
-    // Логика 3D Tilt (только для верхней карточки)
+    // Логика 3D Tilt
     if (card) {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
@@ -250,11 +256,8 @@
         const y = e.clientY - rect.top;
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        
-        // Вычисляем угол наклона
         const rotateX = ((y - centerY) / centerY) * -1.5; 
         const rotateY = ((x - centerX) / centerX) * 1.5;
-
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
       });
 
