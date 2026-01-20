@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Тест: Оказание первой помощи</title>
+  <title>Итоговый тест: Оказание первой помощи</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/style.css">
 
@@ -23,7 +23,6 @@
      @media (max-width: 900px) { .header-meta { display: none; } }
      
      /* === Animation: Collapse & Remove === */
-     /* Класс для плавного исчезновения блоков при старте теста */
      .collapse-remove {
        opacity: 0;
        max-height: 0;
@@ -35,6 +34,12 @@
        overflow: hidden;
        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
        transform: scale(0.95);
+     }
+
+     /* === 3D Tilt Settings === */
+     .spotlight-card {
+        transform-style: preserve-3d;
+        transform: perspective(1000px);
      }
    </style>
 </head>
@@ -85,7 +90,7 @@
       <div class="status-badge" style="margin-bottom: 15px; color: #be123c; border-color: #fda4af;">
         <span class="pulse-dot" style="background-color: #be123c;"></span> Итоговый контроль
       </div>
-      <h1>Тест: Оказание первой помощи пострадавшим</h1>
+      <h1>Итоговый тест: Оказание первой помощи пострадавшим</h1>
       <p>
         Проверка знаний алгоритмов оказания помощи при несчастных случаях на производстве.
         Результаты фиксируются в протоколе.
@@ -101,16 +106,14 @@
     <section class="section-card" id="consent-section">
       <h3>🔐 Доступ к тестированию</h3>
       <p>
-        В соответствии с 152-ФЗ "О персональных данных", для формирования протокола проверки знаний
-        необходимо ваше согласие на обработку ФИО, должности и подразделения.
+        В соответствии с 152-ФЗ "О персональных данных", для начала тестирования и оформления протокола необходимо ваше согласие на обработку ФИО, должности и подразделения.
       </p>
 
       <div class="legal-box">
         <label class="consent-label">
           <input type="checkbox" id="legal-checkbox">
           <span class="consent-text">
-            Я подтверждаю, что ознакомлен с Политикой конфиденциальности, и даю согласие на обработку моих
-            персональных данных для оформления результатов обучения.
+            Я подтверждаю, что ознакомлен с Политикой конфиденциальности, и даю согласие на обработку моих персональных данных для целей оформления результатов обучения.
           </span>
         </label>
         
@@ -171,7 +174,7 @@
     })(window, document, "otp_widget_callbacks");
   }
 
-  // 3. ЛОГИКА "ФОКУС-РЕЖИМА" (Сворачивание лишнего)
+  // 3. ЛОГИКА "ФОКУС-РЕЖИМА"
   const checkbox = document.getElementById('legal-checkbox');
   const btn = document.getElementById('unlock-btn');
   const lock = document.getElementById('test-lock');
@@ -212,15 +215,39 @@
     }
   });
 
-  // 4. SPOTLIGHT EFFECT (Для ПК)
-  if (window.matchMedia("(hover: hover)").matches) {
-    document.querySelectorAll('.spotlight-card').forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+  // 4. VISUAL EFFECTS (3D TILT + SPOTLIGHT)
+  if (window.matchMedia("(min-width: 768px)").matches) {
+    const card = document.getElementById('info-card'); // Главная карточка
+
+    // Логика прожектора (Spotlight)
+    document.querySelectorAll('.spotlight-card').forEach(c => {
+      c.addEventListener('mousemove', e => {
+        const rect = c.getBoundingClientRect();
+        c.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        c.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
       });
     });
+
+    // Логика 3D Tilt (только для верхней карточки)
+    if (card) {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        // Вычисляем угол наклона (немного мягче, чем на главной)
+        const rotateX = ((y - centerY) / centerY) * -1.5; 
+        const rotateY = ((x - centerX) / centerX) * 1.5;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+      });
+    }
   }
 </script>
 
