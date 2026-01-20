@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>СДО | Обучение требованиям ОТ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Обучение требованиям охраны труда в соответствии с Постановлением Правительства РФ № 2464. Вводный инструктаж, программы А, Б и применение СИЗ.">
+  <meta name="description" content="Обучение требованиям охраны труда по ПП РФ № 2464. Вводный инструктаж, программы А, Б и СИЗ.">
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,55 +14,54 @@
     /* === LMS LAYOUT === */
     .course-layout {
       display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 40px;
+      grid-template-columns: 1fr 300px; /* Сайдбар чуть уже */
+      gap: 30px;
       margin-top: 30px;
       align-items: start;
     }
 
-    /* === HERO (ОБЩАЯ ШАПКА) === */
-    .course-header-card {
-      background: radial-gradient(circle at 100% 0%, #10b981 0%, #047857 100%);
-      color: white;
+    /* === HERO CARD (Glass + Gradient) === */
+    .course-hero {
+      background: radial-gradient(circle at 100% 0%, rgba(16, 185, 129, 0.15) 0%, rgba(37, 99, 235, 0.05) 100%), rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,255,255,0.9);
       border-radius: 24px;
       padding: 40px;
+      margin-bottom: 30px;
       position: relative;
       overflow: hidden;
-      margin-bottom: 40px;
-      box-shadow: 0 20px 40px -10px rgba(16, 185, 129, 0.4);
-      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
     }
     
-    .course-header-card::before {
+    .course-hero::before {
       content: "🛡️";
-      position: absolute; right: -30px; bottom: -50px; font-size: 14rem;
-      opacity: 0.1; transform: rotate(-15deg); filter: blur(2px);
+      position: absolute; right: -20px; bottom: -40px; font-size: 12rem;
+      opacity: 0.08; transform: rotate(-15deg); pointer-events: none;
     }
 
-    .course-badge {
+    .hero-badge {
       display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(255,255,255,0.15); backdrop-filter: blur(5px);
-      padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 600;
-      margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.25);
-      text-transform: uppercase; letter-spacing: 0.5px;
+      background: #ecfdf5; color: #047857; border: 1px solid #d1fae5;
+      padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700;
+      margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;
     }
 
-    .course-title { margin: 0 0 12px; font-size: 2.2rem; font-weight: 800; line-height: 1.1; }
-    .course-desc { margin: 0; opacity: 0.95; max-width: 650px; font-size: 1.05rem; line-height: 1.6; }
+    .hero-title { font-size: 2rem; font-weight: 800; color: #0f172a; margin: 0 0 15px; line-height: 1.1; }
+    .hero-desc { font-size: 1.05rem; color: #475569; max-width: 650px; line-height: 1.6; }
 
-    /* === ВВОДНЫЙ ИНСТРУКТАЖ (АКЦЕНТНЫЙ БЛОК) === */
+    /* === MANDATORY BLOCK (Акцентный) === */
     .mandatory-block {
-      background: #fff;
+      background: #ffffff;
       border-radius: 24px;
       padding: 30px;
-      border: 2px solid #10b981;
-      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1), 0 20px 40px -10px rgba(16, 185, 129, 0.15);
+      border: 2px solid #10b981; /* Зеленая рамка */
+      box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.15);
       position: relative;
       overflow: hidden;
       margin-bottom: 40px;
-      transition: transform 0.2s;
+      transition: transform 0.3s ease;
     }
-    .mandatory-block:hover { transform: translateY(-2px); }
+    .mandatory-block:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -5px rgba(16, 185, 129, 0.25); }
 
     .mandatory-label {
       position: absolute; top: 0; right: 0;
@@ -71,22 +70,19 @@
       padding: 6px 16px; border-bottom-left-radius: 16px;
     }
 
-    .mandatory-title { font-size: 1.5rem; font-weight: 800; color: #064e3b; margin: 0 0 10px; display: flex; align-items: center; gap: 10px; }
-    .mandatory-text { font-size: 1rem; color: #4b5563; margin-bottom: 25px; max-width: 90%; }
+    .mandatory-title { font-size: 1.5rem; font-weight: 800; color: #0f172a; margin: 0 0 10px; display: flex; align-items: center; gap: 10px; }
+    .mandatory-text { font-size: 1rem; color: #64748b; margin-bottom: 25px; max-width: 90%; }
 
-    /* Главная кнопка старта */
+    /* Кнопка старта */
     .btn-start-big {
       display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      width: 100%;
-      padding: 18px;
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: #fff; font-size: 1.1rem; font-weight: 700;
+      width: 100%; padding: 16px;
+      background: #10b981; color: #fff; font-size: 1.1rem; font-weight: 700;
       border-radius: 16px; text-decoration: none;
       box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.4);
-      transition: all 0.2s;
-      position: relative; overflow: hidden;
+      transition: all 0.3s; position: relative; overflow: hidden;
     }
-    .btn-start-big:hover { transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(16, 185, 129, 0.6); }
+    .btn-start-big:hover { background: #059669; transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(16, 185, 129, 0.5); }
     
     .btn-start-big::after {
       content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
@@ -94,180 +90,93 @@
       animation: shine 3s infinite;
     }
 
-    /* === СПЕЦИАЛЬНЫЕ ПРОГРАММЫ (СЕТКА) === */
+    /* === SPECIAL PROGRAMS GRID === */
     .programs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
     }
 
+    /* Карточки с прожектором (Spotlight) */
     .prog-card {
-      background: #fff;
-      border: 1px solid rgba(148,163,184,0.15);
-      border-radius: 20px;
-      padding: 24px;
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      background: rgba(255,255,255,0.9);
+      border-radius: 20px; padding: 24px;
+      border: 1px solid rgba(226, 232, 240, 0.8);
       position: relative; overflow: hidden;
       display: flex; flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
-    .prog-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.08);
-      border-color: #3b82f6;
+    /* Слой прожектора */
+    .prog-card::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(37, 99, 235, 0.1), transparent 40%);
+      opacity: 0; transition: opacity 0.5s; z-index: 0; pointer-events: none;
     }
+    .prog-card:hover::before { opacity: 1; }
+    .prog-card:hover { transform: translateY(-4px); border-color: #3b82f6; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
+
+    .prog-content { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; }
 
     .prog-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
-    .prog-icon { font-size: 2rem; background: #f1f5f9; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 12px; }
-    
-    .prog-badge { 
-      font-size: 0.7rem; font-weight: 700; color: #64748b; 
-      background: #f8fafc; padding: 4px 8px; border-radius: 6px; border: 1px solid #e2e8f0;
-    }
+    .prog-icon { font-size: 2rem; background: #f8fafc; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: 1px solid #e2e8f0; }
+    .prog-badge { font-size: 0.7rem; font-weight: 700; color: #64748b; background: #fff; padding: 4px 8px; border-radius: 6px; border: 1px solid #e2e8f0; }
 
-    .prog-title { font-size: 1.1rem; font-weight: 700; color: #1e293b; margin: 0 0 10px; line-height: 1.3; }
+    .prog-title { font-size: 1.1rem; font-weight: 700; color: #1e293b; margin: 0 0 8px; }
     .prog-desc { font-size: 0.9rem; color: #64748b; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
 
     .btn-prog-link {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 12px;
-      background: #fff; color: #2563eb;
-      border: 1px solid #cbd5e1;
+      display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px;
+      background: #f8fafc; color: #334155; border: 1px solid #e2e8f0;
       border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 0.9rem;
       transition: 0.2s;
     }
-    .btn-prog-link:hover { border-color: #2563eb; background: #eff6ff; }
+    .btn-prog-link:hover { background: #0f172a; color: #fff; border-color: #0f172a; }
 
-    /* === STICKY SIDEBAR === */
+    /* === SIDEBAR (Sticky) === */
     .course-sidebar {
-      position: sticky;
-      top: 30px; 
-      background: rgba(255,255,255,0.8);
-      backdrop-filter: blur(15px);
-      border: 1px solid #fff;
-      border-radius: 24px;
-      padding: 24px;
-      box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
+      position: sticky; top: 100px;
+      background: rgba(255,255,255,0.6); backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.8); border-radius: 20px; padding: 20px;
     }
 
-    /* КАЛЕНДАРЬ */
-    .calendar-widget { margin-bottom: 30px; }
-    .calendar-header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 15px; font-weight: 700; color: #0f172a; text-transform: capitalize;
-    }
-    .calendar-grid {
-      display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;
-      font-size: 0.8rem; text-align: center;
-    }
-    .cal-day-name { color: #94a3b8; font-weight: 500; margin-bottom: 5px; font-size: 0.7rem; }
-    .cal-day {
-      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
-      border-radius: 8px; color: #334155; font-weight: 500; transition: 0.2s; cursor: default;
-    }
-    .cal-day.today {
-      background: #10b981; color: #fff; font-weight: 700;
-      box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
-    }
-    .cal-day.weekend { color: #ef4444; background: #fef2f2; }
-    .cal-day.holiday { 
-      color: #dc2626; background: #fee2e2; border: 1px solid #fecaca; font-weight: 700;
-    }
-    .cal-day.empty { pointer-events: none; }
-
-    /* НПА WIDGET (Консультант+) */
-    .npa-widget {
-      margin-bottom: 30px;
-    }
-    .npa-title { font-size: 0.95rem; font-weight: 700; color: #0f172a; margin: 0 0 10px; display: flex; align-items: center; gap: 8px; }
+    .npa-title { font-size: 0.9rem; font-weight: 700; color: #0f172a; margin: 0 0 15px; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
     
     .npa-link {
-      display: flex; align-items: flex-start; gap: 10px; padding: 10px;
+      display: flex; align-items: flex-start; gap: 10px; padding: 12px;
       background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
-      text-decoration: none; color: #334155; font-size: 0.85rem; margin-bottom: 8px;
+      text-decoration: none; color: #334155; font-size: 0.85rem; margin-bottom: 10px;
       transition: 0.2s;
     }
-    .npa-link:hover { border-color: #2563eb; color: #2563eb; transform: translateX(3px); }
-    .npa-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .npa-link:hover { border-color: #2563eb; transform: translateX(3px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    .npa-icon { font-size: 1.2rem; flex-shrink: 0; }
 
-    /* === RGB QUOTE WIDGET (WOW) === */
-    .rgb-quote-card {
-      position: relative;
-      padding: 3px; /* Толщина RGB рамки */
-      border-radius: 16px;
-      background: #fff;
-      overflow: hidden;
-      margin-top: 20px;
-    }
-    
-    /* Бегущий градиент */
-    .rgb-quote-card::before {
-      content: "";
-      position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-      background: conic-gradient(
-        transparent, 
-        #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000
-      );
-      animation: rgb-rotate 4s linear infinite;
-      z-index: 0;
-    }
-    
-    .rgb-content {
-      position: relative;
-      background: #ffffff;
-      border-radius: 14px; /* Чуть меньше родителя */
-      padding: 20px;
-      z-index: 1;
-      text-align: center;
-    }
-    
-    .quote-text {
-      font-family: 'Merriweather', serif; /* Красивый шрифт с засечками */
-      font-style: italic;
-      font-weight: 700;
-      color: #1e293b;
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-
-    @keyframes rgb-rotate { 100% { transform: rotate(1turn); } }
-    
-    /* TOAST */
+    /* === TOAST === */
     .toast-notification {
       position: fixed; bottom: 30px; right: 30px;
       background: #fff; border-left: 4px solid #f97316;
       padding: 16px 20px; border-radius: 12px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.15);
       z-index: 100; display: flex; align-items: flex-start; gap: 12px;
-      max-width: 320px;
       animation: slideIn 0.5s ease-out forwards;
     }
     @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-    .toast-close { margin-left: auto; cursor: pointer; color: #94a3b8; }
+    @keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
 
     @media (max-width: 900px) {
       .course-layout { grid-template-columns: 1fr; }
-      .course-sidebar { position: relative; top: 0; order: -1; margin-bottom: 30px; }
-      .mandatory-title { font-size: 1.3rem; }
-      .toast-notification { left: 20px; right: 20px; bottom: 20px; max-width: none; }
+      .course-sidebar { position: relative; top: 0; margin-bottom: 30px; }
+      .toast-notification { left: 20px; right: 20px; bottom: 20px; }
     }
 
-    @keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
-    
+    /* Header & Pulse */
     .system-status-pulse {
-      display: inline-block; width: 8px; height: 8px;
-      background-color: #10b981; border-radius: 50%;
-      box-shadow: 0 0 0 rgba(16, 185, 129, 0.7);
-      animation: pulse-green 2s infinite; margin-right: 6px;
+      display: inline-block; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%;
+      box-shadow: 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse-green 2s infinite; margin-right: 6px;
     }
     @keyframes pulse-green {
       0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
       70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
       100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
     }
-    .header-meta {
-      font-size: 0.75rem; color: #64748b; font-weight: 500;
-      display: flex; align-items: center; gap: 15px; margin-left: auto;
-    }
+    .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
     @media (max-width: 900px) { .header-meta { display: none; } }
   </style>
 </head>
@@ -280,9 +189,9 @@
   <header class="site-header transparent-header">
     <div class="container header-inner">
       <div class="header-brand">
-<div class="brand-logo">
-  <img src="assets/Филин от.png" alt="Логотип СДО" style="width: 100%; height: 100%; object-fit: contain;">
-</div>
+        <div class="brand-logo">
+          <img src="assets/Филин от.png" alt="Логотип СДО" style="width: 100%; height: 100%; object-fit: contain;">
+        </div>
         <div>
           <h1 class="site-title-mini">СДО</h1>
           <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
@@ -295,7 +204,7 @@
       <nav class="main-nav">
         <ul class="nav-list">
           <li><a href="index.html" class="nav-link">Главная</a></li>
-          <li><a href="programs.html" class="nav-link nav-link-active">Каталог программ</a></li>
+          <li><a href="programs.html" class="nav-link nav-link-active active">Каталог программ</a></li>
           <li><a href="instructions.html" class="nav-link">Инструкции</a></li>
           <li><a href="for-responsibles.html" class="nav-link">Ответственным</a></li>
         </ul>
@@ -307,7 +216,8 @@
     <div class="container">
 
       <nav class="breadcrumbs" style="margin-bottom: 20px; font-size: 0.9rem; color: #64748b;">
-        <a href="programs.html" style="color: inherit; text-decoration: none;">Каталог</a> / 
+        <a href="programs.html" style="color: inherit; text-decoration: none; transition: 0.2s;">← Каталог программ</a>
+        <span style="margin: 0 8px; opacity: 0.5;">/</span>
         <span style="color: #0f172a; font-weight: 600;">Охрана труда</span>
       </nav>
 
@@ -315,11 +225,11 @@
         
         <div class="course-content">
           
-          <div class="course-header-card reveal-up">
-            <span class="course-badge">ПП РФ № 2464</span>
-            <h1 class="course-title"><span id="greeting-text">Добрый день</span>, коллега!</h1>
-            <p class="course-desc">
-              Это раздел обучения требованиям охраны труда. Процесс организован в строгом соответствии с Правилами обучения по охране труда и проверки знания требований охраны труда.
+          <div class="course-hero reveal-up">
+            <span class="hero-badge">ПП РФ № 2464</span>
+            <h1 class="hero-title"><span id="greeting-text">Добрый день</span>, коллега!</h1>
+            <p class="hero-desc">
+              Это раздел обучения требованиям охраны труда. Процесс организован в строгом соответствии с Правилами обучения и проверки знания требований ОТ.
             </p>
           </div>
 
@@ -345,33 +255,39 @@
           <div class="programs-grid reveal-up delay-200">
             
             <div class="prog-card">
-              <div class="prog-header">
-                <div class="prog-icon">🅰️</div>
-                <span class="prog-badge">Программа А</span>
+              <div class="prog-content">
+                <div class="prog-header">
+                  <div class="prog-icon">🅰️</div>
+                  <span class="prog-badge">Программа А</span>
+                </div>
+                <h3 class="prog-title">Общие вопросы ОТ</h3>
+                <p class="prog-desc">Система управления охраной труда (СУОТ). Оценка рисков и НПА.</p>
+                <a href="ot-program-a.html" class="btn-prog-link">Перейти к обучению</a>
               </div>
-              <h3 class="prog-title">Общие вопросы охраны труда</h3>
-              <p class="prog-desc">Система управления охраной труда (СУОТ). Оценка профессиональных рисков и нормативная база.</p>
-              <a href="ot-program-a.html" class="btn-prog-link">Перейти к Программе А</a>
             </div>
 
             <div class="prog-card">
-              <div class="prog-header">
-                <div class="prog-icon">🅱️</div>
-                <span class="prog-badge">Программа Б</span>
+              <div class="prog-content">
+                <div class="prog-header">
+                  <div class="prog-icon">🅱️</div>
+                  <span class="prog-badge">Программа Б</span>
+                </div>
+                <h3 class="prog-title">Безопасные методы</h3>
+                <p class="prog-desc">Приемы выполнения работ при воздействии вредных факторов.</p>
+                <a href="ot-program-b.html" class="btn-prog-link">Перейти к обучению</a>
               </div>
-              <h3 class="prog-title">Безопасные методы работ</h3>
-              <p class="prog-desc">Приемы выполнения работ при воздействии вредных и (или) опасных производственных факторов.</p>
-              <a href="ot-program-b.html" class="btn-prog-link">Перейти к Программе Б</a>
             </div>
 
             <div class="prog-card">
-              <div class="prog-header">
-                <div class="prog-icon">🦺</div>
-                <span class="prog-badge">СИЗ</span>
+              <div class="prog-content">
+                <div class="prog-header">
+                  <div class="prog-icon">🦺</div>
+                  <span class="prog-badge">СИЗ</span>
+                </div>
+                <h3 class="prog-title">Применение СИЗ</h3>
+                <p class="prog-desc">Правила ношения и применения средств защиты.</p>
+                <a href="ot-ppe.html" class="btn-prog-link">Перейти к обучению</a>
               </div>
-              <h3 class="prog-title">Применение СИЗ</h3>
-              <p class="prog-desc">Правила ношения и применения средств индивидуальной защиты, не требующих практических навыков.</p>
-              <a href="ot-ppe.html" class="btn-prog-link">Перейти к модулю СИЗ</a>
             </div>
 
           </div>
@@ -380,35 +296,23 @@
 
         <aside class="course-sidebar reveal-up delay-100">
           
-          <div class="calendar-widget">
-            <div class="calendar-header">
-              <span id="cal-month-name">Загрузка...</span>
+          <h4 class="npa-title">⚖️ Нормативная база</h4>
+          
+          <a href="https://www.consultant.ru/document/cons_doc_LAW_405174/" target="_blank" class="npa-link">
+            <span class="npa-icon">📜</span>
+            <div>
+              <div style="font-weight: 600;">Постановление № 2464</div>
+              <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Порядок обучения</div>
             </div>
-            <div class="calendar-grid" id="calendar-grid">
-              </div>
-          </div>
-
-          <div class="npa-widget">
-            <h4 class="npa-title">⚖️ Нормативная база</h4>
-            
-            <a href="https://www.consultant.ru/document/cons_doc_LAW_405174/" target="_blank" class="npa-link">
-              <span class="npa-icon">📜</span>
-              <span>Постановление Правительства РФ № 2464 (Порядок обучения)</span>
-            </a>
-            
-            <a href="https://www.consultant.ru/document/cons_doc_LAW_34683/68eed3fd8007a14b9a146cfe56ec8581ad2b98e5/" target="_blank" class="npa-link">
-              <span class="npa-icon">🏛️</span>
-              <span>Трудовой кодекс РФ (Раздел X. Охрана труда)</span>
-            </a>
-          </div>
-
-          <div class="rgb-quote-card">
-            <div class="rgb-content">
-              <div class="quote-text">
-                "Настоящая безопасность начинается там, где ответственность становится приоритетом"
-              </div>
+          </a>
+          
+          <a href="https://www.consultant.ru/document/cons_doc_LAW_34683/68eed3fd8007a14b9a146cfe56ec8581ad2b98e5/" target="_blank" class="npa-link">
+            <span class="npa-icon">🏛️</span>
+            <div>
+              <div style="font-weight: 600;">Трудовой кодекс РФ</div>
+              <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Раздел X. Охрана труда</div>
             </div>
-          </div>
+          </a>
 
         </aside>
 
@@ -429,21 +333,21 @@
       <div style="font-weight: 700; font-size: 0.9rem; color: #0f172a;">Напоминание</div>
       <div style="font-size: 0.85rem; color: #64748b;">Проверьте сроки прохождения вводного инструктажа.</div>
     </div>
-    <div class="toast-close" onclick="document.getElementById('courseToast').style.display='none'">✕</div>
+    <div class="toast-close" style="margin-left:auto; cursor:pointer; color:#94a3b8;" onclick="document.getElementById('courseToast').style.display='none'">✕</div>
   </div>
 
 </div>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    // 1. Дата в шапке
+    // 1. Дата
     const now = new Date();
     const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const dateStr = now.toLocaleDateString('ru-RU', dateOptions);
     const dateEl = document.getElementById('current-date');
     if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
 
-    // 2. Динамическое приветствие
+    // 2. Приветствие
     const hours = now.getHours();
     let greeting = "Добрый день";
     if (hours < 12) greeting = "Доброе утро";
@@ -458,74 +362,16 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
 
-    // 4. Умный календарь (С праздниками 2026)
-    function generateCalendar() {
-      const grid = document.getElementById('calendar-grid');
-      const title = document.getElementById('cal-month-name');
-      const year = now.getFullYear();
-      const month = now.getMonth(); 
-      const today = now.getDate();
-
-      title.textContent = now.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' });
-
-      const days = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
-      days.forEach(d => {
-        const el = document.createElement('div');
-        el.className = 'cal-day-name';
-        el.textContent = d;
-        grid.appendChild(el);
+    // 4. SPOTLIGHT EFFECT (Для карточек программ)
+    if (window.matchMedia("(min-width: 768px)").matches) {
+      document.querySelectorAll('.prog-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+          card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        });
       });
-
-      const firstDayDate = new Date(year, month, 1);
-      let startDay = firstDayDate.getDay(); 
-      if (startDay === 0) startDay = 7;
-
-      const lastDayDate = new Date(year, month + 1, 0);
-      const daysInMonth = lastDayDate.getDate();
-
-      // ОФИЦИАЛЬНЫЕ ПРАЗДНИКИ РФ 2026 (Январь + Основные)
-      const holidays = [
-        '1.1', '2.1', '3.1', '4.1', '5.1', '6.1', '7.1', '8.1', '9.1', // Новогодние
-        '23.2', // 23 февраля
-        '9.3',  // 8 марта
-        '1.5', '11.5', // Майские
-        '12.6', // День России
-        '4.11',  // День народного единства
-        '31.12',  // НГ
-      ];
-
-      for (let i = 1; i < startDay; i++) {
-        const empty = document.createElement('div');
-        empty.className = 'cal-day empty';
-        grid.appendChild(empty);
-      }
-
-      for (let i = 1; i <= daysInMonth; i++) {
-        const dayEl = document.createElement('div');
-        dayEl.className = 'cal-day';
-        dayEl.textContent = i;
-        
-        // Сегодня
-        if (i === today) dayEl.classList.add('today');
-
-        // Выходной (Сб, Вс)
-        const currentDayDate = new Date(year, month, i);
-        const dayOfWeek = currentDayDate.getDay(); // 0-Sun, 6-Sat
-        if (dayOfWeek === 0 || dayOfWeek === 6) {
-          dayEl.classList.add('weekend');
-        }
-
-        // Праздник (Государственный)
-        const dateKey = `${i}.${month + 1}`;
-        if (holidays.includes(dateKey)) {
-          dayEl.classList.add('holiday');
-          dayEl.title = "Праздничный день";
-        }
-
-        grid.appendChild(dayEl);
-      }
     }
-    generateCalendar();
 
     // 5. Авто-скрытие уведомления
     setTimeout(() => {
@@ -542,4 +388,3 @@
 
 </body>
 </html>
-
