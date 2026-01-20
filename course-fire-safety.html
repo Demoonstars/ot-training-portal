@@ -2,451 +2,334 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Курс по пожарной безопасности — Учебный портал</title>
+  <title>СДО | Пожарная безопасность</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Курс по пожарной безопасности: вводный противопожарный инструктаж и первичный/повторный инструктаж на рабочем месте, материалы и тестирование.">
+  <meta name="description" content="Обучение мерам пожарной безопасности: вводный и первичный инструктажи, действия при пожаре и эвакуация.">
   <link rel="stylesheet" href="assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@1,700&display=swap" rel="stylesheet">
 
   <style>
-    body.fire-theme{
-      background:
-        radial-gradient(1000px 520px at 12% -10%, rgba(255,120,60,.14), transparent 62%),
-        radial-gradient(900px 520px at 92% 0%, rgba(37,99,235,.10), transparent 58%),
-        linear-gradient(to bottom, rgba(15,23,42,.02), rgba(15,23,42,.00));
+    /* === ТЕМА: ОГОНЬ (Оранжевый/Красный) === */
+    body.masterpiece-theme {
+      background: linear-gradient(-45deg, #fff7ed, #ffedd5, #fef2f2, #fff);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    .course-hero{
-      border-radius: 20px;
-      padding: clamp(16px, 3.2vw, 26px);
-      background:
-        linear-gradient(120deg, rgba(15,23,42,.86), rgba(15,23,42,.62)),
-        radial-gradient(900px 460px at 20% 10%, rgba(255,120,60,.22), transparent 60%),
-        radial-gradient(900px 460px at 86% 18%, rgba(37,99,235,.18), transparent 58%);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 18px 60px rgba(2, 6, 23, .14);
-      overflow:hidden;
+    /* === HERO CARD (3D TILT) === */
+    .hero-card {
+      background: radial-gradient(circle at 100% 0%, rgba(249, 115, 22, 0.1) 0%, rgba(255, 255, 255, 0.9) 100%);
+      border: 1px solid rgba(255,255,255,0.9);
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 30px;
+      position: relative; overflow: hidden;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 40px -10px rgba(249, 115, 22, 0.15);
+      /* 3D настройки */
+      transform-style: preserve-3d;
+      transform: perspective(1000px);
+      transition: transform 0.1s ease;
     }
-    .course-hero h2,
-    .course-hero p{ color:#fff !important; }
+    .hero-card::before {
+      content: "🔥";
+      position: absolute; right: -20px; bottom: -40px; font-size: 12rem;
+      opacity: 0.1; transform: rotate(-15deg); pointer-events: none;
+      transform: translateZ(20px);
+    }
+    .hero-content { position: relative; transform: translateZ(30px); }
 
-    .hero-badges{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-bottom: 10px;
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #ffedd5; color: #c2410c; border: 1px solid #fdba74;
+      padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700;
+      margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;
     }
-    .hero-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.10);
-      color:#fff;
-      font-weight:700;
-      min-height: 40px;
-      max-width:100%;
-      white-space:nowrap;
-    }
-    .hero-badge.is-two{
-      border-color: rgba(255,120,60,.40);
-      background: rgba(255,120,60,.16);
-      box-shadow: 0 0 0 3px rgba(255,120,60,.10);
-    }
-    @media (max-width: 420px){
-      .hero-badge{ min-height:44px; }
-    }
+    .hero-title { font-size: 2rem; font-weight: 800; color: #0f172a; margin: 0 0 15px; line-height: 1.1; }
+    .hero-desc { font-size: 1.05rem; color: #475569; max-width: 700px; line-height: 1.6; }
 
-    .course-kpis{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 14px;
+    /* === MODULE CARDS (SPOTLIGHT) === */
+    .modules-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-bottom: 40px;
     }
-    @media (max-width: 920px){
-      .course-kpis{ grid-template-columns: 1fr; }
+    .module-card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 24px;
+      padding: 30px;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
-    .course-kpi{
-      background: rgba(0,0,0,.18);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 14px;
-      padding: 12px;
+    /* Слой прожектора */
+    .module-card::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(249, 115, 22, 0.15), transparent 40%);
+      opacity: 0; transition: opacity 0.5s; z-index: 0; pointer-events: none;
     }
-    .course-kpi strong{
-      display:block;
-      font-size: 1rem;
-      margin-bottom: 4px;
-      color:#fff;
+    .module-card:hover::before { opacity: 1; }
+    .module-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 50px -10px rgba(0,0,0,0.1);
+        border-color: rgba(249, 115, 22, 0.3);
     }
-    .course-kpi span{
-      display:block;
-      font-size: .95rem;
-      color: rgba(255,255,255,.82);
+    
+    .mod-content { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; }
+    .mod-icon { 
+        width: 60px; height: 60px; background: #fff7ed; border-radius: 16px; 
+        display: flex; align-items: center; justify-content: center; font-size: 2rem; 
+        margin-bottom: 20px; border: 1px solid #ffedd5;
     }
+    .mod-title { font-size: 1.4rem; font-weight: 800; color: #0f172a; margin: 0 0 10px; }
+    .mod-desc { font-size: 1rem; color: #64748b; line-height: 1.5; margin-bottom: 25px; flex-grow: 1; }
+    
+    .mod-actions { display: grid; gap: 10px; }
+    .btn-mod-primary {
+        display: flex; align-items: center; justify-content: center; padding: 14px;
+        background: #0f172a; color: #fff; border-radius: 12px; font-weight: 700; 
+        text-decoration: none; transition: 0.2s;
+    }
+    .btn-mod-primary:hover { background: #ea580c; transform: translateY(-2px); }
+    
+    .btn-mod-secondary {
+        display: flex; align-items: center; justify-content: center; padding: 12px;
+        background: #fff; color: #475569; border: 1px solid #cbd5e1; border-radius: 12px; font-weight: 600; 
+        text-decoration: none; transition: 0.2s;
+    }
+    .btn-mod-secondary:hover { background: #f8fafc; color: #0f172a; border-color: #94a3b8; }
 
-    .course-nav{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top: 14px;
+    /* === ALERT ZONE (RED) === */
+    .alert-zone {
+      background: #fef2f2; border: 1px solid #fee2e2; border-left: 5px solid #dc2626;
+      border-radius: 16px; padding: 25px; margin-bottom: 40px;
     }
-    .course-nav a{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      min-height:44px;
-      padding:10px 14px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.10);
-      color:#fff;
-      text-decoration:none;
-      font-weight:800;
-      max-width: 100%;
-    }
-    .course-nav a.primary{
-      border-color: rgba(255,120,60,.45);
-      background: rgba(255,120,60,.16);
-      box-shadow: 0 0 0 3px rgba(255,120,60,.10);
-    }
-    .course-nav a:focus-visible{ outline:2px solid rgba(255,255,255,.85); outline-offset:2px; }
+    .alert-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+    .alert-icon { font-size: 1.5rem; color: #dc2626; }
+    .alert-title { font-size: 1.2rem; font-weight: 800; color: #991b1b; margin: 0; }
+    .alert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+    .alert-item { display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #7f1d1d; font-weight: 500; }
 
-    .course-divider{
-      height:1px;
-      background: linear-gradient(to right, transparent, rgba(17,24,39,0.12), transparent);
-      margin: clamp(18px, 4vw, 28px) 0;
+    /* === FLIP CARDS === */
+    .flip-section-title { font-size: 1.5rem; font-weight: 700; color: #0f172a; margin: 40px 0 20px; text-align: center; }
+    .flip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px; }
+    .flip-card { background-color: transparent; height: 240px; perspective: 1000px; cursor: pointer; }
+    .flip-inner {
+      position: relative; width: 100%; height: 100%; text-align: center;
+      transition: transform 0.6s; transform-style: preserve-3d;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1); border-radius: 20px;
     }
+    .flip-card:hover .flip-inner { transform: rotateY(180deg); }
+    .flip-front, .flip-back {
+      position: absolute; width: 100%; height: 100%;
+      -webkit-backface-visibility: hidden; backface-visibility: hidden;
+      border-radius: 20px; padding: 20px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; border: 1px solid #e2e8f0;
+    }
+    .flip-front { background-color: #fff; color: #1e293b; }
+    .flip-back { background-color: #0f172a; color: white; transform: rotateY(180deg); }
+    .flip-icon { font-size: 3rem; margin-bottom: 10px; }
+    .flip-text { font-size: 1rem; font-weight: 600; line-height: 1.4; }
+    .flip-label { text-transform: uppercase; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 10px; opacity: 0.7; }
 
-    .route-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 12px;
+    /* Header */
+    .system-status-pulse {
+      display: inline-block; width: 8px; height: 8px;
+      background-color: #10b981; border-radius: 50%;
+      box-shadow: 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulse-green 2s infinite; margin-right: 6px;
     }
-    @media (max-width: 720px){
-      .route-grid{ grid-template-columns: 1fr; }
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
     }
-
-    .route-card{
-      border-radius: 18px;
-      border: 1px solid rgba(17,24,39,0.10);
-      background: rgba(255,255,255,0.85);
-      padding: 14px;
-      box-shadow: 0 10px 26px rgba(2,6,23,.06);
-      overflow:hidden;
-    }
-
-    .route-card.is-primary{
-      border-color: rgba(255,120,60,.28);
-      background:
-        radial-gradient(900px 240px at 10% 0%, rgba(255,120,60,.14), transparent 60%),
-        rgba(255,255,255,0.90);
-      box-shadow: 0 22px 70px rgba(255,120,60,.16);
-    }
-
-    .route-top{
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom: 10px;
-    }
-    .route-title{
-      margin:0;
-      font-size: 1.06rem;
-      line-height:1.2;
-      color:#0f172a;
-    }
-    .route-tag{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:7px 10px;
-      border-radius:999px;
-      background: rgba(248,250,252,0.95);
-      border: 1px solid rgba(17,24,39,0.08);
-      font-size:.92rem;
-      color:#0f172a;
-      white-space:nowrap;
-      max-width: 100%;
-    }
-    .route-tag.is-time{
-      border-color: rgba(255,120,60,.25);
-      background: rgba(255,120,60,.08);
-      font-weight: 800;
-    }
-
-    .route-subtle{
-      margin: 0 0 10px;
-      color:#475569;
-      overflow-wrap:anywhere;
-    }
-
-    .route-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top: 10px;
-    }
-    .route-actions a{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      min-height:44px;
-      padding:10px 14px;
-      border-radius:14px;
-      border:1px solid rgba(17,24,39,0.10);
-      background:#fff;
-      color:#2563eb;
-      font-weight:800;
-      text-decoration:none;
-    }
-    .route-actions a.primary{
-      border-color: rgba(255,120,60,.30);
-      color: #0f172a;
-      background: rgba(255,120,60,.14);
-    }
-    .route-actions a:focus-visible{ outline:2px solid #2563eb; outline-offset:2px; }
-
-    .course-notice{
-      margin-top: 12px;
-      padding: 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(17,24,39,0.10);
-      background: rgba(255,255,255,0.85);
-    }
-    .course-notice p{ margin:0; color:#475569; }
-
-    .course-tips{
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 12px;
-      margin-top: 12px;
-    }
-    @media (max-width: 920px){
-      .course-tips{ grid-template-columns: 1fr; }
-    }
-    .tip{
-      border-radius: 16px;
-      border: 1px solid rgba(17,24,39,0.10);
-      background: rgba(255,255,255,0.85);
-      padding: 14px;
-    }
-    .tip h3{ margin:0 0 8px; font-size: 1rem; color:#0f172a; }
-    .tip p{ margin:0; color:#475569; }
-
-    .to-top {
-      position: fixed;
-      right: 14px;
-      bottom: 14px;
-      z-index: 50;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      border-radius: 999px;
-      border: 1px solid rgba(17,24,39,0.12);
-      background: rgba(255,255,255,0.92);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.10);
-      color: #0f172a;
-      cursor: pointer;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(6px);
-      transition: opacity .2s ease, transform .2s ease;
-    }
-    .to-top.is-visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-    .to-top:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
-    @media (max-width: 420px){ .to-top { right: 12px; bottom: 12px; } }
-    @media (prefers-reduced-motion: reduce){ .to-top { transition: none; } }
+    .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
+    @media (max-width: 900px) { .header-meta { display: none; } }
   </style>
 </head>
+<body class="masterpiece-theme">
 
-<body class="fire-theme">
-<a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+<a class="skip-link" href="#main-content">Перейти к контенту</a>
 
-<header class="site-header">
-  <div class="container header-inner">
-    <div class="header-brand">
-      <p class="site-label">Дистанционный учебный портал</p>
-      <h1 class="site-title">Охрана труда, пожарная безопасность, первая помощь, ГО/ЧС</h1>
-      <p class="site-subtitle">
-        Дистанционное обучение работников и проверка знаний требований охраны труда и безопасности.
-      </p>
+<div class="glass-wrapper">
+  
+  <header class="site-header transparent-header">
+    <div class="container header-inner">
+      <div class="header-brand">
+        <div class="brand-logo">
+          <img src="assets/Филин от.png" alt="Логотип СДО" style="width: 100%; height: 100%; object-fit: contain;">
+        </div>
+        <div>
+          <h1 class="site-title-mini">СДО</h1>
+          <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
+        </div>
+      </div>
+      <div class="header-meta">
+        <span id="current-date">Загрузка...</span>
+        <span style="display:flex; align-items:center;"><span class="system-status-pulse"></span> Online</span>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Главная</a></li>
+          <li><a href="programs.html" class="nav-link nav-link-active active">Каталог программ</a></li>
+          <li><a href="instructions.html" class="nav-link">Инструкции</a></li>
+          <li><a href="for-responsibles.html" class="nav-link">Ответственным</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
-    <nav class="main-nav" aria-label="Основная навигация">
-      <ul class="nav-list">
-        <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
-        <li class="nav-item"><a href="programs.html" class="nav-link nav-link-active">Программы обучения</a></li>
-        <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции для сотрудников</a></li>
-        <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Информация для ответственных за обучение</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+  <main id="main-content" class="site-main">
+    <div class="container">
 
-<main id="main-content" class="site-main">
-  <div class="container">
+      <nav class="breadcrumbs" style="margin-bottom: 20px; font-size: 0.9rem; color: #64748b;">
+        <a href="programs.html" style="color: inherit; text-decoration: none; transition: 0.2s;">← Каталог программ</a>
+        <span style="margin: 0 8px; opacity: 0.5;">/</span>
+        <span style="color: #0f172a; font-weight: 600;">Пожарная безопасность</span>
+      </nav>
 
-    <nav class="back-nav">
-      <a href="programs.html" class="back-link">
-        <span class="back-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" class="back-svg">
-            <path d="M15 6l-6 6 6 6" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </span>
-        <span class="back-text">Вернуться к программам обучения</span>
-      </a>
-    </nav>
-
-    <section class="section section-card course-hero">
-      <div class="hero-badges" aria-label="Статус курса">
-        <span class="hero-badge is-two">🧯 Два раздела: вводный + первичный/повторный</span>
-        <span class="hero-badge">⏱ 35–40 минут на раздел</span>
-      </div>
-
-      <h2>🔥 Курс: Пожарная безопасность</h2>
-      <p>
-        Курс состоит из двух частей: <strong>вводный противопожарный инструктаж</strong> и
-        <strong>первичный/повторный инструктаж на рабочем месте</strong>.
-        Рекомендуем проходить по порядку: сначала вводный, затем первичный/повторный. После изучения — тестирование.
-      </p>
-
-      <div class="course-kpis" aria-label="Краткие характеристики курса">
-        <div class="course-kpi">
-          <strong>⏱ Тайминг</strong>
-          <span>≈ 2×(35–40 мин) — общий ориентир 70–80 мин</span>
-        </div>
-        <div class="course-kpi">
-          <strong>📘 Формат</strong>
-          <span>PDF-материалы + тестирование</span>
-        </div>
-        <div class="course-kpi">
-          <strong>📝 Результат</strong>
-          <span>Изучение двух разделов и проверка знаний</span>
-        </div>
-      </div>
-
-      <div class="course-nav" aria-label="Быстрые действия">
-        <a class="primary" href="#route">Открыть маршрут</a>
-        <a href="#how">Как проходить</a>
-      </div>
-    </section>
-
-    <div class="course-divider" aria-hidden="true"></div>
-
-    <section class="section section-card" id="route">
-      <h2 class="page-title">Маршрут курса</h2>
-      <p class="page-lead">
-        Проходите по порядку. Это снижает ошибки в тесте и делает алгоритмы действий более понятными.
-      </p>
-
-      <div class="course-notice" role="note" aria-label="Подсказка по прохождению">
-        <p>
-          Совет: сначала изучите материал, затем откройте тест. Если допущены ошибки — вернитесь к разделу и повторите.
-        </p>
-      </div>
-
-      <div class="route-grid" aria-label="Разделы курса по пожарной безопасности">
-
-        <article class="route-card is-primary">
-          <div class="route-top">
-            <h3 class="route-title">1) Вводный противопожарный инструктаж</h3>
-            <span class="route-tag is-time">⏱ 35–40 мин</span>
-          </div>
-          <p class="route-subtle">
-            Общие требования пожарной безопасности, действия при пожаре, эвакуация, запреты, первичные средства тушения.
+      <section class="hero-card reveal-up" id="tilt-hero">
+        <div class="hero-content">
+          <span class="hero-badge">МЧС России № 1120</span>
+          <h1 class="hero-title">Обучение мерам пожарной безопасности</h1>
+          <p class="hero-desc">
+            Курс разделен на два ключевых модуля: <strong>Вводный инструктаж</strong> для всех новых сотрудников и 
+            <strong>Инструктаж на рабочем месте</strong> для закрепления знаний специфики объекта.
           </p>
-          <div class="route-actions">
-            <a class="primary" href="fire-intro-materials.html">Открыть материалы</a>
-            <a href="fire-intro-test.html">Перейти к тесту</a>
-          </div>
+        </div>
+      </section>
+
+      <div class="modules-grid reveal-up delay-100">
+        
+        <article class="module-card">
+            <div class="mod-content">
+                <div class="mod-icon">📢</div>
+                <h2 class="mod-title">1. Вводный инструктаж</h2>
+                <p class="mod-desc">
+                    Базовые знания для допуска к работе. Общие требования, сигналы оповещения, пути эвакуации и запреты.
+                </p>
+                <div class="mod-actions">
+                    <a href="fire-intro-materials.html" class="btn-mod-primary">Изучить материалы</a>
+                    <a href="fire-intro-test.html" class="btn-mod-secondary">Пройти тест</a>
+                </div>
+            </div>
         </article>
 
-        <article class="route-card">
-          <div class="route-top">
-            <h3 class="route-title">2) Первичный/повторный инструктаж на рабочем месте</h3>
-            <span class="route-tag is-time">⏱ 35–40 мин</span>
-          </div>
-          <p class="route-subtle">
-            Требования для рабочего места, порядок действий, ответственность, типовые риски и меры профилактики.
-          </p>
-          <div class="route-actions">
-            <a class="primary" href="fire-workplace-materials.html">Открыть материалы</a>
-            <a href="fire-workplace-test.html">Перейти к тесту</a>
-          </div>
+        <article class="module-card">
+            <div class="mod-content">
+                <div class="mod-icon">🧯</div>
+                <h2 class="mod-title">2. Инструктаж на месте</h2>
+                <p class="mod-desc">
+                    Специфика вашего рабочего места. Где находится огнетушитель, как обесточить оборудование и кого оповещать.
+                </p>
+                <div class="mod-actions">
+                    <a href="fire-workplace-materials.html" class="btn-mod-primary">Изучить материалы</a>
+                    <a href="fire-workplace-test.html" class="btn-mod-secondary">Пройти тест</a>
+                </div>
+            </div>
         </article>
 
       </div>
-    </section>
 
-    <div class="course-divider" aria-hidden="true"></div>
-
-    <section class="section section-card" id="how">
-      <h2>Как проходить курс без ошибок</h2>
-      <p class="page-lead">Небольшие подсказки, чтобы быстрее пройти материал и корректно сдать тест.</p>
-
-      <div class="course-tips" aria-label="Подсказки по прохождению">
-        <div class="tip">
-          <h3>1) Начните с вводного</h3>
-          <p>Он задаёт общие правила и алгоритмы действий. Потом легче проходить “рабочее место”.</p>
-        </div>
-        <div class="tip">
-          <h3>2) На телефоне открывайте PDF в новой вкладке</h3>
-          <p>Так проще искать по документу и не терять место при возврате к тесту.</p>
-        </div>
-        <div class="tip">
-          <h3>3) Тест — после материала</h3>
-          <p>Если результат неудовлетворительный — вернитесь к разделам, где были ошибки, и повторите.</p>
+      <div class="alert-zone reveal-up delay-200">
+        <div class="alert-header"><div class="alert-icon">🛑</div><h3 class="alert-title">СТРОГО ЗАПРЕЩЕНО</h3></div>
+        <div class="alert-grid">
+            <div class="alert-item">✖ Пользоваться лифтами при пожаре.</div>
+            <div class="alert-item">✖ Открывать окна (приток кислорода усилит горение).</div>
+            <div class="alert-item">✖ Загромождать эвакуационные выходы и проходы.</div>
+            <div class="alert-item">✖ Тушить электроприборы водой без обесточивания.</div>
         </div>
       </div>
-    </section>
 
-  </div>
-</main>
+      <section style="margin: 50px 0;">
+        <h2 class="flip-section-title">🤔 Мифы о пожарах</h2>
+        <div class="flip-grid">
+            <div class="flip-card">
+                <div class="flip-inner">
+                    <div class="flip-front"><div class="flip-icon">🚪</div><div class="flip-label">Миф</div><div class="flip-text">"Если в коридоре дым, нужно быстро бежать к выходу."</div></div>
+                    <div class="flip-back"><div class="flip-icon">🙅‍♂️</div><div class="flip-label">Реальность</div><div class="flip-text">Дым токсичен. Пару вдохов — и потеря сознания. Нужно передвигаться ползком, прикрыв нос мокрой тканью.</div></div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-inner">
+                    <div class="flip-front"><div class="flip-icon">🧯</div><div class="flip-label">Миф</div><div class="flip-text">"Огнетушителем можно тушить что угодно."</div></div>
+                    <div class="flip-back"><div class="flip-icon">⚡</div><div class="flip-label">Реальность</div><div class="flip-text">Пенные/водные огнетушители НЕЛЬЗЯ применять на электрооборудовании под напряжением. Нужен порошковый или углекислотный.</div></div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-inner">
+                    <div class="flip-front"><div class="flip-icon">🪟</div><div class="flip-label">Миф</div><div class="flip-text">"Нужно разбить окно, чтобы подышать."</div></div>
+                    <div class="flip-back"><div class="flip-icon">🔥</div><div class="flip-label">Реальность</div><div class="flip-text">Приток свежего воздуха вызовет мгновенную вспышку пламени (обратная тяга). Не открывайте окна!</div></div>
+                </div>
+            </div>
+        </div>
+      </section>
 
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <p class="footer-text">
-      Учебный портал дистанционного обучения по охране труда, пожарной безопасности, первой помощи и ГО/ЧС.
-    </p>
-    <p class="footer-text footer-text-muted">
-      Конкретный порядок обучения и оформления результатов определяется работодателем.
-    </p>
-  </div>
-</footer>
+    </div>
+  </main>
 
-<button type="button" class="to-top" id="toTopBtn" aria-label="Наверх" title="Наверх">↑</button>
+  <footer class="glass-footer">
+    <div class="container">
+      <p>© 2026 Служба Охраны Труда. Внутренний ресурс.</p>
+    </div>
+  </footer>
+
+</div>
 
 <script>
-  (function () {
-    const btn = document.getElementById('toTopBtn');
-    if (!btn) return;
+  document.addEventListener("DOMContentLoaded", function() {
+    // 1. Дата
+    const now = new Date();
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateStr = now.toLocaleDateString('ru-RU', dateOptions);
+    const dateEl = document.getElementById('current-date');
+    if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
 
-    const prefersReducedMotion =
-      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // 2. Анимация появления
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
 
-    function onScroll() {
-      const y = window.scrollY || document.documentElement.scrollTop || 0;
-      if (y > 700) btn.classList.add('is-visible');
-      else btn.classList.remove('is-visible');
+    // 3. Эффекты мыши (3D Tilt + Spotlight)
+    if (window.matchMedia("(min-width: 768px)").matches) {
+      
+      // Hero Tilt
+      const hero = document.getElementById('tilt-hero');
+      if(hero) {
+        hero.addEventListener('mousemove', (e) => {
+          const rect = hero.getBoundingClientRect();
+          const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+          const centerX = rect.width / 2; const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -2; 
+          const rotateY = ((x - centerX) / centerX) * 2;
+          hero.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        hero.addEventListener('mouseleave', () => {
+          hero.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+        });
+      }
+
+      // Card Spotlight
+      document.querySelectorAll('.module-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+          card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        });
+      });
     }
-
-    btn.addEventListener('click', function () {
-      if (prefersReducedMotion) window.scrollTo(0, 0);
-      else window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  })();
+  });
 </script>
 
 </body>
