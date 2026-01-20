@@ -2,43 +2,97 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Итоговый тест по ГО и ЧС — Учебный портал</title>
+  <title>Итоговый тест: Вводный инструктаж по ГО и ЧС</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description"
-        content="Итоговый тест по вводному инструктажу по гражданской обороне и чрезвычайным ситуациям с указанием персональных и организационных данных работника.">
   <link rel="stylesheet" href="assets/style.css">
 
-  <style>
-    /* UX теста: статус под кнопкой (локально для страницы) */
-    .test-consent-status{font-size:.88rem;color:#6b7280;margin-top:.25rem}
-    .test-consent-status strong{color:#111827}
-    .test-consent-status.is-ok{color:#065f46}
-    .test-consent-status.is-warn{color:#92400e}
-  </style>
+   <style>
+     /* === ТЕМА: ГО и ЧС (Синий фон) === */
+     body.masterpiece-theme {
+       background: linear-gradient(-45deg, #eff6ff, #dbeafe, #e0f2fe, #f0f9ff);
+       background-size: 400% 400%;
+       animation: gradientBG 15s ease infinite;
+       min-height: 100vh;
+     }
+     @keyframes gradientBG {
+       0% { background-position: 0% 50%; }
+       50% { background-position: 100% 50%; }
+       100% { background-position: 0% 50%; }
+     }
+
+     /* === Pulse Animation (Green Forced) === */
+     .system-status-pulse {
+       display: inline-block; width: 8px; height: 8px; 
+       background-color: #10b981; /* Green */
+       border-radius: 50%;
+       box-shadow: 0 0 0 rgba(16, 185, 129, 0.7); 
+       animation: pulse-green 2s infinite; 
+       margin-right: 6px;
+     }
+     @keyframes pulse-green {
+       0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+       70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+       100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+     }
+
+     /* === Responsive Header === */
+     .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
+     @media (max-width: 900px) { .header-meta { display: none; } }
+     
+     /* === Animation: Collapse & Remove === */
+     .collapse-remove {
+       opacity: 0;
+       max-height: 0;
+       margin-top: 0 !important;
+       margin-bottom: 0 !important;
+       padding-top: 0 !important;
+       padding-bottom: 0 !important;
+       border: none !important;
+       overflow: hidden;
+       transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+       transform: scale(0.95);
+     }
+
+     /* === 3D Tilt Settings === */
+     .spotlight-card {
+        transform-style: preserve-3d;
+        transform: perspective(1000px);
+     }
+   </style>
 </head>
+<body class="masterpiece-theme">
 
-<!-- Тема ГО и ЧС: синий → оранжевый -->
-<body class="gochs-theme">
-  <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+<div class="progress-container">
+  <div class="progress-bar" id="readingProgress"></div>
+</div>
 
-  <header class="site-header">
+<a class="skip-link" href="#main-content">Перейти к контенту</a>
+
+<div class="glass-wrapper">
+  
+  <header class="site-header transparent-header">
     <div class="container header-inner">
       <div class="header-brand">
-        <p class="site-label">Дистанционный учебный портал</p>
-        <h1 class="site-title">Охрана труда, пожарная безопасность, первая помощь, ГО/ЧС</h1>
-        <p class="site-subtitle">
-          Дистанционное обучение работников и проверка знаний требований охраны труда и безопасности.
-        </p>
+        <div class="brand-logo">
+          <img src="assets/Филин от.png" alt="Логотип СДО" style="width: 100%; height: 100%; object-fit: contain;">
+        </div>
+        <div>
+          <h1 class="site-title-mini">СДО</h1>
+          <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
+        </div>
       </div>
-
-      <nav class="main-nav" aria-label="Основная навигация">
+      <div class="header-meta">
+        <span id="current-date">Загрузка...</span>
+        <span style="display:flex; align-items:center;">
+            <span class="system-status-pulse"></span> Online
+        </span>
+      </div>
+      <nav class="main-nav">
         <ul class="nav-list">
-          <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
-          <li class="nav-item"><a href="programs.html" class="nav-link nav-link-active">Программы обучения</a></li>
-          <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции для сотрудников</a></li>
-          <li class="nav-item">
-            <a href="for-responsibles.html" class="nav-link">Информация для ответственных за обучение</a>
-          </li>
+          <li><a href="index.html" class="nav-link">Главная</a></li>
+          <li><a href="programs.html" class="nav-link nav-link-active active">Каталог программ</a></li>
+          <li><a href="instructions.html" class="nav-link">Инструкции</a></li>
+          <li><a href="for-responsibles.html" class="nav-link">Ответственным</a></li>
         </ul>
       </nav>
     </div>
@@ -46,333 +100,172 @@
 
   <main id="main-content" class="site-main">
     <div class="container">
+    
+    <a href="gochs-materials.html" class="back-link">
+      <span>←</span> Вернуться к материалам курса
+    </a>
 
-      <!-- Назад к курсу ГО и ЧС -->
-      <nav class="back-nav">
-        <a href="course-gochs.html#gochs-test" class="back-link">
-          <span class="back-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" class="back-svg">
-              <path d="M15 6l-6 6 6 6"
-                    stroke="white"
-                    stroke-width="2"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round" />
-            </svg>
+    <section class="section-card spotlight-card" id="info-card">
+      <div class="status-badge" style="margin-bottom: 15px; color: #2563eb; border-color: #bfdbfe;">
+        <span class="pulse-dot" style="background-color: #2563eb; box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);"></span> Итоговый контроль
+      </div>
+      <h1>Итоговый тест: Вводный инструктаж по ГО и ЧС</h1>
+      <p>
+        Проверка знаний в области гражданской обороны, действий при чрезвычайных ситуациях и сигналов оповещения.
+        Результаты фиксируются в журнале инструктажей.
+      </p>
+      
+      <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+        <span class="status-badge">Вопросов: 10</span>
+        <span class="status-badge">Порог: 85%</span>
+        <span class="status-badge">Время: ~15 мин</span>
+      </div>
+    </section>
+
+    <section class="section-card" id="consent-section">
+      <h3>🔐 Доступ к тестированию</h3>
+      <p>
+        В соответствии с 152-ФЗ "О персональных данных", для начала тестирования и оформления протокола необходимо ваше согласие на обработку ФИО, должности и подразделения.
+      </p>
+
+      <div class="legal-box">
+        <label class="consent-label">
+          <input type="checkbox" id="legal-checkbox">
+          <span class="consent-text">
+            Я подтверждаю, что ознакомлен с Политикой конфиденциальности, и даю согласие на обработку моих персональных данных для целей оформления результатов обучения.
           </span>
-          <span class="back-text">Вернуться к курсу по ГО и ЧС</span>
-        </a>
-      </nav>
+        </label>
+        
+        <button id="unlock-btn" class="btn btn-magic btn-disabled" disabled style="width: 100%; justify-content: center;">
+          <span>🔓 Подтвердить и начать тест</span>
+        </button>
+      </div>
+    </section>
 
-      <!-- Заголовок страницы теста -->
-      <section class="section section-card">
-        <header class="test-page-header">
-          <p class="attention-header">
-            <span aria-hidden="true">⚠</span>
-            <span>Важно перед началом теста</span>
-          </p>
-
-          <h1>Итоговый тест по гражданской обороне и чрезвычайным ситуациям</h1>
-
-          <div class="test-summary-badges">
-            <span class="test-badge">10 вопросов</span>
-            <span class="test-badge">Время: ~10–15 минут</span>
-            <span class="test-badge">Форма: зачет/незачет</span>
-          </div>
-
-          <p>
-            Тест предназначен для проверки усвоения материалов вводного инструктажа по гражданской обороне
-            и чрезвычайным ситуациям и используется работодателем для последующего документального оформления
-            результатов обучения в установленном порядке.
-          </p>
-
-          <p><strong>Перед началом теста убедитесь, что:</strong></p>
-          <ul class="test-meta-list">
-            <li>вы ознакомились с учебными материалами вводного инструктажа по ГО и ЧС;</li>
-            <li>понимаете, как корректно указать персональные и организационные данные (Ф.И.О., дату рождения, должность, подразделение, организацию);</li>
-            <li>располагаете временем для прохождения теста без отвлечений;</li>
-            <li>используете устройство со стабильным доступом в интернет (рекомендуется ПК/ноутбук).</li>
-          </ul>
-
-          <p class="note">
-            Некорректное заполнение персональных и организационных данных в форме теста может привести к невозможности зачёта
-            результатов обучения и их оформления в документах работодателя.
-          </p>
-        </header>
-      </section>
-
-      <!-- Блок согласия на обработку персональных данных -->
-      <section class="section section-card">
-        <h2>Согласие на обработку персональных данных</h2>
-
-        <p>
-          Перед началом прохождения итогового теста работник подтверждает, что ознакомлен(а) и принимает
-          условия обработки персональных данных в соответствии с Федеральным законом № 152-ФЗ
-          «О персональных данных», Трудовым кодексом РФ и локальными нормативными актами работодателя.
-        </p>
-
-        <h3>Какие данные обрабатываются</h3>
-        <ul class="pd-consent-list">
-          <li class="pd-consent-item">
-            <span class="pd-consent-icon" aria-hidden="true">✓</span>
-            <span class="pd-consent-text">
-              персональные и организационные данные, указываемые в форме теста: Ф.И.О., дата рождения,
-              должность, структурное подразделение, наименование организации и иные сведения, необходимые
-              для учёта прохождения обучения по ГО и ЧС;
-            </span>
-          </li>
-          <li class="pd-consent-item">
-            <span class="pd-consent-icon" aria-hidden="true">✓</span>
-            <span class="pd-consent-text">
-              результаты прохождения теста: ответы на вопросы, количество набранных баллов,
-              дата и время прохождения, факт успешного/неуспешного завершения тестирования.
-            </span>
-          </li>
-        </ul>
-
-        <h3>Для чего используются данные</h3>
-        <ul class="pd-consent-list">
-          <li class="pd-consent-item">
-            <span class="pd-consent-icon" aria-hidden="true">✓</span>
-            <span class="pd-consent-text">
-              оформление протоколов проверки знаний, журналов учёта обучения и иных учётных документов работодателя;
-            </span>
-          </li>
-          <li class="pd-consent-item">
-            <span class="pd-consent-icon" aria-hidden="true">✓</span>
-            <span class="pd-consent-text">
-              подтверждение соблюдения работодателем требований по обучению и проверке знаний работников.
-            </span>
-          </li>
-        </ul>
-
-        <h3>Кто обрабатывает и получает доступ к данным</h3>
-        <ul class="pd-consent-list">
-          <li class="pd-consent-item">
-            <span class="pd-consent-icon" aria-hidden="true">✓</span>
-            <span class="pd-consent-text">
-              уполномоченные должностные лица работодателя, ответственные за организацию обучения и проверку знаний по ГО и ЧС;
-            </span>
-          </li>
-          <li class="pd-consent-item">
-            <span class="pd-consent-icon" aria-hidden="true">✓</span>
-            <span class="pd-consent-text">
-              оператор тестирующей платформы OnlineTestPad — в объёме, необходимом для проведения тестирования и фиксации результатов.
-            </span>
-          </li>
-        </ul>
-
-        <h3>Сроки и порядок хранения</h3>
-        <ul class="pd-consent-list">
-          <li class="pd-consent-item">
-            <span class="pd-consent-icon" aria-hidden="true">✓</span>
-            <span class="pd-consent-text">
-              персональные данные и результаты тестирования хранятся в сроки и порядке, установленные локальными нормативными актами работодателя
-              и номенклатурой дел (не менее сроков хранения документов по обучению и проверке знаний).
-            </span>
-          </li>
-        </ul>
-
-        <h3>Ваше согласие</h3>
-        <p class="test-hint">
-          Обработка персональных данных осуществляется исключительно в целях организации и проведения обучения,
-          тестирования и последующего документального оформления результатов в соответствии с требованиями законодательства РФ
-          и локальными нормативными актами работодателя.
-        </p>
-
-        <p class="test-hint">
-          <strong>Предоставление согласия является добровольным.</strong>
-          В случае отказа от согласия прохождение теста и документальное оформление результатов обучения будут невозможны.
-        </p>
-
-        <div class="test-consent-controls">
-          <label class="test-consent-label">
-            <input
-              type="checkbox"
-              id="pd-consent"
-              aria-label="Согласие на обработку персональных данных для целей обучения и тестирования по ГО и ЧС"
-            >
-            <span>
-              Я подтверждаю, что ознакомлен(а) с условиями обработки персональных данных и даю согласие
-              на их обработку для целей обучения и тестирования по ГО и ЧС.
-            </span>
-          </label>
-
-          <button
-            type="button"
-            id="start-test-btn"
-            class="btn btn-primary btn-test-link btn-disabled"
-            disabled
-          >
-            <span>Открыть тест и перейти к вопросам</span>
-            <span class="btn-icon" aria-hidden="true">⬇</span>
-          </button>
+    <section class="section-card test-wrapper">
+      
+      <div class="test-overlay" id="test-lock">
+        <div>
+          <span class="lock-icon">🔒</span>
+          <h3>Тест заблокирован</h3>
+          <p>Пожалуйста, подтвердите согласие выше, чтобы загрузить вопросы.</p>
         </div>
+      </div>
 
-        <p class="test-hint">
-          Кнопка станет доступна после установки отметки в чекбоксе согласия. Доступ к виджету теста
-          открывается только после подтверждения согласия.
-        </p>
-      </section>
+      <div id="otp_wgt_ldxfcvjhloj6o"></div>
+      
+    </section>
 
-      <!-- Блок с виджетом теста и оверлеем -->
-      <section class="section section-card">
-        <h2>Прохождение итогового теста</h2>
-
-        <h3>Как пройти тест</h3>
-        <ul class="test-meta-list">
-          <li>подтвердите согласие на обработку персональных данных выше;</li>
-          <li>нажмите кнопку <strong>«Открыть тест и перейти к вопросам»</strong>;</li>
-          <li>дождитесь загрузки всех вопросов теста во встроенном окне;</li>
-          <li>ответьте на все вопросы и отправьте результаты в системе OnlineTestPad;</li>
-          <li>убедитесь, что тест завершён и система зафиксировала ваши ответы.</li>
-        </ul>
-
-        <p class="test-hint">
-          Основным источником данных для зачёта является информация, зафиксированная в системе OnlineTestPad.
-          В случае технических сбоев обратитесь к ответственному за обучение или специалисту по ГО и ЧС.
-        </p>
-
-        <section class="test-wrapper-with-consent" aria-label="Итоговый тест по ГО и ЧС">
-          <div
-            id="test-overlay"
-            class="test-overlay"
-            role="alert"
-          >
-            <div class="test-overlay-content">
-              <p><strong>Доступ к тесту временно заблокирован.</strong></p>
-              <p>
-                Для начала тестирования подтвердите согласие на обработку персональных данных выше
-                и нажмите кнопку «Открыть тест и перейти к вопросам».
-              </p>
-            </div>
-          </div>
-
-          <!-- Встроенный виджет OnlineTestPad -->
-          <div id="otp_wgt_ldxfcvjhloj6o"></div>
-        </section>
-
-        <h3>После прохождения теста</h3>
-        <p class="test-hint">
-          После успешного завершения теста результаты автоматически фиксируются в системе OnlineTestPad
-          и передаются уполномоченным специалистам работодателя. Информацию о зачёте и оформленных документах
-          вы можете уточнить у своего непосредственного руководителя или специалиста по ГО и ЧС.
-        </p>
-      </section>
-
-    </div>
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <p class="footer-text">
-        Учебный портал дистанционного обучения по охране труда, пожарной безопасности,
-        первой помощи и ГО/ЧС.
-      </p>
-      <p class="footer-text footer-text-muted">
-        Конкретный порядок обучения и оформления результатов определяется работодателем.
-      </p>
+    <div class="container">
+      © 2026 Служба Охраны Труда. Внутренний ресурс.
     </div>
   </footer>
+</div>
 
-  <!-- Скрипт виджета OnlineTestPad -->
-  <script type="text/javascript">
+<script>
+  // 1. ДАТА В ШАПКЕ
+  document.addEventListener("DOMContentLoaded", function() {
+      const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateStr = new Date().toLocaleDateString('ru-RU', dateOptions);
+      const dateEl = document.getElementById('current-date');
+      if(dateEl) {
+          dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+      }
+  });
+
+  // 2. СКРИПТ ВАШЕГО ВИДЖЕТА (ГО и ЧС)
+  function loadTestWidget() {
     var otp_wjs_dt = (new Date).getTime();
     (function (w, d, n, s, rp) {
-      w[n] = w[n] || [];
-      rp = {};
-      w[n].push(function () {
-        otp_render_widget(
-          d.getElementById("otp_wgt_ldxfcvjhloj6o"),
-          'onlinetestpad.com',
-          'ldxfcvjhloj6o',
-          rp
-        );
+        w[n] = w[n] || [];
+        rp = {};
+        w[n].push(function () {
+            otp_render_widget(d.getElementById("otp_wgt_ldxfcvjhloj6o"), 'onlinetestpad.com', 'ldxfcvjhloj6o', rp);
+        }); 
+        s = d.createElement("script");
+        s.type = "text/javascript";
+        s.src = "//onlinetestpad.com/js/widget.js?" + otp_wjs_dt;
+        s.async = true;
+        d.getElementsByTagName("head")[0].appendChild(s);
+    })(window, document, "otp_widget_callbacks");
+  }
+
+  // 3. ЛОГИКА "ФОКУС-РЕЖИМА"
+  const checkbox = document.getElementById('legal-checkbox');
+  const btn = document.getElementById('unlock-btn');
+  const lock = document.getElementById('test-lock');
+  const consentSection = document.getElementById('consent-section');
+  const infoCard = document.getElementById('info-card');
+  const testWrapper = document.querySelector('.test-wrapper');
+  let widgetLoaded = false;
+
+  checkbox.addEventListener('change', function() {
+    if (this.checked) {
+      btn.disabled = false;
+      btn.classList.remove('btn-disabled');
+    } else {
+      btn.disabled = true;
+      btn.classList.add('btn-disabled');
+    }
+  });
+
+  btn.addEventListener('click', function() {
+    if (!btn.disabled) {
+      // 1. Убираем замок
+      lock.classList.add('hidden'); 
+      
+      // 2. Загружаем виджет (если еще не)
+      if (!widgetLoaded) {
+        loadTestWidget();
+        widgetLoaded = true;
+      }
+
+      // 3. Плавно удаляем верхние блоки (создаем эффект фокуса)
+      consentSection.classList.add('collapse-remove');
+      infoCard.classList.add('collapse-remove');
+
+      // 4. Мягкий скролл к тесту
+      setTimeout(() => {
+        testWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  });
+
+  // 4. VISUAL EFFECTS (3D TILT + SPOTLIGHT)
+  if (window.matchMedia("(min-width: 768px)").matches) {
+    const card = document.getElementById('info-card');
+
+    // Логика прожектора (Spotlight)
+    document.querySelectorAll('.spotlight-card').forEach(c => {
+      c.addEventListener('mousemove', e => {
+        const rect = c.getBoundingClientRect();
+        c.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        c.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
       });
-      s = d.createElement("script");
-      s.type = "text/javascript";
-      s.src = "https://onlinetestpad.com/js/widget.js?" + otp_wjs_dt;
-      s.async = true;
-      d.getElementsByTagName("head")[0].appendChild(s);
-    })(this, this.document, "otp_widget_callbacks");
-  </script>
-
-  <!-- Скрипт управления согласием и доступом к тесту (UX-улучшенная версия) -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const consentCheckbox = document.getElementById('pd-consent');
-      const startButton = document.getElementById('start-test-btn');
-      const overlay = document.getElementById('test-overlay');
-      const widgetContainer = document.getElementById('otp_wgt_ldxfcvjhloj6o');
-
-      if (!consentCheckbox || !startButton || !overlay || !widgetContainer) return;
-
-      // Статус для пользователя + a11y (aria-live)
-      let status = document.getElementById('test-consent-status');
-      if (!status) {
-        status = document.createElement('p');
-        status.id = 'test-consent-status';
-        status.className = 'test-consent-status is-warn';
-        status.setAttribute('aria-live', 'polite');
-
-        const controls = startButton.closest('.test-consent-controls');
-        if (controls) controls.appendChild(status);
-        else startButton.insertAdjacentElement('afterend', status);
-      }
-
-      function setStatus(text, mode) {
-        status.textContent = text;
-        status.classList.remove('is-ok', 'is-warn');
-        if (mode) status.classList.add(mode);
-      }
-
-      function getScrollTarget() {
-        return widgetContainer.closest('.test-wrapper-with-consent') || widgetContainer;
-      }
-
-      function scrollToTarget() {
-        const target = getScrollTarget();
-        const rect = target.getBoundingClientRect();
-        const offset = 12; // небольшой отступ сверху
-        const top = rect.top + window.pageYOffset - offset;
-        window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
-      }
-
-      function updateConsentState() {
-        const allowed = consentCheckbox.checked;
-
-        startButton.disabled = !allowed;
-        startButton.setAttribute('aria-disabled', String(!allowed));
-
-        if (allowed) {
-          startButton.classList.remove('btn-disabled');
-          setStatus('Доступ открыт. Нажмите кнопку, чтобы перейти к тесту.', 'is-ok');
-        } else {
-          startButton.classList.add('btn-disabled');
-
-          overlay.classList.remove('test-overlay-hidden');
-          overlay.removeAttribute('aria-hidden');
-
-          setStatus('Поставьте отметку согласия, чтобы открыть доступ к тесту.', 'is-warn');
-        }
-      }
-
-      // Надёжнее для мобильных: change + input
-      consentCheckbox.addEventListener('change', updateConsentState);
-      consentCheckbox.addEventListener('input', updateConsentState);
-
-      startButton.addEventListener('click', function () {
-        if (startButton.disabled) return;
-
-        overlay.classList.add('test-overlay-hidden');
-        overlay.setAttribute('aria-hidden', 'true');
-
-        setStatus('Доступ открыт. Прокручиваем к тесту…', 'is-ok');
-        scrollToTarget();
-      });
-
-      updateConsentState();
     });
-  </script>
+
+    // Логика 3D Tilt
+    if (card) {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -1.5; 
+        const rotateY = ((x - centerX) / centerX) * 1.5;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+      });
+    }
+  }
+</script>
+
 </body>
 </html>
