@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>СДО | Пожарная безопасность</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Обучение мерам пожарной безопасности: вводный и первичный инструктажи, действия при пожаре и эвакуация.">
+  <meta name="description" content="Обучение мерам пожарной безопасности: вводный и первичный инструктажи, действия при пожаре.">
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,127 +24,160 @@
       100% { background-position: 0% 50%; }
     }
 
+    /* === LMS LAYOUT === */
+    .course-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 30px;
+      margin-top: 30px;
+      align-items: start;
+    }
+
     /* === HERO CARD (3D TILT) === */
-    .hero-card {
-      background: radial-gradient(circle at 100% 0%, rgba(249, 115, 22, 0.1) 0%, rgba(255, 255, 255, 0.9) 100%);
+    .course-hero {
+      background: radial-gradient(circle at 100% 0%, rgba(249, 115, 22, 0.15) 0%, rgba(255, 255, 255, 0.9) 100%);
       border: 1px solid rgba(255,255,255,0.9);
       border-radius: 24px;
       padding: 40px;
       margin-bottom: 30px;
       position: relative; overflow: hidden;
       backdrop-filter: blur(20px);
-      box-shadow: 0 20px 40px -10px rgba(249, 115, 22, 0.15);
-      /* 3D настройки */
-      transform-style: preserve-3d;
-      transform: perspective(1000px);
-      transition: transform 0.1s ease;
+      box-shadow: 0 20px 40px -10px rgba(249, 115, 22, 0.1);
     }
-    .hero-card::before {
+    
+    .course-hero::before {
       content: "🔥";
       position: absolute; right: -20px; bottom: -40px; font-size: 12rem;
-      opacity: 0.1; transform: rotate(-15deg); pointer-events: none;
-      transform: translateZ(20px);
+      opacity: 0.08; transform: rotate(-15deg); pointer-events: none;
     }
-    .hero-content { position: relative; transform: translateZ(30px); }
 
     .hero-badge {
       display: inline-flex; align-items: center; gap: 6px;
-      background: #ffedd5; color: #c2410c; border: 1px solid #fdba74;
+      background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa;
       padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700;
       margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;
     }
-    .hero-title { font-size: 2rem; font-weight: 800; color: #0f172a; margin: 0 0 15px; line-height: 1.1; }
-    .hero-desc { font-size: 1.05rem; color: #475569; max-width: 700px; line-height: 1.6; }
 
-    /* === MODULE CARDS (SPOTLIGHT) === */
-    .modules-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-bottom: 40px;
-    }
-    .module-card {
-      background: rgba(255,255,255,0.95);
+    .hero-title { font-size: 2rem; font-weight: 800; color: #0f172a; margin: 0 0 15px; line-height: 1.1; }
+    .hero-desc { font-size: 1.05rem; color: #475569; max-width: 650px; line-height: 1.6; }
+
+    /* === MANDATORY BLOCK (Акцентный - Вводный) === */
+    .mandatory-block {
+      background: #ffffff;
       border-radius: 24px;
       padding: 30px;
+      border: 2px solid #ea580c; /* Оранжевая рамка */
+      box-shadow: 0 10px 30px -5px rgba(234, 88, 12, 0.15);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 40px;
+      transition: transform 0.3s ease;
+    }
+    .mandatory-block:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -5px rgba(234, 88, 12, 0.25); }
+
+    .mandatory-label {
+      position: absolute; top: 0; right: 0;
+      background: #ea580c; color: #fff;
+      font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
+      padding: 6px 16px; border-bottom-left-radius: 16px;
+    }
+
+    .mandatory-title { font-size: 1.5rem; font-weight: 800; color: #0f172a; margin: 0 0 10px; display: flex; align-items: center; gap: 10px; }
+    .mandatory-text { font-size: 1rem; color: #64748b; margin-bottom: 25px; max-width: 90%; }
+
+    /* Кнопка старта */
+    .btn-start-big {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 16px;
+      background: #ea580c; color: #fff; font-size: 1.1rem; font-weight: 700;
+      border-radius: 16px; text-decoration: none;
+      box-shadow: 0 10px 20px -5px rgba(234, 88, 12, 0.4);
+      transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .btn-start-big:hover { background: #c2410c; transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(234, 88, 12, 0.5); }
+    
+    .btn-start-big::after {
+      content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shine 3s infinite;
+    }
+
+    /* === SPECIAL PROGRAMS GRID (Вторичные) === */
+    .programs-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
+    }
+
+    .prog-card {
+      background: rgba(255,255,255,0.9);
+      border-radius: 20px; padding: 24px;
       border: 1px solid rgba(226, 232, 240, 0.8);
       position: relative; overflow: hidden;
       display: flex; flex-direction: column;
       transition: transform 0.3s, box-shadow 0.3s;
     }
-    /* Слой прожектора */
-    .module-card::before {
+    .prog-card::before {
       content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(249, 115, 22, 0.15), transparent 40%);
+      background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(249, 115, 22, 0.1), transparent 40%);
       opacity: 0; transition: opacity 0.5s; z-index: 0; pointer-events: none;
     }
-    .module-card:hover::before { opacity: 1; }
-    .module-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 50px -10px rgba(0,0,0,0.1);
-        border-color: rgba(249, 115, 22, 0.3);
-    }
-    
-    .mod-content { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; }
-    .mod-icon { 
-        width: 60px; height: 60px; background: #fff7ed; border-radius: 16px; 
-        display: flex; align-items: center; justify-content: center; font-size: 2rem; 
-        margin-bottom: 20px; border: 1px solid #ffedd5;
-    }
-    .mod-title { font-size: 1.4rem; font-weight: 800; color: #0f172a; margin: 0 0 10px; }
-    .mod-desc { font-size: 1rem; color: #64748b; line-height: 1.5; margin-bottom: 25px; flex-grow: 1; }
-    
-    .mod-actions { display: grid; gap: 10px; }
-    .btn-mod-primary {
-        display: flex; align-items: center; justify-content: center; padding: 14px;
-        background: #0f172a; color: #fff; border-radius: 12px; font-weight: 700; 
-        text-decoration: none; transition: 0.2s;
-    }
-    .btn-mod-primary:hover { background: #ea580c; transform: translateY(-2px); }
-    
-    .btn-mod-secondary {
-        display: flex; align-items: center; justify-content: center; padding: 12px;
-        background: #fff; color: #475569; border: 1px solid #cbd5e1; border-radius: 12px; font-weight: 600; 
-        text-decoration: none; transition: 0.2s;
-    }
-    .btn-mod-secondary:hover { background: #f8fafc; color: #0f172a; border-color: #94a3b8; }
+    .prog-card:hover::before { opacity: 1; }
+    .prog-card:hover { transform: translateY(-4px); border-color: #f97316; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
 
-    /* === ALERT ZONE (RED) === */
-    .alert-zone {
-      background: #fef2f2; border: 1px solid #fee2e2; border-left: 5px solid #dc2626;
-      border-radius: 16px; padding: 25px; margin-bottom: 40px;
-    }
-    .alert-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
-    .alert-icon { font-size: 1.5rem; color: #dc2626; }
-    .alert-title { font-size: 1.2rem; font-weight: 800; color: #991b1b; margin: 0; }
-    .alert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
-    .alert-item { display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #7f1d1d; font-weight: 500; }
+    .prog-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+    .prog-icon { font-size: 2rem; background: #fff7ed; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: 1px solid #ffedd5; }
+    .prog-badge { font-size: 0.7rem; font-weight: 700; color: #9a3412; background: #fff; padding: 4px 8px; border-radius: 6px; border: 1px solid #ffedd5; }
 
-    /* === FLIP CARDS === */
-    .flip-section-title { font-size: 1.5rem; font-weight: 700; color: #0f172a; margin: 40px 0 20px; text-align: center; }
-    .flip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px; }
-    .flip-card { background-color: transparent; height: 240px; perspective: 1000px; cursor: pointer; }
-    .flip-inner {
-      position: relative; width: 100%; height: 100%; text-align: center;
-      transition: transform 0.6s; transform-style: preserve-3d;
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1); border-radius: 20px;
-    }
-    .flip-card:hover .flip-inner { transform: rotateY(180deg); }
-    .flip-front, .flip-back {
-      position: absolute; width: 100%; height: 100%;
-      -webkit-backface-visibility: hidden; backface-visibility: hidden;
-      border-radius: 20px; padding: 20px; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; border: 1px solid #e2e8f0;
-    }
-    .flip-front { background-color: #fff; color: #1e293b; }
-    .flip-back { background-color: #0f172a; color: white; transform: rotateY(180deg); }
-    .flip-icon { font-size: 3rem; margin-bottom: 10px; }
-    .flip-text { font-size: 1rem; font-weight: 600; line-height: 1.4; }
-    .flip-label { text-transform: uppercase; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 10px; opacity: 0.7; }
+    .prog-title { font-size: 1.1rem; font-weight: 700; color: #1e293b; margin: 0 0 8px; }
+    .prog-desc { font-size: 0.9rem; color: #64748b; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
 
-    /* Header */
+    .btn-prog-link {
+      display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px;
+      background: #f8fafc; color: #334155; border: 1px solid #e2e8f0;
+      border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 0.9rem;
+      transition: 0.2s;
+    }
+    .btn-prog-link:hover { background: #ea580c; color: #fff; border-color: #ea580c; }
+
+    /* === SIDEBAR (Sticky) === */
+    .course-sidebar {
+      position: sticky; top: 100px;
+      background: rgba(255,255,255,0.6); backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.8); border-radius: 20px; padding: 20px;
+    }
+
+    .npa-title { font-size: 0.9rem; font-weight: 700; color: #0f172a; margin: 0 0 15px; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    
+    .npa-link {
+      display: flex; align-items: flex-start; gap: 10px; padding: 12px;
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
+      text-decoration: none; color: #334155; font-size: 0.85rem; margin-bottom: 10px;
+      transition: 0.2s;
+    }
+    .npa-link:hover { border-color: #ea580c; transform: translateX(3px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    .npa-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+    /* === TOAST === */
+    .toast-notification {
+      position: fixed; bottom: 30px; right: 30px;
+      background: #fff; border-left: 4px solid #ea580c;
+      padding: 16px 20px; border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      z-index: 100; display: flex; align-items: flex-start; gap: 12px;
+      animation: slideIn 0.5s ease-out forwards;
+    }
+    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
+
+    @media (max-width: 900px) {
+      .course-layout { grid-template-columns: 1fr; }
+      .course-sidebar { position: relative; top: 0; margin-bottom: 30px; }
+      .toast-notification { left: 20px; right: 20px; bottom: 20px; }
+    }
+
+    /* Header & Pulse */
     .system-status-pulse {
-      display: inline-block; width: 8px; height: 8px;
-      background-color: #10b981; border-radius: 50%;
-      box-shadow: 0 0 0 rgba(16, 185, 129, 0.7);
-      animation: pulse-green 2s infinite; margin-right: 6px;
+      display: inline-block; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%;
+      box-shadow: 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse-green 2s infinite; margin-right: 6px;
     }
     @keyframes pulse-green {
       0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
@@ -196,82 +229,86 @@
         <span style="color: #0f172a; font-weight: 600;">Пожарная безопасность</span>
       </nav>
 
-      <section class="hero-card reveal-up" id="tilt-hero">
-        <div class="hero-content">
-          <span class="hero-badge">МЧС России № 1120</span>
-          <h1 class="hero-title">Обучение мерам пожарной безопасности</h1>
-          <p class="hero-desc">
-            Курс разделен на два ключевых модуля: <strong>Вводный инструктаж</strong> для всех новых сотрудников и 
-            <strong>Инструктаж на рабочем месте</strong> для закрепления знаний специфики объекта.
-          </p>
-        </div>
-      </section>
-
-      <div class="modules-grid reveal-up delay-100">
+      <div class="course-layout">
         
-        <article class="module-card">
-            <div class="mod-content">
-                <div class="mod-icon">📢</div>
-                <h2 class="mod-title">1. Вводный инструктаж</h2>
-                <p class="mod-desc">
-                    Базовые знания для допуска к работе. Общие требования, сигналы оповещения, пути эвакуации и запреты.
-                </p>
-                <div class="mod-actions">
-                    <a href="fire-intro-materials.html" class="btn-mod-primary">Изучить материалы</a>
-                    <a href="fire-intro-test.html" class="btn-mod-secondary">Пройти тест</a>
-                </div>
-            </div>
-        </article>
+        <div class="course-content">
+          
+          <div class="course-hero reveal-up" id="tilt-hero">
+            <span class="hero-badge">МЧС России № 1120</span>
+            <h1 class="hero-title">Обучение мерам пожарной безопасности</h1>
+            <p class="hero-desc">
+              Курс для всех категорий работников. Включает изучение требований противопожарного режима, действий при пожаре и правил применения огнетушителей.
+            </p>
+          </div>
 
-        <article class="module-card">
-            <div class="mod-content">
-                <div class="mod-icon">🧯</div>
-                <h2 class="mod-title">2. Инструктаж на месте</h2>
-                <p class="mod-desc">
-                    Специфика вашего рабочего места. Где находится огнетушитель, как обесточить оборудование и кого оповещать.
-                </p>
-                <div class="mod-actions">
-                    <a href="fire-workplace-materials.html" class="btn-mod-primary">Изучить материалы</a>
-                    <a href="fire-workplace-test.html" class="btn-mod-secondary">Пройти тест</a>
+          <div class="mandatory-block reveal-up delay-100">
+            <div class="mandatory-label">Обязательный этап</div>
+            <h2 class="mandatory-title">
+              <span style="font-size: 2rem;">📢</span> Вводный инструктаж
+            </h2>
+            <p class="mandatory-text">
+              Проходится всеми вновь принимаемыми на работу лицами до начала трудовой деятельности. Основы системы предотвращения пожаров и эвакуации.
+            </p>
+            
+            <a href="fire-intro.html" class="btn-start-big">
+              Начать вводный инструктаж ➔
+            </a>
+          </div>
+
+          <h3 style="margin-bottom: 20px; font-size: 1.4rem; color: #0f172a;" class="reveal-up delay-200">
+            Инструктаж на рабочем месте
+            <span style="font-size:0.9rem; color:#64748b; font-weight:400; margin-left:10px;">(повторный/первичный)</span>
+          </h3>
+
+          <div class="programs-grid reveal-up delay-200">
+            
+            <div class="prog-card">
+              <div class="prog-content">
+                <div class="prog-header">
+                  <div class="prog-icon">🧯</div>
+                  <span class="prog-badge">П/Р Инструктаж</span>
                 </div>
+                <h3 class="prog-title">Инструктаж на рабочем месте</h3>
+                <p class="prog-desc">Изучение плана эвакуации, мест расположения огнетушителей и специфики пожарной опасности вашего помещения.</p>
+                <a href="fire-workplace.html" class="btn-prog-link">Перейти к обучению</a>
+              </div>
             </div>
-        </article>
+
+          </div>
+
+        </div>
+
+        <aside class="course-sidebar reveal-up delay-100">
+          
+          <h4 class="npa-title">⚖️ Нормативная база</h4>
+          
+          <a href="https://www.consultant.ru/document/cons_doc_LAW_400247/" target="_blank" class="npa-link">
+            <span class="npa-icon">📜</span>
+            <div>
+              <div style="font-weight: 600;">Приказ МЧС № 806</div>
+              <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Порядок обучения</div>
+            </div>
+          </a>
+          
+          <a href="https://www.consultant.ru/document/cons_doc_LAW_34683/" target="_blank" class="npa-link">
+            <span class="npa-icon">🔥</span>
+            <div>
+              <div style="font-weight: 600;">ФЗ № 69-ФЗ</div>
+              <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">О пожарной безопасности</div>
+            </div>
+          </a>
+
+          <a href="https://www.consultant.ru/document/cons_doc_LAW_363260/" target="_blank" class="npa-link">
+            <span class="npa-icon">🏢</span>
+            <div>
+              <div style="font-weight: 600;">ППР РФ № 1479</div>
+              <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Правила противопожарного режима</div>
+            </div>
+          </a>
+
+        </aside>
 
       </div>
-
-      <div class="alert-zone reveal-up delay-200">
-        <div class="alert-header"><div class="alert-icon">🛑</div><h3 class="alert-title">СТРОГО ЗАПРЕЩЕНО</h3></div>
-        <div class="alert-grid">
-            <div class="alert-item">✖ Пользоваться лифтами при пожаре.</div>
-            <div class="alert-item">✖ Открывать окна (приток кислорода усилит горение).</div>
-            <div class="alert-item">✖ Загромождать эвакуационные выходы и проходы.</div>
-            <div class="alert-item">✖ Тушить электроприборы водой без обесточивания.</div>
-        </div>
-      </div>
-
-      <section style="margin: 50px 0;">
-        <h2 class="flip-section-title">🤔 Мифы о пожарах</h2>
-        <div class="flip-grid">
-            <div class="flip-card">
-                <div class="flip-inner">
-                    <div class="flip-front"><div class="flip-icon">🚪</div><div class="flip-label">Миф</div><div class="flip-text">"Если в коридоре дым, нужно быстро бежать к выходу."</div></div>
-                    <div class="flip-back"><div class="flip-icon">🙅‍♂️</div><div class="flip-label">Реальность</div><div class="flip-text">Дым токсичен. Пару вдохов — и потеря сознания. Нужно передвигаться ползком, прикрыв нос мокрой тканью.</div></div>
-                </div>
-            </div>
-            <div class="flip-card">
-                <div class="flip-inner">
-                    <div class="flip-front"><div class="flip-icon">🧯</div><div class="flip-label">Миф</div><div class="flip-text">"Огнетушителем можно тушить что угодно."</div></div>
-                    <div class="flip-back"><div class="flip-icon">⚡</div><div class="flip-label">Реальность</div><div class="flip-text">Пенные/водные огнетушители НЕЛЬЗЯ применять на электрооборудовании под напряжением. Нужен порошковый или углекислотный.</div></div>
-                </div>
-            </div>
-            <div class="flip-card">
-                <div class="flip-inner">
-                    <div class="flip-front"><div class="flip-icon">🪟</div><div class="flip-label">Миф</div><div class="flip-text">"Нужно разбить окно, чтобы подышать."</div></div>
-                    <div class="flip-back"><div class="flip-icon">🔥</div><div class="flip-label">Реальность</div><div class="flip-text">Приток свежего воздуха вызовет мгновенную вспышку пламени (обратная тяга). Не открывайте окна!</div></div>
-                </div>
-            </div>
-        </div>
-      </section>
 
     </div>
   </main>
@@ -281,6 +318,15 @@
       <p>© 2026 Служба Охраны Труда. Внутренний ресурс.</p>
     </div>
   </footer>
+
+  <div class="toast-notification" id="courseToast">
+    <div style="font-size: 1.5rem;">🚒</div>
+    <div>
+      <div style="font-weight: 700; font-size: 0.9rem; color: #0f172a;">Важно</div>
+      <div style="font-size: 0.85rem; color: #64748b;">Проверьте срок действия вашего удостоверения по ПБ.</div>
+    </div>
+    <div class="toast-close" style="margin-left:auto; cursor:pointer; color:#94a3b8;" onclick="document.getElementById('courseToast').style.display='none'">✕</div>
+  </div>
 
 </div>
 
@@ -321,7 +367,7 @@
       }
 
       // Card Spotlight
-      document.querySelectorAll('.module-card').forEach(card => {
+      document.querySelectorAll('.prog-card').forEach(card => {
         card.addEventListener('mousemove', e => {
           const rect = card.getBoundingClientRect();
           card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
@@ -329,6 +375,17 @@
         });
       });
     }
+
+    // 4. Авто-скрытие уведомления
+    setTimeout(() => {
+        const toast = document.getElementById('courseToast');
+        if(toast) {
+            toast.style.transition = "opacity 0.5s, transform 0.5s";
+            toast.style.opacity = "0";
+            toast.style.transform = "translateX(100%)";
+            setTimeout(() => toast.style.display = 'none', 500);
+        }
+    }, 8000);
   });
 </script>
 
