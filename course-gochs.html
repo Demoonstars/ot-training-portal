@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Материалы: Вводный инструктаж по ГО и ЧС</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Учебное пособие по гражданской обороне. Видеолекции, PDF, действия при ЧС и сигналы оповещения.">
+  <meta name="description" content="Учебное пособие по гражданской обороне. Действия при ЧС, сигналы оповещения, эвакуация и СИЗ.">
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -78,30 +78,6 @@
     .step-text h4 { margin: 0; font-size: 1rem; color: #1e293b; }
     .step-text p { margin: 2px 0 0; font-size: 0.85rem; color: #64748b; }
 
-    /* === VIDEO GRID (Specially for Videos) === */
-    .video-section-title { 
-        font-size: 1.4rem; font-weight: 800; margin: 0 0 25px; color: #1e40af; 
-        display: flex; align-items: center; gap: 10px;
-    }
-    .video-section-title::before { content: ""; display: block; width: 6px; height: 24px; background: #2563eb; border-radius: 4px; }
-    
-    .video-grid { 
-        display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 40px;
-    }
-    .video-card {
-      background: #fff; border-radius: 20px; overflow: hidden;
-      border: 1px solid rgba(37, 99, 235, 0.2); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: 0.3s;
-      /* Fix Mobile Visibility */
-      opacity: 1 !important; transform: none !important;
-    }
-    .video-container { 
-        position: relative; padding-bottom: 56.25%; height: 0; background: #000; z-index: 10; transform: translateZ(0); 
-    }
-    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-    .video-meta { padding: 20px; }
-    .vid-title { font-size: 1.05rem; font-weight: 700; margin: 0 0 8px; color: #1e293b; line-height: 1.4; }
-    .vid-desc { font-size: 0.9rem; color: #64748b; line-height: 1.5; }
-
     /* === SYLLABUS CARDS === */
     .syllabus-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 40px; }
     .syllabus-card { 
@@ -125,7 +101,7 @@
     .syl-list { margin: 0; padding-left: 20px; color: #64748b; font-size: 0.95rem; line-height: 1.6; }
     .syl-list li { margin-bottom: 5px; }
 
-    /* === ALERT ZONE (Blue) === */
+    /* === ALERT ZONE (Blue/Red Mix) === */
     .alert-zone {
       background: #f0f9ff; border: 1px solid #bae6fd; border-left: 5px solid #0284c7;
       border-radius: 16px; padding: 25px; margin-bottom: 40px;
@@ -288,44 +264,17 @@
       <div class="steps-container reveal-up delay-100">
         <div class="step-item">
             <div class="step-num">1</div>
-            <div class="step-text"><h4>Видео</h4><p>Изучите лекции</p></div>
+            <div class="step-text"><h4>Изучение</h4><p>Прочитайте PDF</p></div>
         </div>
         <div class="step-item">
             <div class="step-num">2</div>
-            <div class="step-text"><h4>Пособие</h4><p>Прочитайте PDF</p></div>
+            <div class="step-text"><h4>Мифы</h4><p>Разбор ошибок</p></div>
         </div>
         <div class="step-item">
             <div class="step-num">3</div>
             <div class="step-text"><h4>Тест</h4><p>Итоговая оценка</p></div>
         </div>
       </div>
-
-      <section class="reveal-up delay-200" id="videos">
-        <h2 class="video-section-title">Видеоматериалы курса</h2>
-        <div class="video-grid">
-          
-          <article class="video-card">
-            <div class="video-container">
-              <iframe src="https://kinescope.io/embed/t98BZrAsdu3tzhiMXf2Ymk" allowfullscreen></iframe>
-            </div>
-            <div class="video-meta">
-              <h3 class="vid-title">Самоспасатели</h3>
-              <p class="vid-desc">Виды и правила применения средств защиты органов дыхания.</p>
-            </div>
-          </article>
-
-          <article class="video-card">
-            <div class="video-container">
-              <iframe src="https://kinescope.io/embed/ed4Hq6Mt6XwMEfgyuG6beD" allowfullscreen></iframe>
-            </div>
-            <div class="video-meta">
-              <h3 class="vid-title">Защитные сооружения</h3>
-              <p class="vid-desc">Правила поведения в убежищах и укрытиях ГО.</p>
-            </div>
-          </article>
-
-        </div>
-      </section>
 
       <div class="syllabus-grid reveal-up delay-200">
         <div class="syllabus-card spotlight-card">
@@ -334,8 +283,8 @@
             <h3 class="syl-title">Права и обязанности</h3>
             <ul class="syl-list">
                <li>Право на защиту и информацию (ФЗ-68).</li>
-               [cite_start]<li>Обязанность соблюдать правила[cite: 19].</li>
-               [cite_start]<li>Изучение способов защиты[cite: 23].</li>
+               <li>Обязанность соблюдать правила.</li>
+               <li>Изучение способов защиты.</li>
             </ul>
           </div>
         </div>
@@ -344,9 +293,9 @@
             <span class="syl-icon" style="color: #f59e0b;">📢</span>
             <h3 class="syl-title">Сигналы оповещения</h3>
             <ul class="syl-list">
-               <li>Сигнал «Внимание всем!» (Сирены) [cite_start][cite: 172].</li>
-               [cite_start]<li>Действия по сигналу[cite: 173].</li>
-               [cite_start]<li>Текстовые сообщения МЧС[cite: 180].</li>
+               <li>Сигнал «Внимание всем!» (Сирены).</li>
+               <li>Действия по сигналу.</li>
+               <li>Текстовые сообщения МЧС.</li>
             </ul>
           </div>
         </div>
@@ -355,9 +304,9 @@
             <span class="syl-icon" style="color: #10b981;">🛡️</span>
             <h3 class="syl-title">Способы защиты</h3>
             <ul class="syl-list">
-               [cite_start]<li>Использование СИЗ (противогазы)[cite: 161].</li>
-               [cite_start]<li>Укрытие в защитных сооружениях[cite: 140].</li>
-               [cite_start]<li>Эвакуация в безопасные районы[cite: 152].</li>
+               <li>Использование СИЗ (противогазы).</li>
+               <li>Укрытие в защитных сооружениях.</li>
+               <li>Эвакуация в безопасные районы.</li>
             </ul>
           </div>
         </div>
@@ -394,7 +343,7 @@
             <div class="flip-card">
                 <div class="flip-inner">
                     <div class="flip-front"><div class="flip-icon">🏃‍♂️</div><div class="flip-label">Миф</div><div class="flip-text">"При сирене нужно бежать домой."</div></div>
-                    <div class="flip-back"><div class="flip-icon">📻</div><div class="flip-label">Реальность</div><div class="flip-text">Нужно включить ТВ или радио и прослушать сообщение. [cite_start]Беготня по улице может быть опасна[cite: 179].</div></div>
+                    <div class="flip-back"><div class="flip-icon">📻</div><div class="flip-label">Реальность</div><div class="flip-text">Нужно включить ТВ или радио и прослушать сообщение. Беготня по улице может быть опасна.</div></div>
                 </div>
             </div>
         </div>
@@ -422,6 +371,35 @@
         </div>
       </section>
 
+
+      <section class="reveal-up delay-200" id="videos">
+        <h2 class="video-section-title">Видеоматериалы курса</h2>
+        <div class="video-grid">
+          
+          <article class="video-card">
+            <div class="video-container">
+              <iframe src="https://kinescope.io/embed/t98BZrAsdu3tzhiMXf2Ymk" allowfullscreen></iframe>
+            </div>
+            <div class="video-meta">
+              <h3 class="vid-title">Самоспасатели</h3>
+              <p class="vid-desc">Виды и правила применения средств защиты органов дыхания.</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-container">
+              <iframe src="https://kinescope.io/embed/ed4Hq6Mt6XwMEfgyuG6beD" allowfullscreen></iframe>
+            </div>
+            <div class="video-meta">
+              <h3 class="vid-title">Защитные сооружения</h3>
+              <p class="vid-desc">Правила поведения в убежищах и укрытиях ГО.</p>
+            </div>
+          </article>
+
+        </div>
+      </section>
+      
+      
       <section class="faq-section reveal-up delay-200">
         <h2 class="faq-title">Вопросы для самоконтроля</h2>
         <p style="text-align:center; color:#64748b; margin-bottom:20px;">Проверьте знания перед тестом</p>
@@ -429,21 +407,21 @@
         <details class="faq-item">
             <summary class="faq-summary">Что означает сигнал "Внимание всем!"?</summary>
             <div class="faq-content">
-                [cite_start]Это предупредительный сигнал (звук сирен, гудков), после которого следует речевое сообщение о характере угрозы и действиях населения[cite: 172].
+                Это предупредительный сигнал (звук сирен, гудков), после которого следует речевое сообщение о характере угрозы и действиях населения.
             </div>
         </details>
         
         <details class="faq-item">
             <summary class="faq-summary">Куда идти при эвакуации?</summary>
             <div class="faq-content">
-                [cite_start]На Сборный эвакуационный пункт (СЭП), указанный в плане ГО организации, или в безопасный район, определенный администрацией[cite: 290].
+                На Сборный эвакуационный пункт (СЭП), указанный в плане ГО организации, или в безопасный район, определенный администрацией.
             </div>
         </details>
 
         <details class="faq-item">
             <summary class="faq-summary">Как защититься при выбросе аммиака?</summary>
             <div class="faq-content">
-                Использовать СИЗ. [cite_start]Если их нет — герметизировать помещение (заклеить окна)[cite: 354, 355]. При эвакуации выходить перпендикулярно направлению ветра.
+                Использовать СИЗ. Если их нет — герметизировать помещение (заклеить окна). При эвакуации выходить перпендикулярно направлению ветра.
             </div>
         </details>
       </section>
