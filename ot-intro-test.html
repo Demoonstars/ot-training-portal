@@ -82,7 +82,7 @@
       <span>←</span> Вернуться к материалам курса
     </a>
 
-    <section class="section-card spotlight-card">
+    <section class="section-card spotlight-card" id="info-card">
       <div class="status-badge" style="margin-bottom: 15px; color: var(--primary);">
         <span class="pulse-dot"></span> Обязательный контроль
       </div>
@@ -172,12 +172,13 @@
     })(window, document, "otp_widget_callbacks");
   }
 
-  // 3. ЛОГИКА РАЗБЛОКИРОВКИ И ИСЧЕЗНОВЕНИЯ
+  // 3. ЛОГИКА РАЗБЛОКИРОВКИ И ИСЧЕЗНОВЕНИЯ ВСЕХ КАРТОЧЕК
   const checkbox = document.getElementById('legal-checkbox');
   const btn = document.getElementById('unlock-btn');
   const lock = document.getElementById('test-lock');
   const consentSection = document.getElementById('consent-section');
-  const testWrapper = document.querySelector('.test-wrapper'); // Находим обертку теста
+  const infoCard = document.getElementById('info-card'); // Верхняя карточка
+  const testWrapper = document.querySelector('.test-wrapper');
   let widgetLoaded = false;
 
   checkbox.addEventListener('change', function() {
@@ -201,10 +202,12 @@
         widgetLoaded = true;
       }
 
-      // В. Плавное удаление блока согласия
+      // В. Схлопываем обе верхние карточки
       consentSection.classList.add('collapse-remove');
+      infoCard.classList.add('collapse-remove');
 
-      // Г. Прокрутка к тесту (через небольшую задержку, чтобы анимация началась)
+      // Г. Прокрутка к тесту
+      // Немного ждем, пока анимация начнет отрабатывать, чтобы скролл был плавным
       setTimeout(() => {
         testWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 300);
