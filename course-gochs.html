@@ -2,476 +2,495 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Вводный инструктаж по ГО и ЧС — Учебный портал</title>
+  <title>Материалы: Вводный инструктаж по ГО и ЧС</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description"
-        content="Вводный инструктаж по гражданской обороне и защите от чрезвычайных ситуаций. Права и обязанности, виды ЧС, способы защиты, СИЗ, эвакуация, действия при химической и радиационной аварии, видеоматериалы и итоговый тест.">
+  <meta name="description" content="Учебное пособие по гражданской обороне. Действия при ЧС, сигналы оповещения, эвакуация и СИЗ.">
   <link rel="stylesheet" href="assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@1,700&display=swap" rel="stylesheet">
+
+  <style>
+    /* === ТЕМА: ГО и ЧС (Синий/Индиго) === */
+    body.masterpiece-theme {
+      background: linear-gradient(-45deg, #eff6ff, #dbeafe, #e0f2fe, #f0f9ff);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* === PROGRESS BAR === */
+    .progress-container {
+      position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 2000; background: transparent;
+    }
+    .progress-bar {
+      height: 100%; background: #2563eb; width: 0%; transition: width 0.1s;
+      box-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
+    }
+
+    /* === BACK LINK === */
+    .breadcrumbs-bar { padding: 20px 0 10px; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px;
+      background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8);
+      border-radius: 99px; text-decoration: none; color: #64748b; font-weight: 600; font-size: 0.9rem;
+      transition: 0.3s; backdrop-filter: blur(5px);
+    }
+    .back-link:hover { background: #fff; color: #2563eb; transform: translateX(-5px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+
+    /* === HERO SECTION (3D TILT) === */
+    .glass-hero {
+      background: radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.1) 0%, rgba(255, 255, 255, 0.9) 100%);
+      border: 1px solid rgba(255,255,255,0.9);
+      border-radius: 24px; padding: 40px; margin-bottom: 30px;
+      position: relative; overflow: hidden; backdrop-filter: blur(20px);
+      box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.1);
+      transform-style: preserve-3d;
+      transform: perspective(1000px);
+    }
+    .hero-badge {
+      display: inline-block; padding: 6px 12px; background: #eff6ff; color: #1d4ed8;
+      border: 1px solid #bfdbfe; border-radius: 8px; font-weight: 700; font-size: 0.8rem;
+      margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .hero-title { font-size: 2rem; font-weight: 800; color: #0f172a; margin: 0 0 15px; line-height: 1.1; }
+    .hero-desc { font-size: 1.05rem; color: #475569; max-width: 800px; line-height: 1.6; }
+
+    /* === ROADMAP STEPS === */
+    .steps-container {
+      display: flex; justify-content: space-between; gap: 20px; margin-bottom: 40px; flex-wrap: wrap;
+    }
+    .step-item {
+      flex: 1; min-width: 250px; background: rgba(255,255,255,0.6); border: 1px solid #fff;
+      padding: 20px; border-radius: 16px; display: flex; align-items: center; gap: 15px;
+      transition: 0.3s;
+    }
+    .step-item:hover { background: #fff; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+    .step-num {
+      width: 40px; height: 40px; background: #2563eb; color: #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem;
+    }
+    .step-text h4 { margin: 0; font-size: 1rem; color: #1e293b; }
+    .step-text p { margin: 2px 0 0; font-size: 0.85rem; color: #64748b; }
+
+    /* === SYLLABUS CARDS === */
+    .syllabus-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 40px; }
+    .syllabus-card { 
+      background: rgba(255,255,255,0.8); border-radius: 20px; padding: 2px; 
+      position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.5);
+    }
+    .syllabus-card::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(37, 99, 235, 0.15), transparent 40%);
+      opacity: 0; transition: opacity 0.5s; z-index: 0; pointer-events: none;
+    }
+    .syllabus-card:hover::before { opacity: 1; }
+    
+    .syllabus-inner {
+      background: #fff; border-radius: 18px; padding: 24px; height: 100%; 
+      position: relative; z-index: 1; display: flex; flex-direction: column;
+    }
+    .syl-icon { font-size: 2rem; margin-bottom: 15px; display: inline-block; transition: transform 0.3s; }
+    .syllabus-card:hover .syl-icon { transform: scale(1.2) rotate(5deg); }
+    .syl-title { font-size: 1.15rem; font-weight: 700; color: #1e293b; margin: 0 0 10px; }
+    .syl-list { margin: 0; padding-left: 20px; color: #64748b; font-size: 0.95rem; line-height: 1.6; }
+    .syl-list li { margin-bottom: 5px; }
+
+    /* === ALERT ZONE (Blue/Red Mix) === */
+    .alert-zone {
+      background: #f0f9ff; border: 1px solid #bae6fd; border-left: 5px solid #0284c7;
+      border-radius: 16px; padding: 25px; margin-bottom: 40px;
+    }
+    .alert-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+    .alert-icon { font-size: 1.5rem; color: #0284c7; }
+    .alert-title { font-size: 1.2rem; font-weight: 800; color: #075985; margin: 0; }
+    .alert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+    .alert-item { display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #0369a1; font-weight: 500; }
+
+    /* === FLIP CARDS === */
+    .flip-section-title { font-size: 1.5rem; font-weight: 700; color: #0f172a; margin: 0 0 20px; text-align: center; }
+    .flip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px; }
+    .flip-card { background-color: transparent; height: 240px; perspective: 1000px; cursor: pointer; }
+    .flip-inner {
+      position: relative; width: 100%; height: 100%; text-align: center;
+      transition: transform 0.6s; transform-style: preserve-3d;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1); border-radius: 20px;
+    }
+    .flip-card:hover .flip-inner { transform: rotateY(180deg); }
+    .flip-front, .flip-back {
+      position: absolute; width: 100%; height: 100%;
+      -webkit-backface-visibility: hidden; backface-visibility: hidden;
+      border-radius: 20px; padding: 20px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; border: 1px solid #e2e8f0;
+    }
+    .flip-front { background-color: #fff; color: #1e293b; }
+    .flip-back { background-color: #0f172a; color: white; transform: rotateY(180deg); }
+    .flip-icon { font-size: 3rem; margin-bottom: 10px; }
+    .flip-text { font-size: 1rem; font-weight: 600; line-height: 1.4; }
+    .flip-label { text-transform: uppercase; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 10px; opacity: 0.7; }
+
+    /* === PDF VIEWER === */
+    .pdf-viewer-section {
+      background: #fff; border-radius: 24px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 20px 50px -10px rgba(0,0,0,0.05); margin-bottom: 40px;
+    }
+    .pdf-toolbar {
+      background: #eff6ff; padding: 20px 30px; border-bottom: 1px solid #bfdbfe;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+    }
+    .btn-download-lg {
+      display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px; background: #2563eb;
+      color: #fff; border-radius: 12px; font-weight: 600; text-decoration: none; transition: 0.3s;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    }
+    .btn-download-lg:hover { background: #1d4ed8; transform: translateY(-2px); }
+    .pdf-frame-container { height: 800px; background: #525659; }
+    .pdf-frame-container iframe { width: 100%; height: 100%; border: none; }
+
+    /* === FAQ ACCORDION === */
+    .faq-section { margin-bottom: 40px; }
+    .faq-title { text-align: center; font-size: 1.8rem; font-weight: 700; color: #0f172a; margin-bottom: 25px; }
+    .faq-item {
+      background: #fff; border-radius: 16px; margin-bottom: 10px; border: 1px solid #e2e8f0;
+      overflow: hidden; transition: 0.3s;
+    }
+    .faq-item:hover { border-color: #93c5fd; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+    .faq-summary {
+      padding: 18px 24px; cursor: pointer; font-weight: 600; color: #1e293b;
+      display: flex; justify-content: space-between; align-items: center; list-style: none;
+    }
+    .faq-summary::-webkit-details-marker { display: none; }
+    .faq-summary::after { content: "+"; font-size: 1.5rem; color: #94a3b8; transition: 0.3s; }
+    details[open] .faq-summary::after { transform: rotate(45deg); color: #2563eb; }
+    .faq-content { padding: 0 24px 24px; color: #64748b; font-size: 0.95rem; line-height: 1.6; }
+
+    /* === FINAL CTA === */
+    .test-zone {
+      background: #fff; border-radius: 24px; padding: 40px; 
+      text-align: center; box-shadow: 0 20px 50px -10px rgba(0,0,0,0.1); border: 1px solid #e2e8f0;
+    }
+    
+    .btn-magic {
+      position: relative; display: inline-flex; justify-content: center; align-items: center;
+      padding: 16px 32px; font-size: 1rem; font-weight: 700; color: #ffffff;
+      background: #0f172a; border-radius: 99px; text-decoration: none; overflow: hidden; z-index: 10;
+      transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2);
+    }
+    .btn-magic::before {
+      content: ""; position: absolute; top: 50%; left: 50%; width: 300%; height: 300%;
+      background: conic-gradient(transparent 0deg, transparent 260deg, #3b82f6 280deg, #60a5fa 320deg, #93c5fd 360deg);
+      transform: translate(-50%, -50%); animation: rotate-border 4s linear infinite; z-index: -2;
+    }
+    .btn-magic::after { content: ""; position: absolute; inset: 2px; background: #0f172a; border-radius: 99px; z-index: -1; }
+    .btn-magic:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(59, 130, 246, 0.3); }
+    @keyframes rotate-border { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+
+    /* Header Status */
+    .system-status-pulse {
+      display: inline-block; width: 8px; height: 8px;
+      background-color: #10b981; border-radius: 50%;
+      box-shadow: 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulse-green 2s infinite; margin-right: 6px;
+    }
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
+    @media (max-width: 900px) { .header-meta { display: none; } }
+    @media (max-width: 768px) { .pdf-frame-container { height: 500px; } }
+  </style>
 </head>
+<body class="masterpiece-theme">
 
-<!-- Тема ГО и ЧС: синий → оранжевый -->
-<body class="gochs-theme">
-<a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+<div class="progress-container">
+  <div class="progress-bar" id="readingProgress"></div>
+</div>
 
-<header class="site-header">
-  <div class="container header-inner">
-    <div class="header-brand">
-      <p class="site-label">Дистанционный учебный портал</p>
-      <h1 class="site-title">Охрана труда, пожарная безопасность, первая помощь, ГО/ЧС</h1>
-      <p class="site-subtitle">
-        Дистанционное обучение работников и проверка знаний требований охраны труда и безопасности.
-      </p>
-    </div>
+<a class="skip-link" href="#main-content">Перейти к контенту</a>
 
-    <nav class="main-nav" aria-label="Основная навигация">
-      <ul class="nav-list">
-        <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
-        <li class="nav-item"><a href="programs.html" class="nav-link nav-link-active">Программы обучения</a></li>
-        <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции для сотрудников</a></li>
-        <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Информация для ответственных за обучение</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-<main id="main-content" class="site-main">
-  <div class="container">
-
-    <!-- Кнопка возврата -->
-    <nav class="back-nav">
-      <a href="programs.html" class="back-link">
-        <span class="back-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" class="back-svg">
-            <path d="M15 6l-6 6 6 6"
-                  stroke="white"
-                  stroke-width="2"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round" />
-          </svg>
-        </span>
-        <span class="back-text">Вернуться к программам обучения</span>
-      </a>
-    </nav>
-
-    <!-- Герой-блок курса ГО и ЧС -->
-    <section class="section section-card fire-hero-card">
-      <div class="fire-hero-label">Курс</div>
-      <h2 class="fire-hero-title">Вводный инструктаж по ГО и ЧС</h2>
-      <p class="fire-hero-lead">
-        Курс знакомит работников с основами гражданской обороны, защитой от чрезвычайных ситуаций природного
-        и техногенного характера, а также правилами поведения при военных конфликтах и крупных авариях.
-      </p>
-      <p class="fire-hero-text">
-        Материал разработан с учётом требований законодательства РФ в области гражданской обороны и защиты населения
-        от ЧС и помогает работникам понимать возможные опасности и правильно действовать при их возникновении.
-      </p>
-
-      <div class="fire-hero-tags">
-        <span class="fire-tag fire-tag-basic">ГО и ЧС</span>
-        <span class="fire-tag fire-tag-workplace">Вводный инструктаж</span>
-        <span class="fire-tag fire-tag-law">ФЗ № 28, ФЗ № 68, КоАП РФ</span>
-      </div>
-    </section>
-
-    <!-- Быстрый переход к тесту -->
-    <section class="section section-card fire-test-block">
-      <h2 class="fire-block-title">Уже проходили этот курс и уверены в своих знаниях?</h2>
-      <p>
-        Если вы ранее изучали раздел по ГО и ЧС и проходите только повторную проверку знаний, можно сразу перейти
-        к итоговому тесту по курсу без повторного просмотра всех материалов.
-      </p>
-      <div class="test-actions">
-        <a href="gochs-final-test.html" class="btn btn-primary btn-test-link">
-          Перейти к итоговому тесту по ГО и ЧС
-        </a>
-      </div>
-      <p class="test-hint">
-        При неудовлетворительном результате теста рекомендуется вернуться к урокам и повторно изучить темы,
-        по которым допущены ошибки.
-      </p>
-    </section>
-
-    <!-- Учебные материалы -->
-    <section class="section section-card course-materials">
-      <h2 class="fire-block-title">Учебные материалы курса</h2>
-      <p>
-        Полный текст вводного инструктажа по ГО и ЧС доступен в формате PDF. Пособие можно пролистывать прямо
-        на сайте с компьютера и мобильного устройства или скачать для офлайн-просмотра.
-      </p>
-
-      <a href="gochs-materials.html" class="material-download-card">
-        <span class="material-icon-wrap">
-          <span class="material-icon">📗</span>
-        </span>
-
-        <span class="material-text">
-          <span class="material-label">Учебное пособие</span>
-          <span class="material-title">«Вводный инструктаж по ГО и ЧС»</span>
-          <span class="material-meta">Полная версия • PDF</span>
-        </span>
-
-        <span class="material-badge">Открыть онлайн</span>
-      </a>
-    </section>
-
-    <!-- Основной контент курса -->
-    <article class="section section-card fire-course-card" id="gochs-course">
-      <header class="fire-course-header">
-        <div class="course-chip course-chip-1">ГО и ЧС</div>
-        <div>
-          <h2 class="fire-course-title">
-            Структура и содержание курса
-          </h2>
-          <p class="fire-course-subtitle">
-            Курс разбит на тематические уроки: права и обязанности граждан, виды чрезвычайных ситуаций,
-            действия работников, способы защиты и использование средств индивидуальной защиты, эвакуация и
-            поведение при химической и радиационной аварии.
-          </p>
+<div class="glass-wrapper">
+  
+  <header class="site-header transparent-header">
+    <div class="container header-inner">
+      <div class="header-brand">
+        <div class="brand-logo">
+          <img src="assets/Филин от.png" alt="Логотип СДО" style="width: 100%; height: 100%; object-fit: contain;">
         </div>
-      </header>
-
-      <!-- 1. Права и обязанности граждан -->
-      <section class="fire-block" id="gochs-rights">
-        <h3 class="fire-block-title">1. Права и обязанности граждан РФ в области ГО и ЧС</h3>
-        <p>
-          Права граждан РФ в области защиты населения и территорий от чрезвычайных ситуаций установлены
-          <strong>статьёй 18 Федерального закона № 68-ФЗ</strong>. Граждане имеют право:
-        </p>
-        <ul class="module-list fire-module-list">
-          <li>на защиту жизни, здоровья и имущества при угрозе и возникновении ЧС;</li>
-          <li>на получение информации об опасностях, возможных ЧС и принимаемых мерах защиты;</li>
-          <li>на обеспечение средствами коллективной и индивидуальной защиты в случаях, предусмотренных законом;</li>
-          <li>на обучение способам защиты и действиям при угрозе и возникновении ЧС.</li>
+        <div>
+          <h1 class="site-title-mini">СДО</h1>
+          <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
+        </div>
+      </div>
+      <div class="header-meta">
+        <span id="current-date">Загрузка...</span>
+        <span style="display:flex; align-items:center;"><span class="system-status-pulse"></span> Online</span>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Главная</a></li>
+          <li><a href="programs.html" class="nav-link nav-link-active active">Каталог программ</a></li>
+          <li><a href="instructions.html" class="nav-link">Инструкции</a></li>
+          <li><a href="for-responsibles.html" class="nav-link">Ответственным</a></li>
         </ul>
+      </nav>
+    </div>
+  </header>
 
-        <p>
-          Обязанности граждан РФ определены <strong>статьёй 19 Федерального закона № 68-ФЗ</strong>.
-          Они обязаны соблюдать установленные правила поведения, изучать способы защиты, выполнять
-          законные требования органов управления ГО и ЧС и при необходимости участвовать в мероприятиях по защите.
-        </p>
+  <main id="main-content" class="site-main">
+    <div class="container">
 
-        <p>
-          Работники организаций проходят подготовку в области ГО и участвуют в мероприятиях по защите от ЧС
-          (<strong>ст. 10 ФЗ № 28-ФЗ</strong>). Эти обязанности могут закрепляться в трудовом договоре
-          или дополнительном соглашении.
-        </p>
-
-        <h4>Что должен знать работник</h4>
-        <ol class="module-list fire-module-list">
-          <li>Источники опасностей и виды ЧС, характерные для организации и территории.</li>
-          <li>Сигналы оповещения и способы информирования о ЧС и военных конфликтах.</li>
-          <li>Способы защиты и порядок действий при угрозе и возникновении ЧС.</li>
-          <li>Места хранения СИЗ и средств коллективной защиты.</li>
-        </ol>
-
-        <h4>Что работник должен уметь</h4>
-        <ul class="module-list fire-module-list">
-          <li>действовать по сигналам оповещения;</li>
-          <li>действовать при объявлении эвакуации;</li>
-          <li>правильно пользоваться СИЗ и СКЗ.</li>
-        </ul>
-
-        <h4>Ответственность за нарушения</h4>
-        <p>
-          За нарушение законодательства в области ГО и защиты от ЧС предусмотрена административная ответственность,
-          в том числе штрафы для граждан, должностных лиц и организаций.
-        </p>
-      </section>
-
-      <!-- 2. ЧС природного и техногенного характера -->
-      <section class="fire-block" id="gochs-types">
-        <h3 class="fire-block-title">2. ЧС природного и техногенного характера: опасности и последствия</h3>
-        <p>
-          Чрезвычайная ситуация — это обстановка на определённой территории, сложившаяся в результате аварии,
-          опасного природного явления, катастрофы, стихийного или иного бедствия, которая может повлечь
-          человеческие жертвы, ущерб здоровью людей и окружающей среде, значительные материальные потери.
-        </p>
-
-        <h4>ЧС природного характера</h4>
-        <ul class="module-list fire-module-list">
-          <li>землетрясения, наводнения, паводки;</li>
-          <li>лесные и торфяные пожары;</li>
-          <li>опасные метеорологические и гидрологические явления;</li>
-          <li>оползни, сели, лавины.</li>
-        </ul>
-
-        <h4>ЧС техногенного характера</h4>
-        <ul class="module-list fire-module-list">
-          <li>аварии на промышленных и радиационно-опасных объектах;</li>
-          <li>взрывы и пожары на производствах и складах;</li>
-          <li>аварии на транспорте, в энергетике и ЖКХ;</li>
-          <li>разливы нефти и нефтепродуктов, выбросы АХОВ.</li>
-        </ul>
-
-        <p>
-          Анализ возможных ЧС на предприятии — обязательная часть планирования мероприятий по предупреждению
-          и ликвидации последствий.
-        </p>
-      </section>
-
-      <!-- 3. Опасности и действия работников -->
-      <section class="fire-block" id="gochs-risks">
-        <h3 class="fire-block-title">3. Опасности на производстве и действия работников</h3>
-        <p>
-          Работник должен знать опасные и вредные производственные факторы на своём рабочем месте и в организации
-          в целом, а также правила поведения при стихийных бедствиях и техногенных авариях.
-        </p>
-
-        <h4>Основные опасности</h4>
-        <ul class="module-list fire-module-list">
-          <li>шум, вибрация, неблагоприятное освещение;</li>
-          <li>пыль, аэрозоли, вредные вещества в воздухе рабочей зоны;</li>
-          <li>риск пожара, взрыва, обрушения конструкций;</li>
-          <li>опасные факторы при эксплуатации инженерных сетей и оборудования.</li>
-        </ul>
-
-        <h4>Социальные факторы возникновения ЧС</h4>
-        <ul class="module-list fire-module-list">
-          <li>пронос на территорию организации опасных веществ;</li>
-          <li>умышленные поджоги и вмешательство в работу оборудования;</li>
-          <li>нарушение правил эксплуатации электроприборов;</li>
-          <li>несоблюдение требований инструкций по безопасности.</li>
-        </ul>
-      </section>
-
-      <!-- 4. Способы защиты -->
-      <section class="fire-block" id="gochs-protection">
-        <h3 class="fire-block-title">4. Способы защиты работников от ЧС</h3>
-        <p>
-          Современная система защиты работников включает три основных направления:
-        </p>
-        <ol class="module-list fire-module-list">
-          <li><strong>Укрытие в защитных сооружениях ГО.</strong></li>
-          <li><strong>Эвакуация и рассредоточение в безопасные районы.</strong></li>
-          <li><strong>Использование средств индивидуальной защиты.</strong></li>
-        </ol>
-
-        <p>
-          СИЗ, как правило, используют работники организаций, отнесённых к категориям по ГО, а также те, кто может
-          оказаться в зоне химического, радиационного или иного заражения.
-        </p>
-
-        <!-- Видео по СИЗ/самоспасателям -->
-        <section class="fire-block">
-          <h4 class="fire-block-title">Видео: применение самоспасателей</h4>
-          <p>
-            В видеоролике рассматриваются виды самоспасателей, правила их применения и наиболее частые ошибки
-            пользователей.
-          </p>
-          <div class="video-grid-fire">
-            <article class="video-card-fire">
-              <h5>Самоспасатели: виды и правила применения</h5>
-              <div class="video-frame-wrapper">
-                <iframe
-                  src="https://kinescope.io/embed/t98BZrAsdu3tzhiMXf2Ymk"
-                  allowfullscreen
-                  loading="lazy"
-                  title="Самоспасатели: виды и правила применения"
-                ></iframe>
-              </div>
-            </article>
-          </div>
-        </section>
-      </section>
-
-      <!-- 5. Сигналы оповещения -->
-      <section class="fire-block" id="gochs-signals">
-        <h3 class="fire-block-title">5. Сигналы ГО и оповещение при ЧС</h3>
-        <p>
-          Единый сигнал оповещения <strong>«Внимание всем!»</strong> подают включением сирен, электросирен и других
-          средств, после чего по радио, телевидению или другим каналам связи передаётся текстовое сообщение
-          о возможной угрозе и порядке действий.
-        </p>
-
-        <h4>Способы подачи сигнала</h4>
-        <ul class="module-list fire-module-list">
-          <li>сирены и локальные системы оповещения;</li>
-          <li>СМС- и e-mail-рассылки, мессенджеры;</li>
-          <li>автоматизированные системы оповещения.</li>
-        </ul>
-
-        <p>
-          Сигналы гражданской обороны («ЮПИТЕР», «КЛИНОВЫЙ ЛУЧ» и др.) имеют словесно-числовые обозначения и
-          доводятся до ограниченного круга должностных лиц. Работники действуют по указаниям руководства.
-        </p>
-      </section>
-
-      <!-- 6. СИЗ и пункт выдачи -->
-      <section class="fire-block" id="gochs-ppe">
-        <h3 class="fire-block-title">6. Средства индивидуальной защиты (СИЗ): выдача и проверка</h3>
-        <p>
-          СИЗ предназначены для защиты органов дыхания и кожи от отравляющих веществ, АХОВ, радиоактивной пыли
-          и бактериальных аэрозолей. Работников обеспечивают СИЗ в организациях, которые могут попасть в зоны
-          химического, радиационного или иного заражения.
-        </p>
-
-        <h4>Пункт выдачи СИЗ</h4>
-        <p>
-          Пункты выдачи СИЗ создают по решению руководителя организации. Они действуют как временные формирования
-          для обеспечения работников средствами защиты в соответствии с планами ГО.
-        </p>
-
-        <h4>Проверка СИЗ при получении</h4>
-        <ul class="module-list fire-module-list">
-          <li>целостность корпусов и отсутствие коррозии;</li>
-          <li>эластичность резины масок, отсутствие трещин;</li>
-          <li>исправность клапанов вдоха и выдоха;</li>
-          <li>состояние сумок, ремней, соединительных трубок.</li>
-        </ul>
-
-        <h4>Надевание противогаза</h4>
-        <p>
-          Противогаз надевают по команде <strong>«Газы»</strong>. Необходимо закрыть глаза, задержать дыхание,
-          надеть маску резким движением, сделать выдох и проверить прилегание.
-        </p>
-      </section>
-
-      <!-- 7. Эвакуация -->
-      <section class="fire-block" id="gochs-evacuation">
-        <h3 class="fire-block-title">7. Эвакуация работников</h3>
-        <p>
-          В зависимости от времени и сроков проведения различают <strong>упреждающую</strong> и
-          <strong>экстренную</strong> эвакуацию. По масштабам — локальную, местную и региональную.
-        </p>
-
-        <p>
-          В организациях, не работающих в военное время, эвакуацию проводят по путям эвакуации, указанным на
-          планах эвакуации: по лестницам и коридорам в сторону выходов наружу. Использование лифтов запрещено.
-        </p>
-
-        <p>
-          В организациях, продолжающих работу в военное время, разрабатывают планы рассредоточения работников
-          и членов их семей в безопасные районы и создают эвакуационные комиссии.
-        </p>
-      </section>
-
-      <!-- 8. Защитные сооружения ГО -->
-      <section class="fire-block" id="gochs-shelters">
-        <h3 class="fire-block-title">8. Защитные сооружения ГО</h3>
-        <p>
-          При ЧС и военных конфликтах работников укрывают в защитных сооружениях гражданской обороны (ЗС ГО).
-          Учет таких сооружений ведут территориальные органы МЧС России. При отсутствии собственных ЗС работников
-          приписывают к сооружениям в установленном радиусе.
-        </p>
-
-        <h4>Обозначение ЗС ГО</h4>
-        <ul class="module-list fire-module-list">
-          <li>табличка с инвентарным номером и принадлежностью;</li>
-          <li>указание мест хранения ключей и ответственных лиц;</li>
-          <li>указатели маршрутов движения с надписью «УБЕЖИЩЕ» или «УКРЫТИЕ».</li>
-        </ul>
-
-        <!-- Видео по правилам пребывания в ЗС -->
-        <section class="fire-block">
-          <h4 class="fire-block-title">Видео: правила поведения в защитном сооружении</h4>
-          <p>
-            Ролик поясняет, как вести себя в убежище, что можно и нельзя делать, и как организуется пребывание людей
-            в условиях ограниченного пространства.
-          </p>
-          <div class="video-grid-fire">
-            <article class="video-card-fire">
-              <h5>Как вести себя в защитном сооружении ГО</h5>
-              <div class="video-frame-wrapper">
-                <iframe
-                  src="https://kinescope.io/embed/ed4Hq6Mt6XwMEfgyuG6beD"
-                  allowfullscreen
-                  loading="lazy"
-                  title="Как вести себя в защитном сооружении ГО"
-                ></iframe>
-              </div>
-            </article>
-          </div>
-        </section>
-      </section>
-
-      <!-- 9. Химические и радиационные аварии -->
-      <section class="fire-block" id="gochs-chem">
-        <h3 class="fire-block-title">9. Действия при химической аварии и радиоактивном загрязнении</h3>
-        <p>
-          При авариях с выбросом аварийно-химически опасных или радиоактивных веществ используют СИЗ органов
-          дыхания и кожи и выполняют указания руководства и служб ГО и ЧС.
-        </p>
-
-        <h4>Пример ситуации</h4>
-        <p>
-          Рядом с организацией произошёл выброс аммиака. Облако заражённого воздуха движется в сторону предприятия.
-          Население оповещено через системы оповещения и СМИ.
-        </p>
-
-        <h4>Действия работника</h4>
-        <ul class="module-list fire-module-list">
-          <li>немедленно надеть СИЗ органов дыхания и кожи (при наличии);</li>
-          <li>по указанию руководителя загерметизировать помещение;</li>
-          <li>не покидать помещение без распоряжения;</li>
-          <li>отключить вентиляцию, кондиционеры и необязательное оборудование;</li>
-          <li>при дальнейшем указании — укрыться в ЗС ГО или подвальных помещениях.</li>
-        </ul>
-
-        <h4>Герметизация помещений</h4>
-        <ul class="module-list fire-module-list">
-          <li>плотно закрыть окна, форточки, двери, вентиляционные отверстия;</li>
-          <li>проклеить щели скотчем или заложить влажной тканью;</li>
-          <li>отключить вентиляцию и кондиционеры;</li>
-          <li>избегать выходов наружу до отмены режима.</li>
-        </ul>
-      </section>
-
-      <!-- Итоговый тест и повторное пособие -->
-      <section class="fire-block fire-test-block" id="gochs-test">
-        <h3 class="fire-block-title">Итоговый тест по ГО и ЧС</h3>
-        <p>
-          Перед прохождением теста рекомендуется ещё раз при необходимости просмотреть учебное пособие.
-          Открыть его можно по карточке ниже.
-        </p>
-
-        <!-- Та же карточка учебного пособия, что и наверху -->
-        <a href="gochs-materials.html" class="material-download-card">
-          <span class="material-icon-wrap">
-            <span class="material-icon">📗</span>
-          </span>
-
-          <span class="material-text">
-            <span class="material-label">Учебное пособие</span>
-            <span class="material-title">«Вводный инструктаж по ГО и ЧС»</span>
-            <span class="material-meta">Полная версия • PDF</span>
-          </span>
-
-          <span class="material-badge">Открыть онлайн</span>
+      <div class="breadcrumbs-bar">
+        <a href="course-gochs.html" class="back-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Вернуться к курсу «ГО и ЧС»
         </a>
+      </div>
 
-        <p>
-          После изучения всех уроков и материалов пройдите итоговый тест. Результаты используются ответственными
-          за обучение для оформления документов о прохождении вводного инструктажа по ГО и ЧС.
+      <section class="glass-hero reveal-up" id="tilt-hero">
+        <span class="hero-badge">Учебное пособие</span>
+        <h1 class="hero-title">Вводный инструктаж по ГО и ЧС</h1>
+        <p class="hero-desc">
+          Права и обязанности граждан, действия при сигнале «Внимание всем!», использование средств защиты, эвакуация и правила поведения в чрезвычайных ситуациях.
         </p>
+      </section>
 
-        <div class="test-actions">
-          <a href="gochs-final-test.html" class="btn btn-primary btn-test-link">
-            Перейти к итоговому тесту по ГО и ЧС
+      <div class="steps-container reveal-up delay-100">
+        <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text"><h4>Изучение</h4><p>Прочитайте PDF</p></div>
+        </div>
+        <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text"><h4>Мифы</h4><p>Разбор ошибок</p></div>
+        </div>
+        <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text"><h4>Тест</h4><p>Итоговая оценка</p></div>
+        </div>
+      </div>
+
+      <div class="syllabus-grid reveal-up delay-200">
+        <div class="syllabus-card spotlight-card">
+          <div class="syllabus-inner">
+            <span class="syl-icon" style="color: #2563eb;">⚖️</span>
+            <h3 class="syl-title">Права и обязанности</h3>
+            <ul class="syl-list">
+               <li>Право на защиту и информацию (ФЗ-68).</li>
+               <li>Обязанность соблюдать правила.</li>
+               <li>Изучение способов защиты.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="syllabus-card spotlight-card">
+          <div class="syllabus-inner">
+            <span class="syl-icon" style="color: #f59e0b;">📢</span>
+            <h3 class="syl-title">Сигналы оповещения</h3>
+            <ul class="syl-list">
+               <li>Сигнал «Внимание всем!» (Сирены).</li>
+               <li>Действия по сигналу.</li>
+               <li>Текстовые сообщения МЧС.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="syllabus-card spotlight-card">
+          <div class="syllabus-inner">
+            <span class="syl-icon" style="color: #10b981;">🛡️</span>
+            <h3 class="syl-title">Способы защиты</h3>
+            <ul class="syl-list">
+               <li>Использование СИЗ (противогазы).</li>
+               <li>Укрытие в защитных сооружениях.</li>
+               <li>Эвакуация в безопасные районы.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert-zone reveal-up delay-200">
+        <div class="alert-header">
+            <div class="alert-icon">⚠️</div>
+            <h3 class="alert-title">ВАЖНЫЕ ЗАПРЕТЫ И ПРАВИЛА</h3>
+        </div>
+        <div class="alert-grid">
+            <div class="alert-item">✖ Не игнорируйте сигналы сирен и оповещения.</div>
+            <div class="alert-item">✖ Не поддавайтесь панике и не распространяйте слухи.</div>
+            <div class="alert-item">✖ Не трогайте неизвестные предметы (риск теракта).</div>
+            <div class="alert-item">✖ Не покидайте укрытие до отбоя тревоги.</div>
+        </div>
+      </div>
+
+      <section style="margin: 50px 0;" class="reveal-up delay-200">
+        <h2 class="flip-section-title">🤔 Мифы о Гражданской обороне</h2>
+        <div class="flip-grid">
+            <div class="flip-card">
+                <div class="flip-inner">
+                    <div class="flip-front"><div class="flip-icon">🏢</div><div class="flip-label">Миф</div><div class="flip-text">"Любой подвал — это бомбоубежище."</div></div>
+                    <div class="flip-back"><div class="flip-icon">🏗️</div><div class="flip-label">Реальность</div><div class="flip-text">Нет. Защитное сооружение (ЗС ГО) должно быть герметичным и иметь вентиляцию. Обычный подвал — это просто "заглубленное помещение".</div></div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-inner">
+                    <div class="flip-front"><div class="flip-icon">😷</div><div class="flip-label">Миф</div><div class="flip-text">"Марлевая повязка спасет от хлора."</div></div>
+                    <div class="flip-back"><div class="flip-icon">🧪</div><div class="flip-label">Реальность</div><div class="flip-text">Нет. От АХОВ (хлор, аммиак) защищают только промышленные противогазы с соответствующими фильтрами.</div></div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-inner">
+                    <div class="flip-front"><div class="flip-icon">🏃‍♂️</div><div class="flip-label">Миф</div><div class="flip-text">"При сирене нужно бежать домой."</div></div>
+                    <div class="flip-back"><div class="flip-icon">📻</div><div class="flip-label">Реальность</div><div class="flip-text">Нужно включить ТВ или радио и прослушать сообщение. Беготня по улице может быть опасна.</div></div>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      <section class="pdf-viewer-section reveal-up delay-200" id="materials">
+        <div class="pdf-toolbar">
+          <div class="doc-meta">
+            <h3 style="margin:0; font-size:1.1rem; color:#0f172a; font-weight:700;">
+              📘 Учебное пособие
+            </h3>
+            <span style="font-size:0.9rem; color:#64748b;">PDF • Полная версия</span>
+          </div>
+          <a href="assets/Вводный инструктаж по ГО и ЧС.pdf" target="_blank" class="btn-download-lg">
+            Открыть / Скачать 📥
           </a>
         </div>
-
-        <p class="test-hint">
-          При возникновении вопросов по содержанию курса вы можете вернуться к соответствующему разделу
-          с помощью навигации по странице.
-        </p>
+        
+        <div class="pdf-frame-container">
+          <iframe 
+            src="assets/Вводный инструктаж по ГО и ЧС.pdf#toolbar=0&navpanes=0&scrollbar=0" 
+            title="Учебное пособие PDF"
+            loading="lazy">
+          </iframe>
+        </div>
       </section>
-    </article>
 
-  </div>
-</main>
+      <section class="faq-section reveal-up delay-200">
+        <h2 class="faq-title">Вопросы для самоконтроля</h2>
+        <p style="text-align:center; color:#64748b; margin-bottom:20px;">Проверьте знания перед тестом</p>
+        
+        <details class="faq-item">
+            <summary class="faq-summary">Что означает сигнал "Внимание всем!"?</summary>
+            <div class="faq-content">
+                Это предупредительный сигнал (звук сирен, гудков), после которого следует речевое сообщение о характере угрозы и действиях населения.
+            </div>
+        </details>
+        
+        <details class="faq-item">
+            <summary class="faq-summary">Куда идти при эвакуации?</summary>
+            <div class="faq-content">
+                На Сборный эвакуационный пункт (СЭП), указанный в плане ГО организации, или в безопасный район, определенный администрацией.
+            </div>
+        </details>
 
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <p class="footer-text">
-      Учебный портал дистанционного обучения по охране труда, пожарной безопасности,
-      первой помощи и ГО/ЧС.
-    </p>
-    <p class="footer-text footer-text-muted">
-      Конкретный порядок обучения определяется работодателем.
-    </p>
-  </div>
-</footer>
+        <details class="faq-item">
+            <summary class="faq-summary">Как защититься при выбросе аммиака?</summary>
+            <div class="faq-content">
+                Использовать СИЗ. Если их нет — герметизировать помещение (заклеить окна). При эвакуации выходить перпендикулярно направлению ветра.
+            </div>
+        </details>
+      </section>
+
+      <div class="test-zone">
+        <h2 style="font-size:1.8rem; font-weight:800; color:#0f172a; margin-bottom:15px;">Готовы к проверке?</h2>
+        <p style="color:#64748b; max-width:600px; margin:0 auto 30px; font-size:1.1rem;">
+            Если вы изучили материал о правах, обязанностях и действиях при ЧС, приступайте к итоговому тестированию.
+        </p>
+        <a href="gochs-final-test.html" class="btn-magic">
+            Перейти к тесту
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="glass-footer">
+    <div class="container">
+      <p>© 2026 Служба Охраны Труда. Внутренний ресурс.</p>
+    </div>
+  </footer>
+
+  <button type="button" class="to-top" id="toTopBtn" aria-label="Наверх" title="Наверх" 
+    style="position:fixed; right:20px; bottom:20px; width:45px; height:45px; border-radius:50%; background:#fff; border:1px solid #e2e8f0; box-shadow:0 5px 15px rgba(0,0,0,0.1); cursor:pointer; opacity:0; transition:0.3s; z-index:90;">
+    ↑
+  </button>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // 1. Дата
+    const now = new Date();
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateStr = now.toLocaleDateString('ru-RU', dateOptions);
+    const dateEl = document.getElementById('current-date');
+    if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+
+    // 2. Анимация появления
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
+
+    // 3. 3D Tilt & Spotlight
+    if (window.matchMedia("(min-width: 768px)").matches) {
+      
+      const hero = document.getElementById('tilt-hero');
+      if(hero) {
+        hero.addEventListener('mousemove', (e) => {
+          const rect = hero.getBoundingClientRect();
+          const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+          const centerX = rect.width / 2; const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -1.5; 
+          const rotateY = ((x - centerX) / centerX) * 1.5;
+          hero.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        hero.addEventListener('mouseleave', () => {
+          hero.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+        });
+      }
+
+      document.querySelectorAll('.spotlight-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+          card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        });
+      });
+    }
+
+    // 4. Scroll Progress & To Top
+    const progressBar = document.getElementById('readingProgress');
+    const toTopBtn = document.getElementById('toTopBtn');
+    
+    window.addEventListener('scroll', () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (scrollTop / scrollHeight) * 100;
+        progressBar.style.width = scrolled + "%";
+
+        if (scrollTop > 600) {
+            toTopBtn.style.opacity = "1";
+            toTopBtn.style.pointerEvents = "auto";
+        } else {
+            toTopBtn.style.opacity = "0";
+            toTopBtn.style.pointerEvents = "none";
+        }
+    });
+
+    toTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
 
 </body>
 </html>
