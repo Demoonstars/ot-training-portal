@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>СДО | Электробезопасность</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Обучение по электробезопасности. Подготовка к проверке знаний на II, III, IV и V группы допуска. ПОТЭУ.">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@1,700&display=swap" rel="stylesheet">
+
+  <style>
+    /* === ТЕМА: ЭЛЕКТРИЧЕСТВО (Желтый/Янтарный) === */
+    body.masterpiece-theme {
+      background: linear-gradient(-45deg, #fefce8, #fff7ed, #fefce8, #fff);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* === LMS LAYOUT === */
+    .course-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 30px;
+      margin-top: 30px;
+      align-items: start;
+    }
+
+    /* === HERO CARD === */
+    .course-hero {
+      background: radial-gradient(circle at 100% 0%, rgba(234, 179, 8, 0.15) 0%, rgba(255, 255, 255, 0.9) 100%);
+      border: 1px solid rgba(255,255,255,0.9);
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 30px;
+      position: relative; overflow: hidden;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 40px -10px rgba(234, 179, 8, 0.1);
+    }
+    
+    .course-hero::before {
+      content: "⚡";
+      position: absolute; right: -20px; bottom: -40px; font-size: 12rem;
+      opacity: 0.1; transform: rotate(-15deg); pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #fefce8; color: #854d0e; border: 1px solid #fde047;
+      padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700;
+      margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    .hero-title { font-size: 2rem; font-weight: 800; color: #0f172a; margin: 0 0 15px; line-height: 1.1; }
+    .hero-desc { font-size: 1.05rem; color: #475569; max-width: 650px; line-height: 1.6; }
+
+    /* === MANDATORY BLOCK (II Group) === */
+    .mandatory-block {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 30px;
+      border: 2px solid #eab308; /* Желтая рамка */
+      box-shadow: 0 10px 30px -5px rgba(234, 179, 8, 0.15);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 40px;
+      transition: transform 0.3s ease;
+    }
+    .mandatory-block:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -5px rgba(234, 179, 8, 0.25); }
+
+    .mandatory-label {
+      position: absolute; top: 0; right: 0;
+      background: #eab308; color: #fff;
+      font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
+      padding: 6px 16px; border-bottom-left-radius: 16px;
+    }
+
+    .mandatory-title { font-size: 1.5rem; font-weight: 800; color: #0f172a; margin: 0 0 10px; display: flex; align-items: center; gap: 10px; }
+    .mandatory-text { font-size: 1rem; color: #64748b; margin-bottom: 25px; max-width: 90%; }
+
+    /* Кнопка старта */
+    .btn-start-big {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 16px;
+      background: #eab308; color: #fff; font-size: 1.1rem; font-weight: 700;
+      border-radius: 16px; text-decoration: none;
+      box-shadow: 0 10px 20px -5px rgba(234, 179, 8, 0.4);
+      transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .btn-start-big:hover { background: #ca8a04; transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(234, 179, 8, 0.5); }
+    
+    .btn-start-big::after {
+      content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shine 3s infinite;
+    }
+
+    /* === SPECIAL PROGRAMS GRID === */
+    .programs-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
+    }
+
+    .prog-card {
+      background: rgba(255,255,255,0.9);
+      border-radius: 20px; padding: 24px;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .prog-card::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(234, 179, 8, 0.1), transparent 40%);
+      opacity: 0; transition: opacity 0.5s; z-index: 0; pointer-events: none;
+    }
+    .prog-card:hover::before { opacity: 1; }
+    .prog-card:hover { transform: translateY(-4px); border-color: #facc15; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
+
+    .prog-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+    .prog-icon { font-size: 2rem; background: #fefce8; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: 1px solid #fef08a; }
+    .prog-badge { font-size: 0.7rem; font-weight: 700; color: #a16207; background: #fff; padding: 4px 8px; border-radius: 6px; border: 1px solid #fef08a; }
+
+    .prog-title { font-size: 1.1rem; font-weight: 700; color: #1e293b; margin: 0 0 8px; }
+    .prog-desc { font-size: 0.9rem; color: #64748b; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
+
+    .btn-prog-link {
+      display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px;
+      background: #f8fafc; color: #334155; border: 1px solid #e2e8f0;
+      border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 0.9rem;
+      transition: 0.2s;
+    }
+    .btn-prog-link:hover { background: #eab308; color: #fff; border-color: #eab308; }
+
+    /* === SIDEBAR (Sticky) === */
+    .course-sidebar {
+      position: sticky; top: 100px;
+      background: rgba(255,255,255,0.6); backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.8); border-radius: 20px; padding: 20px;
+    }
+
+    .npa-title { font-size: 0.9rem; font-weight: 700; color: #0f172a; margin: 0 0 15px; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    
+    .npa-link {
+      display: flex; align-items: flex-start; gap: 10px; padding: 12px;
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
+      text-decoration: none; color: #334155; font-size: 0.85rem; margin-bottom: 10px;
+      transition: 0.2s;
+    }
+    .npa-link:hover { border-color: #eab308; transform: translateX(3px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    .npa-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+    /* === TOAST === */
+    .toast-notification {
+      position: fixed; bottom: 30px; right: 30px;
+      background: #fff; border-left: 4px solid #eab308;
+      padding: 16px 20px; border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      z-index: 100; display: flex; align-items: flex-start; gap: 12px;
+      animation: slideIn 0.5s ease-out forwards;
+    }
+    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
+
+    @media (max-width: 900px) {
+      .course-layout { grid-template-columns: 1fr; }
+      .course-sidebar { position: relative; top: 0; margin-bottom: 30px; }
+      .toast-notification { left: 20px; right: 20px; bottom: 20px; }
+    }
+
+    /* Header & Pulse */
+    .system-status-pulse {
+      display: inline-block; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%;
+      box-shadow: 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse-green 2s infinite; margin-right: 6px;
+    }
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
+    @media (max-width: 900px) { .header-meta { display: none; } }
+  </style>
+</head>
+<body class="masterpiece-theme">
+
+<a class="skip-link" href="#main-content">Перейти к контенту</a>
+
+<div class="glass-wrapper">
+  
+  <header class="site-header transparent-header">
+    <div class="container header-inner">
+      <div class="header-brand">
+        <div class="brand-logo">
+          <img src="assets/Филин от.png" alt="Логотип СДО" style="width: 100%; height: 100%; object-fit: contain;">
+        </div>
+        <div>
+          <h1 class="site-title-mini">СДО</h1>
+          <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
+        </div>
+      </div>
+      <div class="header-meta">
+        <span id="current-date">Загрузка...</span>
+        <span style="display:flex; align-items:center;"><span class="system-status-pulse"></span> Online</span>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Главная</a></li>
+          <li><a href="programs.html" class="nav-link nav-link-active active">Каталог программ</a></li>
+          <li><a href="instructions.html" class="nav-link">Инструкции</a></li>
+          <li><a href="for-responsibles.html" class="nav-link">Ответственным</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="site-main">
+    <div class="container">
+
+      <nav class="breadcrumbs" style="margin-bottom: 20px; font-size: 0.9rem; color: #64748b;">
+        <a href="programs.html" style="color: inherit; text-decoration: none; transition: 0.2s;">← Каталог программ</a>
+        <span style="margin: 0 8px; opacity: 0.5;">/</span>
+        <span style="color: #0f172a; font-weight: 600;">Электробезопасность</span>
+      </nav>
+
+      <div class="course-layout">
+        
+        <div class="course-content">
+          
+          <div class="course-hero reveal-up" id="tilt-hero">
+            <span class="hero-badge">Приказ № 903н (ПОТЭУ)</span>
+            <h1 class="hero-title">Обучение по электробезопасности</h1>
+            <p class="hero-desc">
+              Подготовка персонала к проверке знаний норм и правил работы в электроустановках. Программы для присвоения II, III, IV и V групп допуска.
+            </p>
+          </div>
+
+          <div class="mandatory-block reveal-up delay-100">
+            <div class="mandatory-label">Для неэлектротехнического персонала</div>
+            <h2 class="mandatory-title">
+              <span style="font-size: 2rem;">⚡</span> II группа по электробезопасности
+            </h2>
+            <p class="mandatory-text">
+              Для персонала, использующего электроинструмент и электрические машины. Базовые знания об опасности тока и первой помощи.
+            </p>
+            
+            <a href="el-group-2.html" class="btn-start-big">
+              Начать обучение (II гр.) ➔
+            </a>
+          </div>
+
+          <h3 style="margin-bottom: 20px; font-size: 1.4rem; color: #0f172a;" class="reveal-up delay-200">
+            Специализированные группы допуска
+            <span style="font-size:0.9rem; color:#64748b; font-weight:400; margin-left:10px;">(электротехнический персонал)</span>
+          </h3>
+
+          <div class="programs-grid reveal-up delay-200">
+            
+            <div class="prog-card">
+              <div class="prog-content">
+                <div class="prog-header">
+                  <div class="prog-icon">🔌</div>
+                  <span class="prog-badge">до 1000В</span>
+                </div>
+                <h3 class="prog-title">III Группа</h3>
+                <p class="prog-desc">Самостоятельное обслуживание, осмотр, подключение и отключение электроустановок.</p>
+                <a href="el-group-3.html" class="btn-prog-link">Перейти к обучению</a>
+              </div>
+            </div>
+
+            <div class="prog-card">
+              <div class="prog-content">
+                <div class="prog-header">
+                  <div class="prog-icon">🏭</div>
+                  <span class="prog-badge">до и выше 1000В</span>
+                </div>
+                <h3 class="prog-title">IV Группа</h3>
+                <p class="prog-desc">Для ответственных за электрохозяйство и производителей работ.</p>
+                <a href="el-group-4.html" class="btn-prog-link">Перейти к обучению</a>
+              </div>
+            </div>
+
+            <div class="prog-card">
+              <div class="prog-content">
+                <div class="prog-header">
+                  <div class="prog-icon">👷</div>
+                  <span class="prog-badge">Высшая</span>
+                </div>
+                <h3 class="prog-title">V Группа</h3>
+                <p class="prog-desc">Для инженерно-технического персонала в установках напряжением выше 1000В.</p>
+                <a href="el-group-5.html" class="btn-prog-link">Перейти к обучению</a>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <aside class="course-sidebar reveal-up delay-100">
+          
+          <h4 class="npa-title">⚖️ Нормативная база</h4>
+          
+          <a href="https://www.consultant.ru/document/cons_doc_LAW_372675/" target="_blank" class="npa-link">
+            <span class="npa-icon">📜</span>
+            <div>
+              <div style="font-weight: 600;">Приказ № 903н</div>
+              <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Правила охраны труда (ПОТЭУ)</div>
+            </div>
+          </a>
+          
+          <a href="https://www.consultant.ru/document/cons_doc_LAW_423711/" target="_blank" class="npa-link">
+            <span class="npa-icon">🔧</span>
+            <div>
+              <div style="font-weight: 600;">Приказ № 811</div>
+              <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">ПТЭЭП</div>
+            </div>
+          </a>
+
+        </aside>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="glass-footer">
+    <div class="container">
+      <p>© 2026 Служба Охраны Труда. Внутренний ресурс.</p>
+    </div>
+  </footer>
+
+  <div class="toast-notification" id="courseToast">
+    <div style="font-size: 1.5rem;">⚡</div>
+    <div>
+      <div style="font-weight: 700; font-size: 0.9rem; color: #0f172a;">Внимание</div>
+      <div style="font-size: 0.85rem; color: #64748b;">Не забудьте про ежегодную проверку знаний!</div>
+    </div>
+    <div class="toast-close" style="margin-left:auto; cursor:pointer; color:#94a3b8;" onclick="document.getElementById('courseToast').style.display='none'">✕</div>
+  </div>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // 1. Дата
+    const now = new Date();
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateStr = now.toLocaleDateString('ru-RU', dateOptions);
+    const dateEl = document.getElementById('current-date');
+    if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+
+    // 2. Анимация появления
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
+
+    // 3. Эффекты мыши (3D Tilt + Spotlight)
+    if (window.matchMedia("(min-width: 768px)").matches) {
+      
+      // Hero Tilt
+      const hero = document.getElementById('tilt-hero');
+      if(hero) {
+        hero.addEventListener('mousemove', (e) => {
+          const rect = hero.getBoundingClientRect();
+          const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+          const centerX = rect.width / 2; const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -2; 
+          const rotateY = ((x - centerX) / centerX) * 2;
+          hero.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        hero.addEventListener('mouseleave', () => {
+          hero.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+        });
+      }
+
+      // Card Spotlight
+      document.querySelectorAll('.prog-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+          card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        });
+      });
+    }
+
+    // 4. Авто-скрытие уведомления
+    setTimeout(() => {
+        const toast = document.getElementById('courseToast');
+        if(toast) {
+            toast.style.transition = "opacity 0.5s, transform 0.5s";
+            toast.style.opacity = "0";
+            toast.style.transform = "translateX(100%)";
+            setTimeout(() => toast.style.display = 'none', 500);
+        }
+    }, 8000);
+  });
+</script>
+
+</body>
+</html>
