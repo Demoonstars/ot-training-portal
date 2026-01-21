@@ -25,7 +25,7 @@
       100% { background-position: 0% 50%; }
     }
     
-    /* === 2. HERO СЕКЦИЯ (Обновленная) === */
+    /* === 2. HERO СЕКЦИЯ === */
     .programs-hero {
       text-align: center;
       padding: 60px 20px 40px;
@@ -36,19 +36,17 @@
     .hero-title {
       font-size: 3rem;
       font-weight: 800;
-      color: #0f172a; /* Эталонный цвет текста */
+      color: #0f172a;
       margin-bottom: 20px;
       line-height: 1.2;
-      
-      /* FIX: Резервируем место, чтобы не прыгало */
-      min-height: 3.6rem; /* Высота одной строки на ПК */
+      min-height: 3.6rem;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .hero-lead {
-      color: #475569; /* Эталонный цвет подзаголовка */
+      color: #475569;
       max-width: 700px; 
       margin: 0 auto; 
       font-size: 1.1rem;
@@ -67,12 +65,7 @@
     @keyframes blink { 50% { opacity: 0; } }
     
     @media (max-width: 768px) {
-      .hero-title { 
-        font-size: 2rem; 
-        /* FIX MOBILE: Резервируем место под 2 строки, если текст длинный */
-        min-height: 4.8rem; 
-        align-items: flex-start; /* Текст начинается сверху */
-      }
+      .hero-title { font-size: 2rem; min-height: 4.8rem; align-items: flex-start; }
       .hero-lead { font-size: 1rem; padding: 15px; }
     }
 
@@ -129,7 +122,7 @@
       box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2); transform: scale(1.05);
     }
 
-    /* === 4. КАРТОЧКИ С ПРОЖЕКТОРОМ === */
+    /* === 4. КАРТОЧКИ === */
     .programs-grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px;
     }
@@ -159,7 +152,6 @@
         transform: translateY(-5px);
     }
 
-    /* Контент карточки */
     .card-content { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; }
 
     .card-top {
@@ -221,10 +213,7 @@
       70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
       100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
     }
-    .header-meta {
-      font-size: 0.75rem; color: #64748b; font-weight: 500;
-      display: flex; align-items: center; gap: 15px; margin-left: auto;
-    }
+    .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
     @media (max-width: 900px) { .header-meta { display: none; } }
   </style>
 </head>
@@ -288,10 +277,11 @@
           <button class="filter-chip" aria-pressed="false" data-filter="fire">Пожарная безопасность</button>
           <button class="filter-chip" aria-pressed="false" data-filter="med">Первая помощь</button>
           <button class="filter-chip" aria-pressed="false" data-filter="gochs">ГО и ЧС</button>
+          <button class="filter-chip" aria-pressed="false" data-filter="el">Электробезопасность</button>
         </div>
         
         <div id="resultsCount" style="text-align: center; margin-top: 15px; font-size: 0.85rem; color: #64748b; font-weight: 600;">
-          Доступно курсов: 4
+          Доступно курсов: 5
         </div>
       </div>
 
@@ -365,6 +355,23 @@
           </div>
         </article>
 
+        <article class="program-card" data-cat="el" data-keywords="ток напряжение электробезопасность группа допуска 903н">
+          <div class="card-content">
+              <div class="card-top">
+                <div class="card-icon" style="background: #fefce8; color: #ca8a04;">⚡</div>
+                <span class="status-tag">Приказ № 903н</span>
+              </div>
+              <h3 class="card-title">Электробезопасность</h3>
+              <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
+              <p class="card-desc">
+                Подготовка к проверке знаний для присвоения II, III, IV и V групп допуска. ПОТЭУ.
+              </p>
+              <a href="course-electrical-safety.html" class="card-btn">
+                Перейти к обучению <span>➔</span>
+              </a>
+          </div>
+        </article>
+
       </div>
 
       <div id="noResults" style="display:none; text-align:center; padding: 60px 20px; color: #64748b;">
@@ -391,12 +398,13 @@
   document.addEventListener("DOMContentLoaded", function() {
     
     // 1. ДАТА
+    const now = new Date();
     const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const dateStr = new Date().toLocaleDateString('ru-RU', dateOptions);
     const dateEl = document.getElementById('current-date');
     if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
 
-    // 2. ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ (БЕЗ СКАЧКОВ)
+    // 2. ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ
     const textElement = document.getElementById('typing-text');
     const texts = ["Реестр программ обучения", "Актуальные знания", "Безопасность труда"];
     let textIndex = 0; charIndex = 0; isDeleting = false;
