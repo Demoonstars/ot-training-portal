@@ -15,7 +15,7 @@
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
   </script>
 
-<style>
+  <style>
     /* === ТЕМА: ГО и ЧС (Синий/Индиго) === */
     body.masterpiece-theme {
       background: linear-gradient(-45deg, #eff6ff, #dbeafe, #e0f2fe, #f0f9ff);
@@ -162,59 +162,111 @@
     .flip-text { font-size: 1rem; font-weight: 600; line-height: 1.4; }
     .flip-label { text-transform: uppercase; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 10px; opacity: 0.7; }
 
-    /* === CUSTOM PDF VIEWER STYLES === */
+    /* === НОВЫЕ СТИЛИ ДЛЯ PDF ВЬЮЕРА (V2.0) === */
     .custom-pdf-viewer {
-        background: #f8fafc; border: 1px solid rgba(148, 163, 184, 0.3);
-        border-radius: 24px; position: relative; overflow: hidden;
+        background: #f1f5f9; border: 1px solid rgba(148, 163, 184, 0.3);
+        border-radius: 20px; position: relative; overflow: hidden;
         margin-bottom: 40px; box-shadow: 0 20px 50px -10px rgba(0,0,0,0.1);
-        min-height: 600px; display: flex; flex-direction: column;
+        height: 700px; /* Фиксированная высота для ПК */
+        display: flex; flex-direction: column;
+        transition: all 0.3s ease;
     }
+
+    /* Полный экран */
+    .custom-pdf-viewer.is-fullscreen {
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        z-index: 9999; border-radius: 0; margin: 0; border: none;
+        background: #e2e8f0;
+    }
+
+    /* Шапка вьюера */
     .pdf-viewer-header {
-        background: #fff; padding: 20px; border-bottom: 1px solid #e2e8f0;
-        display: flex; align-items: center; gap: 15px; z-index: 5;
+        background: #fff; padding: 15px 20px; border-bottom: 1px solid #e2e8f0;
+        display: flex; align-items: center; justify-content: space-between; gap: 10px;
+        z-index: 5; flex-shrink: 0;
     }
+    .pdf-header-left { display: flex; align-items: center; gap: 12px; overflow: hidden; }
+    
     .pdf-file-icon {
-        width: 40px; height: 40px; background: #eff6ff; color: #2563eb;
-        border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+        width: 36px; height: 36px; background: #eff6ff; color: #2563eb; flex-shrink: 0;
+        border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
     }
-    .pdf-file-info h3 { margin: 0 0 2px; font-size: 1rem; color: #0f172a; }
-    .pdf-file-info p { margin: 0; font-size: 0.8rem; color: #64748b; }
-    .pdf-top-actions { margin-left: auto; }
+    .pdf-file-info { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pdf-file-info h3 { margin: 0; font-size: 0.95rem; color: #0f172a; overflow: hidden; text-overflow: ellipsis; }
+    .pdf-file-info p { margin: 0; font-size: 0.75rem; color: #64748b; }
+
+    .pdf-top-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
     .btn-pdf-action {
-        text-decoration: none; padding: 8px 16px; border-radius: 8px;
+        display: inline-flex; align-items: center; justify-content: center;
+        text-decoration: none; padding: 8px 14px; border-radius: 8px;
         background: #fff; border: 1px solid #cbd5e1; color: #334155;
-        font-size: 0.85rem; font-weight: 600; transition: 0.2s;
+        font-size: 0.85rem; font-weight: 600; transition: 0.2s; cursor: pointer;
+        height: 36px;
     }
-    .btn-pdf-action:hover { border-color: #2563eb; color: #2563eb; }
+    .btn-pdf-action:hover { border-color: #2563eb; color: #2563eb; background: #f8fafc; }
+    .btn-fullscreen { font-size: 1.2rem; padding: 0 10px; }
+
+    /* Адаптив кнопок */
+    .btn-text { display: inline; }
+    .btn-icon { display: none; }
+
+    @media (max-width: 600px) {
+        .btn-text { display: none; }
+        .btn-icon { display: inline; font-size: 1.2rem; }
+        .custom-pdf-viewer { height: 80vh; border-radius: 12px; } /* На мобильном выше */
+        .pdf-file-info h3 { font-size: 0.85rem; }
+        .pdf-viewer-header { padding: 10px 15px; }
+    }
+
+    /* Область Canvas (Лист) */
     .pdf-canvas-wrapper {
-        flex-grow: 1; overflow: auto; display: flex; justify-content: center; 
-        padding: 30px; position: relative;
-        background: radial-gradient(#e2e8f0 1px, transparent 1px); background-size: 20px 20px;
+        flex-grow: 1; overflow: auto; 
+        display: flex; justify-content: center; align-items: flex-start;
+        padding: 20px; 
+        padding-bottom: 80px; /* ВАЖНО: Место для тулбара снизу */
+        position: relative;
+        background: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px;
+        -webkit-overflow-scrolling: touch;
     }
+    
     #the-canvas {
-        box-shadow: 0 10px 30px rgba(0,0,0,0.15); border-radius: 2px; background: #fff; transition: transform 0.2s ease;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 2px; background: #fff; 
+        max-width: 100%; transition: transform 0.1s ease;
     }
+
+    /* Тулбар (Плавающий) */
     .pdf-toolbar {
         position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
-        background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px);
-        padding: 10px 20px; border-radius: 99px; display: flex; align-items: center; gap: 15px;
-        color: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.2); z-index: 10; width: max-content;
+        background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+        padding: 8px 16px; border-radius: 99px; 
+        display: flex; align-items: center; gap: 12px;
+        color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.25); z-index: 50;
+        width: auto; max-width: 90%; white-space: nowrap;
     }
+
     .tool-btn {
-        background: rgba(255,255,255,0.1); border: none; color: #fff;
-        padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 500; transition: 0.2s;
+        background: rgba(255,255,255,0.15); border: none; color: #fff;
+        width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
+        font-size: 1rem; font-weight: 700; transition: 0.2s;
+        display: flex; align-items: center; justify-content: center;
     }
-    .tool-btn:hover { background: rgba(255,255,255,0.2); }
+    .tool-btn:hover { background: rgba(255,255,255,0.3); }
+    .tool-btn:active { transform: scale(0.95); }
+    
     .tool-btn-icon {
-        width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.1); border: none; color: #fff;
-        cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
+        width: 30px; height: 30px; border-radius: 50%; background: transparent; border: none; color: #cbd5e1;
+        cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
     }
-    .tool-btn-icon:hover { background: #10b981; }
-    .page-info { font-family: monospace; font-size: 0.9rem; opacity: 0.9; }
-    .divider-v { width: 1px; height: 20px; background: rgba(255,255,255,0.2); }
+    .tool-btn-icon:hover { color: #fff; background: rgba(255,255,255,0.1); }
+
+    .page-info { font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; min-width: 60px; text-align: center; }
+    .divider-v { width: 1px; height: 16px; background: rgba(255,255,255,0.2); }
+
+    /* Loader */
     .pdf-loader {
         position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        background: rgba(248, 250, 252, 0.8); z-index: 2; color: #64748b; font-weight: 600; font-size: 0.9rem;
+        background: rgba(248, 250, 252, 0.9); z-index: 60; color: #64748b; font-weight: 600; font-size: 0.9rem;
     }
     .spinner {
         width: 40px; height: 40px; border: 4px solid #cbd5e1; border-top-color: #2563eb;
@@ -419,18 +471,24 @@
       </section>
 
       <section class="reveal-up delay-200" id="materials">
-        <div class="custom-pdf-viewer">
+        <div class="custom-pdf-viewer" id="mainPdfContainer">
           
           <div class="pdf-viewer-header">
-            <div class="pdf-file-icon">📄</div>
-            <div class="pdf-file-info">
-              <h3>Учебный материал: Вводный инструктаж по ГО и ЧС</h3>
-              <p>Изучите документ. Используйте кнопки навигации внизу.</p>
+            <div class="pdf-header-left">
+              <div class="pdf-file-icon">📄</div>
+              <div class="pdf-file-info">
+                <h3>Учебное пособие: ГО и ЧС</h3>
+                <p>Вводный инструктаж</p>
+              </div>
             </div>
             <div class="pdf-top-actions">
-                <a href="assets/Вводный инструктаж по ГО и ЧС.pdf" download class="btn-pdf-action">
-                    Скачать PDF
+                <a href="assets/Вводный инструктаж по ГО и ЧС.pdf" download class="btn-pdf-action icon-only-mobile">
+                    <span class="btn-text">Скачать PDF</span>
+                    <span class="btn-icon">📥</span>
                 </a>
+                <button class="btn-pdf-action btn-fullscreen" id="fullscreenBtn" title="На весь экран">
+                    ⛶
+                </button>
             </div>
           </div>
 
@@ -443,12 +501,14 @@
           </div>
 
           <div class="pdf-toolbar">
-            <button class="tool-btn" id="prev">← Назад</button>
+            <button class="tool-btn" id="prev">←</button>
             <span class="page-info">
-              Стр. <span id="page_num">--</span> из <span id="page_count">--</span>
+              <span id="page_num">1</span> / <span id="page_count">--</span>
             </span>
-            <button class="tool-btn" id="next">Далее →</button>
+            <button class="tool-btn" id="next">→</button>
+            
             <div class="divider-v"></div>
+            
             <button class="tool-btn-icon" id="zoomOut" title="Уменьшить">-</button>
             <button class="tool-btn-icon" id="zoomIn" title="Увеличить">+</button>
           </div>
@@ -554,7 +614,7 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
 
-    // 3. 3D Tilt & Spotlight
+    // 3. 3D Tilt & Spotlight (Desktop Only)
     if (window.matchMedia("(min-width: 768px)").matches) {
       
       const hero = document.getElementById('tilt-hero');
@@ -604,26 +664,61 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // 5. PDF VIEWER LOGIC (Mozilla PDF.js)
+    // =========================================================
+    // 5. PDF VIEWER LOGIC V2.0 (Mobile Fix + Fullscreen)
+    // =========================================================
     const url = 'assets/Вводный инструктаж по ГО и ЧС.pdf'; 
     let pdfDoc = null,
         pageNum = 1,
         pageRendering = false,
         pageNumPending = null,
-        scale = 1.5,
+        scale = 1.0, 
         canvas = document.getElementById('the-canvas'),
-        ctx = canvas.getContext('2d');
+        ctx = canvas.getContext('2d'),
+        container = document.getElementById('mainPdfContainer');
 
+    // --- Fullscreen Logic ---
+    document.getElementById('fullscreenBtn').addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+            if (container.requestFullscreen) {
+                container.requestFullscreen();
+            } else if (container.webkitRequestFullscreen) { 
+                container.webkitRequestFullscreen();
+            } else if (container.msRequestFullscreen) { 
+                container.msRequestFullscreen();
+            }
+            container.classList.add('is-fullscreen');
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+            container.classList.remove('is-fullscreen');
+        }
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+        if (!document.fullscreenElement) container.classList.remove('is-fullscreen');
+        setTimeout(() => renderPage(pageNum), 100); 
+    });
+
+    // --- Render Logic ---
     function renderPage(num) {
       pageRendering = true;
       pdfDoc.getPage(num).then(function(page) {
-        const wrapperWidth = document.getElementById('pdfWrapper').clientWidth;
+        const wrapper = document.getElementById('pdfWrapper');
         const viewportOriginal = page.getViewport({scale: 1});
+        
+        // Умный зум: ширина контента минус отступы
+        const availableWidth = wrapper.clientWidth - 40; 
+        
         let desiredScale = scale;
-        if (viewportOriginal.width > wrapperWidth - 60) {
-           desiredScale = (wrapperWidth - 60) / viewportOriginal.width;
+        // Если PDF шире экрана, сжимаем
+        if (viewportOriginal.width > availableWidth) {
+            desiredScale = availableWidth / viewportOriginal.width;
         }
+
         const viewport = page.getViewport({scale: desiredScale});
+        
         canvas.height = viewport.height;
         canvas.width = viewport.width;
 
@@ -663,24 +758,30 @@
     });
 
     document.getElementById('zoomIn').addEventListener('click', () => {
-        scale += 0.2;
-        renderPage(pageNum);
+        scale += 0.2; renderPage(pageNum);
     });
     document.getElementById('zoomOut').addEventListener('click', () => {
-        if(scale > 0.6) {
-            scale -= 0.2;
-            renderPage(pageNum);
-        }
+        if(scale > 0.4) { scale -= 0.2; renderPage(pageNum); }
     });
 
-    // Инициализация PDF
+    // Init
     pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
       pdfDoc = pdfDoc_;
       document.getElementById('page_count').textContent = pdfDoc.numPages;
       renderPage(pageNum);
-    }, function (reason) {
-      console.error(reason);
-      document.getElementById('pdfLoader').innerHTML = `<p style="color:red; margin-top:20px;">Файл не найден (${url})</p>`;
+    }).catch(function(error) {
+        console.error('Ошибка загрузки PDF:', error);
+        document.getElementById('pdfLoader').innerHTML = 
+            `<div style="text-align:center; color:#ef4444; padding:20px;">
+                <p style="font-weight:bold; margin-bottom:5px;">Не удалось загрузить файл</p>
+                <p style="font-size:0.8rem;">Проверьте путь: ${url}</p>
+                <a href="${url}" class="btn-pdf-action" style="display:inline-block; margin-top:10px;">Скачать напрямую</a>
+             </div>`;
+    });
+    
+    // Ресайз при повороте экрана
+    window.addEventListener('resize', () => {
+        if(pdfDoc) renderPage(pageNum);
     });
 
   });
