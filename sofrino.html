@@ -2,453 +2,400 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>SOFRINO PARK | Safety Standards</title>
+  <title>SOFRINO PARK | Safety Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
   
   <style>
     /* =========================================
-       MASTERPIECE THEME: ROYAL EMERALD
+       THEME: PLATINUM & EMERALD (Светлый Люкс)
        ========================================= */
     :root {
-      --emerald-dark: #0D2B24;    /* Глубокий, почти черный изумруд */
-      --emerald-light: #1A4238;   /* Светлее для фона */
-      --gold-metallic: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
-      --gold-solid: #C5A059;
-      --paper-white: #F9F9F7;     /* Цвет дорогой бумаги */
-      --glass: rgba(255, 255, 255, 0.05);
-      --glass-border: rgba(197, 160, 89, 0.3);
-      --shadow-lux: 0 20px 50px rgba(0,0,0,0.3);
+      /* ЦВЕТА */
+      --bg-paper: #F8F7F4;        /* Цвет дорогой бумаги */
+      --bg-white: #FFFFFF;
+      --color-forest: #1A3C34;    /* Фирменный зеленый Софрино */
+      --color-gold: #C5A059;      /* Золото */
+      --color-text: #2D3748;      /* Темно-серый для чтения */
+      
+      /* ЭФФЕКТЫ */
+      --shadow-soft: 0 10px 40px -10px rgba(26, 60, 52, 0.08);
+      --shadow-hover: 0 20px 50px -10px rgba(26, 60, 52, 0.15);
+      --border-light: 1px solid rgba(26, 60, 52, 0.08);
+      --radius: 12px;
     }
 
-    /* === PRELOADER === */
-    #preloader {
-      position: fixed; inset: 0; background: var(--emerald-dark); z-index: 9999;
-      display: flex; justify-content: center; align-items: center;
-      transition: opacity 0.8s ease, visibility 0.8s;
-    }
-    .loader-content { text-align: center; }
-    .loader-logo { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--gold-solid); animation: pulse 2s infinite; }
-    .loader-text { 
-      margin-top: 20px; font-family: 'Montserrat'; letter-spacing: 3px; 
-      color: var(--gold-solid); font-size: 0.8rem; text-transform: uppercase; 
-    }
-
-    /* === BASE === */
+    /* === СБРОС И БАЗА === */
     body {
-      background-color: var(--emerald-dark);
-      background-image: radial-gradient(circle at 50% 0%, var(--emerald-light) 0%, var(--emerald-dark) 70%);
-      font-family: 'Montserrat', sans-serif;
-      color: #E2E8F0;
+      background-color: var(--bg-paper);
+      /* Тонкая текстура шума для реалистичности */
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+      font-family: 'Manrope', sans-serif;
+      color: var(--color-text);
       margin: 0; padding: 0;
-      min-height: 100vh;
       overflow-x: hidden;
     }
 
-    h1, h2, h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
-      margin: 0;
+    h1, h2, h3 { font-family: 'Cormorant Garamond', serif; color: var(--color-forest); margin: 0; }
+    a { text-decoration: none; transition: 0.3s; }
+
+    /* === PRELOADER (ЭКРАН ЗАГРУЗКИ) === */
+    #preloader {
+      position: fixed; inset: 0; background: var(--bg-paper); z-index: 9999;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      transition: opacity 0.8s ease, visibility 0.8s;
+    }
+    .loader-spinner {
+      width: 60px; height: 60px; border: 2px solid rgba(197, 160, 89, 0.2);
+      border-top: 2px solid var(--color-forest); border-radius: 50%;
+      animation: spin 1s linear infinite; margin-bottom: 20px;
+    }
+    .loader-text {
+      font-family: 'Cormorant Garamond'; font-size: 1.5rem; color: var(--color-forest); letter-spacing: 2px;
+      animation: pulse 2s infinite;
     }
 
-    /* === HEADER === */
-    .royal-header {
+    /* === HEADER (ШАПКА) === */
+    .header {
       position: sticky; top: 0; z-index: 100;
-      padding: 15px 40px;
-      background: rgba(13, 43, 36, 0.85);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(197, 160, 89, 0.2);
-      display: flex; justify-content: space-between; align-items: center;
-      transition: 0.3s;
+      background: rgba(248, 247, 244, 0.95); /* Полупрозрачный светлый */
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(197, 160, 89, 0.3); /* Золотая линия */
+      padding: 15px 0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
     }
     
-    .brand-group { display: flex; align-items: center; gap: 20px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     
-    .brand-logo {
-      height: 55px; width: 55px; 
-      border-radius: 50%; object-fit: cover;
-      border: 2px solid transparent;
-      background: linear-gradient(var(--emerald-dark), var(--emerald-dark)) padding-box,
-                  var(--gold-metallic) border-box; /* Золотая обводка градиентом */
-    }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; }
 
-    .brand-titles h1 {
-      font-size: 1.6rem; 
-      background: var(--gold-metallic); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      text-transform: uppercase; letter-spacing: 1px;
+    .brand { display: flex; align-items: center; gap: 15px; }
+    
+    /* Логотип теперь на светлом фоне — выглядит идеально */
+    .brand-logo { 
+      height: 60px; width: auto; mix-blend-mode: multiply; /* Убирает белый фон у JPG, если он есть */
     }
-    .brand-titles span {
-      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.6); display: block;
-    }
+    
+    .brand-text h1 { font-size: 1.5rem; font-weight: 700; line-height: 1; letter-spacing: 0.5px; }
+    .brand-text span { font-family: 'Manrope'; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--color-gold); }
 
-    .nav-btn {
-      padding: 10px 25px; border: 1px solid var(--gold-solid);
-      color: var(--gold-solid); text-decoration: none;
-      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;
-      transition: 0.4s; position: relative; overflow: hidden;
+    .nav-link {
+      font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--color-forest); padding: 10px 20px; border: 1px solid rgba(26,60,52,0.1);
+      border-radius: 50px;
     }
-    .nav-btn:hover { background: var(--gold-solid); color: var(--emerald-dark); box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
+    .nav-link:hover { background: var(--color-forest); color: #fff; }
 
-    /* === HERO SECTION === */
+    /* === HERO === */
     .hero {
-      text-align: center; padding: 80px 20px 40px;
-      position: relative;
+      text-align: center; padding: 80px 0 60px;
     }
-    .hero::before {
-      content: "⚜"; font-size: 150px; position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
-      color: var(--gold-solid); opacity: 0.05; pointer-events: none;
+    .hero h2 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 15px; }
+    .hero p { 
+      font-size: 1.1rem; color: #64748b; max-width: 600px; margin: 0 auto; 
+      border-bottom: 2px solid var(--color-gold); display: inline-block; padding-bottom: 5px;
+    }
+
+    /* === СЕТКА КАРТОЧЕК (РЕГЛАМЕНТЫ) === */
+    .section-title {
+      font-family: 'Manrope'; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px;
+      color: var(--color-gold); margin: 60px 0 30px; border-left: 3px solid var(--color-forest);
+      padding-left: 15px; display: flex; align-items: center;
+    }
+
+    .grid-cards {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px;
+    }
+
+    .doc-card {
+      background: var(--bg-white);
+      padding: 40px; border-radius: 4px; /* Строгие углы как у бумаги */
+      border: var(--border-light);
+      position: relative; overflow: hidden; cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: var(--shadow-soft);
+    }
+
+    /* Золотой уголок */
+    .doc-card::before {
+      content: ""; position: absolute; top: 0; right: 0; width: 0; height: 0;
+      border-style: solid; border-width: 0 40px 40px 0;
+      border-color: transparent var(--color-gold) transparent transparent;
+      opacity: 0; transition: 0.3s;
     }
     
-    .hero-title {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      line-height: 1.1; margin-bottom: 20px;
-      color: #fff; text-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-    .hero-subtitle {
-      font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto; line-height: 1.6;
-      border-left: 2px solid var(--gold-solid); padding-left: 20px; text-align: left; display: inline-block;
-    }
+    .doc-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); }
+    .doc-card:hover::before { opacity: 1; }
 
-    /* === CONTENT CONTAINER === */
-    .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
-
-    /* === SECTIONS === */
-    .section-label {
-      font-family: 'Montserrat'; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px;
-      color: var(--gold-solid); margin: 60px 0 30px; display: flex; align-items: center; gap: 15px;
-    }
-    .section-label::after { content: ""; flex-grow: 1; height: 1px; background: rgba(197, 160, 89, 0.3); }
-
-    /* === CARDS (REGULATIONS) === */
-    .cards-wrapper {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;
-    }
-
-    .lux-card {
-      background: var(--glass);
-      border: 1px solid rgba(255,255,255,0.08);
-      padding: 35px;
-      position: relative; overflow: hidden;
-      transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-      cursor: pointer;
-    }
+    .card-icon { font-size: 2.5rem; margin-bottom: 20px; display: block; }
+    .card-title { font-size: 1.4rem; margin-bottom: 10px; font-weight: 600; }
+    .card-desc { font-size: 0.95rem; color: #718096; line-height: 1.6; margin-bottom: 25px; }
     
-    .lux-card::before {
-      content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 0;
-      background: var(--gold-metallic); transition: 0.5s;
+    .btn-read {
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--color-forest); border-bottom: 1px solid var(--color-forest); padding-bottom: 3px;
     }
-    
-    .lux-card:hover {
-      background: rgba(255,255,255,0.08);
-      transform: translateY(-10px);
-      box-shadow: var(--shadow-lux);
-    }
-    .lux-card:hover::before { height: 100%; }
 
-    .card-num {
-      font-family: 'Cormorant Garamond'; font-size: 3rem; color: rgba(255,255,255,0.1);
-      position: absolute; top: 10px; right: 20px;
-    }
-    
-    .card-icon { font-size: 2rem; margin-bottom: 20px; color: var(--gold-solid); }
-    
-    .card-title { font-size: 1.4rem; color: #fff; margin-bottom: 10px; letter-spacing: 0.5px; }
-    
-    .card-desc { font-size: 0.9rem; color: #94A3B8; line-height: 1.6; margin-bottom: 25px; }
-
-    .card-action {
-      font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-solid);
-      display: flex; align-items: center; gap: 10px; opacity: 0.8; transition: 0.3s;
-    }
-    .lux-card:hover .card-action { opacity: 1; gap: 15px; }
-
-    /* === REGISTRY (ORDERS) === */
-    .registry-table {
-      width: 100%; border-collapse: collapse;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
-      border: 1px solid rgba(255,255,255,0.05);
+    /* === РЕЕСТР (ТАБЛИЦА) === */
+    .registry {
+      background: var(--bg-white); border: var(--border-light);
+      box-shadow: var(--shadow-soft); border-radius: 4px; overflow: hidden;
     }
     
     .reg-row {
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      transition: 0.3s; cursor: pointer;
+      display: grid; grid-template-columns: 100px 1fr 50px;
+      padding: 25px 30px; border-bottom: 1px solid #f0f0f0;
+      align-items: center; cursor: pointer; transition: 0.2s;
     }
-    .reg-row:hover { background: rgba(197, 160, 89, 0.1); }
+    .reg-row:hover { background: #fafafa; padding-left: 35px; /* Сдвиг вправо */ }
     
-    .reg-cell { padding: 25px; vertical-align: middle; }
-    
-    .reg-id {
-      font-family: 'Montserrat'; font-weight: 700; color: var(--gold-solid); font-size: 0.9rem;
-      border-right: 1px solid rgba(255,255,255,0.05); width: 120px;
+    .reg-id { 
+      font-family: 'Manrope'; font-weight: 700; color: var(--color-gold); font-size: 0.85rem; 
+      display: flex; flex-direction: column; 
     }
-    .reg-id span { display: block; font-size: 0.7rem; color: #64748b; font-weight: 400; margin-top: 4px; }
+    .reg-id span { color: #ccc; font-weight: 400; font-size: 0.7rem; }
     
-    .reg-name { font-size: 1rem; color: #E2E8F0; line-height: 1.5; font-weight: 300; }
-    .reg-name strong { color: #fff; font-weight: 500; }
-    
-    .reg-icon { color: var(--gold-solid); opacity: 0; transform: translateX(-10px); transition: 0.3s; }
-    .reg-row:hover .reg-icon { opacity: 1; transform: translateX(0); }
+    .reg-name { font-size: 1.05rem; font-family: 'Cormorant Garamond'; font-weight: 600; color: var(--color-forest); }
+    .reg-arrow { color: var(--color-gold); opacity: 0; transition: 0.2s; }
+    .reg-row:hover .reg-arrow { opacity: 1; }
 
-    /* === HR GLASS BLOCK === */
-    .hr-glass {
-      margin: 80px 0; padding: 60px; text-align: center;
-      background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px);
-      position: relative;
-    }
-    .hr-glass::after {
-      content: "В РАЗРАБОТКЕ"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-10deg);
-      font-size: 4rem; font-weight: 900; color: rgba(255,255,255,0.03); white-space: nowrap; pointer-events: none;
+    /* === HR BLOCK === */
+    .hr-block {
+      margin-top: 60px; padding: 60px; text-align: center;
+      background: #F1F5F9; border: 2px dashed #CBD5E1; opacity: 0.8;
     }
 
     /* === FOOTER === */
     footer {
-      text-align: center; padding: 40px; color: rgba(255,255,255,0.3); font-size: 0.75rem; letter-spacing: 1px;
+      text-align: center; padding: 40px; margin-top: 60px; border-top: 1px solid #e2e8f0;
+      color: #94a3b8; font-size: 0.8rem; letter-spacing: 1px;
     }
 
-    /* === UTILS === */
-    .tg-btn {
-      position: fixed; bottom: 40px; right: 40px;
-      width: 60px; height: 60px; border-radius: 50%;
-      background: var(--gold-metallic);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 30px rgba(197, 160, 89, 0.3); z-index: 90;
-      transition: 0.4s; color: var(--emerald-dark);
-    }
-    .tg-btn:hover { transform: scale(1.1); color: #000; }
-
-    /* PDF VIEWER */
+    /* === PDF VIEWER === */
     .pdf-modal {
-      position: fixed; inset: 0; z-index: 2000;
-      background: rgba(5, 20, 16, 0.95); backdrop-filter: blur(10px);
-      display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: 0.5s;
+      position: fixed; inset: 0; background: rgba(26, 60, 52, 0.95); z-index: 2000;
+      display: flex; flex-direction: column;
+      opacity: 0; pointer-events: none; transition: 0.4s;
     }
     .pdf-modal.active { opacity: 1; pointer-events: all; }
     
-    .pdf-bar {
-      padding: 20px; display: flex; justify-content: space-between; align-items: center; color: #fff;
+    .pdf-header {
+      padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; color: #fff;
     }
-    .close-pdf {
-      background: none; border: 1px solid rgba(255,255,255,0.2); color: #fff;
-      padding: 8px 20px; border-radius: 30px; cursor: pointer; transition: 0.3s;
+    .close-btn {
+      background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff;
+      padding: 8px 20px; border-radius: 30px; cursor: pointer; text-transform: uppercase; font-size: 0.7rem;
     }
-    .close-pdf:hover { background: #fff; color: #000; }
+    .close-btn:hover { background: #fff; color: var(--color-forest); }
     
-    iframe { width: 100%; flex-grow: 1; border: none; }
+    iframe { flex-grow: 1; width: 100%; border: none; background: #fff; }
 
-    /* ANIMATIONS */
-    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(197, 160, 89, 0); } 100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); } }
-    .fade-up { opacity: 0; transform: translateY(30px); transition: 1s ease; }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-    .delay-1 { transition-delay: 0.2s; }
-    .delay-2 { transition-delay: 0.4s; }
+    /* Кнопка телеграм */
+    .tg-float {
+      position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+      background: var(--color-forest); color: #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 30px rgba(26, 60, 52, 0.3); transition: 0.3s; z-index: 90;
+    }
+    .tg-float:hover { transform: scale(1.1); background: var(--color-gold); }
 
+    /* Анимации */
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    @keyframes pulse { 50% { opacity: 0.5; } }
+    .reveal { opacity: 0; transform: translateY(20px); transition: 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    
     @media (max-width: 768px) {
-      .hero-title { font-size: 2.5rem; }
-      .registry-table, .reg-row, .reg-cell { display: block; width: 100%; }
-      .reg-cell { padding: 10px 20px; border: none; }
-      .reg-id { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); width: 100%; margin-bottom: 10px; padding-bottom: 10px; }
-      .royal-header { padding: 15px 20px; }
-      .brand-titles h1 { font-size: 1.2rem; }
+      .hero h2 { font-size: 2.5rem; }
+      .reg-row { grid-template-columns: 1fr; gap: 10px; }
+      .reg-id { flex-direction: row; gap: 10px; font-size: 1rem; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 5px;}
     }
   </style>
 </head>
 <body>
 
   <div id="preloader">
-    <div class="loader-content">
-      <img src="assets/logo.jpg" class="loader-logo" alt="Загрузка" onerror="this.style.display='none'">
-      <div class="loader-text">Sofrino Park</div>
-    </div>
+    <div class="loader-spinner"></div>
+    <div class="loader-text">SOFRINO PARK</div>
   </div>
 
-  <header class="royal-header">
-    <div class="brand-group">
-      <img src="assets/logo.jpg" alt="Sofrino Logo" class="brand-logo" onerror="this.src='https://via.placeholder.com/100/1a4238/c5a059?text=SOF'">
-      <div class="brand-titles">
-        <h1>Sofrino Park</h1>
-        <span>Corporate Safety Portal</span>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="assets/logo.jpg" alt="Sofrino" class="brand-logo" onerror="this.style.display='none'">
+        <div class="brand-text">
+          <h1>SOFRINO</h1>
+          <span>Park-Hotel Safety</span>
+        </div>
       </div>
+      <a href="index.html" class="nav-link">← Вернуться в СДО</a>
     </div>
-    <nav>
-      <a href="index.html" class="nav-btn">На Главную</a>
-    </nav>
   </header>
 
-  <main>
-    <section class="hero fade-up">
-      <h2 class="hero-title">Стандарты<br>Безопасности</h2>
-      <div class="hero-subtitle">
-        Единая система управления охраной труда, промышленной безопасностью и гражданской обороной ООО «Парк-Отель Софрино».
-      </div>
+  <main class="container">
+    
+    <section class="hero reveal">
+      <h2>Стандарты Безопасности</h2>
+      <p>Единая цифровая база регламентов и приказов по охране труда</p>
     </section>
 
-    <div class="container">
+    <div class="section-title reveal">Положения и Регламенты</div>
+    
+    <div class="grid-cards reveal">
       
-      <div class="section-label fade-up delay-1">Нормативная база • Regulations</div>
-      
-      <div class="cards-wrapper fade-up delay-1">
-        
-        <div class="lux-card" onclick="openPDF('docs/Положение СУОТ от 10.12.2025.PDF')">
-          <div class="card-num">01</div>
-          <div class="card-icon">🛡️</div>
-          <div class="card-title">Система СУОТ</div>
-          <div class="card-desc">Политика, цели и процедуры обеспечения безопасности на всех уровнях управления.</div>
-          <div class="card-action">Читать документ <span>➝</span></div>
-        </div>
-
-        <div class="lux-card" onclick="openPDF('docs/Положение о порядке оценки профрисков от 11.12.2025.PDF')">
-          <div class="card-num">02</div>
-          <div class="card-icon">📊</div>
-          <div class="card-title">Оценка Рисков</div>
-          <div class="card-desc">Идентификация опасностей и расчет уровней профессионального риска.</div>
-          <div class="card-action">Читать документ <span>➝</span></div>
-        </div>
-
-        <div class="lux-card" onclick="openPDF('docs/Положение о порядке обеспечения работников средствами индивидульной защиты (СИЗ) от 11.12.2025.PDF')">
-          <div class="card-num">03</div>
-          <div class="card-icon">🦺</div>
-          <div class="card-title">Обеспечение СИЗ</div>
-          <div class="card-desc">Нормы выдачи, порядок хранения и списания средств индивидуальной защиты.</div>
-          <div class="card-action">Читать документ <span>➝</span></div>
-        </div>
-
-        <div class="lux-card" onclick="openPDF('docs/Положение о расследовании несчастных случаев на производстве от 13.12.2025.PDF')">
-          <div class="card-num">04</div>
-          <div class="card-icon">🚑</div>
-          <div class="card-title">Расследования</div>
-          <div class="card-desc">Регламент действий персонала при возникновении несчастных случаев.</div>
-          <div class="card-action">Читать документ <span>➝</span></div>
-        </div>
-
-        <div class="lux-card" onclick="openPDF('docs/Положение о проведении предварительного и периодического медицинских осмотров работников от 12.12.2025.PDF')">
-          <div class="card-num">05</div>
-          <div class="card-icon">🩺</div>
-          <div class="card-title">Медосмотры</div>
-          <div class="card-desc">Организация предварительных и периодических осмотров.</div>
-          <div class="card-action">Читать документ <span>➝</span></div>
-        </div>
-
-        <div class="lux-card" onclick="openPDF('docs/Положение о проведении СОУТ от 10.12.2025.PDF')">
-          <div class="card-num">06</div>
-          <div class="card-icon">🔬</div>
-          <div class="card-title">Спецоценка (СОУТ)</div>
-          <div class="card-desc">Процедура проведения специальной оценки условий труда на рабочих местах.</div>
-          <div class="card-action">Читать документ <span>➝</span></div>
-        </div>
-
+      <div class="doc-card" onclick="openPDF('docs/Положение СУОТ от 10.12.2025.PDF')">
+        <span class="card-icon">🛡️</span>
+        <div class="card-title">Система СУОТ</div>
+        <div class="card-desc">Главный документ, описывающий политику и цели в области охраны труда.</div>
+        <span class="btn-read">Читать документ</span>
       </div>
 
-      <div class="section-label fade-up delay-2">Реестр Приказов • Orders Registry</div>
+      <div class="doc-card" onclick="openPDF('docs/Положение о порядке оценки профрисков от 11.12.2025.PDF')">
+        <span class="card-icon">📊</span>
+        <div class="card-title">Оценка Рисков</div>
+        <div class="card-desc">Методика выявления опасностей и управления рисками на рабочих местах.</div>
+        <span class="btn-read">Читать документ</span>
+      </div>
+
+      <div class="doc-card" onclick="openPDF('docs/Положение о порядке обеспечения работников средствами индивидульной защиты (СИЗ) от 11.12.2025.PDF')">
+        <span class="card-icon">🦺</span>
+        <div class="card-title">Обеспечение СИЗ</div>
+        <div class="card-desc">Правила выдачи, хранения и ухода за средствами защиты.</div>
+        <span class="btn-read">Читать документ</span>
+      </div>
+
+      <div class="doc-card" onclick="openPDF('docs/Положение о расследовании несчастных случаев на производстве от 13.12.2025.PDF')">
+        <span class="card-icon">🚑</span>
+        <div class="card-title">Расследования НС</div>
+        <div class="card-desc">Порядок действий при возникновении несчастного случая.</div>
+        <span class="btn-read">Читать документ</span>
+      </div>
+
+      <div class="doc-card" onclick="openPDF('docs/Положение о проведении предварительного и периодического медицинских осмотров работников от 12.12.2025.PDF')">
+        <span class="card-icon">🩺</span>
+        <div class="card-title">Медосмотры</div>
+        <div class="card-desc">Регламент проведения медицинских освидетельствований.</div>
+        <span class="btn-read">Читать документ</span>
+      </div>
+
+      <div class="doc-card" onclick="openPDF('docs/Положение о проведении СОУТ от 10.12.2025.PDF')">
+        <span class="card-icon">🔬</span>
+        <div class="card-title">Проведение СОУТ</div>
+        <div class="card-desc">Специальная оценка условий труда: методика и сроки.</div>
+        <span class="btn-read">Читать документ</span>
+      </div>
+
+    </div>
+
+    <div class="section-title reveal" style="margin-top:80px;">Реестр Приказов</div>
+    
+    <div class="registry reveal">
       
-      <div class="registry-table fade-up delay-2">
-        
-        <div class="reg-row" onclick="openPDF('docs/Приказ №1012 ОТ1-25 Об утверждении СУОТ.PDF')">
-          <div class="reg-cell reg-id">№ 1012 <span>ОТ1-25</span></div>
-          <div class="reg-cell reg-name">Об утверждении Положения о системе управления охраной труда <strong>(СУОТ)</strong></div>
-          <div class="reg-cell" style="width:50px; text-align:right;"><span class="reg-icon">✒️</span></div>
-        </div>
-
-        <div class="reg-row" onclick="openPDF('docs/Приказ №1012 ОТ2-25 Об утверждении Положения о проведении специальной оценки условий труда.PDF')">
-          <div class="reg-cell reg-id">№ 1012 <span>ОТ2-25</span></div>
-          <div class="reg-cell reg-name">Об утверждении Положения о проведении <strong>СОУТ</strong></div>
-          <div class="reg-cell" style="width:50px; text-align:right;"><span class="reg-icon">✒️</span></div>
-        </div>
-
-        <div class="reg-row" onclick="openPDF('docs/Приказ №1112 ОТ1-25 Об утверждении Положения о системе управления профессиональными рисками.PDF')">
-          <div class="reg-cell reg-id">№ 1112 <span>ОТ1-25</span></div>
-          <div class="reg-cell reg-name">Об утверждении Положения об управлении <strong>профрисками</strong></div>
-          <div class="reg-cell" style="width:50px; text-align:right;"><span class="reg-icon">✒️</span></div>
-        </div>
-
-        <div class="reg-row" onclick="openPDF('docs/Приказ №1112 ОТ2-25 Об утверждении Положения о порядке обеспечения работников средствами индивидульной защиты.PDF')">
-          <div class="reg-cell reg-id">№ 1112 <span>ОТ2-25</span></div>
-          <div class="reg-cell reg-name">Об утверждении Положения о порядке обеспечения <strong>СИЗ</strong></div>
-          <div class="reg-cell" style="width:50px; text-align:right;"><span class="reg-icon">✒️</span></div>
-        </div>
-
-        <div class="reg-row" onclick="openPDF('docs/Приказ №1112 ОТ3-25 Об утверждении норм выдачи средств индивидуальной защиты работникам ООО «Софрино».PDF')">
-          <div class="reg-cell reg-id" style="color:#F59E0B;">№ 1112 <span>ОТ3-25</span></div>
-          <div class="reg-cell reg-name">Об утверждении <strong>НОРМ выдачи СИЗ</strong> работникам</div>
-          <div class="reg-cell" style="width:50px; text-align:right;"><span class="reg-icon" style="color:#F59E0B;">⚠️</span></div>
-        </div>
-
-        <div class="reg-row" onclick="openPDF('docs/Приказ №1212 ОТ1-25 Об утверждении Положения о проведении предварительных и периодических медицинских осмотров работников.PDF')">
-          <div class="reg-cell reg-id">№ 1212 <span>ОТ1-25</span></div>
-          <div class="reg-cell reg-name">Об утверждении Положения о проведении <strong>медосмотров</strong></div>
-          <div class="reg-cell" style="width:50px; text-align:right;"><span class="reg-icon">✒️</span></div>
-        </div>
-
-        <div class="reg-row" onclick="openPDF('docs/Приказ №1312 ОТ1-25 Об утверждении Положения о порядке расследования и учета несчастных случаев на производстве.PDF')">
-          <div class="reg-cell reg-id">№ 1312 <span>ОТ1-25</span></div>
-          <div class="reg-cell reg-name">Об утверждении Положения о расследовании <strong>несчастных случаев</strong></div>
-          <div class="reg-cell" style="width:50px; text-align:right;"><span class="reg-icon">✒️</span></div>
-        </div>
-
+      <div class="reg-row" onclick="openPDF('docs/Приказ №1012 ОТ1-25 Об утверждении СУОТ.PDF')">
+        <div class="reg-id">№ 1012 <span>ОТ1-25</span></div>
+        <div class="reg-name">Об утверждении Положения о СУОТ</div>
+        <div class="reg-arrow">➝</div>
       </div>
 
-      <div class="section-label fade-up delay-2">Кадры • HR Department</div>
-      <div class="hr-glass fade-up delay-2">
-        <h3 style="color:#fff; margin-bottom:15px;">Локальные акты отдела кадров</h3>
-        <p style="color:#94a3b8; max-width:600px; margin:0 auto;">
-          Документы находятся в процессе цифровизации и согласования. Оригиналы ПВТР и Положений об оплате труда доступны по запросу у руководителя ОК.
-        </p>
+      <div class="reg-row" onclick="openPDF('docs/Приказ №1012 ОТ2-25 Об утверждении Положения о проведении специальной оценки условий труда.PDF')">
+        <div class="reg-id">№ 1012 <span>ОТ2-25</span></div>
+        <div class="reg-name">Об утверждении Положения о СОУТ</div>
+        <div class="reg-arrow">➝</div>
       </div>
 
+      <div class="reg-row" onclick="openPDF('docs/Приказ №1112 ОТ1-25 Об утверждении Положения о системе управления профессиональными рисками.PDF')">
+        <div class="reg-id">№ 1112 <span>ОТ1-25</span></div>
+        <div class="reg-name">Об утверждении Положения об управлении рисками</div>
+        <div class="reg-arrow">➝</div>
+      </div>
+
+      <div class="reg-row" onclick="openPDF('docs/Приказ №1112 ОТ2-25 Об утверждении Положения о порядке обеспечения работников средствами индивидульной защиты.PDF')">
+        <div class="reg-id">№ 1112 <span>ОТ2-25</span></div>
+        <div class="reg-name">Об утверждении Положения о порядке обеспечения СИЗ</div>
+        <div class="reg-arrow">➝</div>
+      </div>
+
+      <div class="reg-row" onclick="openPDF('docs/Приказ №1112 ОТ3-25 Об утверждении норм выдачи средств индивидуальной защиты работникам ООО «Софрино».PDF')">
+        <div class="reg-id" style="color:#d97706;">№ 1112 <span>ОТ3-25</span></div>
+        <div class="reg-name"><strong>Об утверждении НОРМ выдачи СИЗ</strong></div>
+        <div class="reg-arrow">➝</div>
+      </div>
+
+      <div class="reg-row" onclick="openPDF('docs/Приказ №1212 ОТ1-25 Об утверждении Положения о проведении предварительных и периодических медицинских осмотров работников.PDF')">
+        <div class="reg-id">№ 1212 <span>ОТ1-25</span></div>
+        <div class="reg-name">Об утверждении Положения о медосмотрах</div>
+        <div class="reg-arrow">➝</div>
+      </div>
+
+      <div class="reg-row" onclick="openPDF('docs/Приказ №1312 ОТ1-25 Об утверждении Положения о порядке расследования и учета несчастных случаев на производстве.PDF')">
+        <div class="reg-id">№ 1312 <span>ОТ1-25</span></div>
+        <div class="reg-name">Об утверждении Положения о расследовании НС</div>
+        <div class="reg-arrow">➝</div>
+      </div>
+
+    </div>
+
+    <div class="hr-block reveal">
+      <h3 style="color:#94a3b8;">Кадровое делопроизводство</h3>
+      <p style="margin-top:10px; color:#cbd5e1;">Раздел находится в разработке. Документы доступны в отделе кадров.</p>
     </div>
 
   </main>
 
   <footer>
-    © 2026 SOFRINO PARK HOTEL. INTERNAL SAFETY SERVICE.
+    © 2026 ООО «Парк-Отель Софрино» | Служба охраны труда
   </footer>
 
-  <a href="https://t.me/+5mfcl7IppD00YzAy" target="_blank" class="tg-btn">
-    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.638z"/></svg>
+  <a href="https://t.me/+5mfcl7IppD00YzAy" target="_blank" class="tg-float">
+    <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.638z"/></svg>
   </a>
 
   <div class="pdf-modal" id="pdfViewer">
-    <div class="pdf-bar">
-      <span style="letter-spacing:1px; text-transform:uppercase; font-size:0.8rem;">Просмотр документа</span>
-      <button class="close-pdf" onclick="closePDF()">Закрыть ✕</button>
+    <div class="pdf-header">
+      <span style="letter-spacing:1px;">ПРОСМОТР ДОКУМЕНТА</span>
+      <button class="close-btn" onclick="closePDF()">Закрыть ✕</button>
     </div>
     <iframe id="pdfFrame" src=""></iframe>
   </div>
 
   <script>
-    // PRELOADER LOGIC
-    window.addEventListener('load', () => {
+    // 1. ИСПРАВЛЕННЫЙ ПРЕЛОАДЕР (ГАРАНТИРОВАННОЕ СКРЫТИЕ)
+    window.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         const loader = document.getElementById('preloader');
-        loader.style.opacity = '0';
-        loader.style.visibility = 'hidden';
-      }, 1000); // 1 секунда показа логотипа
+        if(loader) {
+          loader.style.opacity = '0';
+          loader.style.visibility = 'hidden';
+        }
+      }, 1500); // Исчезнет через 1.5 секунды, даже если картинки не загрузились
     });
 
-    // PDF VIEWER LOGIC
+    // 2. ОТКРЫТИЕ PDF
     function openPDF(path) {
-      const modal = document.getElementById('pdfViewer');
+      const viewer = document.getElementById('pdfViewer');
       const frame = document.getElementById('pdfFrame');
       frame.src = path;
-      modal.classList.add('active');
+      viewer.classList.add('active');
     }
+    
     function closePDF() {
-      const modal = document.getElementById('pdfViewer');
+      const viewer = document.getElementById('pdfViewer');
       const frame = document.getElementById('pdfFrame');
-      modal.classList.remove('active');
-      setTimeout(() => frame.src = "", 500);
+      viewer.classList.remove('active');
+      setTimeout(() => frame.src = "", 300);
     }
 
-    // ANIMATIONS
+    // 3. АНИМАЦИЯ ПРИ ПРОКРУТКЕ
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if(entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
 
 </body>
