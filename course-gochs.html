@@ -16,7 +16,7 @@
   </script>
 
   <style>
-    /* === GLOBAL THEME (Ваша анимация на месте) === */
+    /* === GLOBAL THEME === */
     body.masterpiece-theme {
       background: linear-gradient(-45deg, #eff6ff, #dbeafe, #e0f2fe, #f0f9ff);
       background-size: 400% 400%; animation: gradientBG 15s ease infinite; min-height: 100vh;
@@ -113,14 +113,8 @@
     .btn-magic::after { content: ""; position: absolute; inset: 2px; background: #0f172a; border-radius: 99px; z-index: -1; }
     @keyframes rotate-border { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
 
-    /* Header Status */
-    .system-status-pulse { display: inline-block; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; box-shadow: 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse-green 2s infinite; margin-right: 6px; }
-    @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
-    .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
-    @media (max-width: 900px) { .header-meta { display: none; } }
-
     /* ============================================================== */
-    /* === PDF VIEWER STYLES (FIXED & MOBILE TOUCH) === */
+    /* === PDF VIEWER STYLES (FINAL VERSION) === */
     /* ============================================================== */
     
     .custom-pdf-viewer {
@@ -130,14 +124,23 @@
         height: 700px; display: flex; flex-direction: column; transition: background 0.3s;
     }
 
-    /* FULLSCREEN (ЯДЕРНОЕ РЕШЕНИЕ - Поверх всего) */
+    /* Dark Mode */
+    .custom-pdf-viewer.dark-theme { background: #1e293b; border-color: #334155; }
+    .custom-pdf-viewer.dark-theme .pdf-viewer-header { background: #0f172a; border-bottom-color: #334155; color: #f1f5f9; }
+    .custom-pdf-viewer.dark-theme .pdf-file-info h3 { color: #f1f5f9; }
+    .custom-pdf-viewer.dark-theme .pdf-file-info p { color: #94a3b8; }
+    .custom-pdf-viewer.dark-theme .btn-pdf-action { background: #334155; color: #fff; border-color: #475569; }
+    .custom-pdf-viewer.dark-theme .pdf-canvas-wrapper { background: radial-gradient(#475569 1px, transparent 1px); background-size: 20px 20px; }
+    .custom-pdf-viewer.dark-theme #the-canvas { filter: brightness(0.9); }
+
+    /* Fullscreen Overlay */
     .custom-pdf-viewer.fullscreen-mode {
         position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
-        width: 100% !important; height: 100% !important;
-        z-index: 2147483647 !important; /* Max Z-Index */
-        border-radius: 0 !important; margin: 0 !important; border: none !important;
-        background: #e2e8f0 !important; 
+        width: 100vw !important; height: 100vh !important;
+        z-index: 2147483647 !important; border-radius: 0 !important; margin: 0 !important; border: none !important;
+        background: #e2e8f0 !important;
     }
+    .custom-pdf-viewer.fullscreen-mode.dark-theme { background: #0f172a !important; }
 
     /* Header */
     .pdf-viewer-header {
@@ -152,44 +155,43 @@
     .pdf-file-info p { margin: 0; font-size: 0.75rem; color: #64748b; }
 
     .btn-pdf-action { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 0 12px; height: 36px; border-radius: 8px; background: #fff; border: 1px solid #cbd5e1; color: #334155; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
-    .btn-pdf-action:hover { border-color: #2563eb; color: #2563eb; background: #f8fafc; }
-    .btn-fullscreen { font-size: 1.4rem; padding: 0 10px; line-height: 1; }
+    .btn-pdf-action:hover { border-color: #2563eb; color: #2563eb; }
+    .pdf-read-progress { height: 3px; width: 0%; background: #10b981; transition: width 0.2s; position: absolute; bottom: 0; left: 0; z-index: 15; }
 
-    /* Canvas Area (FIXED FOR TOUCH) */
+    /* Canvas (Native Scroll + PC Drag) */
     .pdf-canvas-wrapper {
-        flex-grow: 1; 
-        overflow: auto; /* Включаем нативный скролл */
-        display: flex; 
-        justify-content: flex-start; /* Начинаем слева (чтобы не резало) */
-        align-items: flex-start; 
+        flex-grow: 1; overflow: auto; display: flex; 
+        justify-content: flex-start; align-items: flex-start;
         padding: 20px; padding-bottom: 100px;
         background: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px;
-        touch-action: pan-x pan-y pinch-zoom; /* Разрешаем браузеру обрабатывать жесты */
+        /* Mobile: Allow native pan/zoom. PC: We handle drag. */
+        touch-action: pan-x pan-y pinch-zoom; 
         -webkit-overflow-scrolling: touch;
-        position: relative;
+        position: relative; cursor: grab;
     }
-    
+    .pdf-canvas-wrapper.grabbing { cursor: grabbing; }
+
     #the-canvas {
-        box-shadow: 0 4px 20px rgba(0,0,0,0.2); 
-        background: #fff; transform-origin: top left;
-        margin: auto; /* Центрируем, если меньше экрана */
-        display: block;
-        transition: box-shadow 0.3s; /* Убрал transition transform, чтобы не дергалось при пинче */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
+        background: #fff; transform-origin: top left; margin: auto; display: block;
+        transition: transform 0.1s ease-out, box-shadow 0.3s;
     }
+    #the-canvas.zoomed { box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
 
     /* Toolbar */
     .pdf-toolbar {
         position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
         background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px);
-        padding: 8px 12px; border-radius: 50px; 
-        display: flex; align-items: center; gap: 12px;
-        color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 50;
-        white-space: nowrap; max-width: 95%;
+        padding: 8px 12px; border-radius: 50px; display: flex; align-items: center; gap: 12px;
+        color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 50; white-space: nowrap; max-width: 95%;
     }
     .tool-btn { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
     .tool-btn-icon { width: 30px; height: 30px; border-radius: 50%; background: transparent; border: none; color: #cbd5e1; cursor: pointer; font-size: 1.2rem; }
-    .page-info { font-family: monospace; font-size: 0.9rem; min-width: 40px; text-align: center; }
     .divider-v { width: 1px; height: 16px; background: rgba(255,255,255,0.2); }
+
+    .page-input-group { display: flex; align-items: center; gap: 5px; font-family: monospace; font-size: 0.9rem; }
+    #page_num_input { width: 40px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; text-align: center; border-radius: 4px; padding: 2px; -moz-appearance: textfield; }
+    #page_num_input:focus { border-color: #10b981; outline: none; background: rgba(255,255,255,0.1); }
 
     .pdf-loader { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #f1f5f9; z-index: 60; color: #64748b; font-weight: 600; }
     .spinner { width: 40px; height: 40px; border: 4px solid #cbd5e1; border-top-color: #2563eb; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 10px; }
@@ -204,6 +206,8 @@
         .custom-pdf-viewer { height: 500px; }
         .pdf-toolbar { padding: 8px 10px; gap: 8px; }
     }
+    .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
+    @media (max-width: 900px) { .header-meta { display: none; } }
   </style>
 </head>
 <body class="masterpiece-theme">
@@ -301,26 +305,29 @@
               </div>
             </div>
             <div class="pdf-top-actions">
+                <button class="btn-pdf-action" id="themeBtn" title="Ночной режим">🌙</button>
                 <a href="assets/Вводный инструктаж по ГО и ЧС.pdf" download class="btn-pdf-action icon-only-mobile">
                     <span class="btn-text">Скачать</span>
                     <span class="btn-icon">📥</span>
                 </a>
-                <button class="btn-pdf-action btn-fullscreen" id="fullscreenBtn" title="На весь экран">
-                    ⛶
-                </button>
+                <button class="btn-pdf-action btn-fullscreen" id="fullscreenBtn" title="На весь экран">⛶</button>
             </div>
+            <div class="pdf-read-progress" id="pdfInnerProgress"></div>
           </div>
 
           <div class="pdf-canvas-wrapper" id="pdfWrapper">
             <canvas id="the-canvas"></canvas>
             <div class="pdf-loader" id="pdfLoader"><div class="spinner"></div><span>Загрузка...</span></div>
-            <div class="gesture-hint" id="gestureHint">👆 2 клика — зум <br> ↔️ Свайп — листать</div>
+            <div class="gesture-hint" id="gestureHint">👆 2 клика — зум <br> 🖐️ Тяни — листать</div>
           </div>
 
           <div class="pdf-toolbar">
-            <button class="tool-btn" id="prev">←</button>
-            <span class="page-info"><span id="page_num">1</span> / <span id="page_count">--</span></span>
-            <button class="tool-btn" id="next">→</button>
+            <button class="tool-btn" id="prev" title="Назад">←</button>
+            <div class="page-input-group">
+                <input type="number" id="page_num_input" value="1" min="1">
+                <span>/ <span id="page_count">--</span></span>
+            </div>
+            <button class="tool-btn" id="next" title="Вперед">→</button>
             <div class="divider-v"></div>
             <button class="tool-btn-icon" id="zoomOut">-</button>
             <button class="tool-btn-icon" id="zoomIn">+</button>
@@ -372,7 +379,7 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    // 1. Стандартные скрипты
+    // 1. Standard Scripts
     const now = new Date();
     document.getElementById('current-date').textContent = now.toLocaleDateString('ru-RU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).replace(/^\w/, c => c.toUpperCase());
 
@@ -418,7 +425,7 @@
     toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
     // =========================================================
-    // 3. PDF VIEWER LOGIC (Repaired & Mobile Native Scroll)
+    // 3. PDF LOGIC (RESTORED FEATURES + MOBILE SWIPE FIX)
     // =========================================================
     const url = 'assets/Вводный инструктаж по ГО и ЧС.pdf'; 
     const storageKey = 'gochs_pdf_page';
@@ -427,51 +434,65 @@
     const container = document.getElementById('mainPdfContainer');
     const wrapper = document.getElementById('pdfWrapper');
     const fsBtn = document.getElementById('fullscreenBtn');
+    const innerProgress = document.getElementById('pdfInnerProgress');
+    const themeBtn = document.getElementById('themeBtn');
+    const pageInput = document.getElementById('page_num_input');
     const placeholder = document.createElement('div'); placeholder.style.display = 'none';
 
-    // --- Функция "Телепортации" (Fullscreen) ---
+    // Load Memory
+    const savedPage = localStorage.getItem(storageKey);
+    if(savedPage) pageNum = parseInt(savedPage);
+
+    // --- Features ---
+    themeBtn.addEventListener('click', () => {
+        container.classList.toggle('dark-theme');
+        themeBtn.textContent = container.classList.contains('dark-theme') ? '☀️' : '🌙';
+    });
+
+    document.addEventListener('keydown', (e) => {
+        const rect = container.getBoundingClientRect();
+        const isVisible = (rect.top < window.innerHeight && rect.bottom > 0) || container.classList.contains('fullscreen-mode');
+        if (isVisible && document.activeElement !== pageInput) {
+            if (e.key === "ArrowLeft") document.getElementById('prev').click();
+            if (e.key === "ArrowRight") document.getElementById('next').click();
+            if (e.key === "+" || e.key === "=") document.getElementById('zoomIn').click();
+            if (e.key === "-" || e.key === "_") document.getElementById('zoomOut').click();
+        }
+        if (e.key === "Escape" && container.classList.contains('fullscreen-mode')) fsBtn.click();
+    });
+
+    pageInput.addEventListener('change', () => {
+        let val = parseInt(pageInput.value);
+        if (val >= 1 && val <= pdfDoc.numPages) { pageNum = val; queueRenderPage(pageNum); } else { pageInput.value = pageNum; }
+    });
+
     fsBtn.addEventListener('click', () => {
         const isFullscreen = container.classList.contains('fullscreen-mode');
-        
         if (!isFullscreen) {
-            // 1. Ставим якорь на текущее место
             container.parentNode.insertBefore(placeholder, container);
-            // 2. Переносим контейнер в BODY (поверх всего)
             document.body.appendChild(container);
-            // 3. Включаем режим
             container.classList.add('fullscreen-mode');
-            document.body.classList.add('pdf-fullscreen-active'); // Блок скролла body
-            fsBtn.textContent = '✕'; // Крестик
+            document.body.classList.add('pdf-fullscreen-active'); 
+            fsBtn.textContent = '✕';
             showGestureHint();
         } else {
-            // 1. Возвращаем на место (к якорю)
             placeholder.parentNode.insertBefore(container, placeholder);
-            // 2. Убираем из body (автоматически при insertBefore)
             container.classList.remove('fullscreen-mode');
             document.body.classList.remove('pdf-fullscreen-active');
             fsBtn.textContent = '⛶';
         }
-        // Перерисовываем PDF (размеры изменились)
         setTimeout(() => renderPage(pageNum), 50);
     });
 
-    // --- Рендеринг ---
+    // --- Render ---
     function renderPage(num) {
       pageRendering = true;
       pdfDoc.getPage(num).then(function(page) {
         const viewportOriginal = page.getViewport({scale: 1});
         const availableWidth = wrapper.clientWidth - 30; 
         let desiredScale = availableWidth / viewportOriginal.width;
-        
-        // Умный выбор масштаба:
-        // Если масштаб не меняли (1.0), то подгоняем под ширину
-        if (scale === 1.0) {
-             // Используем desiredScale (Fit Width)
-             scale = parseFloat(desiredScale.toFixed(2)); // Синхронизируем переменную
-        } else {
-             // Если масштаб изменен (зум), используем его
-             desiredScale = scale;
-        }
+        if (scale !== 1.0) desiredScale = scale;
+        else scale = parseFloat(desiredScale.toFixed(2));
 
         const viewport = page.getViewport({scale: desiredScale});
         canvas.height = viewport.height; canvas.width = viewport.width;
@@ -485,20 +506,38 @@
           if (pageNumPending !== null) { renderPage(pageNumPending); pageNumPending = null; }
         });
       });
-      document.getElementById('page_num').textContent = num;
+      pageInput.value = num;
+      localStorage.setItem(storageKey, num);
+      if(pdfDoc) innerProgress.style.width = (num / pdfDoc.numPages) * 100 + '%';
+      if (scale > 1.0) canvas.classList.add('zoomed'); else canvas.classList.remove('zoomed');
     }
 
-    function queueRenderPage(num) {
-      if (pageRendering) pageNumPending = num; else renderPage(num);
-    }
+    function queueRenderPage(num) { if (pageRendering) pageNumPending = num; else renderPage(num); }
 
-    // --- Кнопки ---
     document.getElementById('prev').addEventListener('click', () => { if (pageNum <= 1) return; pageNum--; queueRenderPage(pageNum); });
     document.getElementById('next').addEventListener('click', () => { if (pageNum >= pdfDoc.numPages) return; pageNum++; queueRenderPage(pageNum); });
     document.getElementById('zoomIn').addEventListener('click', () => { scale += 0.25; renderPage(pageNum); });
     document.getElementById('zoomOut').addEventListener('click', () => { if(scale > 0.5) scale -= 0.25; renderPage(pageNum); });
 
-    // --- TOUCH LOGIC (Smart Swipe + Double Tap) ---
+    // --- MOUSE DRAG (DESKTOP) ---
+    // Вернул логику перетаскивания мышкой для ПК
+    let isDragging = false, startX, startY, scrollLeft, scrollTop;
+    wrapper.addEventListener('mousedown', (e) => {
+        isDragging = true; wrapper.classList.add('grabbing');
+        startX = e.pageX - wrapper.offsetLeft; startY = e.pageY - wrapper.offsetTop;
+        scrollLeft = wrapper.scrollLeft; scrollTop = wrapper.scrollTop;
+    });
+    wrapper.addEventListener('mouseleave', () => { isDragging = false; wrapper.classList.remove('grabbing'); });
+    wrapper.addEventListener('mouseup', () => { isDragging = false; wrapper.classList.remove('grabbing'); });
+    wrapper.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - wrapper.offsetLeft; const y = e.pageY - wrapper.offsetTop;
+        const walkX = (x - startX) * 1.5; const walkY = (y - startY) * 1.5;
+        wrapper.scrollLeft = scrollLeft - walkX; wrapper.scrollTop = scrollTop - walkY;
+    });
+
+    // --- TOUCH LOGIC (MOBILE) ---
     let touchStartX = 0, touchEndX = 0, lastTap = 0;
     
     wrapper.addEventListener('touchstart', e => {
@@ -511,24 +550,18 @@
         
         // 1. Double Tap (Zoom)
         if (currentTime - lastTap < 300) { 
-            // Переключение зума: если > 1.2 сбрасываем, иначе зумим x2.5
-            if (scale > 1.2) {
-                scale = 1.0; 
-            } else {
-                scale = 2.5; 
-            }
-            renderPage(pageNum); 
+            scale = (scale > 1.2) ? 1.0 : 2.0; renderPage(pageNum); 
         }
         lastTap = currentTime;
 
-        // 2. Swipe (Page Turn) - ТОЛЬКО если масштаб обычный (не приближено)
-        // Чтобы при зуме можно было двигать бумагу, а не листать
+        // 2. Swipe Page Turn (TIGHTER CONTROL)
+        // Срабатывает ТОЛЬКО если масштаб <= 1.1 (не приближено)
+        // И если свайп длинный (> 80px)
         if (scale <= 1.1) {
             const diff = touchStartX - touchEndX;
-            // Порог 100px для "тугого" перелистывания
-            if (Math.abs(diff) > 100) {
-                if (diff > 0 && pageNum < pdfDoc.numPages) { pageNum++; queueRenderPage(pageNum); } // Свайп влево -> След
-                if (diff < 0 && pageNum > 1) { pageNum--; queueRenderPage(pageNum); } // Свайп вправо -> Пред
+            if (Math.abs(diff) > 80) { // Жесткий порог свайпа
+                if (diff > 0 && pageNum < pdfDoc.numPages) { pageNum++; queueRenderPage(pageNum); } // Next
+                if (diff < 0 && pageNum > 1) { pageNum--; queueRenderPage(pageNum); } // Prev
             }
         }
     }, {passive: true});
@@ -544,7 +577,6 @@
       document.getElementById('page_count').textContent = pdfDoc.numPages;
       renderPage(pageNum);
     }).catch(console.error);
-    
     window.addEventListener('resize', () => { if(pdfDoc) renderPage(pageNum); });
   });
 </script>
