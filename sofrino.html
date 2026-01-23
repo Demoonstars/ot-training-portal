@@ -16,15 +16,22 @@
 
   <style>
     /* =========================================
-       THEME: QUANTUM BLACK EDITION
+       THEME: QUANTUM MASTERPIECE
        ========================================= */
     :root {
       --c-green: #009688; --c-orange: #F59E0B; --c-blue: #2563EB; --c-purple: #7C3AED;
       --c-dark: #020617; --c-text: #334155;
-      --glass: rgba(255, 255, 255, 0.75);
+      --glass: rgba(255, 255, 255, 0.8);
+      --glass-hover: rgba(255, 255, 255, 0.95);
       --border: 1px solid rgba(255, 255, 255, 0.6);
       --radius: 24px;
     }
+
+    /* CUSTOM SCROLLBAR (WEBKIT) */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.5); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--c-green); }
 
     body {
       margin: 0; padding: 0;
@@ -32,170 +39,146 @@
       color: var(--c-dark);
       background: #F1F5F9;
       overflow-x: hidden;
+      cursor: none; /* Скрываем стандартный курсор (заменим своим) */
     }
+    
+    /* Возвращаем курсор на мобильных */
+    @media (pointer: coarse) { body { cursor: auto; } }
+
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
 
-    /* === 1. ФОН: ЖИВАЯ ЛАВА (LAVA LAMP) === */
+    /* === 1. ФОН И АТМОСФЕРА === */
     .bg-wrapper { position: fixed; inset: 0; z-index: -2; background: #F8FAFC; overflow: hidden; }
-    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; animation: float 12s infinite alternate ease-in-out; will-change: transform; }
-    .o1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(0, 150, 136, 0.25), transparent 70%); }
-    .o2 { bottom: -10%; right: -10%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(37, 99, 235, 0.25), transparent 70%); animation-delay: -5s; }
-    .o3 { top: 30%; left: 30%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(245, 158, 11, 0.2), transparent 70%); animation-delay: -8s; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.5; animation: float 20s infinite alternate ease-in-out; will-change: transform; }
+    .o1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(0, 150, 136, 0.2), transparent 70%); }
+    .o2 { bottom: -10%; right: -10%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent 70%); animation-delay: -5s; }
+    .o3 { top: 30%; left: 30%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(245, 158, 11, 0.15), transparent 70%); animation-delay: -8s; }
     @keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(30px, 50px) scale(1.05); } }
 
-    /* Шум (Grain) для дороговизны */
     .noise {
       position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.03;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
 
-    /* === 2. ПРЕЛОАДЕР (BLACK ENERGY REACTOR) === */
-    #preloader { 
-      position: fixed; inset: 0; z-index: 9999; 
-      background: #050505; /* Глубокий черный */
-      display: flex; justify-content: center; align-items: center; 
-      transition: opacity 0.8s ease, visibility 0.8s; 
+    /* === 2. ИНТЕРАКТИВНЫЙ КУРСОР === */
+    .cursor-dot, .cursor-outline {
+      position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; z-index: 9999; pointer-events: none;
     }
+    .cursor-dot { width: 8px; height: 8px; background: var(--c-dark); }
+    .cursor-outline {
+      width: 40px; height: 40px; border: 1px solid rgba(15, 23, 42, 0.3);
+      transition: width 0.2s, height 0.2s, background-color 0.2s;
+    }
+    /* Эффект при наведении */
+    body.hovering .cursor-outline { width: 60px; height: 60px; background: rgba(0, 150, 136, 0.1); border-color: var(--c-green); }
     
+    @media (pointer: coarse) { .cursor-dot, .cursor-outline { display: none; } }
+
+    /* === 3. ПРЕЛОАДЕР === */
+    #preloader { position: fixed; inset: 0; z-index: 99999; background: #050505; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease, visibility 0.8s; }
     .reactor-container { position: relative; width: 160px; height: 160px; display: flex; justify-content: center; align-items: center; }
-    
-    .reactor-logo { 
-      width: 80px; z-index: 10; 
-      /* Белое свечение вокруг логотипа чтобы он читался на черном */
-      filter: drop-shadow(0 0 10px rgba(255,255,255,0.5)); 
-      animation: heartbeat 2s infinite; 
-    }
-    
-    .energy-ring {
-      position: absolute; border-radius: 50%; border: 3px solid transparent;
-      mix-blend-mode: screen; /* Смешивание цветов для эффекта света */
-    }
-    
-    /* Неоновые кольца */
-    .er-1 { 
-      width: 100%; height: 100%; 
-      border-top-color: #00ffcc; 
-      box-shadow: 0 0 15px #00ffcc, inset 0 0 10px #00ffcc;
-      animation: reactorSpin 1.5s linear infinite; 
-    }
-    .er-2 { 
-      width: 80%; height: 80%; 
-      border-right-color: #ffaa00; 
-      box-shadow: 0 0 15px #ffaa00;
-      animation: reactorSpin 2s linear infinite reverse; 
-    }
-    .er-3 { 
-      width: 120%; height: 120%; 
-      border-bottom-color: #0088ff; 
-      box-shadow: 0 0 20px #0088ff;
-      animation: reactorSpin 3s linear infinite; 
-      opacity: 0.6;
-    }
+    .reactor-logo { width: 80px; z-index: 10; filter: drop-shadow(0 0 15px rgba(255,255,255,0.4)); animation: heartbeat 2s infinite; }
+    .energy-ring { position: absolute; border-radius: 50%; border: 3px solid transparent; mix-blend-mode: screen; }
+    .er-1 { width: 100%; height: 100%; border-top-color: #00ffcc; box-shadow: 0 0 15px #00ffcc; animation: spin 1.5s linear infinite; }
+    .er-2 { width: 80%; height: 80%; border-right-color: #ffaa00; box-shadow: 0 0 15px #ffaa00; animation: spin 2s linear infinite reverse; }
+    .er-3 { width: 120%; height: 120%; border-bottom-color: #0088ff; box-shadow: 0 0 20px #0088ff; animation: spin 3s linear infinite; opacity: 0.6; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-    @keyframes reactorSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    @keyframes heartbeat { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-
-    /* === 3. ШАПКА === */
+    /* === 4. ШАПКА === */
     .header {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.8); backdrop-filter: blur(25px);
+      background: rgba(255,255,255,0.8); backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(255,255,255,0.5); padding: 12px 0;
-      box-shadow: 0 4px 30px rgba(0,0,0,0.03);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.03); transition: 0.3s;
     }
+    .header.scrolled { padding: 8px 0; background: rgba(255,255,255,0.95); }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
     .nav { display: flex; justify-content: space-between; align-items: center; }
 
     .brand { display: flex; align-items: center; gap: 14px; }
     .brand img { height: 50px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
-    .brand-txt h1 { font-size: 1.15rem; font-weight: 800; line-height: 1; margin: 0; color: var(--c-dark); }
+    .brand-txt h1 { font-size: 1.15rem; font-weight: 800; line-height: 1; margin: 0; }
     .brand-txt span { font-size: 0.7rem; font-weight: 700; color: var(--c-green); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; margin-top: 4px; }
     .pulse-dot { width: 6px; height: 6px; background: var(--c-green); border-radius: 50%; box-shadow: 0 0 8px var(--c-green); animation: blink 2s infinite; }
     @keyframes blink { 50% { opacity: 0.3; } }
 
-    /* === КНОПКИ В ШАПКЕ (ШЕДЕВР) === */
     .actions { display: flex; gap: 16px; align-items: center; }
-
-    /* 1. УЧЕБНЫЙ ПОРТАЛ (Deep Dark Glass) */
+    
     .btn-portal {
       position: relative; display: flex; align-items: center; gap: 12px;
       padding: 0 20px; height: 46px; border-radius: 12px;
-      background: #1e293b;
-      color: #fff; text-decoration: none; overflow: hidden;
-      box-shadow: 0 4px 15px rgba(30, 41, 59, 0.3);
-      transition: 0.3s; border: 1px solid rgba(255,255,255,0.1);
+      background: #1e293b; color: #fff; text-decoration: none; overflow: hidden;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2); transition: 0.3s;
     }
-    .btn-portal:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(30, 41, 59, 0.5); background: #0f172a; }
-    /* Блик */
+    .btn-portal:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(15, 23, 42, 0.4); }
     .btn-portal::after {
-      content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+      content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
       transform: skewX(-20deg); transition: 0.5s;
     }
     .btn-portal:hover::after { left: 150%; }
 
-    /* 2. ОФИЦИАЛЬНЫЙ САЙТ (Cyber Border) */
+    .btn-site-wrap {
+      padding: 2px; border-radius: 14px; position: relative; z-index: 1;
+      background: linear-gradient(90deg, #00d2ff, #3a7bd5, #ff0080, #7928ca);
+      background-size: 300% 300%; animation: gradientFlow 4s ease infinite;
+      box-shadow: 0 5px 20px rgba(58, 123, 213, 0.3); transition: 0.3s;
+    }
+    .btn-site-wrap:hover { box-shadow: 0 10px 30px rgba(255, 0, 128, 0.4); transform: scale(1.02); }
     .btn-site {
-      position: relative; display: flex; align-items: center; gap: 12px;
-      padding: 0 20px; height: 46px; border-radius: 12px;
-      background: #fff; color: var(--c-dark); text-decoration: none;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.3s;
-      z-index: 1;
+      display: flex; align-items: center; gap: 12px; height: 42px; padding: 0 20px;
+      background: #fff; border-radius: 12px; text-decoration: none; color: var(--c-dark);
+      position: relative; z-index: 2;
     }
-    /* Градиентная обводка */
-    .btn-site::before {
-      content: ""; position: absolute; inset: -2px; border-radius: 14px;
-      background: linear-gradient(45deg, #00d2ff, #3a7bd5, #ff0080);
-      z-index: -1; opacity: 0; transition: 0.3s;
-    }
-    .btn-site:hover { transform: translateY(-2px); color: #fff; }
-    .btn-site:hover::before { opacity: 1; }
-    /* Чтобы фон кнопки перекрывал градиент в центре */
-    .btn-site::after {
-      content: ""; position: absolute; inset: 1px; border-radius: 11px;
-      background: #fff; z-index: -1; transition: 0.3s;
-    }
-    .btn-site:hover::after { background: #000; } /* При наведении фон становится черным для контраста */
+    @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
     .btn-col { display: flex; flex-direction: column; line-height: 1.1; }
     .btn-t1 { font-size: 0.85rem; font-weight: 700; }
-    .btn-t2 { font-size: 0.65rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.5px; }
+    .btn-t2 { font-size: 0.65rem; opacity: 0.7; text-transform: uppercase; }
     .btn-ico { font-size: 1.3rem; }
 
     @media (max-width: 768px) {
-      .brand-txt { display: none; }
+      .brand-txt, .btn-col { display: none; }
       .btn-portal, .btn-site { padding: 0; width: 44px; justify-content: center; }
-      .btn-col { display: none; }
       .btn-ico { margin: 0; font-size: 1.4rem; }
       .actions { gap: 8px; }
     }
 
-    /* === 4. ГЕРОЙ: ЖИВОЙ ТЕКСТ (LIQUID METAL) === */
-    .hero { text-align: center; padding: 60px 0 40px; }
+    /* === 5. ГЕРОЙ + ПОИСК (NEW!) === */
+    .hero { text-align: center; padding: 60px 0 40px; position: relative; }
     .hero h2 { 
-      font-size: clamp(2rem, 6vw, 3.5rem); 
-      font-weight: 900; margin-bottom: 15px; letter-spacing: -1px;
-      
-      /* Живой градиент */
-      background: linear-gradient(to right, #1e293b 20%, #009688 40%, #009688 60%, #1e293b 80%);
-      background-size: 200% auto;
-      background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      animation: shineText 4s linear infinite;
-      
-      /* Переносы для мобильных */
-      word-wrap: break-word; overflow-wrap: break-word; hyphens: auto;
-      line-height: 1.1; padding: 0 10px;
+      font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 900; margin-bottom: 15px; letter-spacing: -1px;
+      background: linear-gradient(to right, #1e293b 20%, #009688 30%, #2563eb 70%, #1e293b 80%);
+      background-size: 200% auto; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      animation: shineText 5s linear infinite; padding: 0 10px;
     }
     @keyframes shineText { to { background-position: 200% center; } }
-    
-    .hero p { color: #64748B; font-size: 1.1rem; max-width: 500px; margin: 0 auto; line-height: 1.6; }
+    .hero p { color: #64748B; font-size: 1.1rem; margin: 0 auto 30px; max-width: 500px; }
 
-    /* === 5. ПАПКИ === */
+    /* SEARCH BAR (GLASS) */
+    .search-wrap {
+      max-width: 600px; margin: 0 auto; position: relative;
+      background: rgba(255,255,255,0.6); backdrop-filter: blur(10px);
+      padding: 8px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 10px 40px -5px rgba(0,0,0,0.05);
+      transition: 0.3s; display: flex; align-items: center;
+    }
+    .search-wrap:focus-within { background: #fff; box-shadow: 0 20px 50px -10px rgba(0, 150, 136, 0.15); border-color: var(--c-green); transform: translateY(-2px); }
+    
+    .search-icon { font-size: 1.5rem; color: #94A3B8; padding: 0 15px; }
+    .search-input {
+      flex-grow: 1; border: none; background: transparent; font-size: 1.1rem;
+      padding: 10px 0; color: var(--c-dark); font-family: 'Inter', sans-serif;
+    }
+    .search-input::placeholder { color: #94A3B8; }
+    
+    /* === 6. КОНТЕНТ === */
     .stack { display: flex; flex-direction: column; gap: 20px; padding-bottom: 120px; }
 
     .folder {
       background: var(--glass); border: var(--border); border-radius: var(--radius);
       box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); overflow: hidden; transition: 0.4s;
-      position: relative;
     }
     .folder:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); border-color: #fff; }
     
@@ -213,7 +196,6 @@
     .chevron { font-size: 1.2rem; color: #94A3B8; transition: 0.4s; }
     .folder.active .chevron { transform: rotate(180deg); color: var(--c-dark); }
 
-    /* Colors */
     .green .f-icon { background: linear-gradient(135deg, #E0F2F1, #99F6E4); color: #0F766E; }
     .orange .f-icon { background: linear-gradient(135deg, #FFF7ED, #FED7AA); color: #C2410C; }
     .blue .f-icon { background: linear-gradient(135deg, #EFF6FF, #BFDBFE); color: #1D4ED8; }
@@ -222,7 +204,6 @@
     .f-body { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1); background: rgba(255,255,255,0.3); }
     .folder.active .f-body { max-height: 5000px; border-top: 1px solid rgba(255,255,255,0.5); }
 
-    /* Вложенные (Sub-folders) */
     .sub-item { margin: 20px 30px; background: #fff; border-radius: 18px; border: 1px solid #E2E8F0; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
     .sub-head { padding: 18px 24px; font-weight: 700; color: #475569; display: flex; justify-content: space-between; cursor: pointer; transition: 0.2s; }
     .sub-head:hover { background: #F8FAFC; color: var(--c-dark); }
@@ -230,15 +211,13 @@
     .sub-item.open .sub-body { max-height: 3000px; padding: 15px 0; border-top: 1px solid #E2E8F0; }
     .sub-item.open .sub-head { background: #F0FDF4; color: var(--c-green); }
 
-    /* Файлы (Cards with Shimmer) */
+    /* Файлы */
     .file {
       display: flex; align-items: center; gap: 16px; padding: 14px 24px;
       cursor: pointer; transition: 0.2s; border-left: 3px solid transparent;
       position: relative; overflow: hidden;
     }
     .file:hover { background: #fff; border-left-color: var(--c-green); transform: translateX(5px); }
-    
-    /* Блик при наведении */
     .file::after {
       content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
@@ -256,18 +235,26 @@
     }
     .badge.imp { background: #FEF3C7; color: #B45309; }
 
-    /* === 6. PDF VIEWER (MOBILE FIXED) === */
+    /* NOTIFICATION (TOAST) */
+    .toast {
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px);
+      background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px);
+      color: #fff; padding: 12px 24px; border-radius: 50px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 10000;
+      display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: 600;
+      opacity: 0; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    .toast-icon { color: #10B981; }
+
+    /* === 7. PDF VIEWER === */
     .pdf-modal {
       position: fixed; inset: 0; z-index: 5000;
       background: #020617; display: none; flex-direction: column;
       opacity: 0; transition: opacity 0.3s;
     }
     .pdf-modal.active { display: flex; opacity: 1; }
-    
-    /* Хак для телефонов - абсолютная фиксация поверх браузера */
-    .pdf-modal.mobile-fullscreen-hack { 
-      position: fixed !important; top: 0; left: 0; right: 0; bottom: 0; width: 100% !important; height: 100% !important; z-index: 999999;
-    }
+    .pdf-modal.mobile-fullscreen-hack { position: fixed !important; inset: 0 !important; z-index: 999999; }
 
     .pdf-head {
       height: 56px; background: #0F172A; border-bottom: 1px solid #1E293B;
@@ -293,9 +280,7 @@
     .pdf-body.dark { background: #000; }
     .pdf-body.dark canvas { filter: invert(1) hue-rotate(180deg) contrast(0.9); }
 
-    #the-canvas {
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5); background: #fff; margin-bottom: 50px;
-    }
+    #the-canvas { box-shadow: 0 20px 50px rgba(0,0,0,0.5); background: #fff; margin-bottom: 50px; }
 
     .pdf-foot {
       height: 70px; background: #0F172A; border-top: 1px solid #1E293B;
@@ -320,7 +305,7 @@
     }
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    /* === TELEGRAM === */
+    /* TELEGRAM */
     .tg-float {
       position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
       background: rgba(255,255,255,0.95); backdrop-filter: blur(15px);
@@ -344,6 +329,14 @@
   </style>
 </head>
 <body>
+
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <div class="toast" id="toast">
+    <span class="toast-icon">✓</span>
+    <span class="toast-msg">Документ загружается</span>
+  </div>
 
   <div class="bg-wrapper">
     <div class="noise"></div>
@@ -372,12 +365,11 @@
       </div>
       
       <div class="actions">
-        <a href="index.html" class="btn-portal">
+        <a href="index.html" class="btn-portal hover-target">
           <span class="btn-ico">🎓</span>
           <div class="btn-col"><span class="btn-t1">Учебный Портал</span><span class="btn-t2">Личный кабинет</span></div>
         </a>
-        
-        <div class="btn-site-wrap">
+        <div class="btn-site-wrap hover-target">
           <a href="https://sofrino-park.com/" target="_blank" class="btn-site">
             <span class="btn-ico">🌐</span>
             <div class="btn-col"><span class="btn-t1">Парк-Отель</span><span class="btn-t2">Веб-сайт</span></div>
@@ -391,11 +383,16 @@
     <div class="hero">
       <h2>Документационный центр</h2>
       <p>Локальные нормативные акты, инструкции и стандарты безопасности</p>
+      
+      <div class="search-wrap">
+        <div class="search-icon">🔍</div>
+        <input type="text" id="searchInput" class="search-input" placeholder="Поиск по документам (например: СИЗ, Приказ)...">
+      </div>
     </div>
 
     <div class="stack">
 
-      <div class="folder green" id="f1">
+      <div class="folder green hover-target" id="f1">
         <div class="f-head" onclick="toggleFolder('f1')">
           <div class="f-main">
             <div class="f-icon">🛡️</div>
@@ -506,7 +503,7 @@
         </div>
       </div>
 
-      <div class="folder orange" id="f2">
+      <div class="folder orange hover-target" id="f2">
         <div class="f-head" onclick="toggleFolder('f2')">
           <div class="f-main">
             <div class="f-icon">🔥</div>
@@ -517,7 +514,7 @@
         <div class="f-body"><div style="padding:30px;text-align:center;color:#94A3B8;">В разработке</div></div>
       </div>
 
-      <div class="folder blue" id="f3">
+      <div class="folder blue hover-target" id="f3">
         <div class="f-head" onclick="toggleFolder('f3')">
           <div class="f-main">
             <div class="f-icon">📢</div>
@@ -528,7 +525,7 @@
         <div class="f-body"><div style="padding:30px;text-align:center;color:#94A3B8;">В разработке</div></div>
       </div>
 
-      <div class="folder purple" id="f4">
+      <div class="folder purple hover-target" id="f4">
         <div class="f-head" onclick="toggleFolder('f4')">
           <div class="f-main">
             <div class="f-icon">💼</div>
@@ -550,7 +547,7 @@
     © 2026 СОФРИНО ПАРК. Служба охраны труда.
   </footer>
 
-  <a href="https://t.me/+5mfcl7IppD00YzAy" target="_blank" class="tg-float">
+  <a href="https://t.me/+5mfcl7IppD00YzAy" target="_blank" class="tg-float hover-target">
     <div class="tg-logo">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M21.92,2.62a1.67,1.67,0,0,0-1.68-.4l-18,6.8a1.68,1.68,0,0,0,.1,3.13l4.63,1.68L17.7,6.72a.46.46,0,0,1,.63.66l-9.13,7.93v3.9a1.27,1.27,0,0,0,2.15.9l2.77-2.61,5.55,4.21a1.27,1.27,0,0,0,2.2-.7L23.61,4.11A1.67,1.67,0,0,0,21.92,2.62Z"/></svg>
     </div>
@@ -561,52 +558,91 @@
     <div class="pdf-head">
       <div class="pdf-title" id="pdfDocTitle">Документ</div>
       <div class="pdf-ctrls">
-        <button class="icon-btn pc-only" onclick="adjustZoom(0.2)" title="Приблизить" id="btnZoomIn">+</button>
-        <button class="icon-btn pc-only" onclick="adjustZoom(-0.2)" title="Отдалить" id="btnZoomOut">-</button>
-        <button class="icon-btn" onclick="toggleNight()" title="Ночной режим">🌙</button>
-        <a href="#" id="downloadBtn" class="icon-btn" download title="Скачать">📥</a>
-        <button class="icon-btn" onclick="toggleFullscreen()" title="На весь экран">⛶</button>
-        <button class="icon-btn close" onclick="closeViewer()">✕</button>
+        <button class="icon-btn pc-only hover-target" onclick="adjustZoom(0.2)" title="Приблизить" id="btnZoomIn">+</button>
+        <button class="icon-btn pc-only hover-target" onclick="adjustZoom(-0.2)" title="Отдалить" id="btnZoomOut">-</button>
+        <button class="icon-btn hover-target" onclick="toggleNight()" title="Ночной режим">🌙</button>
+        <a href="#" id="downloadBtn" class="icon-btn hover-target" download title="Скачать">📥</a>
+        <button class="icon-btn hover-target" onclick="toggleFullscreen()" title="На весь экран">⛶</button>
+        <button class="icon-btn close hover-target" onclick="closeViewer()">✕</button>
       </div>
     </div>
-    
     <div class="pdf-body" id="pdfBody">
       <div class="pdf-loader" id="pdfLoader"><div class="spinner"></div><span>Загрузка...</span></div>
       <canvas id="the-canvas"></canvas>
     </div>
-
     <div class="pdf-foot">
-      <button class="nav-circle" id="prev">←</button>
+      <button class="nav-circle hover-target" id="prev">←</button>
       <div class="page-info"><span id="page_num">1</span> / <span id="page_count">--</span></div>
-      <button class="nav-circle" id="next">→</button>
+      <button class="nav-circle hover-target" id="next">→</button>
     </div>
   </div>
 
   <script>
-    // PRELOADER
+    // 1. PRELOADER
     window.onload = function() {
       setTimeout(() => {
         document.getElementById('preloader').style.opacity = '0';
         document.getElementById('preloader').style.visibility = 'hidden';
       }, 800);
-      
-      // Показать кнопки зума только на ПК
       if(!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
         document.querySelectorAll('.pc-only').forEach(el => el.style.display = 'flex');
       }
     };
 
-    // UI LOGIC
+    // 2. CURSOR LOGIC
+    const cursorDot = document.querySelector(".cursor-dot");
+    const cursorOutline = document.querySelector(".cursor-outline");
+    window.addEventListener("mousemove", function (e) {
+      const posX = e.clientX; const posY = e.clientY;
+      cursorDot.style.left = `${posX}px`; cursorDot.style.top = `${posY}px`;
+      cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
+    });
+    
+    // Magnetic Hover Effect
+    document.querySelectorAll('.hover-target, .file, .f-head, .icon-btn').forEach(item => {
+      item.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+      item.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+    });
+
+    // 3. SEARCH LOGIC (LIVE FILTER)
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('keyup', function() {
+      const filter = this.value.toLowerCase();
+      const files = document.querySelectorAll('.file');
+      
+      files.forEach(file => {
+        const text = file.innerText.toLowerCase();
+        const subBody = file.closest('.sub-body');
+        const subItem = file.closest('.sub-item');
+        const folderBody = file.closest('.f-body');
+        const folder = file.closest('.folder');
+
+        if (text.includes(filter)) {
+          file.style.display = "flex";
+          if(filter.length > 2) {
+            folder.classList.add('active'); // Раскрыть папку
+            subItem.classList.add('open');  // Раскрыть подкатегорию
+          }
+        } else {
+          file.style.display = "none";
+        }
+      });
+    });
+
+    // 4. TOAST NOTIFICATION
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.querySelector('.toast-msg').innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // 5. ACCORDION & PDF
     function toggleFolder(id) { document.getElementById(id).classList.toggle('active'); }
     function toggleSub(head) { head.parentElement.classList.toggle('open'); }
 
-    // =========================================
-    // PDF ENGINE (High DPI + Mobile Fix)
-    // =========================================
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null;
-    let scale = 1.0; 
-    let currentUrl = "";
-    
+    let scale = 1.0; let currentUrl = "";
     const canvas = document.getElementById('the-canvas');
     const ctx = canvas.getContext('2d');
     const pdfLoader = document.getElementById('pdfLoader');
@@ -617,13 +653,10 @@
       document.getElementById('downloadBtn').href = url;
       document.getElementById('pdfModal').classList.add('active');
       document.body.style.overflow = 'hidden';
+      showToast('Открываем документ...');
       
       if(url !== currentUrl) {
-        currentUrl = url;
-        pageNum = 1; 
-        scale = 1.0; 
-        pdfLoader.style.display = 'flex';
-        
+        currentUrl = url; pageNum = 1; scale = 1.0; pdfLoader.style.display = 'flex';
         pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
           pdfDoc = pdfDoc_;
           document.getElementById('page_count').textContent = pdfDoc.numPages;
@@ -635,13 +668,11 @@
     function renderPage(num) {
       pageRendering = true;
       pdfDoc.getPage(num).then(function(page) {
-        
         const viewportRaw = page.getViewport({scale: 1});
-        const containerWidth = pdfBody.clientWidth - 30;
+        const containerWidth = pdfBody.clientWidth - 40;
         let renderScale = (containerWidth / viewportRaw.width) * scale;
         if(renderScale < 0.5) renderScale = 0.5;
 
-        // High DPI rendering
         const outputScale = window.devicePixelRatio || 1;
         const viewport = page.getViewport({scale: renderScale});
 
@@ -651,13 +682,7 @@
         canvas.style.height = Math.floor(viewport.height) + "px";
 
         const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
-
-        const renderContext = {
-          canvasContext: ctx,
-          viewport: viewport,
-          transform: transform
-        };
-        
+        const renderContext = { canvasContext: ctx, viewport: viewport, transform: transform };
         const renderTask = page.render(renderContext);
 
         renderTask.promise.then(function() {
@@ -669,10 +694,7 @@
       document.getElementById('page_num').textContent = num;
     }
 
-    function queueRenderPage(num) {
-      if (pageRendering) pageNumPending = num; else renderPage(num);
-    }
-
+    function queueRenderPage(num) { if (pageRendering) pageNumPending = num; else renderPage(num); }
     function onPrevPage() { if (pageNum <= 1) return; pageNum--; queueRenderPage(pageNum); }
     function onNextPage() { if (pageNum >= pdfDoc.numPages) return; pageNum++; queueRenderPage(pageNum); }
 
@@ -680,48 +702,33 @@
     document.getElementById('next').addEventListener('click', onNextPage);
 
     function adjustZoom(delta) {
-      scale += delta;
-      if(scale < 0.5) scale = 0.5;
-      if(scale > 3.0) scale = 3.0;
+      scale += delta; if(scale < 0.5) scale = 0.5; if(scale > 3.0) scale = 3.0;
       queueRenderPage(pageNum);
     }
 
     function toggleNight() { pdfBody.classList.toggle('dark'); }
     
-    // FULLSCREEN FIX FOR MOBILE
     function toggleFullscreen() {
       const modal = document.getElementById('pdfModal');
-      // Простая проверка на мобильное устройство
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
       if (isMobile) {
-        // На мобильном просто меняем класс CSS (Без ошибок)
         modal.classList.toggle('mobile-fullscreen-hack');
-        // Перерисовываем для адаптации
         setTimeout(() => renderPage(pageNum), 100);
       } else {
-        // На ПК используем стандартный API
-        if (!document.fullscreenElement) {
-          modal.requestFullscreen().catch(err => { console.log(err); });
-        } else {
-          document.exitFullscreen();
-        }
+        if (!document.fullscreenElement) modal.requestFullscreen().catch(err => {});
+        else document.exitFullscreen();
       }
     }
 
     function closeViewer() {
       const modal = document.getElementById('pdfModal');
       modal.classList.remove('active');
-      modal.classList.remove('mobile-fullscreen-hack'); // Сброс мобильного режима
+      modal.classList.remove('mobile-fullscreen-hack');
       document.body.style.overflow = '';
       if(document.fullscreenElement) document.exitFullscreen().catch(e=>{});
     }
 
-    // Close on background
-    pdfBody.addEventListener('click', (e) => {
-      if(e.target === pdfBody) closeViewer();
-    });
-
+    pdfBody.addEventListener('click', (e) => { if(e.target === pdfBody) closeViewer(); });
   </script>
 
 </body>
