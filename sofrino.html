@@ -16,7 +16,7 @@
 
   <style>
     /* =========================================
-       THEME: QUANTUM ELITE v2.0
+       THEME: QUANTUM BLACK EDITION
        ========================================= */
     :root {
       --c-green: #009688; --c-orange: #F59E0B; --c-blue: #2563EB; --c-purple: #7C3AED;
@@ -25,12 +25,6 @@
       --border: 1px solid rgba(255, 255, 255, 0.6);
       --radius: 24px;
     }
-
-    /* Кастомный скроллбар (Webkit) */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #F1F5F9; }
-    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--c-green); }
 
     body {
       margin: 0; padding: 0;
@@ -41,31 +35,63 @@
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
 
-    /* === 1. ФОН: ЛАВА + ЧАСТИЦЫ === */
+    /* === 1. ФОН: ЖИВАЯ ЛАВА (LAVA LAMP) === */
     .bg-wrapper { position: fixed; inset: 0; z-index: -2; background: #F8FAFC; overflow: hidden; }
-    
-    /* Сферы */
-    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; animation: float 15s infinite alternate ease-in-out; will-change: transform; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; animation: float 12s infinite alternate ease-in-out; will-change: transform; }
     .o1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(0, 150, 136, 0.25), transparent 70%); }
     .o2 { bottom: -10%; right: -10%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(37, 99, 235, 0.25), transparent 70%); animation-delay: -5s; }
     .o3 { top: 30%; left: 30%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(245, 158, 11, 0.2), transparent 70%); animation-delay: -8s; }
     @keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(30px, 50px) scale(1.05); } }
 
-    /* Частицы (Пыль) */
-    .dust {
-      position: absolute; width: 100%; height: 100%; background-image: radial-gradient(#94A3B8 1px, transparent 1px);
-      background-size: 50px 50px; opacity: 0.3; animation: dustMove 100s linear infinite;
+    /* Шум (Grain) для дороговизны */
+    .noise {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
-    @keyframes dustMove { 0% { background-position: 0 0; } 100% { background-position: 100px 100px; } }
 
-    /* === 2. ПРЕЛОАДЕР (DARK REACTOR) === */
-    #preloader { position: fixed; inset: 0; z-index: 9999; background: #000; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease, visibility 0.8s; }
+    /* === 2. ПРЕЛОАДЕР (BLACK ENERGY REACTOR) === */
+    #preloader { 
+      position: fixed; inset: 0; z-index: 9999; 
+      background: #050505; /* Глубокий черный */
+      display: flex; justify-content: center; align-items: center; 
+      transition: opacity 0.8s ease, visibility 0.8s; 
+    }
+    
     .reactor-container { position: relative; width: 160px; height: 160px; display: flex; justify-content: center; align-items: center; }
-    .reactor-logo { width: 90px; z-index: 10; filter: drop-shadow(0 0 15px rgba(255,255,255,0.3)); animation: heartbeat 1.5s infinite; }
-    .energy-ring { position: absolute; border-radius: 50%; border: 3px solid transparent; mix-blend-mode: screen; }
-    .er-1 { width: 100%; height: 100%; border-top-color: #00ffcc; box-shadow: 0 0 20px rgba(0, 255, 204, 0.5); animation: reactorSpin 2s linear infinite; }
-    .er-2 { width: 75%; height: 75%; border-right-color: #ffaa00; box-shadow: 0 0 20px rgba(255, 170, 0, 0.5); animation: reactorSpin 1.5s linear infinite reverse; }
-    .er-3 { width: 125%; height: 125%; border-bottom-color: #0088ff; box-shadow: 0 0 30px rgba(0, 136, 255, 0.4); animation: reactorSpin 3s linear infinite; opacity: 0.7; }
+    
+    .reactor-logo { 
+      width: 80px; z-index: 10; 
+      /* Белое свечение вокруг логотипа чтобы он читался на черном */
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.5)); 
+      animation: heartbeat 2s infinite; 
+    }
+    
+    .energy-ring {
+      position: absolute; border-radius: 50%; border: 3px solid transparent;
+      mix-blend-mode: screen; /* Смешивание цветов для эффекта света */
+    }
+    
+    /* Неоновые кольца */
+    .er-1 { 
+      width: 100%; height: 100%; 
+      border-top-color: #00ffcc; 
+      box-shadow: 0 0 15px #00ffcc, inset 0 0 10px #00ffcc;
+      animation: reactorSpin 1.5s linear infinite; 
+    }
+    .er-2 { 
+      width: 80%; height: 80%; 
+      border-right-color: #ffaa00; 
+      box-shadow: 0 0 15px #ffaa00;
+      animation: reactorSpin 2s linear infinite reverse; 
+    }
+    .er-3 { 
+      width: 120%; height: 120%; 
+      border-bottom-color: #0088ff; 
+      box-shadow: 0 0 20px #0088ff;
+      animation: reactorSpin 3s linear infinite; 
+      opacity: 0.6;
+    }
+
     @keyframes reactorSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     @keyframes heartbeat { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
@@ -86,59 +112,74 @@
     .pulse-dot { width: 6px; height: 6px; background: var(--c-green); border-radius: 50%; box-shadow: 0 0 8px var(--c-green); animation: blink 2s infinite; }
     @keyframes blink { 50% { opacity: 0.3; } }
 
-    /* КНОПКИ (Premium) */
+    /* === КНОПКИ В ШАПКЕ (ШЕДЕВР) === */
     .actions { display: flex; gap: 16px; align-items: center; }
 
-    /* Учебный Портал */
+    /* 1. УЧЕБНЫЙ ПОРТАЛ (Deep Dark Glass) */
     .btn-portal {
       position: relative; display: flex; align-items: center; gap: 12px;
-      padding: 0 24px; height: 48px; border-radius: 14px;
-      background: linear-gradient(145deg, #1e293b, #0f172a);
+      padding: 0 20px; height: 46px; border-radius: 12px;
+      background: #1e293b;
       color: #fff; text-decoration: none; overflow: hidden;
-      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
-      transition: 0.3s; border: 1px solid rgba(255,255,255,0.05);
+      box-shadow: 0 4px 15px rgba(30, 41, 59, 0.3);
+      transition: 0.3s; border: 1px solid rgba(255,255,255,0.1);
     }
-    .btn-portal:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(15, 23, 42, 0.5); }
+    .btn-portal:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(30, 41, 59, 0.5); background: #0f172a; }
+    /* Блик */
     .btn-portal::after {
-      content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
-      opacity: 0; transform: scale(0.5); transition: 0.5s; pointer-events: none;
+      content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: skewX(-20deg); transition: 0.5s;
     }
-    .btn-portal:hover::after { opacity: 1; transform: scale(1); }
+    .btn-portal:hover::after { left: 150%; }
 
-    /* Официальный Сайт */
-    .btn-site-wrap {
-      padding: 2px; border-radius: 16px; position: relative; z-index: 1;
-      background: linear-gradient(90deg, #00d2ff, #3a7bd5, #ff0080, #7928ca);
-      background-size: 300% 300%; animation: gradientFlow 4s ease infinite;
-      box-shadow: 0 5px 20px rgba(58, 123, 213, 0.3); transition: 0.3s;
-    }
-    .btn-site-wrap:hover { box-shadow: 0 10px 30px rgba(255, 0, 128, 0.4); transform: scale(1.02); }
-    
+    /* 2. ОФИЦИАЛЬНЫЙ САЙТ (Cyber Border) */
     .btn-site {
-      display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 20px;
-      background: #fff; border-radius: 14px; text-decoration: none; color: var(--c-dark);
-      position: relative; z-index: 2;
+      position: relative; display: flex; align-items: center; gap: 12px;
+      padding: 0 20px; height: 46px; border-radius: 12px;
+      background: #fff; color: var(--c-dark); text-decoration: none;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.3s;
+      z-index: 1;
     }
-    @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    /* Градиентная обводка */
+    .btn-site::before {
+      content: ""; position: absolute; inset: -2px; border-radius: 14px;
+      background: linear-gradient(45deg, #00d2ff, #3a7bd5, #ff0080);
+      z-index: -1; opacity: 0; transition: 0.3s;
+    }
+    .btn-site:hover { transform: translateY(-2px); color: #fff; }
+    .btn-site:hover::before { opacity: 1; }
+    /* Чтобы фон кнопки перекрывал градиент в центре */
+    .btn-site::after {
+      content: ""; position: absolute; inset: 1px; border-radius: 11px;
+      background: #fff; z-index: -1; transition: 0.3s;
+    }
+    .btn-site:hover::after { background: #000; } /* При наведении фон становится черным для контраста */
 
     .btn-col { display: flex; flex-direction: column; line-height: 1.1; }
     .btn-t1 { font-size: 0.85rem; font-weight: 700; }
     .btn-t2 { font-size: 0.65rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.5px; }
     .btn-ico { font-size: 1.3rem; }
 
-    /* === 4. ГЕРОЙ: ЖИВОЙ ТЕКСТ (Mobile Fix) === */
+    @media (max-width: 768px) {
+      .brand-txt { display: none; }
+      .btn-portal, .btn-site { padding: 0; width: 44px; justify-content: center; }
+      .btn-col { display: none; }
+      .btn-ico { margin: 0; font-size: 1.4rem; }
+      .actions { gap: 8px; }
+    }
+
+    /* === 4. ГЕРОЙ: ЖИВОЙ ТЕКСТ (LIQUID METAL) === */
     .hero { text-align: center; padding: 60px 0 40px; }
     .hero h2 { 
-      /* Fluid Typography: min 1.8rem, ideal 5vw, max 3.5rem */
-      font-size: clamp(1.8rem, 5vw, 3.5rem); 
+      font-size: clamp(2rem, 6vw, 3.5rem); 
       font-weight: 900; margin-bottom: 15px; letter-spacing: -1px;
       
-      /* Переливающийся градиент */
-      background: linear-gradient(to right, #1e293b 20%, #009688 30%, #2563eb 70%, #1e293b 80%);
+      /* Живой градиент */
+      background: linear-gradient(to right, #1e293b 20%, #009688 40%, #009688 60%, #1e293b 80%);
       background-size: 200% auto;
       background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      animation: shineText 5s linear infinite;
+      animation: shineText 4s linear infinite;
       
       /* Переносы для мобильных */
       word-wrap: break-word; overflow-wrap: break-word; hyphens: auto;
@@ -222,9 +263,10 @@
       opacity: 0; transition: opacity 0.3s;
     }
     .pdf-modal.active { display: flex; opacity: 1; }
-    /* Хак для телефонов, чтобы перекрыть браузерные панели */
-    .pdf-modal.mobile-fullscreen { 
-      position: fixed !important; top: 0; left: 0; width: 100%; height: 100%; z-index: 99999;
+    
+    /* Хак для телефонов - абсолютная фиксация поверх браузера */
+    .pdf-modal.mobile-fullscreen-hack { 
+      position: fixed !important; top: 0; left: 0; right: 0; bottom: 0; width: 100% !important; height: 100% !important; z-index: 999999;
     }
 
     .pdf-head {
@@ -292,19 +334,11 @@
     .tg-txt h4 { margin: 0; font-size: 0.95rem; color: var(--c-dark); font-weight: 800; }
     .tg-txt p { margin: 0; font-size: 0.75rem; color: #229ED9; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 
-    @media (max-width: 768px) {
-      .brand-txt { display: none; }
-      .btn-portal, .btn-site { padding: 0; width: 44px; justify-content: center; }
-      .btn-col { display: none; }
-      .btn-ico { margin: 0; font-size: 1.4rem; }
-      .btn-site-wrap { padding: 2px; }
-      .actions { gap: 8px; }
-      /* Адаптив для папок на телефоне */
+    @media (max-width: 600px) {
       .f-head { padding: 15px; }
       .f-icon { width: 48px; height: 48px; font-size: 1.5rem; }
       .f-txt h3 { font-size: 1.1rem; }
       .sub-item { margin: 10px; }
-      .sub-head { padding: 14px; }
       .pc-only { display: none !important; }
     }
   </style>
@@ -312,7 +346,7 @@
 <body>
 
   <div class="bg-wrapper">
-    <div class="dust"></div>
+    <div class="noise"></div>
     <div class="orb o1"></div>
     <div class="orb o2"></div>
     <div class="orb o3"></div>
@@ -603,7 +637,7 @@
       pdfDoc.getPage(num).then(function(page) {
         
         const viewportRaw = page.getViewport({scale: 1});
-        const containerWidth = pdfBody.clientWidth - 40;
+        const containerWidth = pdfBody.clientWidth - 30;
         let renderScale = (containerWidth / viewportRaw.width) * scale;
         if(renderScale < 0.5) renderScale = 0.5;
 
@@ -661,14 +695,14 @@
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
       if (isMobile) {
-        // На мобильном просто меняем класс CSS
-        modal.classList.toggle('mobile-fullscreen');
-        // Перерисовываем, чтобы подогнать размер
+        // На мобильном просто меняем класс CSS (Без ошибок)
+        modal.classList.toggle('mobile-fullscreen-hack');
+        // Перерисовываем для адаптации
         setTimeout(() => renderPage(pageNum), 100);
       } else {
         // На ПК используем стандартный API
         if (!document.fullscreenElement) {
-          modal.requestFullscreen().catch(err => { alert(`Error: ${err.message}`); });
+          modal.requestFullscreen().catch(err => { console.log(err); });
         } else {
           document.exitFullscreen();
         }
@@ -678,7 +712,7 @@
     function closeViewer() {
       const modal = document.getElementById('pdfModal');
       modal.classList.remove('active');
-      modal.classList.remove('mobile-fullscreen'); // Сброс мобильного фуллскрина
+      modal.classList.remove('mobile-fullscreen-hack'); // Сброс мобильного режима
       document.body.style.overflow = '';
       if(document.fullscreenElement) document.exitFullscreen().catch(e=>{});
     }
