@@ -16,12 +16,12 @@
 
   <style>
     /* =========================================
-       THEME: QUANTUM ULTIMATE
+       THEME: SOFRINO NEURAL (Canvas Tech)
        ========================================= */
     :root {
       --c-green: #009688; --c-orange: #F59E0B; --c-blue: #2563EB; --c-purple: #7C3AED;
       --c-dark: #020617; --c-text: #334155;
-      --glass: rgba(255, 255, 255, 0.75);
+      --glass: rgba(255, 255, 255, 0.8);
       --border: 1px solid rgba(255, 255, 255, 0.6);
       --radius: 24px;
     }
@@ -33,34 +33,44 @@
 
     body {
       margin: 0; padding: 0; font-family: 'Inter', sans-serif;
-      color: var(--c-dark); background: #F1F5F9; overflow-x: hidden;
+      color: var(--c-dark); background: #F8FAFC; overflow-x: hidden;
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
 
-    /* === 1. ФОН === */
-    .bg-wrapper { position: fixed; inset: 0; z-index: -2; background: #F8FAFC; overflow: hidden; }
-    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; animation: float 15s infinite alternate ease-in-out; will-change: transform; }
-    .o1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(0, 150, 136, 0.25), transparent 70%); }
-    .o2 { bottom: -10%; right: -10%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(37, 99, 235, 0.25), transparent 70%); animation-delay: -5s; }
-    .o3 { top: 30%; left: 30%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(245, 158, 11, 0.2), transparent 70%); animation-delay: -8s; }
-    @keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(30px, 50px) scale(1.05); } }
-    .noise { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
+    /* === 1. ФОН: NEURAL NETWORK + LAVA === */
+    .bg-wrapper { position: fixed; inset: 0; z-index: -2; overflow: hidden; background: #F8FAFC; }
+    
+    /* Сферы (Глубина) */
+    .orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.4; animation: float 20s infinite alternate ease-in-out; }
+    .o1 { top: -10%; left: -10%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(0, 150, 136, 0.2), transparent 70%); }
+    .o2 { bottom: -10%; right: -10%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent 70%); animation-delay: -5s; }
+    @keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(30px, 50px) scale(1.1); } }
 
-    /* === 2. ПРЕЛОАДЕР === */
-    #preloader { position: fixed; inset: 0; z-index: 9999; background: #000; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease, visibility 0.8s; }
-    .reactor-container { position: relative; width: 160px; height: 160px; display: flex; justify-content: center; align-items: center; }
-    .reactor-logo { width: 90px; z-index: 10; filter: drop-shadow(0 0 15px rgba(255,255,255,0.3)); animation: heartbeat 1.5s infinite; }
+    /* CANVAS (СЕТЬ) */
+    #neural-canvas {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+    }
+
+    /* === 2. ПРЕЛОАДЕР (SYSTEM BOOT) === */
+    #preloader { position: fixed; inset: 0; z-index: 9999; background: #020617; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease, visibility 0.8s; }
+    .reactor-container { position: relative; width: 120px; height: 120px; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
+    .reactor-logo { width: 70px; z-index: 10; filter: drop-shadow(0 0 20px rgba(255,255,255,0.2)); animation: heartbeat 2s infinite; }
     .energy-ring { position: absolute; border-radius: 50%; border: 3px solid transparent; mix-blend-mode: screen; }
-    .er-1 { width: 100%; height: 100%; border-top-color: #00ffcc; box-shadow: 0 0 20px rgba(0, 255, 204, 0.5); animation: reactorSpin 2s linear infinite; }
-    .er-2 { width: 75%; height: 75%; border-right-color: #ffaa00; box-shadow: 0 0 20px rgba(255, 170, 0, 0.5); animation: reactorSpin 1.5s linear infinite reverse; }
-    .er-3 { width: 125%; height: 125%; border-bottom-color: #0088ff; box-shadow: 0 0 30px rgba(0, 136, 255, 0.4); animation: reactorSpin 3s linear infinite; opacity: 0.7; }
-    @keyframes reactorSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    @keyframes heartbeat { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+    .er-1 { width: 100%; height: 100%; border-top-color: #00ffcc; box-shadow: 0 0 15px rgba(0,255,204,0.5); animation: spin 1.5s linear infinite; }
+    .er-2 { width: 75%; height: 75%; border-right-color: #ffaa00; box-shadow: 0 0 15px rgba(255,170,0,0.5); animation: spin 2s linear infinite reverse; }
+    .er-3 { width: 130%; height: 130%; border-bottom-color: #2563EB; border-width: 1px; opacity: 0.5; animation: spin 4s linear infinite; }
+    
+    .loading-text { font-family: 'JetBrains Mono', monospace; color: #64748B; font-size: 0.8rem; margin-top: 10px; }
+    .loading-text::after { content: "..."; animation: dots 1.5s infinite; }
+    
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); filter: drop-shadow(0 0 25px rgba(255,255,255,0.4)); } }
+    @keyframes dots { 0% { content: ""; } 33% { content: "."; } 66% { content: ".."; } 100% { content: "..."; } }
 
     /* === 3. ШАПКА === */
     .header {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.8); backdrop-filter: blur(25px);
+      background: rgba(255,255,255,0.75); backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(255,255,255,0.5); padding: 12px 0;
       box-shadow: 0 4px 30px rgba(0,0,0,0.03);
     }
@@ -74,33 +84,34 @@
     .pulse-dot { width: 6px; height: 6px; background: var(--c-green); border-radius: 50%; box-shadow: 0 0 8px var(--c-green); animation: blink 2s infinite; }
     @keyframes blink { 50% { opacity: 0.3; } }
 
-    /* КНОПКИ (MAGNETIC) */
     .actions { display: flex; gap: 16px; align-items: center; }
     
     .btn-portal {
       position: relative; display: flex; align-items: center; gap: 12px;
-      padding: 0 24px; height: 48px; border-radius: 14px;
-      background: linear-gradient(145deg, #1e293b, #0f172a);
-      color: #fff; text-decoration: none; overflow: hidden;
-      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.3);
-      border: 1px solid rgba(255,255,255,0.05); transition: 0.1s; /* Fast for magnetic */
+      padding: 0 20px; height: 46px; border-radius: 12px;
+      background: #1e293b; color: #fff; text-decoration: none; overflow: hidden;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.3); border: 1px solid rgba(255,255,255,0.1);
+      transition: 0.3s;
     }
-    .btn-portal::after {
-      content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
-      opacity: 0; transform: scale(0.5); transition: 0.5s; pointer-events: none;
+    .btn-portal:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(15, 23, 42, 0.5); }
+    /* TECH GLOW */
+    .btn-portal::before {
+      content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transform: skewX(-20deg); transition: 0.5s;
     }
-    .btn-portal:hover::after { opacity: 1; transform: scale(1); }
+    .btn-portal:hover::before { left: 150%; }
 
     .btn-site-wrap {
-      padding: 2px; border-radius: 16px; position: relative; z-index: 1;
-      background: linear-gradient(90deg, #00d2ff, #3a7bd5, #ff0080, #7928ca);
-      background-size: 300% 300%; animation: gradientFlow 4s ease infinite;
-      box-shadow: 0 5px 20px rgba(58, 123, 213, 0.3); transition: 0.1s;
+      padding: 2px; border-radius: 14px; position: relative; z-index: 1;
+      background: linear-gradient(90deg, #00d2ff, #3a7bd5, #ff0080);
+      background-size: 200% 200%; animation: gradientFlow 3s ease infinite;
+      box-shadow: 0 5px 20px rgba(58, 123, 213, 0.3); transition: 0.3s;
     }
+    .btn-site-wrap:hover { box-shadow: 0 10px 30px rgba(255, 0, 128, 0.4); transform: scale(1.02); }
     .btn-site {
-      display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 20px;
-      background: #fff; border-radius: 14px; text-decoration: none; color: var(--c-dark);
+      display: flex; align-items: center; gap: 12px; height: 42px; padding: 0 20px;
+      background: #fff; border-radius: 12px; text-decoration: none; color: var(--c-dark);
       position: relative; z-index: 2;
     }
     @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
@@ -118,7 +129,7 @@
     }
 
     /* === 4. ГЕРОЙ === */
-    .hero { text-align: center; padding: 50px 0 30px; position: relative; }
+    .hero { text-align: center; padding: 60px 0 40px; position: relative; }
     
     .greeting {
       display: inline-block; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
@@ -154,15 +165,14 @@
     }
     .chip:hover, .chip.active { background: #fff; color: var(--c-green); box-shadow: 0 5px 15px rgba(0, 150, 136, 0.15); transform: translateY(-2px); border-color: var(--c-green); }
 
-    /* === 5. ПАПКИ (SCROLL REVEAL) === */
+    /* === 5. ПАПКИ === */
     .stack { display: flex; flex-direction: column; gap: 24px; padding-bottom: 120px; }
 
     .folder {
       background: var(--glass); border: var(--border); border-radius: var(--radius);
       box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); overflow: hidden; transition: 0.4s;
-      position: relative; opacity: 0; transform: translateY(30px); /* Для анимации появления */
+      position: relative;
     }
-    .folder.visible { opacity: 1; transform: translateY(0); transition: 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
     .folder:hover { transform: translateY(-5px); box-shadow: 0 25px 50px -15px rgba(0,0,0,0.1); border-color: #fff; }
     
     .f-head { padding: 24px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
@@ -200,6 +210,7 @@
       cursor: pointer; transition: 0.2s; border-left: 3px solid transparent; position: relative; overflow: hidden;
     }
     .file:hover { background: #fff; border-left-color: var(--c-green); transform: translateX(5px); }
+    /* Блик */
     .file::after {
       content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
@@ -210,7 +221,6 @@
     .file-ico { font-size: 1.4rem; min-width: 30px; text-align: center; }
     .file-data { display: flex; flex-direction: column; gap: 4px; }
     .file-name { font-size: 0.95rem; font-weight: 600; color: var(--c-dark); line-height: 1.3; }
-    
     .file-meta-row { display: flex; align-items: center; gap: 8px; }
     .meta-size { font-size: 0.65rem; color: #94A3B8; font-weight: 500; background: #F1F5F9; padding: 2px 6px; border-radius: 4px; }
 
@@ -223,9 +233,9 @@
     }
     .badge.imp { background: #FEF3C7; color: #B45309; }
 
-    /* ЗАГЛУШКИ (ANIMATED) */
-    .empty-block { padding: 40px; text-align: center; color: #94A3B8; }
-    .empty-icon { font-size: 2rem; margin-bottom: 10px; animation: pulse 2s infinite; opacity: 0.5; }
+    /* ЗАГЛУШКИ */
+    .empty-block { padding: 40px; text-align: center; color: #94A3B8; font-size: 0.9rem; }
+    .empty-icon { font-size: 2rem; margin-bottom: 10px; display: block; animation: pulse 2s infinite; opacity: 0.5; }
 
     /* === 6. PDF VIEWER === */
     .pdf-modal {
@@ -234,6 +244,7 @@
       opacity: 0; transition: opacity 0.3s;
     }
     .pdf-modal.active { display: flex; opacity: 1; }
+    /* Хак для телефонов */
     .pdf-modal.mobile-fullscreen-hack { position: fixed !important; inset: 0 !important; z-index: 999999; }
 
     .pdf-head {
@@ -283,7 +294,6 @@
       width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1);
       border-top-color: var(--c-blue); border-radius: 50%; animation: spin 1s infinite linear; margin-bottom: 15px;
     }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
 
     /* TELEGRAM */
     .tg-float {
@@ -311,10 +321,9 @@
 <body>
 
   <div class="bg-wrapper">
-    <div class="noise"></div>
+    <canvas id="neural-canvas"></canvas>
     <div class="orb o1"></div>
     <div class="orb o2"></div>
-    <div class="orb o3"></div>
   </div>
 
   <div id="preloader">
@@ -324,6 +333,7 @@
       <div class="energy-ring er-3"></div>
       <img src="assets/mnogocvet_logo.png" class="reactor-logo">
     </div>
+    <div class="loading-text">INITIALIZING SYSTEM</div>
   </div>
 
   <header class="header">
@@ -337,12 +347,11 @@
       </div>
       
       <div class="actions">
-        <a href="index.html" class="btn-portal magnetic">
+        <a href="index.html" class="btn-portal">
           <span class="btn-ico">🎓</span>
           <div class="btn-col"><span class="btn-t1">Учебный Портал</span><span class="btn-t2">Личный кабинет</span></div>
         </a>
-        
-        <div class="btn-site-wrap magnetic">
+        <div class="btn-site-wrap">
           <a href="https://sofrino-park.com/" target="_blank" class="btn-site">
             <span class="btn-ico">🌐</span>
             <div class="btn-col"><span class="btn-t1">Парк-Отель</span><span class="btn-t2">Веб-сайт</span></div>
@@ -390,29 +399,8 @@
               <div class="file" onclick="openViewer('assets/Приказ №1012 ОТ1-25.PDF', 'Приказ № 1012 ОТ1-25')">
                 <div class="file-ico">✒️</div>
                 <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">№ 1012</span><span class="meta-size">PDF</span></div>
+                  <div class="file-meta-row"><span class="badge">№ 1012 ОТ1-25</span><span class="meta-size">PDF</span></div>
                   <span class="file-name">Об утверждении СУОТ</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/Приказ №1012 ОТ2-25.PDF', 'Приказ № 1012 ОТ2-25')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">№ 1012</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">О проведении СОУТ</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/Приказ №1112 ОТ1-25.PDF', 'Приказ № 1112 ОТ1-25')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">№ 1112</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Об управлении рисками</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/Приказ №1112 ОТ2-25.PDF', 'Приказ № 1112 ОТ2-25')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">№ 1112</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Положение о СИЗ</span>
                 </div>
               </div>
               <div class="file" style="background:#FFFBEB" onclick="openViewer('assets/Приказ №1112 ОТ3-25.PDF', 'Приказ № 1112 ОТ3-25')">
@@ -422,33 +410,33 @@
                   <span class="file-name"><strong>Нормы выдачи СИЗ</strong></span>
                 </div>
               </div>
+              <div class="file" onclick="openViewer('assets/Приказ №1012 ОТ2-25.PDF', 'Приказ № 1012 ОТ2-25')">
+                <div class="file-ico">✒️</div>
+                <div class="file-data"><span class="badge">№ 1012 ОТ2-25</span><span class="file-name">О проведении СОУТ</span></div>
+              </div>
+              <div class="file" onclick="openViewer('assets/Приказ №1112 ОТ1-25.PDF', 'Приказ № 1112 ОТ1-25')">
+                <div class="file-ico">✒️</div>
+                <div class="file-data"><span class="badge">№ 1112 ОТ1-25</span><span class="file-name">Об управлении рисками</span></div>
+              </div>
+              <div class="file" onclick="openViewer('assets/Приказ №1112 ОТ2-25.PDF', 'Приказ № 1112 ОТ2-25')">
+                <div class="file-ico">✒️</div>
+                <div class="file-data"><span class="badge">№ 1112 ОТ2-25</span><span class="file-name">Положение о СИЗ</span></div>
+              </div>
               <div class="file" onclick="openViewer('assets/Приказ №1212 ОТ1-25.PDF', 'Приказ № 1212 ОТ1-25')">
                 <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">№ 1212</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">О медосмотрах</span>
-                </div>
+                <div class="file-data"><span class="badge">№ 1212 ОТ1-25</span><span class="file-name">О медосмотрах</span></div>
               </div>
               <div class="file" onclick="openViewer('assets/Приказ №1212 ОТ2-25.PDF', 'Приказ № 1212 ОТ2-25')">
                 <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">№ 1212</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Списки контингентов</span>
-                </div>
+                <div class="file-data"><span class="badge">№ 1212 ОТ2-25</span><span class="file-name">Списки контингентов</span></div>
               </div>
               <div class="file" onclick="openViewer('assets/Приказ №1212 ОТ3-25.PDF', 'Приказ № 1212 ОТ3-25')">
                 <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">№ 1212</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Психиатрическое освидетельствование</span>
-                </div>
+                <div class="file-data"><span class="badge">№ 1212 ОТ3-25</span><span class="file-name">Психиатрическое освидетельствование</span></div>
               </div>
               <div class="file" onclick="openViewer('assets/Приказ №1312 ОТ1-25.PDF', 'Приказ № 1312 ОТ1-25')">
                 <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">№ 1312</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Расследование НС</span>
-                </div>
+                <div class="file-data"><span class="badge">№ 1312 ОТ1-25</span><span class="file-name">Расследование НС</span></div>
               </div>
             </div>
           </div>
@@ -554,10 +542,7 @@
           <div class="chevron">▼</div>
         </div>
         <div class="f-body">
-          <div class="empty-block">
-            <div class="empty-icon">🚧</div>
-            Раздел наполняется
-          </div>
+          <div class="empty-block"><span class="empty-icon">🚧</span>Раздел наполняется</div>
         </div>
       </div>
 
@@ -570,10 +555,7 @@
           <div class="chevron">▼</div>
         </div>
         <div class="f-body">
-          <div class="empty-block">
-            <div class="empty-icon">🛡️</div>
-            Раздел наполняется
-          </div>
+          <div class="empty-block"><span class="empty-icon">🛡️</span>Раздел наполняется</div>
         </div>
       </div>
 
@@ -587,7 +569,7 @@
         </div>
         <div class="f-body">
           <div class="empty-block">
-            <div class="empty-icon">📁</div>
+            <span class="empty-icon">📁</span>
             Документы на согласовании.<br><strong>Обратитесь в кабинет № 8.</strong>
           </div>
         </div>
@@ -631,105 +613,130 @@
   </div>
 
   <script>
-    // 1. PRELOADER & GREETING
+    // 1. NEURAL NETWORK CANVAS
+    const canvasEl = document.getElementById('neural-canvas');
+    const ctxCanvas = canvasEl.getContext('2d');
+    let particles = [];
+    const particleCount = window.innerWidth < 768 ? 40 : 80; // Меньше частиц на мобилках
+
+    function resizeCanvas() {
+      canvasEl.width = window.innerWidth;
+      canvasEl.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvasEl.width;
+        this.y = Math.random() * canvasEl.height;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.size = Math.random() * 2;
+      }
+      update() {
+        this.x += this.vx; this.y += this.vy;
+        if(this.x < 0 || this.x > canvasEl.width) this.vx *= -1;
+        if(this.y < 0 || this.y > canvasEl.height) this.vy *= -1;
+      }
+      draw() {
+        ctxCanvas.fillStyle = 'rgba(0, 150, 136, 0.3)';
+        ctxCanvas.beginPath(); ctxCanvas.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctxCanvas.fill();
+      }
+    }
+
+    for(let i=0; i<particleCount; i++) particles.push(new Particle());
+
+    // Mouse Interaction
+    let mouse = { x: null, y: null };
+    window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
+    window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+
+    function animateParticles() {
+      ctxCanvas.clearRect(0, 0, canvasEl.width, canvasEl.height);
+      particles.forEach(p => {
+        p.update(); p.draw();
+        // Connect to mouse
+        if(mouse.x) {
+          const dx = mouse.x - p.x; const dy = mouse.y - p.y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if(dist < 150) {
+            ctxCanvas.strokeStyle = `rgba(0, 150, 136, ${1 - dist/150})`;
+            ctxCanvas.lineWidth = 0.5;
+            ctxCanvas.beginPath(); ctxCanvas.moveTo(p.x, p.y); ctxCanvas.lineTo(mouse.x, mouse.y); ctxCanvas.stroke();
+          }
+        }
+        // Connect to others
+        particles.forEach(p2 => {
+          const dx = p.x - p2.x; const dy = p.y - p2.y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if(dist < 100) {
+            ctxCanvas.strokeStyle = `rgba(0, 150, 136, ${0.1 - dist/1000})`;
+            ctxCanvas.lineWidth = 0.2;
+            ctxCanvas.beginPath(); ctxCanvas.moveTo(p.x, p.y); ctxCanvas.lineTo(p2.x, p2.y); ctxCanvas.stroke();
+          }
+        });
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // 2. PRELOADER
     window.onload = function() {
       setTimeout(() => {
         document.getElementById('preloader').style.opacity = '0';
         document.getElementById('preloader').style.visibility = 'hidden';
-        
-        // SCROLL REVEAL INIT
-        document.querySelectorAll('.folder').forEach((el, index) => {
-          setTimeout(() => el.classList.add('visible'), index * 100);
-        });
-      }, 800);
+      }, 1000);
       
       if(!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
         document.querySelectorAll('.pc-only').forEach(el => el.style.display = 'flex');
-        
-        // MAGNETIC EFFECT (PC ONLY)
-        const magnets = document.querySelectorAll('.magnetic');
-        magnets.forEach(btn => {
-          btn.addEventListener('mousemove', function(e) {
-            const rect = btn.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            btn.style.transform = `translate(${x * 0.3}px, ${y * 0.5}px)`;
-          });
-          btn.addEventListener('mouseleave', function() {
-            btn.style.transform = 'translate(0px, 0px)';
-          });
-        });
       }
 
-      // Live Greeting
       const hour = new Date().getHours();
-      let greeting = "Добрый день";
+      let greetingText = "Добрый день";
       let icon = "👋";
-      if (hour >= 5 && hour < 12) { greeting = "Доброе утро"; icon = "☀️"; }
-      else if (hour >= 18 || hour < 5) { greeting = "Добрый вечер"; icon = "🌙"; }
-      
-      const el = document.getElementById('timeGreeting');
-      el.textContent = `${icon} ${greeting}`;
+      if (hour >= 5 && hour < 12) { greetingText = "Доброе утро"; icon = "☀️"; }
+      else if (hour >= 18 || hour < 5) { greetingText = "Добрый вечер"; icon = "🌙"; }
+      document.getElementById('timeGreeting').textContent = `${icon} ${greetingText}`;
     };
 
-    // 2. SEARCH & HIGHLIGHT
-    const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('input', function() {
+    // 3. LOGIC
+    function toggleFolder(id) { document.getElementById(id).classList.toggle('active'); }
+    function toggleSub(head) { head.parentElement.classList.toggle('open'); }
+
+    // SEARCH
+    document.getElementById('searchInput').addEventListener('input', function() {
       const filter = this.value.toLowerCase();
-      const files = document.querySelectorAll('.file');
-      
-      files.forEach(file => {
-        const nameEl = file.querySelector('.file-name');
-        const text = nameEl.textContent;
-        const subItem = file.closest('.sub-item');
-        const folder = file.closest('.folder');
-
-        // Reset
-        nameEl.innerHTML = text;
-
+      document.querySelectorAll('.file').forEach(file => {
+        const text = file.innerText;
         if (text.toLowerCase().includes(filter)) {
           file.style.display = "flex";
           if(filter.length > 1) {
-            folder.classList.add('active'); 
-            if(subItem) subItem.classList.add('open');
-            // Highlight
-            const regex = new RegExp(`(${filter})`, 'gi');
-            nameEl.innerHTML = text.replace(regex, '<mark>$1</mark>');
+            file.closest('.folder').classList.add('active');
+            const sub = file.closest('.sub-item');
+            if(sub) sub.classList.add('open');
           }
-        } else {
-          file.style.display = "none";
-        }
+        } else file.style.display = "none";
       });
     });
 
-    // 3. FILTERS
     function filterDocs(type, btn) {
       document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
       btn.classList.add('active');
-      
       document.getElementById('searchInput').value = '';
-      const files = document.querySelectorAll('.file');
-      
-      files.forEach(file => {
-        const text = file.innerText;
-        file.style.display = "flex"; 
-        
-        if (type !== 'all') {
-          if (!text.includes(type)) file.style.display = "none";
-          else {
+      document.querySelectorAll('.file').forEach(file => {
+        if(type === 'all' || file.innerText.includes(type)) {
+          file.style.display = "flex";
+          if(type !== 'all') {
              file.closest('.folder').classList.add('active');
              const sub = file.closest('.sub-item');
              if(sub) sub.classList.add('open');
           }
-        }
+        } else file.style.display = "none";
       });
     }
 
-    // UI LOGIC
-    function toggleFolder(id) { document.getElementById(id).classList.toggle('active'); }
-    function toggleSub(head) { head.parentElement.classList.toggle('open'); }
-
-    // PDF ENGINE
+    // PDF VIEWER
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null;
     let scale = 1.0; let currentUrl = "";
     const canvas = document.getElementById('the-canvas');
