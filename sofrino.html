@@ -7,7 +7,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script>
@@ -16,15 +16,21 @@
 
   <style>
     /* =========================================
-       THEME: QUANTUM BLACK EDITION
+       THEME: QUANTUM ELITE v2.0
        ========================================= */
     :root {
       --c-green: #009688; --c-orange: #F59E0B; --c-blue: #2563EB; --c-purple: #7C3AED;
       --c-dark: #020617; --c-text: #334155;
-      --glass: rgba(255, 255, 255, 0.7);
+      --glass: rgba(255, 255, 255, 0.75);
       --border: 1px solid rgba(255, 255, 255, 0.6);
       --radius: 24px;
     }
+
+    /* Кастомный скроллбар (Webkit) */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #F1F5F9; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--c-green); }
 
     body {
       margin: 0; padding: 0;
@@ -35,61 +41,31 @@
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
 
-    /* === 1. ФОН: ЖИВАЯ ЛАВА (LAVA LAMP) === */
+    /* === 1. ФОН: ЛАВА + ЧАСТИЦЫ === */
     .bg-wrapper { position: fixed; inset: 0; z-index: -2; background: #F8FAFC; overflow: hidden; }
-    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; animation: float 12s infinite alternate ease-in-out; will-change: transform; }
+    
+    /* Сферы */
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; animation: float 15s infinite alternate ease-in-out; will-change: transform; }
     .o1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(0, 150, 136, 0.25), transparent 70%); }
     .o2 { bottom: -10%; right: -10%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(37, 99, 235, 0.25), transparent 70%); animation-delay: -5s; }
     .o3 { top: 30%; left: 30%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(245, 158, 11, 0.2), transparent 70%); animation-delay: -8s; }
     @keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(30px, 50px) scale(1.05); } }
 
-    .noise {
-      position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.03;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    /* Частицы (Пыль) */
+    .dust {
+      position: absolute; width: 100%; height: 100%; background-image: radial-gradient(#94A3B8 1px, transparent 1px);
+      background-size: 50px 50px; opacity: 0.3; animation: dustMove 100s linear infinite;
     }
+    @keyframes dustMove { 0% { background-position: 0 0; } 100% { background-position: 100px 100px; } }
 
-    /* === 2. ПРЕЛОАДЕР (BLACK ENERGY REACTOR) === */
-    #preloader { 
-      position: fixed; inset: 0; z-index: 9999; 
-      background: #000000; /* ЧЕРНЫЙ ФОН */
-      display: flex; justify-content: center; align-items: center; 
-      transition: opacity 0.8s ease, visibility 0.8s; 
-    }
-    
+    /* === 2. ПРЕЛОАДЕР (DARK REACTOR) === */
+    #preloader { position: fixed; inset: 0; z-index: 9999; background: #000; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease, visibility 0.8s; }
     .reactor-container { position: relative; width: 160px; height: 160px; display: flex; justify-content: center; align-items: center; }
-    
-    .reactor-logo { 
-      width: 90px; z-index: 10; 
-      filter: drop-shadow(0 0 15px rgba(255,255,255,0.3)); /* Свечение логотипа */
-      animation: heartbeat 1.5s infinite; 
-    }
-    
-    .energy-ring {
-      position: absolute; border-radius: 50%; border: 3px solid transparent;
-      mix-blend-mode: screen; /* Неоновый эффект на черном */
-    }
-    
-    /* Кольца с мощным свечением (Box-Shadow) */
-    .er-1 { 
-      width: 100%; height: 100%; 
-      border-top-color: #00ffcc; 
-      box-shadow: 0 0 20px rgba(0, 255, 204, 0.5), inset 0 0 10px rgba(0, 255, 204, 0.2);
-      animation: reactorSpin 2s linear infinite; 
-    }
-    .er-2 { 
-      width: 75%; height: 75%; 
-      border-right-color: #ffaa00; 
-      box-shadow: 0 0 20px rgba(255, 170, 0, 0.5);
-      animation: reactorSpin 1.5s linear infinite reverse; 
-    }
-    .er-3 { 
-      width: 125%; height: 125%; 
-      border-bottom-color: #0088ff; 
-      box-shadow: 0 0 30px rgba(0, 136, 255, 0.4);
-      animation: reactorSpin 3s linear infinite; 
-      opacity: 0.7;
-    }
-
+    .reactor-logo { width: 90px; z-index: 10; filter: drop-shadow(0 0 15px rgba(255,255,255,0.3)); animation: heartbeat 1.5s infinite; }
+    .energy-ring { position: absolute; border-radius: 50%; border: 3px solid transparent; mix-blend-mode: screen; }
+    .er-1 { width: 100%; height: 100%; border-top-color: #00ffcc; box-shadow: 0 0 20px rgba(0, 255, 204, 0.5); animation: reactorSpin 2s linear infinite; }
+    .er-2 { width: 75%; height: 75%; border-right-color: #ffaa00; box-shadow: 0 0 20px rgba(255, 170, 0, 0.5); animation: reactorSpin 1.5s linear infinite reverse; }
+    .er-3 { width: 125%; height: 125%; border-bottom-color: #0088ff; box-shadow: 0 0 30px rgba(0, 136, 255, 0.4); animation: reactorSpin 3s linear infinite; opacity: 0.7; }
     @keyframes reactorSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     @keyframes heartbeat { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
@@ -110,10 +86,10 @@
     .pulse-dot { width: 6px; height: 6px; background: var(--c-green); border-radius: 50%; box-shadow: 0 0 8px var(--c-green); animation: blink 2s infinite; }
     @keyframes blink { 50% { opacity: 0.3; } }
 
-    /* === КНОПКИ В ШАПКЕ === */
+    /* КНОПКИ (Premium) */
     .actions { display: flex; gap: 16px; align-items: center; }
 
-    /* УЧЕБНЫЙ ПОРТАЛ (Deep Dark Glass) */
+    /* Учебный Портал */
     .btn-portal {
       position: relative; display: flex; align-items: center; gap: 12px;
       padding: 0 24px; height: 48px; border-radius: 14px;
@@ -122,7 +98,7 @@
       box-shadow: 0 10px 20px rgba(15, 23, 42, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
       transition: 0.3s; border: 1px solid rgba(255,255,255,0.05);
     }
-    .btn-portal:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(15, 23, 42, 0.5), inset 0 1px 0 rgba(255,255,255,0.2); }
+    .btn-portal:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(15, 23, 42, 0.5); }
     .btn-portal::after {
       content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
       background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
@@ -130,7 +106,7 @@
     }
     .btn-portal:hover::after { opacity: 1; transform: scale(1); }
 
-    /* ОФИЦИАЛЬНЫЙ САЙТ (Prism Effect) */
+    /* Официальный Сайт */
     .btn-site-wrap {
       padding: 2px; border-radius: 16px; position: relative; z-index: 1;
       background: linear-gradient(90deg, #00d2ff, #3a7bd5, #ff0080, #7928ca);
@@ -144,7 +120,6 @@
       background: #fff; border-radius: 14px; text-decoration: none; color: var(--c-dark);
       position: relative; z-index: 2;
     }
-    
     @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
     .btn-col { display: flex; flex-direction: column; line-height: 1.1; }
@@ -152,31 +127,28 @@
     .btn-t2 { font-size: 0.65rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.5px; }
     .btn-ico { font-size: 1.3rem; }
 
-    @media (max-width: 768px) {
-      .brand-txt { display: none; }
-      .btn-portal, .btn-site { padding: 0; width: 44px; justify-content: center; }
-      .btn-col { display: none; }
-      .btn-ico { margin: 0; font-size: 1.4rem; }
-      .btn-site-wrap { padding: 2px; }
-      .actions { gap: 8px; }
-    }
-
-    /* === 4. ГЕРОЙ: ЖИВОЙ ТЕКСТ === */
+    /* === 4. ГЕРОЙ: ЖИВОЙ ТЕКСТ (Mobile Fix) === */
     .hero { text-align: center; padding: 60px 0 40px; }
     .hero h2 { 
-      font-size: 2.5rem; font-weight: 900; margin-bottom: 15px; letter-spacing: -1px;
-      /* Эффект живого текста */
+      /* Fluid Typography: min 1.8rem, ideal 5vw, max 3.5rem */
+      font-size: clamp(1.8rem, 5vw, 3.5rem); 
+      font-weight: 900; margin-bottom: 15px; letter-spacing: -1px;
+      
+      /* Переливающийся градиент */
       background: linear-gradient(to right, #1e293b 20%, #009688 30%, #2563eb 70%, #1e293b 80%);
       background-size: 200% auto;
       background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       animation: shineText 5s linear infinite;
-      position: relative; display: inline-block;
+      
+      /* Переносы для мобильных */
+      word-wrap: break-word; overflow-wrap: break-word; hyphens: auto;
+      line-height: 1.1; padding: 0 10px;
     }
     @keyframes shineText { to { background-position: 200% center; } }
     
     .hero p { color: #64748B; font-size: 1.1rem; max-width: 500px; margin: 0 auto; line-height: 1.6; }
 
-    /* === 5. ПАПКИ (FOLDERS) === */
+    /* === 5. ПАПКИ === */
     .stack { display: flex; flex-direction: column; gap: 20px; padding-bottom: 120px; }
 
     .folder {
@@ -184,7 +156,7 @@
       box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); overflow: hidden; transition: 0.4s;
       position: relative;
     }
-    .folder:hover { transform: translateY(-5px) scale(1.005); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); border-color: #fff; }
+    .folder:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); border-color: #fff; }
     
     .f-head { padding: 24px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
     .f-head:hover { background: rgba(255,255,255,0.4); }
@@ -200,13 +172,12 @@
     .chevron { font-size: 1.2rem; color: #94A3B8; transition: 0.4s; }
     .folder.active .chevron { transform: rotate(180deg); color: var(--c-dark); }
 
-    /* Цвета */
+    /* Colors */
     .green .f-icon { background: linear-gradient(135deg, #E0F2F1, #99F6E4); color: #0F766E; }
     .orange .f-icon { background: linear-gradient(135deg, #FFF7ED, #FED7AA); color: #C2410C; }
     .blue .f-icon { background: linear-gradient(135deg, #EFF6FF, #BFDBFE); color: #1D4ED8; }
     .purple .f-icon { background: linear-gradient(135deg, #FAF5FF, #E9D5FF); color: #7E22CE; }
 
-    /* Тело папки */
     .f-body { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1); background: rgba(255,255,255,0.3); }
     .folder.active .f-body { max-height: 5000px; border-top: 1px solid rgba(255,255,255,0.5); }
 
@@ -218,13 +189,22 @@
     .sub-item.open .sub-body { max-height: 3000px; padding: 15px 0; border-top: 1px solid #E2E8F0; }
     .sub-item.open .sub-head { background: #F0FDF4; color: var(--c-green); }
 
-    /* Файлы (Cards) */
+    /* Файлы (Cards with Shimmer) */
     .file {
       display: flex; align-items: center; gap: 16px; padding: 14px 24px;
       cursor: pointer; transition: 0.2s; border-left: 3px solid transparent;
+      position: relative; overflow: hidden;
     }
     .file:hover { background: #fff; border-left-color: var(--c-green); transform: translateX(5px); }
     
+    /* Блик при наведении */
+    .file::after {
+      content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+      transition: 0.5s; pointer-events: none;
+    }
+    .file:hover::after { left: 100%; }
+
     .file-ico { font-size: 1.4rem; min-width: 30px; text-align: center; }
     .file-data { display: flex; flex-direction: column; gap: 4px; }
     .file-name { font-size: 0.95rem; font-weight: 600; color: var(--c-dark); line-height: 1.3; }
@@ -235,16 +215,16 @@
     }
     .badge.imp { background: #FEF3C7; color: #B45309; }
 
-    /* === 6. PDF VIEWER (FIXED FOR MOBILE) === */
+    /* === 6. PDF VIEWER (MOBILE FIXED) === */
     .pdf-modal {
       position: fixed; inset: 0; z-index: 5000;
       background: #020617; display: none; flex-direction: column;
       opacity: 0; transition: opacity 0.3s;
     }
     .pdf-modal.active { display: flex; opacity: 1; }
-    /* Mobile Fullscreen Hack via Class */
+    /* Хак для телефонов, чтобы перекрыть браузерные панели */
     .pdf-modal.mobile-fullscreen { 
-      position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 99999 !important; background: #000;
+      position: fixed !important; top: 0; left: 0; width: 100%; height: 100%; z-index: 99999;
     }
 
     .pdf-head {
@@ -312,11 +292,19 @@
     .tg-txt h4 { margin: 0; font-size: 0.95rem; color: var(--c-dark); font-weight: 800; }
     .tg-txt p { margin: 0; font-size: 0.75rem; color: #229ED9; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
+      .brand-txt { display: none; }
+      .btn-portal, .btn-site { padding: 0; width: 44px; justify-content: center; }
+      .btn-col { display: none; }
+      .btn-ico { margin: 0; font-size: 1.4rem; }
+      .btn-site-wrap { padding: 2px; }
+      .actions { gap: 8px; }
+      /* Адаптив для папок на телефоне */
       .f-head { padding: 15px; }
       .f-icon { width: 48px; height: 48px; font-size: 1.5rem; }
       .f-txt h3 { font-size: 1.1rem; }
       .sub-item { margin: 10px; }
+      .sub-head { padding: 14px; }
       .pc-only { display: none !important; }
     }
   </style>
@@ -324,7 +312,7 @@
 <body>
 
   <div class="bg-wrapper">
-    <div class="noise"></div>
+    <div class="dust"></div>
     <div class="orb o1"></div>
     <div class="orb o2"></div>
     <div class="orb o3"></div>
@@ -615,7 +603,7 @@
       pdfDoc.getPage(num).then(function(page) {
         
         const viewportRaw = page.getViewport({scale: 1});
-        const containerWidth = pdfBody.clientWidth - 30;
+        const containerWidth = pdfBody.clientWidth - 40;
         let renderScale = (containerWidth / viewportRaw.width) * scale;
         if(renderScale < 0.5) renderScale = 0.5;
 
