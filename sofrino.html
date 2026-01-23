@@ -16,18 +16,17 @@
 
   <style>
     /* =========================================
-       THEME: QUANTUM MASTERPIECE
+       THEME: QUANTUM ELITE v3.0
        ========================================= */
     :root {
       --c-green: #009688; --c-orange: #F59E0B; --c-blue: #2563EB; --c-purple: #7C3AED;
       --c-dark: #020617; --c-text: #334155;
-      --glass: rgba(255, 255, 255, 0.8);
-      --glass-hover: rgba(255, 255, 255, 0.95);
+      --glass: rgba(255, 255, 255, 0.75);
       --border: 1px solid rgba(255, 255, 255, 0.6);
       --radius: 24px;
     }
 
-    /* CUSTOM SCROLLBAR (WEBKIT) */
+    /* SCROLLBAR */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.5); border-radius: 10px; }
@@ -39,20 +38,16 @@
       color: var(--c-dark);
       background: #F1F5F9;
       overflow-x: hidden;
-      cursor: none; /* Скрываем стандартный курсор (заменим своим) */
+      cursor: auto; /* Стандартный курсор */
     }
-    
-    /* Возвращаем курсор на мобильных */
-    @media (pointer: coarse) { body { cursor: auto; } }
-
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
 
-    /* === 1. ФОН И АТМОСФЕРА === */
+    /* === 1. ФОН: ЛАВА === */
     .bg-wrapper { position: fixed; inset: 0; z-index: -2; background: #F8FAFC; overflow: hidden; }
-    .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.5; animation: float 20s infinite alternate ease-in-out; will-change: transform; }
-    .o1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(0, 150, 136, 0.2), transparent 70%); }
-    .o2 { bottom: -10%; right: -10%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent 70%); animation-delay: -5s; }
-    .o3 { top: 30%; left: 30%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(245, 158, 11, 0.15), transparent 70%); animation-delay: -8s; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; animation: float 15s infinite alternate ease-in-out; will-change: transform; }
+    .o1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(0, 150, 136, 0.25), transparent 70%); }
+    .o2 { bottom: -10%; right: -10%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(37, 99, 235, 0.25), transparent 70%); animation-delay: -5s; }
+    .o3 { top: 30%; left: 30%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(245, 158, 11, 0.2), transparent 70%); animation-delay: -8s; }
     @keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(30px, 50px) scale(1.05); } }
 
     .noise {
@@ -60,45 +55,30 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
 
-    /* === 2. ИНТЕРАКТИВНЫЙ КУРСОР === */
-    .cursor-dot, .cursor-outline {
-      position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; z-index: 9999; pointer-events: none;
-    }
-    .cursor-dot { width: 8px; height: 8px; background: var(--c-dark); }
-    .cursor-outline {
-      width: 40px; height: 40px; border: 1px solid rgba(15, 23, 42, 0.3);
-      transition: width 0.2s, height 0.2s, background-color 0.2s;
-    }
-    /* Эффект при наведении */
-    body.hovering .cursor-outline { width: 60px; height: 60px; background: rgba(0, 150, 136, 0.1); border-color: var(--c-green); }
-    
-    @media (pointer: coarse) { .cursor-dot, .cursor-outline { display: none; } }
-
-    /* === 3. ПРЕЛОАДЕР === */
-    #preloader { position: fixed; inset: 0; z-index: 99999; background: #050505; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease, visibility 0.8s; }
+    /* === 2. ПРЕЛОАДЕР === */
+    #preloader { position: fixed; inset: 0; z-index: 9999; background: #000; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease, visibility 0.8s; }
     .reactor-container { position: relative; width: 160px; height: 160px; display: flex; justify-content: center; align-items: center; }
-    .reactor-logo { width: 80px; z-index: 10; filter: drop-shadow(0 0 15px rgba(255,255,255,0.4)); animation: heartbeat 2s infinite; }
+    .reactor-logo { width: 90px; z-index: 10; filter: drop-shadow(0 0 15px rgba(255,255,255,0.3)); animation: heartbeat 1.5s infinite; }
     .energy-ring { position: absolute; border-radius: 50%; border: 3px solid transparent; mix-blend-mode: screen; }
-    .er-1 { width: 100%; height: 100%; border-top-color: #00ffcc; box-shadow: 0 0 15px #00ffcc; animation: spin 1.5s linear infinite; }
-    .er-2 { width: 80%; height: 80%; border-right-color: #ffaa00; box-shadow: 0 0 15px #ffaa00; animation: spin 2s linear infinite reverse; }
-    .er-3 { width: 120%; height: 120%; border-bottom-color: #0088ff; box-shadow: 0 0 20px #0088ff; animation: spin 3s linear infinite; opacity: 0.6; }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-    @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    .er-1 { width: 100%; height: 100%; border-top-color: #00ffcc; box-shadow: 0 0 20px rgba(0, 255, 204, 0.5); animation: reactorSpin 2s linear infinite; }
+    .er-2 { width: 75%; height: 75%; border-right-color: #ffaa00; box-shadow: 0 0 20px rgba(255, 170, 0, 0.5); animation: reactorSpin 1.5s linear infinite reverse; }
+    .er-3 { width: 125%; height: 125%; border-bottom-color: #0088ff; box-shadow: 0 0 30px rgba(0, 136, 255, 0.4); animation: reactorSpin 3s linear infinite; opacity: 0.7; }
+    @keyframes reactorSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes heartbeat { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
-    /* === 4. ШАПКА === */
+    /* === 3. ШАПКА === */
     .header {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.8); backdrop-filter: blur(20px);
+      background: rgba(255,255,255,0.8); backdrop-filter: blur(25px);
       border-bottom: 1px solid rgba(255,255,255,0.5); padding: 12px 0;
-      box-shadow: 0 4px 30px rgba(0,0,0,0.03); transition: 0.3s;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.03);
     }
-    .header.scrolled { padding: 8px 0; background: rgba(255,255,255,0.95); }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
     .nav { display: flex; justify-content: space-between; align-items: center; }
 
     .brand { display: flex; align-items: center; gap: 14px; }
     .brand img { height: 50px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
-    .brand-txt h1 { font-size: 1.15rem; font-weight: 800; line-height: 1; margin: 0; }
+    .brand-txt h1 { font-size: 1.15rem; font-weight: 800; line-height: 1; margin: 0; color: var(--c-dark); }
     .brand-txt span { font-size: 0.7rem; font-weight: 700; color: var(--c-green); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; margin-top: 4px; }
     .pulse-dot { width: 6px; height: 6px; background: var(--c-green); border-radius: 50%; box-shadow: 0 0 8px var(--c-green); animation: blink 2s infinite; }
     @keyframes blink { 50% { opacity: 0.3; } }
@@ -107,56 +87,66 @@
     
     .btn-portal {
       position: relative; display: flex; align-items: center; gap: 12px;
-      padding: 0 20px; height: 46px; border-radius: 12px;
-      background: #1e293b; color: #fff; text-decoration: none; overflow: hidden;
-      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2); transition: 0.3s;
+      padding: 0 24px; height: 48px; border-radius: 14px;
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+      color: #fff; text-decoration: none; overflow: hidden;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.3);
+      transition: 0.3s; border: 1px solid rgba(255,255,255,0.05);
     }
-    .btn-portal:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(15, 23, 42, 0.4); }
+    .btn-portal:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(15, 23, 42, 0.5); }
     .btn-portal::after {
-      content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-      transform: skewX(-20deg); transition: 0.5s;
+      content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+      opacity: 0; transform: scale(0.5); transition: 0.5s; pointer-events: none;
     }
-    .btn-portal:hover::after { left: 150%; }
+    .btn-portal:hover::after { opacity: 1; transform: scale(1); }
 
     .btn-site-wrap {
-      padding: 2px; border-radius: 14px; position: relative; z-index: 1;
+      padding: 2px; border-radius: 16px; position: relative; z-index: 1;
       background: linear-gradient(90deg, #00d2ff, #3a7bd5, #ff0080, #7928ca);
       background-size: 300% 300%; animation: gradientFlow 4s ease infinite;
       box-shadow: 0 5px 20px rgba(58, 123, 213, 0.3); transition: 0.3s;
     }
     .btn-site-wrap:hover { box-shadow: 0 10px 30px rgba(255, 0, 128, 0.4); transform: scale(1.02); }
     .btn-site {
-      display: flex; align-items: center; gap: 12px; height: 42px; padding: 0 20px;
-      background: #fff; border-radius: 12px; text-decoration: none; color: var(--c-dark);
+      display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 20px;
+      background: #fff; border-radius: 14px; text-decoration: none; color: var(--c-dark);
       position: relative; z-index: 2;
     }
     @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
     .btn-col { display: flex; flex-direction: column; line-height: 1.1; }
     .btn-t1 { font-size: 0.85rem; font-weight: 700; }
-    .btn-t2 { font-size: 0.65rem; opacity: 0.7; text-transform: uppercase; }
+    .btn-t2 { font-size: 0.65rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.5px; }
     .btn-ico { font-size: 1.3rem; }
 
     @media (max-width: 768px) {
-      .brand-txt, .btn-col { display: none; }
+      .brand-txt { display: none; }
       .btn-portal, .btn-site { padding: 0; width: 44px; justify-content: center; }
+      .btn-col { display: none; }
       .btn-ico { margin: 0; font-size: 1.4rem; }
+      .btn-site-wrap { padding: 2px; }
       .actions { gap: 8px; }
     }
 
-    /* === 5. ГЕРОЙ + ПОИСК (NEW!) === */
-    .hero { text-align: center; padding: 60px 0 40px; position: relative; }
+    /* === 4. ГЕРОЙ + ПОИСК (MASTERPIECE) === */
+    .hero { text-align: center; padding: 50px 0 30px; position: relative; }
+    
+    .greeting {
+      font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: var(--c-green);
+      font-weight: 700; margin-bottom: 10px; display: block;
+    }
+
     .hero h2 { 
       font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 900; margin-bottom: 15px; letter-spacing: -1px;
       background: linear-gradient(to right, #1e293b 20%, #009688 30%, #2563eb 70%, #1e293b 80%);
       background-size: 200% auto; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      animation: shineText 5s linear infinite; padding: 0 10px;
+      animation: shineText 5s linear infinite; padding: 0 10px; word-wrap: break-word; line-height: 1.1;
     }
     @keyframes shineText { to { background-position: 200% center; } }
     .hero p { color: #64748B; font-size: 1.1rem; margin: 0 auto 30px; max-width: 500px; }
 
-    /* SEARCH BAR (GLASS) */
+    /* Search + Chips */
     .search-wrap {
       max-width: 600px; margin: 0 auto; position: relative;
       background: rgba(255,255,255,0.6); backdrop-filter: blur(10px);
@@ -165,20 +155,30 @@
       transition: 0.3s; display: flex; align-items: center;
     }
     .search-wrap:focus-within { background: #fff; box-shadow: 0 20px 50px -10px rgba(0, 150, 136, 0.15); border-color: var(--c-green); transform: translateY(-2px); }
-    
     .search-icon { font-size: 1.5rem; color: #94A3B8; padding: 0 15px; }
     .search-input {
       flex-grow: 1; border: none; background: transparent; font-size: 1.1rem;
       padding: 10px 0; color: var(--c-dark); font-family: 'Inter', sans-serif;
     }
     .search-input::placeholder { color: #94A3B8; }
-    
-    /* === 6. КОНТЕНТ === */
+
+    /* Быстрые фильтры (Chips) */
+    .chips-row {
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 20px;
+    }
+    .chip {
+      padding: 6px 14px; border-radius: 50px; background: rgba(255,255,255,0.5); border: 1px solid rgba(0,0,0,0.05);
+      color: var(--c-text); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s;
+    }
+    .chip:hover, .chip.active { background: #fff; color: var(--c-green); box-shadow: 0 4px 10px rgba(0,0,0,0.05); transform: translateY(-2px); }
+
+    /* === 5. ПАПКИ === */
     .stack { display: flex; flex-direction: column; gap: 20px; padding-bottom: 120px; }
 
     .folder {
       background: var(--glass); border: var(--border); border-radius: var(--radius);
       box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); overflow: hidden; transition: 0.4s;
+      position: relative;
     }
     .folder:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); border-color: #fff; }
     
@@ -196,6 +196,7 @@
     .chevron { font-size: 1.2rem; color: #94A3B8; transition: 0.4s; }
     .folder.active .chevron { transform: rotate(180deg); color: var(--c-dark); }
 
+    /* Цвета */
     .green .f-icon { background: linear-gradient(135deg, #E0F2F1, #99F6E4); color: #0F766E; }
     .orange .f-icon { background: linear-gradient(135deg, #FFF7ED, #FED7AA); color: #C2410C; }
     .blue .f-icon { background: linear-gradient(135deg, #EFF6FF, #BFDBFE); color: #1D4ED8; }
@@ -218,6 +219,7 @@
       position: relative; overflow: hidden;
     }
     .file:hover { background: #fff; border-left-color: var(--c-green); transform: translateX(5px); }
+    /* Блик */
     .file::after {
       content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
@@ -228,6 +230,10 @@
     .file-ico { font-size: 1.4rem; min-width: 30px; text-align: center; }
     .file-data { display: flex; flex-direction: column; gap: 4px; }
     .file-name { font-size: 0.95rem; font-weight: 600; color: var(--c-dark); line-height: 1.3; }
+    
+    /* Подсветка текста поиска */
+    mark { background: rgba(250, 204, 21, 0.4); color: var(--c-dark); border-radius: 2px; padding: 0 2px; }
+
     .badge {
       display: inline-flex; padding: 3px 8px; border-radius: 6px;
       font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
@@ -235,19 +241,12 @@
     }
     .badge.imp { background: #FEF3C7; color: #B45309; }
 
-    /* NOTIFICATION (TOAST) */
-    .toast {
-      position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px);
-      background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px);
-      color: #fff; padding: 12px 24px; border-radius: 50px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 10000;
-      display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: 600;
-      opacity: 0; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Счетчики в папках */
+    .count-badge {
+      background: rgba(0,0,0,0.05); color: var(--c-text); padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700;
     }
-    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-    .toast-icon { color: #10B981; }
 
-    /* === 7. PDF VIEWER === */
+    /* === 6. PDF VIEWER === */
     .pdf-modal {
       position: fixed; inset: 0; z-index: 5000;
       background: #020617; display: none; flex-direction: column;
@@ -330,14 +329,6 @@
 </head>
 <body>
 
-  <div class="cursor-dot"></div>
-  <div class="cursor-outline"></div>
-
-  <div class="toast" id="toast">
-    <span class="toast-icon">✓</span>
-    <span class="toast-msg">Документ загружается</span>
-  </div>
-
   <div class="bg-wrapper">
     <div class="noise"></div>
     <div class="orb o1"></div>
@@ -365,11 +356,11 @@
       </div>
       
       <div class="actions">
-        <a href="index.html" class="btn-portal hover-target">
+        <a href="index.html" class="btn-portal">
           <span class="btn-ico">🎓</span>
           <div class="btn-col"><span class="btn-t1">Учебный Портал</span><span class="btn-t2">Личный кабинет</span></div>
         </a>
-        <div class="btn-site-wrap hover-target">
+        <div class="btn-site-wrap">
           <a href="https://sofrino-park.com/" target="_blank" class="btn-site">
             <span class="btn-ico">🌐</span>
             <div class="btn-col"><span class="btn-t1">Парк-Отель</span><span class="btn-t2">Веб-сайт</span></div>
@@ -381,18 +372,27 @@
 
   <main class="container">
     <div class="hero">
+      <span class="greeting" id="timeGreeting">Добрый день</span>
       <h2>Документационный центр</h2>
       <p>Локальные нормативные акты, инструкции и стандарты безопасности</p>
       
       <div class="search-wrap">
         <div class="search-icon">🔍</div>
-        <input type="text" id="searchInput" class="search-input" placeholder="Поиск по документам (например: СИЗ, Приказ)...">
+        <input type="text" id="searchInput" class="search-input" placeholder="Поиск (например: СИЗ, Приказ, СОУТ)...">
+      </div>
+      
+      <div class="chips-row">
+        <div class="chip" onclick="filterDocs('all')">Все</div>
+        <div class="chip" onclick="filterDocs('ВАЖНО')">⚡ Важное</div>
+        <div class="chip" onclick="filterDocs('Приказ')">📜 Приказы</div>
+        <div class="chip" onclick="filterDocs('Положение')">📂 Положения</div>
+        <div class="chip" onclick="filterDocs('СОУТ')">🔬 СОУТ</div>
       </div>
     </div>
 
     <div class="stack">
 
-      <div class="folder green hover-target" id="f1">
+      <div class="folder green" id="f1">
         <div class="f-head" onclick="toggleFolder('f1')">
           <div class="f-main">
             <div class="f-icon">🛡️</div>
@@ -503,7 +503,7 @@
         </div>
       </div>
 
-      <div class="folder orange hover-target" id="f2">
+      <div class="folder orange" id="f2">
         <div class="f-head" onclick="toggleFolder('f2')">
           <div class="f-main">
             <div class="f-icon">🔥</div>
@@ -514,7 +514,7 @@
         <div class="f-body"><div style="padding:30px;text-align:center;color:#94A3B8;">В разработке</div></div>
       </div>
 
-      <div class="folder blue hover-target" id="f3">
+      <div class="folder blue" id="f3">
         <div class="f-head" onclick="toggleFolder('f3')">
           <div class="f-main">
             <div class="f-icon">📢</div>
@@ -525,7 +525,7 @@
         <div class="f-body"><div style="padding:30px;text-align:center;color:#94A3B8;">В разработке</div></div>
       </div>
 
-      <div class="folder purple hover-target" id="f4">
+      <div class="folder purple" id="f4">
         <div class="f-head" onclick="toggleFolder('f4')">
           <div class="f-main">
             <div class="f-icon">💼</div>
@@ -547,7 +547,7 @@
     © 2026 СОФРИНО ПАРК. Служба охраны труда.
   </footer>
 
-  <a href="https://t.me/+5mfcl7IppD00YzAy" target="_blank" class="tg-float hover-target">
+  <a href="https://t.me/+5mfcl7IppD00YzAy" target="_blank" class="tg-float">
     <div class="tg-logo">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M21.92,2.62a1.67,1.67,0,0,0-1.68-.4l-18,6.8a1.68,1.68,0,0,0,.1,3.13l4.63,1.68L17.7,6.72a.46.46,0,0,1,.63.66l-9.13,7.93v3.9a1.27,1.27,0,0,0,2.15.9l2.77-2.61,5.55,4.21a1.27,1.27,0,0,0,2.2-.7L23.61,4.11A1.67,1.67,0,0,0,21.92,2.62Z"/></svg>
     </div>
@@ -558,12 +558,12 @@
     <div class="pdf-head">
       <div class="pdf-title" id="pdfDocTitle">Документ</div>
       <div class="pdf-ctrls">
-        <button class="icon-btn pc-only hover-target" onclick="adjustZoom(0.2)" title="Приблизить" id="btnZoomIn">+</button>
-        <button class="icon-btn pc-only hover-target" onclick="adjustZoom(-0.2)" title="Отдалить" id="btnZoomOut">-</button>
-        <button class="icon-btn hover-target" onclick="toggleNight()" title="Ночной режим">🌙</button>
-        <a href="#" id="downloadBtn" class="icon-btn hover-target" download title="Скачать">📥</a>
-        <button class="icon-btn hover-target" onclick="toggleFullscreen()" title="На весь экран">⛶</button>
-        <button class="icon-btn close hover-target" onclick="closeViewer()">✕</button>
+        <button class="icon-btn pc-only" onclick="adjustZoom(0.2)" title="Приблизить" id="btnZoomIn">+</button>
+        <button class="icon-btn pc-only" onclick="adjustZoom(-0.2)" title="Отдалить" id="btnZoomOut">-</button>
+        <button class="icon-btn" onclick="toggleNight()" title="Ночной режим">🌙</button>
+        <a href="#" id="downloadBtn" class="icon-btn" download title="Скачать">📥</a>
+        <button class="icon-btn" onclick="toggleFullscreen()" title="На весь экран">⛶</button>
+        <button class="icon-btn close" onclick="closeViewer()">✕</button>
       </div>
     </div>
     <div class="pdf-body" id="pdfBody">
@@ -571,57 +571,68 @@
       <canvas id="the-canvas"></canvas>
     </div>
     <div class="pdf-foot">
-      <button class="nav-circle hover-target" id="prev">←</button>
+      <button class="nav-circle" id="prev">←</button>
       <div class="page-info"><span id="page_num">1</span> / <span id="page_count">--</span></div>
-      <button class="nav-circle hover-target" id="next">→</button>
+      <button class="nav-circle" id="next">→</button>
     </div>
   </div>
 
   <script>
-    // 1. PRELOADER
+    // 1. PRELOADER & GREETING
     window.onload = function() {
       setTimeout(() => {
         document.getElementById('preloader').style.opacity = '0';
         document.getElementById('preloader').style.visibility = 'hidden';
       }, 800);
+      
       if(!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
         document.querySelectorAll('.pc-only').forEach(el => el.style.display = 'flex');
       }
+
+      // Live Greeting
+      const hour = new Date().getHours();
+      let greeting = "Добрый день";
+      if (hour < 12) greeting = "Доброе утро";
+      else if (hour >= 18) greeting = "Добрый вечер";
+      
+      const heroP = document.querySelector('.hero p');
+      // Вставляем приветствие перед текстом
+      const span = document.createElement('div');
+      span.style.color = 'var(--c-green)';
+      span.style.fontWeight = '700';
+      span.style.marginBottom = '5px';
+      span.style.textTransform = 'uppercase';
+      span.style.letterSpacing = '1px';
+      span.style.fontSize = '0.8rem';
+      span.textContent = greeting;
+      heroP.parentNode.insertBefore(span, heroP);
     };
 
-    // 2. CURSOR LOGIC
-    const cursorDot = document.querySelector(".cursor-dot");
-    const cursorOutline = document.querySelector(".cursor-outline");
-    window.addEventListener("mousemove", function (e) {
-      const posX = e.clientX; const posY = e.clientY;
-      cursorDot.style.left = `${posX}px`; cursorDot.style.top = `${posY}px`;
-      cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
-    });
-    
-    // Magnetic Hover Effect
-    document.querySelectorAll('.hover-target, .file, .f-head, .icon-btn').forEach(item => {
-      item.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-      item.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-    });
-
-    // 3. SEARCH LOGIC (LIVE FILTER)
+    // 2. SEARCH & HIGHLIGHT
     const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('keyup', function() {
+    searchInput.addEventListener('input', function() {
       const filter = this.value.toLowerCase();
       const files = document.querySelectorAll('.file');
       
       files.forEach(file => {
-        const text = file.innerText.toLowerCase();
+        const nameEl = file.querySelector('.file-name');
+        const text = nameEl.textContent;
         const subBody = file.closest('.sub-body');
         const subItem = file.closest('.sub-item');
         const folderBody = file.closest('.f-body');
         const folder = file.closest('.folder');
 
-        if (text.includes(filter)) {
+        // Reset highlight
+        nameEl.innerHTML = text;
+
+        if (text.toLowerCase().includes(filter)) {
           file.style.display = "flex";
-          if(filter.length > 2) {
-            folder.classList.add('active'); // Раскрыть папку
-            subItem.classList.add('open');  // Раскрыть подкатегорию
+          if(filter.length > 1) {
+            folder.classList.add('active'); 
+            subItem.classList.add('open');
+            // Highlight text
+            const regex = new RegExp(`(${filter})`, 'gi');
+            nameEl.innerHTML = text.replace(regex, '<mark>$1</mark>');
           }
         } else {
           file.style.display = "none";
@@ -629,18 +640,32 @@
       });
     });
 
-    // 4. TOAST NOTIFICATION
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      toast.querySelector('.toast-msg').innerText = msg;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 3000);
+    // 3. QUICK FILTERS
+    function filterDocs(type) {
+      document.getElementById('searchInput').value = ''; // Clear search
+      const files = document.querySelectorAll('.file');
+      
+      files.forEach(file => {
+        const fileText = file.innerText;
+        // Reset display
+        file.style.display = "flex";
+        
+        if (type !== 'all') {
+          if (!fileText.includes(type)) file.style.display = "none";
+          else {
+             // Open parents
+             file.closest('.folder').classList.add('active');
+             file.closest('.sub-item').classList.add('open');
+          }
+        }
+      });
     }
 
-    // 5. ACCORDION & PDF
+    // UI LOGIC
     function toggleFolder(id) { document.getElementById(id).classList.toggle('active'); }
     function toggleSub(head) { head.parentElement.classList.toggle('open'); }
 
+    // PDF ENGINE
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null;
     let scale = 1.0; let currentUrl = "";
     const canvas = document.getElementById('the-canvas');
@@ -653,7 +678,6 @@
       document.getElementById('downloadBtn').href = url;
       document.getElementById('pdfModal').classList.add('active');
       document.body.style.overflow = 'hidden';
-      showToast('Открываем документ...');
       
       if(url !== currentUrl) {
         currentUrl = url; pageNum = 1; scale = 1.0; pdfLoader.style.display = 'flex';
