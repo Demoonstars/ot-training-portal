@@ -2,12 +2,12 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Софрино Парк | Документация</title>
+  <title>Софрино Парк | База Знаний</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script>
@@ -16,294 +16,299 @@
 
   <style>
     /* =========================================
-       CORE VARIABLES & THEME
+       THEME: SOFRINO QUANTUM (High-DPI Glass)
        ========================================= */
     :root {
       --c-green: #009688; --c-orange: #F59E0B; --c-blue: #2563EB; --c-purple: #7C3AED;
-      --c-dark: #0F172A; --c-text: #334155;
-      --glass: rgba(255, 255, 255, 0.85);
-      --border: 1px solid rgba(255, 255, 255, 0.6);
+      --c-dark: #020617; --c-text: #334155; --c-slate: #1E293B;
+      
+      --glass: rgba(255, 255, 255, 0.75);
+      --glass-border: 1px solid rgba(255, 255, 255, 0.5);
       --blur: blur(20px);
-      --radius: 20px;
-      --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+      --radius: 24px;
+      --shadow-glow: 0 0 20px rgba(0, 150, 136, 0.15);
     }
 
-    body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: #F1F5F9; color: var(--c-dark); overflow-x: hidden; }
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-    /* =========================================
-       1. ЖИВОЙ ФОН (LAVA)
-       ========================================= */
-    .ambient-bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: #F8FAFC; }
-    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; animation: float 25s infinite alternate; will-change: transform; }
-    
-    .o1 { 
-      top: -10%; left: -10%; width: 600px; height: 600px; 
-      background: radial-gradient(circle, rgba(0, 150, 136, 0.25), transparent 70%); 
-    }
-    .o2 { 
-      bottom: -10%; right: -10%; width: 500px; height: 500px; 
-      background: radial-gradient(circle, rgba(37, 99, 235, 0.25), transparent 70%); 
-      animation-duration: 30s; animation-delay: -5s; 
-    }
-    .o3 { 
-      top: 40%; left: 40%; width: 400px; height: 400px; 
-      background: radial-gradient(circle, rgba(245, 158, 11, 0.2), transparent 70%); 
-      animation-duration: 20s; animation-delay: -10s; 
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Inter', sans-serif;
+      color: var(--c-dark);
+      background: #F1F5F9;
+      overflow-x: hidden; /* Скрываем горизонтальный скролл страницы */
     }
     
-    @keyframes float { 
-      0% { transform: translate(0,0) scale(1); } 
-      50% { transform: translate(40px, 60px) scale(1.1); } 
-      100% { transform: translate(-20px, 30px) scale(0.9); } 
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+
+    /* === 1. ФОН: ЖИВАЯ ЛАВА + ШУМ (GRAIN) === */
+    .bg-wrapper { position: fixed; inset: 0; z-index: -2; background: #F8FAFC; overflow: hidden; }
+    
+    /* Сферы (Ярче и быстрее) */
+    .orb { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.7; animation: float 10s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95); will-change: transform; }
+    .o1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(0, 150, 136, 0.25), transparent 70%); animation-duration: 12s; }
+    .o2 { bottom: -10%; right: -10%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(37, 99, 235, 0.25), transparent 70%); animation-duration: 15s; animation-delay: -2s; }
+    .o3 { top: 40%; left: 30%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(245, 158, 11, 0.2), transparent 70%); animation-duration: 14s; animation-delay: -5s; }
+    @keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(40px, 60px) scale(1.1); } }
+
+    /* Эффект зернистости (Дорогой вид) */
+    .noise {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
 
-    /* =========================================
-       2. ПРЕЛОАДЕР (LOGO RINGS)
-       ========================================= */
-    #preloader { position: fixed; inset: 0; z-index: 9999; background: rgba(255,255,255,0.98); backdrop-filter: blur(15px); display: flex; justify-content: center; align-items: center; transition: 0.5s; }
-    .loader-wrap { position: relative; width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; }
-    .loader-logo { width: 70px; height: auto; z-index: 2; }
-    .ring { position: absolute; border-radius: 50%; border: 3px solid transparent; animation: spin 2s linear infinite; inset: 0; }
-    .r1 { border-top-color: var(--c-green); animation-duration: 1.5s; }
-    .r2 { border-right-color: var(--c-orange); animation-duration: 2s; inset: 5px; }
-    .r3 { border-bottom-color: var(--c-blue); animation-duration: 2.5s; inset: 10px; }
+    /* === 2. ПРЕЛОАДЕР === */
+    #preloader { position: fixed; inset: 0; z-index: 9999; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); display: flex; justify-content: center; align-items: center; transition: 0.6s; }
+    .loader-box { position: relative; width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; }
+    .loader-logo { width: 70px; z-index: 2; animation: pulseLogo 2s infinite; }
+    .ring { position: absolute; border-radius: 50%; border: 3px solid transparent; animation: spin 1.5s linear infinite; inset: -10px; }
+    .r1 { border-top-color: var(--c-green); animation-duration: 1.2s; }
+    .r2 { border-right-color: var(--c-orange); animation-duration: 1.8s; inset: -5px; }
     @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes pulseLogo { 50% { transform: scale(0.95); opacity: 0.8; } }
 
-    /* =========================================
-       3. КОМПАКТНАЯ ШАПКА (HEADER)
-       ========================================= */
-    .glass-header {
+    /* === 3. ШАПКА === */
+    .header {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.85); backdrop-filter: var(--blur);
-      border-bottom: 1px solid rgba(255,255,255,0.5);
-      padding: 12px 0; transition: 0.3s;
+      background: rgba(255,255,255,0.7); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+      border-bottom: 1px solid rgba(255,255,255,0.5); padding: 12px 0;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.03);
     }
-    .container { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
-    
-    .nav-row { display: flex; justify-content: space-between; align-items: center; }
-    
-    /* Логотип */
-    .brand { display: flex; align-items: center; gap: 12px; }
-    .brand img { height: 48px; width: auto; transition: 0.3s; }
-    .brand-txt h1 { font-size: 1.1rem; font-weight: 800; margin: 0; line-height: 1.1; }
-    .brand-txt span { font-size: 0.7rem; color: var(--c-green); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; display: flex; align-items: center; gap: 5px; }
-    .dot { width: 6px; height: 6px; background: var(--c-green); border-radius: 50%; animation: blink 2s infinite; }
-    @keyframes blink { 50% { opacity: 0.4; } }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    .nav { display: flex; justify-content: space-between; align-items: center; }
 
-    /* КНОПКИ (Пк + Мобилка) */
-    .nav-actions { display: flex; gap: 12px; }
+    .brand { display: flex; align-items: center; gap: 14px; }
+    .brand img { height: 50px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+    .brand-txt h1 { font-size: 1.15rem; font-weight: 800; line-height: 1; margin: 0; letter-spacing: -0.02em; }
+    .brand-txt span { font-size: 0.7rem; font-weight: 700; color: var(--c-green); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+    .pulse-dot { width: 6px; height: 6px; background: var(--c-green); border-radius: 50%; box-shadow: 0 0 8px var(--c-green); animation: blink 2s infinite; }
+    @keyframes blink { 50% { opacity: 0.3; } }
 
-    /* Общий стиль кнопок */
-    .nav-btn {
+    /* КНОПКИ (Premium Style) */
+    .actions { display: flex; gap: 12px; }
+    
+    .btn-portal {
+      background: #0F172A; color: #fff;
+      padding: 0 20px; height: 44px; border-radius: 14px;
       display: flex; align-items: center; gap: 10px;
-      padding: 8px 16px; border-radius: 12px;
-      text-decoration: none; font-size: 0.85rem; font-weight: 600;
-      transition: 0.3s; height: 42px; white-space: nowrap;
+      text-decoration: none; border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2);
+      transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
+    .btn-portal:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4); background: #1E293B; }
     
-    /* Кнопка 1: СДО (Темная) */
-    .btn-sdo { background: var(--c-dark); color: #fff; box-shadow: 0 4px 12px rgba(15,23,42,0.2); }
-    .btn-sdo:active { transform: scale(0.96); }
-
-    /* Кнопка 2: Сайт (Магическая Змейка) */
-    .btn-site-wrap {
-      position: relative; padding: 2px; border-radius: 14px;
-      background: linear-gradient(90deg, #FF0080, #7928CA, #FF0080);
-      background-size: 200% auto; animation: snake 3s linear infinite;
-      box-shadow: 0 4px 15px rgba(121,40,202,0.25);
-    }
     .btn-site {
-      background: #fff; color: var(--c-dark); width: 100%; height: 100%;
-      border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 0 16px;
+      background: #fff; color: var(--c-dark);
+      padding: 0 20px; height: 44px; border-radius: 14px;
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; border: 1px solid #E2E8F0;
+      position: relative; overflow: hidden; transition: 0.3s;
     }
-    @keyframes snake { to { background-position: 200% center; } }
+    /* Эффект магии (светящаяся грань) */
+    .btn-site::before {
+      content: ""; position: absolute; inset: 0; border-radius: 14px; padding: 2px;
+      background: linear-gradient(45deg, transparent, #2563EB, transparent);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      opacity: 0.5; transition: 0.3s;
+    }
+    .btn-site:hover { transform: translateY(-2px); border-color: transparent; box-shadow: 0 5px 20px rgba(37, 99, 235, 0.2); }
+    .btn-site:hover::before { opacity: 1; background: linear-gradient(45deg, #009688, #2563EB, #F59E0B); }
 
-    /* === АДАПТИВ ШАПКИ === */
+    .btn-col { display: flex; flex-direction: column; line-height: 1.1; }
+    .btn-t1 { font-size: 0.85rem; font-weight: 700; }
+    .btn-t2 { font-size: 0.65rem; opacity: 0.7; text-transform: uppercase; }
+    .btn-ico { font-size: 1.2rem; }
+
     @media (max-width: 600px) {
-      .glass-header { padding: 8px 0; }
-      .brand img { height: 36px; } 
-      .brand-txt { display: none; } 
-      .nav-btn { padding: 0; width: 40px; justify-content: center; } 
-      .btn-text { display: none; } 
-      .nav-icon { font-size: 1.2rem; margin: 0; } 
-      .btn-site-wrap { border-radius: 12px; }
-      .btn-site { padding: 0; border-radius: 10px; }
+      .header { padding: 10px 0; }
+      .brand-txt { display: none; }
+      .actions { gap: 8px; }
+      .btn-portal, .btn-site { padding: 0; width: 44px; justify-content: center; }
+      .btn-col { display: none; } /* Скрываем текст кнопок */
+      .btn-ico { font-size: 1.4rem; margin: 0; }
     }
 
-    /* === 4. КОНТЕНТ (FOLDERS) === */
-    .hero { text-align: center; padding: 40px 0 30px; }
-    .hero h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px; }
-    .hero p { color: #64748B; font-size: 0.95rem; max-width: 500px; margin: 0 auto; }
+    /* === 4. КОНТЕНТ === */
+    .hero { text-align: center; padding: 50px 0 40px; }
+    .hero h2 { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; background: linear-gradient(to right, var(--c-dark), #475569); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 1.1rem; color: #64748B; max-width: 500px; margin: 0 auto; }
 
-    .stack { display: flex; flex-direction: column; gap: 16px; padding-bottom: 100px; }
+    /* Stack */
+    .stack { display: flex; flex-direction: column; gap: 20px; padding-bottom: 120px; }
 
     .folder {
-      background: var(--glass); border: var(--border); border-radius: var(--radius);
-      box-shadow: var(--shadow); overflow: hidden; transition: 0.3s;
+      background: var(--glass); border: var(--glass-border); border-radius: var(--radius);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); overflow: hidden; transition: 0.4s;
     }
-    
-    .folder-head {
-      padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
-      active-behavior: contain;
-    }
-    .folder-head:active { background: rgba(255,255,255,0.5); }
+    .folder:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
 
-    .f-left { display: flex; align-items: center; gap: 16px; }
+    .f-head {
+      padding: 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+      transition: background 0.2s;
+    }
+    .f-head:active { background: rgba(255,255,255,0.4); }
+
+    .f-main { display: flex; align-items: center; gap: 18px; }
     .f-icon {
-      width: 48px; height: 48px; border-radius: 14px;
-      display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+      width: 54px; height: 54px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.5), 0 4px 10px rgba(0,0,0,0.05);
     }
-    .f-info h3 { margin: 0; font-size: 1.1rem; font-weight: 700; color: var(--c-dark); }
-    .f-info p { margin: 2px 0 0; font-size: 0.8rem; color: #64748B; }
+    .f-txt h3 { margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--c-dark); }
+    .f-txt p { margin: 2px 0 0; font-size: 0.9rem; color: #64748B; }
     
-    .arrow { font-size: 1.2rem; color: #94A3B8; transition: 0.3s; }
-    .folder.active .arrow { transform: rotate(180deg); color: var(--c-dark); }
+    .chevron { font-size: 1.2rem; color: #94A3B8; transition: 0.4s; }
+    .folder.active .chevron { transform: rotate(180deg); color: var(--c-dark); }
 
-    /* Цвета иконок */
-    .fc-green .f-icon { background: #E0F2F1; color: var(--c-green); }
-    .fc-orange .f-icon { background: #FFF3E0; color: var(--c-orange); }
-    .fc-blue .f-icon { background: #E3F2FD; color: var(--c-blue); }
-    .fc-purple .f-icon { background: #F3E5F5; color: var(--c-purple); }
+    /* Colors */
+    .green .f-icon { background: linear-gradient(135deg, #CCFBF1, #99F6E4); color: #0F766E; }
+    .orange .f-icon { background: linear-gradient(135deg, #FFF7ED, #FFEDD5); color: #C2410C; }
+    .blue .f-icon { background: linear-gradient(135deg, #EFF6FF, #BFDBFE); color: #1D4ED8; }
+    .purple .f-icon { background: linear-gradient(135deg, #F5F3FF, #DDD6FE); color: #7C3AED; }
 
-    /* Контент папки */
-    .folder-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(255,255,255,0.4); }
-    .folder.active .folder-body { max-height: 4000px; }
+    /* Body */
+    .f-body { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1); background: rgba(255,255,255,0.3); }
+    .folder.active .f-body { max-height: 4000px; border-top: 1px solid rgba(0,0,0,0.05); }
 
-    /* Вложенные списки */
-    .sub-group { border-bottom: 1px solid rgba(0,0,0,0.05); }
-    .sub-head {
-      padding: 15px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
-      font-weight: 600; color: #475569; font-size: 0.9rem;
-    }
+    /* Nested */
+    .sub-item { margin: 15px 20px; background: #fff; border-radius: 16px; border: 1px solid #E2E8F0; overflow: hidden; }
+    .sub-head { padding: 16px 20px; font-weight: 600; color: #475569; display: flex; justify-content: space-between; cursor: pointer; transition: 0.2s; }
+    .sub-head:hover { background: #F8FAFC; color: var(--c-dark); }
     .sub-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: #F8FAFC; }
-    .sub-group.open .sub-body { max-height: 2500px; }
-    .sub-group.open .sub-head { color: var(--c-green); background: #F0FDF4; }
+    .sub-item.open .sub-body { max-height: 3000px; padding: 10px 0; border-top: 1px solid #E2E8F0; }
+    .sub-item.open .sub-head { background: #F0FDF4; color: var(--c-green); }
 
-    /* Файлы */
+    /* Files */
     .file {
-      display: flex; align-items: flex-start; gap: 12px;
-      padding: 12px 20px; border-bottom: 1px solid #E2E8F0;
-      cursor: pointer; transition: 0.2s;
+      display: flex; align-items: center; gap: 15px; padding: 12px 20px;
+      cursor: pointer; transition: 0.2s; border-left: 3px solid transparent;
     }
-    .file:active { background: #E2E8F0; }
-    .file:last-child { border-bottom: none; }
+    .file:hover { background: #fff; border-left-color: var(--c-green); }
     
-    .file-ico { font-size: 1.2rem; margin-top: 2px; }
-    .file-meta { display: flex; flex-direction: column; gap: 2px; }
-    .file-name { font-size: 0.9rem; font-weight: 500; color: var(--c-dark); line-height: 1.4; }
+    .file-ico { font-size: 1.2rem; min-width: 30px; text-align: center; }
+    .file-data { display: flex; flex-direction: column; gap: 4px; }
+    .file-name { font-size: 0.9rem; font-weight: 600; color: var(--c-slate); line-height: 1.3; }
     .badge {
-      display: inline-block; padding: 2px 6px; border-radius: 4px;
+      display: inline-flex; padding: 3px 8px; border-radius: 6px;
       font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
       background: #E2E8F0; color: #64748B; width: fit-content;
     }
     .badge.imp { background: #FEF3C7; color: #B45309; }
 
-    /* === 5. ЧИТАЛКА (PDF VIEWER UI) === */
+    /* === 5. PDF VIEWER (FULLSCREEN & HIGH DPI) === */
     .pdf-modal {
-      position: fixed; inset: 0; z-index: 2000;
+      position: fixed; inset: 0; z-index: 5000;
       background: #0F172A; display: none; flex-direction: column;
       opacity: 0; transition: opacity 0.3s;
     }
     .pdf-modal.active { display: flex; opacity: 1; }
 
-    /* Верхняя панель читалки */
-    .pdf-top {
-      padding: 10px 15px; background: #1E293B; display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid #334155; color: #fff; gap: 10px;
+    /* Header */
+    .pdf-head {
+      height: 50px; background: #1E293B; border-bottom: 1px solid #334155;
+      display: flex; justify-content: space-between; align-items: center; padding: 0 15px;
+      color: #F8FAFC; flex-shrink: 0;
     }
-    .pdf-title { font-size: 0.85rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-grow: 1; }
+    .pdf-title { font-size: 0.9rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 50%; }
+    .pdf-ctrls { display: flex; gap: 10px; }
     
-    .pdf-actions-right { display: flex; gap: 8px; }
-    .pdf-btn {
-      background: rgba(255,255,255,0.1); border: none; color: #fff; width: 32px; height: 32px;
-      border-radius: 8px; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
-      text-decoration: none; transition: 0.2s;
+    .icon-btn {
+      background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #fff;
+      width: 32px; height: 32px; border-radius: 8px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: 0.2s;
     }
-    .pdf-btn:hover { background: rgba(255,255,255,0.2); }
-    .pdf-btn.close { background: #EF4444; }
+    .icon-btn:hover { background: rgba(255,255,255,0.1); }
+    .icon-btn.close { background: #EF4444; border-color: #EF4444; }
 
-    /* Область просмотра */
-    .pdf-area {
-      flex-grow: 1; overflow: auto; background: #334155;
+    /* Canvas Area */
+    .pdf-body {
+      flex-grow: 1; overflow: auto; background: #334155; position: relative;
       display: flex; justify-content: center; padding: 20px;
+      /* ВАЖНО: Разрешаем нативный скролл и зум пальцами */
       touch-action: pan-x pan-y pinch-zoom;
-      transition: background 0.3s;
     }
-    /* Ночной режим для области */
-    .pdf-area.dark-mode { background: #000; }
-    .pdf-area.dark-mode canvas { filter: invert(1) hue-rotate(180deg); }
+    .pdf-body.dark { background: #000; }
+    .pdf-body.dark canvas { filter: invert(1) hue-rotate(180deg) contrast(0.9); }
 
-    #the-canvas { box-shadow: 0 10px 30px rgba(0,0,0,0.5); align-self: flex-start; background: #fff; transition: 0.3s; }
+    #the-canvas {
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5); background: #fff;
+      /* Начальные стили, JS их переопределит */
+      display: block; margin-bottom: 50px;
+    }
 
-    /* Нижняя панель (Инструменты) */
-    .pdf-tools {
-      padding: 15px; background: #1E293B; display: flex; justify-content: center; gap: 20px; align-items: center;
-      border-top: 1px solid #334155;
+    /* Footer Toolbar */
+    .pdf-foot {
+      height: 60px; background: #1E293B; border-top: 1px solid #334155;
+      display: flex; justify-content: center; align-items: center; gap: 20px;
+      flex-shrink: 0;
     }
-    .tool-btn {
-      background: #334155; border: none; color: #fff; width: 40px; height: 40px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer;
+    .nav-circle {
+      width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.1);
+      border: none; color: #fff; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
     }
-    .tool-btn:active { background: var(--c-blue); }
-    .page-num { color: #fff; font-family: monospace; font-size: 1rem; }
+    .nav-circle:active { background: var(--c-blue); }
+    .page-info { color: #CBD5E1; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }
+
+    /* Лоадер внутри PDF */
+    .pdf-loader {
+      position: absolute; inset: 0; background: #334155; z-index: 10;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: #94A3B8; font-size: 0.9rem;
+    }
+    .spinner {
+      width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1);
+      border-top-color: var(--c-blue); border-radius: 50%; animation: spin 1s infinite linear; margin-bottom: 10px;
+    }
 
     /* === TELEGRAM === */
     .tg-float {
-      position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-      background: rgba(255,255,255,0.9); backdrop-filter: blur(15px);
-      padding: 8px 20px 8px 12px; border-radius: 50px;
+      position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(15px);
+      padding: 10px 20px 10px 12px; border-radius: 50px;
       display: flex; align-items: center; gap: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 1px solid #fff;
-      z-index: 900; text-decoration: none; width: max-content;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2); border: 1px solid #fff;
+      z-index: 1000; text-decoration: none; width: max-content; transition: 0.3s;
     }
-    .tg-ico { 
-      width: 36px; height: 36px; background: #229ED9; color: #fff; border-radius: 50%; 
-      display: flex; align-items: center; justify-content: center; font-size: 1.4rem; 
-    }
-    .tg-txt h4 { margin: 0; font-size: 0.85rem; color: var(--c-dark); }
-    .tg-txt p { margin: 0; font-size: 0.65rem; color: #229ED9; font-weight: 700; text-transform: uppercase; }
+    .tg-float:hover { transform: translateX(-50%) scale(1.05); }
+    .tg-logo { width: 38px; height: 38px; background: #229ED9; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .tg-txt h4 { margin: 0; font-size: 0.9rem; color: var(--c-dark); }
+    .tg-txt p { margin: 0; font-size: 0.7rem; color: #229ED9; font-weight: 700; text-transform: uppercase; }
 
   </style>
 </head>
 <body>
 
-  <div class="ambient-bg">
+  <div class="bg-wrapper">
+    <div class="noise"></div>
     <div class="orb o1"></div>
     <div class="orb o2"></div>
     <div class="orb o3"></div>
   </div>
 
   <div id="preloader">
-    <div class="loader-wrap">
-      <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
-      <img src="assets/mnogocvet_logo.png" alt="Loading" class="loader-logo">
+    <div class="loader-box">
+      <div class="ring r1"></div><div class="ring r2"></div>
+      <img src="assets/mnogocvet_logo.png" class="loader-logo">
     </div>
   </div>
 
-  <header class="glass-header">
-    <div class="container nav-row">
+  <header class="header">
+    <div class="container nav">
       <div class="brand">
         <img src="assets/mnogocvet_logo.png" alt="Logo">
         <div class="brand-txt">
           <h1>СОФРИНО ПАРК</h1>
-          <span><div class="dot"></div> База знаний</span>
+          <span><div class="pulse-dot"></div> База знаний</span>
         </div>
       </div>
       
-      <div class="nav-actions">
-        <a href="index.html" class="nav-btn btn-sdo">
-          <span class="nav-icon">🎓</span>
-          <span class="btn-text">Учебный Портал</span>
+      <div class="actions">
+        <a href="index.html" class="btn-portal">
+          <span class="btn-ico">🎓</span>
+          <div class="btn-col"><span class="btn-t1">Учебный Портал</span><span class="btn-t2">Личный кабинет</span></div>
         </a>
-        
-        <div class="btn-site-wrap">
-          <a href="https://sofrino-park.com/" target="_blank" class="nav-btn btn-site">
-            <span class="nav-icon">🌐</span>
-            <span class="btn-text">Официальный сайт</span>
-          </a>
-        </div>
+        <a href="https://sofrino-park.com/" target="_blank" class="btn-site">
+          <span class="btn-ico">🌐</span>
+          <div class="btn-col"><span class="btn-t1">Парк-Отель</span><span class="btn-t2">Веб-сайт</span></div>
+        </a>
       </div>
     </div>
   </header>
@@ -311,117 +316,107 @@
   <main class="container">
     <div class="hero">
       <h2>Документационный центр</h2>
-      <p>Выберите раздел для доступа к ЛНА и приказам</p>
+      <p>Локальные нормативные акты и стандарты безопасности</p>
     </div>
 
     <div class="stack">
 
-      <div class="folder fc-green" id="f-green">
-        <div class="folder-head" onclick="toggleFolder('f-green')">
-          <div class="f-left">
+      <div class="folder green" id="f1">
+        <div class="f-head" onclick="toggleFolder('f1')">
+          <div class="f-main">
             <div class="f-icon">🛡️</div>
-            <div class="f-info">
-              <h3>Охрана труда</h3>
-              <p>СУОТ, Риски, СИЗ, СОУТ</p>
-            </div>
+            <div class="f-txt"><h3>Охрана труда</h3><p>СУОТ, Риски, СИЗ, СОУТ</p></div>
           </div>
-          <div class="arrow">▼</div>
+          <div class="chevron">▼</div>
         </div>
-        
-        <div class="folder-body">
+        <div class="f-body">
           
-          <div class="sub-group">
-            <div class="sub-head" onclick="toggleSub(this)">
-              <span>📜 Реестр Приказов</span> <span>▼</span>
-            </div>
+          <div class="sub-item">
+            <div class="sub-head" onclick="toggleSub(this)"><span>📜 Реестр Приказов</span> <span>▼</span></div>
             <div class="sub-body">
-              <div class="file" onclick="loadPDF('assets/Приказ №1012 ОТ1-25.PDF', 'Приказ № 1012 ОТ1-25')">
+              <div class="file" onclick="openViewer('assets/Приказ №1012 ОТ1-25.PDF', 'Приказ № 1012 ОТ1-25')">
                 <div class="file-ico">✒️</div>
-                <div class="file-meta"><span class="badge">№ 1012 ОТ1-25</span><span class="file-name">Об утверждении СУОТ</span></div>
+                <div class="file-data"><span class="badge">№ 1012</span><span class="file-name">Об утверждении СУОТ</span></div>
               </div>
-              <div class="file" onclick="loadPDF('assets/Приказ №1012 ОТ2-25.PDF', 'Приказ № 1012 ОТ2-25')">
+              <div class="file" onclick="openViewer('assets/Приказ №1012 ОТ2-25.PDF', 'Приказ № 1012 ОТ2-25')">
                 <div class="file-ico">✒️</div>
-                <div class="file-meta"><span class="badge">№ 1012 ОТ2-25</span><span class="file-name">О проведении СОУТ</span></div>
+                <div class="file-data"><span class="badge">№ 1012</span><span class="file-name">О проведении СОУТ</span></div>
               </div>
-              <div class="file" onclick="loadPDF('assets/Приказ №1112 ОТ1-25.PDF', 'Приказ № 1112 ОТ1-25')">
+              <div class="file" onclick="openViewer('assets/Приказ №1112 ОТ1-25.PDF', 'Приказ № 1112 ОТ1-25')">
                 <div class="file-ico">✒️</div>
-                <div class="file-meta"><span class="badge">№ 1112 ОТ1-25</span><span class="file-name">Об управлении рисками</span></div>
+                <div class="file-data"><span class="badge">№ 1112</span><span class="file-name">Об управлении рисками</span></div>
               </div>
-              <div class="file" onclick="loadPDF('assets/Приказ №1112 ОТ2-25.PDF', 'Приказ № 1112 ОТ2-25')">
+              <div class="file" onclick="openViewer('assets/Приказ №1112 ОТ2-25.PDF', 'Приказ № 1112 ОТ2-25')">
                 <div class="file-ico">✒️</div>
-                <div class="file-meta"><span class="badge">№ 1112 ОТ2-25</span><span class="file-name">Положение о СИЗ</span></div>
+                <div class="file-data"><span class="badge">№ 1112</span><span class="file-name">Положение о СИЗ</span></div>
               </div>
-              <div class="file" style="background:#FFFBEB;" onclick="loadPDF('assets/Приказ №1112 ОТ3-25.PDF', 'Приказ № 1112 ОТ3-25')">
+              <div class="file" style="background:#FFFBEB" onclick="openViewer('assets/Приказ №1112 ОТ3-25.PDF', 'Приказ № 1112 ОТ3-25')">
                 <div class="file-ico" style="color:#D97706">⚠️</div>
-                <div class="file-meta"><span class="badge imp">ВАЖНО</span><span class="file-name"><strong>Нормы выдачи СИЗ</strong></span></div>
+                <div class="file-data"><span class="badge imp">ВАЖНО</span><span class="file-name"><strong>Нормы выдачи СИЗ</strong></span></div>
               </div>
-              <div class="file" onclick="loadPDF('assets/Приказ №1212 ОТ1-25.PDF', 'Приказ № 1212 ОТ1-25')">
+              <div class="file" onclick="openViewer('assets/Приказ №1212 ОТ1-25.PDF', 'Приказ № 1212 ОТ1-25')">
                 <div class="file-ico">✒️</div>
-                <div class="file-meta"><span class="badge">№ 1212 ОТ1-25</span><span class="file-name">О медосмотрах</span></div>
+                <div class="file-data"><span class="badge">№ 1212</span><span class="file-name">О медосмотрах</span></div>
               </div>
-              <div class="file" onclick="loadPDF('assets/Приказ №1212 ОТ2-25.PDF', 'Приказ № 1212 ОТ2-25')">
+              <div class="file" onclick="openViewer('assets/Приказ №1212 ОТ2-25.PDF', 'Приказ № 1212 ОТ2-25')">
                 <div class="file-ico">✒️</div>
-                <div class="file-meta"><span class="badge">№ 1212 ОТ2-25</span><span class="file-name">Списки контингентов</span></div>
+                <div class="file-data"><span class="badge">№ 1212</span><span class="file-name">Списки контингентов</span></div>
               </div>
-              <div class="file" onclick="loadPDF('assets/Приказ №1212 ОТ3-25.PDF', 'Приказ № 1212 ОТ3-25')">
+              <div class="file" onclick="openViewer('assets/Приказ №1212 ОТ3-25.PDF', 'Приказ № 1212 ОТ3-25')">
                 <div class="file-ico">✒️</div>
-                <div class="file-meta"><span class="badge">№ 1212 ОТ3-25</span><span class="file-name">Психиатрическое освидетельствование</span></div>
+                <div class="file-data"><span class="badge">№ 1212</span><span class="file-name">Психиатрическое освидетельствование</span></div>
               </div>
-              <div class="file" onclick="loadPDF('assets/Приказ №1312 ОТ1-25.PDF', 'Приказ № 1312 ОТ1-25')">
+              <div class="file" onclick="openViewer('assets/Приказ №1312 ОТ1-25.PDF', 'Приказ № 1312 ОТ1-25')">
                 <div class="file-ico">✒️</div>
-                <div class="file-meta"><span class="badge">№ 1312 ОТ1-25</span><span class="file-name">Расследование НС</span></div>
+                <div class="file-data"><span class="badge">№ 1312</span><span class="file-name">Расследование НС</span></div>
               </div>
             </div>
           </div>
 
-          <div class="sub-group">
-            <div class="sub-head" onclick="toggleSub(this)">
-              <span>📂 Положения</span> <span>▼</span>
-            </div>
+          <div class="sub-item">
+            <div class="sub-head" onclick="toggleSub(this)"><span>📂 Положения</span> <span>▼</span></div>
             <div class="sub-body">
-              <div class="file" onclick="loadPDF('assets/Положение СУОТ.PDF', 'Положение о СУОТ')">
+              <div class="file" onclick="openViewer('assets/Положение СУОТ.PDF', 'Положение о СУОТ')">
                 <div class="file-ico">🛡️</div>
-                <div class="file-meta"><span class="badge">Положение</span><span class="file-name">Система управления (СУОТ)</span></div>
+                <div class="file-data"><span class="badge">Положение</span><span class="file-name">Система управления (СУОТ)</span></div>
               </div>
-              <div class="file" onclick="loadPDF('assets/Положение профриски.PDF', 'Положение о рисках')">
+              <div class="file" onclick="openViewer('assets/Положение профриски.PDF', 'Положение о рисках')">
                 <div class="file-ico">📊</div>
-                <div class="file-meta"><span class="badge">Положение</span><span class="file-name">Оценка профрисков</span></div>
+                <div class="file-data"><span class="badge">Положение</span><span class="file-name">Оценка профрисков</span></div>
               </div>
-              <div class="file" onclick="loadPDF('assets/Положение СИЗ.PDF', 'Положение о СИЗ')">
+              <div class="file" onclick="openViewer('assets/Положение СИЗ.PDF', 'Положение о СИЗ')">
                 <div class="file-ico">🦺</div>
-                <div class="file-meta"><span class="badge">Положение</span><span class="file-name">Обеспечение СИЗ</span></div>
+                <div class="file-data"><span class="badge">Положение</span><span class="file-name">Обеспечение СИЗ</span></div>
               </div>
-              <div class="file" onclick="loadPDF('assets/Положение нс.PDF', 'Расследование НС')">
+              <div class="file" onclick="openViewer('assets/Положение нс.PDF', 'Расследование НС')">
                 <div class="file-ico">🚑</div>
-                <div class="file-meta"><span class="badge">Положение</span><span class="file-name">Расследование НС</span></div>
+                <div class="file-data"><span class="badge">Положение</span><span class="file-name">Расследование НС</span></div>
               </div>
-              <div class="file" onclick="loadPDF('assets/Положение о Медосмотрах.PDF', 'Медосмотры')">
+              <div class="file" onclick="openViewer('assets/Положение о Медосмотрах.PDF', 'Медосмотры')">
                 <div class="file-ico">🩺</div>
-                <div class="file-meta"><span class="badge">Положение</span><span class="file-name">Медосмотры</span></div>
+                <div class="file-data"><span class="badge">Положение</span><span class="file-name">Проведение медосмотров</span></div>
               </div>
-              <div class="file" onclick="loadPDF('assets/Положение  о СОУТ.PDF', 'Проведение СОУТ')">
+              <div class="file" onclick="openViewer('assets/Положение  о СОУТ.PDF', 'Проведение СОУТ')">
                 <div class="file-ico">🔬</div>
-                <div class="file-meta"><span class="badge">Положение</span><span class="file-name">Проведение СОУТ</span></div>
+                <div class="file-data"><span class="badge">Положение</span><span class="file-name">Проведение СОУТ</span></div>
               </div>
             </div>
           </div>
 
-          <div class="sub-group">
-            <div class="sub-head" onclick="toggleSub(this)">
-              <span>🔬 СОУТ (Спецоценка)</span> <span>▼</span>
-            </div>
+          <div class="sub-item">
+            <div class="sub-head" onclick="toggleSub(this)"><span>🔬 СОУТ (Спецоценка)</span> <span>▼</span></div>
             <div class="sub-body">
-              <div class="file" onclick="loadPDF('assets/СОУТ_Карты_1-19.pdf', 'СОУТ Карты 1-19')">
+              <div class="file" onclick="openViewer('assets/СОУТ_Карты_1-19.pdf', 'Карты СОУТ 1-19')">
                 <div class="file-ico">📑</div>
-                <div class="file-meta"><span class="badge">Отчет</span><span class="file-name">Карты СОУТ (1-19)</span></div>
+                <div class="file-data"><span class="badge">Отчет</span><span class="file-name">Карты рабочих мест (1-19)</span></div>
               </div>
-              <div class="file" onclick="loadPDF('assets/СОУТ_Карты_20-39.pdf', 'СОУТ Карты 20-39')">
+              <div class="file" onclick="openViewer('assets/СОУТ_Карты_20-39.pdf', 'Карты СОУТ 20-39')">
                 <div class="file-ico">📑</div>
-                <div class="file-meta"><span class="badge">Отчет</span><span class="file-name">Карты СОУТ (20-39)</span></div>
+                <div class="file-data"><span class="badge">Отчет</span><span class="file-name">Карты рабочих мест (20-39)</span></div>
               </div>
-              <div class="file" onclick="loadPDF('assets/СОУТ_Перечень_р.м._Сводная.pdf', 'Сводная ведомость')">
+              <div class="file" onclick="openViewer('assets/СОУТ_Перечень_р.м._Сводная.pdf', 'Сводная ведомость')">
                 <div class="file-ico">📊</div>
-                <div class="file-meta"><span class="badge">Сводная</span><span class="file-name">Перечень рабочих мест</span></div>
+                <div class="file-data"><span class="badge">Сводная</span><span class="file-name">Перечень рабочих мест</span></div>
               </div>
             </div>
           </div>
@@ -429,38 +424,38 @@
         </div>
       </div>
 
-      <div class="folder fc-orange" id="f-orange">
-        <div class="folder-head" onclick="toggleFolder('f-orange')">
-          <div class="f-left">
+      <div class="folder orange" id="f2">
+        <div class="f-head" onclick="toggleFolder('f2')">
+          <div class="f-main">
             <div class="f-icon">🔥</div>
-            <div class="f-info"><h3>ПБ</h3><p>Инструкции, Планы</p></div>
+            <div class="f-txt"><h3>Пожарная безопасность</h3><p>Инструкции, Планы</p></div>
           </div>
-          <div class="arrow">▼</div>
+          <div class="chevron">▼</div>
         </div>
-        <div class="folder-body"><div style="padding:30px; text-align:center; color:#94A3B8;">В разработке</div></div>
+        <div class="f-body"><div style="padding:30px;text-align:center;color:#94A3B8;">В разработке</div></div>
       </div>
 
-      <div class="folder fc-blue" id="f-blue">
-        <div class="folder-head" onclick="toggleFolder('f-blue')">
-          <div class="f-left">
+      <div class="folder blue" id="f3">
+        <div class="f-head" onclick="toggleFolder('f3')">
+          <div class="f-main">
             <div class="f-icon">📢</div>
-            <div class="f-info"><h3>ГО и ЧС</h3><p>Гражданская оборона</p></div>
+            <div class="f-txt"><h3>ГО и ЧС</h3><p>Гражданская оборона</p></div>
           </div>
-          <div class="arrow">▼</div>
+          <div class="chevron">▼</div>
         </div>
-        <div class="folder-body"><div style="padding:30px; text-align:center; color:#94A3B8;">В разработке</div></div>
+        <div class="f-body"><div style="padding:30px;text-align:center;color:#94A3B8;">В разработке</div></div>
       </div>
 
-      <div class="folder fc-purple" id="f-purple">
-        <div class="folder-head" onclick="toggleFolder('f-purple')">
-          <div class="f-left">
+      <div class="folder purple" id="f4">
+        <div class="f-head" onclick="toggleFolder('f4')">
+          <div class="f-main">
             <div class="f-icon">💼</div>
-            <div class="f-info"><h3>Кадры</h3><p>ПВТР, Договоры</p></div>
+            <div class="f-txt"><h3>Отдел кадров</h3><p>ПВТР, Договоры</p></div>
           </div>
-          <div class="arrow">▼</div>
+          <div class="chevron">▼</div>
         </div>
-        <div class="folder-body">
-          <div style="padding:30px; text-align:center; color:#64748B;">
+        <div class="f-body">
+          <div style="padding:30px;text-align:center;color:#64748B;">
             Документы на согласовании.<br><strong>Обратитесь в кабинет № 8.</strong>
           </div>
         </div>
@@ -469,34 +464,40 @@
     </div>
   </main>
 
+  <footer style="text-align:center; padding-bottom:100px; color:#94A3B8; font-size:0.85rem;">
+    © 2026 СОФРИНО ПАРК. Служба охраны труда.
+  </footer>
+
   <a href="https://t.me/+5mfcl7IppD00YzAy" target="_blank" class="tg-float">
-    <div class="tg-ico">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg">
-        <path d="M21.92,2.62a1.67,1.67,0,0,0-1.68-.4l-18,6.8a1.68,1.68,0,0,0,.1,3.13l4.63,1.68L17.7,6.72a.46.46,0,0,1,.63.66l-9.13,7.93v3.9a1.27,1.27,0,0,0,2.15.9l2.77-2.61,5.55,4.21a1.27,1.27,0,0,0,2.2-.7L23.61,4.11A1.67,1.67,0,0,0,21.92,2.62Z"/>
-      </svg>
+    <div class="tg-logo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M21.92,2.62a1.67,1.67,0,0,0-1.68-.4l-18,6.8a1.68,1.68,0,0,0,.1,3.13l4.63,1.68L17.7,6.72a.46.46,0,0,1,.63.66l-9.13,7.93v3.9a1.27,1.27,0,0,0,2.15.9l2.77-2.61,5.55,4.21a1.27,1.27,0,0,0,2.2-.7L23.61,4.11A1.67,1.67,0,0,0,21.92,2.62Z"/></svg>
     </div>
     <div class="tg-txt"><h4>Известия Софрино</h4><p>Подписаться</p></div>
   </a>
 
   <div class="pdf-modal" id="pdfModal">
-    <div class="pdf-top">
+    <div class="pdf-head">
       <div class="pdf-title" id="pdfDocTitle">Документ</div>
-      <div class="pdf-actions-right">
-        <button class="pdf-btn" onclick="toggleNight()" title="Ночной режим">🌙</button>
-        <button class="pdf-btn" onclick="toggleFullscreen()" title="На весь экран">⛶</button>
-        <a href="#" id="pdfDownloadLink" class="pdf-btn" download title="Скачать">📥</a>
-        <button class="pdf-btn close" onclick="closeViewer()">✕</button>
+      <div class="pdf-ctrls">
+        <button class="icon-btn" onclick="adjustZoom(0.2)" title="Приблизить" style="display:none;" id="pcZoomIn">+</button>
+        <button class="icon-btn" onclick="adjustZoom(-0.2)" title="Отдалить" style="display:none;" id="pcZoomOut">-</button>
+        
+        <button class="icon-btn" onclick="toggleNight()" title="Ночной режим">🌙</button>
+        <a href="#" id="downloadBtn" class="icon-btn" download title="Скачать">📥</a>
+        <button class="icon-btn" onclick="toggleFullscreen()" title="На весь экран">⛶</button>
+        <button class="icon-btn close" onclick="closeViewer()">✕</button>
       </div>
     </div>
     
-    <div class="pdf-area" id="pdfContainer">
+    <div class="pdf-body" id="pdfBody">
+      <div class="pdf-loader" id="pdfLoader"><div class="spinner"></div><span>Загрузка...</span></div>
       <canvas id="the-canvas"></canvas>
     </div>
 
-    <div class="pdf-tools">
-      <button class="tool-btn" id="prev">←</button>
-      <div class="page-num"><span id="page_num">1</span> / <span id="page_count">--</span></div>
-      <button class="tool-btn" id="next">→</button>
+    <div class="pdf-foot">
+      <button class="nav-circle" id="prev">←</button>
+      <div class="page-info"><span id="page_num">1</span> / <span id="page_count">--</span></div>
+      <button class="nav-circle" id="next">→</button>
     </div>
   </div>
 
@@ -506,62 +507,94 @@
       setTimeout(() => {
         document.getElementById('preloader').style.opacity = '0';
         document.getElementById('preloader').style.visibility = 'hidden';
-      }, 1000);
+      }, 800);
+      
+      // Показать кнопки зума только на ПК
+      if(!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        document.getElementById('pcZoomIn').style.display = 'flex';
+        document.getElementById('pcZoomOut').style.display = 'flex';
+      }
     };
 
-    // ACCORDION LOGIC
+    // ACCORDION
     function toggleFolder(id) { document.getElementById(id).classList.toggle('active'); }
     function toggleSub(head) { head.parentElement.classList.toggle('open'); }
 
     // =========================================
-    // PDF VIEWER LOGIC (INTEGRATED)
+    // PDF ENGINE (HIGH DPI + SMART ZOOM)
     // =========================================
-    let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.0;
+    let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null;
+    let scale = 1.0; 
+    let currentUrl = "";
+    
     const canvas = document.getElementById('the-canvas');
     const ctx = canvas.getContext('2d');
-    const pdfContainer = document.getElementById('pdfContainer');
-    const downloadLink = document.getElementById('pdfDownloadLink');
+    const pdfLoader = document.getElementById('pdfLoader');
+    const pdfBody = document.getElementById('pdfBody');
 
-    function loadPDF(url, title) {
+    function openViewer(url, title) {
       document.getElementById('pdfDocTitle').innerText = title;
+      document.getElementById('downloadBtn').href = url;
       document.getElementById('pdfModal').classList.add('active');
-      document.body.style.overflow = 'hidden'; // Блок скролла сайта
+      document.body.style.overflow = 'hidden';
       
-      // Устанавливаем ссылку на скачивание
-      downloadLink.href = url;
-
-      // Сброс
-      pageNum = 1; scale = 1.0; 
-      
-      // Загрузка
-      pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
-        pdfDoc = pdfDoc_;
-        document.getElementById('page_count').textContent = pdfDoc.numPages;
-        renderPage(pageNum);
-      });
+      if(url !== currentUrl) {
+        currentUrl = url;
+        pageNum = 1; 
+        scale = 1.0; // Сброс зума
+        pdfLoader.style.display = 'flex'; // Показываем лоадер
+        
+        pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+          pdfDoc = pdfDoc_;
+          document.getElementById('page_count').textContent = pdfDoc.numPages;
+          renderPage(pageNum);
+        });
+      }
     }
 
     function renderPage(num) {
       pageRendering = true;
+      
       pdfDoc.getPage(num).then(function(page) {
-        // Адаптивный масштаб: ширина страницы = ширине экрана (минус отступы)
-        const viewportOriginal = page.getViewport({scale: 1});
-        const containerWidth = pdfContainer.clientWidth - 40; 
-        const desiredScale = containerWidth / viewportOriginal.width;
-        scale = desiredScale > 1.5 ? 1.5 : desiredScale; // Ограничение зума
+        
+        // 1. Считаем доступную ширину
+        const viewportRaw = page.getViewport({scale: 1});
+        const containerWidth = pdfBody.clientWidth - 40; // отступы
+        
+        // 2. Рассчитываем масштаб, чтобы вписаться в экран, но не меньше 1.0 (для четкости)
+        // Если пользователь нажал зум, используем переменную scale, иначе авто-фит
+        let renderScale = (containerWidth / viewportRaw.width) * scale;
+        if(renderScale < 0.6) renderScale = 0.6; // Минимальный лимит
 
-        const viewport = page.getViewport({scale: scale});
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
+        // 3. High DPI Fix (Retina)
+        const outputScale = window.devicePixelRatio || 1;
+        const viewport = page.getViewport({scale: renderScale});
 
-        const renderContext = { canvasContext: ctx, viewport: viewport };
+        canvas.width = Math.floor(viewport.width * outputScale);
+        canvas.height = Math.floor(viewport.height * outputScale);
+        canvas.style.width = Math.floor(viewport.width) + "px";
+        canvas.style.height = Math.floor(viewport.height) + "px";
+
+        const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
+
+        const renderContext = {
+          canvasContext: ctx,
+          viewport: viewport,
+          transform: transform
+        };
+        
         const renderTask = page.render(renderContext);
 
         renderTask.promise.then(function() {
           pageRendering = false;
-          if (pageNumPending !== null) { renderPage(pageNumPending); pageNumPending = null; }
+          pdfLoader.style.display = 'none'; // Скрываем лоадер
+          if (pageNumPending !== null) {
+            renderPage(pageNumPending);
+            pageNumPending = null;
+          }
         });
       });
+
       document.getElementById('page_num').textContent = num;
     }
 
@@ -576,39 +609,35 @@
     document.getElementById('prev').addEventListener('click', onPrevPage);
     document.getElementById('next').addEventListener('click', onNextPage);
 
-    function closeViewer() {
-      document.getElementById('pdfModal').classList.remove('active');
-      document.body.style.overflow = '';
-      ctx.clearRect(0, 0, canvas.width, canvas.height); // Очистка
-      // Сброс ночного режима и полного экрана при закрытии
-      pdfContainer.classList.remove('dark-mode');
-      document.exitFullscreen().catch(err => {}); 
-    }
-    
-    // Ночной режим
-    function toggleNight() {
-      pdfContainer.classList.toggle('dark-mode');
+    // Zoom Logic
+    function adjustZoom(delta) {
+      scale += delta;
+      if(scale < 0.5) scale = 0.5;
+      if(scale > 3.0) scale = 3.0;
+      queueRenderPage(pageNum);
     }
 
-    // Полный экран
+    // Tools
+    function toggleNight() { pdfBody.classList.toggle('dark'); }
+    
     function toggleFullscreen() {
       if (!document.fullscreenElement) {
-        document.getElementById('pdfModal').requestFullscreen().catch(err => {
-          alert(`Ошибка включения полноэкранного режима: ${err.message}`);
-        });
+        document.getElementById('pdfModal').requestFullscreen().catch(err => { alert(`Error: ${err.message}`); });
       } else {
         document.exitFullscreen();
       }
     }
-    
-    // Свайпы на мобильном (Простые)
-    let touchStartX = 0;
-    pdfContainer.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
-    pdfContainer.addEventListener('touchend', e => {
-      let touchEndX = e.changedTouches[0].screenX;
-      if (touchStartX - touchEndX > 50) onNextPage(); // Свайп влево
-      if (touchEndX - touchStartX > 50) onPrevPage(); // Свайп вправо
-    }, {passive: true});
+
+    function closeViewer() {
+      document.getElementById('pdfModal').classList.remove('active');
+      document.body.style.overflow = '';
+      // Не очищаем currentUrl, чтобы при повторном открытии того же файла не грузить заново, если не надо
+    }
+
+    // Close on background click
+    pdfBody.addEventListener('click', (e) => {
+      if(e.target === pdfBody) closeViewer();
+    });
 
   </script>
 
