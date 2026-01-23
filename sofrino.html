@@ -16,7 +16,7 @@
 
   <style>
     /* =========================================
-       THEME: QUANTUM PHYSICS
+       THEME: QUANTUM CLEAN
        ========================================= */
     :root {
       --c-green: #009688; --c-orange: #F59E0B; --c-blue: #2563EB; --c-purple: #7C3AED;
@@ -34,192 +34,96 @@
     body {
       margin: 0; padding: 0; font-family: 'Inter', sans-serif;
       color: var(--c-dark); background: #F1F5F9; overflow-x: hidden;
-      cursor: auto; /* Стандартный курсор */
+      cursor: auto; 
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
 
-    /* === 1. ФОН: CANVAS PHYSICS === */
+    /* === 1. ФОН: PHYSICS CANVAS === */
     #canvas-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #F8FAFC; }
     .noise-overlay {
       position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.03;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
-    /* Сферы для глубины */
-    .orb-layer { position: fixed; inset: 0; z-index: -2; overflow: hidden; }
+    .orb-layer { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
     .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.4; }
     .o1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(0, 150, 136, 0.2), transparent 70%); }
     .o2 { bottom: -10%; right: -10%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent 70%); }
 
-    /* === 2. ПРЕЛОАДЕР: CYBER CORE (ШЕДЕВР) === */
+    /* === 2. ПРЕЛОАДЕР: BLACK CORE === */
     #preloader { 
       position: fixed; inset: 0; z-index: 99999; 
-      background: #000000; /* Глубокий черный */
+      background: #000000; 
       display: flex; flex-direction: column; justify-content: center; align-items: center; 
       transition: opacity 0.8s ease, visibility 0.8s; 
     }
-    
     .cyber-loader { position: relative; width: 200px; height: 200px; display: flex; justify-content: center; align-items: center; }
-    
-    .cl-logo { 
-      width: 90px; z-index: 10; filter: drop-shadow(0 0 20px rgba(255,255,255,0.2)); 
-      animation: breathe 2s infinite ease-in-out;
-    }
-    
-    /* Орбиты */
+    .cl-logo { width: 90px; z-index: 10; filter: drop-shadow(0 0 20px rgba(255,255,255,0.2)); animation: breathe 2s infinite ease-in-out; }
     .orbit { position: absolute; border-radius: 50%; border: 1px solid transparent; mix-blend-mode: screen; }
-    
-    /* Внешнее кольцо (Тонкое) */
-    .or-1 { 
-      width: 100%; height: 100%; border: 1px dashed rgba(0, 255, 204, 0.3); 
-      animation: rotate 10s linear infinite; 
-    }
-    
-    /* Среднее кольцо (Неоновое) */
-    .or-2 { 
-      width: 70%; height: 70%; 
-      border-top: 2px solid #009688; border-bottom: 2px solid #2563EB;
-      box-shadow: 0 0 15px rgba(0, 150, 136, 0.5);
-      animation: rotate 3s linear infinite reverse;
-    }
-    
-    /* Внутреннее кольцо (Быстрое) */
-    .or-3 { 
-      width: 110%; height: 110%; 
-      border-left: 2px solid rgba(245, 158, 11, 0.6); 
-      animation: rotate 5s linear infinite; opacity: 0.7;
-    }
-
-    /* Сканер */
-    .scanner-line {
-      position: absolute; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #fff, transparent);
-      animation: scan 2s cubic-bezier(0.4, 0, 0.2, 1) infinite; opacity: 0.5;
-    }
-
-    .loading-status {
-      margin-top: 30px; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; 
-      color: rgba(255,255,255,0.5); letter-spacing: 2px; text-transform: uppercase;
-    }
+    .or-1 { width: 100%; height: 100%; border: 1px dashed rgba(0, 255, 204, 0.3); animation: rotate 10s linear infinite; }
+    .or-2 { width: 70%; height: 70%; border-top: 2px solid #009688; border-bottom: 2px solid #2563EB; box-shadow: 0 0 15px rgba(0, 150, 136, 0.5); animation: rotate 3s linear infinite reverse; }
+    .or-3 { width: 110%; height: 110%; border-left: 2px solid rgba(245, 158, 11, 0.6); animation: rotate 5s linear infinite; opacity: 0.7; }
+    .scanner-line { position: absolute; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #fff, transparent); animation: scan 2s cubic-bezier(0.4, 0, 0.2, 1) infinite; opacity: 0.5; }
+    .loading-status { margin-top: 30px; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: rgba(255,255,255,0.5); letter-spacing: 2px; text-transform: uppercase; }
     .loading-status::after { content: "_"; animation: blink 1s infinite; }
 
     @keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     @keyframes breathe { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255,255,255,0.1)); } 50% { transform: scale(1.05); filter: drop-shadow(0 0 25px rgba(255,255,255,0.4)); } }
     @keyframes scan { 0% { top: 0%; opacity: 0; } 50% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+    @keyframes blink { 50% { opacity: 0; } }
 
     /* === 3. ШАПКА === */
-    .header {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.75); backdrop-filter: blur(25px);
-      border-bottom: 1px solid rgba(255,255,255,0.5); padding: 12px 0;
-      box-shadow: 0 4px 30px rgba(0,0,0,0.03);
-    }
+    .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.75); backdrop-filter: blur(25px); border-bottom: 1px solid rgba(255,255,255,0.5); padding: 12px 0; box-shadow: 0 4px 30px rgba(0,0,0,0.03); }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
     .nav { display: flex; justify-content: space-between; align-items: center; }
-
     .brand { display: flex; align-items: center; gap: 14px; }
     .brand img { height: 50px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
     .brand-txt h1 { font-size: 1.15rem; font-weight: 800; line-height: 1; margin: 0; color: var(--c-dark); }
     .brand-txt span { font-size: 0.7rem; font-weight: 700; color: var(--c-green); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; margin-top: 4px; }
     .pulse-dot { width: 6px; height: 6px; background: var(--c-green); border-radius: 50%; box-shadow: 0 0 8px var(--c-green); animation: blink 2s infinite; }
-    @keyframes blink { 50% { opacity: 0.3; } }
 
     .actions { display: flex; gap: 16px; align-items: center; }
     
-    /* Кнопки (Шедевр) */
-    .btn-portal {
-      position: relative; display: flex; align-items: center; gap: 12px;
-      padding: 0 20px; height: 46px; border-radius: 12px;
-      background: #1e293b; color: #fff; text-decoration: none; overflow: hidden;
-      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.25); border: 1px solid rgba(255,255,255,0.1);
-      transition: 0.3s;
-    }
+    .btn-portal { position: relative; display: flex; align-items: center; gap: 12px; padding: 0 20px; height: 46px; border-radius: 12px; background: #1e293b; color: #fff; text-decoration: none; overflow: hidden; box-shadow: 0 10px 20px rgba(15, 23, 42, 0.25); border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
     .btn-portal:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(15, 23, 42, 0.4); }
-    .btn-portal::after {
-      content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transform: skewX(-20deg); transition: 0.5s;
-    }
+    .btn-portal::after { content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transform: skewX(-20deg); transition: 0.5s; }
     .btn-portal:hover::after { left: 150%; }
 
-    .btn-site-wrap {
-      padding: 2px; border-radius: 14px; position: relative; z-index: 1;
-      background: linear-gradient(90deg, #00d2ff, #3a7bd5, #ff0080);
-      background-size: 200% 200%; animation: gradientFlow 3s ease infinite;
-      box-shadow: 0 5px 20px rgba(58, 123, 213, 0.25); transition: 0.3s;
-    }
+    .btn-site-wrap { padding: 2px; border-radius: 14px; background: linear-gradient(90deg, #00d2ff, #3a7bd5, #ff0080); background-size: 200% 200%; animation: gradientFlow 3s ease infinite; box-shadow: 0 5px 20px rgba(58, 123, 213, 0.25); transition: 0.3s; }
     .btn-site-wrap:hover { box-shadow: 0 10px 30px rgba(255, 0, 128, 0.35); transform: scale(1.02); }
-    .btn-site {
-      display: flex; align-items: center; gap: 12px; height: 42px; padding: 0 20px;
-      background: #fff; border-radius: 12px; text-decoration: none; color: var(--c-dark);
-      position: relative; z-index: 2;
-    }
+    .btn-site { display: flex; align-items: center; gap: 12px; height: 42px; padding: 0 20px; background: #fff; border-radius: 12px; text-decoration: none; color: var(--c-dark); position: relative; z-index: 2; }
     @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
     .btn-col { display: flex; flex-direction: column; line-height: 1.1; }
     .btn-t1 { font-size: 0.85rem; font-weight: 700; }
     .btn-t2 { font-size: 0.65rem; opacity: 0.7; text-transform: uppercase; }
     .btn-ico { font-size: 1.3rem; }
+    @media (max-width: 768px) { .brand-txt, .btn-col { display: none; } .btn-portal, .btn-site { padding: 0; width: 44px; justify-content: center; } .btn-ico { margin: 0; font-size: 1.4rem; } .actions { gap: 10px; } }
 
-    @media (max-width: 768px) {
-      .brand-txt, .btn-col { display: none; }
-      .btn-portal, .btn-site { padding: 0; width: 44px; justify-content: center; }
-      .btn-ico { margin: 0; font-size: 1.4rem; }
-      .actions { gap: 10px; }
-    }
-
-    /* === 4. ГЕРОЙ: ЖИВОЙ ТЕКСТ === */
+    /* === 4. ГЕРОЙ === */
     .hero { text-align: center; padding: 60px 0 40px; position: relative; }
-    
-    .greeting {
-      display: inline-block; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
-      color: var(--c-green); margin-bottom: 15px; padding: 6px 16px; 
-      background: rgba(0, 150, 136, 0.1); border-radius: 50px; border: 1px solid rgba(0, 150, 136, 0.2);
-    }
-
-    .hero h2 { 
-      font-size: clamp(2rem, 6vw, 3.8rem); font-weight: 900; margin-bottom: 20px; letter-spacing: -1.5px;
-      background: linear-gradient(to right, #1e293b 20%, #009688 30%, #2563eb 70%, #1e293b 80%);
-      background-size: 200% auto; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      animation: shineText 5s linear infinite; padding: 0 10px; line-height: 1.1;
-    }
+    .greeting { display: inline-block; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--c-green); margin-bottom: 15px; padding: 6px 16px; background: rgba(0, 150, 136, 0.1); border-radius: 50px; border: 1px solid rgba(0, 150, 136, 0.2); }
+    .hero h2 { font-size: clamp(2rem, 6vw, 3.8rem); font-weight: 900; margin-bottom: 20px; letter-spacing: -1.5px; background: linear-gradient(to right, #1e293b 20%, #009688 30%, #2563eb 70%, #1e293b 80%); background-size: 200% auto; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shineText 6s linear infinite; padding: 0 10px; line-height: 1.1; }
     @keyframes shineText { to { background-position: 200% center; } }
     .hero p { color: #64748B; font-size: 1.1rem; margin: 0 auto 30px; max-width: 500px; }
 
-    /* Поиск */
-    .search-wrap {
-      max-width: 600px; margin: 0 auto; position: relative;
-      background: rgba(255,255,255,0.6); backdrop-filter: blur(10px);
-      padding: 8px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.8);
-      box-shadow: 0 10px 40px -5px rgba(0,0,0,0.05); transition: 0.3s; display: flex; align-items: center;
-    }
+    .search-wrap { max-width: 600px; margin: 0 auto; position: relative; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); padding: 8px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 10px 40px -5px rgba(0,0,0,0.05); transition: 0.3s; display: flex; align-items: center; }
     .search-wrap:focus-within { background: #fff; box-shadow: 0 20px 50px -10px rgba(0, 150, 136, 0.15); border-color: var(--c-green); transform: translateY(-2px); }
     .search-icon { font-size: 1.5rem; color: #94A3B8; padding: 0 15px; }
     .search-input { flex-grow: 1; border: none; background: transparent; font-size: 1.1rem; padding: 10px 0; color: var(--c-dark); font-family: 'Inter', sans-serif; }
     
     .chips-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 25px; }
-    .chip {
-      padding: 8px 16px; border-radius: 50px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8);
-      color: var(--c-text); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-    }
+    .chip { padding: 8px 16px; border-radius: 50px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8); color: var(--c-text); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
     .chip:hover, .chip.active { background: #fff; color: var(--c-green); box-shadow: 0 5px 15px rgba(0, 150, 136, 0.15); transform: translateY(-2px); border-color: var(--c-green); }
 
     /* === 5. ПАПКИ === */
     .stack { display: flex; flex-direction: column; gap: 24px; padding-bottom: 120px; }
-
-    .folder {
-      background: var(--glass); border: var(--border); border-radius: var(--radius);
-      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); overflow: hidden; transition: 0.4s; position: relative;
-    }
+    .folder { background: var(--glass); border: var(--border); border-radius: var(--radius); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); overflow: hidden; transition: 0.4s; position: relative; }
     .folder:hover { transform: translateY(-5px); box-shadow: 0 25px 50px -15px rgba(0,0,0,0.1); border-color: #fff; }
     
     .f-head { padding: 24px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
     .f-head:hover { background: rgba(255,255,255,0.4); }
-
     .f-main { display: flex; align-items: center; gap: 20px; }
-    .f-icon {
-      width: 60px; height: 60px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6), 0 10px 20px rgba(0,0,0,0.05);
-    }
+    .f-icon { width: 60px; height: 60px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6), 0 10px 20px rgba(0,0,0,0.05); }
     .f-txt h3 { margin: 0; font-size: 1.3rem; font-weight: 800; color: var(--c-dark); }
     .f-txt p { margin: 4px 0 0; font-size: 0.9rem; color: #64748B; }
     .chevron { font-size: 1.2rem; color: #94A3B8; transition: 0.4s; }
@@ -251,7 +155,6 @@
     .file-meta-row { display: flex; align-items: center; gap: 8px; }
     .meta-size { font-size: 0.65rem; color: #94A3B8; font-weight: 500; background: #F1F5F9; padding: 2px 6px; border-radius: 4px; }
     mark { background: rgba(250, 204, 21, 0.3); color: inherit; padding: 0 2px; border-radius: 2px; }
-
     .badge { display: inline-flex; padding: 3px 8px; border-radius: 6px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; background: #E2E8F0; color: #64748B; width: fit-content; }
     .badge.imp { background: #FEF3C7; color: #B45309; }
 
@@ -262,19 +165,16 @@
     .pdf-modal { position: fixed; inset: 0; z-index: 5000; background: #020617; display: none; flex-direction: column; opacity: 0; transition: opacity 0.3s; }
     .pdf-modal.active { display: flex; opacity: 1; }
     .pdf-modal.mobile-fullscreen-hack { position: fixed !important; inset: 0 !important; z-index: 999999; }
-
     .pdf-head { height: 56px; background: #0F172A; border-bottom: 1px solid #1E293B; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; color: #F8FAFC; flex-shrink: 0; }
     .pdf-title { font-size: 0.9rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; max-width: 50%; }
     .pdf-ctrls { display: flex; gap: 10px; }
     .icon-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; width: 36px; height: 36px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: 0.2s; }
     .icon-btn:hover { background: rgba(255,255,255,0.15); transform: scale(1.05); }
     .icon-btn.close { background: #DC2626; border-color: #DC2626; }
-
     .pdf-body { flex-grow: 1; overflow: auto; background: #1E293B; position: relative; display: flex; justify-content: center; padding: 30px; touch-action: pan-x pan-y pinch-zoom; }
     .pdf-body.dark { background: #000; }
     .pdf-body.dark canvas { filter: invert(1) hue-rotate(180deg) contrast(0.9); }
     #the-canvas { box-shadow: 0 20px 50px rgba(0,0,0,0.5); background: #fff; margin-bottom: 50px; }
-
     .pdf-foot { height: 70px; background: #0F172A; border-top: 1px solid #1E293B; display: flex; justify-content: center; align-items: center; gap: 20px; flex-shrink: 0; }
     .nav-circle { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.1); border: none; color: #fff; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
     .nav-circle:hover { background: var(--c-blue); transform: scale(1.1); }
@@ -322,12 +222,12 @@
       <div class="actions">
         <a href="index.html" class="btn-portal">
           <span class="btn-ico">🎓</span>
-          <div class="btn-col"><span class="btn-t1">Учебный Портал</span><span class="btn-t2">СДО</span></div>
+          <div class="btn-col"><span class="btn-t1">Учебный Портал</span><span class="btn-t2">Личный кабинет</span></div>
         </a>
         <div class="btn-site-wrap">
           <a href="https://sofrino-park.com/" target="_blank" class="btn-site">
             <span class="btn-ico">🌐</span>
-            <div class="btn-col"><span class="btn-t1">Парк-Отель Софрино</span><span class="btn-t2">Официальный Веб-сайт</span></div>
+            <div class="btn-col"><span class="btn-t1">Парк-Отель</span><span class="btn-t2">Веб-сайт</span></div>
           </a>
         </div>
       </div>
@@ -363,12 +263,8 @@
           <div class="sub-item">
             <div class="sub-head" onclick="toggleSub(this)"><span>📜 Реестр Приказов</span> <span>▼</span></div>
             <div class="sub-body">
-              <div class="file" onclick="openViewer('assets/Приказ №1012 ОТ1-25.PDF', 'Приказ № 1012 ОТ1-25')">
-                <div class="file-ico">✒️</div><div class="file-data"><div class="file-meta-row"><span class="badge">№ 1012 ОТ1-25</span><span class="meta-size">PDF</span></div><span class="file-name">Об утверждении СУОТ</span></div>
-              </div>
-              <div class="file" style="background:#FFFBEB" onclick="openViewer('assets/Приказ №1112 ОТ3-25.PDF', 'Приказ № 1112 ОТ3-25')">
-                <div class="file-ico" style="color:#D97706">⚠️</div><div class="file-data"><div class="file-meta-row"><span class="badge imp">ВАЖНО</span><span class="meta-size">PDF</span></div><span class="file-name"><strong>Нормы выдачи СИЗ</strong></span></div>
-              </div>
+              <div class="file" onclick="openViewer('assets/Приказ №1012 ОТ1-25.PDF', 'Приказ № 1012 ОТ1-25')"><div class="file-ico">✒️</div><div class="file-data"><div class="file-meta-row"><span class="badge">№ 1012</span><span class="meta-size">PDF</span></div><span class="file-name">Об утверждении СУОТ</span></div></div>
+              <div class="file" style="background:#FFFBEB" onclick="openViewer('assets/Приказ №1112 ОТ3-25.PDF', 'Приказ № 1112 ОТ3-25')"><div class="file-ico" style="color:#D97706">⚠️</div><div class="file-data"><div class="file-meta-row"><span class="badge imp">ВАЖНО</span><span class="meta-size">PDF</span></div><span class="file-name"><strong>Нормы выдачи СИЗ</strong></span></div></div>
               <div class="file" onclick="openViewer('assets/Приказ №1012 ОТ2-25.PDF', 'Приказ № 1012 ОТ2-25')"><div class="file-ico">✒️</div><div class="file-data"><div class="file-meta-row"><span class="badge">№ 1012</span><span class="meta-size">PDF</span></div><span class="file-name">О проведении СОУТ</span></div></div>
               <div class="file" onclick="openViewer('assets/Приказ №1112 ОТ1-25.PDF', 'Приказ № 1112 ОТ1-25')"><div class="file-ico">✒️</div><div class="file-data"><div class="file-meta-row"><span class="badge">№ 1112</span><span class="meta-size">PDF</span></div><span class="file-name">Об управлении рисками</span></div></div>
               <div class="file" onclick="openViewer('assets/Приказ №1112 ОТ2-25.PDF', 'Приказ № 1112 ОТ2-25')"><div class="file-ico">✒️</div><div class="file-data"><div class="file-meta-row"><span class="badge">№ 1112</span><span class="meta-size">PDF</span></div><span class="file-name">Положение о СИЗ</span></div></div>
@@ -408,10 +304,12 @@
         <div class="f-head" onclick="toggleFolder('f2')"><div class="f-main"><div class="f-icon">🔥</div><div class="f-txt"><h3>Пожарная безопасность</h3><p>Инструкции, Планы</p></div></div><div class="chevron">▼</div></div>
         <div class="f-body"><div class="empty-block"><span class="empty-icon">🚧</span>Раздел наполняется</div></div>
       </div>
+
       <div class="folder blue" id="f3">
         <div class="f-head" onclick="toggleFolder('f3')"><div class="f-main"><div class="f-icon">📢</div><div class="f-txt"><h3>ГО и ЧС</h3><p>Гражданская оборона</p></div></div><div class="chevron">▼</div></div>
         <div class="f-body"><div class="empty-block"><span class="empty-icon">🛡️</span>Раздел наполняется</div></div>
       </div>
+
       <div class="folder purple" id="f4">
         <div class="f-head" onclick="toggleFolder('f4')"><div class="f-main"><div class="f-icon">💼</div><div class="f-txt"><h3>Отдел кадров</h3><p>ПВТР, Договоры</p></div></div><div class="chevron">▼</div></div>
         <div class="f-body"><div class="empty-block"><span class="empty-icon">📁</span>Документы на согласовании.<br><strong>Обратитесь в кабинет № 8.</strong></div></div>
@@ -419,10 +317,10 @@
     </div>
   </main>
 
-  <footer style="text-align:center; padding-bottom:100px; color:#94A3B8; font-size:0.85rem;">© 2026 СОФРИНО ПАРК.</footer>
+  <footer style="text-align:center; padding-bottom:100px; color:#94A3B8; font-size:0.85rem;">© 2026 СОФРИНО ПАРК. Служба охраны труда.</footer>
 
   <a href="https://t.me/+5mfcl7IppD00YzAy" target="_blank" class="tg-float">
-    <div class="tg-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M21.92,2.62a1.67,1.67,0,0,0-1.68-.4l-18,6.8a1.68,1.68,0,0,0,.1,3.13l4.63,1.68L17.7,6.72a.46.46,0,0,1,.63.66l-9.13,7.93v3.9a1.27,1.27,0,0,0,2.15.9l2.77-2.61,5.55,4.21a1.27,1.27,0,0,0,2.2-.7L23.61,4.11A1.67,1.67,0,0,0,21.92,2.62Z"/></svg></div>
+    <div class="tg-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M21.92,2.62a1.67,1.67,0,0,0-1.68-.4l-18,6.8a1.68,1.68,0,0,0,.1,3.13l4.63,1.68L17.7,6.72a.46.46,0,0,1,.63.66l-9.13,7.93v3.9a1.27,1.27,0,0,0,2.15.9l2.77-2.61,5.55,4.21a1.27,1.27,0,0,0,2.2-.7L23.61,4.11A1.67,1.67,0,0,0,21.92,2.62Z"/></svg></div>
     <div class="tg-txt"><h4>Известия Софрино</h4><p>Подписаться</p></div>
   </a>
 
@@ -467,7 +365,6 @@
         this.vx = (Math.random() - 0.5) * 0.5;
         this.vy = (Math.random() - 0.5) * 0.5;
         this.size = Math.random() * 2;
-        this.origX = this.x; this.origY = this.y;
       }
       update() {
         // Basic movement
@@ -527,7 +424,7 @@
       setTimeout(() => {
         document.getElementById('preloader').style.opacity = '0';
         document.getElementById('preloader').style.visibility = 'hidden';
-      }, 1500);
+      }, 2000);
       
       if(!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
         document.querySelectorAll('.pc-only').forEach(el => el.style.display = 'flex');
