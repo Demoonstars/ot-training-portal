@@ -35,16 +35,33 @@
        1. ЖИВОЙ ФОН (LAVA)
        ========================================= */
     .ambient-bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: #F8FAFC; }
-    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; animation: float 20s infinite alternate; will-change: transform; }
-    .o1 { top: -10%; left: -10%; width: 500px; height: 500px; background: rgba(0, 150, 136, 0.2); }
-    .o2 { bottom: -10%; right: -10%; width: 500px; height: 500px; background: rgba(37, 99, 235, 0.2); animation-delay: -5s; }
-    .o3 { top: 40%; left: 40%; width: 300px; height: 300px; background: rgba(245, 158, 11, 0.15); animation-delay: -10s; }
-    @keyframes float { 0% { transform: translate(0,0); } 100% { transform: translate(30px, 50px); } }
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; animation: float 25s infinite alternate; will-change: transform; }
+    
+    .o1 { 
+      top: -10%; left: -10%; width: 600px; height: 600px; 
+      background: radial-gradient(circle, rgba(0, 150, 136, 0.25), transparent 70%); 
+    }
+    .o2 { 
+      bottom: -10%; right: -10%; width: 500px; height: 500px; 
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.25), transparent 70%); 
+      animation-duration: 30s; animation-delay: -5s; 
+    }
+    .o3 { 
+      top: 40%; left: 40%; width: 400px; height: 400px; 
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.2), transparent 70%); 
+      animation-duration: 20s; animation-delay: -10s; 
+    }
+    
+    @keyframes float { 
+      0% { transform: translate(0,0) scale(1); } 
+      50% { transform: translate(40px, 60px) scale(1.1); } 
+      100% { transform: translate(-20px, 30px) scale(0.9); } 
+    }
 
     /* =========================================
        2. ПРЕЛОАДЕР (LOGO RINGS)
        ========================================= */
-    #preloader { position: fixed; inset: 0; z-index: 9999; background: rgba(255,255,255,0.95); backdrop-filter: blur(15px); display: flex; justify-content: center; align-items: center; transition: 0.5s; }
+    #preloader { position: fixed; inset: 0; z-index: 9999; background: rgba(255,255,255,0.98); backdrop-filter: blur(15px); display: flex; justify-content: center; align-items: center; transition: 0.5s; }
     .loader-wrap { position: relative; width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; }
     .loader-logo { width: 70px; height: auto; z-index: 2; }
     .ring { position: absolute; border-radius: 50%; border: 3px solid transparent; animation: spin 2s linear infinite; inset: 0; }
@@ -106,20 +123,18 @@
     /* === АДАПТИВ ШАПКИ === */
     @media (max-width: 600px) {
       .glass-header { padding: 8px 0; }
-      .brand img { height: 36px; } /* Уменьшаем лого */
-      .brand-txt { display: none; } /* Скрываем текст логотипа для места */
-      
-      .nav-btn { padding: 0; width: 40px; justify-content: center; } /* Кнопки превращаем в квадраты */
-      .btn-text { display: none; } /* Скрываем текст кнопок */
-      .nav-icon { font-size: 1.2rem; margin: 0; } /* Увеличиваем иконки */
-      
+      .brand img { height: 36px; } 
+      .brand-txt { display: none; } 
+      .nav-btn { padding: 0; width: 40px; justify-content: center; } 
+      .btn-text { display: none; } 
+      .nav-icon { font-size: 1.2rem; margin: 0; } 
       .btn-site-wrap { border-radius: 12px; }
       .btn-site { padding: 0; border-radius: 10px; }
     }
 
     /* === 4. КОНТЕНТ (FOLDERS) === */
     .hero { text-align: center; padding: 40px 0 30px; }
-    .hero h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; }
+    .hero h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px; }
     .hero p { color: #64748B; font-size: 0.95rem; max-width: 500px; margin: 0 auto; }
 
     .stack { display: flex; flex-direction: column; gap: 16px; padding-bottom: 100px; }
@@ -131,7 +146,6 @@
     
     .folder-head {
       padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
-      /* Эффект нажатия на мобилке */
       active-behavior: contain;
     }
     .folder-head:active { background: rgba(255,255,255,0.5); }
@@ -155,7 +169,7 @@
 
     /* Контент папки */
     .folder-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(255,255,255,0.4); }
-    .folder.active .folder-body { max-height: 3000px; }
+    .folder.active .folder-body { max-height: 4000px; }
 
     /* Вложенные списки */
     .sub-group { border-bottom: 1px solid rgba(0,0,0,0.05); }
@@ -164,7 +178,7 @@
       font-weight: 600; color: #475569; font-size: 0.9rem;
     }
     .sub-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: #F8FAFC; }
-    .sub-group.open .sub-body { max-height: 2000px; }
+    .sub-group.open .sub-body { max-height: 2500px; }
     .sub-group.open .sub-head { color: var(--c-green); background: #F0FDF4; }
 
     /* Файлы */
@@ -197,21 +211,31 @@
     /* Верхняя панель читалки */
     .pdf-top {
       padding: 10px 15px; background: #1E293B; display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid #334155; color: #fff;
+      border-bottom: 1px solid #334155; color: #fff; gap: 10px;
     }
-    .pdf-title { font-size: 0.85rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 60%; }
-    .pdf-close {
-      background: #EF4444; border: none; color: #fff; padding: 6px 14px;
-      border-radius: 20px; font-weight: 700; font-size: 0.8rem; cursor: pointer;
+    .pdf-title { font-size: 0.85rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-grow: 1; }
+    
+    .pdf-actions-right { display: flex; gap: 8px; }
+    .pdf-btn {
+      background: rgba(255,255,255,0.1); border: none; color: #fff; width: 32px; height: 32px;
+      border-radius: 8px; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      text-decoration: none; transition: 0.2s;
     }
+    .pdf-btn:hover { background: rgba(255,255,255,0.2); }
+    .pdf-btn.close { background: #EF4444; }
 
     /* Область просмотра */
     .pdf-area {
       flex-grow: 1; overflow: auto; background: #334155;
       display: flex; justify-content: center; padding: 20px;
-      touch-action: pan-x pan-y pinch-zoom; /* Для мобильных жестов */
+      touch-action: pan-x pan-y pinch-zoom;
+      transition: background 0.3s;
     }
-    #the-canvas { box-shadow: 0 10px 30px rgba(0,0,0,0.5); align-self: flex-start; background: #fff; }
+    /* Ночной режим для области */
+    .pdf-area.dark-mode { background: #000; }
+    .pdf-area.dark-mode canvas { filter: invert(1) hue-rotate(180deg); }
+
+    #the-canvas { box-shadow: 0 10px 30px rgba(0,0,0,0.5); align-self: flex-start; background: #fff; transition: 0.3s; }
 
     /* Нижняя панель (Инструменты) */
     .pdf-tools {
@@ -234,7 +258,10 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 1px solid #fff;
       z-index: 900; text-decoration: none; width: max-content;
     }
-    .tg-ico { width: 36px; height: 36px; background: #229ED9; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    .tg-ico { 
+      width: 36px; height: 36px; background: #229ED9; color: #fff; border-radius: 50%; 
+      display: flex; align-items: center; justify-content: center; font-size: 1.4rem; 
+    }
     .tg-txt h4 { margin: 0; font-size: 0.85rem; color: var(--c-dark); }
     .tg-txt p { margin: 0; font-size: 0.65rem; color: #229ED9; font-weight: 700; text-transform: uppercase; }
 
@@ -295,7 +322,7 @@
             <div class="f-icon">🛡️</div>
             <div class="f-info">
               <h3>Охрана труда</h3>
-              <p>СУОТ, Риски, СИЗ</p>
+              <p>СУОТ, Риски, СИЗ, СОУТ</p>
             </div>
           </div>
           <div class="arrow">▼</div>
@@ -381,10 +408,21 @@
 
           <div class="sub-group">
             <div class="sub-head" onclick="toggleSub(this)">
-              <span>🎓 Программы</span> <span>▼</span>
+              <span>🔬 СОУТ (Спецоценка)</span> <span>▼</span>
             </div>
             <div class="sub-body">
-              <div style="padding:20px; text-align:center; color:#94A3B8;">Загрузка...</div>
+              <div class="file" onclick="loadPDF('assets/СОУТ_Карты_1-19.pdf', 'СОУТ Карты 1-19')">
+                <div class="file-ico">📑</div>
+                <div class="file-meta"><span class="badge">Отчет</span><span class="file-name">Карты СОУТ (1-19)</span></div>
+              </div>
+              <div class="file" onclick="loadPDF('assets/СОУТ_Карты_20-39.pdf', 'СОУТ Карты 20-39')">
+                <div class="file-ico">📑</div>
+                <div class="file-meta"><span class="badge">Отчет</span><span class="file-name">Карты СОУТ (20-39)</span></div>
+              </div>
+              <div class="file" onclick="loadPDF('assets/СОУТ_Перечень_р.м._Сводная.pdf', 'Сводная ведомость')">
+                <div class="file-ico">📊</div>
+                <div class="file-meta"><span class="badge">Сводная</span><span class="file-name">Перечень рабочих мест</span></div>
+              </div>
             </div>
           </div>
 
@@ -432,14 +470,23 @@
   </main>
 
   <a href="https://t.me/+5mfcl7IppD00YzAy" target="_blank" class="tg-float">
-    <div class="tg-ico">✈️</div>
+    <div class="tg-ico">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21.92,2.62a1.67,1.67,0,0,0-1.68-.4l-18,6.8a1.68,1.68,0,0,0,.1,3.13l4.63,1.68L17.7,6.72a.46.46,0,0,1,.63.66l-9.13,7.93v3.9a1.27,1.27,0,0,0,2.15.9l2.77-2.61,5.55,4.21a1.27,1.27,0,0,0,2.2-.7L23.61,4.11A1.67,1.67,0,0,0,21.92,2.62Z"/>
+      </svg>
+    </div>
     <div class="tg-txt"><h4>Известия Софрино</h4><p>Подписаться</p></div>
   </a>
 
   <div class="pdf-modal" id="pdfModal">
     <div class="pdf-top">
       <div class="pdf-title" id="pdfDocTitle">Документ</div>
-      <button class="pdf-close" onclick="closeViewer()">ЗАКРЫТЬ</button>
+      <div class="pdf-actions-right">
+        <button class="pdf-btn" onclick="toggleNight()" title="Ночной режим">🌙</button>
+        <button class="pdf-btn" onclick="toggleFullscreen()" title="На весь экран">⛶</button>
+        <a href="#" id="pdfDownloadLink" class="pdf-btn" download title="Скачать">📥</a>
+        <button class="pdf-btn close" onclick="closeViewer()">✕</button>
+      </div>
     </div>
     
     <div class="pdf-area" id="pdfContainer">
@@ -473,12 +520,16 @@
     const canvas = document.getElementById('the-canvas');
     const ctx = canvas.getContext('2d');
     const pdfContainer = document.getElementById('pdfContainer');
+    const downloadLink = document.getElementById('pdfDownloadLink');
 
     function loadPDF(url, title) {
       document.getElementById('pdfDocTitle').innerText = title;
       document.getElementById('pdfModal').classList.add('active');
       document.body.style.overflow = 'hidden'; // Блок скролла сайта
       
+      // Устанавливаем ссылку на скачивание
+      downloadLink.href = url;
+
       // Сброс
       pageNum = 1; scale = 1.0; 
       
@@ -529,6 +580,25 @@
       document.getElementById('pdfModal').classList.remove('active');
       document.body.style.overflow = '';
       ctx.clearRect(0, 0, canvas.width, canvas.height); // Очистка
+      // Сброс ночного режима и полного экрана при закрытии
+      pdfContainer.classList.remove('dark-mode');
+      document.exitFullscreen().catch(err => {}); 
+    }
+    
+    // Ночной режим
+    function toggleNight() {
+      pdfContainer.classList.toggle('dark-mode');
+    }
+
+    // Полный экран
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.getElementById('pdfModal').requestFullscreen().catch(err => {
+          alert(`Ошибка включения полноэкранного режима: ${err.message}`);
+        });
+      } else {
+        document.exitFullscreen();
+      }
     }
     
     // Свайпы на мобильном (Простые)
