@@ -132,7 +132,7 @@
   display: inline-block; 
   width: 4px; 
   height: 1.1em; /* Чуть увеличил высоту для лучшего вида */
-  background: rgba(0, 0, 0, 0.2); /* Черный цвет с прозрачностью 40% */
+  background: rgba(0, 0, 0, 0.4); /* Черный цвет с прозрачностью 40% */
   margin-left: 5px; 
   box-shadow: none; /* Убираем бирюзовое свечение, оно тут больше не нужно */
   animation: blinkCursor 1s infinite; 
@@ -152,15 +152,43 @@
     .chip { padding: 8px 16px; border-radius: 50px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8); color: var(--c-text); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
     .chip:hover, .chip.active { background: #fff; color: var(--c-green); box-shadow: 0 5px 15px rgba(0, 150, 136, 0.15); transform: translateY(-2px); border-color: var(--c-green); }
 
-    /* === 5. ПАПКИ (FLAT & CLEAN) === */
-    .stack { display: flex; flex-direction: column; gap: 24px; padding-bottom: 120px; }
-    .folder { background: var(--glass); border: var(--border); border-radius: var(--radius); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); overflow: hidden; transition: 0.3s; position: relative; }
+/* === 5. ПАПКИ (FLAT & CLEAN) + ЖИВЫЕ ИКОНКИ === */
+    .stack { display: flex; flex-direction: column; gap: 24px; padding-bottom: 120px; perspective: 1000px; }
+    .folder { 
+      background: var(--glass); border: var(--border); border-radius: var(--radius); 
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); overflow: hidden; position: relative;
+      opacity: 0; transform: translateY(30px); 
+      transition: transform 0.3s ease-out, box-shadow 0.3s ease, opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1); 
+      will-change: transform, opacity;
+    }
+    .folder.reveal { opacity: 1; transform: translateY(0); }
     .folder:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); border-color: #fff; }
     
     .f-head { padding: 24px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
     .f-head:hover { background: rgba(255,255,255,0.4); }
     .f-main { display: flex; align-items: center; gap: 20px; }
-    .f-icon { width: 60px; height: 60px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6), 0 10px 20px rgba(0,0,0,0.05); }
+    
+    /* Иконка и анимации */
+    .f-icon { width: 60px; height: 60px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6), 0 10px 20px rgba(0,0,0,0.05); transition: all 0.3s ease; }
+    
+    @keyframes iconPulse { 0% { box-shadow: 0 0 0 0 rgba(0, 150, 136, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(0, 150, 136, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 150, 136, 0); } }
+    @keyframes iconShake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(3deg); } 75% { transform: rotate(-3deg); } }
+    
+    /* Состояния активных иконок для каждой папки */
+    .folder.active.green .f-icon { animation: iconPulse 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(0, 150, 136, 0.5); }
+    .folder.active.orange .f-icon { animation: iconPulse 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(245, 158, 11, 0.5); --c-pulse: rgba(245, 158, 11, 0.4); }
+    .folder.active.blue .f-icon { animation: iconPulse 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(37, 99, 235, 0.5); --c-pulse: rgba(37, 99, 235, 0.4); }
+    .folder.active.purple .f-icon { animation: iconPulse 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(124, 58, 237, 0.5); --c-pulse: rgba(124, 58, 237, 0.4); }
+
+    /* Переопределение цвета пульсации для разных папок */
+    .folder.active.orange .f-icon { animation-name: iconPulseOrange, iconShake; }
+    .folder.active.blue .f-icon { animation-name: iconPulseBlue, iconShake; }
+    .folder.active.purple .f-icon { animation-name: iconPulsePurple, iconShake; }
+
+    @keyframes iconPulseOrange { 0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(245, 158, 11, 0); } 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); } }
+    @keyframes iconPulseBlue { 0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(37, 99, 235, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); } }
+    @keyframes iconPulsePurple { 0% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(124, 58, 237, 0); } 100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); } }
+
     .f-txt h3 { margin: 0; font-size: 1.3rem; font-weight: 800; color: var(--c-dark); }
     .f-txt p { margin: 4px 0 0; font-size: 0.9rem; color: #64748B; }
     .chevron { font-size: 1.2rem; color: #94A3B8; transition: 0.4s; }
@@ -177,8 +205,8 @@
     .sub-item { margin: 20px 30px; background: #fff; border-radius: 18px; border: 1px solid #E2E8F0; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
     .sub-head { padding: 18px 24px; font-weight: 700; color: #475569; display: flex; justify-content: space-between; cursor: pointer; transition: 0.2s; }
     .sub-head:hover { background: #F8FAFC; color: var(--c-dark); }
-    .sub-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: #F8FAFC; }
-    .sub-item.open .sub-body { max-height: 3000px; padding: 15px 0; border-top: 1px solid #E2E8F0; }
+    .sub-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: #F8FAFC; opacity: 0; }
+    .sub-item.open .sub-body { max-height: 3000px; padding: 15px 0; border-top: 1px solid #E2E8F0; opacity: 1; }
     .sub-item.open .sub-head { background: #F0FDF4; color: var(--c-green); }
 
     .file { display: flex; align-items: center; gap: 16px; padding: 14px 24px; cursor: pointer; transition: 0.2s; border-left: 3px solid transparent; position: relative; overflow: hidden; }
@@ -197,7 +225,6 @@
 
     .empty-block { padding: 40px; text-align: center; color: #94A3B8; font-size: 0.9rem; }
     .empty-icon { font-size: 2rem; margin-bottom: 10px; display: block; animation: pulse 2s infinite; opacity: 0.5; }
-
 
     /* === 6. PDF VIEWER === */
     .pdf-modal { position: fixed; inset: 0; z-index: 5000; background: #020617; display: none; flex-direction: column; opacity: 0; transition: opacity 0.3s; }
