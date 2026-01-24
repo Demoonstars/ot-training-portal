@@ -14,7 +14,7 @@
 
   <style>
     /* =========================================
-       THEME: QUANTUM X (Final Polish)
+       THEME: QUANTUM X (Realistic Glow)
        ========================================= */
     :root {
       --c-green: #009688; --c-neon: #00FFCC; --c-orange: #F59E0B; --c-blue: #2563EB; --c-purple: #7C3AED;
@@ -47,7 +47,7 @@
     .o1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(0, 150, 136, 0.2), transparent 70%); }
     .o2 { bottom: -10%; right: -10%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent 70%); }
 
-    /* === 2. ПРЕЛОАДЕР === */
+    /* === 2. ПРЕЛОАДЕР: REALISTIC SPACE === */
     #preloader { 
       position: fixed; inset: 0; z-index: 99999; 
       background: #000000; 
@@ -56,51 +56,70 @@
       overflow: hidden;
     }
     
-    /* Звезды */
-    #stars-container { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    #stars-container { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+    
+    /* Звезды с реальным свечением */
     .star {
       position: absolute; background: #fff; border-radius: 50%;
-      animation: twinkle linear infinite; opacity: 0.8;
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.8), 0 0 8px rgba(255, 255, 255, 0.4);
+      animation: twinkle var(--duration) linear infinite alternate;
     }
     @keyframes twinkle { 
-      0% { opacity: 0.3; transform: scale(0.8); } 
-      50% { opacity: 1; transform: scale(1.2); } 
-      100% { opacity: 0.3; transform: scale(0.8); } 
+      0% { opacity: 0.3; transform: scale(0.8); box-shadow: 0 0 2px rgba(255,255,255,0.2); } 
+      100% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 6px rgba(255,255,255,0.9); } 
     }
 
-    /* Система */
     .solar-system { position: relative; width: 220px; height: 220px; display: flex; justify-content: center; align-items: center; z-index: 10; }
     
     .planet-logo { 
       width: 100px; height: auto; z-index: 10; object-fit: contain;
-      /* Исправлено свечение: Drop shadow вместо Box shadow чтобы не резало края */
-      filter: drop-shadow(0 0 25px rgba(0, 255, 204, 0.5)); 
-      animation: pulsePlanet 3s infinite ease-in-out;
+      filter: drop-shadow(0 0 25px rgba(0, 255, 204, 0.6)); 
+      animation: pulsePlanet 4s infinite ease-in-out;
     }
     
+    /* Орбиты со свечением */
     .orbit {
-      position: absolute; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.08);
+      position: absolute; border-radius: 50%; 
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.05); /* Легкое свечение орбиты */
       display: flex; justify-content: center; align-items: center; pointer-events: none;
     }
-    .orb-1 { width: 140px; height: 140px; animation: orbitSpin 5s linear infinite; border-color: rgba(0, 150, 136, 0.3); }
-    .orb-1::before { content: ""; position: absolute; top: -3px; width: 6px; height: 6px; background: #00FFCC; border-radius: 50%; box-shadow: 0 0 10px #00FFCC; }
     
-    .orb-2 { width: 180px; height: 180px; animation: orbitSpin 8s linear infinite reverse; border-color: rgba(37, 99, 235, 0.3); }
-    .orb-2::before { content: ""; position: absolute; top: 15px; right: 15px; width: 8px; height: 8px; background: #2563EB; border-radius: 50%; box-shadow: 0 0 12px #2563EB; }
+    /* Орбита 1 (Малая - Циан) */
+    .orb-1 { width: 140px; height: 140px; animation: orbitSpin 5s linear infinite; border-color: rgba(0, 255, 204, 0.2); }
+    .orb-1::before { 
+      content: ""; position: absolute; top: -3px; width: 6px; height: 6px; 
+      background: #00FFCC; border-radius: 50%; 
+      box-shadow: 0 0 10px #00FFCC, 0 0 20px #00FFCC; /* Двойное свечение */
+    }
     
-    .orb-3 { width: 240px; height: 240px; animation: orbitSpin 15s linear infinite; border-color: rgba(245, 158, 11, 0.2); }
-    .orb-3::before { content: ""; position: absolute; bottom: -4px; width: 5px; height: 5px; background: #F59E0B; border-radius: 50%; box-shadow: 0 0 8px #F59E0B; }
+    /* Орбита 2 (Средняя - Синяя) */
+    .orb-2 { width: 180px; height: 180px; animation: orbitSpin 8s linear infinite reverse; border-color: rgba(37, 99, 235, 0.2); }
+    .orb-2::before { 
+      content: ""; position: absolute; top: 15px; right: 15px; width: 8px; height: 8px; 
+      background: #2563EB; border-radius: 50%; 
+      box-shadow: 0 0 12px #2563EB, 0 0 25px #2563EB; /* Двойное свечение */
+    }
+    
+    /* Орбита 3 (Большая - Оранжевая) */
+    .orb-3 { width: 240px; height: 240px; animation: orbitSpin 15s linear infinite; border-color: rgba(245, 158, 11, 0.15); }
+    .orb-3::before { 
+      content: ""; position: absolute; bottom: -4px; width: 5px; height: 5px; 
+      background: #F59E0B; border-radius: 50%; 
+      box-shadow: 0 0 8px #F59E0B, 0 0 16px #F59E0B; /* Двойное свечение */
+    }
 
     .loading-status {
       margin-top: 50px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; z-index: 10;
-      color: rgba(0, 255, 204, 0.8); letter-spacing: 4px; text-transform: uppercase; text-shadow: 0 0 10px rgba(0,255,204,0.5);
+      color: rgba(0, 255, 204, 0.9); letter-spacing: 4px; text-transform: uppercase; 
+      text-shadow: 0 0 15px rgba(0, 255, 204, 0.6);
     }
-
+    
     @keyframes orbitSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    @keyframes pulsePlanet { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(0,255,204,0.4)); } 50% { transform: scale(1.05); filter: drop-shadow(0 0 40px rgba(0,255,204,0.7)); } }
+    @keyframes pulsePlanet { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(0,255,204,0.4)); } 50% { transform: scale(1.03); filter: drop-shadow(0 0 45px rgba(0,255,204,0.8)); } }
 
-    /* === 3. ШАПКА + КОМПАКТНОЕ ВРЕМЯ === */
-    .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.75); backdrop-filter: blur(25px); border-bottom: 1px solid rgba(255,255,255,0.5); padding: 12px 0; box-shadow: 0 4px 30px rgba(0,0,0,0.03); }
+    /* === 3. ШАПКА === */
+    .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.85); backdrop-filter: blur(25px); border-bottom: 1px solid rgba(255,255,255,0.5); padding: 12px 0; box-shadow: 0 4px 30px rgba(0,0,0,0.03); }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
     .nav { display: flex; justify-content: space-between; align-items: center; }
     
@@ -108,22 +127,19 @@
     .brand img { height: 48px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
     
     .brand-info { display: flex; flex-direction: column; }
-    .brand-txt h1 { font-size: 1.1rem; font-weight: 800; line-height: 1.1; margin: 0; color: var(--c-dark); }
-    .brand-meta { display: flex; align-items: center; gap: 10px; margin-top: 4px; font-size: 0.7rem; font-weight: 600; color: #64748B; }
+    .brand-txt h1 { font-size: 1.1rem; font-weight: 800; line-height: 1; margin: 0; color: var(--c-dark); }
     
-    /* Стиль для времени внутри логотипа */
+    /* Компактный блок времени внутри логотипа */
+    .brand-meta { display: flex; align-items: center; gap: 10px; margin-top: 4px; font-size: 0.7rem; font-weight: 600; color: #64748B; }
     .hud-inline { 
       display: flex; align-items: center; gap: 6px; 
-      font-family: 'JetBrains Mono', monospace; 
+      font-family: 'JetBrains Mono', monospace; color: var(--c-green);
       background: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: 4px;
-      color: #059669;
     }
     .hud-dot { width: 6px; height: 6px; background: #10B981; border-radius: 50%; box-shadow: 0 0 6px #10B981; animation: blink 1s infinite; }
     @keyframes blink { 50% { opacity: 0.4; } }
 
     .actions { display: flex; gap: 12px; align-items: center; }
-    
-    /* Кнопки */
     .btn-portal { position: relative; display: flex; align-items: center; gap: 12px; padding: 0 20px; height: 44px; border-radius: 12px; background: #1e293b; color: #fff; text-decoration: none; overflow: hidden; box-shadow: 0 10px 20px rgba(15, 23, 42, 0.25); border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
     .btn-portal:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(15, 23, 42, 0.4); }
     .btn-portal::after { content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transform: skewX(-20deg); transition: 0.5s; }
@@ -140,40 +156,39 @@
     .btn-ico { font-size: 1.3rem; }
     
     @media (max-width: 768px) {
-      .brand img { height: 40px; }
-      .brand-txt h1 { font-size: 1rem; }
+      .header { padding: 8px 0; }
+      .brand img { height: 36px; }
+      .brand-txt h1 { font-size: 0.95rem; }
       .btn-portal, .btn-site { padding: 0; width: 44px; justify-content: center; }
       .btn-col { display: none; }
       .btn-ico { margin: 0; font-size: 1.4rem; }
       .actions { gap: 8px; }
-      /* Скрываем подпись База знаний на мобилках для компактности, оставляем время */
-      .brand-meta span:first-child { display: none; } 
+      /* На мобилках скрываем текст "База знаний", оставляем только время */
+      .brand-meta > span:first-child { display: none; }
     }
 
-    /* === 4. ГЕРОЙ === */
+    /* === 4. ГЕРОЙ: TYPEWRITER (BIG DARK) === */
     .hero { text-align: center; padding: 70px 0 40px; position: relative; }
     
-    /* Эффект печати (Чистый текст без бейджа) */
+    /* Приветствие без бейджа, темное, большое */
     .greeting-box {
-      font-family: 'Inter', sans-serif; 
-      font-size: clamp(1.8rem, 5vw, 2.5rem); /* Увеличенный текст */
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem); /* Крупный размер */
       font-weight: 800; 
-      color: #1e293b; /* Темный цвет для читаемости */
+      color: #1e293b; /* Темный цвет */
       margin-bottom: 10px; display: inline-flex; align-items: center;
-      line-height: 1.2;
+      line-height: 1.2; letter-spacing: -1px;
     }
     .cursor { 
       display: inline-block; width: 4px; height: 1em; 
       background: var(--c-neon); margin-left: 5px; 
-      box-shadow: 0 0 10px var(--c-neon); /* Неоновый курсор */
+      box-shadow: 0 0 10px var(--c-neon);
       animation: blinkCursor 1s infinite; 
     }
     @keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-    .hero h2 { font-size: clamp(2rem, 6vw, 3.8rem); font-weight: 900; margin-bottom: 20px; letter-spacing: -1.5px; background: linear-gradient(to right, #1e293b 20%, #009688 30%, #2563eb 70%, #1e293b 80%); background-size: 200% auto; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shineText 6s linear infinite; padding: 0 10px; line-height: 1.1; }
-    @keyframes shineText { to { background-position: 200% center; } }
-    .hero p { color: #64748B; font-size: 1.1rem; margin: 0 auto 30px; max-width: 500px; }
-
+    .hero h2 { font-size: 1.2rem; font-weight: 600; color: #64748B; margin-bottom: 20px; }
+    
     /* Поиск */
     .search-wrap { max-width: 600px; margin: 0 auto; position: relative; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); padding: 8px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 10px 40px -5px rgba(0,0,0,0.05); transition: 0.3s; display: flex; align-items: center; }
     .search-wrap:focus-within { background: #fff; box-shadow: 0 20px 50px -10px rgba(0, 150, 136, 0.15); border-color: var(--c-green); transform: translateY(-2px); }
@@ -259,7 +274,18 @@
     .tg-txt h4 { margin: 0; font-size: 0.95rem; color: var(--c-dark); font-weight: 800; }
     .tg-txt p { margin: 0; font-size: 0.75rem; color: #229ED9; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 
-    @media (max-width: 600px) { .f-head { padding: 15px; } .f-icon { width: 48px; height: 48px; font-size: 1.5rem; } .f-txt h3 { font-size: 1.1rem; } .sub-item { margin: 10px; } .pc-only { display: none !important; } }
+    /* === MOBILE HUD FIX === */
+    .hud-widget {
+      position: fixed; top: 20px; right: 20px; z-index: 200;
+      background: rgba(255,255,255,0.7); backdrop-filter: blur(15px); padding: 8px 16px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.8);
+      display: flex; align-items: center; gap: 10px; color: #0F172A; font-family:'JetBrains Mono',monospace; font-size:0.8rem; font-weight:600;
+    }
+    .hud-dot { width: 8px; height: 8px; background:#10B981; border-radius:50%; box-shadow:0 0 10px #10B981; animation:blink 1s infinite; }
+    /* Mobile: Move to bottom left */
+    @media (max-width: 768px) {
+       .hud-widget { display: none !important; }
+       .f-head { padding: 15px; } .f-icon { width: 48px; height: 48px; font-size: 1.5rem; } .f-txt h3 { font-size: 1.1rem; } .sub-item { margin: 10px; } .pc-only { display: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -297,7 +323,7 @@
       <div class="actions">
         <a href="index.html" class="btn-portal"><span class="btn-ico">🎓</span><div class="btn-col"><span class="btn-t1">Учебный Портал</span><span class="btn-t2">СДО</span></div></a>
         <div class="btn-site-wrap">
-          <a href="https://sofrino-park.com/" target="_blank" class="btn-site"><span class="btn-ico">🌐</span><div class="btn-col"><span class="btn-t1">Софрино Парк</span><span class="btn-t2">Официальный Веб-сайт</span></div></a>
+          <a href="https://sofrino-park.com/" target="_blank" class="btn-site"><span class="btn-ico">🌐</span><div class="btn-col"><span class="btn-t1">Парк-Отель Софрино</span><span class="btn-t2">Официальный Веб-сайт</span></div></a>
         </div>
       </div>
     </div>
@@ -308,7 +334,7 @@
       <div class="greeting-box"><span id="typewriter"></span><span class="cursor"></span></div>
       
       <h2>Документационный центр</h2>
-      <p>Локальные нормативные акты, инструкции и стандарты</p>
+      <p>Локальные нормативные акты, инструкции и стандарты безопасности</p>
       
       <div class="search-wrap">
         <div class="search-icon">🔍</div>
@@ -330,11 +356,12 @@
           <div class="f-main"><div class="f-icon">🛡️</div><div class="f-txt"><h3>Охрана труда</h3><p>СУОТ, Риски, СИЗ, СОУТ</p></div></div><div class="chevron">▼</div>
         </div>
         <div class="f-body">
+          
           <div class="sub-item">
             <div class="sub-head" onclick="toggleSub(this)"><span>📜 Реестр Приказов</span> <span>▼</span></div>
             <div class="sub-body">
               <div class="file" onclick="openViewer('assets/Приказ №1012 ОТ1-25.PDF', 'Приказ № 1012 ОТ1-25')"><div class="file-ico">✒️</div><div class="file-data"><div class="file-meta-row"><span class="badge">Приказ №1012/ОТ1-25</span><span class="meta-size">PDF</span></div><span class="file-name">Об утверждении СУОТ</span></div></div>
-              <div class="file" style="background:#FFFBEB" onclick="openViewer('assets/Приказ №1112 ОТ3-25.PDF', 'Приказ № 1112 ОТ3-25')"><div class="file-ico" style="color:#D97706">⚠️</div><div class="file-data"><div class="file-meta-row"><span class="badge imp">1112/ОТ3-25</span><span class="meta-size">PDF</span></div><span class="file-name"><strong>Об утверждении норм выдачи средств индивидуальной защиты работникам</strong></span></div></div>
+              <div class="file" style="background:#FFFBEB" onclick="openViewer('assets/Приказ №1112 ОТ3-25.PDF', 'Приказ № 1112 ОТ3-25')"><div class="file-ico" style="color:#D97706">⚠️</div><div class="file-data"><div class="file-meta-row"><span class="badge imp">Приказ №1112/ОТ3-25</span><span class="meta-size">PDF</span></div><span class="file-name"><strong>Об утверждении норм выдачи средств индивидуальной защиты работникам</strong></span></div></div>
               <div class="file" onclick="openViewer('assets/Приказ №1012 ОТ2-25.PDF', 'Приказ № 1012 ОТ2-25')"><div class="file-ico">✒️</div><div class="file-data"><div class="file-meta-row"><span class="badge">Приказ №1012/ОТ2-25</span><span class="meta-size">PDF</span></div><span class="file-name">Об утверждении Положения о проведении специальной оценки условий труда</span></div></div>
               <div class="file" onclick="openViewer('assets/Приказ №1112 ОТ1-25.PDF', 'Приказ № 1112 ОТ1-25')"><div class="file-ico">✒️</div><div class="file-data"><div class="file-meta-row"><span class="badge">Приказ №1112/ОТ1-25</span><span class="meta-size">PDF</span></div><span class="file-name">Об утверждении Положения о системе управления профессиональными рисками</span></div></div>
               <div class="file" onclick="openViewer('assets/Приказ №1112 ОТ2-25.PDF', 'Приказ № 1112 ОТ2-25')"><div class="file-ico">✒️</div><div class="file-data"><div class="file-meta-row"><span class="badge">Приказ №1112/ОТ2-25</span><span class="meta-size">PDF</span></div><span class="file-name">Об утверждении Положения о порядке обеспечения работников средствами индивидуальной защиты</span></div></div>
@@ -351,7 +378,7 @@
               <div class="file" onclick="openViewer('assets/Положение СУОТ.PDF', 'Положение о СУОТ')"><div class="file-ico">🛡️</div><div class="file-data"><div class="file-meta-row"><span class="badge">Положение</span><span class="meta-size">PDF</span></div><span class="file-name">О системе управления охраной труда (СУОТ)</span></div></div>
               <div class="file" onclick="openViewer('assets/Положение профриски.PDF', 'Положение о рисках')"><div class="file-ico">📊</div><div class="file-data"><div class="file-meta-row"><span class="badge">Положение</span><span class="meta-size">PDF</span></div><span class="file-name">О системе управления профессиональными рисками</span></div></div>
               <div class="file" onclick="openViewer('assets/Положение СИЗ.PDF', 'Положение о СИЗ')"><div class="file-ico">🦺</div><div class="file-data"><div class="file-meta-row"><span class="badge">Положение</span><span class="meta-size">PDF</span></div><span class="file-name">О порядке обеспечения работников средствами индивидульной защиты (СИЗ)</span></div></div>
-              <div class="file" onclick="openViewer('assets/Положение нс.PDF', 'Расследование НС')"><div class="file-ico">🚑</div><div class="file-data"><div class="file-meta-row"><span class="badge">Положение</span><span class="meta-size">PDF</span></div><span class="file-name">О расследовании несчастных случаев на производстве</span></div></div>
+              <div class="file" onclick="openViewer('assets/Положение нс.PDF', 'Расследование НС')"><div class="file-ico">🚑</div><div class="file-data"><div class="file-meta-row"><span class="badge">Положение</span><span class="meta-size">PDF</span></div><span class="file-name">О расследовании несчастных случаев на производстве</span></div></div>
               <div class="file" onclick="openViewer('assets/Положение о Медосмотрах.PDF', 'Медосмотры')"><div class="file-ico">🩺</div><div class="file-data"><div class="file-meta-row"><span class="badge">Положение</span><span class="meta-size">PDF</span></div><span class="file-name">О проведении предварительного и периодического медицинских осмотров работников</span></div></div>
               <div class="file" onclick="openViewer('assets/Положение  о СОУТ.PDF', 'Проведение СОУТ')"><div class="file-ico">🔬</div><div class="file-data"><div class="file-meta-row"><span class="badge">Положение</span><span class="meta-size">PDF</span></div><span class="file-name">О проведении специальной оценки условий труда (СОУТ)</span></div></div>
             </div>
@@ -380,12 +407,12 @@
       </div>
       <div class="folder purple" id="f4">
         <div class="f-head" onclick="toggleFolder('f4')"><div class="f-main"><div class="f-icon">💼</div><div class="f-txt"><h3>Отдел кадров</h3><p>ПВТР, Договоры</p></div></div><div class="chevron">▼</div></div>
-        <div class="f-body"><div class="empty-block"><span class="empty-icon">📁</span>Документы на согласовании.<br><strong>Обратитесь в кабинет № 8, Административном корпусе.</strong></div></div>
+        <div class="f-body"><div class="empty-block"><span class="empty-icon">📁</span>Документы на согласовании.<br><strong>Обратитесь в кабинет № 8.</strong></div></div>
       </div>
     </div>
   </main>
 
-  <footer style="text-align:center; padding-bottom:100px; color:#94A3B8; font-size:0.85rem;">© 2026 СОФРИНО ПАРК.</footer>
+  <footer style="text-align:center; padding-bottom:100px; color:#94A3B8; font-size:0.85rem;">© 2026 СОФРИНО ПАРК. Служба охраны труда.</footer>
 
   <a href="https://t.me/+5mfcl7IppD00YzAy" target="_blank" class="tg-float">
     <div class="tg-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M21.92,2.62a1.67,1.67,0,0,0-1.68-.4l-18,6.8a1.68,1.68,0,0,0,.1,3.13l4.63,1.68L17.7,6.72a.46.46,0,0,1,.63.66l-9.13,7.93v3.9a1.27,1.27,0,0,0,2.15.9l2.77-2.61,5.55,4.21a1.27,1.27,0,0,0,2.2-.7L23.61,4.11A1.67,1.67,0,0,0,21.92,2.62Z"/></svg></div>
@@ -433,24 +460,29 @@
         this.vx = (Math.random() - 0.5) * 0.5;
         this.vy = (Math.random() - 0.5) * 0.5;
         this.size = Math.random() * 2;
+        this.baseX = this.x; this.baseY = this.y;
       }
       update() {
+        // Basic movement
         this.x += this.vx; this.y += this.vy;
         if(this.x < 0 || this.x > canvasEl.width) this.vx *= -1;
         if(this.y < 0 || this.y > canvasEl.height) this.vy *= -1;
 
-        // Repulsion logic
+        // REPULSION LOGIC (MAGNETIC FIELD)
         if (mouse.x != null) {
             let dx = mouse.x - this.x;
             let dy = mouse.y - this.y;
             let distance = Math.sqrt(dx * dx + dy * dy);
+            let forceDirectionX = dx / distance;
+            let forceDirectionY = dy / distance;
             const maxDistance = 150;
+            let force = (maxDistance - distance) / maxDistance;
+            const directionX = forceDirectionX * force * 5; // Strength
+            const directionY = forceDirectionY * force * 5;
+
             if (distance < maxDistance) {
-                const force = (maxDistance - distance) / maxDistance;
-                const directionX = dx / distance;
-                const directionY = dy / distance;
-                this.x -= directionX * force * 5;
-                this.y -= directionY * force * 5;
+                this.x -= directionX;
+                this.y -= directionY;
             }
         }
       }
@@ -459,6 +491,7 @@
         ctxCanvas.beginPath(); ctxCanvas.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctxCanvas.fill();
       }
     }
+
     for(let i=0; i<particleCount; i++) particles.push(new Particle());
 
     let mouse = { x: null, y: null };
@@ -469,6 +502,7 @@
       ctxCanvas.clearRect(0, 0, canvasEl.width, canvasEl.height);
       particles.forEach(p => {
         p.update(); p.draw();
+        // Connections
         particles.forEach(p2 => {
           const dx = p.x - p2.x; const dy = p.y - p2.y;
           const dist = Math.sqrt(dx*dx + dy*dy);
@@ -483,23 +517,27 @@
     }
     animateParticles();
 
-    // 2. PRELOADER
+    // 2. PRELOADER & INIT
     window.onload = function() {
+      // STARS
       const starContainer = document.getElementById('stars-container');
-      const sc = document.createElement('div');
-      sc.id = 'stars-container';
-      sc.style.position = 'absolute'; sc.style.inset = '0'; sc.style.zIndex = '1';
-      document.getElementById('preloader').prepend(sc);
-
       for(let i=0; i<100; i++) {
         const star = document.createElement('div');
         star.className = 'star';
+        // Random Position & Animation
         star.style.left = Math.random() * 100 + '%';
         star.style.top = Math.random() * 100 + '%';
-        star.style.width = Math.random() * 2 + 'px';
-        star.style.height = star.style.width;
+        
+        // Random Size (small)
+        const size = Math.random() * 2 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        
+        // Random Duration for twinkling
+        star.style.setProperty('--duration', (Math.random() * 2 + 1) + 's');
         star.style.animationDelay = Math.random() * 2 + 's';
-        sc.appendChild(star);
+        
+        starContainer.appendChild(star);
       }
 
       setTimeout(() => {
@@ -512,12 +550,14 @@
         document.querySelectorAll('.pc-only').forEach(el => el.style.display = 'flex');
       }
       
+      // HUD Time
       setInterval(() => {
         const now = new Date();
         document.getElementById('systemTime').textContent = now.toLocaleTimeString();
       }, 1000);
     };
 
+    // 3. TYPEWRITER (READABLE)
     function startTypewriter() {
       const hour = new Date().getHours();
       let text = "Добрый день, коллега.";
@@ -532,7 +572,7 @@
       type();
     }
 
-    // SEARCH
+    // 4. SEARCH
     const searchInput = document.getElementById('searchInput');
     searchInput.addEventListener('input', function() {
       const filter = this.value.toLowerCase();
@@ -565,6 +605,7 @@
       });
     }
 
+    // UI
     function toggleFolder(id) { document.getElementById(id).classList.toggle('active'); }
     function toggleSub(head) { head.parentElement.classList.toggle('open'); }
 
