@@ -596,8 +596,8 @@
     document.querySelectorAll('.folder').forEach(folder => {
       folder.addEventListener('mousemove', e => {
         const rect = folder.getBoundingClientRect();
-        const rotateX = ((e.clientY - rect.top - rect.height/2) / (rect.height/2)) * -1;
-        const rotateY = ((e.clientX - rect.left - rect.width/2) / (rect.width/2)) * 1;
+        const rotateX = ((e.clientY - rect.top - rect.height/1) / (rect.height/1)) * -0,5;
+        const rotateY = ((e.clientX - rect.left - rect.width/1) / (rect.width/1)) * 0,5;
         folder.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
       });
       folder.addEventListener('mouseleave', () => { folder.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`; });
