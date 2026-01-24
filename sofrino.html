@@ -296,6 +296,35 @@
     .sub-item.open .sub-body {
       opacity: 1;
     }
+  
+    /* Настройка для 3D наклона */
+    .stack {
+      perspective: 1000px; /* Глубина для всей стопки */
+    }
+
+    .folder {
+      transition: transform 0.2s ease-out, box-shadow 0.3s ease; /* Быстрый отклик на наклон */
+      will-change: transform;
+    }
+
+    /* Анимация импульса для иконки */
+    @keyframes iconPulse {
+      0% { box-shadow: 0 0 0 0 rgba(0, 150, 136, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(0, 150, 136, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 150, 136, 0); }
+    }
+
+    @keyframes iconShake {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(3deg); }
+      75% { transform: rotate(-3deg); }
+    }
+
+    /* Состояние, когда папка активна */
+    .folder.active .f-icon {
+      animation: iconPulse 2s infinite, iconShake 4s infinite ease-in-out;
+      border: 1px solid rgba(255, 255, 255,
+  
   </style>
 </head>
 <body>
@@ -732,6 +761,34 @@ function startTypewriter() {
       if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
     }
     pdfBody.onclick = (e) => { if(e.target === pdfBody) closeViewer(); };
+  
+    // 3D Tilt эффект с минимальным преломлением
+    const folders = document.querySelectorAll('.folder');
+
+    folders.forEach(folder => {
+      folder.addEventListener('mousemove', e => {
+        const rect = folder.getBoundingClientRect();
+        const x = e.clientX - rect.left; // положение X внутри карточки
+        const y = e.clientY - rect.top;  // положение Y внутри карточки
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        // Ограничиваем наклон до 2 градусов (0.02)
+        const rotateX = ((y - centerY) / centerY) * -2; 
+        const rotateY = ((x - centerX) / centerX) * 2;
+        
+        folder.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(${folder.classList.contains('reveal') ? 0 : '30px'})`;
+        folder.style.boxShadow = `${-rotateY * 5}px ${rotateX * 5}px 30px rgba(0,0,0,0.1)`;
+      });
+
+      folder.addEventListener('mouseleave', () => {
+        // Возвращаем в исходное состояние (с учетом reveal)
+        folder.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+        folder.style.boxShadow = '';
+      });
+    });
+  
   </script>
 </body>
 </html>
