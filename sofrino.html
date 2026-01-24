@@ -422,63 +422,137 @@
 
   <script>
     // 1. PHYSICS CANVAS
-    const canvasEl = document.getElementById('canvas-bg');
+const canvasEl = document.getElementById('canvas-bg');
     const ctxCanvas = canvasEl.getContext('2d');
     let particles = [];
+    let meteors = [];
     const particleCount = window.innerWidth < 768 ? 40 : 90;
+    let mouse = { x: null, y: null, targetX: 0, targetY: 0 };
 
-    function resizeCanvas() { canvasEl.width = window.innerWidth; canvasEl.height = window.innerHeight; }
+    function resizeCanvas() { 
+      canvasEl.width = window.innerWidth; 
+      canvasEl.height = window.innerHeight; 
+    }
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
+    // Параллакс: следим за мышью
+    window.addEventListener('mousemove', e => { 
+      mouse.x = e.x; mouse.y = e.y;
+      // Рассчитываем смещение для параллакса
+      mouse.targetX = (e.x - window.innerWidth / 2) * 0.05;
+      mouse.targetY = (e.y - window.innerHeight / 2) * 0.05;
+    });
+    window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+
     class Particle {
       constructor() {
+        this.reset();
+      }
+      reset() {
         this.x = Math.random() * canvasEl.width;
         this.y = Math.random() * canvasEl.height;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-        this.size = Math.random() * 2;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
+        this.size = Math.random() * 1.5 + 0.5;
+        this.pSize = this.size; // Для параллакса
       }
       update() {
+        // Движение + Параллакс (смещение зависит от размера частицы для глубины)
+        let px = this.x + mouse.targetX * (this.size * 0.5);
+        let py = this.y + mouse.targetY * (this.size * 0.5);
+
         this.x += this.vx; this.y += this.vy;
+
         if(this.x < 0 || this.x > canvasEl.width) this.vx *= -1;
         if(this.y < 0 || this.y > canvasEl.height) this.vy *= -1;
+
+        // Интерактив с мышью (отталкивание)
         if (mouse.x != null) {
-            let dx = mouse.x - this.x;
-            let dy = mouse.y - this.y;
+            let dx = mouse.x - px;
+            let dy = mouse.y - py;
             let distance = Math.sqrt(dx * dx + dy * dy);
-            const maxDistance = 150;
-            if (distance < maxDistance) {
-                const force = (maxDistance - distance) / maxDistance;
-                this.x -= (dx / distance) * force * 5;
-                this.y -= (dy / distance) * force * 5;
+            if (distance < 120) {
+                const force = (120 - distance) / 120;
+                this.x -= (dx / distance) * force * 3;
+                this.y -= (dy / distance) * force * 3;
             }
         }
       }
       draw() {
+        let px = this.x + mouse.targetX * (this.size * 0.5);
+        let py = this.y + mouse.targetY * (this.size * 0.5);
         ctxCanvas.fillStyle = 'rgba(0, 150, 136, 0.4)';
-        ctxCanvas.beginPath(); ctxCanvas.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctxCanvas.fill();
+        ctxCanvas.beginPath(); ctxCanvas.arc(px, py, this.size, 0, Math.PI * 2); ctxCanvas.fill();
       }
     }
-    for(let i=0; i<particleCount; i++) particles.push(new Particle());
 
-    let mouse = { x: null, y: null };
-    window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
-    window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+    // Класс Метеорит (редкие события)
+    class Meteor {
+      constructor() { this.init(); }
+      init() {
+        this.x = Math.random() * canvasEl.width;
+        this.y = -100;
+        this.speed = Math.random() * 10 + 5;
+        this.len = Math.random() * 80 + 40;
+        this.angle = Math.PI / 4; // под углом
+        this.active = true;
+      }
+      update() {
+        this.x += Math.cos(this.angle) * this.speed;
+        this.y += Math.sin(this.angle) * this.speed;
+        if (this.y > canvasEl.height + 200) this.active = false;
+      }
+      draw() {
+        const grad = ctxCanvas.createLinearGradient(this.x, this.y, this.x - this.len, this.y - this.len);
+        grad.addColorStop(0, 'rgba(0, 255, 204, 0.8)');
+        grad.addColorStop(1, 'transparent');
+        ctxCanvas.strokeStyle = grad;
+        ctxCanvas.lineWidth = 1;
+        ctxCanvas.beginPath();
+        ctxCanvas.moveTo(this.x, this.y);
+        ctxCanvas.lineTo(this.x - this.len, this.y - this.len);
+        ctxCanvas.stroke();
+      }
+    }
+
+    for(let i=0; i<particleCount; i++) particles.push(new Particle());
 
     function animateParticles() {
       ctxCanvas.clearRect(0, 0, canvasEl.width, canvasEl.height);
-      particles.forEach(p => {
+      
+      // Шанс появления метеорита (очень низкий)
+      if (Math.random() < 0.005 && meteors.length < 2) meteors.push(new Meteor());
+      meteors = meteors.filter(m => m.active);
+      meteors.forEach(m => { m.update(); m.draw(); });
+
+      particles.forEach((p, i) => {
         p.update(); p.draw();
-        particles.forEach(p2 => {
-          const dx = p.x - p2.x; const dy = p.y - p2.y;
+        
+        // Plexus Effect: Динамическая паутина
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          let px1 = p.x + mouse.targetX * (p.size * 0.5);
+          let py1 = p.y + mouse.targetY * (p.size * 0.5);
+          let px2 = p2.x + mouse.targetX * (p2.size * 0.5);
+          let py2 = p2.y + mouse.targetY * (p2.size * 0.5);
+
+          const dx = px1 - px2; 
+          const dy = py1 - py2;
           const dist = Math.sqrt(dx*dx + dy*dy);
-          if(dist < 100) {
-            ctxCanvas.strokeStyle = `rgba(0, 150, 136, ${0.15 - dist/1000})`;
-            ctxCanvas.lineWidth = 0.2;
-            ctxCanvas.beginPath(); ctxCanvas.moveTo(p.x, p.y); ctxCanvas.lineTo(p2.x, p2.y); ctxCanvas.stroke();
+
+          if(dist < 110) {
+            // Линии светятся ярче при сближении
+            const opacity = (110 - dist) / 1100;
+            const hue = 150 + (dist * 0.2); // легкий сдвиг цвета от изумруда к синеве
+            ctxCanvas.strokeStyle = `hsla(${hue}, 100%, 50%, ${opacity})`;
+            ctxCanvas.lineWidth = 0.3;
+            ctxCanvas.beginPath(); 
+            ctxCanvas.moveTo(px1, py1); 
+            ctxCanvas.lineTo(px2, py2); 
+            ctxCanvas.stroke();
           }
-        });
+        }
       });
       requestAnimationFrame(animateParticles);
     }
