@@ -14,7 +14,7 @@
 
   <style>
     /* =========================================
-       THEME: QUANTUM X (Cosmic Edition)
+       THEME: QUANTUM X (Final Polish)
        ========================================= */
     :root {
       --c-green: #009688; --c-neon: #00FFCC; --c-orange: #F59E0B; --c-blue: #2563EB; --c-purple: #7C3AED;
@@ -32,6 +32,7 @@
     body {
       margin: 0; padding: 0; font-family: 'Inter', sans-serif;
       color: var(--c-dark); background: #F1F5F9; overflow-x: hidden;
+      cursor: auto;
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
 
@@ -46,105 +47,125 @@
     .o1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(0, 150, 136, 0.2), transparent 70%); }
     .o2 { bottom: -10%; right: -10%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent 70%); }
 
-    /* === 2. ПРЕЛОАДЕР: DEEP SPACE === */
+    /* === 2. ПРЕЛОАДЕР: FIXED VISUALS === */
     #preloader { 
       position: fixed; inset: 0; z-index: 99999; 
-      background: #000000; /* Космический черный */
+      background: #000000; 
       display: flex; flex-direction: column; justify-content: center; align-items: center; 
       transition: opacity 1s ease, visibility 1s; 
       overflow: hidden;
     }
     
     /* Звезды */
+    #stars-container { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
     .star {
       position: absolute; background: #fff; border-radius: 50%;
-      animation: twinkle linear infinite; opacity: 0;
+      animation: twinkle linear infinite; opacity: 0.8;
     }
-    @keyframes twinkle { 0% { opacity: 0; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1.2); } 100% { opacity: 0; transform: scale(0.5); } }
+    @keyframes twinkle { 
+      0% { opacity: 0.3; transform: scale(0.8); } 
+      50% { opacity: 1; transform: scale(1.2); } 
+      100% { opacity: 0.3; transform: scale(0.8); } 
+    }
 
-    /* Планетарная система */
-    .solar-system { position: relative; width: 220px; height: 220px; display: flex; justify-content: center; align-items: center; }
+    /* Система */
+    .solar-system { position: relative; width: 220px; height: 220px; display: flex; justify-content: center; align-items: center; z-index: 10; }
     
     .planet-logo { 
-      width: 90px; z-index: 10; border-radius: 50%;
-      box-shadow: 0 0 30px rgba(0, 255, 204, 0.2); /* Свечение планеты */
+      width: 100px; height: auto; z-index: 10; object-fit: contain;
+      /* Исправлено свечение: Drop shadow вместо Box shadow чтобы не резало края */
+      filter: drop-shadow(0 0 25px rgba(0, 255, 204, 0.5)); 
       animation: pulsePlanet 3s infinite ease-in-out;
     }
     
-    /* Орбиты */
     .orbit {
-      position: absolute; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex; justify-content: center; align-items: center;
+      position: absolute; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex; justify-content: center; align-items: center; pointer-events: none;
     }
-    
-    /* Орбита 1 (Малая) */
-    .orb-1 { width: 130px; height: 130px; animation: orbitSpin 4s linear infinite; border-color: rgba(0, 150, 136, 0.3); }
+    .orb-1 { width: 140px; height: 140px; animation: orbitSpin 5s linear infinite; border-color: rgba(0, 150, 136, 0.3); }
     .orb-1::before { content: ""; position: absolute; top: -3px; width: 6px; height: 6px; background: #00FFCC; border-radius: 50%; box-shadow: 0 0 10px #00FFCC; }
     
-    /* Орбита 2 (Средняя) */
-    .orb-2 { width: 170px; height: 170px; animation: orbitSpin 7s linear infinite reverse; border-color: rgba(37, 99, 235, 0.3); }
+    .orb-2 { width: 180px; height: 180px; animation: orbitSpin 8s linear infinite reverse; border-color: rgba(37, 99, 235, 0.3); }
     .orb-2::before { content: ""; position: absolute; top: 15px; right: 15px; width: 8px; height: 8px; background: #2563EB; border-radius: 50%; box-shadow: 0 0 12px #2563EB; }
     
-    /* Орбита 3 (Большая) */
-    .orb-3 { width: 220px; height: 220px; animation: orbitSpin 12s linear infinite; border-color: rgba(245, 158, 11, 0.2); }
+    .orb-3 { width: 240px; height: 240px; animation: orbitSpin 15s linear infinite; border-color: rgba(245, 158, 11, 0.2); }
     .orb-3::before { content: ""; position: absolute; bottom: -4px; width: 5px; height: 5px; background: #F59E0B; border-radius: 50%; box-shadow: 0 0 8px #F59E0B; }
 
     .loading-status {
-      margin-top: 40px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; 
+      margin-top: 50px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; z-index: 10;
       color: rgba(0, 255, 204, 0.8); letter-spacing: 4px; text-transform: uppercase; text-shadow: 0 0 10px rgba(0,255,204,0.5);
     }
 
     @keyframes orbitSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    @keyframes pulsePlanet { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(0,255,204,0.3)); } 50% { transform: scale(1.05); filter: drop-shadow(0 0 30px rgba(0,255,204,0.6)); } }
+    @keyframes pulsePlanet { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(0,255,204,0.4)); } 50% { transform: scale(1.05); filter: drop-shadow(0 0 40px rgba(0,255,204,0.7)); } }
 
-    /* === 3. ШАПКА === */
+    /* === 3. ШАПКА + КОМПАКТНОЕ ВРЕМЯ === */
     .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.75); backdrop-filter: blur(25px); border-bottom: 1px solid rgba(255,255,255,0.5); padding: 12px 0; box-shadow: 0 4px 30px rgba(0,0,0,0.03); }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
     .nav { display: flex; justify-content: space-between; align-items: center; }
+    
     .brand { display: flex; align-items: center; gap: 14px; }
-    .brand img { height: 50px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
-    .brand-txt h1 { font-size: 1.15rem; font-weight: 800; line-height: 1; margin: 0; color: var(--c-dark); }
-    .brand-txt span { font-size: 0.7rem; font-weight: 700; color: var(--c-green); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; margin-top: 4px; }
-    .pulse-dot { width: 6px; height: 6px; background: var(--c-green); border-radius: 50%; box-shadow: 0 0 8px var(--c-green); animation: blink 2s infinite; }
-    @keyframes blink { 50% { opacity: 0.3; } }
+    .brand img { height: 48px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
+    
+    .brand-info { display: flex; flex-direction: column; }
+    .brand-txt h1 { font-size: 1.1rem; font-weight: 800; line-height: 1.1; margin: 0; color: var(--c-dark); }
+    .brand-meta { display: flex; align-items: center; gap: 10px; margin-top: 4px; font-size: 0.7rem; font-weight: 600; color: #64748B; }
+    
+    /* Стиль для времени внутри логотипа */
+    .hud-inline { 
+      display: flex; align-items: center; gap: 6px; 
+      font-family: 'JetBrains Mono', monospace; 
+      background: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: 4px;
+      color: #059669;
+    }
+    .hud-dot { width: 6px; height: 6px; background: #10B981; border-radius: 50%; box-shadow: 0 0 6px #10B981; animation: blink 1s infinite; }
+    @keyframes blink { 50% { opacity: 0.4; } }
 
-    .actions { display: flex; gap: 16px; align-items: center; }
-    .btn-portal { position: relative; display: flex; align-items: center; gap: 12px; padding: 0 20px; height: 46px; border-radius: 12px; background: #1e293b; color: #fff; text-decoration: none; overflow: hidden; box-shadow: 0 10px 20px rgba(15, 23, 42, 0.25); border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
+    .actions { display: flex; gap: 12px; align-items: center; }
+    
+    /* Кнопки */
+    .btn-portal { position: relative; display: flex; align-items: center; gap: 12px; padding: 0 20px; height: 44px; border-radius: 12px; background: #1e293b; color: #fff; text-decoration: none; overflow: hidden; box-shadow: 0 10px 20px rgba(15, 23, 42, 0.25); border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
     .btn-portal:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(15, 23, 42, 0.4); }
     .btn-portal::after { content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transform: skewX(-20deg); transition: 0.5s; }
     .btn-portal:hover::after { left: 150%; }
 
     .btn-site-wrap { padding: 2px; border-radius: 14px; background: linear-gradient(90deg, #00d2ff, #3a7bd5, #ff0080); background-size: 200% 200%; animation: gradientFlow 3s ease infinite; box-shadow: 0 5px 20px rgba(58, 123, 213, 0.25); transition: 0.3s; }
     .btn-site-wrap:hover { box-shadow: 0 10px 30px rgba(255, 0, 128, 0.35); transform: scale(1.02); }
-    .btn-site { display: flex; align-items: center; gap: 12px; height: 42px; padding: 0 20px; background: #fff; border-radius: 12px; text-decoration: none; color: var(--c-dark); position: relative; z-index: 2; }
+    .btn-site { display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 20px; background: #fff; border-radius: 12px; text-decoration: none; color: var(--c-dark); position: relative; z-index: 2; }
     @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
     .btn-col { display: flex; flex-direction: column; line-height: 1.1; }
     .btn-t1 { font-size: 0.85rem; font-weight: 700; }
     .btn-t2 { font-size: 0.65rem; opacity: 0.7; text-transform: uppercase; }
     .btn-ico { font-size: 1.3rem; }
-    @media (max-width: 768px) { .brand-txt, .btn-col { display: none; } .btn-portal, .btn-site { padding: 0; width: 44px; justify-content: center; } .btn-ico { margin: 0; font-size: 1.4rem; } .actions { gap: 10px; } }
+    
+    @media (max-width: 768px) {
+      .brand img { height: 40px; }
+      .brand-txt h1 { font-size: 1rem; }
+      .btn-portal, .btn-site { padding: 0; width: 44px; justify-content: center; }
+      .btn-col { display: none; }
+      .btn-ico { margin: 0; font-size: 1.4rem; }
+      .actions { gap: 8px; }
+      /* Скрываем подпись База знаний на мобилках для компактности, оставляем время */
+      .brand-meta span:first-child { display: none; } 
+    }
 
-    /* === 4. ГЕРОЙ: TYPEWRITER (BIG & NEON) === */
+    /* === 4. ГЕРОЙ: FIXED TEXT === */
     .hero { text-align: center; padding: 70px 0 40px; position: relative; }
     
-    /* Эффект печати */
+    /* Эффект печати (Чистый текст без бейджа) */
     .greeting-box {
-      font-family: 'JetBrains Mono', monospace; 
-      /* Увеличенный размер */
-      font-size: clamp(1.2rem, 3vw, 1.8rem); 
-      font-weight: 700; 
-      /* Цвет выделителя */
-      color: var(--c-neon); 
-      /* Неоновое свечение */
-      text-shadow: 0 0 10px rgba(0, 255, 204, 0.4), 0 0 20px rgba(0, 255, 204, 0.2);
-      margin-bottom: 20px; display: inline-flex; align-items: center;
-      background: rgba(0, 20, 40, 0.05); padding: 10px 20px; border-radius: 12px;
+      font-family: 'Inter', sans-serif; 
+      font-size: clamp(1.8rem, 5vw, 2.5rem); /* Увеличенный текст */
+      font-weight: 800; 
+      color: #1e293b; /* Темный цвет для читаемости */
+      margin-bottom: 10px; display: inline-flex; align-items: center;
+      line-height: 1.2;
     }
     .cursor { 
-      display: inline-block; width: 10px; height: 1.2em; 
-      background: var(--c-neon); margin-left: 8px; 
-      box-shadow: 0 0 10px var(--c-neon);
+      display: inline-block; width: 4px; height: 1em; 
+      background: var(--c-neon); margin-left: 5px; 
+      box-shadow: 0 0 10px var(--c-neon); /* Неоновый курсор */
       animation: blinkCursor 1s infinite; 
     }
     @keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
@@ -163,7 +184,7 @@
     .chip { padding: 8px 16px; border-radius: 50px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8); color: var(--c-text); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
     .chip:hover, .chip.active { background: #fff; color: var(--c-green); box-shadow: 0 5px 15px rgba(0, 150, 136, 0.15); transform: translateY(-2px); border-color: var(--c-green); }
 
-    /* === 5. ПАПКИ (FLAT & CLEAN) === */
+    /* === 5. ПАПКИ === */
     .stack { display: flex; flex-direction: column; gap: 24px; padding-bottom: 120px; }
     .folder { background: var(--glass); border: var(--border); border-radius: var(--radius); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); overflow: hidden; transition: 0.3s; position: relative; }
     .folder:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); border-color: #fff; }
@@ -248,30 +269,35 @@
   <div class="orb-layer"><div class="orb o1"></div><div class="orb o2"></div></div>
 
   <div id="preloader">
-    <div class="solar-system">
+    <div id="stars-container" style="position:absolute; inset:0; z-index:1;"></div>
+    
+    <div class="solar-system" style="z-index:2;">
       <div class="orbit orb-1"></div>
       <div class="orbit orb-2"></div>
       <div class="orbit orb-3"></div>
       <img src="assets/mnogocvet_logo.png" class="planet-logo">
     </div>
-    <div class="loading-status">ESTABLISHING CONNECTION</div>
-  </div>
-
-  <div class="hud-widget" style="position:fixed; top:20px; right:20px; z-index:200; background:rgba(255,255,255,0.7); backdrop-filter:blur(15px); padding:8px 16px; border-radius:50px; border:1px solid rgba(255,255,255,0.8); display:flex; align-items:center; gap:10px; color:#0F172A; font-family:'JetBrains Mono',monospace; font-size:0.8rem; font-weight:600;">
-    <div class="hud-dot" style="width:8px; height:8px; background:#10B981; border-radius:50%; box-shadow:0 0 10px #10B981; animation:blink 1s infinite;"></div>
-    <span id="systemTime">00:00</span> <span style="opacity:0.3">|</span> <span>ONLINE</span>
+    <div class="loading-status" style="z-index:2;">ESTABLISHING CONNECTION</div>
   </div>
 
   <header class="header">
     <div class="container nav">
       <div class="brand">
         <img src="assets/mnogocvet_logo.png" alt="Logo">
-        <div class="brand-txt"><h1>СОФРИНО ПАРК</h1><span>База знаний</span></div>
+        <div class="brand-info">
+          <div class="brand-txt"><h1>СОФРИНО ПАРК</h1></div>
+          <div class="brand-meta">
+            <span>База знаний</span>
+            <div class="hud-inline">
+              <div class="hud-dot"></div> <span id="systemTime">00:00</span>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="actions">
-        <a href="index.html" class="btn-portal"><span class="btn-ico">🎓</span><div class="btn-col"><span class="btn-t1">Учебный Портал</span><span class="btn-t2">Личный кабинет</span></div></a>
+        <a href="index.html" class="btn-portal"><span class="btn-ico">🎓</span><div class="btn-col"><span class="btn-t1">Учебный Портал</span><span class="btn-t2">СДО</span></div></a>
         <div class="btn-site-wrap">
-          <a href="https://sofrino-park.com/" target="_blank" class="btn-site"><span class="btn-ico">🌐</span><div class="btn-col"><span class="btn-t1">Парк-Отель</span><span class="btn-t2">Веб-сайт</span></div></a>
+          <a href="https://sofrino-park.com/" target="_blank" class="btn-site"><span class="btn-ico">🌐</span><div class="btn-col"><span class="btn-t1">Парк-Отель Софрино</span><span class="btn-t2">Официальный Веб-сайт</span></div></a>
         </div>
       </div>
     </div>
@@ -409,23 +435,23 @@
         this.size = Math.random() * 2;
       }
       update() {
-        // Basic movement
         this.x += this.vx; this.y += this.vy;
         if(this.x < 0 || this.x > canvasEl.width) this.vx *= -1;
         if(this.y < 0 || this.y > canvasEl.height) this.vy *= -1;
 
-        // REPULSION PHYSICS (Частицы разлетаются от мыши)
-        if(mouse.x) {
-          const dx = mouse.x - this.x; const dy = mouse.y - this.y;
-          const dist = Math.sqrt(dx*dx + dy*dy);
-          const forceRadius = 150;
-          
-          if (dist < forceRadius) {
-            const force = (forceRadius - dist) / forceRadius;
-            const directionX = dx / dist; const directionY = dy / dist;
-            this.x -= directionX * force * 3; 
-            this.y -= directionY * force * 3;
-          }
+        // Repulsion logic
+        if (mouse.x != null) {
+            let dx = mouse.x - this.x;
+            let dy = mouse.y - this.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            const maxDistance = 150;
+            if (distance < maxDistance) {
+                const force = (maxDistance - distance) / maxDistance;
+                const directionX = dx / distance;
+                const directionY = dy / distance;
+                this.x -= directionX * force * 5;
+                this.y -= directionY * force * 5;
+            }
         }
       }
       draw() {
@@ -433,7 +459,6 @@
         ctxCanvas.beginPath(); ctxCanvas.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctxCanvas.fill();
       }
     }
-
     for(let i=0; i<particleCount; i++) particles.push(new Particle());
 
     let mouse = { x: null, y: null };
@@ -444,7 +469,6 @@
       ctxCanvas.clearRect(0, 0, canvasEl.width, canvasEl.height);
       particles.forEach(p => {
         p.update(); p.draw();
-        // Neural connections
         particles.forEach(p2 => {
           const dx = p.x - p2.x; const dy = p.y - p2.y;
           const dist = Math.sqrt(dx*dx + dy*dy);
@@ -459,10 +483,14 @@
     }
     animateParticles();
 
-    // 2. PRELOADER & INIT
+    // 2. PRELOADER
     window.onload = function() {
-      // PRELOADER STARS
-      const starContainer = document.getElementById('preloader');
+      const starContainer = document.getElementById('stars-container');
+      const sc = document.createElement('div');
+      sc.id = 'stars-container';
+      sc.style.position = 'absolute'; sc.style.inset = '0'; sc.style.zIndex = '1';
+      document.getElementById('preloader').prepend(sc);
+
       for(let i=0; i<100; i++) {
         const star = document.createElement('div');
         star.className = 'star';
@@ -471,7 +499,7 @@
         star.style.width = Math.random() * 2 + 'px';
         star.style.height = star.style.width;
         star.style.animationDelay = Math.random() * 2 + 's';
-        starContainer.appendChild(star);
+        sc.appendChild(star);
       }
 
       setTimeout(() => {
@@ -484,14 +512,12 @@
         document.querySelectorAll('.pc-only').forEach(el => el.style.display = 'flex');
       }
       
-      // HUD Time
       setInterval(() => {
         const now = new Date();
         document.getElementById('systemTime').textContent = now.toLocaleTimeString();
       }, 1000);
     };
 
-    // 3. BIG NEON TYPEWRITER
     function startTypewriter() {
       const hour = new Date().getHours();
       let text = "Добрый день, коллега.";
@@ -506,7 +532,7 @@
       type();
     }
 
-    // 4. SEARCH
+    // SEARCH
     const searchInput = document.getElementById('searchInput');
     searchInput.addEventListener('input', function() {
       const filter = this.value.toLowerCase();
@@ -539,7 +565,6 @@
       });
     }
 
-    // UI
     function toggleFolder(id) { document.getElementById(id).classList.toggle('active'); }
     function toggleSub(head) { head.parentElement.classList.toggle('open'); }
 
