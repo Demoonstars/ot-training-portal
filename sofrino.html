@@ -117,22 +117,13 @@
     .btn-t2 { font-size: 0.65rem; opacity: 0.7; text-transform: uppercase; }
     
     @media (max-width: 768px) {
-      .brand img { height: 40px; }
-      .brand-txt h1 { font-size: 0.9rem; }
-      /* Кнопки на мобилках: компактные, но с текстом */
-      .btn-portal, .btn-site { 
-        padding: 0 12px; 
-        width: auto; 
-        height: 38px;
-        gap: 6px;
-      }
-      .btn-col { display: flex; } /* Включаем колонку текста обратно */
-      .btn-t1 { font-size: 0.7rem; } /* Уменьшаем шрифт основной надписи */
-      .btn-t2 { display: none; }    /* Скрываем длинное описание (вторую строку) */
-      .btn-ico { font-size: 1.1rem; }
-      .actions { gap: 6px; }
-      .brand-meta span:first-child { display: none; } 
-    }
+      .brand img { height: 40px; }
+      .brand-txt h1 { font-size: 1rem; }
+      .btn-portal, .btn-site { padding: 0; width: 44px; justify-content: center; }
+      .btn-col { display: none; }
+      .actions { gap: 8px; }
+      .brand-meta span:first-child { display: none; } 
+    }
 
     /* === 4. ГЕРОЙ === */
     .hero { text-align: center; padding: 70px 0 40px; position: relative; }
@@ -288,24 +279,12 @@
           </div>
         </div>
       </div>
-<div class="actions">
-        <a href="index.html" class="btn-portal">
-          <span class="btn-ico">🎓</span>
-          <div class="btn-col">
-            <span class="btn-t1">СДО</span>
-            <span class="btn-t2">Учебный Портал</span>
-          </div>
-        </a>
-        <div class="btn-site-wrap">
-          <a href="https://sofrino-park.com/" target="_blank" class="btn-site">
-            <span class="btn-ico">🌐</span>
-            <div class="btn-col">
-              <span class="btn-t1">САЙТ</span>
-              <span class="btn-t2">Официальный Веб-сайт</span>
-            </div>
-          </a>
-        </div>
-      </div>
+      <div class="actions">
+        <a href="index.html" class="btn-portal"><span class="btn-ico">🎓</span><div class="btn-col"><span class="btn-t1">Учебный Портал</span><span class="btn-t2">СДО</span></div></a>
+        <div class="btn-site-wrap">
+          <a href="https://sofrino-park.com/" target="_blank" class="btn-site"><span class="btn-ico">🌐</span><div class="btn-col"><span class="btn-t1">Софрино Парк</span><span class="btn-t2">Официальный Веб-сайт</span></div></a>
+        </div>
+      </div>
     </div>
   </header>
 
