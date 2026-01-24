@@ -591,9 +591,81 @@
       type();
     }
 
-    // TOGGLES
-    function toggleFolder(id) { document.getElementById(id).classList.toggle('active'); }
-    function toggleSub(head) { head.parentElement.classList.toggle('open'); }
+// === TOGGLES & SEARCH ENGINE (FIXED) ===
+    function toggleFolder(id) { 
+      document.getElementById(id).classList.toggle('active'); 
+    }
+    
+    function toggleSub(head) { 
+      head.parentElement.classList.toggle('open'); 
+    }
+
+    // РЕАЛИЗАЦИЯ ПОИСКА
+    const searchInput = document.getElementById('searchInput');
+    
+    searchInput.addEventListener('input', function() {
+      const query = this.value.toLowerCase().trim();
+      const files = document.querySelectorAll('.file');
+      
+      files.forEach(file => {
+        // Ищем в названии файла и во всех вложенных данных (бейджах)
+        const fileName = file.querySelector('.file-name').innerText.toLowerCase();
+        const fileMeta = file.innerText.toLowerCase(); 
+        
+        if (query === "") {
+          // Если поиск пустой — показываем всё и закрываем принудительно открытые папки
+          file.style.display = "flex";
+        } else if (fileName.includes(query) || fileMeta.includes(query)) {
+          // Если совпадение найдено
+          file.style.display = "flex";
+          
+          // Раскрываем дерево папок до этого файла
+          let parentFolder = file.closest('.folder');
+          let parentSub = file.closest('.sub-item');
+          
+          if (parentFolder) parentFolder.classList.add('active');
+          if (parentSub) parentSub.classList.add('open');
+        } else {
+          // Если не совпадает — скрываем
+          file.style.display = "none";
+        }
+      });
+      
+      // Скрываем пустые подразделы, если в них ничего не найдено при поиске
+      document.querySelectorAll('.sub-item').forEach(sub => {
+        const visibleFiles = sub.querySelectorAll('.file[style="display: flex;"]').length;
+        if (query !== "" && visibleFiles === 0) {
+          sub.style.display = "none";
+        } else {
+          sub.style.display = "block";
+        }
+      });
+    });
+
+    // Функция для работы кнопок-чипсов (фильтрация по категориям)
+    function filterDocs(type, btn) {
+      // Визуальный фокус на кнопке
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // Очищаем обычный поиск при нажатии на фильтр
+      searchInput.value = '';
+      
+      const files = document.querySelectorAll('.file');
+      files.forEach(file => {
+        const text = file.innerText;
+        if (type === 'all' || text.includes(type)) {
+          file.style.display = "flex";
+          if (type !== 'all') {
+            file.closest('.folder').classList.add('active');
+            let sub = file.closest('.sub-item');
+            if (sub) sub.classList.add('open');
+          }
+        } else {
+          file.style.display = "none";
+        }
+      });
+    }
 
     // PDF ENGINE
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null;
