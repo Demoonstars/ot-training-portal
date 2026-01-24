@@ -265,6 +265,37 @@
     .tg-txt p { margin: 0; font-size: 0.75rem; color: #229ED9; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 
     @media (max-width: 600px) { .f-head { padding: 15px; } .f-icon { width: 48px; height: 48px; font-size: 1.5rem; } .f-txt h3 { font-size: 1.1rem; } .sub-item { margin: 10px; } .pc-only { display: none !important; } }
+  
+    /* АНИМАЦИЯ ПОЯВЛЕНИЯ (QUANTUM CASCADE) */
+    .folder {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .folder.reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Улучшенный фокус на файлах */
+    .file {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .file:hover {
+      background: rgba(0, 150, 136, 0.05) !important;
+      box-shadow: inset 0 0 15px rgba(0, 150, 136, 0.1);
+    }
+
+    /* Плавная развертка подпапок */
+    .sub-body {
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+      opacity: 0;
+    }
+    .sub-item.open .sub-body {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -589,14 +620,26 @@ const canvasEl = document.getElementById('canvas-bg');
       }, 1000);
     };
 
-    function startTypewriter() {
+function startTypewriter() {
       const hour = new Date().getHours();
       let text = "Добрый день, коллега.";
       if (hour >= 5 && hour < 12) text = "Доброе утро, коллега.";
       else if (hour >= 18 || hour < 5) text = "Добрый вечер, коллега.";
+      
       const el = document.getElementById('typewriter');
       let i = 0;
-      function type() { if (i < text.length) { el.innerHTML += text.charAt(i); i++; setTimeout(type, 60); } }
+      function type() {
+        if (i < text.length) { el.innerHTML += text.charAt(i); i++; setTimeout(type, 60); }
+        else {
+          // Когда текст напечатан, запускаем появление папок по очереди
+          const folders = document.querySelectorAll('.folder');
+          folders.forEach((f, index) => {
+            setTimeout(() => {
+              f.classList.add('reveal');
+            }, index * 150); // Задержка между появлением каждой папки
+          });
+        }
+      }
       type();
     }
 
