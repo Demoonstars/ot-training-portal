@@ -48,8 +48,16 @@
       background: radial-gradient(circle at 100% 0%, rgba(79, 70, 229, 0.15) 0%, rgba(255, 255, 255, 0.9) 100%);
       border: 1px solid rgba(255,255,255,0.9); border-radius: 24px; padding: 40px; margin-bottom: 30px;
       position: relative; overflow: hidden; backdrop-filter: blur(20px);
-      box-shadow: 0 20px 40px -10px rgba(79, 70, 229, 0.1); transform-style: preserve-3d; transform: perspective(1000px);
+      box-shadow: 0 20px 40px -10px rgba(79, 70, 229, 0.1); 
+      transform-style: preserve-3d; transform: perspective(1000px);
     }
+    
+    /* ИСПРАВЛЕНИЕ: Добавлен translateZ для 3D объема внутренних элементов */
+    .hero-badge, .hero-title, .hero-desc {
+      transform: translateZ(40px);
+      position: relative;
+    }
+
     .hero-badge { display: inline-block; padding: 6px 12px; background: #e0e7ff; color: #3730a3; border: 1px solid #c7d2fe; border-radius: 8px; font-weight: 700; font-size: 0.8rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
     .hero-title { font-size: 2.2rem; font-weight: 800; color: #0f172a; margin: 0 0 15px; line-height: 1.1; }
     .hero-desc { font-size: 1.05rem; color: #475569; max-width: 800px; line-height: 1.6; }
@@ -182,6 +190,9 @@
     .btn-magic::before { content: ""; position: absolute; top: 50%; left: 50%; width: 300%; height: 300%; background: conic-gradient(transparent 0deg, transparent 260deg, #4f46e5 280deg, #8b5cf6 320deg, #c084fc 360deg); transform: translate(-50%, -50%); animation: rotate-border 4s linear infinite; z-index: -2; }
     .btn-magic::after { content: ""; position: absolute; inset: 2px; background: #0f172a; border-radius: 99px; z-index: -1; }
     .btn-magic:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(79, 70, 229, 0.4); }
+    
+    /* ИСПРАВЛЕНИЕ 1: Анимация змейки вокруг кнопки */
+    @keyframes rotate-border { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
 
     /* === PDF VIEWER V8.0 STYLES === */
     .custom-pdf-viewer { background: #f1f5f9; border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 20px; position: relative; overflow: hidden; margin-bottom: 40px; box-shadow: 0 20px 50px -10px rgba(0,0,0,0.1); height: 700px; display: flex; flex-direction: column; transition: background 0.3s; }
@@ -239,6 +250,7 @@
         .cinema-section { padding: 20px; border-radius: 20px; }
     }
     
+    /* Header Status */
     .system-status-pulse { display: inline-block; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; box-shadow: 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse-green 2s infinite; margin-right: 6px; }
     @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
     .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
@@ -452,7 +464,6 @@
         <p class="video-section-subtitle">Наглядная демонстрация действий в экстренных ситуациях</p>
         <div class="video-grid">
           
-          
            <article class="video-item">
             <div class="video-container">
               <iframe src="https://kinescope.io/embed/9UQmVaEeiB94ntNBtipF6f" allowfullscreen></iframe>
@@ -545,7 +556,7 @@
       <div class="test-zone reveal-up delay-200">
         <h2 style="font-size:1.8rem; font-weight:800; color:#0f172a; margin-bottom:15px;">Готовы к проверке?</h2>
         <p style="color:#64748b; max-width:600px; margin:0 auto 30px; font-size:1.1rem;">Если вы изучили материал, алгоритмы СОУТ и правила расследования НС, приступайте к тесту.</p>
-        <a href="ot-program-a-test.html" class="btn-magic">Перейти к тесту</a>
+        <a href="ot-program-a-test.html" class="btn-magic"><span>Перейти к тесту</span></a>
       </div>
 
     </div>
@@ -701,7 +712,7 @@
     // =========================================================
     // 6. PDF VIEWER LOGIC (V8.0: DRAG + MOBILE SWIPE)
     // =========================================================
-    const url = 'assets/Общие вопросы ОТ и функционирования СУОТ (пп. А п. 46 ПП РФ № 2464).pdf'; 
+    const url = 'assets/Общие_вопросы_ОТ_и_функционирования_СУОТ_пп_А_п_46_ПП_РФ_№_2464 (2).pdf'; 
     const storageKey = 'program_a_pdf_page';
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.0;
     const canvas = document.getElementById('the-canvas'), ctx = canvas.getContext('2d');
@@ -823,7 +834,7 @@
         // Swipe Page (Only if not zoomed)
         if (scale <= 1.1) {
             const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 100) { // Hard Swipe Threshold
+            if (Math.abs(diff) > 100) { 
                 if (diff > 0 && pageNum < pdfDoc.numPages) { pageNum++; queueRenderPage(pageNum); }
                 if (diff < 0 && pageNum > 1) { pageNum--; queueRenderPage(pageNum); }
             }
@@ -835,17 +846,17 @@
         hint.classList.add('show-hint'); setTimeout(() => hint.classList.remove('show-hint'), 3000);
     }
 
-    // Init
     pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
       pdfDoc = pdfDoc_;
       document.getElementById('page_count').textContent = pdfDoc.numPages;
       renderPage(pageNum);
     }).catch(err => {
         console.error(err);
-        document.getElementById('pdfLoader').innerHTML = `<p style="text-align:center; padding:20px; color:red">Файл не найден. Убедитесь, что имя файла совпадает до символа.<br><a href="${url}">Попробовать скачать</a></p>`;
+        document.getElementById('pdfLoader').innerHTML = `<p style="text-align:center; padding:20px; color:red">Файл не найден.<br>Проверьте путь: ${url}</p>`;
     });
     
     window.addEventListener('resize', () => { if(pdfDoc) renderPage(pageNum); });
+
   });
 </script>
 
