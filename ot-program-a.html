@@ -15,6 +15,48 @@
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
   </script>
 
+  /* ============================================================== */
+    /* === НОВЫЕ ИНТЕРАКТИВНЫЕ ВИДЖЕТЫ (ШТРАФЫ И КОМПЕНСАЦИИ) === */
+    /* ============================================================== */
+    
+    /* 1. Калькулятор штрафов */
+    .fines-widget { background: #fff; border-radius: 24px; padding: 30px; box-shadow: 0 20px 50px -10px rgba(0,0,0,0.05); margin-bottom: 40px; border: 1px solid #e2e8f0; position: relative; overflow: hidden; }
+    .fines-widget::before { content: "₽"; position: absolute; top: -20px; right: 20px; font-size: 8rem; opacity: 0.03; color: #ef4444; font-weight: 900; pointer-events: none; }
+    .widget-header-danger h3 { color: #991b1b; font-size: 1.5rem; margin: 0 0 10px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+    
+    .fines-options { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 25px; }
+    .fine-btn { flex: 1; min-width: 200px; padding: 15px; border-radius: 16px; background: #f8fafc; border: 2px solid #e2e8f0; cursor: pointer; transition: 0.3s; font-weight: 600; color: #475569; display: flex; align-items: center; gap: 10px; }
+    .fine-btn:hover { background: #f1f5f9; border-color: #cbd5e1; }
+    .fine-btn.active { background: #fef2f2; border-color: #ef4444; color: #991b1b; box-shadow: 0 10px 20px rgba(239, 68, 68, 0.15); transform: translateY(-3px); }
+    
+    .fines-results { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .fine-card { background: #fff; padding: 25px; border-radius: 20px; text-align: center; border: 1px solid #e2e8f0; box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: 0.3s; }
+    .fine-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
+    .fine-title { font-size: 1.1rem; color: #64748b; font-weight: 600; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+    .fine-amount { font-size: 2.2rem; font-weight: 800; color: #ef4444; margin: 0; font-variant-numeric: tabular-nums; transition: color 0.3s; }
+    .fine-desc { font-size: 0.85rem; color: #94a3b8; margin-top: 10px; }
+
+    /* 2. Матрица компенсаций */
+    .comp-widget { background: #fff; border-radius: 24px; padding: 30px; box-shadow: 0 20px 50px -10px rgba(0,0,0,0.05); margin-bottom: 40px; border: 1px solid #e2e8f0; }
+    .class-selector { display: flex; gap: 10px; margin-bottom: 25px; background: #f1f5f9; padding: 8px; border-radius: 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .class-selector::-webkit-scrollbar { display: none; }
+    .class-btn { flex: 1; min-width: 80px; text-align: center; padding: 12px; border-radius: 12px; font-weight: 700; color: #64748b; cursor: pointer; transition: 0.3s; border: none; background: transparent; }
+    .class-btn:hover { color: #0f172a; }
+    .class-btn.active { background: #fff; color: #4f46e5; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    
+    .comp-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+    .comp-card { padding: 25px 20px; border-radius: 20px; border: 2px solid #e2e8f0; background: #f8fafc; opacity: 0.5; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); text-align: center; filter: grayscale(1); transform: scale(0.95); }
+    .comp-card.active { opacity: 1; filter: grayscale(0); border-color: #10b981; background: #ecfdf5; transform: scale(1); box-shadow: 0 15px 30px -5px rgba(16, 185, 129, 0.25); }
+    .comp-icon { font-size: 3rem; margin-bottom: 15px; display: block; transition: transform 0.3s; }
+    .comp-card.active .comp-icon { transform: scale(1.1) rotate(5deg); }
+    .comp-name { font-weight: 700; color: #0f172a; font-size: 1.1rem; }
+    
+    @media (max-width: 600px) {
+        .fines-results { grid-template-columns: 1fr; }
+        .fine-btn { min-width: 100%; }
+        .comp-card { padding: 15px; }
+    }
+
   <style>
     /* === ТЕМА: ПРОГРАММА А (Индиго/Синий) === */
     body.masterpiece-theme {
@@ -278,6 +320,70 @@
         </div>
       </section>
 
+      <section class="fines-widget reveal-up delay-200">
+        <div class="widget-header-danger">
+            <h3>🚨 Калькулятор штрафов ГИТ (КоАП РФ)</h3>
+            <p style="color: #64748b; margin:0; font-size: 0.95rem;">Узнайте реальную стоимость нарушения требований охраны труда</p>
+        </div>
+        
+        <div class="fines-options">
+            <div class="fine-btn active" data-fine="obuch">
+                <span style="font-size: 1.5rem;">🎓</span> Нет обучения / медосмотра
+            </div>
+            <div class="fine-btn" data-fine="siz">
+                <span style="font-size: 1.5rem;">🦺</span> Не выдали СИЗ (2 класс)
+            </div>
+            <div class="fine-btn" data-fine="sout">
+                <span style="font-size: 1.5rem;">📊</span> Не провели СОУТ
+            </div>
+        </div>
+
+        <div class="fines-results">
+            <div class="fine-card">
+                <div class="fine-title">Юридическое лицо</div>
+                <div class="fine-amount" id="fineComp">130 000 ₽</div>
+                <div class="fine-desc">Штраф на компанию</div>
+            </div>
+            <div class="fine-card">
+                <div class="fine-title">Должностное лицо</div>
+                <div class="fine-amount" id="finePers">25 000 ₽</div>
+                <div class="fine-desc">Личный штраф руководителя</div>
+            </div>
+        </div>
+      </section>
+
+      <section class="comp-widget reveal-up delay-200">
+        <div class="widget-header" style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.5rem; font-weight: 800; color: #0f172a; margin: 0 0 5px;">Генератор льгот и компенсаций</h3>
+            <p style="color: #64748b; font-size: 0.95rem; margin: 0;">Выберите класс условий труда по результатам СОУТ, чтобы узнать положенные гарантии</p>
+        </div>
+
+        <div class="class-selector" id="classSelector">
+            <button class="class-btn" data-class="2">Класс 2.0</button>
+            <button class="class-btn active" data-class="3.1">Класс 3.1</button>
+            <button class="class-btn" data-class="3.2">Класс 3.2</button>
+            <button class="class-btn" data-class="3.3">Класс 3.3 / 3.4</button>
+        </div>
+
+        <div class="comp-cards">
+            <div class="comp-card active" id="compMoney">
+                <span class="comp-icon">💰</span>
+                <div class="comp-name">Надбавка +4%</div>
+                <div style="font-size:0.8rem; color:#64748b; margin-top:5px;">К окладу (ст. 147 ТК)</div>
+            </div>
+            <div class="comp-card" id="compVacation">
+                <span class="comp-icon">🌴</span>
+                <div class="comp-name">Отпуск +7 дней</div>
+                <div style="font-size:0.8rem; color:#64748b; margin-top:5px;">Оплачиваемый (ст. 117 ТК)</div>
+            </div>
+            <div class="comp-card" id="compTime">
+                <span class="comp-icon">⏱️</span>
+                <div class="comp-name">36 часов в неделю</div>
+                <div style="font-size:0.8rem; color:#64748b; margin-top:5px;">Сокращенное время (ст. 92 ТК)</div>
+            </div>
+        </div>
+      </section>
+      
       <section class="reveal-up delay-200" id="materials">
         <div class="custom-pdf-viewer" id="mainPdfContainer">
           
@@ -433,6 +539,8 @@
       });
     }
 
+
+    
     // =========================================================
     // 4. PDF VIEWER LOGIC (V8.0: PC DRAG + MOBILE SWIPE)
     // =========================================================
