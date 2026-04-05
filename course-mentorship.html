@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Материалы: Наставничество в гостиничном бизнесе</title>
+  <title>Курс: Наставничество в гостиничном бизнесе</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="description" content="Обучение наставников в отеле: TWI, СОПы, обратная связь и ситуационное руководство.">
   <link rel="stylesheet" href="assets/style.css">
@@ -84,7 +84,7 @@
     .alert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
     .alert-item { display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #7f1d1d; font-weight: 500; }
 
-    /* === ИСПРАВЛЕНО: Читаемость Flip Cards === */
+    /* Flip Cards */
     .flip-section-title { font-size: 1.5rem; font-weight: 700; color: #0f172a; margin: 0 0 20px; text-align: center; }
     .flip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px; }
     .flip-card { background-color: transparent; height: 280px; perspective: 1000px; cursor: pointer; }
@@ -92,28 +92,20 @@
     .flip-card:hover .flip-inner { transform: rotateY(180deg); }
     .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #e2e8f0; }
     .flip-front { background-color: #fff; color: #1e293b; }
-    
-    /* Улучшенный фон и цвет текста для обратной стороны */
     .flip-back { 
-        background: linear-gradient(135deg, #7c3aed, #4c1d95); /* Яркий благородный градиент */
-        color: #f8fafc; /* Ультра-белый/светло-серый текст */
+        background: linear-gradient(135deg, #7c3aed, #4c1d95); 
+        color: #f8fafc; 
         transform: rotateY(180deg); 
         box-shadow: inset 0 0 20px rgba(0,0,0,0.15);
     }
     .flip-icon { font-size: 3rem; margin-bottom: 10px; }
-    .flip-text { 
-        font-size: 1.05rem; /* Чуть крупнее */
-        font-weight: 500; /* Жирнее */
-        line-height: 1.5; 
-        text-shadow: 0 1px 3px rgba(0,0,0,0.5); /* Тень для идеальной читаемости */
-    }
+    .flip-text { font-size: 1.05rem; font-weight: 500; line-height: 1.5; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
     .flip-label { text-transform: uppercase; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 10px; opacity: 0.8; }
 
     /* ============================================================== */
     /* === ИНТЕРАКТИВНЫЕ ВИДЖЕТЫ (НАСТАВНИЧЕСТВО) === */
     /* ============================================================== */
     
-    /* Общий стиль контейнера виджета */
     .interactive-widget { background: #fff; border-radius: 24px; padding: 30px; box-shadow: 0 20px 50px -10px rgba(0,0,0,0.05); margin-bottom: 40px; border: 1px solid #e2e8f0; }
     .widget-header { text-align: center; margin-bottom: 25px; }
     .widget-header h3 { font-size: 1.5rem; color: #0f172a; margin: 0 0 10px; font-weight: 800; }
@@ -128,12 +120,14 @@
     .ds-btn-title { font-size: 1.1rem; font-weight: 800; }
     .ds-btn-desc { font-size: 0.8rem; font-weight: 400; opacity: 0.8; }
     
-    .ds-result-box { background: #4c1d95; color: #fff; border-radius: 20px; padding: 30px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; transition: 0.3s; }
+    /* ИСПРАВЛЕНИЕ ЦВЕТА ТЕКСТА НА ФИОЛЕТОВОМ ФОНЕ */
+    .ds-result-box { background: #4c1d95; border-radius: 20px; padding: 30px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; transition: 0.3s; color: #ffffff !important; }
+    .ds-result-box p, .ds-result-box ul, .ds-result-box li { color: #ffffff !important; }
     .ds-result-box::before { content: "🎯"; position: absolute; right: -20px; bottom: -20px; font-size: 10rem; opacity: 0.1; }
-    .ds-style-tag { background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; align-self: flex-start; margin-bottom: 15px; }
-    .ds-style-title { font-size: 1.8rem; font-weight: 800; margin: 0 0 15px; }
-    .ds-style-desc { font-size: 1rem; line-height: 1.6; opacity: 0.9; margin: 0 0 20px; position: relative; z-index: 1; }
-    .ds-action-list { margin: 0; padding-left: 20px; font-size: 0.9rem; opacity: 0.9; position: relative; z-index: 1; }
+    .ds-style-tag { background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; align-self: flex-start; margin-bottom: 15px; color: #ffffff; }
+    .ds-style-title { font-size: 1.8rem; font-weight: 800; margin: 0 0 15px; color: #ffffff; }
+    .ds-style-desc { font-size: 1rem; line-height: 1.6; opacity: 0.95; margin: 0 0 20px; position: relative; z-index: 1; }
+    .ds-action-list { margin: 0; padding-left: 20px; font-size: 0.9rem; opacity: 0.95; position: relative; z-index: 1; }
     .ds-action-list li { margin-bottom: 8px; }
 
     /* 2. Виджет: TWI Алгоритм */
@@ -147,7 +141,7 @@
     .widget-text { font-size: 1.05rem; color: #334155; line-height: 1.6; font-weight: 500; }
     .widget-icon-large { font-size: 3rem; margin-right: 20px; opacity: 0.8; }
 
-    /* 3. НОВЫЙ Виджет: Чат-симулятор (Chat Simulator) */
+    /* 3. НОВЫЙ Виджет: Чат-симулятор с анимацией печати */
     .chat-simulator { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
     .chat-history { padding: 20px; display: flex; flex-direction: column; gap: 15px; min-height: 250px; max-height: 500px; overflow-y: auto; background: #f1f5f9; }
     .chat-msg { display: flex; gap: 15px; max-width: 85%; animation: slideUpFade 0.4s ease-out forwards; opacity: 0; transform: translateY(10px); }
@@ -157,7 +151,7 @@
     .msg-bubble { background: #fff; padding: 15px 20px; border-radius: 20px; border-top-left-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); color: #334155; line-height: 1.5; font-size: 0.95rem; }
     .mentor-msg .msg-bubble { background: #9333ea; color: #fff; border-radius: 20px; border-top-right-radius: 5px; }
     
-    .chat-options { background: #fff; padding: 20px; border-top: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 10px; }
+    .chat-options { background: #fff; padding: 20px; border-top: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 10px; transition: opacity 0.3s; }
     .chat-btn { text-align: left; padding: 15px 20px; background: #fff; border: 2px solid #e2e8f0; border-radius: 12px; cursor: pointer; transition: 0.2s; color: #475569; font-weight: 500; font-size: 0.95rem; }
     .chat-btn:hover { border-color: #a855f7; background: #faf5ff; color: #7e22ce; transform: translateX(5px); box-shadow: 0 4px 10px rgba(147, 51, 234, 0.1); }
     
@@ -167,6 +161,13 @@
     
     .reset-chat-btn { margin-top: 15px; padding: 10px 20px; background: #0f172a; color: #fff; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; }
     .reset-chat-btn:hover { background: #334155; }
+
+    /* Анимация печати "..." */
+    .typing-indicator { display: flex; gap: 5px; padding: 15px 20px; background: #fff; border-radius: 20px; border-top-left-radius: 5px; width: fit-content; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    .dot { width: 8px; height: 8px; background: #cbd5e1; border-radius: 50%; animation: typing 1.4s infinite ease-in-out both; }
+    .dot:nth-child(1) { animation-delay: -0.32s; }
+    .dot:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
     /* FAQ */
     .faq-section { margin-bottom: 40px; }
@@ -291,13 +292,13 @@
       </section>
 
       <div class="steps-container reveal-up delay-100">
-        <div class="step-item"><div class="step-num">1</div><div class="step-text"><h4>Материалы</h4><p>Изучите стандарты</p></div></div>
-        <div class="step-item"><div class="step-num">2</div><div class="step-text"><h4>Тренажеры</h4><p>Закрепите навыки</p></div></div>
-        <div class="step-item"><div class="step-num">3</div><div class="step-text"><h4>Тест</h4><p>Пройдите проверку</p></div></div>
+        <div class="step-item"><div class="step-num">1</div><div class="step-text"><h4>Материалы</h4><p>Изучите теорию и СОПы</p></div></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-text"><h4>Интерактивы</h4><p>Закрепите в тренажерах</p></div></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-text"><h4>Тест</h4><p>Пройдите проверку знаний</p></div></div>
       </div>
 
       <div class="syllabus-grid reveal-up delay-200">
-        <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon" style="color: #9333ea;">🤝</span><h3 class="syl-title">Роль и Задачи</h3><ul class="syl-list"><li>Модели: Traditional, Buddy.</li><li>Адаптация сотрудников.</li><li>Взрослое обучение (Андрагогика).</li></ul></div></div>
+        <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon" style="color: #9333ea;">🤝</span><h3 class="syl-title">Роль и Задачи</h3><ul class="syl-list"><li>Модели: Traditional, Buddy, Developmental, Performance.</li><li>Цикл Колба и Андрагогика.</li><li>Правило 70:20:10.</li></ul></div></div>
         <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon" style="color: #0ea5e9;">🛠️</span><h3 class="syl-title">Методы обучения</h3><ul class="syl-list"><li>Рабочий инструктаж (TWI).</li><li>Ситуационное руководство.</li><li>Использование СОПов.</li></ul></div></div>
         <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon" style="color: #ec4899;">📊</span><h3 class="syl-title">Контроль и Сервис</h3><ul class="syl-list"><li>Обратная связь (SBI, BOFF).</li><li>Индекс лояльности (NPS).</li><li>Супервизия на рабочем месте.</li></ul></div></div>
       </div>
@@ -305,10 +306,10 @@
       <div class="alert-zone reveal-up delay-200">
         <div class="alert-header"><div class="alert-icon">🛑</div><h3 class="alert-title">ОШИБКИ НАСТАВНИКА (ЧЕГО ДЕЛАТЬ НЕЛЬЗЯ)</h3></div>
         <div class="alert-grid">
-            <div class="alert-item">✖ Проводить обучение или делать замечания при гостях отеля.</div>
-            <div class="alert-item">✖ Оценивать личность стажера, а не его действия.</div>
-            <div class="alert-item">✖ Оправдывать плохой сервис перед гостем словами "У нас стажер".</div>
-            <div class="alert-item">✖ Применять делегирующий стиль к новичку уровня D1.</div>
+            <div class="alert-item">✖ Проводить обучение или делать замечания при гостях отеля (роняет NPS).</div>
+            <div class="alert-item">✖ Оценивать личность стажера, а не его действия (нарушение SBI).</div>
+            <div class="alert-item">✖ Оправдываться перед гостем словами "У нас стажер".</div>
+            <div class="alert-item">✖ Оставлять новичка (D1) без контроля (Стиль S4).</div>
         </div>
       </div>
 
@@ -399,7 +400,7 @@
                  [Игнорирование] Ладно, не переживай, скажи старшему менеджеру, пусть сам разбирается с возвратом.
               </button>
               <button class="chat-btn" onclick="checkChatAnswer(3)">
-                 [Коучинг / SBI] Давай успокоимся. Открой СОП по заселению. На каком этапе ты не проверил детали бронирования?
+                 [Коучинг / ОС] Давай успокоимся. Открой СОП по заселению. На каком этапе ты не проверил детали бронирования?
               </button>
            </div>
         </div>
@@ -412,13 +413,13 @@
             <div class="pdf-header-left">
               <div class="pdf-file-icon">📄</div>
               <div class="pdf-file-info">
-                <h3>Материалы: Наставничество</h3>
-                <p>Презентации, СОПы, Инструкции</p>
+                <h3>УМК: Наставничество</h3>
+                <p>Полный учебный комплекс курса</p>
               </div>
             </div>
             <div class="pdf-top-actions">
                 <button class="btn-pdf-action" id="themeBtn" title="Ночной режим">🌙</button>
-                <a href="assets/Тема_1_Наставничество.pdf" download class="btn-pdf-action icon-only-mobile">
+                <a href="assets/УМК - Наставничество.pdf" download class="btn-pdf-action icon-only-mobile">
                     <span class="btn-text">Скачать</span><span class="btn-icon">📥</span>
                 </a>
                 <button class="btn-pdf-action btn-fullscreen" id="fullscreenBtn" title="На весь экран">⛶</button>
@@ -542,7 +543,7 @@
     }
 
     // =========================================================
-    // 5. ИНТЕРАКТИВНЫЕ ВИДЖЕТЫ
+    // 5. ИНТЕРАКТИВНЫЕ ВИДЖЕТЫ (НАСТАВНИЧЕСТВО)
     // =========================================================
     
     // Виджет 1: Ситуационное руководство (D-S)
@@ -607,14 +608,16 @@
         });
     }
 
-    // Виджет 3: Чат-симулятор
+    // Виджет 3: Чат-симулятор (ПЕРЕПИСАНА ЛОГИКА)
     window.checkChatAnswer = function(opt) {
         const history = document.getElementById('chatHistory');
         const options = document.getElementById('chatOptions');
         
         let userMsg = '';
         let feedbackHTML = '';
+        let isSuccess = false;
 
+        // Определяем ответ и результат
         if(opt === 1) {
             userMsg = 'Срочно иди извиняйся и оформляй возврат! Мы же вчера это проходили!';
             feedbackHTML = '<div class="chat-feedback error">❌ <strong>Ошибка:</strong> Директивный стиль (S1) неуместен. Стажер в стрессе, крик вызовет панику. Ошибка не будет осознана.</div>';
@@ -623,26 +626,50 @@
             feedbackHTML = '<div class="chat-feedback error">❌ <strong>Ошибка:</strong> Снятие ответственности. Стажер так и не научится решать конфликтные ситуации самостоятельно.</div>';
         } else if(opt === 3) {
             userMsg = 'Давай успокоимся. Открой СОП по заселению. На каком этапе ты не проверил детали бронирования?';
-            feedbackHTML = `<div class="chat-feedback success">✅ <strong>Идеально!</strong> Вы поддержали стажера, сняв первый стресс, и задали коучинговый вопрос (Стиль S3 Поддерживающий), побуждая его самому найти решение.<br><br>
-                <button onclick="resetChat()" class="reset-chat-btn">🔄 Пройти сценарий заново</button>
-            </div>`;
-            options.style.display = 'none';
+            feedbackHTML = '<div class="chat-feedback success">✅ <strong>Идеально!</strong> Вы поддержали стажера, сняв первый стресс, и задали коучинговый вопрос (Стиль S3 Поддерживающий), побуждая его самому найти решение.<br><br><button onclick="resetChat()" class="reset-chat-btn">🔄 Пройти сценарий заново</button></div>';
+            isSuccess = true;
         }
 
-        const mentorDiv = document.createElement('div');
-        mentorDiv.className = 'chat-msg mentor-msg';
-        mentorDiv.innerHTML = `<div class="msg-avatar">🧑‍🏫</div><div class="msg-bubble"><strong>Вы (Наставник):</strong> ${userMsg}</div>`;
-        history.appendChild(mentorDiv);
-
-        const fbDiv = document.createElement('div');
-        fbDiv.innerHTML = feedbackHTML;
-        history.appendChild(fbDiv.firstChild);
-
+        // Шаг 1: Прячем кнопки, выводим сообщение пользователя
+        options.style.opacity = '0';
+        setTimeout(() => options.style.display = 'none', 300);
+        
+        const mentorMsgHTML = `<div class="chat-msg mentor-msg"><div class="msg-avatar">🧑‍🏫</div><div class="msg-bubble"><strong>Вы:</strong> ${userMsg}</div></div>`;
+        history.insertAdjacentHTML('beforeend', mentorMsgHTML);
         history.scrollTop = history.scrollHeight;
+
+        // Шаг 2: Анимация "печатает..."
+        const typingId = 'typing-' + Date.now();
+        const typingHTML = `<div class="chat-msg trainee-msg" id="${typingId}"><div class="msg-avatar">🤖</div><div class="typing-indicator"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
+        
+        setTimeout(() => {
+            history.insertAdjacentHTML('beforeend', typingHTML);
+            history.scrollTop = history.scrollHeight;
+        }, 500);
+
+        // Шаг 3: Выдача результата
+        setTimeout(() => {
+            const typingIndicator = document.getElementById(typingId);
+            if(typingIndicator) typingIndicator.remove();
+            
+            history.insertAdjacentHTML('beforeend', feedbackHTML);
+            
+            // Если ошибка - возвращаем кнопки
+            if (!isSuccess) {
+                setTimeout(() => {
+                    options.style.display = 'flex';
+                    setTimeout(() => options.style.opacity = '1', 50);
+                    history.scrollTop = history.scrollHeight;
+                }, 1000);
+            }
+            history.scrollTop = history.scrollHeight;
+        }, 2000);
     };
 
     window.resetChat = function() {
         const history = document.getElementById('chatHistory');
+        const options = document.getElementById('chatOptions');
+        
         history.innerHTML = `
             <div class="chat-msg trainee-msg" style="opacity: 1; transform: translateY(0);">
                <div class="msg-avatar">👨‍🍳</div>
@@ -651,13 +678,15 @@
                </div>
             </div>
         `;
-        document.getElementById('chatOptions').style.display = 'flex';
+        
+        options.style.display = 'flex';
+        setTimeout(() => options.style.opacity = '1', 50);
     };
 
     // =========================================================
     // 6. PDF VIEWER LOGIC (V8.0)
     // =========================================================
-    const url = 'assets/Тема_1_Наставничество.pdf'; // Файл первой презентации
+    const url = 'assets/УМК - Наставничество.pdf'; // Файл УМК
     const storageKey = 'mentor_pdf_page';
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.0;
     const canvas = document.getElementById('the-canvas'), ctx = canvas.getContext('2d');
@@ -788,7 +817,7 @@
       renderPage(pageNum);
     }).catch(err => {
         console.error(err);
-        document.getElementById('pdfLoader').innerHTML = `<p style="text-align:center; padding:20px; color:red">Файл презентации не найден.<br>Убедитесь, что ${url} загружен.</p>`;
+        document.getElementById('pdfLoader').innerHTML = `<p style="text-align:center; padding:20px; color:red">Файл УМК не найден.<br>Убедитесь, что ${url} загружен.</p>`;
     });
     
     window.addEventListener('resize', () => { if(pdfDoc) renderPage(pageNum); });
