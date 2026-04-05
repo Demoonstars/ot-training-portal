@@ -278,10 +278,11 @@
           <button class="filter-chip" aria-pressed="false" data-filter="med">Первая помощь</button>
           <button class="filter-chip" aria-pressed="false" data-filter="gochs">ГО и ЧС</button>
           <button class="filter-chip" aria-pressed="false" data-filter="el">Электробезопасность</button>
+          <button class="filter-chip" aria-pressed="false" data-filter="hotel">Гостиничный бизнес</button>
         </div>
         
         <div id="resultsCount" style="text-align: center; margin-top: 15px; font-size: 0.85rem; color: #64748b; font-weight: 600;">
-          Доступно курсов: 5
+          Доступно курсов: 6
         </div>
       </div>
 
@@ -372,6 +373,23 @@
           </div>
         </article>
 
+        <article class="program-card" data-cat="hotel" data-keywords="наставник наставничество гостиница отель сервис адаптация стажировка обучение">
+          <div class="card-content">
+              <div class="card-top">
+                <div class="card-icon" style="background: #faf5ff; color: #9333ea;">🛎️</div>
+                <span class="status-tag">Профстандарт</span>
+              </div>
+              <h3 class="card-title">Наставничество в гостиничном бизнесе</h3>
+              <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
+              <p class="card-desc">
+                Обучение и адаптация новых сотрудников отеля. Эффективная передача опыта, стандарты сервиса и психология наставника.
+              </p>
+              <a href="course-mentorship.html" class="card-btn">
+                Перейти к обучению <span>➔</span>
+              </a>
+          </div>
+        </article>
+
       </div>
 
       <div id="noResults" style="display:none; text-align:center; padding: 60px 20px; color: #64748b;">
@@ -404,9 +422,9 @@
     const dateEl = document.getElementById('current-date');
     if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
 
-    // 2. ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ
+    // 2. ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ (ДОБАВЛЕН НОВЫЙ СЛОГАН)
     const textElement = document.getElementById('typing-text');
-    const texts = ["Реестр программ обучения", "Актуальные знания", "Безопасность труда"];
+    const texts = ["Реестр программ обучения", "Актуальные знания", "Безопасность труда", "Развитие персонала"];
     let textIndex = 0; charIndex = 0; isDeleting = false;
 
     function typeEffect() {
