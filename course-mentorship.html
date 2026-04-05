@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Курс: Наставничество в гостиничном бизнесе</title>
+  <title>Материалы: Наставничество в гостиничном бизнесе</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="description" content="Обучение наставников в отеле: TWI, СОПы, обратная связь и ситуационное руководство.">
   <link rel="stylesheet" href="assets/style.css">
@@ -23,6 +23,12 @@
     }
     @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     
+    /* ИСПРАВЛЕНИЕ АНИМАЦИИ: Вот это правило заставляет элементы всплывать */
+    @keyframes slideUpFade {
+      0% { opacity: 0; transform: translateY(15px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
     .reveal-up { opacity: 1 !important; transform: none !important; } 
     .js-loaded .reveal-up { opacity: 0 !important; transform: translateY(30px) !important; }
     .js-loaded .reveal-up.visible { opacity: 1 !important; transform: translateY(0) !important; transition: 0.6s ease-out; }
@@ -120,7 +126,6 @@
     .ds-btn-title { font-size: 1.1rem; font-weight: 800; }
     .ds-btn-desc { font-size: 0.8rem; font-weight: 400; opacity: 0.8; }
     
-    /* ИСПРАВЛЕНИЕ ЦВЕТА ТЕКСТА НА ФИОЛЕТОВОМ ФОНЕ */
     .ds-result-box { background: #4c1d95; border-radius: 20px; padding: 30px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; transition: 0.3s; color: #ffffff !important; }
     .ds-result-box p, .ds-result-box ul, .ds-result-box li { color: #ffffff !important; }
     .ds-result-box::before { content: "🎯"; position: absolute; right: -20px; bottom: -20px; font-size: 10rem; opacity: 0.1; }
@@ -141,21 +146,24 @@
     .widget-text { font-size: 1.05rem; color: #334155; line-height: 1.6; font-weight: 500; }
     .widget-icon-large { font-size: 3rem; margin-right: 20px; opacity: 0.8; }
 
-    /* 3. НОВЫЙ Виджет: Чат-симулятор с анимацией печати */
+    /* 3. Виджет: Чат-симулятор (Chat Simulator) ИСПРАВЛЕННЫЙ */
     .chat-simulator { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
-    .chat-history { padding: 20px; display: flex; flex-direction: column; gap: 15px; min-height: 250px; max-height: 500px; overflow-y: auto; background: #f1f5f9; }
-    .chat-msg { display: flex; gap: 15px; max-width: 85%; animation: slideUpFade 0.4s ease-out forwards; opacity: 0; transform: translateY(10px); }
+    .chat-history { padding: 20px; display: flex; flex-direction: column; gap: 15px; min-height: 250px; max-height: 400px; overflow-y: auto; background: #f1f5f9; scroll-behavior: smooth; }
+    
+    /* Сообщения в чате */
+    .chat-msg { display: flex; gap: 15px; max-width: 85%; opacity: 0; animation: slideUpFade 0.4s ease-out forwards; }
     .trainee-msg { align-self: flex-start; }
     .mentor-msg { align-self: flex-end; flex-direction: row-reverse; }
-    .msg-avatar { font-size: 2rem; background: #fff; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); flex-shrink: 0; }
+    
+    .msg-avatar { font-size: 1.8rem; background: #fff; border-radius: 50%; min-width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); flex-shrink: 0; }
     .msg-bubble { background: #fff; padding: 15px 20px; border-radius: 20px; border-top-left-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); color: #334155; line-height: 1.5; font-size: 0.95rem; }
     .mentor-msg .msg-bubble { background: #9333ea; color: #fff; border-radius: 20px; border-top-right-radius: 5px; }
     
-    .chat-options { background: #fff; padding: 20px; border-top: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 10px; transition: opacity 0.3s; }
-    .chat-btn { text-align: left; padding: 15px 20px; background: #fff; border: 2px solid #e2e8f0; border-radius: 12px; cursor: pointer; transition: 0.2s; color: #475569; font-weight: 500; font-size: 0.95rem; }
+    .chat-options { background: #fff; padding: 20px; border-top: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 10px; transition: opacity 0.3s ease; }
+    .chat-btn { text-align: left; padding: 15px 20px; background: #fff; border: 2px solid #e2e8f0; border-radius: 12px; cursor: pointer; transition: 0.2s; color: #475569; font-weight: 500; font-size: 0.95rem; line-height: 1.4; }
     .chat-btn:hover { border-color: #a855f7; background: #faf5ff; color: #7e22ce; transform: translateX(5px); box-shadow: 0 4px 10px rgba(147, 51, 234, 0.1); }
     
-    .chat-feedback { margin-top: 15px; padding: 15px 20px; border-radius: 12px; font-weight: 500; font-size: 0.95rem; line-height: 1.5; animation: slideUpFade 0.5s ease-out forwards; opacity: 0; transform: translateY(10px); }
+    .chat-feedback { margin-top: 10px; padding: 15px 20px; border-radius: 16px; font-weight: 500; font-size: 0.95rem; line-height: 1.5; animation: slideUpFade 0.4s ease-out forwards; opacity: 0; }
     .chat-feedback.success { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
     .chat-feedback.error { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
     
@@ -163,7 +171,7 @@
     .reset-chat-btn:hover { background: #334155; }
 
     /* Анимация печати "..." */
-    .typing-indicator { display: flex; gap: 5px; padding: 15px 20px; background: #fff; border-radius: 20px; border-top-left-radius: 5px; width: fit-content; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    .typing-indicator { display: flex; gap: 5px; padding: 15px 20px; background: #fff; border-radius: 20px; border-top-left-radius: 5px; width: fit-content; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); height: 50px;}
     .dot { width: 8px; height: 8px; background: #cbd5e1; border-radius: 50%; animation: typing 1.4s infinite ease-in-out both; }
     .dot:nth-child(1) { animation-delay: -0.32s; }
     .dot:nth-child(2) { animation-delay: -0.16s; }
@@ -380,12 +388,12 @@
 
       <section class="interactive-widget reveal-up delay-200">
         <div class="widget-header">
-            <h3>💬 Тренажер: Обратная связь в моменте</h3>
+            <h3>💬 Тренажер: Обратная связь в моменте (SBI)</h3>
             <p>Выберите правильную реакцию наставника в реальной ситуации со стажером</p>
         </div>
         <div class="chat-simulator">
            <div class="chat-history" id="chatHistory">
-              <div class="chat-msg trainee-msg" style="opacity: 1; transform: translateY(0);">
+              <div class="chat-msg trainee-msg" style="opacity: 1; transform: translateY(0); animation: none;">
                  <div class="msg-avatar">👨‍🍳</div>
                  <div class="msg-bubble">
                     <strong>Алексей (Стажер):</strong> Я случайно перепутал тарифы при заселении гостя и посчитал ему завтрак, хотя он в него не входил. Гость возмущался. Что мне теперь делать?
@@ -393,13 +401,13 @@
               </div>
            </div>
            <div class="chat-options" id="chatOptions">
-              <button class="chat-btn" onclick="checkChatAnswer(1)">
+              <button class="chat-btn" data-opt="1">
                  [Директивно] Срочно иди извиняйся и оформляй возврат! Мы же вчера это проходили!
               </button>
-              <button class="chat-btn" onclick="checkChatAnswer(2)">
+              <button class="chat-btn" data-opt="2">
                  [Игнорирование] Ладно, не переживай, скажи старшему менеджеру, пусть сам разбирается с возвратом.
               </button>
-              <button class="chat-btn" onclick="checkChatAnswer(3)">
+              <button class="chat-btn" data-opt="3">
                  [Коучинг / ОС] Давай успокоимся. Открой СОП по заселению. На каком этапе ты не проверил детали бронирования?
               </button>
            </div>
@@ -608,16 +616,16 @@
         });
     }
 
-    // Виджет 3: Чат-симулятор (ПЕРЕПИСАНА ЛОГИКА)
-    window.checkChatAnswer = function(opt) {
-        const history = document.getElementById('chatHistory');
-        const options = document.getElementById('chatOptions');
-        
+    // Виджет 3: Чат-симулятор ИСПРАВЛЕННЫЙ
+    const chatHistory = document.getElementById('chatHistory');
+    const chatOptions = document.getElementById('chatOptions');
+    const chatBtns = document.querySelectorAll('#chatOptions .chat-btn');
+
+    function checkChatAnswer(opt) {
         let userMsg = '';
         let feedbackHTML = '';
         let isSuccess = false;
 
-        // Определяем ответ и результат
         if(opt === 1) {
             userMsg = 'Срочно иди извиняйся и оформляй возврат! Мы же вчера это проходили!';
             feedbackHTML = '<div class="chat-feedback error">❌ <strong>Ошибка:</strong> Директивный стиль (S1) неуместен. Стажер в стрессе, крик вызовет панику. Ошибка не будет осознана.</div>';
@@ -626,67 +634,85 @@
             feedbackHTML = '<div class="chat-feedback error">❌ <strong>Ошибка:</strong> Снятие ответственности. Стажер так и не научится решать конфликтные ситуации самостоятельно.</div>';
         } else if(opt === 3) {
             userMsg = 'Давай успокоимся. Открой СОП по заселению. На каком этапе ты не проверил детали бронирования?';
-            feedbackHTML = '<div class="chat-feedback success">✅ <strong>Идеально!</strong> Вы поддержали стажера, сняв первый стресс, и задали коучинговый вопрос (Стиль S3 Поддерживающий), побуждая его самому найти решение.<br><br><button onclick="resetChat()" class="reset-chat-btn">🔄 Пройти сценарий заново</button></div>';
+            feedbackHTML = '<div class="chat-feedback success">✅ <strong>Идеально!</strong> Вы поддержали стажера, сняв первый стресс, и задали коучинговый вопрос (Стиль S3 Поддерживающий), побуждая его самому найти решение.<br><br><button id="resetChatBtn" class="reset-chat-btn">🔄 Пройти сценарий заново</button></div>';
             isSuccess = true;
         }
 
-        // Шаг 1: Прячем кнопки, выводим сообщение пользователя
-        options.style.opacity = '0';
-        setTimeout(() => options.style.display = 'none', 300);
+        // 1. Прячем кнопки и выводим ответ пользователя
+        chatOptions.style.opacity = '0';
+        chatOptions.style.pointerEvents = 'none';
+        setTimeout(() => chatOptions.style.display = 'none', 300);
         
-        const mentorMsgHTML = `<div class="chat-msg mentor-msg"><div class="msg-avatar">🧑‍🏫</div><div class="msg-bubble"><strong>Вы:</strong> ${userMsg}</div></div>`;
-        history.insertAdjacentHTML('beforeend', mentorMsgHTML);
-        history.scrollTop = history.scrollHeight;
+        const mentorMsgHTML = `<div class="chat-msg mentor-msg"><div class="msg-avatar">🧑‍🏫</div><div class="msg-bubble"><strong>Вы (Наставник):</strong> ${userMsg}</div></div>`;
+        chatHistory.insertAdjacentHTML('beforeend', mentorMsgHTML);
+        chatHistory.scrollTop = chatHistory.scrollHeight;
 
-        // Шаг 2: Анимация "печатает..."
+        // 2. Имитация "печатает..."
         const typingId = 'typing-' + Date.now();
-        const typingHTML = `<div class="chat-msg trainee-msg" id="${typingId}"><div class="msg-avatar">🤖</div><div class="typing-indicator"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
+        const typingHTML = `<div class="chat-msg trainee-msg" id="${typingId}"><div class="msg-avatar">👨‍🍳</div><div class="typing-indicator"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
         
         setTimeout(() => {
-            history.insertAdjacentHTML('beforeend', typingHTML);
-            history.scrollTop = history.scrollHeight;
+            chatHistory.insertAdjacentHTML('beforeend', typingHTML);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
         }, 500);
 
-        // Шаг 3: Выдача результата
+        // 3. Выдача результата
         setTimeout(() => {
             const typingIndicator = document.getElementById(typingId);
             if(typingIndicator) typingIndicator.remove();
             
-            history.insertAdjacentHTML('beforeend', feedbackHTML);
+            chatHistory.insertAdjacentHTML('beforeend', feedbackHTML);
             
-            // Если ошибка - возвращаем кнопки
             if (!isSuccess) {
+                // Если ошибка - возвращаем кнопки
                 setTimeout(() => {
-                    options.style.display = 'flex';
-                    setTimeout(() => options.style.opacity = '1', 50);
-                    history.scrollTop = history.scrollHeight;
-                }, 1000);
+                    chatOptions.style.display = 'flex';
+                    setTimeout(() => {
+                        chatOptions.style.opacity = '1';
+                        chatOptions.style.pointerEvents = 'auto';
+                    }, 50);
+                    chatHistory.scrollTop = chatHistory.scrollHeight;
+                }, 1500);
+            } else {
+                // Если успех - привязываем кнопку сброса
+                const resetBtn = document.getElementById('resetChatBtn');
+                if(resetBtn) {
+                    resetBtn.addEventListener('click', resetChat);
+                }
             }
-            history.scrollTop = history.scrollHeight;
+            chatHistory.scrollTop = chatHistory.scrollHeight;
         }, 2000);
-    };
+    }
 
-    window.resetChat = function() {
-        const history = document.getElementById('chatHistory');
-        const options = document.getElementById('chatOptions');
-        
-        history.innerHTML = `
-            <div class="chat-msg trainee-msg" style="opacity: 1; transform: translateY(0);">
+    function resetChat() {
+        chatHistory.innerHTML = `
+            <div class="chat-msg trainee-msg" style="opacity: 1; transform: translateY(0); animation: none;">
                <div class="msg-avatar">👨‍🍳</div>
                <div class="msg-bubble">
                   <strong>Алексей (Стажер):</strong> Я случайно перепутал тарифы при заселении гостя и посчитал ему завтрак, хотя он в него не входил. Гость возмущался. Что мне теперь делать?
                </div>
             </div>
         `;
-        
-        options.style.display = 'flex';
-        setTimeout(() => options.style.opacity = '1', 50);
-    };
+        chatOptions.style.display = 'flex';
+        setTimeout(() => {
+            chatOptions.style.opacity = '1';
+            chatOptions.style.pointerEvents = 'auto';
+        }, 50);
+    }
+
+    if(chatBtns.length > 0) {
+        chatBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const opt = parseInt(btn.getAttribute('data-opt'));
+                checkChatAnswer(opt);
+            });
+        });
+    }
 
     // =========================================================
     // 6. PDF VIEWER LOGIC (V8.0)
     // =========================================================
-    const url = 'assets/УМК - Наставничество.pdf'; // Файл УМК
+    const url = 'assets/УМК - Наставничество.pdf'; 
     const storageKey = 'mentor_pdf_page';
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.0;
     const canvas = document.getElementById('the-canvas'), ctx = canvas.getContext('2d');
