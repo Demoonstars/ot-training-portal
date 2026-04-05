@@ -18,7 +18,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      corePlugins: { preflight: false } // Отключаем сброс стилей, чтобы не сломать дизайн сайта
+      corePlugins: { preflight: false }
     }
   </script>
   <script type="importmap">
@@ -162,7 +162,26 @@
     .dot:nth-child(2) { animation-delay: -0.16s; }
     @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
-    /* === PDF VIEWER === */
+    /* FAQ */
+    .faq-section { margin-bottom: 40px; }
+    .faq-title { text-align: center; font-size: 1.8rem; font-weight: 700; color: #0f172a; margin-bottom: 25px; }
+    .faq-item { background: #fff; border-radius: 16px; margin-bottom: 10px; border: 1px solid #e2e8f0; overflow: hidden; transition: 0.3s; }
+    .faq-item:hover { border-color: #d8b4fe; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+    .faq-summary { padding: 18px 24px; cursor: pointer; font-weight: 600; color: #1e293b; display: flex; justify-content: space-between; align-items: center; list-style: none; }
+    .faq-summary::-webkit-details-marker { display: none; }
+    .faq-summary::after { content: "+"; font-size: 1.5rem; color: #94a3b8; transition: 0.3s; }
+    details[open] .faq-summary::after { transform: rotate(45deg); color: #9333ea; }
+    .faq-content { padding: 0 24px 24px; color: #64748b; font-size: 0.95rem; line-height: 1.6; }
+
+    /* CTA */
+    .test-zone { background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); border-radius: 30px; padding: 50px 30px; text-align: center; box-shadow: 0 20px 60px -10px rgba(0,0,0,0.1); border: 1px solid #fff; margin-bottom: 40px;}
+    .btn-magic { position: relative; display: inline-flex; justify-content: center; align-items: center; padding: 16px 32px; font-size: 1rem; font-weight: 700; color: #ffffff; background: #0f172a; border-radius: 99px; text-decoration: none; overflow: hidden; z-index: 10; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2); }
+    .btn-magic::before { content: ""; position: absolute; top: 50%; left: 50%; width: 300%; height: 300%; background: conic-gradient(transparent 0deg, transparent 260deg, #9333ea 280deg, #c084fc 320deg, #f0abfc 360deg); transform: translate(-50%, -50%); animation: rotate-border 4s linear infinite; z-index: -2; }
+    .btn-magic::after { content: ""; position: absolute; inset: 2px; background: #0f172a; border-radius: 99px; z-index: -1; }
+    .btn-magic:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(147, 51, 234, 0.4); }
+    @keyframes rotate-border { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+
+    /* === PDF VIEWER V8.0 STYLES === */
     .custom-pdf-viewer { background: #f1f5f9; border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 20px; position: relative; overflow: hidden; margin-bottom: 40px; box-shadow: 0 20px 50px -10px rgba(0,0,0,0.1); height: 700px; display: flex; flex-direction: column; transition: background 0.3s; }
     .custom-pdf-viewer.dark-theme { background: #1e293b; border-color: #334155; }
     .custom-pdf-viewer.dark-theme .pdf-viewer-header { background: #0f172a; border-bottom-color: #334155; color: #f1f5f9; }
@@ -191,25 +210,17 @@
     .pdf-loader { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #f1f5f9; z-index: 60; color: #64748b; font-weight: 600; }
     .spinner { width: 40px; height: 40px; border: 4px solid #cbd5e1; border-top-color: #9333ea; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 10px; }
     .gesture-hint { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: #fff; padding: 12px 20px; border-radius: 12px; text-align: center; pointer-events: none; opacity: 0; transition: opacity 0.5s; z-index: 70; }
-    .show-hint { opacity: 1; }
+    
+    @media (max-width: 600px) {
+        .custom-pdf-viewer { height: 500px; }
+        .ds-grid { grid-template-columns: 1fr; }
+    }
 
-    /* FAQ */
-    .faq-section { margin-bottom: 40px; }
-    .faq-title { text-align: center; font-size: 1.8rem; font-weight: 700; color: #0f172a; margin-bottom: 25px; }
-    .faq-item { background: #fff; border-radius: 16px; margin-bottom: 10px; border: 1px solid #e2e8f0; overflow: hidden; transition: 0.3s; }
-    .faq-item:hover { border-color: #d8b4fe; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
-    .faq-summary { padding: 18px 24px; cursor: pointer; font-weight: 600; color: #1e293b; display: flex; justify-content: space-between; align-items: center; list-style: none; }
-    .faq-summary::-webkit-details-marker { display: none; }
-    .faq-summary::after { content: "+"; font-size: 1.5rem; color: #94a3b8; transition: 0.3s; }
-    details[open] .faq-summary::after { transform: rotate(45deg); color: #9333ea; }
-    .faq-content { padding: 0 24px 24px; color: #64748b; font-size: 0.95rem; line-height: 1.6; }
-
-    /* CTA */
-    .test-zone { background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); border-radius: 30px; padding: 50px 30px; text-align: center; box-shadow: 0 20px 60px -10px rgba(0,0,0,0.1); border: 1px solid #fff; margin-bottom: 40px;}
-    .btn-magic { position: relative; display: inline-flex; justify-content: center; align-items: center; padding: 16px 32px; font-size: 1rem; font-weight: 700; color: #ffffff; background: #0f172a; border-radius: 99px; text-decoration: none; overflow: hidden; z-index: 10; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2); }
-    .btn-magic::before { content: ""; position: absolute; top: 50%; left: 50%; width: 300%; height: 300%; background: conic-gradient(transparent 0deg, transparent 260deg, #9333ea 280deg, #c084fc 320deg, #f0abfc 360deg); transform: translate(-50%, -50%); animation: rotate-border 4s linear infinite; z-index: -2; }
-    .btn-magic::after { content: ""; position: absolute; inset: 2px; background: #0f172a; border-radius: 99px; z-index: -1; }
-    .btn-magic:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(147, 51, 234, 0.4); }
+    /* === ЭТАЛОННАЯ ШАПКА === */
+    .system-status-pulse { display: inline-block; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; box-shadow: 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse-green 2s infinite; margin-right: 6px; }
+    @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+    .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
+    @media (max-width: 900px) { .header-meta { display: none; } }
 
     /* ИЗОЛЯЦИЯ REACT СИМУЛЯТОРА */
     #react-simulator-root * { box-sizing: border-box; border-width: 0; border-style: solid; border-color: #e5e7eb; }
@@ -239,7 +250,7 @@
       </div>
       <div class="header-meta">
         <span id="current-date">Загрузка...</span>
-        <span style="display:flex; align-items:center;"><span class="system-status-pulse" style="display: inline-block; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; box-shadow: 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse-green 2s infinite; margin-right: 6px;"></span> Online</span>
+        <span style="display:flex; align-items:center;"><span class="system-status-pulse"></span> Online</span>
       </div>
       <nav class="main-nav">
         <ul class="nav-list">
@@ -502,7 +513,7 @@
     const now = new Date();
     document.getElementById('current-date').textContent = now.toLocaleDateString('ru-RU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).replace(/^\w/, c => c.toUpperCase());
 
-    // 3. SCROLL PROGRESS & КНОПКА НАВЕРХ
+    // 3. SCROLL PROGRESS
     const progressBar = document.getElementById('readingProgress');
     const toTopBtn = document.getElementById('toTopBtn');
     window.addEventListener('scroll', () => {
@@ -514,7 +525,7 @@
     });
     toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-    // 4. 3D TILT (Desktop)
+    // 4. 3D TILT
     if (window.matchMedia("(min-width: 768px)").matches) {
       const hero = document.getElementById('tilt-hero');
       if(hero) {
@@ -537,11 +548,7 @@
       });
     }
 
-    // =========================================================
-    // 5. ВАНИЛЬНЫЕ ВИДЖЕТЫ (НАСТАВНИЧЕСТВО)
-    // =========================================================
-    
-    // Виджет 1: Ситуационное руководство (D-S)
+    // 5. ВАНИЛЬНЫЕ ВИДЖЕТЫ
     const dsData = {
         'd1': { tag: 'Стиль S1', title: 'Директивный (Инструктаж)', desc: 'Четкие приказы и жесткий контроль. Максимум инструкций, минимум дискуссий.', list: ['Ставим задачу: что, где, когда.', 'Выдаем СОП / чек-лист.', 'Контролируем каждый шаг.'] },
         'd2': { tag: 'Стиль S2', title: 'Наставнический (Продажа идей)', desc: 'Высокая ориентация на задачу и на людей. Объясняем решения, даем возможность уточнить.', list: ['Объясняем "зачем" и "почему".', 'Поощряем вопросы.', 'Совместно обсуждаем процесс.'] },
@@ -575,7 +582,6 @@
         });
     }
 
-    // Виджет 2: Алгоритм TWI
     const twiData = {
         1: { icon: "🧘", text: "<strong>Подготовка ученика:</strong> Снимите напряжение, создайте дружелюбную атмосферу. Узнайте, что он уже знает о процессе. Заинтересуйте его в правильном выполнении работы." },
         2: { icon: "👀", text: "<strong>Показ операций:</strong> Расскажите, покажите и проиллюстрируйте ОДИН важный этап за раз. Выделяйте ключевые моменты. Не давайте информации больше, чем можно усвоить." },
@@ -603,7 +609,6 @@
         });
     }
 
-    // Виджет 3: Чат-симулятор (Ванильный JS)
     const chatHistory = document.getElementById('chatHistory');
     const chatOptions = document.getElementById('chatOptions');
     const chatBtns = document.querySelectorAll('#chatOptions .chat-btn');
@@ -625,7 +630,6 @@
             isSuccess = true;
         }
 
-        // 1. Прячем кнопки и выводим ответ
         chatOptions.style.opacity = '0';
         chatOptions.style.pointerEvents = 'none';
         setTimeout(() => chatOptions.style.display = 'none', 300);
@@ -634,7 +638,6 @@
         chatHistory.insertAdjacentHTML('beforeend', mentorMsgHTML);
         chatHistory.scrollTop = chatHistory.scrollHeight;
 
-        // 2. Имитация "печатает..."
         const typingId = 'typing-' + Date.now();
         const typingHTML = `<div class="chat-msg trainee-msg" id="${typingId}"><div class="msg-avatar">👨‍🍳</div><div class="typing-indicator"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
         
@@ -643,7 +646,6 @@
             chatHistory.scrollTop = chatHistory.scrollHeight;
         }, 500);
 
-        // 3. Выдача результата
         setTimeout(() => {
             const typingIndicator = document.getElementById(typingId);
             if(typingIndicator) typingIndicator.remove();
@@ -694,9 +696,7 @@
         });
     }
 
-    // =========================================================
     // 6. PDF VIEWER LOGIC (V8.0)
-    // =========================================================
     const url = 'assets/УМК - Наставничество.pdf'; 
     const storageKey = 'mentor_pdf_page';
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.0;
@@ -838,11 +838,13 @@
 <script type="text/babel" data-type="module">
   import React, { useState, useEffect, useRef } from 'react';
   import { createRoot } from 'react-dom/client';
+  
+  // ИСПРАВЛЕНИЕ 2: ДОБАВЛЕНЫ ПРОПАВШИЕ ИКОНКИ (AlertTriangle и ShieldQuestion)
   import { 
-    Users, TrendingUp, Target, Award, ShieldCheck, 
+    Users, TrendingUp, Target, Award, ShieldCheck, ShieldQuestion,
     BrainCircuit, MessageSquareQuote, Layers, Compass,
     ChevronRight, Play, RotateCcw, CheckCircle2, XOctagon,
-    Star, BarChart3, Fingerprint, Zap, MessageCircle,
+    Star, BarChart3, Fingerprint, Zap, MessageCircle, AlertTriangle,
     Battery, Search, ListOrdered, BatteryWarning, BatteryCharging,
     SlidersHorizontal, Network, Maximize, Minimize, Volume2, VolumeX
   } from 'lucide-react';
@@ -1136,7 +1138,7 @@
     }
   ];
 
-  export default function MentorSimulator() {
+  function MentorSimulator() {
     const [gameState, setGameState] = useState('start'); 
     const [currentIdx, setCurrentIdx] = useState(0);
     const [eNPS, setEnps] = useState(50); 
@@ -1495,7 +1497,7 @@
     };
 
     return (
-      // ИСПРАВЛЕНИЕ: ЖЕСТКО ЗАФИКСИРОВАННАЯ ВЫСОТА КОНТЕЙНЕРА И ВНУТРЕННИЙ СКРОЛЛ. ТЕПЕРЬ НИЧЕГО НЕ ОБРЕЖЕТСЯ.
+      // Контейнер с фиксированной минимальной высотой, чтобы тренажер не обрезался
       <div ref={containerRef} className="relative w-full h-[850px] bg-[#050810] text-slate-200 font-sans p-2 md:p-4 flex items-center justify-center selection:bg-indigo-500/30 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(79,70,229,0.15)_0%,rgba(5,8,16,1)_100%)] pointer-events-none" />
 
@@ -1550,7 +1552,7 @@
           )}
 
           {/* --- MAIN CONTENT AREA WITH SCROLL --- */}
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl md:rounded-3xl shadow-2xl flex-1 flex flex-col relative overflow-hidden">
+          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl md:rounded-3xl shadow-[0_0_40px_rgba(0,0,0,0.5)] flex-1 flex flex-col relative overflow-hidden">
             <div className="absolute top-0 left-0 w-12 h-12 md:w-16 md:h-16 border-t-2 md:border-t-4 border-l-2 md:border-l-4 border-indigo-500/30 m-3 md:m-4 rounded-tl-xl pointer-events-none" />
             <div className="absolute bottom-0 right-0 w-12 h-12 md:w-16 md:h-16 border-b-2 md:border-b-4 border-r-2 md:border-r-4 border-indigo-500/30 m-3 md:m-4 rounded-br-xl pointer-events-none" />
 
@@ -1620,7 +1622,7 @@
 
               {/* FEEDBACK OVERLAY */}
               {gameState === 'playing' && feedback && (
-                <div className="absolute inset-0 z-50 bg-[#0B0F19]/95 backdrop-blur-xl flex flex-col items-center justify-center p-6 md:p-8 text-center animate-slide-up rounded-2xl md:rounded-3xl border border-slate-700/50 overflow-y-auto no-scrollbar">
+                <div className="absolute inset-0 z-50 bg-[#0B0F19]/95 backdrop-blur-xl flex flex-col items-center justify-center p-6 md:p-8 text-center animate-slide-up rounded-2xl overflow-y-auto no-scrollbar">
                   <div className="mb-4 md:mb-6 relative mt-auto pt-10">
                     <div className={`absolute inset-0 blur-3xl rounded-full ${feedback.isCorrect ? 'bg-emerald-500/20' : 'bg-rose-500/20'}`} />
                     {feedback.isCorrect ? <CheckCircle2 className="w-20 h-20 md:w-24 md:h-24 text-emerald-400 relative z-10" /> : <XOctagon className="w-20 h-20 md:w-24 md:h-24 text-rose-500 relative z-10" />}
