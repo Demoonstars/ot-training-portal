@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Наставничество</title>
+  <title>Курс: Наставничество</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="description" content="Обучение наставников в отеле: TWI, СОПы, обратная связь и ситуационное руководство.">
   <link rel="stylesheet" href="assets/style.css">
@@ -26,7 +26,7 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <style>
-    /* === ТЕМА: ГОСТИНИЧНЫЙ БИЗНЕС И РАЗВИТИЕ (Фиолетовый/Индиго) === */
+    /* === ТЕМА: ГОСТИНИЧНЫЙ БИЗНЕС И РАЗВИТИЕ === */
     body.masterpiece-theme {
       background: linear-gradient(-45deg, #faf5ff, #f3e8ff, #fdf4ff, #ffffff);
       background-size: 400% 400%; animation: gradientBG 15s ease infinite; min-height: 100vh;
@@ -133,9 +133,9 @@
     .widget-content-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 25px; display: flex; align-items: center; }
     .widget-icon-large { font-size: 3rem; margin-right: 20px; opacity: 0.8; }
 
-    /* Чат SBI */
+    /* Чат Симулятор */
     .chat-simulator { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
-    .chat-history { padding: 20px; display: flex; flex-direction: column; gap: 15px; min-height: 250px; max-height: 400px; overflow-y: auto; background: #f1f5f9; scroll-behavior: smooth; }
+    .chat-history { padding: 20px; display: flex; flex-direction: column; gap: 15px; min-height: 300px; max-height: 450px; overflow-y: auto; background: #f1f5f9; scroll-behavior: smooth; }
     .chat-msg { display: flex; gap: 15px; max-width: 85%; opacity: 0; animation: slideUpFade 0.4s ease-out forwards; }
     .trainee-msg { align-self: flex-start; }
     .mentor-msg { align-self: flex-end; flex-direction: row-reverse; }
@@ -149,6 +149,7 @@
     .chat-feedback.success { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
     .chat-feedback.error { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
     .reset-chat-btn { margin-top: 15px; padding: 10px 20px; background: #0f172a; color: #fff; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+    .reset-chat-btn:hover { background: #334155; }
     .typing-indicator { display: flex; gap: 5px; padding: 15px 20px; background: #fff; border-radius: 20px; border-top-left-radius: 5px; width: fit-content; align-items: center; height: 50px;}
     .dot { width: 8px; height: 8px; background: #cbd5e1; border-radius: 50%; animation: typing 1.4s infinite ease-in-out both; }
     .dot:nth-child(1) { animation-delay: -0.32s; }
@@ -184,37 +185,28 @@
     .custom-pdf-viewer.dark-theme .pdf-canvas-wrapper { background: radial-gradient(#475569 1px, transparent 1px); background-size: 20px 20px; }
     .custom-pdf-viewer.dark-theme #the-canvas { filter: brightness(0.9); }
     .custom-pdf-viewer.fullscreen-mode { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; width: 100vw !important; height: 100vh !important; z-index: 2147483647 !important; border-radius: 0 !important; margin: 0 !important; border: none !important; background: #e2e8f0 !important; }
-    .custom-pdf-viewer.fullscreen-mode.dark-theme { background: #0f172a !important; }
     .pdf-viewer-header { background: #fff; padding: 10px 15px; border-bottom: 1px solid #cbd5e1; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-shrink: 0; z-index: 10; }
     .pdf-header-left { display: flex; align-items: center; gap: 10px; overflow: hidden; }
     .pdf-file-icon { width: 32px; height: 32px; background: #f3e8ff; color: #9333ea; flex-shrink: 0; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
-    .pdf-file-info { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .pdf-file-info h3 { margin: 0; font-size: 0.9rem; color: #0f172a; overflow: hidden; text-overflow: ellipsis; }
     .pdf-file-info p { margin: 0; font-size: 0.75rem; color: #64748b; }
     .btn-pdf-action { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 0 12px; height: 36px; border-radius: 8px; background: #fff; border: 1px solid #cbd5e1; color: #334155; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
-    .btn-pdf-action:hover { border-color: #9333ea; color: #9333ea; }
     .pdf-read-progress { height: 3px; width: 0%; background: #9333ea; transition: width 0.2s; position: absolute; bottom: 0; left: 0; z-index: 15; }
     .pdf-canvas-wrapper { flex-grow: 1; overflow: auto; display: flex; justify-content: flex-start; align-items: flex-start; padding: 20px; padding-bottom: 100px; background: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px; touch-action: pan-x pan-y pinch-zoom; -webkit-overflow-scrolling: touch; position: relative; cursor: grab; }
     .pdf-canvas-wrapper.grabbing { cursor: grabbing; }
     #the-canvas { box-shadow: 0 4px 15px rgba(0,0,0,0.15); background: #fff; transform-origin: top left; margin: auto; display: block; transition: transform 0.1s ease-out, box-shadow 0.3s; }
-    #the-canvas.zoomed { box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
     .pdf-toolbar { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); padding: 8px 12px; border-radius: 50px; display: flex; align-items: center; gap: 12px; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 50; white-space: nowrap; max-width: 95%; }
     .tool-btn { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
     .tool-btn-icon { width: 30px; height: 30px; border-radius: 50%; background: transparent; border: none; color: #cbd5e1; cursor: pointer; font-size: 1.2rem; }
     .divider-v { width: 1px; height: 16px; background: rgba(255,255,255,0.2); }
     .page-input-group { display: flex; align-items: center; gap: 5px; font-family: monospace; font-size: 0.9rem; }
     #page_num_input { width: 40px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; text-align: center; border-radius: 4px; padding: 2px; -moz-appearance: textfield; }
-    #page_num_input:focus { border-color: #9333ea; outline: none; background: rgba(255,255,255,0.1); }
     .pdf-loader { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #f1f5f9; z-index: 60; color: #64748b; font-weight: 600; }
     .spinner { width: 40px; height: 40px; border: 4px solid #cbd5e1; border-top-color: #9333ea; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 10px; }
-    @keyframes spin { to { transform: rotate(360deg); } }
     .gesture-hint { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: #fff; padding: 12px 20px; border-radius: 12px; text-align: center; pointer-events: none; opacity: 0; transition: opacity 0.5s; z-index: 70; }
-    .show-hint { opacity: 1; }
-    .btn-text { display: inline; } .btn-icon { display: none; }
+    
     @media (max-width: 600px) {
-        .btn-text { display: none; } .btn-icon { display: inline; font-size: 1.2rem; }
         .custom-pdf-viewer { height: 500px; }
-        .pdf-toolbar { padding: 8px 10px; gap: 8px; }
         .ds-grid { grid-template-columns: 1fr; }
     }
 
@@ -223,6 +215,14 @@
     @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
     .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
     @media (max-width: 900px) { .header-meta { display: none; } }
+
+    /* CSS для гарантии работы подсветки кнопок в тренажере */
+    .sim-active-btn { background-color: rgba(16, 185, 129, 0.25) !important; border-color: #10b981 !important; color: #fff !important; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4) !important; }
+    .sim-active-btn-amber { background-color: rgba(245, 158, 11, 0.25) !important; border-color: #f59e0b !important; color: #fff !important; box-shadow: 0 0 12px rgba(245, 158, 11, 0.4) !important; }
+    .sim-active-btn-cyan { background-color: rgba(6, 182, 212, 0.25) !important; border-color: #06b6d4 !important; color: #fff !important; box-shadow: 0 0 12px rgba(6, 182, 212, 0.4) !important; }
+    .sim-active-btn-indigo { background-color: rgba(99, 102, 241, 0.25) !important; border-color: #6366f1 !important; color: #fff !important; box-shadow: 0 0 12px rgba(99, 102, 241, 0.4) !important; }
+    .sim-active-btn-rose { background-color: rgba(244, 63, 94, 0.25) !important; border-color: #f43f5e !important; color: #fff !important; box-shadow: 0 0 12px rgba(244, 63, 94, 0.4) !important; }
+    .text-outline-white { color: #0f172a !important; font-weight: 800 !important; text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff, 0px 2px 4px rgba(255,255,255,0.7) !important; }
 
     /* ИЗОЛЯЦИЯ REACT СИМУЛЯТОРА */
     #react-simulator-root * { box-sizing: border-box; border-width: 0; border-style: solid; border-color: #e5e7eb; }
@@ -298,10 +298,10 @@
       <div class="alert-zone reveal-up delay-200">
         <div class="alert-header"><div class="alert-icon">🛑</div><h3 class="alert-title">ОШИБКИ НАСТАВНИКА (ЧЕГО ДЕЛАТЬ НЕЛЬЗЯ)</h3></div>
         <div class="alert-grid">
-            <div class="alert-item">✖ Проводить обучение или делать замечания при гостях отеля.</div>
-            <div class="alert-item">✖ Оценивать личность стажера, а не его действия.</div>
+            <div class="alert-item">✖ Проводить обучение или делать замечания при гостях отеля (роняет NPS).</div>
+            <div class="alert-item">✖ Оценивать личность стажера, а не его действия (нарушение SBI).</div>
             <div class="alert-item">✖ Оправдываться перед гостем словами "У нас стажер".</div>
-            <div class="alert-item">✖ Применять делегирующий стиль к новичку уровня D1.</div>
+            <div class="alert-item">✖ Оставлять новичка (D1) без контроля (Стиль S4).</div>
         </div>
       </div>
 
@@ -373,28 +373,14 @@
       <section class="interactive-widget reveal-up delay-200">
         <div class="widget-header">
             <h3>💬 Тренажер: Обратная связь в моменте (SBI)</h3>
-            <p>Выберите правильную реакцию наставника в реальной ситуации со стажером</p>
+            <p>Отработайте 4 реальных сценария общения со стажерами разных служб</p>
+            <div id="chatProgress" style="display: inline-block; background: #f3e8ff; color: #7e22ce; padding: 4px 12px; border-radius: 99px; font-family: monospace; font-size: 0.8rem; font-weight: 700; margin-top: 10px;">СИТУАЦИЯ 1 ИЗ 4</div>
         </div>
         <div class="chat-simulator">
            <div class="chat-history" id="chatHistory">
-              <div class="chat-msg trainee-msg" style="opacity: 1; transform: translateY(0); animation: none;">
-                 <div class="msg-avatar">👨‍🍳</div>
-                 <div class="msg-bubble">
-                    <strong>Алексей (Стажер):</strong> Я случайно перепутал тарифы при заселении гостя и посчитал ему завтрак, хотя он в него не входил. Гость возмущался. Что мне теперь делать?
-                 </div>
               </div>
-           </div>
            <div class="chat-options" id="chatOptions">
-              <button class="chat-btn" data-opt="1">
-                 [Директивно] Срочно иди извиняйся и оформляй возврат! Мы же вчера это проходили!
-              </button>
-              <button class="chat-btn" data-opt="2">
-                 [Игнорирование] Ладно, не переживай, скажи старшему менеджеру, пусть сам разбирается с возвратом.
-              </button>
-              <button class="chat-btn" data-opt="3">
-                 [Коучинг / ОС] Давай успокоимся. Открой СОП по заселению. На каком этапе ты не проверил детали бронирования?
-              </button>
-           </div>
+              </div>
         </div>
       </section>
 
@@ -411,7 +397,7 @@
             </div>
             <div class="pdf-top-actions">
                 <button class="btn-pdf-action" id="themeBtn" title="Ночной режим">🌙</button>
-                <a href="assets/УМК - Наставничество.pdf" download class="btn-pdf-action icon-only-mobile">
+                <a href="assets/Наставничество_в_индустрии_гостеприимства.pdf" download class="btn-pdf-action icon-only-mobile">
                     <span class="btn-text">Скачать</span><span class="btn-icon">📥</span>
                 </a>
                 <button class="btn-pdf-action btn-fullscreen" id="fullscreenBtn" title="На весь экран">⛶</button>
@@ -513,10 +499,7 @@
   document.addEventListener("DOMContentLoaded", function() {
     // 2. ДАТА В ШАПКЕ
     const now = new Date();
-    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const dateStr = now.toLocaleDateString('ru-RU', dateOptions);
-    const dateEl = document.getElementById('current-date');
-    if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+    document.getElementById('current-date').textContent = now.toLocaleDateString('ru-RU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).replace(/^\w/, c => c.toUpperCase());
 
     // 3. SCROLL PROGRESS
     const progressBar = document.getElementById('readingProgress');
@@ -614,94 +597,157 @@
         });
     }
 
+    // =========================================================
+    // НОВЫЙ МНОГОУРОВНЕВЫЙ ЧАТ-СИМУЛЯТОР (Vanilla JS)
+    // =========================================================
+    const chatScenarios = [
+      {
+        trainee: "Алексей (Стажер СПИР)",
+        avatar: "👨‍💼",
+        msg: "Я случайно перепутал тарифы при заселении гостя и посчитал ему завтрак, хотя он в него не входил. Гость возмущался. Что мне теперь делать?",
+        options: [
+          { text: "[Директивно] Срочно иди извиняйся и оформляй возврат! Мы же вчера это проходили!", isCorrect: false, feedback: "❌ <strong>Ошибка:</strong> Директивный стиль (S1) неуместен. Стажер в стрессе, крик вызовет панику." },
+          { text: "[Игнорирование] Ладно, не переживай, скажи старшему менеджеру, пусть сам разбирается.", isCorrect: false, feedback: "❌ <strong>Ошибка:</strong> Снятие ответственности. Стажер так и не научится решать конфликтные ситуации самостоятельно." },
+          { text: "[Коучинг] Давай успокоимся. Открой СОП по заселению. На каком этапе ты не проверил детали бронирования?", isCorrect: true, feedback: "✅ <strong>Идеально!</strong> Вы поддержали стажера, сняв первый стресс, и задали коучинговый вопрос (Стиль S3)." }
+        ]
+      },
+      {
+        trainee: "Мария (Горничная)",
+        avatar: "🧹",
+        msg: "Шеф, вы меня искали? Я закончила уборку 302 номера, перехожу к 304-му.",
+        options: [
+          { text: "[Оценка личности] Мария, ты опять работаешь неаккуратно! Тележка стоит поперек коридора, ты о гостях не думаешь?", isCorrect: false, feedback: "❌ <strong>Ошибка:</strong> Переход на личности («неаккуратна», «не думаешь»). Это вызовет обиду и защитную реакцию." },
+          { text: "[Метод SBI] Мария, 5 минут назад я видел твою тележку посреди коридора. Гостям с чемоданами было трудно пройти. Давай парковать её в нишах.", isCorrect: true, feedback: "✅ <strong>Отлично!</strong> Модель SBI: Ситуация (5 мин назад) -> Поведение (тележка в коридоре) -> Влияние (гостям трудно пройти)." },
+          { text: "[Сэндвич] Маша, ты молодец, убираешь чисто. Но тележку ставишь криво. А так всё супер, продолжай!", isCorrect: false, feedback: "❌ <strong>Ошибка:</strong> Метод «Сэндвич» (похвала-критика-похвала) устарел. Стажер не понимает: его ругают или хвалят?" }
+        ]
+      },
+      {
+        trainee: "Иван (Официант)",
+        avatar: "☕",
+        msg: "Смена прошла отлично, все гости довольны. У меня 3 столика закрылись с хорошими чеками.",
+        options: [
+          { text: "[Угроза] Если не начнешь предлагать осеннее меню, я лишу тебя премии в конце месяца.", isCorrect: false, feedback: "❌ <strong>Ошибка:</strong> Угрозы демотивируют и создают токсичную среду." },
+          { text: "[Пассивная агрессия] Ну да, конечно довольны. Только осеннее меню мы, видимо, сами будем пить.", isCorrect: false, feedback: "❌ <strong>Ошибка:</strong> Пассивная агрессия разрушает доверие к наставнику." },
+          { text: "[Feedforward] Иван, заметил, что ты не предлагаешь спецпредложение. В следующий раз начни подход к гостю именно с него, это поднимет средний чек.", isCorrect: true, feedback: "✅ <strong>Блестяще!</strong> Метод Feedforward (Взгляд в будущее): вы не ругаете за прошлое, а даете четкую инструкцию на будущее." }
+        ]
+      },
+      {
+        trainee: "Елена (Хостес)",
+        avatar: "💁‍♀️",
+        msg: "Извините, я сегодня немного рассеянная... Вроде всех посадила, но чувствую, что ничего не успеваю.",
+        options: [
+          { text: "[Директивно] Улыбайся или иди домой. Гости не должны видеть твое настроение, это стандарт!", isCorrect: false, feedback: "❌ <strong>Ошибка:</strong> Отсутствие эмпатии. Сотрудник замкнется в себе и может уволиться." },
+          { text: "[Поддержка S3] Елена, всё в порядке? Ты выглядишь уставшей сегодня. Может, тебе нужен 10-минутный перерыв выпить кофе?", isCorrect: true, feedback: "✅ <strong>Идеально!</strong> Поддерживающий стиль (S3). Вы заметили состояние сотрудника и проявили эмпатию. Это укрепляет лояльность." },
+          { text: "[Игнорирование] Ничего страшного, у всех бывает. Иди отнеси меню на 5 стол.", isCorrect: false, feedback: "❌ <strong>Ошибка:</strong> Проблема не решена, сотрудник продолжит работать неэффективно и транслировать негатив гостям." }
+        ]
+      }
+    ];
+
+    let currentChatIndex = 0;
     const chatHistory = document.getElementById('chatHistory');
     const chatOptions = document.getElementById('chatOptions');
-    const chatBtns = document.querySelectorAll('#chatOptions .chat-btn');
+    const chatProgress = document.getElementById('chatProgress');
+    let isChatLocked = false;
 
-    window.checkChatAnswer = function(opt) {
-        let userMsg = '';
-        let feedbackHTML = '';
-        let isSuccess = false;
+    function renderChatScenario() {
+      const scenario = chatScenarios[currentChatIndex];
+      chatProgress.textContent = `СИТУАЦИЯ ${currentChatIndex + 1} ИЗ ${chatScenarios.length}`;
+      
+      chatHistory.innerHTML = `
+        <div class="chat-msg trainee-msg" style="opacity: 1; transform: translateY(0); animation: none;">
+           <div class="msg-avatar">${scenario.avatar}</div>
+           <div class="msg-bubble">
+              <strong>${scenario.trainee}:</strong> ${scenario.msg}
+           </div>
+        </div>
+      `;
 
-        if(opt === 1) {
-            userMsg = 'Срочно иди извиняйся и оформляй возврат! Мы же вчера это проходили!';
-            feedbackHTML = '<div class="chat-feedback error">❌ <strong>Ошибка:</strong> Директивный стиль (S1) неуместен. Стажер в стрессе, крик вызовет панику. Ошибка не будет осознана.</div>';
-        } else if(opt === 2) {
-            userMsg = 'Ладно, не переживай, скажи старшему менеджеру, пусть сам разбирается с возвратом.';
-            feedbackHTML = '<div class="chat-feedback error">❌ <strong>Ошибка:</strong> Снятие ответственности. Стажер так и не научится решать конфликтные ситуации самостоятельно.</div>';
-        } else if(opt === 3) {
-            userMsg = 'Давай успокоимся. Открой СОП по заселению. На каком этапе ты не проверил детали бронирования?';
-            feedbackHTML = '<div class="chat-feedback success">✅ <strong>Идеально!</strong> Вы поддержали стажера, сняв первый стресс, и задали коучинговый вопрос (Стиль S3 Поддерживающий), побуждая его самому найти решение.<br><br><button id="resetChatBtn" class="reset-chat-btn">🔄 Пройти сценарий заново</button></div>';
-            isSuccess = true;
-        }
+      chatOptions.innerHTML = '';
+      scenario.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'chat-btn';
+        btn.textContent = opt.text;
+        btn.onclick = () => handleChatOption(idx);
+        chatOptions.appendChild(btn);
+      });
 
-        chatOptions.style.opacity = '0';
-        chatOptions.style.pointerEvents = 'none';
-        setTimeout(() => chatOptions.style.display = 'none', 300);
-        
-        const mentorMsgHTML = `<div class="chat-msg mentor-msg"><div class="msg-avatar">🧑‍🏫</div><div class="msg-bubble"><strong>Вы (Наставник):</strong> ${userMsg}</div></div>`;
-        chatHistory.insertAdjacentHTML('beforeend', mentorMsgHTML);
-        chatHistory.scrollTop = chatHistory.scrollHeight;
-
-        const typingId = 'typing-' + Date.now();
-        const typingHTML = `<div class="chat-msg trainee-msg" id="${typingId}"><div class="msg-avatar">👨‍🍳</div><div class="typing-indicator"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
-        
-        setTimeout(() => {
-            chatHistory.insertAdjacentHTML('beforeend', typingHTML);
-            chatHistory.scrollTop = chatHistory.scrollHeight;
-        }, 500);
-
-        setTimeout(() => {
-            const typingIndicator = document.getElementById(typingId);
-            if(typingIndicator) typingIndicator.remove();
-            
-            chatHistory.insertAdjacentHTML('beforeend', feedbackHTML);
-            
-            if (!isSuccess) {
-                setTimeout(() => {
-                    chatOptions.style.display = 'flex';
-                    setTimeout(() => {
-                        chatOptions.style.opacity = '1';
-                        chatOptions.style.pointerEvents = 'auto';
-                    }, 50);
-                    chatHistory.scrollTop = chatHistory.scrollHeight;
-                }, 1500);
-            } else {
-                const resetBtn = document.getElementById('resetChatBtn');
-                if(resetBtn) {
-                    resetBtn.addEventListener('click', resetChat);
-                }
-            }
-            chatHistory.scrollTop = chatHistory.scrollHeight;
-        }, 2000);
-    };
-
-    window.resetChat = function() {
-        chatHistory.innerHTML = `
-            <div class="chat-msg trainee-msg" style="opacity: 1; transform: translateY(0); animation: none;">
-               <div class="msg-avatar">👨‍🍳</div>
-               <div class="msg-bubble">
-                  <strong>Алексей (Стажер):</strong> Я случайно перепутал тарифы при заселении гостя и посчитал ему завтрак, хотя он в него не входил. Гость возмущался. Что мне теперь делать?
-               </div>
-            </div>
-        `;
-        chatOptions.style.display = 'flex';
-        setTimeout(() => {
-            chatOptions.style.opacity = '1';
-            chatOptions.style.pointerEvents = 'auto';
-        }, 50);
-    };
-
-    if(chatBtns.length > 0) {
-        chatBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const opt = parseInt(btn.getAttribute('data-opt'));
-                checkChatAnswer(opt);
-            });
-        });
+      chatOptions.style.display = 'flex';
+      setTimeout(() => { chatOptions.style.opacity = '1'; }, 50);
+      isChatLocked = false;
     }
 
+    function handleChatOption(optIndex) {
+      if(isChatLocked) return;
+      isChatLocked = true;
+
+      const scenario = chatScenarios[currentChatIndex];
+      const selectedOption = scenario.options[optIndex];
+
+      // 1. Скрываем кнопки, показываем ответ наставника
+      chatOptions.style.opacity = '0';
+      setTimeout(() => chatOptions.style.display = 'none', 300);
+      
+      const mentorMsgHTML = `<div class="chat-msg mentor-msg"><div class="msg-avatar">🧑‍🏫</div><div class="msg-bubble"><strong>Вы (Наставник):</strong> ${selectedOption.text}</div></div>`;
+      chatHistory.insertAdjacentHTML('beforeend', mentorMsgHTML);
+      chatHistory.scrollTop = chatHistory.scrollHeight;
+
+      // 2. Имитация печатания...
+      const typingId = 'typing-' + Date.now();
+      const typingHTML = `<div class="chat-msg trainee-msg" id="${typingId}"><div class="msg-avatar">${scenario.avatar}</div><div class="typing-indicator"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
+      
+      setTimeout(() => {
+          chatHistory.insertAdjacentHTML('beforeend', typingHTML);
+          chatHistory.scrollTop = chatHistory.scrollHeight;
+      }, 500);
+
+      // 3. Выдача обратной связи
+      setTimeout(() => {
+          const typingIndicator = document.getElementById(typingId);
+          if(typingIndicator) typingIndicator.remove();
+          
+          let actionBtnHTML = '';
+          if (selectedOption.isCorrect) {
+              if (currentChatIndex < chatScenarios.length - 1) {
+                  actionBtnHTML = `<br><br><button onclick="nextChatScenario()" class="reset-chat-btn">▶️ Следующая ситуация</button>`;
+              } else {
+                  actionBtnHTML = `<br><br><button onclick="restartChatSimulator()" class="reset-chat-btn">🔄 Пройти тренажер заново</button>`;
+              }
+              const feedbackHTML = `<div class="chat-feedback success">${selectedOption.feedback}${actionBtnHTML}</div>`;
+              chatHistory.insertAdjacentHTML('beforeend', feedbackHTML);
+          } else {
+              const feedbackHTML = `<div class="chat-feedback error">${selectedOption.feedback}</div>`;
+              chatHistory.insertAdjacentHTML('beforeend', feedbackHTML);
+              // Возвращаем кнопки для повторной попытки
+              setTimeout(() => {
+                  chatOptions.style.display = 'flex';
+                  setTimeout(() => { chatOptions.style.opacity = '1'; }, 50);
+                  chatHistory.scrollTop = chatHistory.scrollHeight;
+                  isChatLocked = false;
+              }, 1500);
+          }
+          chatHistory.scrollTop = chatHistory.scrollHeight;
+      }, 2000);
+    }
+
+    window.nextChatScenario = function() {
+      currentChatIndex++;
+      renderChatScenario();
+    };
+
+    window.restartChatSimulator = function() {
+      currentChatIndex = 0;
+      renderChatScenario();
+    };
+
+    // Инициализация при загрузке страницы
+    if(document.getElementById('chatOptions')) {
+      renderChatScenario();
+    }
+
+
+    // =========================================================
     // 6. PDF VIEWER LOGIC (V8.0)
+    // =========================================================
     const url = 'assets/Наставничество_в_индустрии_гостеприимства.pdf'; 
     const storageKey = 'mentor_pdf_page';
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.0;
@@ -885,19 +931,6 @@
 
   const SCENARIOS = [
     {
-      type: "chat",
-      title: "Баддинг vs Наставничество",
-      icon: <span className="text-4xl drop-shadow-md">💬</span>,
-      desc: "Анализ сообщения от нового сотрудника. Выберите компетентный ответ.",
-      empName: "Максим (Официант)",
-      chatMessage: "Шеф, мне на первые 2 дня дали «бадди» (приятеля), но он вообще не учит меня стандартам сервировки, мы просто болтаем и он показывает, где столовая. Это нормально?",
-      choices: [
-        { text: "Нет, это нарушение! Я оштрафую его, он обязан учить тебя стандартам.", isCorrect: false, enps: -10, skill: 0, energy: -5, feedback: "ОШИБКА! Бадди (Buddy) не передает профессиональную экспертизу." },
-        { text: "Да, это нормально. Цель баддинга — социализация и снятие тревоги в первые дни. Стандартам тебя буду учить я, твой наставник, с завтрашнего дня.", isCorrect: true, enps: 10, skill: 5, energy: 5, feedback: "ВЕРНО! Баддинг направлен на помощь равного равному в освоении среды, а не профессиональных стандартов." },
-        { text: "Значит он плохой бадди, иди читай инструкцию сам.", isCorrect: false, enps: -15, skill: -5, energy: 0, feedback: "КРИТИЧЕСКАЯ ОШИБКА! Вы демотивируете сотрудника в первый день." }
-      ]
-    },
-    {
       type: "sliders",
       title: "Модель Обучения 70-20-10",
       icon: <span className="text-4xl drop-shadow-md">🎛️</span>,
@@ -1031,19 +1064,6 @@
       feedback: "ПРЕВОСХОДНО! Уровень 1 — это эмоции (Анкеты), Уровень 2 — знания (Тесты), Уровень 3 — применение навыков в деле (Наблюдение), Уровень 4 — влияние на бизнес (Текучесть, Выручка, Брак)."
     },
     {
-      type: "chat",
-      title: "Барьер обучения: Нехватка времени",
-      icon: <span className="text-4xl drop-shadow-md">💬</span>,
-      desc: "В разгар сезона вы получаете сообщение от сотрудника.",
-      empName: "Елена (Служба уборки)",
-      chatMessage: "У нас сегодня 100% загрузка отеля! Я не успеваю пройти обучение по новым стандартам химикатов, у меня запара!",
-      choices: [
-        { text: "Ничего не знаю, это приказ руководства. Иди учи.", isCorrect: false, enps: -15, skill: 0, energy: -5, feedback: "ОШИБКА! Игнорирование реальности приведет к саботажу." },
-        { text: "Понимаю. Давай разобьем обучение: я буду показывать тебе по одному химикату прямо в процессе уборки номеров (сессии по 10 минут). Я буду рядом.", isCorrect: true, enps: 15, skill: 10, energy: 0, feedback: "ВЕРНО! Наставничество (в отличие от тренинга) встраивается в реальный рабочий процесс без отрыва от производства (OJT)." },
-        { text: "Хорошо, давай отменим обучение до ноября, когда спадет сезон.", isCorrect: false, enps: 5, skill: -15, energy: 5, feedback: "ОШИБКА! Отказ от стандартов приведет к порче имущества отеля химикатами." }
-      ]
-    },
-    {
       type: "profiler",
       title: "HR-Сканер: Оценка D-уровня",
       icon: <span className="text-4xl drop-shadow-md">👆</span>,
@@ -1083,19 +1103,6 @@
         { name: "Позитивное влияние", correct: 2, options: ["Понял?", "Иначе гости будут жаловаться.", "Это поможет гостю сразу почувствовать уверенность в нашем сервисе."] }
       ],
       feedback: "ОТЛИЧНО! Feedforward не анализирует прошлую ошибку, а дает позитивный совет на будущее."
-    },
-    {
-      type: "chat",
-      title: "Барьер обучения: Страх ошибки",
-      icon: <span className="text-4xl drop-shadow-md">💬</span>,
-      desc: "Новый сотрудник ресепшен отказывается самостоятельно проводить процедуру Check-in в системе PMS.",
-      empName: "Дмитрий (Портье)",
-      chatMessage: "Я пока лучше просто постою рядом и посмотрю. Я боюсь нажать не ту кнопку в программе и сбить бронь реальному гостю.",
-      choices: [
-        { text: "Не бойся, если собьешь — айтишники починят. Садись и делай.", isCorrect: false, enps: 5, skill: -10, energy: 0, feedback: "ОШИБКА! Это формирует безответственность." },
-        { text: "Пока не начнешь делать сам — не научишься. Это твоя работа.", isCorrect: false, enps: -10, skill: 0, energy: -5, feedback: "ОШИБКА! Давление усиливает страх." },
-        { text: "Я понимаю твои опасения. Давай создадим тестовую 'фейковую' бронь, и ты проведешь ее заселение, пока я буду стоять рядом. Ошибаться здесь — безопасно.", isCorrect: true, enps: 15, skill: 15, energy: 5, feedback: "ВЕРНО! Наставник должен создать безопасную среду для совершения учебных ошибок." }
-      ]
     },
     {
       type: "theory",
@@ -1361,34 +1368,6 @@
           </div>
         </div>
         <button onClick={checkProfiler} disabled={!profilerD || !profilerS} className={`w-full py-4 font-bold rounded-xl shadow-lg transition-all text-sm md:text-base ${(!profilerD || !profilerS) ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-500 text-white'}`}>ПРИМЕНИТЬ СТИЛЬ РУКОВОДСТВА</button>
-      </div>
-    );
-
-    const renderChat = () => (
-      <div className="mt-6 bg-[#0B0F19] border border-slate-700 rounded-2xl overflow-hidden shadow-inner flex flex-col">
-        <div className="bg-slate-800 p-4 border-b border-slate-700 flex items-center gap-3">
-          <div className="w-10 h-10 bg-cyan-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">{scenario.empName[0]}</div>
-          <div>
-            <p className="text-white font-bold text-sm">{scenario.empName}</p>
-            <p className="text-cyan-400 text-[10px] md:text-xs flex items-center gap-1"><span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" /> На смене</p>
-          </div>
-        </div>
-        <div className="p-4 md:p-6 space-y-4 flex-1">
-          <div className="flex items-start gap-3 w-full md:w-5/6">
-            <div className="bg-slate-800 p-4 rounded-2xl rounded-tl-sm border border-slate-700 shadow-md relative">
-              <p className="text-sm leading-relaxed text-outline-white">{scenario.chatMessage}</p>
-              <p className="text-[10px] text-slate-500 text-right mt-2 font-mono">14:02</p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-slate-900 p-4 border-t border-slate-700 space-y-2">
-          <p className="text-[10px] text-slate-500 font-mono uppercase mb-3 tracking-widest">Выберите вариант ответа:</p>
-          {scenario.choices.map((choice, idx) => (
-            <button key={idx} onClick={() => handleTheoryChoice(choice)} className="w-full text-left p-3 md:p-4 bg-slate-800/80 hover:bg-cyan-900/40 text-slate-300 hover:text-cyan-100 border border-slate-700 hover:border-cyan-500/50 rounded-xl transition-all text-xs md:text-sm leading-relaxed">
-              {choice.text}
-            </button>
-          ))}
-        </div>
       </div>
     );
 
@@ -1713,6 +1692,21 @@
             </div>
           </div>
         </div>
+
+        <style dangerouslySetInnerHTML={{__html: `
+          .no-scrollbar::-webkit-scrollbar { display: none; }
+          .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+          @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+          @keyframes slide-up { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+          .animate-fade-in { animation: fade-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+          .animate-slide-up { animation: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+          @keyframes spin-slow { 100% { transform: rotate(360deg); } }
+          @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
+          .spin-slow { animation: spin-slow 12s linear infinite; }
+          .spin-reverse { animation: spin-reverse 15s linear infinite; }
+          @keyframes shine { 100% { transform: translateX(100%); } }
+          .animate-shine { animation: shine 1.5s ease-in-out infinite; }
+        `}} />
       </div>
     );
   }
