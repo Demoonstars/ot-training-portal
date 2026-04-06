@@ -15,6 +15,16 @@
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
   </script>
 
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      corePlugins: { preflight: false }
+    }
+  </script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
   <style>
     /* === ТЕМА: ЭЛЕКТРОБЕЗОПАСНОСТЬ (Желтый) === */
     body.masterpiece-theme {
@@ -188,6 +198,12 @@
         .custom-pdf-viewer { height: 500px; }
         .pdf-toolbar { padding: 8px 10px; gap: 8px; }
     }
+
+    /* === СТИЛИ ИЗОЛЯЦИИ REACT СИМУЛЯТОРА === */
+    #react-simulator-root * { box-sizing: border-box; border-width: 0; border-style: solid; border-color: #e5e7eb; }
+    #react-simulator-root button { background-color: transparent; background-image: none; padding: 0; line-height: inherit; color: inherit; cursor: pointer; }
+    #react-simulator-root svg { display: block; vertical-align: middle; }
+    #react-simulator-root h1, #react-simulator-root h2, #react-simulator-root h3, #react-simulator-root h4, #react-simulator-root p { margin: 0; }
   </style>
 </head>
 <body class="masterpiece-theme">
@@ -305,6 +321,21 @@
         </div>
       </section>
 
+      <div class="simulator-section" style="margin: 60px 0;">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <span style="display: inline-block; padding: 8px 16px; background: #2563eb; color: white; border-radius: 99px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);">
+            Интерактивная практика
+          </span>
+          <h2 style="font-size: 2rem; font-weight: 800; color: #0f172a; margin: 0 0 10px;">
+            Симулятор Электробезопасности
+          </h2>
+          <p style="color: #64748b; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+            Закрепите теорию на практике. Пройдите 15 рабочих ситуаций. Неверный выбор будет стоить вам "жизненных показателей".
+          </p>
+        </div>
+        
+        <div id="react-simulator-root" style="border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);"></div>
+      </div>
       <section class="faq-section reveal-up delay-200">
         <h2 class="faq-title">Вопросы для самоконтроля</h2>
         <p style="text-align:center; color:#64748b; margin-bottom:20px;">Проверьте знания перед тестом</p>
@@ -523,6 +554,595 @@
     });
     window.addEventListener('resize', () => { if(pdfDoc) renderPage(pageNum); });
   });
+</script>
+
+<script type="text/babel">
+  const { useState, useEffect, useRef } = React;
+  const { createRoot } = ReactDOM;
+
+  const playSound = (type) => {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      
+      if (type === 'success') {
+        osc.type = 'sine'; osc.frequency.setValueAtTime(500, ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(1000, ctx.currentTime + 0.2); gain.gain.setValueAtTime(0.1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2); osc.start(); osc.stop(ctx.currentTime + 0.2);
+      } else if (type === 'error') {
+        osc.type = 'square'; osc.frequency.setValueAtTime(200, ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.2); gain.gain.setValueAtTime(0.1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2); osc.start(); osc.stop(ctx.currentTime + 0.2);
+      } else if (type === 'click') {
+        osc.type = 'sine'; osc.frequency.setValueAtTime(800, ctx.currentTime); gain.gain.setValueAtTime(0.05, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.05); osc.start(); osc.stop(ctx.currentTime + 0.05);
+      } else if (type === 'step') {
+        osc.type = 'triangle'; osc.frequency.setValueAtTime(300, ctx.currentTime); gain.gain.setValueAtTime(0.05, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1); osc.start(); osc.stop(ctx.currentTime + 0.1);
+      }
+    } catch (e) {}
+  };
+
+  const SCENARIOS = [
+    {
+      type: "theory",
+      title: "Виды воздействия электрического тока",
+      icon: <span className="text-4xl drop-shadow-md">ℹ️</span>,
+      desc: "Электрический ток оказывает на организм человека несколько видов воздействия. Какое из них вызывает неконтролируемые судороги мышц и создает риск остановки сердца и дыхания?",
+      choices: [
+        { text: "Термическое воздействие", isCorrect: false, health: -15, score: 0, feedback: "Неверно. Термическое воздействие вызывает ожоги из-за сопротивления тканей, но не спазмы мускулатуры." },
+        { text: "Электролитическое воздействие", isCorrect: false, health: -15, score: 0, feedback: "Неверно. Электролитическое воздействие вызывает разложение органических жидкостей (крови и лимфы)." },
+        { text: "Биологическое воздействие", isCorrect: true, health: 0, score: 15, feedback: "Верно. Биологическое действие выражается в нарушении внутренних биоэлектрических процессов, что ведет к судорогам и остановке сердца." }
+      ]
+    },
+    {
+      type: "theory",
+      title: "Параметры электрического тока",
+      icon: <span className="text-4xl drop-shadow-md">📈</span>,
+      desc: "Какая характеристика электрического тока представляет наибольшую опасность для человека в быту и на производстве (при рабочем напряжении 220В/380В)?",
+      choices: [
+        { text: "Постоянный ток от мощного аккумулятора", isCorrect: false, health: -20, score: 0, feedback: "Неверно. При напряжении до 500В постоянный ток переносится организмом легче, чем переменный." },
+        { text: "Переменный ток промышленной частоты (50 Гц)", isCorrect: true, health: 0, score: 20, feedback: "Верно. Ток частотой 50 Гц наиболее опасен. При силе тока всего 10-15 мА возникает эффект «неотпускания»." },
+        { text: "Переменный ток сверхвысокой частоты (500 кГц)", isCorrect: false, health: -10, score: 0, feedback: "Неверно. Токи сверхвысоких частот проходят по поверхности кожи (скин-эффект), не затрагивая внутренние органы." }
+      ]
+    },
+    {
+      type: "scanner",
+      title: "Опасные петли тока",
+      icon: <span className="text-4xl drop-shadow-md">🎯</span>,
+      desc: "Тяжесть поражения зависит от пути прохождения тока через тело («петли тока»). Выберите на схеме самый опасный маршрут, при котором поражаются и головной мозг, и сердце.",
+      targets: [
+        { id: 'chest', text: "Рука-Рука / Рука-Нога", isCorrect: false, feedback: "Неверно. Маршрут «Рука-Рука» проходит через сердце и легкие, это крайне опасно, но головной мозг напрямую не затрагивается." },
+        { id: 'wrist', text: "Нога-Нога (Шаговое напряжение)", isCorrect: false, feedback: "Неверно. Это наименее опасная петля, пока человек стоит, так как ток не проходит через жизненно важные органы." },
+        { id: 'head', text: "Голова-Рука / Голова-Нога", isCorrect: true, feedback: "Верно. Это самый фатальный путь поражения, так как ток проходит непосредственно через головной мозг и сердце." }
+      ]
+    },
+    {
+      type: "theory",
+      title: "Классы защиты электроприемников",
+      icon: <span className="text-4xl drop-shadow-md">🛡️</span>,
+      desc: "Вам выдан переносной электроинструмент. Корпус полностью выполнен из пластика, штепсельная вилка не имеет заземляющего контакта. К какому классу защиты относится данный прибор?",
+      choices: [
+        { text: "Класс 0", isCorrect: false, health: -15, score: 0, feedback: "Неверно. Приборы Класса 0 имеют только рабочую изоляцию и открытые металлические части без заземления. Использование их ограничено." },
+        { text: "Класс I", isCorrect: false, health: -15, score: 0, feedback: "Неверно. Приборы Класса I требуют обязательного наличия заземляющей жилы (вилка с заземляющим контактом)." },
+        { text: "Класс II", isCorrect: true, health: 0, score: 15, feedback: "Верно. Данный инструмент имеет двойную или усиленную изоляцию (Класс II), поэтому заземление корпуса не требуется." }
+      ]
+    },
+    {
+      type: "theory",
+      title: "Права неэлектротехнического персонала",
+      icon: <span className="text-4xl drop-shadow-md">📋</span>,
+      desc: "Вы относитесь к неэлектротехническому персоналу (I группа по электробезопасности). На вашем рабочем месте перестал работать ПК. Ваши разрешенные действия?",
+      choices: [
+        { text: "Открыть распределительный щит и проверить автоматические выключатели (УЗО).", isCorrect: false, health: -20, score: 0, feedback: "Нарушение требований охраны труда. Работа в электрощитах разрешена только электротехническому персоналу." },
+        { text: "Обесточить оборудование, отключить его от сети и сообщить специалисту.", isCorrect: true, health: 0, score: 15, feedback: "Верно. При обнаружении неисправности вы обязаны прекратить работу, отключить прибор и сообщить ответственному лицу." },
+        { text: "Использовать мультиметр для проверки наличия напряжения в розетке.", isCorrect: false, health: -20, score: 0, feedback: "Нарушение. Использование измерительных приборов в электросети запрещено для лиц с I группой безопасности." }
+      ]
+    },
+    {
+      type: "builder",
+      title: "Порядок безопасного подключения",
+      icon: <span className="text-4xl drop-shadow-md">🔌</span>,
+      desc: "Для предотвращения искрения и короткого замыкания установите правильный порядок подключения переносного электроприемника (с отсоединяемым шнуром) к сети.",
+      correctOrder: [2, 1],
+      items: [
+        { id: 1, text: "Вставить штепсельную вилку в сетевую розетку" },
+        { id: 2, text: "Подключить шнур питания к самому электроприбору" }
+      ],
+      feedback: "Верно. Сначала шнур присоединяется к прибору, затем к сети. Отключение производится в строго обратном порядке."
+    },
+    {
+      type: "theory",
+      title: "Правила электробезопасности",
+      icon: <span className="text-4xl drop-shadow-md">⚠️</span>,
+      desc: "Работник находится в помещении с влажным кафельным полом. Одной рукой он держится за работающий электрочайник, а второй тянется закрыть металлический водопроводный кран. Оцените ситуацию.",
+      choices: [
+        { text: "Нарушений нет, если чайник относится к I классу защиты (заземлен).", isCorrect: false, health: -25, score: 0, feedback: "Опасное заблуждение. Заземление может оказаться неисправным." },
+        { text: "Критическое нарушение. Создается замкнутая цепь «Рука-Рука» через сердце на заземленную конструкцию.", isCorrect: true, health: 0, score: 20, feedback: "Верно. Категорически запрещается касаться водопроводных труб, радиаторов отопления и других заземленных металлоконструкций при работе с электроприборами." }
+      ]
+    },
+    {
+      type: "theory",
+      title: "Шаговое напряжение",
+      icon: <span className="text-4xl drop-shadow-md">⚡</span>,
+      desc: "На землю упал оборванный провод высоковольтной линии электропередачи. На каком расстоянии от точки касания провода земля считается безопасной?",
+      choices: [
+        { text: "На расстоянии не менее 2 метров.", isCorrect: false, health: -20, score: 0, feedback: "Неверно. На таком расстоянии разность потенциалов все еще критически высока." },
+        { text: "На расстоянии не менее 8 метров.", isCorrect: true, health: 0, score: 15, feedback: "Верно. Радиус опасной зоны растекания тока в земле (зоны шагового напряжения) составляет 8 метров." },
+        { text: "На расстоянии не менее 15 метров.", isCorrect: false, health: -5, score: 0, feedback: "Неверно. Согласно нормативам, безопасной считается зона за пределами 8 метров." }
+      ]
+    },
+    {
+      type: "goose_step",
+      title: "Отработка: Шаговое напряжение",
+      icon: <span className="text-4xl drop-shadow-md">👣</span>,
+      desc: "Внимание: Вы оказались в опасной 8-метровой зоне упавшего провода. Вам необходимо покинуть зону, используя «гусиный шаг». Нажимайте на иконки стоп строго поочередно. Отрыв стопы (двойное нажатие на одну ногу) приведет к поражению током.",
+      targetSteps: 10,
+      feedback: "Успешно. Вы покинули опасную зону, передвигая ступни без отрыва их от земли и друг от друга, тем самым избежав разности потенциалов."
+    },
+    {
+      type: "theory",
+      title: "Клиническая смерть",
+      icon: <span className="text-4xl drop-shadow-md">⏱️</span>,
+      desc: "Вследствие поражения током у пострадавшего остановилось сердце. Наступила клиническая смерть. Сколько времени есть на начало реанимационных мероприятий до необратимых изменений в мозге?",
+      choices: [
+        { text: "От 4 до 6 минут.", isCorrect: true, health: 0, score: 20, feedback: "Верно. Окно для успешного проведения сердечно-легочной реанимации составляет в среднем 4-6 минут." },
+        { text: "До 15 минут.", isCorrect: false, health: -20, score: 0, feedback: "Неверно. Спустя 15 минут после остановки кровообращения наступает биологическая смерть мозга." },
+        { text: "Менее 1 минуты.", isCorrect: false, health: -10, score: 0, feedback: "Неверно. Реальное окно для оказания помощи больше." }
+      ]
+    },
+    {
+      type: "scanner",
+      title: "Признаки биологической смерти",
+      icon: <span className="text-4xl drop-shadow-md">💀</span>,
+      desc: "Пострадавший находится без сознания длительное время. Необходимо определить целесообразность СЛР. Выберите на интерактивной схеме признак биологической (необратимой) смерти.",
+      targets: [
+        { id: 'chest', text: "Отсутствие дыхательных движений", isCorrect: false, feedback: "Неверно. Это симптом клинической смерти, при которой реанимация обязательна." },
+        { id: 'neck', text: "Отсутствие пульса на сонной артерии", isCorrect: false, feedback: "Неверно. Это также симптом клинической смерти. Необходимо приступать к СЛР." },
+        { id: 'head', text: "Симптом «Кошачьего глаза»", isCorrect: true, feedback: "Верно. Деформация зрачка при сдавливании, а также помутнение роговицы и трупное окоченение — достоверные признаки биологической смерти. СЛР не проводится." }
+      ]
+    },
+    {
+      type: "builder",
+      title: "Алгоритм первой помощи (Приказ №220)",
+      icon: <span className="text-4xl drop-shadow-md">📑</span>,
+      desc: "Соберите первые 4 шага универсального алгоритма оказания первой помощи пострадавшим в правильной хронологической последовательности.",
+      correctOrder: [2, 4, 1, 3],
+      items: [
+        { id: 1, text: "Проверка наличия сознания (окликнуть пострадавшего)" },
+        { id: 2, text: "Оценка обстановки и устранение угрозы (обесточивание)" },
+        { id: 3, text: "Проверка наличия пульса на сонной артерии и дыхания" },
+        { id: 4, text: "Остановка критических кровотечений" }
+      ],
+      feedback: "Алгоритм верен. Согласно актуальным требованиям: 1) Безопасность -> 2) Остановка сильных кровотечений -> 3) Проверка сознания -> 4) Проверка пульса и дыхания."
+    },
+    {
+      type: "theory",
+      title: "Проверка пульса",
+      icon: <span className="text-4xl drop-shadow-md">💓</span>,
+      desc: "Пострадавший не реагирует на голос. Вы проверяете пульс на сонной артерии. Сколько времени должна занимать эта процедура по правилам оказания первой помощи?",
+      choices: [
+        { text: "2-3 секунды, чтобы не терять время.", isCorrect: false, health: -15, score: 0, feedback: "Неверно. Этого времени недостаточно, пульс может быть очень редким (брадикардия)." },
+        { text: "Минимум 10 секунд.", isCorrect: true, health: 0, score: 15, feedback: "Верно. После удара током частота сердечных сокращений может резко снизиться. Проверка менее 10 секунд может привести к ложному диагнозу остановки сердца." }
+      ]
+    },
+    {
+      type: "theory",
+      title: "Показания к реанимации",
+      icon: <span className="text-4xl drop-shadow-md">🚑</span>,
+      desc: "Осмотр завершен. В каком из перечисленных состояний необходимо немедленно начать сердечно-легочную реанимацию (СЛР)?",
+      choices: [
+        { text: "Пострадавший без сознания, дыхание слабое, пульс прощупывается.", isCorrect: false, health: -20, score: 0, feedback: "Грубая ошибка. Проведение СЛР на работающем сердце категорически запрещено. Пострадавшему нужно придать устойчивое боковое положение." },
+        { text: "Отсутствует реакция на голос, отсутствует дыхание и пульс.", isCorrect: true, health: 0, score: 20, feedback: "Верно. Это признаки клинической смерти. Требуется немедленное проведение компрессий грудной клетки." }
+      ]
+    },
+    {
+      type: "theory",
+      title: "Применение медикаментов",
+      icon: <span className="text-4xl drop-shadow-md">💊</span>,
+      desc: "Пострадавший пришел в сознание после легкого удара током и жалуется на боль в груди. Каковы ваши действия в отношении медикаментов согласно Приказу Минздрава №220?",
+      choices: [
+        { text: "Предложить ему нитроглицерин из автомобильной аптечки.", isCorrect: false, health: -25, score: 0, feedback: "Критическая ошибка. Давать пострадавшему любые чужие препараты без назначения врача строго запрещено — это может привести к анафилактическому шоку." },
+        { text: "Помочь пострадавшему принять только то лекарство, которое ранее было назначено ему его лечащим врачом.", isCorrect: true, health: 0, score: 20, feedback: "Верно. Оказывающий первую помощь имеет право лишь помочь пострадавшему принять его собственные, прописанные врачом препараты." }
+      ]
+    }
+  ];
+
+  function OccupationalSafetySimulator() {
+    const [gameState, setGameState] = useState('start'); 
+    const [currentIdx, setCurrentIdx] = useState(0);
+    const [health, setHealth] = useState(100); 
+    const [score, setScore] = useState(0); 
+    const [feedback, setFeedback] = useState(null);
+    const [isFullscreen, setIsFullscreen] = useState(false);
+    const [audioEnabled, setAudioEnabled] = useState(true);
+    
+    const containerRef = useRef(null);
+
+    const [builderOrder, setBuilderOrder] = useState([]);
+    const [gooseStepData, setGooseStepData] = useState({ steps: 0, lastFoot: null });
+
+    const toggleFullscreen = () => {
+      if (!document.fullscreenElement) {
+        containerRef.current?.requestFullscreen().catch(err => console.error(err));
+        setIsFullscreen(true);
+      } else {
+        document.exitFullscreen();
+        setIsFullscreen(false);
+      }
+    };
+
+    useEffect(() => {
+      const handleFullscreenChange = () => setIsFullscreen(!!document.fullscreenElement);
+      document.addEventListener('fullscreenchange', handleFullscreenChange);
+      return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    }, []);
+
+    const applyDamage = (damage) => {
+      if (audioEnabled) playSound('error');
+      setHealth(prev => Math.max(0, prev + damage));
+    };
+
+    const startGame = () => {
+      if (audioEnabled) playSound('click');
+      setGameState('playing'); setCurrentIdx(0); setHealth(100); setScore(0);
+      setFeedback(null); setBuilderOrder([]); setGooseStepData({ steps: 0, lastFoot: null });
+    };
+
+    const handleTheoryChoice = (choice) => {
+      if (choice.isCorrect) {
+        if (audioEnabled) playSound('success');
+        setScore(prev => prev + choice.score);
+      } else {
+        applyDamage(choice.health);
+      }
+      setFeedback({
+        isCorrect: choice.isCorrect, text: choice.feedback,
+        stats: `Жизненные показатели: ${choice.health} | Баллы: +${choice.score}`
+      });
+    };
+
+    const handleScannerChoice = (target) => {
+      if (target.isCorrect) {
+        if (audioEnabled) playSound('success');
+        setScore(prev => prev + 20);
+        setFeedback({ isCorrect: true, text: target.feedback, stats: `Жизненные показатели: 0 | Баллы: +20` });
+      } else {
+        applyDamage(-20);
+        setFeedback({ isCorrect: false, text: target.feedback, stats: `Жизненные показатели: -20 | Баллы: 0` });
+      }
+    };
+
+    const handleGooseStep = (foot) => {
+      const scenario = SCENARIOS[currentIdx];
+      if (gooseStepData.lastFoot === foot) {
+        applyDamage(-30);
+        setFeedback({ 
+          isCorrect: false, 
+          text: "Грубое нарушение. Вы оторвали ногу от земли и сделали обычный шаг. Возникла разность потенциалов (шаговое напряжение).", 
+          stats: `Жизненные показатели: -30 | Баллы: 0` 
+        });
+      } else {
+        if (audioEnabled) playSound('step');
+        const newSteps = gooseStepData.steps + 1;
+        setGooseStepData({ steps: newSteps, lastFoot: foot });
+        if (newSteps >= scenario.targetSteps) {
+          if (audioEnabled) playSound('success'); 
+          setScore(prev => prev + 30);
+          setFeedback({ isCorrect: true, text: scenario.feedback, stats: `Жизненные показатели: 0 | Баллы: +30` });
+        }
+      }
+    };
+
+    const checkBuilder = () => {
+      if (audioEnabled) playSound('click');
+      const scenario = SCENARIOS[currentIdx];
+      const isCorrect = JSON.stringify(builderOrder.map(i => i.id)) === JSON.stringify(scenario.correctOrder);
+      
+      if (isCorrect) {
+        if (audioEnabled) playSound('success'); 
+        setScore(prev => prev + 25);
+        setFeedback({ isCorrect: true, text: scenario.feedback, stats: `Жизненные показатели: 0 | Баллы: +25` });
+      } else {
+        applyDamage(-20);
+        setFeedback({ isCorrect: false, text: "Алгоритм составлен неверно. Нарушение последовательности в реальной ситуации приведет к потере времени и риску для жизни.", stats: `Жизненные показатели: -20 | Баллы: 0` });
+      }
+    };
+
+    const handleNext = () => {
+      if (audioEnabled) playSound('click');
+      if (health <= 0) { 
+        setGameState('gameover'); return; 
+      }
+      if (currentIdx < SCENARIOS.length - 1) {
+        setCurrentIdx(currentIdx + 1); setFeedback(null); 
+        setBuilderOrder([]); setGooseStepData({ steps: 0, lastFoot: null });
+      } else {
+        setGameState('victory');
+      }
+    };
+
+    const scenario = SCENARIOS[currentIdx];
+    const progress = ((currentIdx) / SCENARIOS.length) * 100;
+
+    const renderTheory = () => (
+      <div className="grid grid-cols-1 gap-3 md:gap-4 mt-6">
+        {scenario.choices.map((choice, idx) => (
+          <button key={idx} onClick={() => handleTheoryChoice(choice)} className="text-left p-4 md:p-5 rounded-lg bg-white border border-slate-200 hover:border-blue-400 hover:bg-blue-50 transition-all shadow-sm group">
+            <div className="flex gap-3 md:gap-4 items-start">
+              <span className="font-semibold text-blue-600 mt-0.5 text-sm md:text-base">{idx + 1}.</span>
+              <span className="text-slate-700 group-hover:text-blue-900 leading-relaxed text-sm md:text-base">{choice.text}</span>
+            </div>
+          </button>
+        ))}
+      </div>
+    );
+
+    const renderScanner = () => (
+      <div className="mt-6 bg-slate-50 p-6 rounded-xl border border-slate-200 relative overflow-hidden shadow-sm">
+        <p className="text-slate-600 font-semibold text-xs md:text-sm text-center mb-6 uppercase tracking-widest border-b border-slate-200 pb-3 inline-block w-full">
+          Укажите анатомическую зону на манекене
+        </p>
+        <svg viewBox="0 0 200 250" className="w-full max-w-[200px] mx-auto h-auto drop-shadow-sm">
+          <g onClick={() => handleScannerChoice(scenario.targets.find(t=>t.id==='head'))} className="cursor-pointer group">
+            <circle cx="100" cy="40" r="30" className="fill-slate-200 stroke-blue-500 stroke-2 group-hover:fill-blue-100 transition-all" />
+            <text x="100" y="45" textAnchor="middle" className="fill-slate-600 group-hover:fill-blue-800 text-[10px] font-semibold pointer-events-none">ГОЛОВА</text>
+          </g>
+          <g onClick={() => handleScannerChoice(scenario.targets.find(t=>t.id==='neck'))} className="cursor-pointer group">
+            <rect x="85" y="70" width="30" height="25" className="fill-slate-200 stroke-blue-500 stroke-[1.5] group-hover:fill-blue-100 transition-all" />
+            <text x="100" y="86" textAnchor="middle" className="fill-slate-600 group-hover:fill-blue-800 text-[8px] font-semibold pointer-events-none">ШЕЯ</text>
+          </g>
+          <g onClick={() => handleScannerChoice(scenario.targets.find(t=>t.id==='chest'))} className="cursor-pointer group">
+            <path d="M 60 95 Q 100 100 140 95 L 130 180 L 70 180 Z" className="fill-slate-200 stroke-blue-500 stroke-2 group-hover:fill-blue-100 transition-all" />
+            <text x="100" y="140" textAnchor="middle" className="fill-slate-600 group-hover:fill-blue-800 text-[12px] font-semibold pointer-events-none">ГРУДЬ</text>
+          </g>
+          <g onClick={() => handleScannerChoice(scenario.targets.find(t=>t.id==='wrist'))} className="cursor-pointer group">
+            <path d="M 60 95 L 30 180 L 45 190 L 70 115 Z" className="fill-slate-200 stroke-blue-500 stroke-[1.5] group-hover:fill-blue-100 transition-all" />
+            <path d="M 140 95 L 170 180 L 155 190 L 130 115 Z" className="fill-slate-200 stroke-blue-500 stroke-[1.5] group-hover:fill-blue-100 transition-all" />
+            <text x="45" y="160" textAnchor="middle" className="fill-slate-600 group-hover:fill-blue-800 text-[8px] font-semibold pointer-events-none">РУКИ</text>
+            <text x="155" y="160" textAnchor="middle" className="fill-slate-600 group-hover:fill-blue-800 text-[8px] font-semibold pointer-events-none">РУКИ</text>
+          </g>
+        </svg>
+      </div>
+    );
+
+    const renderGooseStep = () => {
+      const isLeftActive = gooseStepData.lastFoot !== 'left';
+      const isRightActive = gooseStepData.lastFoot !== 'right';
+      
+      return (
+        <div className="mt-6 bg-slate-50 p-6 rounded-xl border border-slate-200 relative text-center shadow-sm">
+          <p className="text-slate-600 text-sm md:text-base mb-3 font-semibold">Прогресс выхода из опасной зоны:</p>
+          <div className="w-full max-w-xs mx-auto bg-slate-200 h-3 md:h-4 rounded-full mb-8 relative overflow-hidden">
+            <div className="bg-blue-600 h-full transition-all duration-300" style={{width: `${(gooseStepData.steps / scenario.targetSteps) * 100}%`}} />
+          </div>
+
+          <div className="flex justify-center gap-4 md:gap-6 relative">
+            <button onClick={() => handleGooseStep('left')} className={`w-32 h-40 md:w-40 md:h-48 rounded-xl border-2 flex flex-col items-center justify-center gap-4 transition-all ${isLeftActive ? 'bg-white border-blue-400 hover:bg-blue-50 hover:shadow-md cursor-pointer' : 'bg-slate-100 border-slate-200 opacity-50'}`}>
+              <span className={`text-6xl ${isLeftActive ? 'drop-shadow-lg' : 'opacity-50'}`} style={{transform: 'scaleX(-1)'}}>👣</span>
+              <span className="text-xs md:text-sm font-semibold text-slate-700">Левая стопа</span>
+            </button>
+            <button onClick={() => handleGooseStep('right')} className={`w-32 h-40 md:w-40 md:h-48 rounded-xl border-2 flex flex-col items-center justify-center gap-4 transition-all ${isRightActive ? 'bg-white border-blue-400 hover:bg-blue-50 hover:shadow-md cursor-pointer' : 'bg-slate-100 border-slate-200 opacity-50'}`}>
+              <span className={`text-6xl ${isRightActive ? 'drop-shadow-lg' : 'opacity-50'}`}>👣</span>
+              <span className="text-xs md:text-sm font-semibold text-slate-700">Правая стопа</span>
+            </button>
+          </div>
+          <p className="text-slate-500 text-[10px] md:text-xs mt-6 max-w-sm mx-auto">Нажимайте кнопки поочередно. Одно двойное нажатие приведет к моделированию разрыва контакта.</p>
+        </div>
+      );
+    };
+
+    const renderBuilder = () => {
+      const availableItems = scenario.items.filter(i => !builderOrder.find(s => s.id === i.id));
+      const isReady = builderOrder.length === scenario.items.length;
+      const addToOrder = (item) => { if(audioEnabled) playSound('click'); setBuilderOrder([...builderOrder, item]); };
+      const removeFromOrder = (item) => { if(audioEnabled) playSound('click'); setBuilderOrder(builderOrder.filter(s => s.id !== item.id)); };
+
+      return (
+        <div className="mt-6 space-y-6">
+          <div className="bg-slate-50 p-4 md:p-6 rounded-xl border border-slate-200 min-h-[150px] shadow-sm">
+            <p className="text-slate-600 font-semibold text-[10px] md:text-xs mb-4 tracking-widest uppercase border-b border-slate-200 pb-2 inline-block">Итоговый алгоритм действий:</p>
+            {builderOrder.length === 0 ? (
+              <p className="text-slate-400 text-center italic mt-6 text-xs md:text-sm">Нажимайте на пункты ниже для добавления их в алгоритм...</p>
+            ) : (
+              <div className="space-y-2">
+                {builderOrder.map((item, index) => (
+                  <button key={item.id} onClick={() => removeFromOrder(item)} className="w-full flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg hover:bg-rose-50 hover:border-rose-200 transition-all text-left group">
+                    <span className="w-6 h-6 rounded bg-blue-600 text-white flex items-center justify-center text-xs font-bold shrink-0">{index + 1}</span>
+                    <span className="text-slate-700 text-xs md:text-sm flex-1">{item.text}</span>
+                    <span className="text-rose-500 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block font-bold">❌</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          <div>
+            <p className="text-slate-500 font-semibold text-[10px] md:text-xs mb-3 uppercase tracking-widest">Доступные шаги (вразнобой):</p>
+            <div className="grid grid-cols-1 gap-2">
+              {availableItems.map(item => (
+                <button key={item.id} onClick={() => addToOrder(item)} className="text-left p-3 bg-white border border-slate-200 hover:border-blue-400 rounded-lg text-slate-700 text-xs md:text-sm hover:bg-blue-50 transition-all shadow-sm">
+                  + {item.text}
+                </button>
+              ))}
+            </div>
+          </div>
+          <button onClick={checkBuilder} disabled={!isReady} className={`w-full py-3 md:py-4 font-semibold tracking-widest rounded-lg shadow-sm transition-all text-sm md:text-base ${!isReady ? 'bg-slate-200 text-slate-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}>УТВЕРДИТЬ АЛГОРИТМ</button>
+        </div>
+      );
+    };
+
+    return (
+      <div ref={containerRef} className="relative w-full min-h-[600px] h-[850px] bg-white text-slate-800 font-sans p-4 md:p-8 flex items-center justify-center rounded-2xl shadow-lg border border-slate-100 overflow-hidden">
+        
+        {/* UI CONTROLS */}
+        <div className="absolute top-4 right-4 z-50 flex gap-2">
+          <button onClick={() => setAudioEnabled(!audioEnabled)} className="p-2 md:p-2 bg-slate-100 border border-slate-200 text-slate-600 hover:bg-slate-200 rounded-md transition-all" title="Звук">
+            {audioEnabled ? <span className="text-xl">🔊</span> : <span className="text-xl">🔇</span>}
+          </button>
+          <button onClick={toggleFullscreen} className="p-2 md:p-2 bg-slate-100 border border-slate-200 text-slate-600 hover:bg-slate-200 rounded-md transition-all hidden sm:block" title="На весь экран">
+            <span className="text-xl">{isFullscreen ? '🔳' : '🔲'}</span>
+          </button>
+        </div>
+
+        <div className="relative z-10 w-full max-w-4xl h-full flex flex-col py-4 md:py-6">
+          
+          {/* --- TOP METRICS --- */}
+          {(gameState === 'playing' || feedback) && (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-6 md:mb-8 shrink-0">
+              <div className="bg-slate-50 border border-slate-200 p-3 md:p-4 rounded-xl flex flex-col justify-center">
+                <p className="text-[10px] text-slate-500 font-semibold tracking-widest uppercase mb-2">Прогресс обучения</p>
+                <div className="flex items-center gap-3">
+                  <p className="text-lg md:text-xl text-slate-800 font-bold">{currentIdx + 1}/{SCENARIOS.length}</p>
+                </div>
+                <div className="w-full bg-slate-200 h-1.5 mt-2 rounded-full overflow-hidden">
+                  <div className="bg-blue-600 h-full transition-all" style={{width: `${progress}%`}}/>
+                </div>
+              </div>
+
+              <div className="bg-slate-50 border border-slate-200 p-3 md:p-4 rounded-xl flex flex-col justify-center">
+                <p className="text-[10px] text-slate-500 font-semibold tracking-widest uppercase mb-1 flex justify-between">Жизненные показатели <span className={`text-lg ${health < 50 ? 'text-rose-500' : 'text-emerald-500'}`}>❤️</span></p>
+                <p className={`text-2xl font-bold ${health > 50 ? 'text-emerald-600' : health > 0 ? 'text-amber-500' : 'text-rose-600'}`}>{health}%</p>
+              </div>
+
+              <div className="bg-slate-50 border border-slate-200 p-3 md:p-4 rounded-xl flex flex-col justify-center col-span-2 md:col-span-1">
+                <p className="text-[10px] text-slate-500 font-semibold tracking-widest uppercase mb-1 flex justify-between">Баллы (Оценка) <span className="text-lg text-blue-500">📈</span></p>
+                <p className="text-2xl text-blue-600 font-bold">{score}</p>
+              </div>
+            </div>
+          )}
+
+          {/* --- MAIN CONTENT AREA WITH SCROLL --- */}
+          <div className="bg-white border border-slate-200 rounded-2xl shadow-sm flex-1 flex flex-col relative overflow-hidden">
+            
+            <div className="p-6 md:p-10 flex-1 overflow-y-auto no-scrollbar flex flex-col relative z-10">
+              
+              {/* START SCREEN */}
+              {gameState === 'start' && (
+                <div className="text-center max-w-2xl mx-auto space-y-6 animate-fade-in my-auto mt-10">
+                  <div className="inline-block p-4 md:p-5 bg-blue-50 rounded-2xl border border-blue-100 mb-2">
+                     <span className="text-6xl drop-shadow-md">🛡️</span>
+                  </div>
+                  <div>
+                    <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">Электробезопасность (I группа)</h1>
+                    <p className="text-slate-500 text-sm md:text-base font-medium">Практическая отработка алгоритмов и правил</p>
+                  </div>
+                  
+                  <div className="bg-slate-50 p-5 md:p-6 rounded-xl border border-slate-200 text-left">
+                    <p className="text-slate-700 text-sm md:text-base leading-relaxed mb-4">
+                      Данный образовательный модуль предназначен для проверки и закрепления знаний по электробезопасности неэлектротехнического персонала. 
+                    </p>
+                    <p className="text-slate-700 text-sm md:text-base leading-relaxed">
+                      Вам предстоит пройти 15 практических ситуаций: определить правильный алгоритм действий при обнаружении неисправностей, отработать навыки эвакуации и оказания первой помощи пострадавшему от электрического тока согласно актуальным приказам Минздрава.
+                    </p>
+                  </div>
+
+                  <button onClick={startGame} className="inline-flex items-center justify-center gap-2 md:gap-3 px-6 py-3 md:px-8 md:py-4 font-semibold text-white bg-blue-600 hover:bg-blue-700 transition-all rounded-lg w-full md:w-auto text-sm md:text-base shadow-sm">
+                    <span className="text-xl">▶️</span> ПРИСТУПИТЬ К ОБУЧЕНИЮ
+                  </button>
+                </div>
+              )}
+
+              {/* PLAYING SCREEN */}
+              {gameState === 'playing' && !feedback && (
+                <div className="max-w-3xl mx-auto w-full animate-fade-in">
+                  <div className="mb-6 border-b border-slate-100 pb-6 flex flex-col md:flex-row gap-4 md:gap-5 items-center md:items-start text-center md:text-left">
+                    <div className="p-3 bg-blue-50 rounded-xl border border-blue-100 shrink-0">
+                      {scenario.icon}
+                    </div>
+                    <div className="flex-1">
+                      <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-2">{scenario.title}</h2>
+                      <p className="text-slate-600 text-sm md:text-base leading-relaxed">{scenario.desc}</p>
+                    </div>
+                  </div>
+
+                  {scenario.type === 'theory' && renderTheory()}
+                  {scenario.type === 'goose_step' && renderGooseStep()}
+                  {scenario.type === 'scanner' && renderScanner()}
+                  {scenario.type === 'builder' && renderBuilder()}
+                </div>
+              )}
+
+              {/* FEEDBACK OVERLAY */}
+              {gameState === 'playing' && feedback && (
+                <div className="absolute inset-0 z-50 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center animate-slide-up overflow-y-auto no-scrollbar">
+                  <div className="mb-6 mt-auto pt-10">
+                    {feedback.isCorrect ? <span className="text-7xl drop-shadow-md">✅</span> : <span className="text-7xl drop-shadow-md">❌</span>}
+                  </div>
+                  
+                  <h3 className={`text-xl md:text-2xl font-bold mb-4 ${feedback.isCorrect ? 'text-emerald-600' : 'text-rose-600'}`}>
+                    {feedback.isCorrect ? 'ВЕРНЫЙ ОТВЕТ' : 'ОШИБКА В ДЕЙСТВИЯХ'}
+                  </h3>
+                  
+                  <div className="text-[10px] md:text-xs text-slate-500 bg-slate-50 border border-slate-200 px-4 py-2 mb-6 inline-flex items-center gap-2 rounded-md font-semibold">
+                    <span>📈</span> {feedback.stats}
+                  </div>
+
+                  <p className="text-sm md:text-base text-slate-700 leading-relaxed max-w-2xl mb-8 bg-slate-50 p-4 md:p-6 rounded-xl border border-slate-200 text-left">
+                    {feedback.text}
+                  </p>
+
+                  <button onClick={handleNext} className="bg-blue-600 text-white font-semibold px-8 py-3 hover:bg-blue-700 transition-all rounded-lg text-sm md:text-base shadow-sm mb-auto">
+                    ПРОДОЛЖИТЬ
+                  </button>
+                </div>
+              )}
+
+              {/* GAME OVER SCREEN */}
+              {gameState === 'gameover' && (
+                <div className="text-center max-w-xl mx-auto space-y-6 animate-fade-in relative z-10 my-auto mt-10">
+                  <span className="text-7xl drop-shadow-md">💀</span>
+                  <div>
+                    <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">Обучение не пройдено</h1>
+                    <p className="text-rose-600 font-semibold text-xs md:text-sm bg-rose-50 border border-rose-200 inline-block px-3 py-1 rounded-md">Критическое нарушение правил безопасности</p>
+                  </div>
+                  <p className="text-slate-600 text-sm md:text-base px-4 leading-relaxed">Вы допустили фатальную ошибку при работе с электрическим оборудованием. В реальной ситуации это привело бы к несчастному случаю. Ознакомьтесь с теоретическим материалом и повторите попытку.</p>
+                  
+                  <button onClick={startGame} className="mt-4 border border-slate-300 text-slate-700 font-semibold px-6 py-3 transition-all inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-sm rounded-lg w-full md:w-auto justify-center shadow-sm">
+                    <span>🔄</span> ПОВТОРИТЬ ТЕСТИРОВАНИЕ
+                  </button>
+                </div>
+              )}
+
+              {/* VICTORY SCREEN */}
+              {gameState === 'victory' && (
+                <div className="text-center max-w-2xl mx-auto space-y-6 animate-fade-in relative z-10 py-6 my-auto mt-10">
+                  <span className="text-7xl drop-shadow-md">📋</span>
+                  <div>
+                    <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">Модуль успешно завершен</h1>
+                    <p className="text-emerald-600 font-semibold text-xs md:text-sm bg-emerald-50 border border-emerald-200 inline-block px-4 py-1 rounded-md">Аттестация пройдена</p>
+                  </div>
+                  
+                  <p className="text-slate-600 text-sm md:text-base px-4 leading-relaxed">Вы подтвердили свои знания по основам электробезопасности, правилам эвакуации и алгоритмам оказания первой помощи.</p>
+                  
+                  <div className="bg-slate-50 border border-slate-200 p-5 md:p-6 mt-6 max-w-sm mx-auto text-center rounded-xl">
+                    <div className="text-slate-500 text-xs md:text-sm font-semibold mb-2 uppercase tracking-wide">Итоговый результат:</div>
+                    <div className="text-blue-600 text-2xl md:text-3xl font-bold mb-1">{score} баллов</div>
+                    <div className="text-emerald-600 text-sm md:text-base font-medium">Жизненные показатели сохранены: {health}%</div>
+                  </div>
+
+                  <button onClick={startGame} className="mt-8 bg-blue-600 text-white font-semibold px-8 py-3 md:px-8 md:py-3 transition-all inline-flex items-center gap-2 hover:bg-blue-700 text-sm rounded-lg shadow-sm w-full md:w-auto justify-center">
+                    <span>🔄</span> ВЕРНУТЬСЯ В НАЧАЛО
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <style dangerouslySetInnerHTML={{__html: `
+          .no-scrollbar::-webkit-scrollbar { display: none; }
+          .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+          @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+          @keyframes slide-up { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+          .animate-fade-in { animation: fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+          .animate-slide-up { animation: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        `}} />
+      </div>
+    );
+  }
+
+  const container = document.getElementById('react-simulator-root');
+  if (container) {
+    const root = createRoot(container);
+    root.render(<OccupationalSafetySimulator />);
+  }
 </script>
 
 </body>
