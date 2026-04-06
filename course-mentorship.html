@@ -21,15 +21,8 @@
       corePlugins: { preflight: false }
     }
   </script>
-  <script type="importmap">
-    {
-      "imports": {
-        "react": "https://esm.sh/react@18.2.0",
-        "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
-        "lucide-react": "https://esm.sh/lucide-react@0.294.0"
-      }
-    }
-  </script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <style>
@@ -216,7 +209,7 @@
         .ds-grid { grid-template-columns: 1fr; }
     }
 
-    /* === ЭТАЛОННАЯ ШАПКА === */
+    /* Header Status */
     .system-status-pulse { display: inline-block; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; box-shadow: 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse-green 2s infinite; margin-right: 6px; }
     @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
     .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
@@ -403,7 +396,7 @@
             <div class="pdf-header-left">
               <div class="pdf-file-icon">📄</div>
               <div class="pdf-file-info">
-                <h3>Наставничество</h3>
+                <h3>УМК: Наставничество</h3>
                 <p>Полный учебный комплекс курса</p>
               </div>
             </div>
@@ -511,7 +504,10 @@
   document.addEventListener("DOMContentLoaded", function() {
     // 2. ДАТА В ШАПКЕ
     const now = new Date();
-    document.getElementById('current-date').textContent = now.toLocaleDateString('ru-RU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).replace(/^\w/, c => c.toUpperCase());
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateStr = now.toLocaleDateString('ru-RU', dateOptions);
+    const dateEl = document.getElementById('current-date');
+    if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
 
     // 3. SCROLL PROGRESS
     const progressBar = document.getElementById('readingProgress');
@@ -697,7 +693,7 @@
     }
 
     // 6. PDF VIEWER LOGIC (V8.0)
-    const url = 'assets/Наставничество_в_индустрии_гостеприимства.pdf'; 
+    const url = 'assets/УМК - Наставничество.pdf'; 
     const storageKey = 'mentor_pdf_page';
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.0;
     const canvas = document.getElementById('the-canvas'), ctx = canvas.getContext('2d');
@@ -835,21 +831,10 @@
   });
 </script>
 
-<script type="text/babel" data-type="module">
-  import React, { useState, useEffect, useRef } from 'react';
-  import { createRoot } from 'react-dom/client';
-  
-  // ИСПРАВЛЕНИЕ 2: ДОБАВЛЕНЫ ПРОПАВШИЕ ИКОНКИ (AlertTriangle и ShieldQuestion)
-  import { 
-    Users, TrendingUp, Target, Award, ShieldCheck, ShieldQuestion,
-    BrainCircuit, MessageSquareQuote, Layers, Compass,
-    ChevronRight, Play, RotateCcw, CheckCircle2, XOctagon,
-    Star, BarChart3, Fingerprint, Zap, MessageCircle, AlertTriangle,
-    Battery, Search, ListOrdered, BatteryWarning, BatteryCharging,
-    SlidersHorizontal, Network, Maximize, Minimize, Volume2, VolumeX
-  } from 'lucide-react';
+<script type="text/babel">
+  const { useState, useEffect, useRef } = React;
+  const { createRoot } = ReactDOM;
 
-  // --- AUDIO ENGINE ---
   const playSound = (type) => {
     try {
       const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -868,12 +853,11 @@
     } catch (e) {}
   };
 
-  // --- SCENARIO DATABASE (20 УРОВНЕЙ ИЗ УМК) ---
   const SCENARIOS = [
     {
       type: "chat",
       title: "Баддинг vs Наставничество",
-      icon: <MessageCircle className="w-10 h-10 text-cyan-400" />,
+      icon: <span className="text-4xl drop-shadow-md">💬</span>,
       desc: "Анализ сообщения от нового сотрудника. Выберите компетентный ответ.",
       empName: "Максим (Официант)",
       chatMessage: "Шеф, мне на первые 2 дня дали «бадди» (приятеля), но он вообще не учит меня стандартам сервировки, мы просто болтаем и он показывает, где столовая. Это нормально?",
@@ -886,7 +870,7 @@
     {
       type: "sliders",
       title: "Модель Обучения 70-20-10",
-      icon: <SlidersHorizontal className="w-10 h-10 text-amber-400" />,
+      icon: <span className="text-4xl drop-shadow-md">🎛️</span>,
       desc: "Согласно исследованиям МакКолла, Ломбардо и Эйхингера, взрослые люди усваивают знания неравномерно. Распределите 100% эффективности обучения между тремя форматами.",
       correctState: { formal: 10, social: 20, practice: 70 },
       feedback: "БЛЕСТЯЩЕ! Модель 70-20-10: 70% знаний усваивается через практику на рабочем месте, 20% — через работу с наставником и коллегами, и лишь 10% — через формальные тренинги и лекции. Именно поэтому наставничество так важно!"
@@ -894,7 +878,7 @@
     {
       type: "observation",
       title: "Модуль Супервизии: Анализ Журнала",
-      icon: <Search className="w-10 h-10 text-fuchsia-400" />,
+      icon: <span className="text-4xl drop-shadow-md">🔍</span>,
       desc: "Согласно УМК, в Журнал Наблюдений можно записывать ТОЛЬКО факты, без личностных оценок. Классифицируйте записи супервизора ниже.",
       phrases: [
         { id: 1, text: "«Сотрудник опоздал на смену на 12 минут»", type: "fact" },
@@ -907,7 +891,7 @@
     {
       type: "profiler",
       title: "HR-Сканер: Оценка D-уровня",
-      icon: <Fingerprint className="w-10 h-10 text-emerald-400" />,
+      icon: <span className="text-4xl drop-shadow-md">👆</span>,
       desc: "Администратор СПИР Анна работает 3 месяца. Базу знает. Вчера попался сложный гость, Анна растерялась, получила жалобу. Сегодня она подавлена.",
       employeeQuote: "«Наверное, это не мое... Я боюсь подходить к гостям, вдруг снова жалоба»",
       correctD: "D2",
@@ -929,7 +913,7 @@
     {
       type: "theory",
       title: "Зона ближайшего развития (Л. Выготский)",
-      icon: <Target className="w-10 h-10 text-violet-400" />,
+      icon: <span className="text-4xl drop-shadow-md">🎯</span>,
       desc: "Горничная Вера отлично убирает номер. Вы ставите ей задачу: самостоятельно обучить новую коллегу одному элементу стандарта. В какой зоне развития находится эта задача для Веры?",
       choices: [
         { text: "В зоне актуального развития (Она уже умеет убирать).", isCorrect: false, enps: 0, skill: -5, energy: 0, feedback: "ОШИБКА! Убирать самой и обучать другого — это разные навыки." },
@@ -940,7 +924,7 @@
     {
       type: "builder",
       title: "Конструктор ОС (Модель SBI)",
-      icon: <MessageSquareQuote className="w-10 h-10 text-amber-400" />,
+      icon: <span className="text-4xl drop-shadow-md">📝</span>,
       desc: "Соберите правильную фразу обратной связи по модели SBI (Ситуация - Поведение - Влияние) для сотрудника, нарушившего стандарт.",
       slots: [
         { name: "Ситуация (Situation)", correct: 1, options: ["Ты всегда так делаешь!", "Сегодня утром на 4 этаже...", "Мне не нравится твоя работа."] },
@@ -952,7 +936,7 @@
     {
       type: "sop_builder",
       title: "Сборщик СОП: Бережливое Производство",
-      icon: <ListOrdered className="w-10 h-10 text-blue-400" />,
+      icon: <span className="text-4xl drop-shadow-md">📋</span>,
       desc: "Стандартизируйте процесс обучения по методике «Расскажи-Покажи-Сделай» (TWI). Восстановите правильную хронологию шагов.",
       correctOrder: [3, 1, 4, 2],
       items: [
@@ -966,7 +950,7 @@
     {
       type: "theory",
       title: "Профилактика Выгорания: Делегирование",
-      icon: <Battery className="w-10 h-10 text-green-400" />,
+      icon: <span className="text-4xl drop-shadow-md">🔋</span>,
       desc: "Высокий сезон. Ресепшен перегружен. Стажер делает Check-in слишком медленно, собирается очередь. Ваши действия?",
       choices: [
         { text: "Отодвинуть стажера и быстро заселить всех самому. Скорость важнее всего!", isCorrect: false, enps: -5, skill: -10, energy: -30, feedback: "ОШИБКА! Вы спасли момент, но потеряли кучу энергии (-30🔋) и ничему не научили стажера. Это прямой путь к выгоранию." },
@@ -977,7 +961,7 @@
     {
       type: "theory",
       title: "Андрагогика (Опыт как ресурс)",
-      icon: <BrainCircuit className="w-10 h-10 text-rose-400" />,
+      icon: <span className="text-4xl drop-shadow-md">🧠</span>,
       desc: "Новый портье перебивает вас: «А у нас в прошлом отеле мы приветствовали гостей иначе, и это работало лучше! Зачем мне переучиваться?». Ваш ответ?",
       choices: [
         { text: "«Забудь все, что было в прошлом отеле. Теперь ты работаешь здесь, делай по инструкции!»", isCorrect: false, enps: -15, skill: 5, energy: 0, feedback: "ОШИБКА! Взрослые учатся через свой опыт. Обесценив его опыт, вы вызвали агрессию." },
@@ -988,7 +972,7 @@
     {
       type: "profiler",
       title: "HR-Сканер: Оценка D-уровня",
-      icon: <Fingerprint className="w-10 h-10 text-emerald-400" />,
+      icon: <span className="text-4xl drop-shadow-md">👆</span>,
       desc: "Старший бармен Олег (опыт 5 лет). Работает автономно, сам предлагает новые идеи.",
       employeeQuote: "«Шеф, я накидал пару идей для осеннего меню, глянь. С новичками тоже готов поработать, без проблем»",
       correctD: "D4",
@@ -1006,7 +990,7 @@
     {
       type: "matching",
       title: "Пирамида Оценки Д. Киркпатрика",
-      icon: <Network className="w-10 h-10 text-cyan-400" />,
+      icon: <span className="text-4xl drop-shadow-md">🕸️</span>,
       desc: "Оцените эффективность наставничества. Сопоставьте инструмент оценки с соответствующим уровнем модели Киркпатрика.",
       pairs: [
         { level: "Уровень 1: Реакция", options: ["Тест на знание стандартов", "Анкета удовлетворенности", "Снижение процента брака"], correct: 1 },
@@ -1019,7 +1003,7 @@
     {
       type: "chat",
       title: "Барьер обучения: Нехватка времени",
-      icon: <MessageCircle className="w-10 h-10 text-cyan-400" />,
+      icon: <span className="text-4xl drop-shadow-md">💬</span>,
       desc: "В разгар сезона вы получаете сообщение от сотрудника.",
       empName: "Елена (Служба уборки)",
       chatMessage: "У нас сегодня 100% загрузка отеля! Я не успеваю пройти обучение по новым стандартам химикатов, у меня запара!",
@@ -1032,7 +1016,7 @@
     {
       type: "profiler",
       title: "HR-Сканер: Оценка D-уровня",
-      icon: <Fingerprint className="w-10 h-10 text-emerald-400" />,
+      icon: <span className="text-4xl drop-shadow-md">👆</span>,
       desc: "Хостес Ирина работает год, идеально знает стандарты. Ей предлагают взять смены VIP-консьержа, но она сомневается.",
       employeeQuote: "«Я знаю все протоколы, но... VIP-гости такие требовательные. А вдруг я не смогу решить их нестандартную проблему?»",
       correctD: "D3",
@@ -1050,7 +1034,7 @@
     {
       type: "theory",
       title: "Цикл наставничества",
-      icon: <Layers className="w-10 h-10 text-rose-400" />,
+      icon: <span className="text-4xl drop-shadow-md">📑</span>,
       desc: "Наставник объяснил задачу, показал ее, и дал сотруднику выполнить самостоятельно. Сотрудник сделал. Что нужно сделать дальше?",
       choices: [
         { text: "Перейти к изучению следующего стандарта.", isCorrect: false, enps: 0, skill: -5, energy: 0, feedback: "ОШИБКА! Цикл не завершен." },
@@ -1061,7 +1045,7 @@
     {
       type: "builder",
       title: "Конструктор ОС (Feedforward)",
-      icon: <MessageSquareQuote className="w-10 h-10 text-amber-400" />,
+      icon: <span className="text-4xl drop-shadow-md">📝</span>,
       desc: "Официант общался с гостем слишком тихо. Соберите ОС по методике Маршалла Голдсмита (Feedforward — фокус на будущем, без критики прошлого).",
       slots: [
         { name: "Фокус на будущее", correct: 1, options: ["Ты вчера тихо говорил.", "В следующий раз, когда подходишь к столу...", "Хватит мямлить."] },
@@ -1073,7 +1057,7 @@
     {
       type: "chat",
       title: "Барьер обучения: Страх ошибки",
-      icon: <MessageCircle className="w-10 h-10 text-cyan-400" />,
+      icon: <span className="text-4xl drop-shadow-md">💬</span>,
       desc: "Новый сотрудник ресепшен отказывается самостоятельно проводить процедуру Check-in в системе PMS.",
       empName: "Дмитрий (Портье)",
       chatMessage: "Я пока лучше просто постою рядом и посмотрю. Я боюсь нажать не ту кнопку в программе и сбить бронь реальному гостю.",
@@ -1086,7 +1070,7 @@
     {
       type: "theory",
       title: "Кривая Эббингауза (Забывание)",
-      icon: <BrainCircuit className="w-10 h-10 text-indigo-400" />,
+      icon: <span className="text-4xl drop-shadow-md">🧠</span>,
       desc: "Вы показали сотруднику сложный стандарт складывания полотенец. Согласно кривой забывания Эббингауза, если не повторять материал, сколько он забудет за первую неделю?",
       choices: [
         { text: "Около 10% (навык быстро переходит в мышечную память).", isCorrect: false, enps: 0, skill: -5, energy: 0, feedback: "ОШИБКА! Мозг забывает информацию гораздо быстрее." },
@@ -1097,7 +1081,7 @@
     {
       type: "profiler",
       title: "HR-Сканер: Оценка D-уровня",
-      icon: <Fingerprint className="w-10 h-10 text-emerald-400" />,
+      icon: <span className="text-4xl drop-shadow-md">👆</span>,
       desc: "Студентка профильного вуза пришла на практику. Опыта ноль, но глаза горят.",
       employeeQuote: "«Я так рада здесь работать! Готова делать всё, скажите только как, я быстро учусь!»",
       correctD: "D1",
@@ -1116,7 +1100,7 @@
     {
       type: "theory",
       title: "Метрики: Расчет eNPS",
-      icon: <BarChart3 className="w-10 h-10 text-fuchsia-400" />,
+      icon: <span className="text-4xl drop-shadow-md">📊</span>,
       desc: "В вашем отделе 100 человек прошли опрос лояльности. 50 человек поставили оценки '9-10' (Промоутеры), 30 человек '7-8' (Нейтралы), и 20 человек '0-6' (Критики). Каков eNPS отдела?",
       choices: [
         { text: "80% (Промоутеры + Нейтралы)", isCorrect: false, enps: 0, skill: -5, energy: 0, feedback: "ОШИБКА! Нейтралы не учитываются в расчете." },
@@ -1127,7 +1111,7 @@
     {
       type: "builder",
       title: "Конструктор ОС (Модель BOFF)",
-      icon: <MessageSquareQuote className="w-10 h-10 text-amber-400" />,
+      icon: <span className="text-4xl drop-shadow-md">📝</span>,
       desc: "Официант не выполняет план по допродажам. Соберите ОС по модели BOFF (Behavior - Outcome - Feeling/Future).",
       slots: [
         { name: "Поведение (Behavior)", correct: 0, options: ["За последние 3 смены ты ни разу не предложил гостям аперитив.", "Ты плохой продажник.", "Ты ленишься работать с меню."] },
@@ -1324,7 +1308,7 @@
     const renderProfiler = () => (
       <div className="mt-6 space-y-6">
         <div className="bg-slate-900 border-l-4 border-emerald-500 p-4 md:p-6 rounded-r-xl shadow-inner relative overflow-hidden">
-          <div className="absolute top-0 right-0 opacity-10"><Fingerprint className="w-24 h-24 md:w-32 md:h-32" /></div>
+          <div className="absolute top-0 right-0 opacity-10"><span className="text-9xl">👆</span></div>
           <p className="text-emerald-400 font-mono text-[10px] md:text-xs mb-2">ПЕРЕХВАТ РЕЧИ СОТРУДНИКА:</p>
           <p className="text-base md:text-lg text-white font-light italic relative z-10">{scenario.employeeQuote}</p>
         </div>
@@ -1419,7 +1403,7 @@
                   <button key={item.id} onClick={() => removeFromOrder(item)} className="w-full flex items-center gap-3 p-3 bg-blue-900/20 border border-blue-500/50 rounded-lg hover:bg-rose-900/30 hover:border-rose-500/50 transition-all text-left group">
                     <span className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs font-bold shrink-0">{index + 1}</span>
                     <span className="text-slate-200 text-xs md:text-sm flex-1">{item.text}</span>
-                    <XOctagon className="w-4 h-4 text-rose-500 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block" />
+                    <div className="text-rose-500 font-bold opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">❌</div>
                   </button>
                 ))}
               </div>
@@ -1497,22 +1481,19 @@
     };
 
     return (
-      // Контейнер с фиксированной минимальной высотой, чтобы тренажер не обрезался
       <div ref={containerRef} className="relative w-full h-[850px] bg-[#050810] text-slate-200 font-sans p-2 md:p-4 flex items-center justify-center selection:bg-indigo-500/30 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(79,70,229,0.15)_0%,rgba(5,8,16,1)_100%)] pointer-events-none" />
 
-        {/* FULLSCREEN TOGGLE */}
         <button 
           onClick={toggleFullscreen}
           className="absolute top-4 right-4 z-50 p-3 bg-slate-800/80 backdrop-blur-md border border-slate-700 rounded-full hover:bg-indigo-900/50 hover:border-indigo-500 transition-all text-slate-400 hover:text-indigo-400 hidden sm:block shadow-lg"
           title="На весь экран"
         >
-          {isFullscreen ? <Minimize className="w-5 h-5" /> : <Maximize className="w-5 h-5" />}
+          <span className="text-xl">{isFullscreen ? '🔳' : '🔲'}</span>
         </button>
 
         <div className="relative z-10 w-full max-w-5xl h-full flex flex-col pt-4 pb-2">
           
-          {/* --- TOP METRICS DASHBOARD --- */}
           {(gameState === 'playing' || feedback) && (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-4 shrink-0">
               <div className="bg-slate-900/50 backdrop-blur-md border border-slate-800 p-3 md:p-4 rounded-xl flex flex-col justify-center">
@@ -1537,7 +1518,7 @@
                   <p className="text-[8px] md:text-[10px] text-slate-500 font-mono tracking-widest uppercase mb-0.5 md:mb-1">Сервис</p>
                   <p className="text-xl md:text-2xl text-cyan-400 font-bold font-mono">{teamSkill}%</p>
                 </div>
-                <TrendingUp className="w-4 h-4 md:w-5 md:h-5 text-cyan-400/50" />
+                <span className="text-xl opacity-50">📈</span>
               </div>
 
               <div className="bg-slate-900/50 backdrop-blur-md border border-slate-800 p-3 md:p-4 rounded-xl flex items-center justify-between relative overflow-hidden">
@@ -1546,24 +1527,21 @@
                   <p className="text-[8px] md:text-[10px] text-slate-500 font-mono tracking-widest uppercase mb-0.5 md:mb-1">Энергия</p>
                   <p className={`text-xl md:text-2xl font-bold font-mono ${mentorEnergy > 50 ? 'text-green-400' : mentorEnergy > 20 ? 'text-amber-400' : 'text-rose-500'}`}>{mentorEnergy}🔋</p>
                 </div>
-                {mentorEnergy > 50 ? <BatteryCharging className="w-4 h-4 md:w-5 md:h-5 text-green-400/50 relative z-10" /> : <BatteryWarning className="w-4 h-4 md:w-5 md:h-5 text-rose-500/50 relative z-10 animate-bounce" />}
               </div>
             </div>
           )}
 
-          {/* --- MAIN CONTENT AREA WITH SCROLL --- */}
           <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl md:rounded-3xl shadow-[0_0_40px_rgba(0,0,0,0.5)] flex-1 flex flex-col relative overflow-hidden">
             <div className="absolute top-0 left-0 w-12 h-12 md:w-16 md:h-16 border-t-2 md:border-t-4 border-l-2 md:border-l-4 border-indigo-500/30 m-3 md:m-4 rounded-tl-xl pointer-events-none" />
             <div className="absolute bottom-0 right-0 w-12 h-12 md:w-16 md:h-16 border-b-2 md:border-b-4 border-r-2 md:border-r-4 border-indigo-500/30 m-3 md:m-4 rounded-br-xl pointer-events-none" />
 
             <div className="flex-1 overflow-y-auto p-4 md:p-10 no-scrollbar relative z-10">
               
-              {/* EDUCATIONAL START SCREEN */}
               {gameState === 'start' && (
                 <div className="text-center max-w-2xl mx-auto space-y-6 md:space-y-8 animate-fade-in mt-10">
                   <div className="inline-block p-4 md:p-6 bg-indigo-500/10 rounded-full border border-indigo-500/30 mb-2 md:mb-4 shadow-[0_0_40px_rgba(79,70,229,0.2)] relative">
                      <div className="absolute inset-0 border-2 border-dashed border-indigo-400/50 rounded-full animate-[spin_10s_linear_infinite]" />
-                     <Users className="w-12 h-12 md:w-16 md:h-16 text-indigo-400" />
+                     <div className="text-6xl drop-shadow-[0_0_15px_rgba(129,140,248,0.8)]">👥</div>
                   </div>
                   <div>
                     <h1 className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 mb-2 md:mb-4 tracking-tight">MENTOR OS</h1>
@@ -1588,12 +1566,11 @@
                   </div>
 
                   <button onClick={startGame} className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 md:px-10 md:py-5 font-bold text-white bg-indigo-600 rounded-full overflow-hidden transition-all hover:scale-105 hover:bg-indigo-500 hover:shadow-[0_0_40px_rgba(79,70,229,0.4)] w-full md:w-auto mt-4">
-                    <Play className="w-5 h-5 fill-current" /> <span className="tracking-widest text-sm md:text-base">НАЧАТЬ ОБУЧЕНИЕ</span>
+                    <span className="text-xl">▶️</span> <span className="tracking-widest text-sm md:text-base">НАЧАТЬ ОБУЧЕНИЕ</span>
                   </button>
                 </div>
               )}
 
-              {/* PLAYING SCREEN */}
               {gameState === 'playing' && !feedback && (
                 <div className="max-w-3xl mx-auto w-full animate-fade-in mt-4">
                   <div className="mb-6 border-b border-slate-800 pb-6 flex flex-col md:flex-row gap-4 md:gap-6 items-center md:items-start text-center md:text-left">
@@ -1620,12 +1597,11 @@
                 </div>
               )}
 
-              {/* FEEDBACK OVERLAY */}
               {gameState === 'playing' && feedback && (
-                <div className="absolute inset-0 z-50 bg-[#0B0F19]/95 backdrop-blur-xl flex flex-col items-center justify-center p-6 md:p-8 text-center animate-slide-up rounded-2xl overflow-y-auto no-scrollbar">
+                <div className="absolute inset-0 z-50 bg-[#0B0F19]/95 backdrop-blur-xl flex flex-col items-center justify-center p-6 md:p-8 text-center animate-slide-up rounded-2xl md:rounded-3xl border border-slate-700/50 overflow-y-auto no-scrollbar">
                   <div className="mb-4 md:mb-6 relative mt-auto pt-10">
                     <div className={`absolute inset-0 blur-3xl rounded-full ${feedback.isCorrect ? 'bg-emerald-500/20' : 'bg-rose-500/20'}`} />
-                    {feedback.isCorrect ? <CheckCircle2 className="w-20 h-20 md:w-24 md:h-24 text-emerald-400 relative z-10" /> : <XOctagon className="w-20 h-20 md:w-24 md:h-24 text-rose-500 relative z-10" />}
+                    {feedback.isCorrect ? <div className="text-6xl text-emerald-400 relative z-10 drop-shadow-[0_0_15px_rgba(52,211,153,0.8)]">✅</div> : <div className="text-6xl text-rose-500 relative z-10">❌</div>}
                   </div>
                   
                   <h3 className={`text-2xl md:text-3xl font-black mb-3 md:mb-4 uppercase tracking-widest ${feedback.isCorrect ? 'text-emerald-400' : 'text-rose-500'}`}>
@@ -1633,7 +1609,7 @@
                   </h3>
                   
                   <div className="font-mono text-xs md:text-sm text-indigo-300 bg-indigo-900/30 border border-indigo-500/30 px-3 md:px-4 py-2 rounded-lg mb-6 md:mb-8 shadow-inner inline-flex gap-2 items-center flex-wrap justify-center">
-                    <Zap className="w-3 h-3 md:w-4 md:h-4 text-indigo-400 shrink-0" /> {feedback.stats}
+                    <span>⚡</span> {feedback.stats}
                   </div>
 
                   <p className="text-base md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-8 md:mb-10 font-light border-l-4 border-slate-700 pl-4 md:pl-6 text-left bg-slate-800/30 p-4 md:p-6 rounded-r-xl">
@@ -1646,39 +1622,37 @@
                 </div>
               )}
 
-              {/* GAME OVER SCREENS */}
               {gameState === 'gameover_enps' && (
                 <div className="text-center max-w-xl mx-auto space-y-6 md:space-y-8 animate-fade-in relative z-10 my-auto mt-10">
-                  <AlertTriangle className="w-20 h-20 md:w-28 md:h-28 text-rose-500 mx-auto drop-shadow-[0_0_30px_rgba(244,63,94,0.6)] animate-pulse" />
+                  <div className="text-7xl mb-4 drop-shadow-[0_0_30px_rgba(244,63,94,0.6)] animate-pulse">⚠️</div>
                   <div>
                     <h1 className="text-3xl md:text-5xl font-black text-rose-500 uppercase mb-2">Команда Уволилась</h1>
                     <p className="text-rose-400/80 font-mono text-[10px] md:text-sm uppercase border border-rose-500/30 bg-rose-950/50 inline-block px-3 py-1 rounded">Критическое падение eNPS</p>
                   </div>
                   <p className="text-slate-300 text-sm md:text-lg px-4">Ваш стиль руководства привел к потере мотивации. Токсичное наставничество обходится бизнесу слишком дорого.</p>
                   <button onClick={startGame} className="mt-4 border border-rose-500/50 hover:border-rose-500 text-rose-400 font-bold tracking-widest px-6 py-3 md:px-8 md:py-4 rounded-full transition-all inline-flex items-center gap-2 md:gap-3 bg-rose-950/30 hover:bg-rose-900/50 w-full sm:w-auto justify-center text-sm md:text-base">
-                    <RotateCcw className="w-4 h-4 md:w-5 md:h-5" /> ПОВТОРИТЬ ОБУЧЕНИЕ
+                    <span>🔄</span> ПОВТОРИТЬ ОБУЧЕНИЕ
                   </button>
                 </div>
               )}
 
               {gameState === 'gameover_burnout' && (
                 <div className="text-center max-w-xl mx-auto space-y-6 md:space-y-8 animate-fade-in relative z-10 my-auto mt-10">
-                  <BatteryWarning className="w-20 h-20 md:w-28 md:h-28 text-amber-500 mx-auto drop-shadow-[0_0_30px_rgba(245,158,11,0.6)] animate-pulse" />
+                  <div className="text-7xl mb-4 drop-shadow-[0_0_30px_rgba(245,158,11,0.6)] animate-pulse">🪫</div>
                   <div>
                     <h1 className="text-3xl md:text-5xl font-black text-amber-500 uppercase mb-2">Выгорание</h1>
                     <p className="text-amber-400/80 font-mono text-[10px] md:text-sm uppercase border border-amber-500/30 bg-amber-950/50 inline-block px-3 py-1 rounded">Критическое падение Энергии</p>
                   </div>
                   <p className="text-slate-300 text-sm md:text-lg px-4">Вы пытались сделать всё сами вместо того, чтобы учить и делегировать. Эффективный наставник бережет свой ресурс.</p>
                   <button onClick={startGame} className="mt-4 border border-amber-500/50 hover:border-amber-500 text-amber-400 font-bold tracking-widest px-6 py-3 md:px-8 md:py-4 rounded-full transition-all inline-flex items-center gap-2 md:gap-3 bg-amber-950/30 hover:bg-amber-900/50 w-full sm:w-auto justify-center text-sm md:text-base">
-                    <RotateCcw className="w-4 h-4 md:w-5 md:h-5" /> ПОВТОРИТЬ ОБУЧЕНИЕ
+                    <span>🔄</span> ПОВТОРИТЬ ОБУЧЕНИЕ
                   </button>
                 </div>
               )}
 
-              {/* VICTORY SCREEN */}
               {gameState === 'victory' && (
                 <div className="text-center max-w-2xl mx-auto space-y-6 md:space-y-8 animate-fade-in relative z-10 py-6 mt-10">
-                  <Award className="w-20 h-20 md:w-28 md:h-28 text-amber-400 mx-auto drop-shadow-[0_0_40px_rgba(251,191,36,0.6)]" />
+                  <div className="text-7xl mb-4 drop-shadow-[0_0_40px_rgba(251,191,36,0.6)]">🏆</div>
                   <div>
                     <h1 className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500 uppercase mb-2 drop-shadow-lg">Топ-Наставник</h1>
                     <p className="text-emerald-400/80 font-mono text-[10px] md:text-sm uppercase border border-emerald-500/30 bg-emerald-950/30 inline-block px-3 py-1 rounded">Симуляция успешно завершена</p>
@@ -1701,8 +1675,8 @@
                     </div>
                   </div>
 
-                  <button onClick={startGame} className="border border-amber-500/50 text-amber-400 hover:text-slate-900 hover:bg-amber-400 font-bold tracking-widest px-8 py-3 md:px-10 md:py-4 rounded-full transition-all inline-flex items-center gap-2 md:gap-3 shadow-[0_0_20px_rgba(251,191,36,0.2)] hover:shadow-[0_0_40px_rgba(251,191,36,0.6)] w-full sm:w-auto justify-center text-sm md:text-base">
-                    <RotateCcw className="w-4 h-4 md:w-5 md:h-5" /> НОВЫЙ ЦИКЛ ОБУЧЕНИЯ
+                  <button onClick={startGame} className="border border-indigo-500/50 text-indigo-400 hover:text-slate-900 hover:bg-indigo-400 font-bold tracking-widest px-8 py-3 md:px-10 md:py-4 rounded-full transition-all inline-flex items-center gap-2 md:gap-3 shadow-[0_0_20px_rgba(99,102,241,0.2)] hover:shadow-[0_0_40px_rgba(99,102,241,0.6)] w-full sm:w-auto justify-center text-sm md:text-base">
+                    <span>🔄</span> НОВЫЙ ЦИКЛ ОБУЧЕНИЯ
                   </button>
                 </div>
               )}
