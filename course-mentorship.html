@@ -184,28 +184,37 @@
     .custom-pdf-viewer.dark-theme .pdf-canvas-wrapper { background: radial-gradient(#475569 1px, transparent 1px); background-size: 20px 20px; }
     .custom-pdf-viewer.dark-theme #the-canvas { filter: brightness(0.9); }
     .custom-pdf-viewer.fullscreen-mode { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; width: 100vw !important; height: 100vh !important; z-index: 2147483647 !important; border-radius: 0 !important; margin: 0 !important; border: none !important; background: #e2e8f0 !important; }
+    .custom-pdf-viewer.fullscreen-mode.dark-theme { background: #0f172a !important; }
     .pdf-viewer-header { background: #fff; padding: 10px 15px; border-bottom: 1px solid #cbd5e1; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-shrink: 0; z-index: 10; }
     .pdf-header-left { display: flex; align-items: center; gap: 10px; overflow: hidden; }
     .pdf-file-icon { width: 32px; height: 32px; background: #f3e8ff; color: #9333ea; flex-shrink: 0; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .pdf-file-info { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .pdf-file-info h3 { margin: 0; font-size: 0.9rem; color: #0f172a; overflow: hidden; text-overflow: ellipsis; }
     .pdf-file-info p { margin: 0; font-size: 0.75rem; color: #64748b; }
     .btn-pdf-action { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 0 12px; height: 36px; border-radius: 8px; background: #fff; border: 1px solid #cbd5e1; color: #334155; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .btn-pdf-action:hover { border-color: #9333ea; color: #9333ea; }
     .pdf-read-progress { height: 3px; width: 0%; background: #9333ea; transition: width 0.2s; position: absolute; bottom: 0; left: 0; z-index: 15; }
     .pdf-canvas-wrapper { flex-grow: 1; overflow: auto; display: flex; justify-content: flex-start; align-items: flex-start; padding: 20px; padding-bottom: 100px; background: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px; touch-action: pan-x pan-y pinch-zoom; -webkit-overflow-scrolling: touch; position: relative; cursor: grab; }
     .pdf-canvas-wrapper.grabbing { cursor: grabbing; }
     #the-canvas { box-shadow: 0 4px 15px rgba(0,0,0,0.15); background: #fff; transform-origin: top left; margin: auto; display: block; transition: transform 0.1s ease-out, box-shadow 0.3s; }
+    #the-canvas.zoomed { box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
     .pdf-toolbar { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); padding: 8px 12px; border-radius: 50px; display: flex; align-items: center; gap: 12px; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 50; white-space: nowrap; max-width: 95%; }
     .tool-btn { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
     .tool-btn-icon { width: 30px; height: 30px; border-radius: 50%; background: transparent; border: none; color: #cbd5e1; cursor: pointer; font-size: 1.2rem; }
     .divider-v { width: 1px; height: 16px; background: rgba(255,255,255,0.2); }
     .page-input-group { display: flex; align-items: center; gap: 5px; font-family: monospace; font-size: 0.9rem; }
     #page_num_input { width: 40px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; text-align: center; border-radius: 4px; padding: 2px; -moz-appearance: textfield; }
+    #page_num_input:focus { border-color: #9333ea; outline: none; background: rgba(255,255,255,0.1); }
     .pdf-loader { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #f1f5f9; z-index: 60; color: #64748b; font-weight: 600; }
     .spinner { width: 40px; height: 40px; border: 4px solid #cbd5e1; border-top-color: #9333ea; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 10px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
     .gesture-hint { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: #fff; padding: 12px 20px; border-radius: 12px; text-align: center; pointer-events: none; opacity: 0; transition: opacity 0.5s; z-index: 70; }
-    
+    .show-hint { opacity: 1; }
+    .btn-text { display: inline; } .btn-icon { display: none; }
     @media (max-width: 600px) {
+        .btn-text { display: none; } .btn-icon { display: inline; font-size: 1.2rem; }
         .custom-pdf-viewer { height: 500px; }
+        .pdf-toolbar { padding: 8px 10px; gap: 8px; }
         .ds-grid { grid-template-columns: 1fr; }
     }
 
@@ -693,7 +702,7 @@
     }
 
     // 6. PDF VIEWER LOGIC (V8.0)
-    const url = 'assets/Наставничество_в_индустрии_гостеприимства.pdf'; 
+    const url = 'assets/УМК - Наставничество.pdf'; 
     const storageKey = 'mentor_pdf_page';
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.0;
     const canvas = document.getElementById('the-canvas'), ctx = canvas.getContext('2d');
@@ -830,6 +839,27 @@
     window.addEventListener('resize', () => { if(pdfDoc) renderPage(pageNum); });
   });
 </script>
+
+<style>
+    /* CSS для гарантии работы подсветки кнопок в тренажере без зависимости от Tailwind CDN */
+    .sim-active-btn { background-color: rgba(16, 185, 129, 0.25) !important; border-color: #10b981 !important; color: #fff !important; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4) !important; }
+    .sim-active-btn-amber { background-color: rgba(245, 158, 11, 0.25) !important; border-color: #f59e0b !important; color: #fff !important; box-shadow: 0 0 12px rgba(245, 158, 11, 0.4) !important; }
+    .sim-active-btn-cyan { background-color: rgba(6, 182, 212, 0.25) !important; border-color: #06b6d4 !important; color: #fff !important; box-shadow: 0 0 12px rgba(6, 182, 212, 0.4) !important; }
+    .sim-active-btn-indigo { background-color: rgba(99, 102, 241, 0.25) !important; border-color: #6366f1 !important; color: #fff !important; box-shadow: 0 0 12px rgba(99, 102, 241, 0.4) !important; }
+    .sim-active-btn-rose { background-color: rgba(244, 63, 94, 0.25) !important; border-color: #f43f5e !important; color: #fff !important; box-shadow: 0 0 12px rgba(244, 63, 94, 0.4) !important; }
+    
+    /* Читаемый текст с белой обводкой */
+    .text-outline-white {
+        color: #0f172a !important;
+        font-weight: 800 !important;
+        text-shadow: 
+            -1px -1px 0 #fff,  
+             1px -1px 0 #fff,
+            -1px  1px 0 #fff,
+             1px  1px 0 #fff,
+             0px  2px 4px rgba(255,255,255,0.7) !important;
+    }
+</style>
 
 <script type="text/babel">
   const { useState, useEffect, useRef } = React;
@@ -1294,7 +1324,7 @@
             <div className="text-xs font-mono text-amber-400 mb-3 uppercase tracking-widest">{slot.name}</div>
             <div className="grid grid-cols-1 gap-2">
               {slot.options.map((opt, optIdx) => (
-                <button key={optIdx} onClick={() => { playSound('click'); setBuilderSelections({...builderSelections, [slotIdx]: optIdx}) }} className={`text-left p-3 rounded-lg text-sm border transition-all ${builderSelections[slotIdx] === optIdx ? 'bg-amber-500/20 border-amber-500 text-white' : 'bg-slate-900 border-slate-700 text-slate-400 hover:border-slate-500'}`}>
+                <button key={optIdx} onClick={() => { playSound('click'); setBuilderSelections({...builderSelections, [slotIdx]: optIdx}) }} className={`text-left p-3 rounded-lg text-sm border transition-all ${builderSelections[slotIdx] === optIdx ? 'sim-active-btn-amber' : 'bg-slate-900 border-slate-700 text-slate-400 hover:border-slate-500'}`}>
                   {opt}
                 </button>
               ))}
@@ -1310,13 +1340,13 @@
         <div className="bg-slate-900 border-l-4 border-emerald-500 p-4 md:p-6 rounded-r-xl shadow-inner relative overflow-hidden">
           <div className="absolute top-0 right-0 opacity-10"><span className="text-9xl">👆</span></div>
           <p className="text-emerald-400 font-mono text-[10px] md:text-xs mb-2">ПЕРЕХВАТ РЕЧИ СОТРУДНИКА:</p>
-          <p className="text-base md:text-lg text-white font-light italic relative z-10">{scenario.employeeQuote}</p>
+          <p className="text-base md:text-lg italic relative z-10 text-outline-white">{scenario.employeeQuote}</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           <div className="space-y-2 md:space-y-3">
             <div className="text-[10px] md:text-xs font-mono text-slate-400 uppercase">Шаг 1: Диагноз D-Уровня</div>
             {scenario.optionsD.map(opt => (
-              <button key={opt.id} onClick={() => {playSound('click'); setProfilerD(opt.id)}} className={`w-full text-left p-3 rounded-lg text-xs md:text-sm border transition-all ${profilerD === opt.id ? 'bg-emerald-500/20 border-emerald-500 text-emerald-100' : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-500'}`}>
+              <button key={opt.id} onClick={() => {playSound('click'); setProfilerD(opt.id)}} className={`w-full text-left p-3 rounded-lg text-xs md:text-sm border transition-all ${profilerD === opt.id ? 'sim-active-btn' : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-500'}`}>
                 {opt.label}
               </button>
             ))}
@@ -1324,7 +1354,7 @@
           <div className="space-y-2 md:space-y-3">
             <div className="text-[10px] md:text-xs font-mono text-slate-400 uppercase">Шаг 2: Выбор S-Стиля</div>
             {scenario.optionsS.map(opt => (
-              <button key={opt.id} onClick={() => {playSound('click'); setProfilerS(opt.id)}} className={`w-full text-left p-3 rounded-lg text-xs md:text-sm border transition-all ${profilerS === opt.id ? 'bg-indigo-500/20 border-indigo-500 text-indigo-100' : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-500'}`}>
+              <button key={opt.id} onClick={() => {playSound('click'); setProfilerS(opt.id)}} className={`w-full text-left p-3 rounded-lg text-xs md:text-sm border transition-all ${profilerS === opt.id ? 'sim-active-btn-indigo' : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-500'}`}>
                 {opt.label}
               </button>
             ))}
@@ -1345,8 +1375,8 @@
         </div>
         <div className="p-4 md:p-6 space-y-4 flex-1">
           <div className="flex items-start gap-3 w-full md:w-5/6">
-            <div className="bg-slate-800 text-slate-200 p-4 rounded-2xl rounded-tl-sm border border-slate-700 shadow-md relative">
-              <p className="text-sm leading-relaxed">{scenario.chatMessage}</p>
+            <div className="bg-slate-800 p-4 rounded-2xl rounded-tl-sm border border-slate-700 shadow-md relative">
+              <p className="text-sm leading-relaxed text-outline-white">{scenario.chatMessage}</p>
               <p className="text-[10px] text-slate-500 text-right mt-2 font-mono">14:02</p>
             </div>
           </div>
@@ -1373,8 +1403,8 @@
                 <div key={ph.id} className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 bg-slate-800/50 p-4 rounded-xl border border-slate-700/50">
                   <p className="flex-1 text-slate-300 italic text-sm">"{ph.text}"</p>
                   <div className="flex gap-2 shrink-0 w-full md:w-auto">
-                    <button onClick={() => {playSound('click'); setObsClassifications({...obsClassifications, [ph.id]: 'fact'})}} className={`flex-1 md:flex-none px-4 py-2 rounded-lg text-xs font-bold font-mono tracking-wider transition-all ${currentVal === 'fact' ? 'bg-emerald-500 text-white' : 'bg-slate-900 text-slate-500 hover:border-emerald-500 border border-slate-700'}`}>ФАКТ</button>
-                    <button onClick={() => {playSound('click'); setObsClassifications({...obsClassifications, [ph.id]: 'judgment'})}} className={`flex-1 md:flex-none px-4 py-2 rounded-lg text-xs font-bold font-mono tracking-wider transition-all ${currentVal === 'judgment' ? 'bg-rose-500 text-white' : 'bg-slate-900 text-slate-500 hover:border-rose-500 border border-slate-700'}`}>ОЦЕНКА</button>
+                    <button onClick={() => {playSound('click'); setObsClassifications({...obsClassifications, [ph.id]: 'fact'})}} className={`flex-1 md:flex-none px-4 py-2 rounded-lg text-xs font-bold font-mono tracking-wider transition-all ${currentVal === 'fact' ? 'sim-active-btn' : 'bg-slate-900 text-slate-500 hover:border-emerald-500 border border-slate-700'}`}>ФАКТ</button>
+                    <button onClick={() => {playSound('click'); setObsClassifications({...obsClassifications, [ph.id]: 'judgment'})}} className={`flex-1 md:flex-none px-4 py-2 rounded-lg text-xs font-bold font-mono tracking-wider transition-all ${currentVal === 'judgment' ? 'sim-active-btn-rose' : 'bg-slate-900 text-slate-500 hover:border-rose-500 border border-slate-700'}`}>ОЦЕНКА</button>
                   </div>
                 </div>
               );
@@ -1468,7 +1498,7 @@
               <div className="text-xs md:text-sm font-mono text-cyan-400 mb-3 font-bold">{pair.level}</div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                 {pair.options.map((opt, oIdx) => (
-                  <button key={oIdx} onClick={() => { playSound('click'); setMatchSelections({...matchSelections, [pIdx]: oIdx}) }} className={`text-left p-3 rounded-lg text-xs border transition-all ${matchSelections[pIdx] === oIdx ? 'bg-cyan-500/20 border-cyan-500 text-white' : 'bg-slate-900 border-slate-700 text-slate-400 hover:border-slate-500'}`}>
+                  <button key={oIdx} onClick={() => { playSound('click'); setMatchSelections({...matchSelections, [pIdx]: oIdx}) }} className={`text-left p-3 rounded-lg text-xs border transition-all ${matchSelections[pIdx] === oIdx ? 'sim-active-btn-cyan' : 'bg-slate-900 border-slate-700 text-slate-400 hover:border-slate-500'}`}>
                     {opt}
                   </button>
                 ))}
@@ -1675,7 +1705,7 @@
                     </div>
                   </div>
 
-                  <button onClick={startGame} className="border border-indigo-500/50 text-indigo-400 hover:text-slate-900 hover:bg-indigo-400 font-bold tracking-widest px-8 py-3 md:px-10 md:py-4 rounded-full transition-all inline-flex items-center gap-2 md:gap-3 shadow-[0_0_20px_rgba(99,102,241,0.2)] hover:shadow-[0_0_40px_rgba(99,102,241,0.6)] w-full sm:w-auto justify-center text-sm md:text-base">
+                  <button onClick={startGame} className="border border-indigo-500/50 text-indigo-400 hover:text-slate-900 hover:bg-indigo-400 font-bold tracking-widest px-8 py-3 md:px-10 md:py-4 rounded-full transition-all shadow-[0_0_20px_rgba(99,102,241,0.2)] hover:shadow-[0_0_40px_rgba(99,102,241,0.6)] w-full sm:w-auto justify-center text-sm md:text-base">
                     <span>🔄</span> НОВЫЙ ЦИКЛ ОБУЧЕНИЯ
                   </button>
                 </div>
@@ -1683,21 +1713,6 @@
             </div>
           </div>
         </div>
-
-        <style dangerouslySetInnerHTML={{__html: `
-          .no-scrollbar::-webkit-scrollbar { display: none; }
-          .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-          @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-          @keyframes slide-up { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
-          .animate-fade-in { animation: fade-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-          .animate-slide-up { animation: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-          @keyframes spin-slow { 100% { transform: rotate(360deg); } }
-          @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
-          .spin-slow { animation: spin-slow 12s linear infinite; }
-          .spin-reverse { animation: spin-reverse 15s linear infinite; }
-          @keyframes shine { 100% { transform: translateX(100%); } }
-          .animate-shine { animation: shine 1.5s ease-in-out infinite; }
-        `}} />
       </div>
     );
   }
