@@ -279,10 +279,11 @@
           <button class="filter-chip" aria-pressed="false" data-filter="gochs">ГО и ЧС</button>
           <button class="filter-chip" aria-pressed="false" data-filter="el">Электробезопасность</button>
           <button class="filter-chip" aria-pressed="false" data-filter="hotel">Наставничество</button>
+          <button class="filter-chip" aria-pressed="false" data-filter="conflict">Управление конфликтами</button>
         </div>
         
         <div id="resultsCount" style="text-align: center; margin-top: 15px; font-size: 0.85rem; color: #64748b; font-weight: 600;">
-          Доступно курсов: 6
+          Доступно курсов: 7
         </div>
       </div>
 
@@ -390,6 +391,23 @@
           </div>
         </article>
 
+        <article class="program-card" data-cat="conflict" data-keywords="конфликт агрессия стресс декомпрессия айсберг психология выгорание">
+          <div class="card-content">
+              <div class="card-top">
+                <div class="card-icon" style="background: #fdf2f8; color: #db2777;">🧠</div>
+                <span class="status-tag">Soft Skills</span>
+              </div>
+              <h3 class="card-title">Управление конфликтами</h3>
+              <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
+              <p class="card-desc">
+                Психология агрессии, принцип «Айсберга» и алгоритм декомпрессии. Как сохранить себя и команду в стрессе.
+              </p>
+              <a href="course-conflict.html" class="card-btn">
+                Перейти к обучению <span>➔</span>
+              </a>
+          </div>
+        </article>
+
       </div>
 
       <div id="noResults" style="display:none; text-align:center; padding: 60px 20px; color: #64748b;">
@@ -424,7 +442,7 @@
 
     // 2. ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ (ДОБАВЛЕН НОВЫЙ СЛОГАН)
     const textElement = document.getElementById('typing-text');
-    const texts = ["Реестр программ обучения", "Актуальные знания", "Безопасность труда", "Развитие персонала"];
+    const texts = ["Реестр программ обучения", "Актуальные знания", "Безопасность труда", "Развитие персонала", "Управление конфликтами"];
     let textIndex = 0; charIndex = 0; isDeleting = false;
 
     function typeEffect() {
