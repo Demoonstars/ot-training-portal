@@ -101,10 +101,17 @@
     .widget-header h3 { font-size: 1.5rem; color: #0f172a; margin: 0 0 10px; font-weight: 800; }
     .widget-header p { color: #64748b; margin: 0; font-size: 0.95rem; }
     
-    /* 2. Айсберг Конфликта (ИСПРАВЛЕНА МОБИЛЬНАЯ ВЕРСИЯ И ТЕКСТ) */
+    /* 1. ВИДЖЕТ: АНАТОМИЯ МОЗГА (НОВЫЙ) */
+    .brain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; }
+    .brain-svg-box { background: #0f172a; border-radius: 24px; padding: 30px; display: flex; justify-content: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.5); }
+    .brain-info { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 20px; padding: 30px; min-height: 220px; display: flex; flex-direction: column; justify-content: center; transition: all 0.3s; }
+    .brain-part { cursor: pointer; transition: all 0.3s ease; }
+    .brain-part:hover { filter: drop-shadow(0 0 15px currentColor); stroke-width: 5; }
+    @media (max-width: 768px) { .brain-grid { grid-template-columns: 1fr; } .brain-info { min-height: 180px; padding: 20px;} }
+
+    /* 2. Айсберг Конфликта */
     .iceberg-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
     @media (min-width: 768px) { .iceberg-grid { grid-template-columns: 1fr 1fr; } }
-    
     .iceberg-options { display: flex; flex-direction: column; gap: 15px; justify-content: center;}
     .iceberg-btn { padding: 20px; border-radius: 16px; background: #f8fafc; border: 2px solid #e2e8f0; cursor: pointer; transition: 0.3s; font-weight: 600; color: #475569; text-align: center; font-size: 1.1rem;}
     .iceberg-btn:hover { background: #f0f9ff; border-color: #bae6fd; }
@@ -115,7 +122,7 @@
     .iceberg-title { font-size: 1.8rem; font-weight: 800; margin: 0 0 15px; color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.6); position: relative; z-index: 1;}
     .iceberg-desc { font-size: 1.05rem; line-height: 1.6; font-weight: 500; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.8); margin: 0; position: relative; z-index: 1; }
 
-    /* Протокол Декомпрессии */
+    /* 3. Протокол Декомпрессии */
     .widget-nav { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
     .widget-step-btn { flex-shrink: 0; padding: 12px 20px; border-radius: 12px; background: #f1f5f9; color: #475569; font-weight: 700; font-size: 0.9rem; cursor: pointer; border: 2px solid transparent; transition: 0.3s; display: flex; align-items: center; gap: 8px;}
     .widget-step-btn.active { background: #f0fdfa; color: #0ea5e9; border-color: #0ea5e9; }
@@ -123,7 +130,7 @@
     .widget-icon-large { font-size: 3rem; margin-right: 20px; opacity: 0.8; }
     .widget-text { font-size: 1.05rem; color: #334155; line-height: 1.6; font-weight: 500; }
 
-    /* Чат Симулятор */
+    /* 4. Чат Симулятор */
     .chat-simulator { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
     .chat-history { padding: 20px; display: flex; flex-direction: column; gap: 15px; min-height: 300px; max-height: 450px; overflow-y: auto; background: #f1f5f9; scroll-behavior: smooth; }
     .chat-msg { display: flex; gap: 15px; max-width: 85%; opacity: 0; animation: slideUpFade 0.4s ease-out forwards; }
@@ -132,28 +139,51 @@
     .msg-avatar { font-size: 1.8rem; background: #fff; border-radius: 50%; min-width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); flex-shrink: 0; }
     .msg-bubble { background: #fff; padding: 15px 20px; border-radius: 20px; border-top-left-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); color: #334155; line-height: 1.5; font-size: 0.95rem; }
     .mentor-msg .msg-bubble { background: #0ea5e9; color: #fff; border-radius: 20px; border-top-right-radius: 5px; }
-    
     .chat-options { background: #fff; padding: 20px; border-top: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 10px; transition: opacity 0.3s ease; }
     .chat-btn { text-align: left; padding: 15px 20px; background: #fff; border: 2px solid #e2e8f0; border-radius: 12px; cursor: pointer; transition: 0.2s; color: #475569; font-weight: 500; font-size: 0.95rem; line-height: 1.4; }
     .chat-btn:hover { border-color: #38bdf8; background: #f0f9ff; color: #0284c7; transform: translateX(5px); box-shadow: 0 4px 10px rgba(14, 165, 233, 0.1); }
-    
     .chat-feedback { margin-top: 10px; padding: 15px 20px; border-radius: 16px; font-weight: 500; font-size: 0.95rem; line-height: 1.5; animation: slideUpFade 0.4s ease-out forwards; opacity: 0; }
     .chat-feedback.success { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
     .chat-feedback.error { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
-    
     .reset-chat-btn { margin-top: 15px; padding: 10px 20px; background: #0f172a; color: #fff; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; }
     .reset-chat-btn:hover { background: #334155; }
-    
     .typing-indicator { display: flex; gap: 5px; padding: 15px 20px; background: #fff; border-radius: 20px; border-top-left-radius: 5px; width: fit-content; align-items: center; height: 50px;}
     .dot { width: 8px; height: 8px; background: #cbd5e1; border-radius: 50%; animation: typing 1.4s infinite ease-in-out both; }
     .dot:nth-child(1) { animation-delay: -0.32s; }
     .dot:nth-child(2) { animation-delay: -0.16s; }
     @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
-    /* === 4. ИСПРАВЛЕНИЕ: КНОПКА С БЕГАЮЩЕЙ ЗМЕЙКОЙ === */
+    /* === 5. ВИДЖЕТ: АНТИСТРЕСС ДЫХАНИЕ (НОВЫЙ) === */
+    .breathe-box { background: linear-gradient(135deg, #0f172a, #0369a1); border-radius: 24px; padding: 50px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; min-height: 400px; box-shadow: inset 0 0 50px rgba(0,0,0,0.5);}
+    .breathe-circle-wrap { position: relative; width: 250px; height: 250px; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; }
+    .breathe-circle { position: absolute; width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle, #38bdf8, transparent 70%); box-shadow: 0 0 40px #0ea5e9; opacity: 0.3; transition: all 0.2s; pointer-events: none;}
+    .breathe-text { position: relative; z-index: 10; color: #fff; font-size: 1.8rem; font-weight: 800; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+    .breathe-btn { background: #fff; color: #0369a1; border: none; padding: 15px 30px; border-radius: 99px; font-weight: 800; font-size: 1rem; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.2); margin: 0 auto; z-index: 10; position: relative; display: inline-flex; align-items: center; gap: 8px;}
+    .breathe-btn:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+    .breathe-active .breathe-circle { animation: breatheAnim 19s infinite linear; }
+    
+    @keyframes breatheAnim {
+        0% { transform: scale(1); opacity: 0.3; }
+        21% { transform: scale(2.5); opacity: 1; } /* Вдох 4 сек */
+        58% { transform: scale(2.5); opacity: 1; } /* Удержание 7 сек */
+        100% { transform: scale(1); opacity: 0.3; } /* Выдох 8 сек */
+    }
+
+    /* FAQ */
+    .faq-section { margin-bottom: 40px; }
+    .faq-title { text-align: center; font-size: 1.8rem; font-weight: 700; color: #0f172a; margin-bottom: 25px; }
+    .faq-item { background: #fff; border-radius: 16px; margin-bottom: 10px; border: 1px solid #e2e8f0; overflow: hidden; transition: 0.3s; }
+    .faq-item:hover { border-color: #bae6fd; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+    .faq-summary { padding: 18px 24px; cursor: pointer; font-weight: 600; color: #1e293b; display: flex; justify-content: space-between; align-items: center; list-style: none; }
+    .faq-summary::-webkit-details-marker { display: none; }
+    .faq-summary::after { content: "+"; font-size: 1.5rem; color: #94a3b8; transition: 0.3s; }
+    details[open] .faq-summary::after { transform: rotate(45deg); color: #0ea5e9; }
+    .faq-content { padding: 0 24px 24px; color: #64748b; font-size: 0.95rem; line-height: 1.6; }
+
+    /* CTA (ИСПРАВЛЕНА ЗМЕЙКА) */
     .test-zone { background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); border-radius: 30px; padding: 50px 30px; text-align: center; box-shadow: 0 20px 60px -10px rgba(0,0,0,0.1); border: 1px solid #fff; margin-bottom: 40px;}
     .btn-magic { position: relative; display: inline-flex; justify-content: center; align-items: center; padding: 16px 32px; font-size: 1rem; font-weight: 700; color: #ffffff; background: #0f172a; border-radius: 99px; text-decoration: none; overflow: hidden; z-index: 10; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2); }
-    .btn-magic-text { position: relative; z-index: 2; } /* Важно: чтобы текст был поверх всего */
+    .btn-magic-text { position: relative; z-index: 2; }
     .btn-magic::before { 
         content: ""; position: absolute; top: 50%; left: 50%; width: 300%; height: 300%; 
         background: conic-gradient(transparent 0deg, transparent 260deg, #0ea5e9 280deg, #38bdf8 320deg, #bae6fd 360deg); 
@@ -193,14 +223,6 @@
     #page_num_input:focus { border-color: #0ea5e9; outline: none; background: rgba(255,255,255,0.1); }
     .pdf-loader { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #f1f5f9; z-index: 60; color: #64748b; font-weight: 600; }
     .spinner { width: 40px; height: 40px; border: 4px solid #cbd5e1; border-top-color: #0ea5e9; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 10px; }
-    .gesture-hint { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: #fff; padding: 12px 20px; border-radius: 12px; text-align: center; pointer-events: none; opacity: 0; transition: opacity 0.5s; z-index: 70; }
-    .show-hint { opacity: 1; }
-    .btn-text { display: inline; } .btn-icon { display: none; }
-    @media (max-width: 600px) {
-        .btn-text { display: none; } .btn-icon { display: inline; font-size: 1.2rem; }
-        .custom-pdf-viewer { height: 500px; }
-        .pdf-toolbar { padding: 8px 10px; gap: 8px; }
-    }
 
     /* Header Status */
     .system-status-pulse { display: inline-block; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; box-shadow: 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse-green 2s infinite; margin-right: 6px; }
@@ -289,6 +311,28 @@
             <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="flip-icon">😡</div><div class="flip-label">Миф</div><div class="flip-text">"Клиент ненавидит лично меня и специально хочет меня унизить."</div></div><div class="flip-back"><div class="flip-icon">🧊</div><div class="flip-label">Реальность</div><div class="flip-text">Принцип Айсберга: клиент кричит от страха, потери контроля или усталости. Вы просто попались под руку.</div></div></div></div>
             <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="flip-icon">📝</div><div class="flip-label">Миф</div><div class="flip-text">"Чтобы научить, нужно сразу после конфликта разобрать ошибку по регламенту."</div></div><div class="flip-back"><div class="flip-icon">🧪</div><div class="flip-label">Реальность</div><div class="flip-text">Кортизол полностью блокирует логику и память. Разбор полетов возможен только через 2-3 часа.</div></div></div></div>
             <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="flip-icon">🤖</div><div class="flip-label">Миф</div><div class="flip-text">"Настоящий профи вообще не должен испытывать стресс, когда на него кричат."</div></div><div class="flip-back"><div class="flip-icon">🧠</div><div class="flip-label">Реальность</div><div class="flip-text">Амигдала реагирует автоматически, выбрасывая адреналин. Задача профи — контролировать реакцию, а не отрицать химию тела.</div></div></div></div>
+        </div>
+      </section>
+
+      <section class="interactive-widget reveal-up delay-200">
+        <div class="widget-header">
+          <h3>🧠 Интерактивная анатомия: «Захват Амигдалы»</h3>
+          <p>Наведите курсор на отделы мозга, чтобы понять механику агрессии</p>
+        </div>
+        <div class="brain-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center;">
+          <div class="brain-svg-box" style="background: #0f172a; border-radius: 24px; padding: 30px; display: flex; justify-content: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.5);">
+             <svg viewBox="0 0 200 160" width="100%" height="100%" style="max-width: 300px; overflow: visible;">
+                <path d="M90,120 C90,140 85,150 85,150 L115,150 C115,150 110,140 110,120" fill="#94a3b8" />
+                <path id="neocortex-path" d="M100,10 C40,10 10,50 20,90 C30,120 70,120 90,120 L110,120 C130,120 170,120 180,90 C190,50 160,10 100,10 Z" fill="rgba(14, 165, 233, 0.1)" stroke="#0ea5e9" stroke-width="3" style="cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.filter='drop-shadow(0 0 15px #0ea5e9)'; this.style.strokeWidth='5'" onmouseout="this.style.filter='none'; this.style.strokeWidth='3'" />
+                <text x="100" y="50" fill="#0ea5e9" font-size="14" font-weight="bold" text-anchor="middle" pointer-events="none">НЕОКОРТЕКС</text>
+                <circle id="amygdala-path" cx="100" cy="90" r="18" fill="rgba(225, 29, 72, 0.2)" stroke="#e11d48" stroke-width="3" style="cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.filter='drop-shadow(0 0 15px #e11d48)'; this.style.strokeWidth='5'" onmouseout="this.style.filter='none'; this.style.strokeWidth='3'" />
+                <text x="100" y="95" fill="#fff" font-size="10" font-weight="bold" text-anchor="middle" pointer-events="none">АМИГДАЛА</text>
+             </svg>
+          </div>
+          <div class="brain-info" id="brain-info" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 20px; padding: 30px; min-height: 220px; display: flex; flex-direction: column; justify-content: center;">
+             <h4 style="font-size:1.5rem; color:#0f172a; margin-bottom:10px;">Как работает мозг в стрессе?</h4>
+             <p style="color:#475569; line-height:1.6; margin:0;">Наведите курсор на <strong>Амигдалу</strong> (центр эмоций) или <strong>Неокортекс</strong> (логику), чтобы узнать, почему разъяренный клиент физически не способен слышать ваши разумные аргументы.</p>
+          </div>
         </div>
       </section>
 
@@ -389,6 +433,22 @@
         </div>
       </section>
 
+      <section class="interactive-widget reveal-up delay-200">
+        <div class="widget-header">
+          <h3>🫁 Практика: Антистресс-дыхание (4-7-8)</h3>
+          <p>Снижаем уровень кортизола перед прохождением итогового теста</p>
+        </div>
+        <div class="breathe-box" style="background: linear-gradient(135deg, #0f172a, #0369a1); border-radius: 24px; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; min-height: 400px; box-shadow: inset 0 0 50px rgba(0,0,0,0.5);">
+           <div class="breathe-circle-wrap" style="position: relative; width: 250px; height: 250px; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center;">
+              <div class="breathe-circle" id="breathe-circle" style="position: absolute; width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle, #38bdf8, transparent 70%); box-shadow: 0 0 40px #0ea5e9; opacity: 0.3; transition: all 0.2s; pointer-events: none;"></div>
+              <div class="breathe-text" id="breathe-text" style="position: relative; z-index: 10; color: #fff; font-size: 1.8rem; font-weight: 800; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">Готовы?</div>
+           </div>
+           <button id="breathe-btn" class="breathe-btn" style="background: #fff; color: #0369a1; border: none; padding: 15px 30px; border-radius: 99px; font-weight: 800; font-size: 1rem; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.2); margin: 0 auto; z-index: 10; position: relative; display: inline-flex; align-items: center; gap: 8px;">
+              ▶ НАЧАТЬ ПРАКТИКУ
+           </button>
+        </div>
+      </section>
+
       <div class="test-zone reveal-up delay-200">
         <h2 style="font-size:1.8rem; font-weight:800; color:#0f172a; margin-bottom:15px;">Готовы к проверке?</h2>
         <p style="color:#64748b; max-width:600px; margin:0 auto 30px; font-size:1.1rem;">Если вы изучили материалы и прошли интерактивы, приступайте к тесту.</p>
@@ -453,6 +513,22 @@
           card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
         });
       });
+    }
+
+    // === ВИДЖЕТ 0: АНАТОМИЯ МОЗГА ===
+    const neo = document.getElementById('neocortex-path');
+    const amy = document.getElementById('amygdala-path');
+    const bInfo = document.getElementById('brain-info');
+
+    const neoData = `<h4 style="font-size:1.5rem; color:#0ea5e9; margin-bottom:10px;">Неокортекс (Логика)</h4><p style="color:#475569; line-height:1.6; margin:0;">Отвечает за рациональное мышление, анализ и правила. <strong>Во время конфликта отключается!</strong> Именно поэтому в разгар скандала бесполезно цитировать гостю правила отеля — он физически не способен их воспринять.</p>`;
+    const amyData = `<h4 style="font-size:1.5rem; color:#e11d48; margin-bottom:10px;">Амигдала (Эмоции)</h4><p style="color:#475569; line-height:1.6; margin:0;">Древняя часть мозга, «радар угроз». При стрессе моментально перехватывает управление (захват амигдалы), вбрасывает адреналин и включает режим <strong>«Бей или Беги»</strong>. Гость кричит, потому что его мозг считает, что он в смертельной опасности.</p>`;
+    const defaultData = `<h4 style="font-size:1.5rem; color:#0f172a; margin-bottom:10px;">Как работает мозг в стрессе?</h4><p style="color:#475569; line-height:1.6; margin:0;">Наведите курсор на <strong>Амигдалу</strong> (центр эмоций) или <strong>Неокортекс</strong> (логику), чтобы узнать, почему разъяренный клиент физически не способен слышать ваши разумные аргументы.</p>`;
+
+    if(neo && amy && bInfo) {
+      neo.addEventListener('mouseover', () => bInfo.innerHTML = neoData);
+      amy.addEventListener('mouseover', () => bInfo.innerHTML = amyData);
+      neo.addEventListener('mouseout', () => bInfo.innerHTML = defaultData);
+      amy.addEventListener('mouseout', () => bInfo.innerHTML = defaultData);
     }
 
     // === ВИДЖЕТ 1: АЙСБЕРГ ===
@@ -575,7 +651,7 @@
 
     function renderChatScenario() {
       const scenario = chatScenarios[currentChatIndex];
-      chatProgress.textContent = `СИТУАЦИЯ ${currentChatIndex + 1} ИЗ ${chatScenarios.length}`;
+      if(chatProgress) chatProgress.textContent = `СИТУАЦИЯ ${currentChatIndex + 1} ИЗ ${chatScenarios.length}`;
       
       chatHistory.innerHTML = `
         <div class="chat-msg trainee-msg" style="opacity: 1; transform: translateY(0); animation: none;">
@@ -607,7 +683,6 @@
       const scenario = chatScenarios[currentChatIndex];
       const selectedOption = scenario.options[optIndex];
 
-      // 1. Скрываем кнопки, показываем ответ наставника
       chatOptions.style.opacity = '0';
       setTimeout(() => chatOptions.style.display = 'none', 300);
       
@@ -615,7 +690,6 @@
       chatHistory.insertAdjacentHTML('beforeend', mentorMsgHTML);
       chatHistory.scrollTop = chatHistory.scrollHeight;
 
-      // 2. Имитация печатания...
       const typingId = 'typing-' + Date.now();
       const typingHTML = `<div class="chat-msg trainee-msg" id="${typingId}"><div class="msg-avatar">${scenario.avatar}</div><div class="typing-indicator"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
       
@@ -624,16 +698,13 @@
           chatHistory.scrollTop = chatHistory.scrollHeight;
       }, 500);
 
-      // 3. Вывод ответа стажера и оценки системы
       setTimeout(() => {
           const typingIndicator = document.getElementById(typingId);
           if(typingIndicator) typingIndicator.remove();
           
-          // Ответ стажера
-          const traineeReplyHTML = `<div class="chat-msg trainee-msg"><div class="msg-avatar">${scenario.avatar}</div><div class="msg-bubble text-outline-white"><strong>${scenario.trainee}:</strong> ${selectedOption.reply}</div></div>`;
+          const traineeReplyHTML = `<div class="chat-msg trainee-msg"><div class="msg-avatar">${scenario.avatar}</div><div class="msg-bubble"><strong>${scenario.trainee}:</strong> ${selectedOption.reply}</div></div>`;
           chatHistory.insertAdjacentHTML('beforeend', traineeReplyHTML);
 
-          // Фидбек от системы
           setTimeout(() => {
             let actionBtnHTML = '';
             if (selectedOption.isCorrect) {
@@ -647,7 +718,6 @@
             } else {
                 const feedbackHTML = `<div class="chat-feedback error">${selectedOption.feedback}</div>`;
                 chatHistory.insertAdjacentHTML('beforeend', feedbackHTML);
-                // Возвращаем кнопки для повторной попытки
                 setTimeout(() => {
                     chatOptions.style.display = 'flex';
                     setTimeout(() => { chatOptions.style.opacity = '1'; }, 50);
@@ -671,9 +741,47 @@
       renderChatScenario();
     };
 
-    // Инициализация при загрузке
     if(document.getElementById('chatOptions')) {
       renderChatScenario();
+    }
+
+
+    // === ВИДЖЕТ 4: АНТИСТРЕСС ДЫХАНИЕ ===
+    const bBtn = document.getElementById('breathe-btn');
+    const bCircleWrap = document.querySelector('.breathe-circle-wrap');
+    const bText = document.getElementById('breathe-text');
+    let bInterval;
+    let bTimeout1, bTimeout2;
+
+    if(bBtn && bCircleWrap && bText) {
+        bBtn.addEventListener('click', () => {
+            const isActive = bCircleWrap.classList.contains('breathe-active');
+            if(isActive) {
+                bCircleWrap.classList.remove('breathe-active');
+                clearInterval(bInterval);
+                clearTimeout(bTimeout1);
+                clearTimeout(bTimeout2);
+                bText.textContent = 'Готовы?';
+                bBtn.innerHTML = '▶ НАЧАТЬ ПРАКТИКУ';
+            } else {
+                bCircleWrap.classList.add('breathe-active');
+                bBtn.innerHTML = '⏹ ОСТАНОВИТЬ';
+                runBreathe();
+                bInterval = setInterval(runBreathe, 19000);
+            }
+        });
+    }
+
+    function runBreathe() {
+        bText.innerHTML = 'Вдох...<br><span style="font-size:1rem; opacity:0.8;">4 секунды</span>';
+        bTimeout1 = setTimeout(() => {
+            if(!bCircleWrap.classList.contains('breathe-active')) return;
+            bText.innerHTML = 'Удержание...<br><span style="font-size:1rem; opacity:0.8;">7 секунд</span>';
+            bTimeout2 = setTimeout(() => {
+                if(!bCircleWrap.classList.contains('breathe-active')) return;
+                bText.innerHTML = 'Выдох...<br><span style="font-size:1rem; opacity:0.8;">8 секунд</span>';
+            }, 7000);
+        }, 4000);
     }
 
 
