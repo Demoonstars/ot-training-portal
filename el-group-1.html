@@ -364,16 +364,10 @@
 </div>
 
 <script>
-  
-  // 1. ДАТА В ШАПКЕ
   document.addEventListener("DOMContentLoaded", function() {
-      const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      const dateStr = new Date().toLocaleDateString('ru-RU', dateOptions);
-      const dateEl = document.getElementById('current-date');
-      if(dateEl) {
-          dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
-      }
-  });
+    // 1. Стандартные скрипты
+    const now = new Date();
+    document.getElementById('current-date').textContent = now.toLocaleDateString('ru-RU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).replace(/^\w/, c => c.toUpperCase());
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
