@@ -101,7 +101,7 @@
     .widget-header h3 { font-size: 1.5rem; color: #0f172a; margin: 0 0 10px; font-weight: 800; }
     .widget-header p { color: #64748b; margin: 0; font-size: 0.95rem; }
     
-    /* 1. АНАТОМИЯ МОЗГА */
+    /* 1. АНАТОМИЯ МОЗГА (ОБНОВЛЕННАЯ) */
     .brain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; }
     .brain-svg-box { background: #0f172a; border-radius: 24px; padding: 30px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.5); min-height: 250px; }
     .brain-info { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 20px; padding: 30px; min-height: 220px; display: flex; flex-direction: column; justify-content: center; transition: all 0.3s; }
@@ -122,7 +122,7 @@
     .iceberg-title { font-size: 1.8rem; font-weight: 800; margin: 0 0 15px; color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.6); position: relative; z-index: 1;}
     .iceberg-desc { font-size: 1.05rem; line-height: 1.6; font-weight: 500; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.8); margin: 0; position: relative; z-index: 1; }
 
-    /* 3. Протокол Декомпрессии */
+    /* Протокол Декомпрессии */
     .widget-nav { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
     .widget-step-btn { flex-shrink: 0; padding: 12px 20px; border-radius: 12px; background: #f1f5f9; color: #475569; font-weight: 700; font-size: 0.9rem; cursor: pointer; border: 2px solid transparent; transition: 0.3s; display: flex; align-items: center; gap: 8px;}
     .widget-step-btn.active { background: #f0fdfa; color: #0ea5e9; border-color: #0ea5e9; }
@@ -130,7 +130,7 @@
     .widget-icon-large { font-size: 3rem; margin-right: 20px; opacity: 0.8; }
     .widget-text { font-size: 1.05rem; color: #334155; line-height: 1.6; font-weight: 500; }
 
-    /* 4. Чат Симулятор */
+    /* Чат Симулятор (Ванильный) */
     .chat-simulator { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
     .chat-history { padding: 20px; display: flex; flex-direction: column; gap: 15px; min-height: 300px; max-height: 450px; overflow-y: auto; background: #f1f5f9; scroll-behavior: smooth; }
     .chat-msg { display: flex; gap: 15px; max-width: 85%; opacity: 0; animation: slideUpFade 0.4s ease-out forwards; }
@@ -180,7 +180,7 @@
     details[open] .faq-summary::after { transform: rotate(45deg); color: #0ea5e9; }
     .faq-content { padding: 0 24px 24px; color: #64748b; font-size: 0.95rem; line-height: 1.6; }
 
-    /* CTA (ИСПРАВЛЕНА ЗМЕЙКА) */
+    /* CTA (ЗМЕЙКА) */
     .test-zone { background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); border-radius: 30px; padding: 50px 30px; text-align: center; box-shadow: 0 20px 60px -10px rgba(0,0,0,0.1); border: 1px solid #fff; margin-bottom: 40px;}
     .btn-magic { position: relative; display: inline-flex; justify-content: center; align-items: center; padding: 16px 32px; font-size: 1rem; font-weight: 700; color: #ffffff; background: #0f172a; border-radius: 99px; text-decoration: none; overflow: hidden; z-index: 10; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2); }
     .btn-magic-text { position: relative; z-index: 2; }
@@ -801,7 +801,7 @@
           if(typingIndicator) typingIndicator.remove();
           
           // Ответ стажера
-          const traineeReplyHTML = `<div class="chat-msg trainee-msg"><div class="msg-avatar">${scenario.avatar}</div><div class="msg-bubble text-outline-white"><strong>${scenario.trainee}:</strong> ${selectedOption.reply}</div></div>`;
+          const traineeReplyHTML = `<div class="chat-msg trainee-msg"><div class="msg-avatar">${scenario.avatar}</div><div class="msg-bubble"><strong>${scenario.trainee}:</strong> ${selectedOption.reply}</div></div>`;
           chatHistory.insertAdjacentHTML('beforeend', traineeReplyHTML);
 
           // Фидбек от системы
@@ -1024,19 +1024,6 @@
   });
 </script>
 
-<style>
-    .text-outline-white {
-        color: #0f172a !important;
-        font-weight: 800 !important;
-        text-shadow: 
-            -1px -1px 0 #fff,  
-             1px -1px 0 #fff,
-            -1px  1px 0 #fff,
-             1px  1px 0 #fff,
-             0px  2px 4px rgba(255,255,255,0.7) !important;
-    }
-</style>
-
 <script type="text/babel">
   const { useState, useEffect, useRef } = React;
   const { createRoot } = ReactDOM;
@@ -1059,26 +1046,25 @@
     } catch (e) {}
   };
 
-  // База из 10 сложных HR-кейсов
   const ALL_HR_SCENARIOS = [
     {
-      trainee: "Александр (Менеджер зала)",
+      trainee: "Александр (Менеджер)",
       avatar: "😠",
-      msg: "Я работаю здесь 5 лет! А вы повысили этого выскочку Игоря, который пришел полгода назад. Это несправедливо!",
+      msg: "Вы повысили этого выскочку Игоря, который пришел полгода назад. А я работаю тут 5 лет! Это несправедливо!",
       options: [
-        { text: "Игорь показал лучшие результаты по KPI. Это бизнес, ничего личного.", isCorrect: false, feedback: "ОШИБКА: Сухие факты не успокоят ущемленное эго сотрудника. Это приведет к саботажу или увольнению опытного кадра." },
-        { text: "Александр, я понимаю твою обиду. Давай встретимся завтра, я покажу тебе прозрачные критерии, по которым мы принимали решение, и мы составим твой личный план развития для следующего повышения.", isCorrect: true, feedback: "ОТЛИЧНО: Вы признали его эмоции (валидация), предложили прозрачность и сфокусировали на будущем (Feedforward)." },
-        { text: "Не смей со мной так разговаривать! Если не нравится — дверь там.", isCorrect: false, feedback: "ФАТАЛЬНАЯ ОШИБКА: Жесткий прессинг спровоцирует конфликт, который отравит атмосферу во всем коллективе." }
+        { text: "Игорь показал лучшие результаты по KPI. Это бизнес.", isCorrect: false, feedback: "ОШИБКА: Сухие факты не успокоят ущемленное эго сотрудника." },
+        { text: "Понимаю твою обиду. Давай завтра посмотрим критерии решения и составим твой план развития.", isCorrect: true, feedback: "ОТЛИЧНО: Вы признали эмоции и сфокусировали на будущем (Feedforward)." },
+        { text: "Не смей так разговаривать! Если не нравится — дверь там.", isCorrect: false, feedback: "ФАТАЛЬНАЯ ОШИБКА: Прессинг спровоцирует конфликт во всем коллективе." }
       ]
     },
     {
       trainee: "Елена (Шеф-повар)",
       avatar: "😫",
-      msg: "Я больше так не могу. Смен не хватает, официанты тупят, продукты привозят поздно. Я ухожу, пишите по собственному.",
+      msg: "Я больше так не могу. Официанты тупят, продукты везут поздно. Я ухожу, пишите по собственному.",
       options: [
-        { text: "Хорошо, если ты так решила, задерживать не буду. Пиши заявление.", isCorrect: false, feedback: "ОШИБКА: Потеря ключевого сотрудника из-за эмоций. Это классическое выгорание, а не реальное желание уйти." },
-        { text: "Елена, ты перегорела. Возьми 3 выходных дня прямо сейчас за счет компании. А в понедельник сядем и пересмотрим график поставок и смен.", isCorrect: true, feedback: "БЛЕСТЯЩЕ: Вы диагностировали выгорание, дали экстренный отдых (декомпрессия) и пообещали системное решение проблемы." },
-        { text: "Ты не можешь сейчас уйти, у нас банкеты расписаны на месяц вперед! Потерпи немного.", isCorrect: false, feedback: "ОШИБКА: Давление на чувство вины только усилит желание сбежать от стресса." }
+        { text: "Хорошо, задерживать не буду. Пиши заявление.", isCorrect: false, feedback: "ОШИБКА: Потеря ключевого сотрудника из-за эмоций (выгорание)." },
+        { text: "Елена, ты перегорела. Возьми 3 выходных прямо сейчас. А в понедельник пересмотрим график поставок.", isCorrect: true, feedback: "БЛЕСТЯЩЕ: Вы дали экстренный отдых (декомпрессия) и пообещали решить проблему." },
+        { text: "Ты не можешь уйти, у нас банкеты расписаны! Потерпи немного.", isCorrect: false, feedback: "ОШИБКА: Давление на чувство вины усилит желание сбежать от стресса." }
       ]
     },
     {
@@ -1086,19 +1072,19 @@
       avatar: "🤐",
       msg: "(Молчит на собраниях, игнорирует новые стандарты, закатывает глаза, когда вы говорите).",
       options: [
-        { text: "[При всех] Светлана, тебе что-то не нравится? Выскажи это прямо сейчас всем!", isCorrect: false, feedback: "ОШИБКА: Публичные разборки вызовут защитную агрессию и подорвут ваш авторитет." },
-        { text: "[Один на один] Света, я замечаю, что ты саботируешь новые правила. Либо ты их принимаешь, либо мы прощаемся.", isCorrect: false, feedback: "ОШИБКА: Ультиматум не вскрывает причину тихого саботажа." },
-        { text: "[Один на один] Света, я вижу, что ты скептически относишься к нововведениям. У тебя огромный опыт. Что именно в новых правилах кажется тебе нерабочим?", isCorrect: true, feedback: "ОТЛИЧНО: Вы перевели пассивную агрессию в конструктив, признав ее опыт (андрагогика)." }
+        { text: "[При всех] Светлана, тебе что-то не нравится? Выскажи это прямо сейчас всем!", isCorrect: false, feedback: "ОШИБКА: Публичные разборки вызовут защитную агрессию." },
+        { text: "[Лично] Света, я замечаю саботаж новых правил. Либо ты их принимаешь, либо мы прощаемся.", isCorrect: false, feedback: "ОШИБКА: Ультиматум не вскрывает причину тихого саботажа." },
+        { text: "[Лично] Света, я вижу скепсис к нововведениям. У тебя огромный опыт. Что именно кажется нерабочим?", isCorrect: true, feedback: "ОТЛИЧНО: Вы перевели пассивную агрессию в конструктив, признав ее опыт." }
       ]
     },
     {
       trainee: "Иван (Охранник)",
       avatar: "😤",
-      msg: "Гость был пьян и оскорблял меня! Поэтому я применил к нему силу и вытолкал за дверь. Я действовал по инструкции безопасности!",
+      msg: "Гость был пьян и оскорблял меня! Поэтому я применил силу и вытолкал его за дверь. Я действовал по инструкции!",
       options: [
-        { text: "Молодец, безопасность прежде всего. Мы защитим тебя перед руководством.", isCorrect: false, feedback: "ОШИБКА: Оправдание превышения полномочий грозит отелю судами и скандалом в СМИ." },
-        { text: "Иван, мы сейчас же отстраняем тебя от работы. Я вызываю полицию, пусть разбираются.", isCorrect: false, feedback: "ОШИБКА: Слишком поспешное решение без внутреннего расследования." },
-        { text: "Иван, напиши подробную объяснительную. Я сейчас подниму записи с камер. Если гость не применял силу первым, твои действия — это превышение полномочий.", isCorrect: true, feedback: "ВЕРНО: Холодная фиксация фактов. Никаких преждевременных оценок или поддержки агрессии." }
+        { text: "Молодец, безопасность прежде всего. Мы защитим тебя перед руководством.", isCorrect: false, feedback: "ОШИБКА: Оправдание превышения полномочий грозит отелю судами." },
+        { text: "Я отстраняю тебя от работы. Вызываю полицию, пусть разбираются.", isCorrect: false, feedback: "ОШИБКА: Слишком поспешное решение без внутреннего расследования." },
+        { text: "Напиши объяснительную. Я подниму записи с камер. Если гость не применял силу первым — это превышение полномочий.", isCorrect: true, feedback: "ВЕРНО: Холодная фиксация фактов без преждевременных оценок." }
       ]
     },
     {
@@ -1106,9 +1092,9 @@
       avatar: "📱",
       msg: "(Постоянно сидит в телефоне во время смены. Вы уже делали замечание 2 раза).",
       options: [
-        { text: "Алина, ты уволена. Я предупреждал дважды.", isCorrect: false, feedback: "ОШИБКА: Увольнение без письменных выговоров (документального следа) может быть оспорено." },
-        { text: "Алина, это третье предупреждение. С этого момента на время смены ты сдаешь телефон в мой сейф.", isCorrect: false, feedback: "ОШИБКА: Отель — не школа. Отбирать личные вещи противозаконно." },
-        { text: "Алина, мы обсуждали это дважды. Твое поведение не меняется (Факт). Это влияет на качество встречи гостей (Результат). Я оформляю официальный выговор со штрафом (Будущее).", isCorrect: true, feedback: "ИДЕАЛЬНО: Вы применили модель BOFF. Четко, по фактам, с законными последствиями." }
+        { text: "Ты уволена. Я предупреждал дважды.", isCorrect: false, feedback: "ОШИБКА: Увольнение без письменных выговоров может быть оспорено." },
+        { text: "Это третье предупреждение. С этого момента ты сдаешь телефон в мой сейф на время смены.", isCorrect: false, feedback: "ОШИБКА: Отель — не школа. Отбирать личные вещи незаконно." },
+        { text: "Мы обсуждали это. Поведение не меняется (Факт), качество падает (Результат). Я оформляю выговор со штрафом (Будущее).", isCorrect: true, feedback: "ИДЕАЛЬНО: Вы применили модель BOFF. Четко, по фактам, с законными последствиями." }
       ]
     },
     {
@@ -1116,19 +1102,19 @@
       avatar: "🔥",
       msg: "Я не буду готовить по этим новым техкартам! Это бред, придуманный в офисе людьми, которые ни разу не стояли у плиты!",
       options: [
-        { text: "Виктор, техкарты утверждены генеральным. Либо готовишь, либо уходишь.", isCorrect: false, feedback: "ОШИБКА: Директивный стиль с экспертом вызовет только бунт." },
+        { text: "Техкарты утверждены генеральным. Либо готовишь, либо уходишь.", isCorrect: false, feedback: "ОШИБКА: Директивный стиль с экспертом вызовет только бунт." },
         { text: "Хорошо, готовь как раньше, но чтобы гости не жаловались.", isCorrect: false, feedback: "ОШИБКА: Вы потеряли контроль над стандартами сети." },
-        { text: "Виктор, я слышу твое возмущение. Давай приготовим два блюда: по твоей старой схеме и по новой техкарте. Сравним время, вкус и фудкост (себестоимость). Если твоя схема лучше — я пойду к руководству ее защищать.", isCorrect: true, feedback: "БЛЕСТЯЩЕ: Вы вовлекли эксперта в анализ (стиль S3). Если он докажет свою правоту — компания выиграет. Если нет — он сам увидит логику новых ТТК." }
+        { text: "Давай приготовим два блюда: по-старому и по-новому. Сравним время и вкус. Если твоя схема лучше — я пойду к руководству ее защищать.", isCorrect: true, feedback: "БЛЕСТЯЩЕ: Вы вовлекли эксперта в анализ. Либо он докажет правоту, либо сам увидит логику новых правил." }
       ]
     },
     {
-      trainee: "Группа горничных",
+      trainee: "Горничные",
       avatar: "🗣️",
-      msg: "(Зашли к вам в кабинет толпой). Нам не доплатили за переработки в прошлом месяце! Мы отказываемся выходить на этажи, пока не увидим расчетники!",
+      msg: "(Зашли к вам в кабинет толпой). Нам не доплатили за переработки! Мы отказываемся выходить на этажи, пока не увидим расчетники!",
       options: [
         { text: "Быстро все за работу, иначе уволю по статье за забастовку!", isCorrect: false, feedback: "ОШИБКА: Угрозы толпе вызовут цепную реакцию и остановку работы всего отеля." },
         { text: "Девочки, успокойтесь, я сейчас достану деньги из кассы и вам все компенсирую.", isCorrect: false, feedback: "ОШИБКА: Нарушение финансовых процедур и поощрение шантажа." },
-        { text: "Я понимаю вашу злость. Мне нужно 30 минут, чтобы связаться с бухгалтерией и разобраться в ситуации. Пожалуйста, вернитесь на рабочие места, а в 14:00 старшая от вашей смены пусть зайдет ко мне за ответом.", isCorrect: true, feedback: "ПРАВИЛЬНО: Вы не поддались панике, разделили толпу (выделив лидера) и взяли время на холодный анализ." }
+        { text: "Понимаю вашу злость. Мне нужно 30 минут связаться с бухгалтерией. Пожалуйста, вернитесь на места, а в 14:00 старшая от смены пусть зайдет за ответом.", isCorrect: true, feedback: "ПРАВИЛЬНО: Вы не поддались панике, разделили толпу (выделив лидера) и взяли время на анализ." }
       ]
     },
     {
@@ -1137,18 +1123,18 @@
       msg: "Вы мне ничего нормально не объяснили, поэтому я и накосячил! У вас тут вообще нет нормального обучения!",
       options: [
         { text: "Я с тобой три дня возился! Ты просто невнимательный!", isCorrect: false, feedback: "ОШИБКА: Переход в оборонительную позицию и спор со стажером — это проигрыш наставника." },
-        { text: "Извини, возможно, я действительно упустил этот момент. Давай я покажу еще раз.", isCorrect: false, feedback: "ОШИБКА: Взяв всю вину на себя, вы сняли ответственность со стажера за его результат." },
-        { text: "Давай посмотрим чек-лист, который ты подписал в первый день. Там есть этот пункт. Почему ты не задал вопрос, если он был тебе непонятен?", isCorrect: true, feedback: "ОТЛИЧНО: Вы вернули ответственность стажеру, опираясь на факты и документы (чек-лист), избежав эмоционального спора." }
+        { text: "Извини, возможно, я упустил этот момент. Давай покажу еще раз.", isCorrect: false, feedback: "ОШИБКА: Взяв всю вину на себя, вы сняли ответственность со стажера за его результат." },
+        { text: "Давай посмотрим чек-лист, который ты подписал в первый день. Там есть этот пункт. Почему ты не задал вопрос, если он был тебе непонятен?", isCorrect: true, feedback: "ОТЛИЧНО: Вы вернули ответственность стажеру, опираясь на документы (чек-лист), избежав эмоционального спора." }
       ]
     },
     {
-      trainee: "Марина (Менеджер бронирования)",
+      trainee: "Марина (Менеджер)",
       avatar: "💬",
-      msg: "Коллеги из ресторана постоянно хамят мне, когда я звоню уточнить бронь столика для гостя! Они считают нас людьми второго сорта.",
+      msg: "Коллеги из ресторана постоянно хамят мне, когда я звоню уточнить бронь! Они считают нас людьми второго сорта.",
       options: [
-        { text: "Не обращай внимания, на кухне всегда нервные работают.", isCorrect: false, feedback: "ОШИБКА: Игнорирование межведомственного конфликта приведет к падению качества сервиса для гостей." },
+        { text: "Не обращай внимания, на кухне всегда нервные работают.", isCorrect: false, feedback: "ОШИБКА: Игнорирование конфликта приведет к падению качества сервиса." },
         { text: "Я сейчас же пойду к директору ресторана и устрою ему разнос!", isCorrect: false, feedback: "ОШИБКА: Эскалация конфликта без выяснения деталей второй стороны." },
-        { text: "Марина, зафиксируй для меня дату, время и конкретные фразы, которые тебе сказали. Я инициирую встречу с руководителем ресторана для создания единого регламента общения между службами.", isCorrect: true, feedback: "ВЕРНО: Перевод эмоций («они хамят») в факты («дата, время, слова») и системное решение проблемы на уровне регламентов." }
+        { text: "Зафиксируй для меня дату, время и конкретные фразы. Я инициирую встречу с руководителем ресторана для создания регламента общения между службами.", isCorrect: true, feedback: "ВЕРНО: Перевод эмоций в факты и системное решение проблемы." }
       ]
     },
     {
@@ -1157,8 +1143,8 @@
       msg: "Я делаю самую большую выручку в отеле. Поэтому я буду приходить на 20 минут позже, и мне плевать на ваш дресс-код.",
       options: [
         { text: "Ну хорошо, только не афишируй это перед остальными.", isCorrect: false, feedback: "ОШИБКА: Двойные стандарты разрушат дисциплину во всей команде." },
-        { text: "Кристина, ты уволена. Звезды мне в команде не нужны.", isCorrect: false, feedback: "ОШИБКА: Слишком радикально. Вы теряете лучшего сотрудника (D4) из-за проблем с эго." },
-        { text: "Кристина, я ценю твои результаты. Но правила едины для всех. Если ты хочешь особый график — давай переведем тебя на KPI-контракт со свободным посещением. Пока ты в штате — дресс-код и график обязательны.", isCorrect: true, feedback: "БЛЕСТЯЩЕ: Вы жестко удержали рамки корпоративных правил, но предложили легальную альтернативу для «звезды»." }
+        { text: "Ты уволена. Звезды мне в команде не нужны.", isCorrect: false, feedback: "ОШИБКА: Слишком радикально. Вы теряете лучшего сотрудника из-за эго." },
+        { text: "Я ценю твои результаты. Но правила едины. Если хочешь особый график — давай переведем тебя на контракт со свободным посещением. Пока ты в штате — график обязателен.", isCorrect: true, feedback: "БЛЕСТЯЩЕ: Вы жестко удержали рамки правил, но предложили легальную альтернативу для «звезды»." }
       ]
     }
   ];
@@ -1195,8 +1181,6 @@
       if(isChatLocked) return;
       setIsChatLocked(true);
 
-      const scenario = scenarios[currentIdx];
-      
       if (opt.isCorrect) {
         playSound('success');
         setScore(prev => prev + 1);
@@ -1224,13 +1208,25 @@
 
     if (gameState === 'start') {
       return (
-        <div className="bg-[#050810] text-slate-200 font-sans p-6 md:p-10 flex flex-col items-center justify-center text-center min-h-[500px]">
-           <div className="text-6xl mb-6 drop-shadow-[0_0_15px_rgba(225,29,72,0.8)]">👔</div>
-           <h2 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-orange-400 mb-4">HR МАСТЕР</h2>
-           <p className="text-slate-400 max-w-lg mb-8">Система сгенерирует 10 случайных сложных кейсов из управления персоналом. Выберите правильную стратегию решения.</p>
-           <button onClick={startGame} className="bg-rose-600 hover:bg-rose-500 text-white font-bold px-8 py-4 rounded-full shadow-[0_0_20px_rgba(225,29,72,0.4)] transition-all transform hover:scale-105 tracking-widest">
-             ЗАПУСТИТЬ СИМУЛЯЦИЮ
-           </button>
+        <div className="flex justify-center items-center py-10 px-4">
+          {/* Корпус телефона */}
+          <div className="w-full max-w-[380px] h-[750px] bg-slate-900 rounded-[45px] border-[12px] border-slate-800 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] relative flex flex-col overflow-hidden font-sans">
+            
+            {/* Челка (Notch) */}
+            <div className="absolute top-0 inset-x-0 flex justify-center z-50">
+              <div className="w-32 h-6 bg-slate-800 rounded-b-2xl"></div>
+            </div>
+
+            {/* Экран телефона */}
+            <div className="flex-1 flex flex-col items-center justify-center p-6 text-center z-10 bg-gradient-to-b from-slate-900 to-[#0b1426]">
+               <div className="text-6xl mb-4">📱</div>
+               <h2 className="text-2xl font-black text-white mb-2">HR Messenger</h2>
+               <p className="text-slate-400 text-sm mb-8">10 сложных кейсов управления командой. Решите их в формате переписки.</p>
+               <button onClick={startGame} className="bg-blue-600 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-blue-500 transition-transform hover:scale-105 active:scale-95 w-full">
+                 ОТКРЫТЬ ЧАТЫ
+               </button>
+            </div>
+          </div>
         </div>
       );
     }
@@ -1238,15 +1234,21 @@
     if (gameState === 'victory') {
       const isPerfect = score === scenarios.length;
       return (
-        <div className="bg-[#050810] text-slate-200 font-sans p-6 md:p-10 flex flex-col items-center justify-center text-center min-h-[500px] animate-fade-in">
-           <div className="text-7xl mb-6 drop-shadow-[0_0_30px_rgba(251,191,36,0.8)]">{isPerfect ? '👑' : '📊'}</div>
-           <h2 className="text-3xl md:text-5xl font-black text-white mb-2">Анализ завершен</h2>
-           <p className="text-slate-400 mb-6">Ваш результат как руководителя:</p>
-           <div className="text-5xl font-black text-amber-400 mb-8">{score} / {scenarios.length}</div>
-           <p className="text-slate-300 max-w-lg mb-8">{isPerfect ? 'Идеальное управление! Вы виртуозно работаете с конфликтами и выгоранием.' : 'Хороший опыт. Но некоторые кейсы требуют более холодного рассудка.'}</p>
-           <button onClick={startGame} className="border border-rose-500 text-rose-400 hover:bg-rose-500 hover:text-white font-bold px-8 py-4 rounded-full transition-all tracking-widest">
-             ПРОЙТИ ДРУГИЕ КЕЙСЫ
-           </button>
+        <div className="flex justify-center items-center py-10 px-4">
+          <div className="w-full max-w-[380px] h-[750px] bg-slate-900 rounded-[45px] border-[12px] border-slate-800 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] relative flex flex-col overflow-hidden font-sans">
+            <div className="absolute top-0 inset-x-0 flex justify-center z-50">
+              <div className="w-32 h-6 bg-slate-800 rounded-b-2xl"></div>
+            </div>
+            <div className="flex-1 flex flex-col items-center justify-center p-6 text-center z-10 bg-gradient-to-b from-slate-900 to-[#0b1426] animate-fade-in">
+               <div className="text-6xl mb-4">{isPerfect ? '🏆' : '📊'}</div>
+               <h2 className="text-2xl font-black text-white mb-2">Чат завершен</h2>
+               <div className="text-5xl font-black text-emerald-400 mb-2">{score}/{scenarios.length}</div>
+               <p className="text-slate-400 text-sm mb-8">правильных решений.</p>
+               <button onClick={startGame} className="bg-slate-700 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-slate-600 transition-transform w-full">
+                 НОВЫЕ СООБЩЕНИЯ
+               </button>
+            </div>
+          </div>
         </div>
       );
     }
@@ -1254,52 +1256,75 @@
     const scenario = scenarios[currentIdx];
 
     return (
-      <div className="bg-[#050810] text-slate-200 font-sans p-4 md:p-8 flex flex-col min-h-[600px] relative overflow-hidden">
-        
-        <div className="flex justify-between items-center mb-6 border-b border-slate-800 pb-4">
-          <div className="text-rose-400 font-mono font-bold tracking-widest text-xs md:text-sm">КЕЙС {currentIdx + 1} ИЗ {scenarios.length}</div>
-          <div className="text-slate-400 font-mono text-xs">ТОЧНОСТЬ: {score}</div>
-        </div>
-
-        <div className="flex-1 flex flex-col justify-end space-y-6 relative z-10 w-full max-w-3xl mx-auto">
+      <div className="flex justify-center items-center py-10 px-4">
+        {/* Корпус телефона */}
+        <div className="w-full max-w-[380px] h-[750px] bg-[#0b1426] rounded-[45px] border-[12px] border-slate-800 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] relative flex flex-col overflow-hidden font-sans">
           
-          <div className="flex gap-4 max-w-[90%] animate-slide-up">
-            <div className="text-4xl bg-slate-800 rounded-full w-12 h-12 flex items-center justify-center shrink-0 border border-slate-700">{scenario.avatar}</div>
-            <div className="bg-slate-800 p-4 rounded-2xl rounded-tl-sm border border-slate-700 shadow-lg">
-              <p className="text-xs text-rose-400 font-bold mb-1">{scenario.trainee}</p>
-              <p className="text-white leading-relaxed text-sm md:text-base text-outline-white">{scenario.msg}</p>
-            </div>
+          {/* Челка */}
+          <div className="absolute top-0 inset-x-0 flex justify-center z-50 pointer-events-none">
+            <div className="w-32 h-6 bg-slate-800 rounded-b-2xl"></div>
           </div>
 
-          {feedback && (
-            <div className="flex gap-4 max-w-[90%] self-end flex-row-reverse animate-slide-up">
-              <div className="text-4xl bg-rose-600 rounded-full w-12 h-12 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(225,29,72,0.5)]">🧑‍💼</div>
-              <div className="bg-rose-600 p-4 rounded-2xl rounded-tr-sm shadow-lg text-white">
-                <p className="text-sm md:text-base leading-relaxed">{feedback.userText}</p>
+          {/* Шапка мессенджера */}
+          <div className="bg-slate-800 px-4 py-4 pt-8 flex items-center justify-between shadow-md z-20">
+            <div className="flex items-center gap-3">
+               <div className="text-2xl bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full border border-slate-600">{scenario.avatar}</div>
+               <div>
+                 <div className="font-bold text-white text-sm">{scenario.trainee}</div>
+                 <div className="text-emerald-400 text-[10px] flex items-center gap-1"><span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> в сети</div>
+               </div>
+            </div>
+            <div className="text-slate-400 text-xs font-mono bg-slate-900 px-2 py-1 rounded-md">{currentIdx + 1}/10</div>
+          </div>
+
+          {/* Область чата */}
+          <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-4 bg-[#0b1426] no-scrollbar">
+            
+            {/* Сообщение сотрудника */}
+            <div className="flex self-start animate-slide-up" style={{maxWidth: '85%'}}>
+              <div className="bg-slate-700 text-white text-sm p-3 rounded-2xl rounded-tl-none shadow-md leading-relaxed">
+                {scenario.msg}
+              </div>
+            </div>
+
+            {/* Ответ пользователя (если выбран) */}
+            {feedback && (
+              <div className="flex self-end flex-row-reverse animate-slide-up" style={{maxWidth: '85%'}}>
+                <div className="bg-blue-600 text-white text-sm p-3 rounded-2xl rounded-tr-none shadow-md leading-relaxed">
+                  {feedback.userText}
+                </div>
+              </div>
+            )}
+
+            {/* Оценка системы */}
+            {feedback && (
+              <div className={`p-4 rounded-xl text-sm border animate-slide-up text-center mb-4 ${feedback.isCorrect ? 'bg-emerald-900/30 border-emerald-500/50 text-emerald-100' : 'bg-rose-900/30 border-rose-500/50 text-rose-100'}`}>
+                <div dangerouslySetInnerHTML={{__html: feedback.text}} />
+                <button onClick={handleNext} className="mt-4 bg-white text-slate-900 px-6 py-2 rounded-full font-bold text-xs hover:bg-slate-200 uppercase tracking-wider w-full shadow-sm">
+                  {currentIdx < scenarios.length - 1 ? 'Далее ➔' : 'Завершить ➔'}
+                </button>
+              </div>
+            )}
+
+            {/* Пустое пространство для прокрутки над клавиатурой */}
+            <div className="h-4"></div>
+          </div>
+
+          {/* Панель выбора ответов (Клавиатура) */}
+          {!feedback && (
+            <div className="bg-slate-800 p-3 pt-4 border-t border-slate-700 rounded-t-3xl shadow-[0_-10px_20px_rgba(0,0,0,0.2)] z-20 animate-slide-up">
+              <p className="text-slate-400 text-[10px] uppercase tracking-widest text-center mb-3">Выберите ответ:</p>
+              <div className="flex flex-col gap-2 max-h-[35vh] overflow-y-auto pr-1 no-scrollbar pb-2">
+                {scenario.options.map((opt, idx) => (
+                  <button key={idx} onClick={() => handleOption(opt)} className="text-left bg-slate-700 hover:bg-slate-600 text-white text-sm p-3 rounded-xl transition-colors border border-slate-600 hover:border-blue-400 leading-relaxed shadow-sm">
+                    {opt.text}
+                  </button>
+                ))}
               </div>
             </div>
           )}
 
-          {feedback && (
-            <div className={`mt-4 p-4 rounded-xl text-sm md:text-base border animate-slide-up text-left ${feedback.isCorrect ? 'bg-emerald-900/30 border-emerald-500/50 text-emerald-100' : 'bg-rose-900/30 border-rose-500/50 text-rose-100'}`}>
-              <div dangerouslySetInnerHTML={{__html: feedback.text}} />
-              <button onClick={handleNext} className="mt-4 bg-white text-slate-900 px-6 py-2 rounded-lg font-bold text-sm hover:bg-slate-200 w-full md:w-auto">
-                ДАЛЕЕ ➔
-              </button>
-            </div>
-          )}
-
-          {!feedback && (
-            <div className="grid grid-cols-1 gap-3 mt-4 animate-fade-in">
-              {scenario.options.map((opt, idx) => (
-                <button key={idx} onClick={() => handleOption(opt)} className="text-left p-4 bg-slate-900 hover:bg-rose-900/40 border border-slate-700 hover:border-rose-500 rounded-xl text-slate-300 hover:text-white transition-all text-sm md:text-base shadow-md">
-                  {opt.text}
-                </button>
-              ))}
-            </div>
-          )}
         </div>
-
       </div>
     );
   }
