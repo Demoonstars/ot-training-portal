@@ -499,8 +499,13 @@
   document.addEventListener("DOMContentLoaded", function() {
     // 2. ДАТА В ШАПКЕ
     const now = new Date();
-    document.getElementById('current-date').textContent = now.toLocaleDateString('ru-RU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).replace(/^\w/, c => c.toUpperCase());
-
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateStr = now.toLocaleDateString('ru-RU', dateOptions);
+    const dateEl = document.getElementById('current-date');
+    if (dateEl) {
+        dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+    }
+    
     // 3. SCROLL PROGRESS
     const progressBar = document.getElementById('readingProgress');
     const toTopBtn = document.getElementById('toTopBtn');
