@@ -101,13 +101,13 @@
     .widget-header h3 { font-size: 1.5rem; color: #0f172a; margin: 0 0 10px; font-weight: 800; }
     .widget-header p { color: #64748b; margin: 0; font-size: 0.95rem; }
     
-    /* 1. АНАТОМИЯ МОЗГА (ОБНОВЛЕННАЯ) */
+    /* 1. АНАТОМИЯ МОЗГА (ИСПРАВЛЕНО ДЛЯ МОБИЛЬНЫХ) */
     .brain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; }
-    .brain-svg-box { background: #0f172a; border-radius: 24px; padding: 30px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.5); min-height: 250px; }
+    .brain-svg-box { background: #0f172a; border-radius: 24px; padding: 30px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.5); min-height: 250px; width: 100%; box-sizing: border-box; overflow: hidden;}
     .brain-info { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 20px; padding: 30px; min-height: 220px; display: flex; flex-direction: column; justify-content: center; transition: all 0.3s; }
-    .brain-part { cursor: pointer; transition: all 0.3s ease; }
+    .brain-part { cursor: pointer; transition: all 0.3s ease; -webkit-tap-highlight-color: transparent; }
     .brain-part:hover { filter: drop-shadow(0 0 15px currentColor); }
-    @media (max-width: 768px) { .brain-grid { grid-template-columns: 1fr; } .brain-info { min-height: 180px; padding: 20px;} }
+    @media (max-width: 768px) { .brain-grid { grid-template-columns: 1fr; } .brain-info { min-height: 180px; padding: 20px;} .brain-svg-box { padding: 20px; } }
 
     /* 2. Айсберг Конфликта */
     .iceberg-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
@@ -130,7 +130,7 @@
     .widget-icon-large { font-size: 3rem; margin-right: 20px; opacity: 0.8; }
     .widget-text { font-size: 1.05rem; color: #334155; line-height: 1.6; font-weight: 500; }
 
-    /* Чат Симулятор (Ванильный) */
+    /* Чат Симулятор */
     .chat-simulator { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
     .chat-history { padding: 20px; display: flex; flex-direction: column; gap: 15px; min-height: 300px; max-height: 450px; overflow-y: auto; background: #f1f5f9; scroll-behavior: smooth; }
     .chat-msg { display: flex; gap: 15px; max-width: 85%; opacity: 0; animation: slideUpFade 0.4s ease-out forwards; }
@@ -139,14 +139,18 @@
     .msg-avatar { font-size: 1.8rem; background: #fff; border-radius: 50%; min-width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); flex-shrink: 0; }
     .msg-bubble { background: #fff; padding: 15px 20px; border-radius: 20px; border-top-left-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); color: #334155; line-height: 1.5; font-size: 0.95rem; }
     .mentor-msg .msg-bubble { background: #0ea5e9; color: #fff; border-radius: 20px; border-top-right-radius: 5px; }
+    
     .chat-options { background: #fff; padding: 20px; border-top: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 10px; transition: opacity 0.3s ease; }
     .chat-btn { text-align: left; padding: 15px 20px; background: #fff; border: 2px solid #e2e8f0; border-radius: 12px; cursor: pointer; transition: 0.2s; color: #475569; font-weight: 500; font-size: 0.95rem; line-height: 1.4; }
     .chat-btn:hover { border-color: #38bdf8; background: #f0f9ff; color: #0284c7; transform: translateX(5px); box-shadow: 0 4px 10px rgba(14, 165, 233, 0.1); }
+    
     .chat-feedback { margin-top: 10px; padding: 15px 20px; border-radius: 16px; font-weight: 500; font-size: 0.95rem; line-height: 1.5; animation: slideUpFade 0.4s ease-out forwards; opacity: 0; }
     .chat-feedback.success { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
     .chat-feedback.error { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+    
     .reset-chat-btn { margin-top: 15px; padding: 10px 20px; background: #0f172a; color: #fff; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; }
     .reset-chat-btn:hover { background: #334155; }
+    
     .typing-indicator { display: flex; gap: 5px; padding: 15px 20px; background: #fff; border-radius: 20px; border-top-left-radius: 5px; width: fit-content; align-items: center; height: 50px;}
     .dot { width: 8px; height: 8px; background: #cbd5e1; border-radius: 50%; animation: typing 1.4s infinite ease-in-out both; }
     .dot:nth-child(1) { animation-delay: -0.32s; }
@@ -180,7 +184,7 @@
     details[open] .faq-summary::after { transform: rotate(45deg); color: #0ea5e9; }
     .faq-content { padding: 0 24px 24px; color: #64748b; font-size: 0.95rem; line-height: 1.6; }
 
-    /* CTA (ЗМЕЙКА) */
+    /* CTA (ИСПРАВЛЕНА ЗМЕЙКА) */
     .test-zone { background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); border-radius: 30px; padding: 50px 30px; text-align: center; box-shadow: 0 20px 60px -10px rgba(0,0,0,0.1); border: 1px solid #fff; margin-bottom: 40px;}
     .btn-magic { position: relative; display: inline-flex; justify-content: center; align-items: center; padding: 16px 32px; font-size: 1rem; font-weight: 700; color: #ffffff; background: #0f172a; border-radius: 99px; text-decoration: none; overflow: hidden; z-index: 10; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2); }
     .btn-magic-text { position: relative; z-index: 2; }
@@ -334,34 +338,36 @@
       <section class="interactive-widget reveal-up delay-200">
         <div class="widget-header">
           <h3>🧠 Интерактивная анатомия: «Захват Амигдалы»</h3>
-          <p>Наведите курсор на отделы мозга, чтобы понять механику агрессии</p>
+          <p>Нажмите или наведите курсор на отделы мозга, чтобы понять механику агрессии</p>
         </div>
         <div class="brain-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center;">
-          <div class="brain-svg-box" style="background: #0f172a; border-radius: 24px; padding: 30px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.5); min-height: 250px;">
-             <svg viewBox="0 0 240 200" width="100%" height="100%" style="max-width: 300px; overflow: visible;">
+          
+          <div class="brain-svg-box" style="background: #0f172a; border-radius: 24px; padding: 30px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.5); min-height: 250px; width: 100%; box-sizing: border-box; overflow: hidden;">
+             <svg viewBox="0 0 240 200" style="width: 100%; max-width: 300px; height: auto; overflow: visible;">
                 <path d="M105,150 C105,180 90,195 90,195 L125,195 C125,195 120,180 120,150" fill="none" stroke="#64748b" stroke-width="4" stroke-linecap="round"/>
                 <path d="M125,150 C150,150 160,170 145,185 C130,200 115,180 115,160 Z" fill="none" stroke="#94a3b8" stroke-width="3" stroke-dasharray="4,4"/>
                 
-                <g id="neocortex-path" style="cursor: pointer; transition: all 0.3s ease;">
+                <g id="neocortex-path" class="brain-part" style="cursor: pointer; transition: all 0.3s ease; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">
                     <path d="M110,20 C60,20 20,60 30,110 C35,135 60,150 90,145 C95,144 100,140 100,135 C100,120 115,115 125,125 C135,135 160,145 180,130 C200,110 210,70 170,35 C150,20 130,20 110,20 Z" fill="rgba(14, 165, 233, 0.05)" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M50,50 Q70,70 90,40 M40,80 Q70,90 80,70 M140,40 Q160,60 180,50 M150,80 Q130,100 160,110 M100,20 Q110,50 130,30" fill="none" stroke="#38bdf8" stroke-width="1.5" opacity="0.5"/>
                 </g>
                 
-                <line id="neo-line" x1="110" y1="20" x2="110" y2="-5" stroke="#0ea5e9" stroke-width="2" opacity="0" transition="all 0.3s"/>
-                <text id="neo-text" x="110" y="-15" fill="#0ea5e9" font-size="14" font-weight="bold" font-family="monospace" text-anchor="middle" opacity="0" transition="all 0.3s">НЕОКОРТЕКС</text>
+                <line id="neo-line" x1="110" y1="20" x2="110" y2="-5" stroke="#0ea5e9" stroke-width="2" opacity="0" style="transition: all 0.3s"/>
+                <text id="neo-text" x="110" y="-15" fill="#0ea5e9" font-size="14" font-weight="bold" font-family="monospace" text-anchor="middle" opacity="0" style="transition: all 0.3s">НЕОКОРТЕКС</text>
                 
-                <line id="amy-line" x1="110" y1="100" x2="210" y2="100" stroke="#f43f5e" stroke-width="2" opacity="0" transition="all 0.3s"/>
-                <text id="amy-text" x="215" y="104" fill="#f43f5e" font-size="14" font-weight="bold" font-family="monospace" text-anchor="start" opacity="0" transition="all 0.3s">АМИГДАЛА</text>
+                <line id="amy-line" x1="110" y1="100" x2="210" y2="100" stroke="#f43f5e" stroke-width="2" opacity="0" style="transition: all 0.3s"/>
+                <text id="amy-text" x="215" y="104" fill="#f43f5e" font-size="14" font-weight="bold" font-family="monospace" text-anchor="start" opacity="0" style="transition: all 0.3s">АМИГДАЛА</text>
 
-                <g id="amygdala-path" style="cursor: pointer; transition: all 0.3s ease;">
+                <g id="amygdala-path" class="brain-part" style="cursor: pointer; transition: all 0.3s ease; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">
                     <circle cx="110" cy="100" r="14" fill="rgba(225, 29, 72, 0.3)" stroke="#f43f5e" stroke-width="3" />
                     <circle cx="110" cy="100" r="4" fill="#fb7185" />
                 </g>
              </svg>
           </div>
+
           <div class="brain-info" id="brain-info" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 20px; padding: 30px; min-height: 220px; display: flex; flex-direction: column; justify-content: center; transition: all 0.3s;">
              <h4 style="font-size:1.5rem; color:#0f172a; margin-bottom:10px;">Как работает мозг в стрессе?</h4>
-             <p style="color:#475569; line-height:1.6; margin:0;">Наведите курсор на <strong>Амигдалу</strong> (центр эмоций) или <strong>Неокортекс</strong> (логику), чтобы узнать, почему разъяренный клиент физически не способен слышать ваши разумные аргументы.</p>
+             <p style="color:#475569; line-height:1.6; margin:0;">Нажмите или наведите курсор на <strong>Амигдалу</strong> (центр эмоций) или <strong>Неокортекс</strong> (логику), чтобы узнать, почему разъяренный клиент физически не способен слышать ваши разумные аргументы.</p>
           </div>
         </div>
       </section>
@@ -518,10 +524,10 @@
             Бонус: Тренажер для HR и Руководителей
           </span>
           <h2 style="font-size: 2rem; font-weight: 800; color: #0f172a; margin: 0 0 10px;">
-            Управление Командой (10 сложных кейсов)
+            Управление Командой (15 сложных кейсов)
           </h2>
           <p style="color: #64748b; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
-            Случайные ситуации из реальной жизни отеля: выгорание, саботаж, увольнения. Проверьте свои навыки принятия жестких решений.
+            Случайные ситуации из реальной жизни отеля: выгорание, саботаж, увольнения, законные требования. Проверьте свои навыки принятия решений.
           </p>
         </div>
         
@@ -586,7 +592,7 @@
       });
     }
 
-    // === ВИДЖЕТ 0: АНАТОМИЯ МОЗГА (ОБНОВЛЕННЫЙ) ===
+    // === ВИДЖЕТ 0: АНАТОМИЯ МОЗГА (ОБНОВЛЕННЫЙ + ПОДДЕРЖКА TOUCH НА ТЕЛЕФОНАХ) ===
     const neo = document.getElementById('neocortex-path');
     const amy = document.getElementById('amygdala-path');
     const bInfo = document.getElementById('brain-info');
@@ -597,32 +603,44 @@
 
     const neoData = `<h4 style="font-size:1.5rem; color:#0ea5e9; margin-bottom:10px;">Неокортекс (Логика)</h4><p style="color:#475569; line-height:1.6; margin:0;">Внешняя кора мозга. Отвечает за рациональное мышление, анализ и правила. <strong>Во время конфликта отключается первым!</strong> Именно поэтому в разгар скандала бесполезно цитировать гостю правила отеля — он физически не способен их воспринять.</p>`;
     const amyData = `<h4 style="font-size:1.5rem; color:#e11d48; margin-bottom:10px;">Амигдала (Эмоции)</h4><p style="color:#475569; line-height:1.6; margin:0;">Древняя часть мозга (миндалевидное тело), «радар угроз». При стрессе моментально перехватывает управление (захват амигдалы), вбрасывает адреналин и включает режим <strong>«Бей или Беги»</strong>. Гость кричит, потому что его мозг считает, что он в смертельной опасности.</p>`;
-    const defaultData = `<h4 style="font-size:1.5rem; color:#0f172a; margin-bottom:10px;">Как работает мозг в стрессе?</h4><p style="color:#475569; line-height:1.6; margin:0;">Наведите курсор на <strong>Амигдалу</strong> (центр эмоций) или <strong>Неокортекс</strong> (логику), чтобы узнать, почему разъяренный клиент физически не способен слышать ваши разумные аргументы.</p>`;
+    const defaultData = `<h4 style="font-size:1.5rem; color:#0f172a; margin-bottom:10px;">Как работает мозг в стрессе?</h4><p style="color:#475569; line-height:1.6; margin:0;">Нажмите или наведите курсор на <strong>Амигдалу</strong> (центр эмоций) или <strong>Неокортекс</strong> (логику), чтобы узнать, почему разъяренный клиент физически не способен слышать ваши разумные аргументы.</p>`;
 
     if(neo && amy && bInfo) {
-      neo.addEventListener('mouseover', () => {
+      const triggerNeo = () => {
         bInfo.innerHTML = neoData;
         bInfo.style.borderColor = '#0ea5e9';
         bInfo.style.boxShadow = '0 10px 20px rgba(14, 165, 233, 0.1)';
-        neoLine.style.opacity = '1'; neoText.style.opacity = '1';
-      });
-      amy.addEventListener('mouseover', () => {
+        if(neoLine) { neoLine.style.opacity = '1'; neoText.style.opacity = '1'; }
+      };
+
+      const triggerAmy = () => {
         bInfo.innerHTML = amyData;
         bInfo.style.borderColor = '#e11d48';
         bInfo.style.boxShadow = '0 10px 20px rgba(225, 29, 72, 0.1)';
-        amyLine.style.opacity = '1'; amyText.style.opacity = '1';
-      });
-      neo.addEventListener('mouseout', () => {
+        if(amyLine) { amyLine.style.opacity = '1'; amyText.style.opacity = '1'; }
+      };
+
+      const resetInfo = () => {
         bInfo.innerHTML = defaultData;
         bInfo.style.borderColor = '#e2e8f0';
         bInfo.style.boxShadow = 'none';
-        neoLine.style.opacity = '0'; neoText.style.opacity = '0';
-      });
-      amy.addEventListener('mouseout', () => {
-        bInfo.innerHTML = defaultData;
-        bInfo.style.borderColor = '#e2e8f0';
-        bInfo.style.boxShadow = 'none';
-        amyLine.style.opacity = '0'; amyText.style.opacity = '0';
+        if(neoLine) { neoLine.style.opacity = '0'; neoText.style.opacity = '0'; }
+        if(amyLine) { amyLine.style.opacity = '0'; amyText.style.opacity = '0'; }
+      };
+
+      // Desktop events
+      neo.addEventListener('mouseover', triggerNeo);
+      amy.addEventListener('mouseover', triggerAmy);
+      neo.addEventListener('mouseout', resetInfo);
+      amy.addEventListener('mouseout', resetInfo);
+
+      // Mobile touch events
+      neo.addEventListener('touchstart', (e) => { e.preventDefault(); triggerNeo(); });
+      amy.addEventListener('touchstart', (e) => { e.preventDefault(); triggerAmy(); });
+      
+      // Сброс при клике вне мозга на мобилках
+      document.addEventListener('touchstart', (e) => {
+         if(!neo.contains(e.target) && !amy.contains(e.target)) resetInfo();
       });
     }
 
@@ -801,7 +819,7 @@
           if(typingIndicator) typingIndicator.remove();
           
           // Ответ стажера
-          const traineeReplyHTML = `<div class="chat-msg trainee-msg"><div class="msg-avatar">${scenario.avatar}</div><div class="msg-bubble"><strong>${scenario.trainee}:</strong> ${selectedOption.reply}</div></div>`;
+          const traineeReplyHTML = `<div class="chat-msg trainee-msg"><div class="msg-avatar">${scenario.avatar}</div><div class="msg-bubble text-outline-white"><strong>${scenario.trainee}:</strong> ${selectedOption.reply}</div></div>`;
           chatHistory.insertAdjacentHTML('beforeend', traineeReplyHTML);
 
           // Фидбек от системы
@@ -1024,6 +1042,19 @@
   });
 </script>
 
+<style>
+    .text-outline-white {
+        color: #0f172a !important;
+        font-weight: 800 !important;
+        text-shadow: 
+            -1px -1px 0 #fff,  
+             1px -1px 0 #fff,
+            -1px  1px 0 #fff,
+             1px  1px 0 #fff,
+             0px  2px 4px rgba(255,255,255,0.7) !important;
+    }
+</style>
+
 <script type="text/babel">
   const { useState, useEffect, useRef } = React;
   const { createRoot } = ReactDOM;
@@ -1046,6 +1077,7 @@
     } catch (e) {}
   };
 
+  // База из 15 сложных HR-кейсов
   const ALL_HR_SCENARIOS = [
     {
       trainee: "Александр (Менеджер)",
@@ -1146,6 +1178,57 @@
         { text: "Ты уволена. Звезды мне в команде не нужны.", isCorrect: false, feedback: "ОШИБКА: Слишком радикально. Вы теряете лучшего сотрудника из-за эго." },
         { text: "Я ценю твои результаты. Но правила едины. Если хочешь особый график — давай переведем тебя на контракт со свободным посещением. Пока ты в штате — график обязателен.", isCorrect: true, feedback: "БЛЕСТЯЩЕ: Вы жестко удержали рамки правил, но предложили легальную альтернативу для «звезды»." }
       ]
+    },
+    // НОВЫЕ СЦЕНАРИИ
+    {
+      trainee: "Олег (Администратор)",
+      avatar: "⚖️",
+      msg: "Гость требует вернуть деньги за невозвратную бронь, у него заболел ребенок. Грозит судом и защитой прав потребителей!",
+      options: [
+        { text: "Отправь его подальше. Тариф невозвратный, суд он проиграет.", isCorrect: false, feedback: "ОШИБКА: Жесткий отказ больному человеку спровоцирует масштабный PR-скандал." },
+        { text: "Верни ему деньги из кассы, только чтобы не орал в лобби.", isCorrect: false, feedback: "ОШИБКА: Прямое нарушение финансовой дисциплины отеля." },
+        { text: "Скажи: 'Здоровье ребенка — это главное. Пожалуйста, напишите заявление. Мы в исключительном порядке рассмотрим его с руководством'.", isCorrect: true, feedback: "ОТЛИЧНО: Вы проявили эмпатию, признали право гостя и перевели агрессию в конструктивную бюрократию." }
+      ]
+    },
+    {
+      trainee: "Михаил (Портье)",
+      avatar: "💼",
+      msg: "Вы заставляете меня выйти в мой выходной! По Трудовому Кодексу вы не имеете права без моего письменного согласия и двойной оплаты!",
+      options: [
+        { text: "Не выйдешь — лишу премии за этот месяц.", isCorrect: false, feedback: "ОШИБКА: Прямое нарушение закона и токсичное руководство. Сотрудник уволится или подаст жалобу в трудовую инспекцию." },
+        { text: "Ты абсолютно прав, это добровольно. У нас форс-мажор, многие болеют. Если выручишь — я оформлю всё официально в двойном размере. Поможешь?", isCorrect: true, feedback: "ВЕРНО: Вы признали его законное право, объяснили причину форс-мажора и предложили законную компенсацию." },
+        { text: "Ой, ну какие мы умные стали, ТК РФ читаем. Иди отдыхай.", isCorrect: false, feedback: "ОШИБКА: Обесценивание сотрудника и потеря уважения." }
+      ]
+    },
+    {
+      trainee: "Антон (Техник)",
+      avatar: "🛠️",
+      msg: "Я не буду мыть эти окна на фасаде! У меня нет допуска к высотным работам, это прямое нарушение техники безопасности!",
+      options: [
+        { text: "Ты молодец, что знаешь правила ОТ. Это моя ошибка. Оставь окна, займись внутренними работами, я вызову подрядчиков.", isCorrect: true, feedback: "БЛЕСТЯЩЕ: Вы поощрили соблюдение безопасности, признали свою управленческую ошибку и устранили риск." },
+        { text: "Там высота всего 3 метра, встань на стремянку и помой, ничего не случится.", isCorrect: false, feedback: "ФАТАЛЬНАЯ ОШИБКА: Прямое нарушение охраны труда, влекущее за собой уголовную ответственность." },
+        { text: "Пиши объяснительную за отказ от выполнения приказа.", isCorrect: false, feedback: "ОШИБКА: Приказ о нарушении ТБ неправомерен." }
+      ]
+    },
+    {
+      trainee: "Дарья (Хостес)",
+      avatar: "📹",
+      msg: "Гость требует показать камеры видеонаблюдения! Он говорит, что у него украли часы в холле. Кричит, что имеет право на расследование!",
+      options: [
+        { text: "Успокой гостя: 'Вы имеете полное право разобраться. Но по закону мы передаем записи только полиции. Вызывайте наряд, мы окажем им полное содействие'.", isCorrect: true, feedback: "ОТЛИЧНО: Вы признали право гостя, но жестко соблюли закон о персональных данных, переведя проблему в правовое поле." },
+        { text: "Покажи ему видео, пусть успокоится и посмотрит.", isCorrect: false, feedback: "ОШИБКА: Предоставление записей третьим лицам — грубейшее нарушение закона о защите персональных данных (152-ФЗ)." },
+        { text: "Скажи ему, что камеры у нас не работают.", isCorrect: false, feedback: "ОШИБКА: Ложь только спровоцирует масштабный скандал и потерю репутации." }
+      ]
+    },
+    {
+      trainee: "Ольга (Бронирование)",
+      avatar: "🍽️",
+      msg: "Почему меня дергают во время моего обеда?! У меня по графику час, я имею право вообще не отвечать на звонки в это время!",
+      options: [
+        { text: "У нас гости на линии ждут, какой обед! Иди работай.", isCorrect: false, feedback: "ОШИБКА: Нарушение ТК РФ, ведущее к прямому выгоранию и потере уважения к компании." },
+        { text: "Ну извини, просто очень нужно было.", isCorrect: false, feedback: "ОШИБКА: Слабая позиция руководителя, не решающая проблему переработки." },
+        { text: "Ты полностью права, это твое личное время. Извини. Оповести команду, что твой телефон отключен до конца перерыва, мы справимся сами.", isCorrect: true, feedback: "ВЕРНО: Вы защитили законные личные границы сотрудника (профилактика выгорания) и решили проблему распределения обязанностей." }
+      ]
     }
   ];
 
@@ -1169,7 +1252,7 @@
     const startGame = () => {
       playSound('click');
       const shuffled = shuffleArray(ALL_HR_SCENARIOS);
-      setScenarios(shuffled);
+      setScenarios(shuffled.slice(0, 15)); // Берем 15 случайных сценариев из 15 (просто перемешанные)
       setGameState('playing'); 
       setCurrentIdx(0); 
       setScore(0);
@@ -1209,19 +1292,17 @@
     if (gameState === 'start') {
       return (
         <div className="flex justify-center items-center py-10 px-4">
-          {/* Корпус телефона */}
           <div className="w-full max-w-[380px] h-[750px] bg-slate-900 rounded-[45px] border-[12px] border-slate-800 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] relative flex flex-col overflow-hidden font-sans">
             
             {/* Челка (Notch) */}
-            <div className="absolute top-0 inset-x-0 flex justify-center z-50">
+            <div className="absolute top-0 inset-x-0 flex justify-center z-50 pointer-events-none">
               <div className="w-32 h-6 bg-slate-800 rounded-b-2xl"></div>
             </div>
 
-            {/* Экран телефона */}
             <div className="flex-1 flex flex-col items-center justify-center p-6 text-center z-10 bg-gradient-to-b from-slate-900 to-[#0b1426]">
                <div className="text-6xl mb-4">📱</div>
                <h2 className="text-2xl font-black text-white mb-2">HR Messenger</h2>
-               <p className="text-slate-400 text-sm mb-8">10 сложных кейсов управления командой. Решите их в формате переписки.</p>
+               <p className="text-slate-400 text-sm mb-8">15 сложных кейсов управления командой. Решите их в формате переписки.</p>
                <button onClick={startGame} className="bg-blue-600 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-blue-500 transition-transform hover:scale-105 active:scale-95 w-full">
                  ОТКРЫТЬ ЧАТЫ
                </button>
@@ -1236,7 +1317,7 @@
       return (
         <div className="flex justify-center items-center py-10 px-4">
           <div className="w-full max-w-[380px] h-[750px] bg-slate-900 rounded-[45px] border-[12px] border-slate-800 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] relative flex flex-col overflow-hidden font-sans">
-            <div className="absolute top-0 inset-x-0 flex justify-center z-50">
+            <div className="absolute top-0 inset-x-0 flex justify-center z-50 pointer-events-none">
               <div className="w-32 h-6 bg-slate-800 rounded-b-2xl"></div>
             </div>
             <div className="flex-1 flex flex-col items-center justify-center p-6 text-center z-10 bg-gradient-to-b from-slate-900 to-[#0b1426] animate-fade-in">
@@ -1274,7 +1355,7 @@
                  <div className="text-emerald-400 text-[10px] flex items-center gap-1"><span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> в сети</div>
                </div>
             </div>
-            <div className="text-slate-400 text-xs font-mono bg-slate-900 px-2 py-1 rounded-md">{currentIdx + 1}/10</div>
+            <div className="text-slate-400 text-xs font-mono bg-slate-900 px-2 py-1 rounded-md">{currentIdx + 1}/15</div>
           </div>
 
           {/* Область чата */}
@@ -1290,6 +1371,7 @@
             {/* Ответ пользователя (если выбран) */}
             {feedback && (
               <div className="flex self-end flex-row-reverse animate-slide-up" style={{maxWidth: '85%'}}>
+                <div className="text-2xl bg-blue-600 rounded-full w-10 h-10 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(37,99,235,0.5)] border border-blue-500 ml-3">🧑‍💼</div>
                 <div className="bg-blue-600 text-white text-sm p-3 rounded-2xl rounded-tr-none shadow-md leading-relaxed">
                   {feedback.userText}
                 </div>
