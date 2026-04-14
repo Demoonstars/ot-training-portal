@@ -139,7 +139,6 @@
       transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s;
     }
 
-    /* Слой прожектора */
     .program-card::before {
       content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
       background: radial-gradient(800px circle at var(--mouse-x, center) var(--mouse-y, center), rgba(37, 99, 235, 0.1), transparent 40%);
@@ -201,7 +200,6 @@
 
     @keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
 
-    /* Header Status */
     .system-status-pulse {
       display: inline-block; width: 8px; height: 8px;
       background-color: #10b981; border-radius: 50%;
@@ -278,12 +276,13 @@
           <button class="filter-chip" aria-pressed="false" data-filter="med">Первая помощь</button>
           <button class="filter-chip" aria-pressed="false" data-filter="gochs">ГО и ЧС</button>
           <button class="filter-chip" aria-pressed="false" data-filter="el">Электробезопасность</button>
+          <button class="filter-chip" aria-pressed="false" data-filter="san">Санминимум</button>
           <button class="filter-chip" aria-pressed="false" data-filter="hotel">Наставничество</button>
           <button class="filter-chip" aria-pressed="false" data-filter="conflict">Управление конфликтами</button>
         </div>
         
         <div id="resultsCount" style="text-align: center; margin-top: 15px; font-size: 0.85rem; color: #64748b; font-weight: 600;">
-          Доступно курсов: 7
+          Доступно курсов: 8
         </div>
       </div>
 
@@ -374,6 +373,23 @@
           </div>
         </article>
 
+        <article class="program-card" data-cat="san" data-keywords="гигиена санминимум гостиница медкнижка санпин обучение бактерии">
+          <div class="card-content">
+              <div class="card-top">
+                <div class="card-icon" style="background: #f0fdf4; color: #15803d;">🧼</div>
+                <span class="status-tag">СанПиН 2.1.3678-20</span>
+              </div>
+              <h3 class="card-title">Гигиеническое обучение</h3>
+              <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
+              <p class="card-desc">
+                Профессиональная гигиеническая подготовка работников гостиниц. Требования к содержанию помещений и личной гигиене.
+              </p>
+              <a href="course-hygiene.html" class="card-btn">
+                Перейти к обучению <span>➔</span>
+              </a>
+          </div>
+        </article>
+
         <article class="program-card" data-cat="hotel" data-keywords="наставник наставничество гостиница отель сервис адаптация стажировка обучение">
           <div class="card-content">
               <div class="card-top">
@@ -442,7 +458,7 @@
 
     // 2. ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ (ДОБАВЛЕН НОВЫЙ СЛОГАН)
     const textElement = document.getElementById('typing-text');
-    const texts = ["Реестр программ обучения", "Актуальные знания", "Безопасность труда", "Развитие персонала", "Управление конфликтами"];
+    const texts = ["Реестр программ обучения", "Актуальные знания", "Безопасность труда", "Санитарные нормы", "Развитие персонала", "Управление конфликтами"];
     let textIndex = 0; charIndex = 0; isDeleting = false;
 
     function typeEffect() {
