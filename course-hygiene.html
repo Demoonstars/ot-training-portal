@@ -117,7 +117,7 @@
     .widget-icon-large { font-size: 3rem; margin-right: 20px; opacity: 0.8; }
     .widget-text { font-size: 1.05rem; color: #334155; line-height: 1.6; font-weight: 500; }
 
-    /* === PDF VIEWER V8.0 STYLES (Восстановлено из эталона) === */
+    /* === PDF VIEWER V8.0 STYLES === */
     .custom-pdf-viewer { background: #f1f5f9; border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 20px; position: relative; overflow: hidden; margin-bottom: 40px; box-shadow: 0 20px 50px -10px rgba(0,0,0,0.1); height: 700px; display: flex; flex-direction: column; transition: background 0.3s; }
     .custom-pdf-viewer.dark-theme { background: #1e293b; border-color: #334155; }
     .custom-pdf-viewer.dark-theme .pdf-viewer-header { background: #0f172a; border-bottom-color: #334155; color: #f1f5f9; }
@@ -175,7 +175,7 @@
     details[open] .faq-summary::after { transform: rotate(45deg); color: #10b981; }
     .faq-content { padding: 0 24px 24px; color: #64748b; font-size: 0.95rem; line-height: 1.6; }
 
-    /* CTA BUTTON (Исправлено перекрытие на мобильных) */
+    /* CTA BUTTON */
     .test-zone { background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); border-radius: 30px; padding: 50px 30px; text-align: center; box-shadow: 0 20px 60px -10px rgba(0,0,0,0.1); border: 1px solid #fff; margin-bottom: 40px;}
     .btn-magic { 
         position: relative; display: inline-flex; justify-content: center; align-items: center; 
@@ -183,7 +183,7 @@
         border-radius: 99px; text-decoration: none; overflow: hidden; z-index: 10; 
         transition: transform 0.3s ease, box-shadow 0.3s ease; 
         box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
-        isolation: isolate; transform: translateZ(0); /* Фикс для бага Safari/Chrome */
+        isolation: isolate; transform: translateZ(0); 
     }
     .btn-magic-text { position: relative; z-index: 2; pointer-events: none; }
     .btn-magic::before { 
@@ -262,7 +262,7 @@
         <span class="hero-badge">СанПиН & Безопасность</span>
         <h1 class="hero-title">Гигиеническое обучение</h1>
         <p class="hero-desc">
-          Профессиональная подготовка работников гостиниц. Изучите стандарты содержания помещений, правила личной гигиены персонала и юридическую ответственность за нарушение санитарно-эпидемиологического благополучия.
+          Профессиональная подготовка работников гостиниц к сдаче санитарного минимума. Изучите стандарты содержания помещений, правила личной гигиены и юридическую ответственность, чтобы успешно пройти итоговую государственную аттестацию в аккредитованном центре гигиены и эпидемиологии.
         </p>
       </section>
 
@@ -354,7 +354,7 @@
             <div class="shield-status">
                 <div class="shield-label">
                     <span>Биологический щит</span>
-                    <span id="progress-text">1 / 6</span>
+                    <span id="progress-text">1 / 14</span>
                 </div>
                 <div class="shield-container"><div class="shield-bar" id="shield-bar"></div></div>
             </div>
@@ -373,7 +373,7 @@
                 <div style="font-size: 4rem; margin-bottom: 20px;">🛡️</div>
                 <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 10px;">Итог патруля</h2>
                 <p id="final-stats" style="margin-bottom: 30px; opacity: 0.9;"></p>
-                <button onclick="location.reload()" style="padding: 12px 30px; border-radius: 99px; background: #10b981; color: #fff; border: none; cursor: pointer; font-weight: 700;">ПРОЙТИ ЕЩЕ РАЗ</button>
+                <button onclick="game.resetGame()" style="padding: 12px 30px; border-radius: 99px; background: #10b981; color: #fff; border: none; cursor: pointer; font-weight: 700;">ПРОЙТИ ЕЩЕ РАЗ</button>
             </div>
         </div>
       </section>
@@ -437,10 +437,12 @@
       </section>
 
       <div class="test-zone reveal-up delay-200">
-        <h2 style="font-size:1.8rem; font-weight:800; color:#0f172a; margin-bottom:15px;">Готовы к аттестации?</h2>
-        <p style="color:#64748b; max-width:600px; margin:0 auto 30px; font-size:1.1rem;">Пройдите официальный тест для фиксации результатов обучения.</p>
+        <h2 style="font-size:1.8rem; font-weight:800; color:#0f172a; margin-bottom:15px;">Тренировочное тестирование</h2>
+        <p style="color:#64748b; max-width:650px; margin:0 auto 30px; font-size:1.1rem; line-height: 1.6;">
+          Обратите внимание: официальная аттестация (внесение в медицинскую книжку) проводится <b>исключительно в аккредитованных центрах гигиены и эпидемиологии</b>.<br><br> Данный тест предназначен для внутренней проверки готовности персонала к официальной сдаче экзамена.
+        </p>
         <a href="course-hygiene-test.html" class="btn-magic">
-          <span class="btn-magic-text">Начать тест</span>
+          <span class="btn-magic-text">Пройти подготовку</span>
         </a>
       </div>
 
@@ -653,7 +655,17 @@
     { q: "Должен ли уборочный инвентарь для туалета иметь специальную маркировку?", options: ["Да", "Нет", "Не регламентируется"], correct: 0, explanation: "Да, это закон. Инвентарь для туалетов выделяется в отдельный комплект и никогда не пересекается с комнатным." },
     { q: "Смена постельного белья при длительном проживании проводится не реже:", options: ["1 раза в неделю", "1 раза в месяц", "3 раза в неделю"], correct: 0, explanation: "Минимальный порог по СанПиН — 1 раз в неделю, полотенец — 2 раза в неделю." },
     { q: "Уровни шума и вибрации в помещениях отеля должны соответствовать:", options: ["Гигиеническим нормативам", "Санитарным правилам", "Желанию гостя"], correct: 0, explanation: "Все помещения обязаны соответствовать строгим количественным гигиеническим нормативам." },
-    { q: "Размеры контейнерной площадки должны превышать площадь основания баков:", options: ["На 1 м во все стороны", "На 2 м во все стороны", "Точно под размер бака"], correct: 0, explanation: "Запас в 1 метр — это гигиенический барьер для дезинфекции зоны." }
+    { q: "Размеры контейнерной площадки должны превышать площадь основания баков:", options: ["На 1 м во все стороны", "На 2 м во все стороны", "Точно под размер бака"], correct: 0, explanation: "Запас в 1 метр — это гигиенический барьер для дезинфекции зоны." },
+    
+    // Новые добавленные вопросы из PDF
+    { q: "Как часто необходимо мыть оконные стекла для обеспечения должного уровня естественной инсоляции?", options: ["Не реже 2 раз в год", "Раз в квартал", "Каждый месяц", "По мере загрязнения"], correct: 0, explanation: "Профессиональный стандарт требует очистки оконных стекол не менее 2 раз в год для поддержания уровня инсоляции." },
+    { q: "Как часто проводится обследование технического состояния системы вентиляции после первых двух лет эксплуатации?", options: ["Не реже 1 раза в 10 лет", "Каждые 5 лет", "Ежегодно", "Один раз при постройке"], correct: 0, explanation: "Обследование вентиляции проводится перед вводом, затем через 2 года, а далее — не реже 1 раза в 10 лет." },
+    { q: "Против каких инфекционных заболеваний в обязательном порядке должен быть привит персонал гостиницы?", options: ["Туберкулез, дифтерия, краснуха, вирусный гепатит В", "Только грипп", "Коронавирус и грипп", "Гепатит А и столбняк"], correct: 0, explanation: "Каждый специалист, работающий в прямом контакте с гостями, должен быть защищен от туберкулеза, дифтерии, краснухи и вирусного гепатита В." },
+    { q: "Может ли ВИЧ-инфекция передаваться контактно-бытовым путем (через постельное белье, общую посуду)?", options: ["Нет, контактно-бытовой путь исключен", "Да, через влажное белье", "Да, если не использовать хлор", "Только через посуду"], correct: 0, explanation: "Профессионал знает, что контактно-бытовой путь заражения ВИЧ-инфекцией через предметы быта полностью исключен." },
+    { q: "Какое инфекционное заболевание традиционно называют «болезнью грязных рук»?", options: ["Дизентерия", "Сальмонеллез", "Грипп", "Туберкулез"], correct: 0, explanation: "Дизентерия — это «болезнь грязных рук», требующая обязательного мытья рук перед едой и после туалета." },
+    { q: "Употребление каких продуктов рекомендуется для поддержания «биологического щита» и обеспечения организма кальцием?", options: ["Молочные продукты и рыба", "Фрукты и овощи", "Красное мясо и злаки", "Сладости и кофе"], correct: 0, explanation: "Основным источником кальция, необходимого для поддержания здоровья и прочности иммунитета, являются молочные продукты и рыба." },
+    { q: "Какая кишечная инфекция способна передаваться через плохо обработанные разделочные доски, ножи и мясо птицы?", options: ["Сальмонеллез", "Гепатит В", "Дифтерия", "Краснуха"], correct: 0, explanation: "Сальмонеллез способен «спрятаться» на разделочных досках, ножах, а также в мясе птицы и яйцах." },
+    { q: "Разрешается ли сотрудникам гостиницы стирать специальную одежду (униформу) на дому?", options: ["Категорически запрещено", "Разрешено при использовании отбеливателя", "Разрешено только горничным", "Разрешено при температуре 90 градусов"], correct: 0, explanation: "Стирка спецодежды на дому категорически запрещена, так как это разрушает систему контроля и создает риски выноса инфекций." }
   ];
 
   const game = {
@@ -678,15 +690,20 @@
       const title = document.getElementById('feedback-title');
       const text = document.getElementById('feedback-text');
       if (isCorrect) { this.score++; title.innerText = "✅ Верно!"; title.style.color = "#10b981"; }
-      else { this.shield -= 20; this.updateShield(); title.innerText = "❌ Ошибка в регламенте!"; title.style.color = "#e11d48"; }
+      else { 
+        this.shield -= Math.floor(100 / gameData.length); // Адаптивный урон щиту
+        if(this.shield < 0) this.shield = 0;
+        this.updateShield(); 
+        title.innerText = "❌ Ошибка в регламенте!"; title.style.color = "#e11d48"; 
+      }
       text.innerText = q.explanation;
       document.getElementById('feedback-overlay').classList.remove('hidden');
     },
     updateShield() {
       const bar = document.getElementById('shield-bar');
       bar.style.width = this.shield + '%';
-      if (this.shield <= 40) bar.style.background = "#f59e0b";
-      if (this.shield <= 20) bar.style.background = "#e11d48";
+      if (this.shield <= 50) bar.style.background = "#f59e0b";
+      if (this.shield <= 25) bar.style.background = "#e11d48";
     },
     nextQuestion() {
       document.getElementById('feedback-overlay').classList.add('hidden');
@@ -697,8 +714,20 @@
     showFinal() {
       const stats = document.getElementById('final-stats');
       document.getElementById('final-screen').classList.remove('hidden');
-      if (this.shield <= 0) { stats.innerText = `Миссия провалена. Санитарный щит разрушен. Верных ответов: ${this.score}. Нужна переподготовка!`; }
-      else { stats.innerText = `Отлично! Вы сохранили щит на уровне ${this.shield}%. Верных ответов: ${this.score} из ${gameData.length}. Вы готовы к проверкам!`; }
+      if (this.shield <= 0) { 
+        stats.innerText = `Миссия провалена. Санитарный щит разрушен. Верных ответов: ${this.score}. Вам необходимо перечитать регламент!`; 
+      }
+      else { 
+        stats.innerText = `Отлично! Вы сохранили щит на уровне ${this.shield}%. Верных ответов: ${this.score} из ${gameData.length}. Вы готовы к государственной проверке!`; 
+      }
+    },
+    resetGame() {
+        this.currentIndex = 0;
+        this.shield = 100;
+        this.score = 0;
+        this.updateShield();
+        document.getElementById('final-screen').classList.add('hidden');
+        this.init();
     }
   };
 
