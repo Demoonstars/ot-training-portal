@@ -37,14 +37,21 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* Анимация для плавно выплывающих кнопок чата */
-    @keyframes slideUpStagger {
-      0% { opacity: 0; transform: translateY(20px); }
+    /* Анимации для Мессенджера */
+    @keyframes chatMsgEnter {
+      0% { opacity: 0; transform: translateY(15px) scale(0.98); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .chat-msg-anim {
+      animation: chatMsgEnter 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    @keyframes chatOptEnter {
+      0% { opacity: 0; transform: translateY(25px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-    .stagger-item {
+    .chat-opt-anim {
       opacity: 0;
-      animation: slideUpStagger 0.4s ease-out forwards;
+      animation: chatOptEnter 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
     }
 
     .reveal-up { opacity: 1 !important; transform: none !important; } 
@@ -366,7 +373,7 @@
             Управление Санитарным Щитом (15 кейсов)
           </h2>
           <p style="color: #64748b; font-size: 1.1rem; max-width: 650px; margin: 0 auto;">
-            Переписка с сотрудниками отеля в реальном времени. Опирайтесь строго на требования СанПиН, чтобы принимать верные решения и сохранять биологическую безопасность отеля.
+            Переписка с сотрудниками отеля в реальном времени. Опирайтесь строго на требования СанПиН, чтобы принимать верные решения и сохранять биологическую безопасность отеля. Ситуации и ответы перемешиваются при каждом запуске.
           </p>
         </div>
         <div id="hr-simulator-root" style="border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);"></div>
@@ -846,12 +853,19 @@
 
     const startGame = () => {
       playSound('click');
-      const shuffled = shuffleArray(ALL_HR_SCENARIOS);
-      setScenarios(shuffled.slice(0, 15)); 
+      // 1. Перемешиваем сами сценарии
+      let shuffledScenarios = shuffleArray(ALL_HR_SCENARIOS).slice(0, 15);
+      
+      // 2. Перемешиваем варианты ответов внутри каждого сценария
+      shuffledScenarios = shuffledScenarios.map(sc => {
+        return { ...sc, options: shuffleArray([...sc.options]) };
+      });
+
+      setScenarios(shuffledScenarios); 
       setGameState('playing'); 
       setCurrentIdx(0); 
       setScore(0);
-      loadScenario(0, shuffled);
+      loadScenario(0, shuffledScenarios);
     };
 
     const loadScenario = (idx, scList = scenarios) => {
@@ -860,46 +874,40 @@
        setShowOptions(false);
        setIsTyping(true);
 
-       // Через 1.5 секунды сотрудник присылает первый вопрос
        setTimeout(() => {
            setIsTyping(false);
            setChatHistory([{ id: Date.now(), type: 'trainee', text: scenario.msg }]);
-           
-           // Через 0.5 секунды после вопроса появляются кнопки для пользователя
            setTimeout(() => {
                setShowOptions(true);
-           }, 500);
-       }, 1500);
+           }, 600); // Плавная пауза перед появлением кнопок
+       }, 1800); // Сотрудник набирает первый вопрос
     };
 
     const handleOption = (opt) => {
-      setShowOptions(false); // Скрываем кнопки
-      
-      // 1. Добавляем ответ пользователя в чат мгновенно
+      setShowOptions(false); 
       setChatHistory(prev => [...prev, { id: Date.now(), type: 'user', text: opt.text }]);
       
-      // 2. Сотрудник начинает "печатать" ответ
-      setIsTyping(true);
       setTimeout(() => {
-          setIsTyping(false);
-          // 3. Сотрудник присылает ответ-реакцию
-          setChatHistory(prev => [...prev, { id: Date.now(), type: 'trainee', text: opt.reply }]);
-          
-          // 4. Через секунду появляется обучающий фидбэк от системы
+          setIsTyping(true);
           setTimeout(() => {
-              if (opt.isCorrect) playSound('success');
-              else { playSound('error'); vibratePhone(); }
+              setIsTyping(false);
+              setChatHistory(prev => [...prev, { id: Date.now(), type: 'trainee', text: opt.reply }]);
               
-              setChatHistory(prev => [...prev, { 
-                  id: Date.now(), 
-                  type: 'feedback', 
-                  isCorrect: opt.isCorrect, 
-                  text: opt.feedback 
-              }]);
-              
-              if (opt.isCorrect) setScore(s => s + 1);
-          }, 1000);
-      }, 1500); // Время, пока сотрудник "печатает"
+              setTimeout(() => {
+                  if (opt.isCorrect) playSound('success');
+                  else { playSound('error'); vibratePhone(); }
+                  
+                  setChatHistory(prev => [...prev, { 
+                      id: Date.now(), 
+                      type: 'feedback', 
+                      isCorrect: opt.isCorrect, 
+                      text: opt.feedback 
+                  }]);
+                  
+                  if (opt.isCorrect) setScore(s => s + 1);
+              }, 1200); // Пауза перед обучающим выводом
+          }, 2000); // Сотрудник набирает реакцию
+      }, 400); 
     };
 
     const handleNext = () => {
@@ -915,18 +923,15 @@
     if (gameState === 'start') {
       return (
         <div className="flex justify-center items-center py-10 px-4">
-          {/* Максимально реалистичный корпус телефона */}
           <div className="w-full max-w-[380px] h-[780px] bg-black rounded-[55px] border-[8px] border-[#2a2a2a] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5),_inset_0_0_0_2px_rgba(255,255,255,0.2)] relative flex flex-col p-1.5 transition-all duration-300">
-            
-            {/* Боковые кнопки (Громкость и Питание на ПРАВОЙ грани) */}
-            <div className="absolute top-[110px] -right-[10.5px] w-1.5 h-12 bg-[#2a2a2a] rounded-r-md shadow-[inset_1px_0_1px_rgba(255,255,255,0.1)]"></div>
-            <div className="absolute top-[170px] -right-[10.5px] w-1.5 h-12 bg-[#2a2a2a] rounded-r-md shadow-[inset_1px_0_1px_rgba(255,255,255,0.1)]"></div>
-            <div className="absolute top-[240px] -right-[10.5px] w-1.5 h-16 bg-[#2a2a2a] rounded-r-md shadow-[inset_1px_0_1px_rgba(255,255,255,0.1)]"></div>
+            {/* Кнопки на правой грани */}
+            <div className="absolute top-[120px] -right-[12px] w-[4px] h-[45px] bg-[#2a2a2a] rounded-r-[3px]"></div>
+            <div className="absolute top-[180px] -right-[12px] w-[4px] h-[45px] bg-[#2a2a2a] rounded-r-[3px]"></div>
+            <div className="absolute top-[260px] -right-[12px] w-[4px] h-[60px] bg-[#2a2a2a] rounded-r-[3px]"></div>
 
             {/* Экран */}
             <div className="flex-1 bg-gradient-to-b from-slate-900 to-[#064e3b] rounded-[45px] overflow-hidden relative flex flex-col border border-white/10">
-              
-              {/* Динамический остров (Вырез камеры) */}
+              {/* Вырез */}
               <div className="absolute top-2 inset-x-0 flex justify-center z-50 pointer-events-none">
                   <div className="w-[120px] h-[30px] bg-black rounded-full flex justify-end items-center px-2 shadow-[inset_0_0_2px_rgba(255,255,255,0.1)]">
                       <div className="w-3 h-3 rounded-full bg-[#0a0a0a] shadow-[inset_0_0_1px_rgba(255,255,255,0.2)] border border-white/5 relative">
@@ -954,9 +959,9 @@
       return (
         <div className="flex justify-center items-center py-10 px-4">
           <div className="w-full max-w-[380px] h-[780px] bg-black rounded-[55px] border-[8px] border-[#2a2a2a] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5),_inset_0_0_0_2px_rgba(255,255,255,0.2)] relative flex flex-col p-1.5 transition-all duration-300">
-            <div className="absolute top-[110px] -right-[10.5px] w-1.5 h-12 bg-[#2a2a2a] rounded-r-md shadow-[inset_1px_0_1px_rgba(255,255,255,0.1)]"></div>
-            <div className="absolute top-[170px] -right-[10.5px] w-1.5 h-12 bg-[#2a2a2a] rounded-r-md shadow-[inset_1px_0_1px_rgba(255,255,255,0.1)]"></div>
-            <div className="absolute top-[240px] -right-[10.5px] w-1.5 h-16 bg-[#2a2a2a] rounded-r-md shadow-[inset_1px_0_1px_rgba(255,255,255,0.1)]"></div>
+            <div className="absolute top-[120px] -right-[12px] w-[4px] h-[45px] bg-[#2a2a2a] rounded-r-[3px]"></div>
+            <div className="absolute top-[180px] -right-[12px] w-[4px] h-[45px] bg-[#2a2a2a] rounded-r-[3px]"></div>
+            <div className="absolute top-[260px] -right-[12px] w-[4px] h-[60px] bg-[#2a2a2a] rounded-r-[3px]"></div>
 
             <div className="flex-1 bg-gradient-to-b from-slate-900 to-[#064e3b] rounded-[45px] overflow-hidden relative flex flex-col border border-white/10 animate-fade-in">
                <div className="absolute top-2 inset-x-0 flex justify-center z-50 pointer-events-none">
@@ -982,13 +987,13 @@
 
     return (
       <div className="flex justify-center items-center py-10 px-4">
-        {/* КОРПУС ТЕЛЕФОНА С АНИМАЦИЕЙ ТРЯСКИ */}
+        {/* КОРПУС ТЕЛЕФОНА */}
         <div id="hr-phone-container" className="w-full max-w-[380px] h-[780px] bg-black rounded-[55px] border-[8px] border-[#2a2a2a] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5),_inset_0_0_0_2px_rgba(255,255,255,0.2)] relative flex flex-col p-1.5 transition-all duration-300">
           
           {/* Боковые кнопки (Громкость и Питание на ПРАВОЙ грани) */}
-          <div className="absolute top-[110px] -right-[10.5px] w-1.5 h-12 bg-[#2a2a2a] rounded-r-md shadow-[inset_1px_0_1px_rgba(255,255,255,0.1)]"></div>
-          <div className="absolute top-[170px] -right-[10.5px] w-1.5 h-12 bg-[#2a2a2a] rounded-r-md shadow-[inset_1px_0_1px_rgba(255,255,255,0.1)]"></div>
-          <div className="absolute top-[240px] -right-[10.5px] w-1.5 h-16 bg-[#2a2a2a] rounded-r-md shadow-[inset_1px_0_1px_rgba(255,255,255,0.1)]"></div>
+          <div className="absolute top-[120px] -right-[12px] w-[4px] h-[45px] bg-[#2a2a2a] rounded-r-[3px]"></div>
+          <div className="absolute top-[180px] -right-[12px] w-[4px] h-[45px] bg-[#2a2a2a] rounded-r-[3px]"></div>
+          <div className="absolute top-[260px] -right-[12px] w-[4px] h-[60px] bg-[#2a2a2a] rounded-r-[3px]"></div>
 
           {/* ВНУТРЕННИЙ ЭКРАН ТЕЛЕФОНА */}
           <div className="flex-1 bg-[#022c22] rounded-[45px] overflow-hidden relative flex flex-col border border-white/10">
@@ -1011,7 +1016,7 @@
                     <div className="w-[22px] h-[11px] border border-white/60 rounded-[3px] p-[1px] relative flex items-center">
                        <div className="w-[85%] h-full bg-white rounded-[1px]"></div>
                        {/* Пипка батареи */}
-                       <div className="absolute -right-[3px] top-[2px] w-[2px] h-[5px] bg-white/60 rounded-r-[2px]"></div>
+                       <div className="absolute -right-[3px] top-0 bottom-0 my-auto w-[2px] h-[4px] bg-white/60 rounded-r-[2px]"></div>
                     </div>
                 </div>
             </div>
@@ -1022,7 +1027,7 @@
                  <div className="text-2xl bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full border border-slate-600">{scenario.avatar}</div>
                  <div>
                    <div className="font-bold text-white text-sm">{scenario.trainee}</div>
-                   <div className="text-emerald-400 text-[11px] flex items-center gap-1.5 mt-0.5">
+                   <div className="text-emerald-400 text-[11px] flex items-center gap-1.5 mt-0.5 font-medium">
                       <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse shadow-[0_0_4px_#34d399]"></span> Online
                    </div>
                  </div>
@@ -1040,7 +1045,7 @@
               {chatHistory.map((m) => {
                   if (m.type === 'trainee') {
                       return (
-                          <div key={m.id} className="flex self-start animate-slide-up mb-4 relative" style={{maxWidth: '85%'}}>
+                          <div key={m.id} className="flex self-start chat-msg-anim mb-4 relative" style={{maxWidth: '85%'}}>
                             <div className="bg-[#1e293b] text-slate-200 text-[15px] p-3.5 px-4 rounded-2xl rounded-tl-sm shadow-md leading-relaxed border border-[#334155]">
                               {m.text}
                               <span className="text-[10px] text-slate-400 opacity-80 block text-right mt-1.5 font-mono">09:41</span>
@@ -1053,7 +1058,7 @@
                   }
                   if (m.type === 'user') {
                       return (
-                          <div key={m.id} className="flex self-end flex-row-reverse animate-slide-up mb-4 relative" style={{maxWidth: '85%'}}>
+                          <div key={m.id} className="flex self-end flex-row-reverse chat-msg-anim mb-4 relative" style={{maxWidth: '85%'}}>
                             <div className="bg-[#10b981] text-white text-[15px] p-3.5 px-4 rounded-2xl rounded-tr-sm shadow-[0_4px_15px_rgba(16,185,129,0.3)] leading-relaxed">
                               {m.text}
                               <span className="text-[10px] text-emerald-100 opacity-90 block text-right mt-1.5 font-mono">09:42 ✓✓</span>
@@ -1066,7 +1071,7 @@
                   }
                   if (m.type === 'feedback') {
                       return (
-                          <div key={m.id} className={`p-4 mt-2 rounded-xl text-sm border animate-slide-up text-center mb-4 shadow-lg ${m.isCorrect ? 'bg-[#022c22]/90 border-emerald-500/50 text-emerald-100' : 'bg-rose-900/90 border-rose-500/50 text-rose-100'}`}>
+                          <div key={m.id} className={`p-4 mt-2 rounded-xl text-sm border chat-msg-anim text-center mb-4 shadow-lg ${m.isCorrect ? 'bg-[#022c22]/90 border-emerald-500/50 text-emerald-100' : 'bg-rose-900/90 border-rose-500/50 text-rose-100'}`}>
                             <div dangerouslySetInnerHTML={{__html: m.text}} />
                             <button onClick={handleNext} className={`mt-4 px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider w-full shadow-sm transition-colors ${m.isCorrect ? 'bg-emerald-500 hover:bg-emerald-400 text-white' : 'bg-rose-500 hover:bg-rose-400 text-white'}`}>
                               {currentIdx < scenarios.length - 1 ? 'СЛЕДУЮЩЕЕ СООБЩЕНИЕ ➔' : 'ЗАВЕРШИТЬ ➔'}
@@ -1079,7 +1084,7 @@
 
               {/* ИНДИКАТОР ПЕЧАТАНИЯ */}
               {isTyping && (
-                  <div className="flex self-start animate-slide-up mb-4 relative">
+                  <div className="flex self-start chat-msg-anim mb-4 relative">
                     <div className="bg-[#1e293b] text-white p-3 py-4 rounded-2xl rounded-tl-sm shadow-md border border-[#334155] flex items-center gap-1.5">
                       <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></span>
                       <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{animationDelay: '0.15s'}}></span>
@@ -1093,7 +1098,7 @@
               
             </div>
 
-            {/* ПАНЕЛЬ ВЫБОРА ОТВЕТОВ (Клавиатура) - ВЫПЛЫВАЕТ ПЛАВНО */}
+            {/* ПАНЕЛЬ ВЫБОРА ОТВЕТОВ (Клавиатура) - ВЫПЛЫВАЕТ КАСКАДОМ */}
             {showOptions && (
               <div className="bg-[#0f172a] p-3 pt-4 border-t border-slate-800 rounded-b-[45px] shadow-[0_-10px_20px_rgba(0,0,0,0.3)] z-20 animate-slide-up">
                 <p className="text-slate-400 text-[10px] uppercase tracking-widest text-center mb-3">ВЫБЕРИТЕ ОТВЕТ:</p>
@@ -1102,8 +1107,8 @@
                     <button 
                       key={idx} 
                       onClick={() => handleOption(opt)} 
-                      className="stagger-item text-left bg-[#1e293b] hover:bg-[#334155] text-slate-200 text-[15px] p-4 rounded-2xl transition-colors border border-[#334155] hover:border-[#10b981] leading-relaxed shadow-sm"
-                      style={{ animationDelay: `${idx * 0.15}s` }}
+                      className="chat-opt-anim text-left bg-[#1e293b] hover:bg-[#334155] text-slate-200 text-[15px] p-4 rounded-2xl transition-colors border border-[#334155] hover:border-[#10b981] leading-relaxed shadow-sm"
+                      style={{ animationDelay: `${idx * 0.12}s` }}
                     >
                       {opt.text}
                     </button>
