@@ -105,21 +105,9 @@
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; }
     .contact-svg-box { background: #f0fdfa; border-radius: 24px; padding: 30px; display: flex; justify-content: center; align-items: center; min-height: 250px; width: 100%; box-sizing: border-box; overflow: hidden; border: 2px solid #ccfbf1;}
     .contact-info { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 20px; padding: 30px; min-height: 220px; display: flex; flex-direction: column; justify-content: center; transition: all 0.3s; }
-    .contact-part { cursor: pointer; transition: all 0.3s ease; -webkit-tap-highlight-color: transparent; }
-    .contact-part:hover { filter: drop-shadow(0 0 10px #10b981); transform: scale(1.05); }
-
-    /* 2. Айсберг Гигиены */
-    .iceberg-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-    @media (min-width: 768px) { .iceberg-grid { grid-template-columns: 1fr 1fr; } }
-    .iceberg-options { display: flex; flex-direction: column; gap: 15px; justify-content: center;}
-    .iceberg-btn { padding: 20px; border-radius: 16px; background: #f8fafc; border: 2px solid #e2e8f0; cursor: pointer; transition: 0.3s; font-weight: 600; color: #475569; text-align: center; font-size: 1.1rem;}
-    .iceberg-btn:hover { background: #f0fdf4; border-color: #bbf7d0; }
-    .iceberg-btn.active { background: #ecfdf5; border-color: #10b981; color: #065f46; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.15); transform: scale(1.02); }
-    
-    .iceberg-result { background: linear-gradient(to bottom, #10b981, #064e3b); border-radius: 20px; padding: 30px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; transition: 0.3s; min-height: 250px;}
-    .iceberg-result::before { content: "🧼"; position: absolute; right: -10px; bottom: -20px; font-size: 12rem; opacity: 0.1; }
-    .iceberg-title { font-size: 1.8rem; font-weight: 800; margin: 0 0 15px; color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.4); position: relative; z-index: 1;}
-    .iceberg-desc { font-size: 1.05rem; line-height: 1.6; font-weight: 500; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.6); margin: 0; position: relative; z-index: 1; }
+    .contact-part { cursor: pointer; transition: all 0.3s ease; -webkit-tap-highlight-color: transparent; outline: none; }
+    .contact-part:hover { filter: drop-shadow(0 0 10px #10b981); transform: scale(1.02); }
+    @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } .contact-info { min-height: 180px; padding: 20px;} .contact-svg-box { padding: 20px; } }
 
     /* Ритуал Обработки Инвентаря */
     .widget-nav { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
@@ -129,28 +117,86 @@
     .widget-icon-large { font-size: 3rem; margin-right: 20px; opacity: 0.8; }
     .widget-text { font-size: 1.05rem; color: #334155; line-height: 1.6; font-weight: 500; }
 
-    /* === PDF VIEWER STYLES === */
+    /* === PDF VIEWER V8.0 STYLES (Восстановлено из эталона) === */
     .custom-pdf-viewer { background: #f1f5f9; border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 20px; position: relative; overflow: hidden; margin-bottom: 40px; box-shadow: 0 20px 50px -10px rgba(0,0,0,0.1); height: 700px; display: flex; flex-direction: column; transition: background 0.3s; }
+    .custom-pdf-viewer.dark-theme { background: #1e293b; border-color: #334155; }
+    .custom-pdf-viewer.dark-theme .pdf-viewer-header { background: #0f172a; border-bottom-color: #334155; color: #f1f5f9; }
+    .custom-pdf-viewer.dark-theme .pdf-file-info h3 { color: #f1f5f9; }
+    .custom-pdf-viewer.dark-theme .pdf-file-info p { color: #94a3b8; }
+    .custom-pdf-viewer.dark-theme .btn-pdf-action { background: #334155; color: #fff; border-color: #475569; }
+    .custom-pdf-viewer.dark-theme .pdf-canvas-wrapper { background: radial-gradient(#475569 1px, transparent 1px); background-size: 20px 20px; }
+    .custom-pdf-viewer.dark-theme #the-canvas { filter: brightness(0.9); }
+    .custom-pdf-viewer.fullscreen-mode { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; width: 100vw !important; height: 100vh !important; z-index: 2147483647 !important; border-radius: 0 !important; margin: 0 !important; border: none !important; background: #e2e8f0 !important; }
+    
     .pdf-viewer-header { background: #fff; padding: 10px 15px; border-bottom: 1px solid #cbd5e1; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-shrink: 0; z-index: 10; }
     .pdf-header-left { display: flex; align-items: center; gap: 10px; overflow: hidden; }
     .pdf-file-icon { width: 32px; height: 32px; background: #dcfce7; color: #059669; flex-shrink: 0; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
     .pdf-file-info h3 { margin: 0; font-size: 0.9rem; color: #0f172a; overflow: hidden; text-overflow: ellipsis; }
     .pdf-file-info p { margin: 0; font-size: 0.75rem; color: #64748b; }
+    .pdf-top-actions { display: flex; gap: 8px; align-items: center; }
     .btn-pdf-action { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 0 12px; height: 36px; border-radius: 8px; background: #fff; border: 1px solid #cbd5e1; color: #334155; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
     .btn-pdf-action:hover { border-color: #10b981; color: #10b981; }
+    
     .pdf-read-progress { height: 3px; width: 0%; background: #10b981; transition: width 0.2s; position: absolute; bottom: 0; left: 0; z-index: 15; }
     .pdf-canvas-wrapper { flex-grow: 1; overflow: auto; display: flex; justify-content: flex-start; align-items: flex-start; padding: 20px; padding-bottom: 100px; background: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px; touch-action: pan-x pan-y pinch-zoom; -webkit-overflow-scrolling: touch; position: relative; cursor: grab; }
-    #the-canvas { box-shadow: 0 4px 15px rgba(0,0,0,0.15); background: #fff; transform-origin: top left; margin: auto; display: block; }
-    .pdf-toolbar { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); padding: 8px 12px; border-radius: 50px; display: flex; align-items: center; gap: 12px; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 50; }
-    .tool-btn { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; }
-    .page-input-group { display: flex; align-items: center; gap: 5px; font-family: monospace; }
-    #page_num_input { width: 40px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; text-align: center; border-radius: 4px; }
-    .pdf-loader { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #f1f5f9; z-index: 60; }
+    .pdf-canvas-wrapper.grabbing { cursor: grabbing; }
+    #the-canvas { box-shadow: 0 4px 15px rgba(0,0,0,0.15); background: #fff; transform-origin: top left; margin: auto; display: block; transition: transform 0.1s ease-out, box-shadow 0.3s; }
+    
+    .pdf-toolbar { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); padding: 8px 12px; border-radius: 50px; display: flex; align-items: center; gap: 12px; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 50; white-space: nowrap; max-width: 95%; }
+    .tool-btn { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
+    .tool-btn-icon { width: 30px; height: 30px; border-radius: 50%; background: transparent; border: none; color: #cbd5e1; cursor: pointer; font-size: 1.2rem; }
+    .divider-v { width: 1px; height: 16px; background: rgba(255,255,255,0.2); }
+    .page-input-group { display: flex; align-items: center; gap: 5px; font-family: monospace; font-size: 0.9rem; }
+    #page_num_input { width: 40px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; text-align: center; border-radius: 4px; padding: 2px; -moz-appearance: textfield; }
+    #page_num_input:focus { border-color: #10b981; outline: none; background: rgba(255,255,255,0.1); }
+    
+    .pdf-loader { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #f1f5f9; z-index: 60; color: #64748b; font-weight: 600; }
     .spinner { width: 40px; height: 40px; border: 4px solid #cbd5e1; border-top-color: #10b981; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 10px; }
     @keyframes spin { to { transform: rotate(360deg); } }
+    
+    .gesture-hint { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: #fff; padding: 12px 20px; border-radius: 12px; text-align: center; pointer-events: none; opacity: 0; transition: opacity 0.5s; z-index: 70; }
+    .show-hint { opacity: 1; }
+    .btn-text { display: inline; } .btn-icon { display: none; }
+    
+    @media (max-width: 600px) {
+        .btn-text { display: none; } .btn-icon { display: inline; font-size: 1.2rem; }
+        .custom-pdf-viewer { height: 500px; }
+        .pdf-toolbar { padding: 8px 10px; gap: 8px; }
+    }
+
+    /* FAQ */
+    .faq-section { margin-bottom: 40px; }
+    .faq-title { text-align: center; font-size: 1.8rem; font-weight: 700; color: #0f172a; margin-bottom: 25px; }
+    .faq-item { background: #fff; border-radius: 16px; margin-bottom: 10px; border: 1px solid #e2e8f0; overflow: hidden; transition: 0.3s; }
+    .faq-item:hover { border-color: #bbf7d0; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+    .faq-summary { padding: 18px 24px; cursor: pointer; font-weight: 600; color: #1e293b; display: flex; justify-content: space-between; align-items: center; list-style: none; }
+    .faq-summary::-webkit-details-marker { display: none; }
+    .faq-summary::after { content: "+"; font-size: 1.5rem; color: #94a3b8; transition: 0.3s; }
+    details[open] .faq-summary::after { transform: rotate(45deg); color: #10b981; }
+    .faq-content { padding: 0 24px 24px; color: #64748b; font-size: 0.95rem; line-height: 1.6; }
+
+    /* CTA BUTTON (Исправлено перекрытие на мобильных) */
+    .test-zone { background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); border-radius: 30px; padding: 50px 30px; text-align: center; box-shadow: 0 20px 60px -10px rgba(0,0,0,0.1); border: 1px solid #fff; margin-bottom: 40px;}
+    .btn-magic { 
+        position: relative; display: inline-flex; justify-content: center; align-items: center; 
+        padding: 16px 32px; font-size: 1rem; font-weight: 700; color: #ffffff; background: #0f172a; 
+        border-radius: 99px; text-decoration: none; overflow: hidden; z-index: 10; 
+        transition: transform 0.3s ease, box-shadow 0.3s ease; 
+        box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+        isolation: isolate; transform: translateZ(0); /* Фикс для бага Safari/Chrome */
+    }
+    .btn-magic-text { position: relative; z-index: 2; pointer-events: none; }
+    .btn-magic::before { 
+        content: ""; position: absolute; top: 50%; left: 50%; width: 300%; height: 300%; 
+        background: conic-gradient(transparent 0deg, transparent 260deg, #10b981 280deg, #34d399 320deg, #6ee7b7 360deg); 
+        transform: translate(-50%, -50%); animation: rotate-border 4s linear infinite; z-index: -2; 
+    }
+    .btn-magic::after { content: ""; position: absolute; inset: 2px; background: #0f172a; border-radius: 99px; z-index: -1; }
+    .btn-magic:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(16, 185, 129, 0.4); }
+    @keyframes rotate-border { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
 
     /* === СТИЛИ ДЛЯ ИГРЫ «САНИТАРНЫЙ ЩИТ» === */
-    .game-container { background: #f8fafc; border-radius: 20px; border: 1px solid #e2e8f0; padding: 25px; position: relative; }
+    .game-container { background: #f8fafc; border-radius: 20px; border: 1px solid #e2e8f0; padding: 25px; position: relative; overflow: hidden; }
     .shield-status { margin-bottom: 20px; }
     .shield-label { font-weight: 800; font-size: 0.8rem; text-transform: uppercase; color: #64748b; margin-bottom: 8px; display: flex; justify-content: space-between;}
     .shield-container { height: 12px; background: #e2e8f0; border-radius: 6px; overflow: hidden; border: 1px solid #cbd5e1; }
@@ -216,7 +262,7 @@
         <span class="hero-badge">СанПиН & Безопасность</span>
         <h1 class="hero-title">Гигиеническое обучение</h1>
         <p class="hero-desc">
-          Профессиональная подготовка работников гостиниц. Изучите стандарты содержания помещений, правила личной гигиены персонала и юридическую ответственность за нарушение санитарно-эпидемиологического благополучия[cite: 4, 156].
+          Профессиональная подготовка работников гостиниц. Изучите стандарты содержания помещений, правила личной гигиены персонала и юридическую ответственность за нарушение санитарно-эпидемиологического благополучия.
         </p>
       </section>
 
@@ -227,51 +273,55 @@
       </div>
 
       <div class="syllabus-grid reveal-up delay-200">
-        <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon">⚖️</span><h3 class="syl-title">Щит закона</h3><ul class="syl-list"><li>ФЗ №52 и конституция чистоты [cite: 7].</li><li>Уголовная ответственность (ст. 236 УК РФ) [cite: 12].</li><li>Программа контроля (ППК)[cite: 23].</li></ul></div></div>
-        <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon">🏗️</span><h3 class="syl-title">Инженерия чистоты</h3><ul class="syl-list"><li>Режим вентиляции (2-10 лет) [cite: 27, 62].</li><li>Зоны мусоросборников (+1 м) [cite: 53].</li><li>Нулевой дефект отделки[cite: 31].</li></ul></div></div>
-        <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon">🧼</span><h3 class="syl-title">Личный бронежилет</h3><ul class="syl-list"><li>Вакцинация как проф-актив [cite: 117].</li><li>Ритуал мытья рук [cite: 126].</li><li>Запрет домашней стирки формы[cite: 105].</li></ul></div></div>
+        <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon">⚖️</span><h3 class="syl-title">Щит закона</h3><ul class="syl-list"><li>ФЗ №52 и конституция чистоты.</li><li>Уголовная ответственность (ст. 236 УК РФ).</li><li>Программа контроля (ППК).</li></ul></div></div>
+        <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon">🏗️</span><h3 class="syl-title">Инженерия чистоты</h3><ul class="syl-list"><li>Режим вентиляции (2-10 лет).</li><li>Зоны мусоросборников (+1 м).</li><li>Нулевой дефект отделки.</li></ul></div></div>
+        <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon">🧼</span><h3 class="syl-title">Личный бронежилет</h3><ul class="syl-list"><li>Вакцинация как проф-актив.</li><li>Ритуал мытья рук.</li><li>Запрет домашней стирки формы.</li></ul></div></div>
       </div>
 
       <div class="alert-zone reveal-up delay-200">
         <div class="alert-header"><div class="alert-icon">🛑</div><h3 class="alert-title">КРИТИЧЕСКИЕ ЗАПРЕТЫ</h3></div>
         <div class="alert-grid">
-            <div class="alert-item">✖ Стирать специальную одежду на дому[cite: 105].</div>
-            <div class="alert-item">✖ Оставлять уборочный инвентарь влажным[cite: 97].</div>
-            <div class="alert-item">✖ Переливать химию в пищевую посуду[cite: 127].</div>
-            <div class="alert-item">✖ Допускать трещины и сколы в плитке[cite: 30].</div>
+            <div class="alert-item">✖ Стирать специальную одежду на дому.</div>
+            <div class="alert-item">✖ Оставлять уборочный инвентарь влажным.</div>
+            <div class="alert-item">✖ Переливать химию в пищевую посуду.</div>
+            <div class="alert-item">✖ Допускать трещины и сколы в плитке.</div>
         </div>
       </div>
 
       <section style="margin: 50px 0;" class="reveal-up delay-200">
         <h2 class="flip-section-title">🤔 Гигиенические мифы</h2>
         <div class="flip-grid">
-            <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="flip-icon">✨</div><div class="flip-label">Миф</div><div class="flip-text">"Поверхность безопасна, если она блестит и выглядит чистой."</div></div><div class="flip-back"><div class="flip-icon">🔬</div><div class="flip-label">Реальность</div><div class="flip-text">Микробы невидимы. Требуется строгая дезинфекция по графику, а не только визуальный клининг[cite: 101].</div></div></div></div>
-            <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="flip-icon">💨</div><div class="flip-label">Миф</div><div class="flip-text">"Вентиляцию проверяют только один раз при постройке здания."</div></div><div class="flip-back"><div class="flip-icon">🗓️</div><div class="flip-label">Реальность</div><div class="flip-text">Первый раз — при вводе, затем через 2 года, далее — не реже раза в 10 лет[cite: 62].</div></div></div></div>
-            <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="flip-icon">🛏️</div><div class="flip-label">Миф</div><div class="flip-text">"Постель при долгом проживании можно не менять неделями."</div></div><div class="flip-back"><div class="flip-icon">🧼</div><div class="flip-label">Реальность</div><div class="flip-text">Смена белья — не реже 1 раза в неделю, полотенец — 2 раза в неделю[cite: 81].</div></div></div></div>
+            <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="flip-icon">✨</div><div class="flip-label">Миф</div><div class="flip-text">"Поверхность безопасна, если она блестит и выглядит чистой."</div></div><div class="flip-back"><div class="flip-icon">🔬</div><div class="flip-label">Реальность</div><div class="flip-text">Микробы невидимы. Требуется строгая дезинфекция по графику, а не только визуальный клининг.</div></div></div></div>
+            <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="flip-icon">💨</div><div class="flip-label">Миф</div><div class="flip-text">"Вентиляцию проверяют только один раз при постройке здания."</div></div><div class="flip-back"><div class="flip-icon">🗓️</div><div class="flip-label">Реальность</div><div class="flip-text">Первый раз — при вводе, затем через 2 года, далее — не реже раза в 10 лет.</div></div></div></div>
+            <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="flip-icon">🛏️</div><div class="flip-label">Миф</div><div class="flip-text">"Постель при долгом проживании можно не менять неделями."</div></div><div class="flip-back"><div class="flip-icon">🧼</div><div class="flip-label">Реальность</div><div class="flip-text">Смена белья — не реже 1 раза в неделю, полотенец — 2 раза в неделю.</div></div></div></div>
         </div>
       </section>
 
       <section class="interactive-widget reveal-up delay-200">
         <div class="widget-header">
           <h3>🦠 Зоны повышенного риска</h3>
-          <p>Нажмите на элементы, чтобы узнать требования к их дезинфекции [cite: 85-88]</p>
+          <p>Нажмите на элементы санузла, чтобы узнать протокол ежедневной обработки</p>
         </div>
         <div class="contact-grid">
           <div class="contact-svg-box">
-             <svg viewBox="0 0 200 200" style="width: 100%; max-width: 250px;">
+             <svg viewBox="0 0 200 200" style="width: 100%; max-width: 250px; display: block; margin: 0 auto; overflow: visible;">
+                <rect x="20" y="20" width="70" height="160" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="4"/>
                 <g class="contact-part" id="zone-handle">
-                  <circle cx="100" cy="100" r="40" fill="#ccfbf1" stroke="#10b981" stroke-width="3"/>
-                  <rect x="95" y="95" width="60" height="10" rx="5" fill="#10b981" transform="rotate(-15 100 100)"/>
+                  <circle cx="75" cy="100" r="22" fill="rgba(16, 185, 129, 0.2)" stroke="#10b981" stroke-width="2" style="animation: pulse-green 2s infinite;"/>
+                  <rect x="65" y="96" width="20" height="8" rx="4" fill="#059669"/>
                 </g>
-                <g class="contact-part" id="zone-flush" transform="translate(0, 80)">
-                  <rect x="70" y="20" width="60" height="40" rx="5" fill="#ccfbf1" stroke="#10b981" stroke-width="2"/>
-                  <circle cx="100" cy="40" r="10" fill="#10b981"/>
+
+                <path d="M120,100 Q150,100 150,140 L150,180 L120,180 Z" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="4"/>
+                <rect x="120" y="50" width="40" height="50" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="4"/>
+                <g class="contact-part" id="zone-flush">
+                  <circle cx="140" cy="75" r="22" fill="rgba(16, 185, 129, 0.2)" stroke="#10b981" stroke-width="2" style="animation: pulse-green 2s infinite;"/>
+                  <circle cx="140" cy="75" r="6" fill="#059669"/>
                 </g>
              </svg>
           </div>
           <div class="contact-info" id="contact-info">
              <h4 style="font-size:1.3rem; color:#0f172a; margin-bottom:10px;">Точки контакта</h4>
-             <p style="color:#475569; line-height:1.6; margin:0;">Выберите зону, чтобы изучить протокол ежедневной обработки.</p>
+             <p style="color:#475569; line-height:1.6; margin:0;">Выберите пульсирующую зону слева, чтобы изучить требования гигиены.</p>
           </div>
         </div>
       </section>
@@ -279,7 +329,7 @@
       <section class="interactive-widget reveal-up delay-200">
         <div class="widget-header">
             <h3>🧼 Ритуал «Чистый инвентарь»</h3>
-            <p>Алгоритм ухода за швабрами и ветошью после уборки [cite: 39, 95]</p>
+            <p>Алгоритм ухода за швабрами и ветошью после уборки</p>
         </div>
         <div class="widget-nav" id="hygieneNav">
             <div class="widget-step-btn active" data-step="1">1. Промывка</div>
@@ -330,34 +380,43 @@
 
       <section class="reveal-up delay-200" id="materials">
         <div class="custom-pdf-viewer" id="mainPdfContainer">
+          
           <div class="pdf-viewer-header">
             <div class="pdf-header-left">
-              <div class="pdf-file-icon">🧤</div>
+              <div class="pdf-file-icon">📄</div>
               <div class="pdf-file-info">
                 <h3>Гигиеническое обучение</h3>
                 <p>Профессиональный стандарт для гостиниц</p>
               </div>
             </div>
             <div class="pdf-top-actions">
-                <a href="assets/Hygiene_training_for_hotel_workers.pdf" download class="btn-pdf-action">Скачать PDF</a>
-                <button class="btn-pdf-action" id="fullscreenBtn">⛶</button>
+                <button class="btn-pdf-action" id="themeBtn" title="Ночной режим">🌙</button>
+                <a href="assets/Hygiene_training_for_hotel_workers.pdf" download class="btn-pdf-action icon-only-mobile">
+                    <span class="btn-text">Скачать</span><span class="btn-icon">📥</span>
+                </a>
+                <button class="btn-pdf-action btn-fullscreen" id="fullscreenBtn" title="На весь экран">⛶</button>
             </div>
             <div class="pdf-read-progress" id="pdfInnerProgress"></div>
           </div>
 
           <div class="pdf-canvas-wrapper" id="pdfWrapper">
             <canvas id="the-canvas"></canvas>
-            <div class="pdf-loader" id="pdfLoader"><div class="spinner"></div></div>
+            <div class="pdf-loader" id="pdfLoader"><div class="spinner"></div><span>Загрузка...</span></div>
+            <div class="gesture-hint" id="gestureHint">👆 2 клика — зум <br> 🖐️ Тяни — листать</div>
           </div>
 
           <div class="pdf-toolbar">
-            <button class="tool-btn" id="prev">←</button>
+            <button class="tool-btn" id="prev" title="Назад">←</button>
             <div class="page-input-group">
-                <input type="number" id="page_num_input" value="1">
+                <input type="number" id="page_num_input" value="1" min="1">
                 <span>/ <span id="page_count">--</span></span>
             </div>
-            <button class="tool-btn" id="next">→</button>
+            <button class="tool-btn" id="next" title="Вперед">→</button>
+            <div class="divider-v"></div>
+            <button class="tool-btn-icon" id="zoomOut">-</button>
+            <button class="tool-btn-icon" id="zoomIn">+</button>
           </div>
+
         </div>
       </section>
 
@@ -365,15 +424,15 @@
         <h2 class="faq-title">Вопросы и ответы</h2>
         <details class="faq-item">
             <summary class="faq-summary">Сколько времени есть на оплату штрафа за нарушение СанПиН?</summary>
-            <div class="faq-content">Ровно 60 дней с момента вступления постановления в законную силу[cite: 20]. Промедление является маркером системного кризиса управления.</div>
+            <div class="faq-content">Ровно 60 дней с момента вступления постановления в законную силу. Промедление является маркером системного кризиса управления.</div>
         </details>
         <details class="faq-item">
-            <summary>Можно ли использовать одну швабру для номера и туалета?</summary>
-            <div class="faq-content">Категорически нет. Инвентарь для туалетов должен иметь отдельную цветовую маркировку и храниться отдельно для исключения перекрестного загрязнения[cite: 91, 92].</div>
+            <summary class="faq-summary">Можно ли использовать одну швабру для номера и туалета?</summary>
+            <div class="faq-content">Категорически нет. Инвентарь для туалетов должен иметь отдельную цветовую маркировку и храниться отдельно для исключения перекрестного загрязнения.</div>
         </details>
         <details class="faq-item">
-            <summary>Какая ответственность грозит за массовое отравление гостей?</summary>
-            <div class="faq-content">Уголовная ответственность по ст. 236 УК РФ, если нарушение повлекло по неосторожности массовое заболевание или смерть человека[cite: 12, 13].</div>
+            <summary class="faq-summary">Какая ответственность грозит за массовое отравление гостей?</summary>
+            <div class="faq-content">Уголовная ответственность по ст. 236 УК РФ, если нарушение повлекло по неосторожности массовое заболевание или смерть человека.</div>
         </details>
       </section>
 
@@ -393,6 +452,8 @@
   </footer>
 </div>
 
+<button type="button" class="to-top" id="toTopBtn" aria-label="Наверх" title="Наверх" style="position:fixed; right:20px; bottom:20px; width:45px; height:45px; border-radius:50%; background:#fff; border:1px solid #e2e8f0; box-shadow:0 5px 15px rgba(0,0,0,0.1); cursor:pointer; opacity:0; transition:0.3s; z-index:90;">↑</button>
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     document.body.classList.add('js-loaded'); 
@@ -404,11 +465,22 @@
     const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     document.getElementById('current-date').textContent = new Date().toLocaleDateString('ru-RU', dateOptions);
 
+    const progressBar = document.getElementById('readingProgress');
+    const toTopBtn = document.getElementById('toTopBtn');
+    window.addEventListener('scroll', () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        progressBar.style.width = (scrollTop / scrollHeight) * 100 + "%";
+        toTopBtn.style.opacity = scrollTop > 600 ? "1" : "0";
+        toTopBtn.style.pointerEvents = scrollTop > 600 ? "auto" : "none";
+    });
+    toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
     // === ИНТЕРАКТИВНЫЕ ТОЧКИ КОНТАКТА ===
     const contactInfo = document.getElementById('contact-info');
     const zones = {
-        'zone-handle': { title: 'Дверные ручки', text: 'Самый частый объект контакта. Требуют дезинфекции ежедневно и при каждой уборке выезда[cite: 85, 86].' },
-        'zone-flush': { title: 'Кнопки слива', text: 'Критическая точка! Если ручка бачка не прошла дезинфекцию, цепочка передачи бактерий не разрывается[cite: 87].' }
+        'zone-handle': { title: 'Дверные ручки', text: 'Самый частый объект контакта. Требуют дезинфекции ежедневно и при каждой уборке выезда. Это первая линия защиты от вирусов.' },
+        'zone-flush': { title: 'Кнопки слива и ободки', text: 'Критическая точка! Если ручка бачка не прошла дезинфекцию, цепочка передачи бактерий не разрывается. Требует спецхимии ежедневно.' }
     };
 
     document.querySelectorAll('.contact-part').forEach(part => {
@@ -420,10 +492,10 @@
 
     // === РИТУАЛ ИНВЕНТАРЯ ===
     const hygieneData = {
-        1: { icon: "🪣", text: "<strong>Промывка:</strong> Очистка с использованием дезинфицирующих моющих растворов[cite: 39]." },
-        2: { icon: "🚰", text: "<strong>Ополаскивание:</strong> Удаление остатков химии проточной водой[cite: 95]." },
-        3: { icon: "🌬️", text: "<strong>Просушка:</strong> Критически важный этап! Влажная ветошь сама становится источником патогенов[cite: 97]." },
-        4: { icon: "🧺", text: "<strong>Хранение:</strong> Только в сухом и чистом виде в отведенном месте[cite: 96]." }
+        1: { icon: "🪣", text: "<strong>Промывка:</strong> Очистка с использованием дезинфицирующих моющих растворов." },
+        2: { icon: "🚰", text: "<strong>Ополаскивание:</strong> Удаление остатков химии проточной водой." },
+        3: { icon: "🌬️", text: "<strong>Просушка:</strong> Критически важный этап! Влажная ветошь сама становится источником патогенов." },
+        4: { icon: "🧺", text: "<strong>Хранение:</strong> Только в сухом и чистом виде в отведенном месте." }
     };
     
     document.querySelectorAll('#hygieneNav .widget-step-btn').forEach(btn => {
@@ -436,45 +508,152 @@
         });
     });
 
-    // === PDF VIEWER LOGIC ===
+    // === PDF VIEWER LOGIC (V8.0) ===
     const url = 'assets/Hygiene_training_for_hotel_workers.pdf'; 
-    let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.2;
+    const storageKey = 'hygiene_pdf_page';
+    let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.0;
     const canvas = document.getElementById('the-canvas'), ctx = canvas.getContext('2d');
+    const container = document.getElementById('mainPdfContainer');
+    const wrapper = document.getElementById('pdfWrapper');
+    const fsBtn = document.getElementById('fullscreenBtn');
+    const innerProgress = document.getElementById('pdfInnerProgress');
+    const themeBtn = document.getElementById('themeBtn');
+    const pageInput = document.getElementById('page_num_input');
+    const placeholder = document.createElement('div'); placeholder.style.display = 'none';
+
+    const savedPage = localStorage.getItem(storageKey);
+    if(savedPage) pageNum = parseInt(savedPage);
+
+    themeBtn.addEventListener('click', () => {
+        container.classList.toggle('dark-theme');
+        themeBtn.textContent = container.classList.contains('dark-theme') ? '☀️' : '🌙';
+    });
+
+    document.addEventListener('keydown', (e) => {
+        const rect = container.getBoundingClientRect();
+        const isVisible = (rect.top < window.innerHeight && rect.bottom > 0) || container.classList.contains('fullscreen-mode');
+        if (isVisible && document.activeElement !== pageInput) {
+            if (e.key === "ArrowLeft") document.getElementById('prev').click();
+            if (e.key === "ArrowRight") document.getElementById('next').click();
+            if (e.key === "+" || e.key === "=") document.getElementById('zoomIn').click();
+            if (e.key === "-" || e.key === "_") document.getElementById('zoomOut').click();
+        }
+        if (e.key === "Escape" && container.classList.contains('fullscreen-mode')) fsBtn.click();
+    });
+
+    pageInput.addEventListener('change', () => {
+        let val = parseInt(pageInput.value);
+        if (val >= 1 && val <= pdfDoc.numPages) { pageNum = val; queueRenderPage(pageNum); } else { pageInput.value = pageNum; }
+    });
+
+    fsBtn.addEventListener('click', () => {
+        const isFullscreen = container.classList.contains('fullscreen-mode');
+        if (!isFullscreen) {
+            container.parentNode.insertBefore(placeholder, container);
+            document.body.appendChild(container);
+            container.classList.add('fullscreen-mode');
+            document.body.classList.add('pdf-fullscreen-active'); 
+            fsBtn.textContent = '✕';
+            showGestureHint();
+        } else {
+            placeholder.parentNode.insertBefore(container, placeholder);
+            container.classList.remove('fullscreen-mode');
+            document.body.classList.remove('pdf-fullscreen-active');
+            fsBtn.textContent = '⛶';
+        }
+        setTimeout(() => renderPage(pageNum), 50);
+    });
 
     function renderPage(num) {
       pageRendering = true;
       pdfDoc.getPage(num).then(function(page) {
-        const viewport = page.getViewport({scale: scale});
+        const viewportOriginal = page.getViewport({scale: 1});
+        const availableWidth = wrapper.clientWidth - 30; 
+        let desiredScale = availableWidth / viewportOriginal.width;
+        if (scale !== 1.0) desiredScale = scale; else scale = parseFloat(desiredScale.toFixed(2));
+
+        const viewport = page.getViewport({scale: desiredScale});
         canvas.height = viewport.height; canvas.width = viewport.width;
+
         const renderContext = { canvasContext: ctx, viewport: viewport };
-        page.render(renderContext).promise.then(function() {
+        const renderTask = page.render(renderContext);
+
+        renderTask.promise.then(function() {
           pageRendering = false;
           document.getElementById('pdfLoader').style.display = 'none';
           if (pageNumPending !== null) { renderPage(pageNumPending); pageNumPending = null; }
         });
       });
-      document.getElementById('page_num_input').value = num;
-      document.getElementById('pdfInnerProgress').style.width = (num / pdfDoc.numPages) * 100 + '%';
+      pageInput.value = num;
+      localStorage.setItem(storageKey, num);
+      if(pdfDoc) innerProgress.style.width = (num / pdfDoc.numPages) * 100 + '%';
+      if (scale > 1.0) canvas.classList.add('zoomed'); else canvas.classList.remove('zoomed');
+    }
+
+    function queueRenderPage(num) { if (pageRendering) pageNumPending = num; else renderPage(num); }
+
+    document.getElementById('prev').addEventListener('click', () => { if (pageNum <= 1) return; pageNum--; queueRenderPage(pageNum); });
+    document.getElementById('next').addEventListener('click', () => { if (pageNum >= pdfDoc.numPages) return; pageNum++; queueRenderPage(pageNum); });
+    document.getElementById('zoomIn').addEventListener('click', () => { scale += 0.25; renderPage(pageNum); });
+    document.getElementById('zoomOut').addEventListener('click', () => { if(scale > 0.5) scale -= 0.25; renderPage(pageNum); });
+
+    let isDragging = false, startX, startY, scrollLeft, scrollTop;
+    wrapper.addEventListener('mousedown', (e) => {
+        isDragging = true; wrapper.classList.add('grabbing');
+        startX = e.pageX - wrapper.offsetLeft; startY = e.pageY - wrapper.offsetTop;
+        scrollLeft = wrapper.scrollLeft; scrollTop = wrapper.scrollTop;
+    });
+    wrapper.addEventListener('mouseleave', () => { isDragging = false; wrapper.classList.remove('grabbing'); });
+    wrapper.addEventListener('mouseup', () => { isDragging = false; wrapper.classList.remove('grabbing'); });
+    wrapper.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - wrapper.offsetLeft; const y = e.pageY - wrapper.offsetTop;
+        const walkX = (x - startX) * 1.5; const walkY = (y - startY) * 1.5;
+        wrapper.scrollLeft = scrollLeft - walkX; wrapper.scrollTop = scrollTop - walkY;
+    });
+
+    let touchStartX = 0, touchEndX = 0, lastTap = 0;
+    wrapper.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+    wrapper.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        const currentTime = new Date().getTime();
+        if (currentTime - lastTap < 300) { scale = (scale > 1.2) ? 1.0 : 2.5; renderPage(pageNum); }
+        lastTap = currentTime;
+        if (scale <= 1.1) {
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 100) { 
+                if (diff > 0 && pageNum < pdfDoc.numPages) { pageNum++; queueRenderPage(pageNum); }
+                if (diff < 0 && pageNum > 1) { pageNum--; queueRenderPage(pageNum); }
+            }
+        }
+    }, {passive: true});
+
+    function showGestureHint() {
+        const hint = document.getElementById('gestureHint');
+        hint.classList.add('show-hint'); setTimeout(() => hint.classList.remove('show-hint'), 3000);
     }
 
     pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
       pdfDoc = pdfDoc_;
       document.getElementById('page_count').textContent = pdfDoc.numPages;
       renderPage(pageNum);
+    }).catch(err => {
+        console.error(err);
+        document.getElementById('pdfLoader').innerHTML = `<p style="text-align:center; padding:20px; color:red">Файл PDF не найден.<br>Убедитесь, что ${url} загружен.</p>`;
     });
-
-    document.getElementById('prev').addEventListener('click', () => { if (pageNum <= 1) return; pageNum--; renderPage(pageNum); });
-    document.getElementById('next').addEventListener('click', () => { if (pageNum >= pdfDoc.numPages) return; pageNum++; renderPage(pageNum); });
+    
+    window.addEventListener('resize', () => { if(pdfDoc) renderPage(pageNum); });
   });
 
   // === ИНТЕРАКТИВНАЯ ИГРА: САНИТАРНЫЙ ЩИТ ===
   const gameData = [
-    { q: "Срок добровольной уплаты штрафа после вступления Постановления в силу составляет:", options: ["60 дней", "15 дней", "30 дней", "10 дней"], correct: 0, explanation: "Согласно законодательству, на оплату штрафа дается 60 дней[cite: 20]. Неуплата в срок ведет к системному кризису." },
-    { q: "Как часто должна проводиться дезинфекция мусороприемных камер?", options: ["Ежемесячно", "Еженедельно", "Ежедневно", "Ежегодно"], correct: 0, explanation: "Мусороприемные камеры требуют регулярной дезинфекции не реже 1 раза в месяц[cite: 58]." },
-    { q: "Должен ли уборочный инвентарь для туалета иметь специальную маркировку?", options: ["Да", "Нет", "Не регламентируется"], correct: 0, explanation: "Да, это закон. Инвентарь для туалетов выделяется в отдельный комплект и никогда не пересекается с комнатным[cite: 91, 92]." },
-    { q: "Смена постельного белья при длительном проживании проводится не реже:", options: ["1 раза в неделю", "1 раза в месяц", "3 раза в неделю"], correct: 0, explanation: "Минимальный порог по СанПиН — 1 раз в неделю, полотенец — 2 раза в неделю[cite: 81]." },
-    { q: "Уровни шума и вибрации в помещениях отеля должны соответствовать:", options: ["Гигиеническим нормативам", "Санитарным правилам", "Желанию гостя"], correct: 0, explanation: "Все помещения обязаны соответствовать строгим количественным гигиеническим нормативам[cite: 64, 142]." },
-    { q: "Размеры контейнерной площадки должны превышать площадь основания баков:", options: ["На 1 м во все стороны", "На 2 м во все стороны", "Точно под размер бака"], correct: 0, explanation: "Запас в 1 метр — это гигиенический барьер для дезинфекции зоны[cite: 53, 55]." }
+    { q: "Срок добровольной уплаты штрафа после вступления Постановления в силу составляет:", options: ["60 дней", "15 дней", "30 дней", "10 дней"], correct: 0, explanation: "Согласно законодательству, на оплату штрафа дается 60 дней. Неуплата в срок ведет к системному кризису." },
+    { q: "Как часто должна проводиться дезинфекция мусороприемных камер?", options: ["Ежемесячно", "Еженедельно", "Ежедневно", "Ежегодно"], correct: 0, explanation: "Мусороприемные камеры требуют регулярной дезинфекции не реже 1 раза в месяц." },
+    { q: "Должен ли уборочный инвентарь для туалета иметь специальную маркировку?", options: ["Да", "Нет", "Не регламентируется"], correct: 0, explanation: "Да, это закон. Инвентарь для туалетов выделяется в отдельный комплект и никогда не пересекается с комнатным." },
+    { q: "Смена постельного белья при длительном проживании проводится не реже:", options: ["1 раза в неделю", "1 раза в месяц", "3 раза в неделю"], correct: 0, explanation: "Минимальный порог по СанПиН — 1 раз в неделю, полотенец — 2 раза в неделю." },
+    { q: "Уровни шума и вибрации в помещениях отеля должны соответствовать:", options: ["Гигиеническим нормативам", "Санитарным правилам", "Желанию гостя"], correct: 0, explanation: "Все помещения обязаны соответствовать строгим количественным гигиеническим нормативам." },
+    { q: "Размеры контейнерной площадки должны превышать площадь основания баков:", options: ["На 1 м во все стороны", "На 2 м во все стороны", "Точно под размер бака"], correct: 0, explanation: "Запас в 1 метр — это гигиенический барьер для дезинфекции зоны." }
   ];
 
   const game = {
