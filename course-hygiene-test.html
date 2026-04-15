@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Итоговый тест: Гигиеническое обучение</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="assets/style.css">
+
+   <style>
+     /* === ТЕМА: ГИГИЕНА И ЧИСТОТА (Изумрудный/Зеленый фон) === */
+     body.masterpiece-theme {
+       background: linear-gradient(-45deg, #f0fdf4, #dcfce7, #f0fdfa, #ffffff);
+       background-size: 400% 400%;
+       animation: gradientBG 15s ease infinite;
+       min-height: 100vh;
+     }
+     @keyframes gradientBG {
+       0% { background-position: 0% 50%; }
+       50% { background-position: 100% 50%; }
+       100% { background-position: 0% 50%; }
+     }
+
+     /* === Pulse Animation === */
+     .system-status-pulse {
+       display: inline-block; width: 8px; height: 8px; 
+       background-color: #10b981; /* Green */
+       border-radius: 50%;
+       box-shadow: 0 0 0 rgba(16, 185, 129, 0.7); 
+       animation: pulse-green 2s infinite; 
+       margin-right: 6px;
+     }
+     @keyframes pulse-green {
+       0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+       70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+       100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+     }
+
+     /* === Responsive Header === */
+     .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
+     @media (max-width: 900px) { .header-meta { display: none; } }
+     
+     /* === Animation: Collapse & Remove === */
+     .collapse-remove {
+       opacity: 0;
+       max-height: 0;
+       margin-top: 0 !important;
+       margin-bottom: 0 !important;
+       padding-top: 0 !important;
+       padding-bottom: 0 !important;
+       border: none !important;
+       overflow: hidden;
+       transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+       transform: scale(0.95);
+     }
+
+     /* === 3D Tilt Settings === */
+     .spotlight-card {
+        transform-style: preserve-3d;
+        transform: perspective(1000px);
+     }
+
+     /* === Специфичные цвета для кнопок этой темы (Изумрудный) === */
+     .btn-magic {
+       background: #0f172a;
+     }
+     .btn-magic::before {
+       content: ""; position: absolute; top: 50%; left: 50%; width: 300%; height: 300%;
+       background: conic-gradient(transparent 0deg, transparent 260deg, #10b981 280deg, #34d399 320deg, #6ee7b7 360deg);
+       transform: translate(-50%, -50%); animation: rotate-border 4s linear infinite; z-index: -2;
+     }
+     .btn-magic:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(16, 185, 129, 0.4); }
+     @keyframes rotate-border { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+   </style>
+</head>
+<body class="masterpiece-theme">
+
+<div class="progress-container">
+  <div class="progress-bar" id="readingProgress" style="height: 4px; background: #10b981; width: 0%; box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);"></div>
+</div>
+
+<a class="skip-link" href="#main-content">Перейти к контенту</a>
+
+<div class="glass-wrapper">
+  
+  <header class="site-header transparent-header">
+    <div class="container header-inner">
+      <div class="header-brand">
+        <div class="brand-logo">
+          <img src="assets/Филин от.png" alt="Логотип СДО" style="width: 100%; height: 100%; object-fit: contain;">
+        </div>
+        <div>
+          <h1 class="site-title-mini">СДО</h1>
+          <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
+        </div>
+      </div>
+      <div class="header-meta">
+        <span id="current-date">Загрузка...</span>
+        <span style="display:flex; align-items:center;">
+            <span class="system-status-pulse"></span> Online
+        </span>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Главная</a></li>
+          <li><a href="programs.html" class="nav-link nav-link-active active">Каталог программ</a></li>
+          <li><a href="instructions.html" class="nav-link">Инструкции</a></li>
+          <li><a href="for-responsibles.html" class="nav-link">Ответственным</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="site-main">
+    <div class="container">
+    
+    <a href="course-hygiene.html" class="back-link" style="color: #10b981; border-color: rgba(16,185,129,0.3); background: rgba(255,255,255,0.7); display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 99px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.3s; margin-bottom: 20px;">
+      <span>←</span> Вернуться к материалам курса
+    </a>
+
+    <section class="section-card spotlight-card" id="info-card">
+      <div class="status-badge" style="margin-bottom: 15px; color: #065f46; border-color: #bbf7d0; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 99px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; background: #fff; border-width: 1px; border-style: solid; box-shadow: 0 2px 5px rgba(0,0,0,0.03);">
+        <span class="pulse-dot" style="width: 8px; height: 8px; border-radius: 50%; background-color: #10b981; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); animation: pulse 2s infinite;"></span> Итоговый контроль
+      </div>
+      <h1 style="font-size: 2.2rem; font-weight: 800; color: #0f172a; margin: 0 0 15px; line-height: 1.1;">Итоговый тест: Гигиеническое обучение</h1>
+      <p style="font-size: 1.05rem; color: #475569; max-width: 800px; line-height: 1.6;">
+        Проверка знаний по требованиям СанПиН, правилам дезинфекции помещений, личной гигиене и юридической ответственности персонала. Результаты тестирования автоматически сохраняются в вашем профиле СДО.
+      </p>
+      
+      <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+        <span class="status-badge" style="display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 99px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; background: #fff; border: 1px solid rgba(255, 255, 255, 0.6); color: #475569;">Вопросов: 20</span>
+        <span class="status-badge" style="display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 99px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; background: #fff; border: 1px solid rgba(255, 255, 255, 0.6); color: #475569;">Порог: 80%</span>
+        <span class="status-badge" style="display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 99px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; background: #fff; border: 1px solid rgba(255, 255, 255, 0.6); color: #475569;">Время: ~20 мин</span>
+      </div>
+    </section>
+
+    <section class="section-card" id="consent-section">
+      <h3 style="font-size: 1.25rem; font-weight: 600; color: #0f172a; margin-top: 0; line-height: 1.2;">🔐 Доступ к тестированию</h3>
+      <p style="font-size: 1rem; color: #475569; margin-bottom: 15px;">
+        В соответствии с 152-ФЗ "О персональных данных", для начала тестирования и оформления протокола необходимо ваше согласие на обработку ФИО, должности и подразделения.
+      </p>
+
+      <div class="legal-box" style="background: rgba(255, 255, 255, 0.5); border: 1px solid #fff; border-radius: 16px; padding: 20px; margin: 20px 0; display: flex; flex-direction: column; gap: 15px;">
+        <label class="consent-label" style="display: flex; gap: 12px; align-items: flex-start; cursor: pointer; padding: 10px; border-radius: 8px; transition: 0.2s;">
+          <input type="checkbox" id="legal-checkbox" style="width: 20px; height: 20px; margin-top: 3px; flex-shrink: 0; accent-color: #10b981; cursor: pointer;">
+          <span class="consent-text" style="font-size: 0.9rem; line-height: 1.4; color: #0f172a;">
+            Я подтверждаю, что ознакомлен с Политикой конфиденциальности, и даю согласие на обработку моих персональных данных для целей оформления результатов обучения.
+          </span>
+        </label>
+        
+        <button id="unlock-btn" class="btn btn-magic btn-disabled" disabled style="width: 100%; justify-content: center; position: relative; display: inline-flex; align-items: center; padding: 16px 32px; font-size: 1rem; font-weight: 700; color: #ffffff; border-radius: 99px; text-decoration: none; overflow: hidden; z-index: 10; border: none; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+          <span style="position: relative; z-index: 2;">🔓 Подтвердить и начать тест</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="section-card test-wrapper" style="position: relative; min-height: 500px; border-radius: 24px; overflow: hidden; background: #fff; border: 1px solid rgba(0,0,0,0.05);">
+      
+      <div class="test-overlay" id="test-lock" style="position: absolute; inset: 0; z-index: 10; background: rgba(255,255,255,0.95); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; transition: all 0.5s ease;">
+        <div>
+          <span class="lock-icon" style="font-size: 3rem; margin-bottom: 10px; display: block;">🔒</span>
+          <h3 style="font-size: 1.25rem; font-weight: 600; color: #0f172a; margin-top: 0;">Тест заблокирован</h3>
+          <p style="font-size: 1rem; color: #475569;">Пожалуйста, подтвердите согласие выше, чтобы загрузить вопросы.</p>
+        </div>
+      </div>
+
+      <div id="otp_wgt_5mhhp5wgv7bfo"></div>
+      
+    </section>
+
+  </main>
+
+  <footer class="site-footer" style="text-align: center; padding: 40px 20px; margin-top: auto; color: #475569; font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.4);">
+    <div class="container">
+      © 2026 Служба Охраны Труда. Внутренний ресурс.
+    </div>
+  </footer>
+</div>
+
+<script>
+  // 1. ДАТА В ШАПКЕ
+  document.addEventListener("DOMContentLoaded", function() {
+      const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateStr = new Date().toLocaleDateString('ru-RU', dateOptions);
+      const dateEl = document.getElementById('current-date');
+      if(dateEl) {
+          dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+      }
+      
+      // Скролл прогресс
+      window.addEventListener('scroll', () => {
+          const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+          const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          document.getElementById('readingProgress').style.width = (scrollTop / scrollHeight) * 100 + "%";
+      });
+  });
+
+  // 2. ДИНАМИЧЕСКАЯ ЗАГРУЗКА ВИДЖЕТА (ONLINE TEST PAD)
+  function loadTestWidget() {
+    var otp_wjs_dt = (new Date).getTime();
+    (function (w, d, n, s, rp) {
+        w[n] = w[n] || [];
+        rp = {};
+        w[n].push(function () {
+            otp_render_widget(d.getElementById("otp_wgt_5mhhp5wgv7bfo"), 'onlinetestpad.com', '5mhhp5wgv7bfo', rp);
+        }); 
+        s = d.createElement("script");
+        s.type = "text/javascript";
+        s.src = "//onlinetestpad.com/js/widget.js?" + otp_wjs_dt;
+        s.async = true;
+        d.getElementsByTagName("head")[0].appendChild(s);
+    })(window, document, "otp_widget_callbacks");
+  }
+
+  // 3. ЛОГИКА "ФОКУС-РЕЖИМА" (Consent & Unlock)
+  const checkbox = document.getElementById('legal-checkbox');
+  const btn = document.getElementById('unlock-btn');
+  const lock = document.getElementById('test-lock');
+  const consentSection = document.getElementById('consent-section');
+  const infoCard = document.getElementById('info-card');
+  const testWrapper = document.querySelector('.test-wrapper');
+  let widgetLoaded = false;
+
+  checkbox.addEventListener('change', function() {
+    if (this.checked) {
+      btn.disabled = false;
+      btn.classList.remove('btn-disabled');
+      btn.style.opacity = '1';
+      btn.style.cursor = 'pointer';
+      btn.style.filter = 'none';
+    } else {
+      btn.disabled = true;
+      btn.classList.add('btn-disabled');
+      btn.style.opacity = '0.6';
+      btn.style.cursor = 'not-allowed';
+      btn.style.filter = 'grayscale(1)';
+    }
+  });
+
+  // Инициализация стиля кнопки блокировки
+  btn.style.opacity = '0.6';
+  btn.style.cursor = 'not-allowed';
+  btn.style.filter = 'grayscale(1)';
+
+  btn.addEventListener('click', function() {
+    if (!btn.disabled) {
+      // 1. Убираем замок
+      lock.style.opacity = '0';
+      lock.style.visibility = 'hidden';
+      lock.style.pointerEvents = 'none';
+      
+      // 2. Загружаем виджет
+      if (!widgetLoaded) {
+        loadTestWidget();
+        widgetLoaded = true;
+      }
+
+      // 3. Плавно удаляем верхние блоки (создаем эффект фокуса на тесте)
+      consentSection.classList.add('collapse-remove');
+      infoCard.classList.add('collapse-remove');
+
+      // 4. Мягкий скролл к тесту
+      setTimeout(() => {
+        testWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  });
+
+  // 4. VISUAL EFFECTS (3D TILT + SPOTLIGHT)
+  if (window.matchMedia("(min-width: 768px)").matches) {
+    const card = document.getElementById('info-card');
+
+    // Логика прожектора (Spotlight)
+    document.querySelectorAll('.spotlight-card').forEach(c => {
+      c.addEventListener('mousemove', e => {
+        const rect = c.getBoundingClientRect();
+        c.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        c.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+      });
+    });
+
+    // Логика 3D Tilt
+    if (card) {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -1.5; 
+        const rotateY = ((x - centerX) / centerX) * 1.5;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+      });
+    }
+  }
+</script>
+
+</body>
+</html>
