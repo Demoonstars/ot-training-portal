@@ -5,6 +5,7 @@
   <title>Материалы: Гигиеническое обучение (Санминимум)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="description" content="Профессиональная гигиеническая подготовка работников гостиниц по СанПиН.">
+  <link rel="icon" type="image/png" href="assets/Филин от.png">
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,7 +55,7 @@
     }
     .back-link:hover { background: #fff; color: #10b981; transform: translateX(-5px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
-    /* === ВОССТАНОВЛЕННЫЕ ЭФФЕКТЫ: СВЕЧЕНИЕ (Spotlight), НО БЕЗ 3D TILT === */
+    /* === ЭФФЕКТЫ ДЛЯ HERO (Spotlight) === */
     .glass-hero {
       background: radial-gradient(circle at 100% 0%, rgba(16, 185, 129, 0.1) 0%, rgba(255, 255, 255, 0.9) 100%);
       border: 1px solid rgba(255,255,255,0.9); border-radius: 24px; padding: 40px; margin-bottom: 30px;
@@ -809,10 +810,15 @@
     const [isTyping, setIsTyping] = useState(false);
     const [showOptions, setShowOptions] = useState(false);
     
-    const messagesEndRef = useRef(null);
+    const chatContainerRef = useRef(null);
 
     const scrollToBottom = () => {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      if (chatContainerRef.current) {
+        chatContainerRef.current.scrollTo({
+          top: chatContainerRef.current.scrollHeight,
+          behavior: "smooth"
+        });
+      }
     };
 
     useEffect(() => {
@@ -844,12 +850,9 @@
        setShowOptions(false);
        setIsTyping(true);
 
-       // Через 1.5 секунды сотрудник присылает первый вопрос
        setTimeout(() => {
            setIsTyping(false);
            setChatHistory([{ id: Date.now(), type: 'trainee', text: scenario.msg }]);
-           
-           // Через 0.5 секунды после вопроса появляются кнопки для пользователя
            setTimeout(() => {
                setShowOptions(true);
            }, 500);
@@ -857,19 +860,15 @@
     };
 
     const handleOption = (opt) => {
-      setShowOptions(false); // Скрываем кнопки
+      setShowOptions(false); 
       
-      // 1. Добавляем ответ пользователя в чат мгновенно
       setChatHistory(prev => [...prev, { id: Date.now(), type: 'user', text: opt.text }]);
       
-      // 2. Сотрудник начинает "печатать" ответ
       setIsTyping(true);
       setTimeout(() => {
           setIsTyping(false);
-          // 3. Сотрудник присылает ответ-реакцию
           setChatHistory(prev => [...prev, { id: Date.now(), type: 'trainee', text: opt.reply }]);
           
-          // 4. Через секунду появляется обучающий фидбэк от системы
           setTimeout(() => {
               if (opt.isCorrect) playSound('success');
               else { playSound('error'); vibratePhone(); }
@@ -883,7 +882,7 @@
               
               if (opt.isCorrect) setScore(s => s + 1);
           }, 1000);
-      }, 1500); // Время, пока сотрудник "печатает"
+      }, 1500);
     };
 
     const handleNext = () => {
@@ -899,17 +898,32 @@
     if (gameState === 'start') {
       return (
         <div className="flex justify-center items-center py-10 px-4">
-          <div className="w-full max-w-[380px] h-[750px] bg-slate-900 rounded-[45px] border-[8px] border-slate-700/80 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.7),inset_0_0_20px_rgba(255,255,255,0.1)] relative flex flex-col overflow-hidden font-sans">
-            <div className="absolute top-0 inset-x-0 flex justify-center z-50 pointer-events-none">
-              <div className="w-32 h-6 bg-black rounded-b-2xl flex justify-center items-center gap-2"><div className="w-12 h-1 bg-slate-800 rounded-full"></div><div className="w-2 h-2 bg-[#10b981] rounded-full"></div></div>
-            </div>
-            <div className="flex-1 flex flex-col items-center justify-center p-6 text-center z-10 bg-gradient-to-b from-slate-900 to-[#064e3b]">
-               <div className="text-6xl mb-4 drop-shadow-[0_0_15px_rgba(16,185,129,0.5)]">📱</div>
-               <h2 className="text-2xl font-black text-white mb-2">Sanitary Chat</h2>
-               <p className="text-slate-300 text-sm mb-8">15 ситуаций из жизни отеля. Сохраните биологический щит, отвечая коллегам строго по СанПиН.</p>
-               <button onClick={startGame} className="bg-[#10b981] text-white font-bold py-4 px-8 rounded-full shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:bg-[#059669] transition-transform hover:scale-105 active:scale-95 w-full uppercase tracking-wider border border-[#34d399]">
-                 ОТКРЫТЬ ЧАТЫ
-               </button>
+          {/* Максимально реалистичный корпус телефона */}
+          <div className="w-full max-w-[380px] h-[780px] bg-black rounded-[55px] border-[8px] border-[#2a2a2a] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5),_inset_0_0_0_2px_rgba(255,255,255,0.2)] relative flex flex-col p-1.5 transition-all duration-300">
+            {/* Боковые кнопки (Имитация iPhone) */}
+            <div className="absolute top-[120px] -left-[10px] w-1 h-12 bg-[#2a2a2a] rounded-l-md"></div>
+            <div className="absolute top-[180px] -left-[10px] w-1 h-12 bg-[#2a2a2a] rounded-l-md"></div>
+            <div className="absolute top-[140px] -right-[10px] w-1 h-16 bg-[#2a2a2a] rounded-r-md"></div>
+
+            {/* Экран */}
+            <div className="flex-1 bg-gradient-to-b from-slate-900 to-[#064e3b] rounded-[45px] overflow-hidden relative flex flex-col border border-white/10">
+              {/* Динамический остров (Вырез камеры) */}
+              <div className="absolute top-2 inset-x-0 flex justify-center z-50 pointer-events-none">
+                  <div className="w-[120px] h-[30px] bg-black rounded-full flex justify-end items-center px-2 shadow-[inset_0_0_2px_rgba(255,255,255,0.1)]">
+                      <div className="w-3 h-3 rounded-full bg-[#0a0a0a] shadow-[inset_0_0_1px_rgba(255,255,255,0.2)] border border-white/5 relative">
+                          <div className="absolute inset-0 m-auto w-1.5 h-1.5 bg-[#10b981] rounded-full blur-[1px]"></div>
+                      </div>
+                  </div>
+              </div>
+
+              <div className="flex-1 flex flex-col items-center justify-center p-6 text-center z-10">
+                 <div className="text-6xl mb-4 drop-shadow-[0_0_15px_rgba(16,185,129,0.5)]">📱</div>
+                 <h2 className="text-2xl font-black text-white mb-2">Sanitary Chat</h2>
+                 <p className="text-slate-300 text-sm mb-8">15 ситуаций из жизни отеля. Сохраните биологический щит, отвечая коллегам строго по СанПиН.</p>
+                 <button onClick={startGame} className="bg-[#10b981] text-white font-bold py-4 px-8 rounded-full shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:bg-[#059669] transition-transform hover:scale-105 active:scale-95 w-full uppercase tracking-wider border border-[#34d399]">
+                   ОТКРЫТЬ ЧАТЫ
+                 </button>
+              </div>
             </div>
           </div>
         </div>
@@ -920,18 +934,25 @@
       const isPerfect = score === scenarios.length;
       return (
         <div className="flex justify-center items-center py-10 px-4">
-          <div className="w-full max-w-[380px] h-[750px] bg-slate-900 rounded-[45px] border-[8px] border-slate-700/80 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.7)] relative flex flex-col overflow-hidden font-sans">
-            <div className="absolute top-0 inset-x-0 flex justify-center z-50 pointer-events-none">
-               <div className="w-32 h-6 bg-black rounded-b-2xl"></div>
-            </div>
-            <div className="flex-1 flex flex-col items-center justify-center p-6 text-center z-10 bg-gradient-to-b from-slate-900 to-[#064e3b] animate-fade-in">
-               <div className="text-6xl mb-4">{isPerfect ? '🏆' : '🔬'}</div>
-               <h2 className="text-2xl font-black text-white mb-2">Патруль завершен</h2>
-               <div className="text-5xl font-black text-emerald-400 mb-2">{score}/{scenarios.length}</div>
-               <p className="text-slate-300 text-sm mb-8">правильных решений по стандартам.</p>
-               <button onClick={startGame} className="bg-slate-700 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-slate-600 transition-transform w-full border border-slate-500">
-                 ПРОЙТИ ЕЩЕ РАЗ
-               </button>
+          <div className="w-full max-w-[380px] h-[780px] bg-black rounded-[55px] border-[8px] border-[#2a2a2a] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5),_inset_0_0_0_2px_rgba(255,255,255,0.2)] relative flex flex-col p-1.5 transition-all duration-300">
+            <div className="absolute top-[120px] -left-[10px] w-1 h-12 bg-[#2a2a2a] rounded-l-md"></div>
+            <div className="absolute top-[180px] -left-[10px] w-1 h-12 bg-[#2a2a2a] rounded-l-md"></div>
+            <div className="absolute top-[140px] -right-[10px] w-1 h-16 bg-[#2a2a2a] rounded-r-md"></div>
+
+            <div className="flex-1 bg-gradient-to-b from-slate-900 to-[#064e3b] rounded-[45px] overflow-hidden relative flex flex-col border border-white/10 animate-fade-in">
+               <div className="absolute top-2 inset-x-0 flex justify-center z-50 pointer-events-none">
+                  <div className="w-[120px] h-[30px] bg-black rounded-full flex justify-end items-center px-2 shadow-[inset_0_0_2px_rgba(255,255,255,0.1)]"></div>
+               </div>
+
+               <div className="flex-1 flex flex-col items-center justify-center p-6 text-center z-10">
+                 <div className="text-6xl mb-4">{isPerfect ? '🏆' : '🔬'}</div>
+                 <h2 className="text-2xl font-black text-white mb-2">Патруль завершен</h2>
+                 <div className="text-5xl font-black text-emerald-400 mb-2">{score}/{scenarios.length}</div>
+                 <p className="text-slate-300 text-sm mb-8">правильных решений по стандартам.</p>
+                 <button onClick={startGame} className="bg-slate-700 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-slate-600 transition-transform w-full border border-slate-500">
+                   ПРОЙТИ ЕЩЕ РАЗ
+                 </button>
+               </div>
             </div>
           </div>
         </div>
@@ -942,106 +963,128 @@
 
     return (
       <div className="flex justify-center items-center py-10 px-4">
-        {/* КОРПУС ТЕЛЕФОНА */}
-        <div id="hr-phone-container" className="w-full max-w-[380px] h-[750px] bg-[#022c22] rounded-[45px] border-[8px] border-slate-700/80 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.7),inset_0_0_20px_rgba(255,255,255,0.05)] relative flex flex-col overflow-hidden font-sans transition-all duration-300">
+        {/* КОРПУС ТЕЛЕФОНА С АНИМАЦИЕЙ ТРЯСКИ */}
+        <div id="hr-phone-container" className="w-full max-w-[380px] h-[780px] bg-black rounded-[55px] border-[8px] border-[#2a2a2a] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5),_inset_0_0_0_2px_rgba(255,255,255,0.2)] relative flex flex-col p-1.5 transition-all duration-300">
           
-          {/* ЧЕЛКА (Динамический остров) */}
-          <div className="absolute top-0 inset-x-0 flex justify-center z-50 pointer-events-none">
-            <div className="w-32 h-6 bg-black rounded-b-2xl flex justify-center items-center gap-2 px-3">
-                <div className="w-12 h-1 bg-slate-800 rounded-full"></div>
-                <div className="w-2 h-2 bg-[#10b981] rounded-full shadow-[0_0_4px_#10b981]"></div>
-            </div>
-          </div>
-          
-          {/* Статус бар (Фейковый) */}
-          <div className="flex justify-between items-center px-6 pt-2 pb-1 bg-slate-800/80 text-[10px] text-slate-400 font-medium z-40">
-              <span>09:41</span>
-              <div className="flex gap-1.5 items-center">
-                  <span className="opacity-80">5G</span>
-                  <span className="w-4 h-2.5 border border-slate-400 rounded-sm p-0.5"><div className="w-full h-full bg-slate-300"></div></span>
-              </div>
-          </div>
+          <div className="absolute top-[120px] -left-[10px] w-1 h-12 bg-[#2a2a2a] rounded-l-md"></div>
+          <div className="absolute top-[180px] -left-[10px] w-1 h-12 bg-[#2a2a2a] rounded-l-md"></div>
+          <div className="absolute top-[140px] -right-[10px] w-1 h-16 bg-[#2a2a2a] rounded-r-md"></div>
 
-          {/* Шапка мессенджера */}
-          <div className="bg-slate-800 px-4 py-3 flex items-center justify-between shadow-md z-20 border-b border-slate-700">
-            <div className="flex items-center gap-3">
-               <div className="text-2xl bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full border border-slate-600">{scenario.avatar}</div>
-               <div>
-                 <div className="font-bold text-white text-sm">{scenario.trainee}</div>
-                 <div className="text-emerald-400 text-[10px] flex items-center gap-1"><span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> на смене</div>
-               </div>
-            </div>
-          </div>
-
-          {/* Индикатор прогресса */}
-          <div className="bg-slate-900/50 flex justify-center items-center py-1.5 border-b border-slate-800">
-             <span className="text-[10px] font-mono text-slate-400">СИТУАЦИЯ: <strong className="text-[#10b981]">{currentIdx + 1}</strong> ИЗ {scenarios.length}</span>
-          </div>
-
-          {/* ОБЛАСТЬ ЧАТА */}
-          <div className="flex-1 overflow-y-auto p-4 flex flex-col bg-[#064e3b] no-scrollbar">
+          {/* ВНУТРЕННИЙ ЭКРАН ТЕЛЕФОНА */}
+          <div className="flex-1 bg-[#022c22] rounded-[45px] overflow-hidden relative flex flex-col border border-white/10">
             
-            {chatHistory.map((m) => {
-                if (m.type === 'trainee') {
-                    return (
-                        <div key={m.id} className="flex self-start animate-slide-up mb-4" style={{maxWidth: '85%'}}>
-                          <div className="bg-slate-700 text-white text-[15px] p-3 rounded-2xl rounded-tl-none shadow-md leading-relaxed border border-slate-600">
-                            {m.text}
-                          </div>
-                        </div>
-                    );
-                }
-                if (m.type === 'user') {
-                    return (
-                        <div key={m.id} className="flex self-end flex-row-reverse animate-slide-up mb-4" style={{maxWidth: '85%'}}>
-                          <div className="bg-[#10b981] text-white text-[15px] p-3 rounded-2xl rounded-tr-none shadow-[0_4px_15px_rgba(16,185,129,0.3)] leading-relaxed">
-                            {m.text}
-                            <span className="text-[10px] text-emerald-100 opacity-80 block text-right mt-1">✓✓</span>
-                          </div>
-                        </div>
-                    );
-                }
-                if (m.type === 'feedback') {
-                    return (
-                        <div key={m.id} className={`p-4 mt-2 rounded-xl text-sm border animate-slide-up text-center mb-4 shadow-lg ${m.isCorrect ? 'bg-[#022c22]/90 border-emerald-500/50 text-emerald-100' : 'bg-rose-900/90 border-rose-500/50 text-rose-100'}`}>
-                          <div dangerouslySetInnerHTML={{__html: m.text}} />
-                          <button onClick={handleNext} className={`mt-4 px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider w-full shadow-sm transition-colors ${m.isCorrect ? 'bg-emerald-500 hover:bg-emerald-400 text-white' : 'bg-rose-500 hover:bg-rose-400 text-white'}`}>
-                            {currentIdx < scenarios.length - 1 ? 'СЛЕДУЮЩЕЕ СООБЩЕНИЕ ➔' : 'ЗАВЕРШИТЬ ➔'}
-                          </button>
-                        </div>
-                    );
-                }
-                return null;
-            })}
-
-            {/* ИНДИКАТОР ПЕЧАТАНИЯ */}
-            {isTyping && (
-                <div className="flex self-start animate-slide-up mb-4">
-                  <div className="bg-slate-700 text-white p-3 py-4 rounded-2xl rounded-tl-none shadow-md border border-slate-600 flex items-center gap-1.5">
-                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></span>
-                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{animationDelay: '0.15s'}}></span>
-                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{animationDelay: '0.3s'}}></span>
+            {/* ЧЕЛКА (Динамический остров) */}
+            <div className="absolute top-2 inset-x-0 flex justify-center z-50 pointer-events-none">
+              <div className="w-[120px] h-[30px] bg-black rounded-full flex justify-end items-center px-2 shadow-[inset_0_0_2px_rgba(255,255,255,0.1)]">
+                  <div className="w-3 h-3 rounded-full bg-[#0a0a0a] shadow-[inset_0_0_1px_rgba(255,255,255,0.2)] border border-white/5 relative">
+                      <div className="absolute inset-0 m-auto w-1.5 h-1.5 bg-[#10b981] rounded-full blur-[1px]"></div>
                   </div>
-                </div>
-            )}
-            
-            <div ref={messagesEndRef} className="h-4"></div>
-          </div>
-
-          {/* ПАНЕЛЬ ВЫБОРА ОТВЕТОВ (Клавиатура) */}
-          {showOptions && (
-            <div className="bg-slate-800 p-3 pt-4 border-t border-slate-700 rounded-t-3xl shadow-[0_-10px_20px_rgba(0,0,0,0.3)] z-20 animate-slide-up">
-              <p className="text-slate-400 text-[10px] uppercase tracking-widest text-center mb-3">Выберите ответ:</p>
-              <div className="flex flex-col gap-2 max-h-[35vh] overflow-y-auto pr-1 no-scrollbar pb-2">
-                {scenario.options.map((opt, idx) => (
-                  <button key={idx} onClick={() => handleOption(opt)} className="text-left bg-slate-700 hover:bg-slate-600 text-white text-[15px] p-3 rounded-xl transition-colors border border-slate-600 hover:border-[#10b981] leading-relaxed shadow-sm">
-                    {opt.text}
-                  </button>
-                ))}
               </div>
             </div>
-          )}
+            
+            {/* Реалистичный Статус-бар */}
+            <div className="flex justify-between items-center px-7 pt-4 pb-2 text-[12px] font-semibold text-white z-40 bg-slate-900/95 backdrop-blur-md">
+                <span>09:41</span>
+                <div className="flex gap-1.5 items-center">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+                    <span className="opacity-90">5G</span>
+                    <div className="w-6 h-3 border border-white/50 rounded-sm p-[1px] relative">
+                       <div className="w-[80%] h-full bg-white rounded-[1px]"></div>
+                       <div className="absolute -right-1 top-1 w-0.5 h-1 bg-white/50 rounded-r-sm"></div>
+                    </div>
+                </div>
+            </div>
 
+            {/* Шапка мессенджера */}
+            <div className="bg-slate-800 px-4 py-3 flex items-center justify-between shadow-md z-20 border-b border-slate-700">
+              <div className="flex items-center gap-3">
+                 <div className="text-2xl bg-slate-700 w-10 h-10 flex items-center justify-center rounded-full border border-slate-600">{scenario.avatar}</div>
+                 <div>
+                   <div className="font-bold text-white text-sm">{scenario.trainee}</div>
+                   <div className="text-emerald-400 text-[10px] flex items-center gap-1"><span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> на смене</div>
+                 </div>
+              </div>
+            </div>
+
+            {/* Индикатор прогресса */}
+            <div className="bg-slate-900/50 flex justify-center items-center py-1.5 border-b border-slate-800">
+               <span className="text-[10px] font-mono text-slate-400">СИТУАЦИЯ: <strong className="text-[#10b981]">{currentIdx + 1}</strong> ИЗ {scenarios.length}</span>
+            </div>
+
+            {/* ОБЛАСТЬ ЧАТА (С ПРАВИЛЬНЫМ СКРОЛЛОМ) */}
+            <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 flex flex-col bg-[#064e3b] no-scrollbar">
+              
+              {chatHistory.map((m) => {
+                  if (m.type === 'trainee') {
+                      return (
+                          <div key={m.id} className="flex self-start animate-slide-up mb-4 relative" style={{maxWidth: '85%'}}>
+                            <div className="bg-slate-700 text-white text-[15px] p-3 rounded-2xl rounded-tl-sm shadow-md leading-relaxed border border-slate-600">
+                              {m.text}
+                              <span className="text-[10px] text-slate-400 opacity-80 block text-right mt-1 font-mono">09:41</span>
+                            </div>
+                            <svg className="absolute top-0 -left-2 text-slate-700 w-3 h-4" viewBox="0 0 8 13" fill="currentColor">
+                               <path d="M0 0L8 0L8 13C8 13 3.5 9 0 0Z" />
+                            </svg>
+                          </div>
+                      );
+                  }
+                  if (m.type === 'user') {
+                      return (
+                          <div key={m.id} className="flex self-end flex-row-reverse animate-slide-up mb-4 relative" style={{maxWidth: '85%'}}>
+                            <div className="bg-[#10b981] text-white text-[15px] p-3 rounded-2xl rounded-tr-sm shadow-[0_4px_15px_rgba(16,185,129,0.3)] leading-relaxed">
+                              {m.text}
+                              <span className="text-[10px] text-emerald-100 opacity-80 block text-right mt-1 font-mono">09:42 ✓✓</span>
+                            </div>
+                            <svg className="absolute top-0 -right-2 text-[#10b981] w-3 h-4" viewBox="0 0 8 13" fill="currentColor">
+                               <path d="M8 0L0 0L0 13C0 13 4.5 9 8 0Z" />
+                            </svg>
+                          </div>
+                      );
+                  }
+                  if (m.type === 'feedback') {
+                      return (
+                          <div key={m.id} className={`p-4 mt-2 rounded-xl text-sm border animate-slide-up text-center mb-4 shadow-lg ${m.isCorrect ? 'bg-[#022c22]/90 border-emerald-500/50 text-emerald-100' : 'bg-rose-900/90 border-rose-500/50 text-rose-100'}`}>
+                            <div dangerouslySetInnerHTML={{__html: m.text}} />
+                            <button onClick={handleNext} className={`mt-4 px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider w-full shadow-sm transition-colors ${m.isCorrect ? 'bg-emerald-500 hover:bg-emerald-400 text-white' : 'bg-rose-500 hover:bg-rose-400 text-white'}`}>
+                              {currentIdx < scenarios.length - 1 ? 'СЛЕДУЮЩЕЕ СООБЩЕНИЕ ➔' : 'ЗАВЕРШИТЬ ➔'}
+                            </button>
+                          </div>
+                      );
+                  }
+                  return null;
+              })}
+
+              {/* ИНДИКАТОР ПЕЧАТАНИЯ */}
+              {isTyping && (
+                  <div className="flex self-start animate-slide-up mb-4 relative">
+                    <div className="bg-slate-700 text-white p-3 py-4 rounded-2xl rounded-tl-sm shadow-md border border-slate-600 flex items-center gap-1.5">
+                      <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></span>
+                      <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{animationDelay: '0.15s'}}></span>
+                      <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{animationDelay: '0.3s'}}></span>
+                    </div>
+                    <svg className="absolute top-0 -left-2 text-slate-700 w-3 h-4" viewBox="0 0 8 13" fill="currentColor">
+                       <path d="M0 0L8 0L8 13C8 13 3.5 9 0 0Z" />
+                    </svg>
+                  </div>
+              )}
+              
+            </div>
+
+            {/* ПАНЕЛЬ ВЫБОРА ОТВЕТОВ (Клавиатура) */}
+            {showOptions && (
+              <div className="bg-slate-800 p-3 pt-4 border-t border-slate-700 rounded-b-[45px] shadow-[0_-10px_20px_rgba(0,0,0,0.3)] z-20 animate-slide-up">
+                <p className="text-slate-400 text-[10px] uppercase tracking-widest text-center mb-3">Выберите ответ:</p>
+                <div className="flex flex-col gap-2 max-h-[35vh] overflow-y-auto pr-1 no-scrollbar pb-2">
+                  {scenario.options.map((opt, idx) => (
+                    <button key={idx} onClick={() => handleOption(opt)} className="text-left bg-slate-700 hover:bg-slate-600 text-white text-[15px] p-3 rounded-xl transition-colors border border-slate-600 hover:border-[#10b981] leading-relaxed shadow-sm">
+                      {opt.text}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+          </div>
         </div>
       </div>
     );
