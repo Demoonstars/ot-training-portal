@@ -170,7 +170,7 @@
 
     .brand-txt h1 { font-size: 1.2rem; font-weight: 900; line-height: 1.1; margin: 0; color: #0f172a; letter-spacing: -0.5px; }
     
-    /* HUD Dashboard (Виджет оперативной обстановки: Москва Погода + Ветер) */
+    /* HUD Dashboard (Виджет оперативной обстановки: Москва Погода + Осадки) */
     .hud-dashboard { 
       display: flex; align-items: center; gap: 10px; margin-top: 6px; 
       font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; 
@@ -181,7 +181,6 @@
     .hud-dashboard::-webkit-scrollbar { display: none; }
     .hud-item { display: flex; align-items: center; gap: 6px; }
     .hud-separator { width: 3px; height: 3px; background: rgba(148, 163, 184, 0.5); border-radius: 50%; }
-    .status-ok { color: #059669; }
     
     .hud-dot { width: 6px; height: 6px; background: #ef4444; border-radius: 50%; box-shadow: 0 0 8px #ef4444; animation: blink 1.2s infinite; }
     @keyframes blink { 50% { opacity: 0.4; } }
@@ -288,7 +287,7 @@
     .badge.imp { background: #fee2e2; color: #991b1b; }
     .badge.sout-tag { background: #e0f2fe; color: #0369a1; }
 
-    /* === 6. КНОПКА МЕССЕНДЖЕРА MAX (УКОРОЧЕННАЯ) === */
+    /* === 6. КНОПКА МЕССЕНДЖЕРА MAX (УКОРОЧЕННАЯ С ЛОГОТИПОМ) === */
     .tg-float { 
       position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); 
       background: rgba(255,255,255,0.96); backdrop-filter: blur(15px); 
@@ -297,14 +296,18 @@
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); isolation: isolate; 
     }
     .tg-float:hover { transform: translateX(-50%) scale(1.04) translateY(-4px); box-shadow: 0 25px 60px rgba(59, 130, 246, 0.35); border-color: rgba(59, 130, 246, 0.3); }
-    .tg-logo { width: 36px; height: 36px; background: #2563EB; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); flex-shrink: 0;}
+    .tg-logo { 
+      width: 36px; height: 36px; background: transparent; border-radius: 50%; 
+      display: flex; align-items: center; justify-content: center; 
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); flex-shrink: 0; overflow: hidden;
+    }
+    .tg-logo img { width: 100%; height: 100%; object-fit: cover; }
     .tg-txt h4 { margin: 0; font-size: 0.9rem; color: #0f172a; font-weight: 800; tracking: -0.1px; white-space: nowrap; }
     .tg-txt p { margin: 0; font-size: 0.65rem; color: #2563EB; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 
     @media (max-width: 600px) {
         .tg-float { bottom: 20px; padding: 8px 16px 8px 10px; gap: 10px; }
         .tg-logo { width: 32px; height: 32px; }
-        .tg-logo svg { width: 16px; height: 16px; }
         .tg-txt h4 { font-size: 0.85rem; }
         .tg-txt p { font-size: 0.6rem; }
     }
@@ -392,7 +395,7 @@
             <div class="hud-separator"></div>
             <div class="hud-item"><span class="hud-icon">💨</span> <span id="hud-wind">Синхронизация...</span></div>
             <div class="hud-separator"></div>
-            <div class="hud-item status-ok"><span class="hud-icon">🛡️</span> <span>Режим: Штатный</span></div>
+            <div class="hud-item"><span class="hud-icon">☔</span> <span id="hud-precip">Синхронизация...</span></div>
           </div>
         </div>
       </div>
@@ -607,9 +610,7 @@
 
   <a href="https://max.ru/join/nE-hEr7PmCD8hAAPufWsW4p8ygTkFLGRMhwzNU9TNnw" target="_blank" class="tg-float">
     <div class="tg-logo">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff">
-        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
-      </svg>
+      <img src="assets/MAX.svg.png" alt="MAX">
     </div>
     <div class="tg-txt">
       <h4>Канал ГБУЗ МО "МОССМП"</h4>
@@ -661,12 +662,11 @@
     const ctxCanvas = canvasEl.getContext('2d');
     
     let bacteria = [];
-    let ripples = []; 
     let dust = [];    
     
     const bacteriaCount = window.innerWidth < 768 ? 35 : 70;
     const dustCount = window.innerWidth < 768 ? 50 : 150;
-    const MAX_BACTERIA_SIZE = 24; // Ограничение роста бактерий (размер монетки)
+    const MAX_BACTERIA_SIZE = 24; 
     let mouse = { x: null, y: null, targetX: 0, targetY: 0 };
 
     function resizeCanvas() { canvasEl.width = window.innerWidth; canvasEl.height = window.innerHeight; }
@@ -716,9 +716,27 @@
         this.wiggle = Math.random() * Math.PI * 2;
         this.wiggleSpeed = Math.random() * 0.03 + 0.01;
         this.tumbleTimer = Math.random() * 100;
+
+        // Новые свойства для эффекта фагоцитоза (поедания)
+        this.isEaten = false;
+        this.predator = null;
       }
       
       update() {
+        // Логика фагоцитоза: если клетку съели, она втягивается в хищника
+        if (this.isEaten && this.predator) {
+            this.x += (this.predator.x - this.x) * 0.15;
+            this.y += (this.predator.y - this.y) * 0.15;
+            this.baseSize *= 0.85; // Клетка быстро сжимается/переваривается
+            if (this.type === 'rod') this.length = this.baseSize * 2.5;
+            
+            if (this.baseSize <= 0.5) {
+                this.predator.targetSize = Math.min(this.predator.targetSize + 0.4, MAX_BACTERIA_SIZE);
+                this.reset(false); // Перерождается за краем экрана
+            }
+            return; // Прерываем обычное движение
+        }
+
         if (this.baseSize < this.targetSize) {
             this.baseSize += 0.05;
             if (this.type === 'rod') this.length = this.baseSize * 2.5;
@@ -834,42 +852,23 @@
             let dist = Math.sqrt(dx*dx + dy*dy);
             
             if (dist < b1.baseSize + b2.baseSize) {
-                if (b1.targetSize > b2.targetSize * 1.6) {
-                    ripples.push({x: b2.x, y: b2.y, z: b2.z, color: b2.colorRGB, life: 1.0, size: b2.baseSize});
-                    b1.targetSize = Math.min(b1.targetSize + 0.4, MAX_BACTERIA_SIZE); 
-                    b2.reset(false);      
-                } else if (b2.targetSize > b1.targetSize * 1.6) {
-                    ripples.push({x: b1.x, y: b1.y, z: b1.z, color: b1.colorRGB, life: 1.0, size: b1.baseSize});
-                    b2.targetSize = Math.min(b2.targetSize + 0.4, MAX_BACTERIA_SIZE);
-                    b1.reset(false);
-                } else {
+                // Если b1 хищник, а b2 - живая жертва
+                if (b1.targetSize > b2.targetSize * 1.6 && !b2.isEaten && !b1.isEaten) {
+                    b2.isEaten = true;
+                    b2.predator = b1;
+                } 
+                // Если b2 хищник, а b1 - живая жертва
+                else if (b2.targetSize > b1.targetSize * 1.6 && !b1.isEaten && !b2.isEaten) {
+                    b1.isEaten = true;
+                    b1.predator = b2;
+                } 
+                // Обычное мягкое отталкивание равных клеток
+                else if (!b1.isEaten && !b2.isEaten) {
                     b1.vx += dx * 0.001; b1.vy += dy * 0.001;
                     b2.vx -= dx * 0.001; b2.vy -= dy * 0.001;
                 }
             }
         }
-      }
-
-      for(let i=ripples.length-1; i>=0; i--) {
-          let r = ripples[i];
-          r.size += 1.2 * r.z; 
-          r.life -= 0.03;      
-          
-          if(r.life <= 0) { 
-              ripples.splice(i, 1); 
-              continue; 
-          }
-          
-          let px = r.x + mouse.targetX * r.z;
-          let py = r.y + mouse.targetY * r.z;
-          
-          ctxCanvas.beginPath();
-          ctxCanvas.arc(px, py, r.size, 0, Math.PI*2);
-          ctxCanvas.fillStyle = `rgba(${r.color}, ${r.life * 0.15})`;
-          ctxCanvas.fill();
-          ctxCanvas.lineWidth = 1.5;
-          ctxCanvas.strokeStyle = `rgba(${r.color}, ${r.life * 0.3})`;
-          ctxCanvas.stroke();
       }
 
       requestAnimationFrame(animateEnvironment);
@@ -1134,20 +1133,24 @@
         .then(data => {
            if(data.main && data.wind) {
                const temp = Math.round(data.main.temp);
-               // Округляем ветер до 1 знака после запятой
                const wind = Math.round(data.wind.speed * 10) / 10; 
                
-               // Подставляем реальные данные в HUD
+               // Парсинг осадков/описания погоды
+               let precip = data.weather && data.weather.length > 0 ? data.weather[0].description : "Нет данных";
+               precip = precip.charAt(0).toUpperCase() + precip.slice(1);
+               
                document.getElementById('hud-temp').textContent = (temp > 0 ? "+" : "") + temp + "°C Москва";
                document.getElementById('hud-wind').textContent = "Ветер: " + wind + " м/с";
+               document.getElementById('hud-precip').textContent = precip;
            }
         }).catch(err => {
            console.error("Ошибка синхронизации погоды:", err);
            document.getElementById('hud-temp').textContent = "Офлайн";
            document.getElementById('hud-wind').textContent = "Нет сети";
+           document.getElementById('hud-precip').textContent = "Нет данных";
         });
         
-        // Автообновление каждые 15 минут, чтобы не спамить API
+        // Автообновление каждые 15 минут
         setTimeout(initWeatherSync, 900000);
     }
   </script>
