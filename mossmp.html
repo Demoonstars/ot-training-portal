@@ -42,8 +42,21 @@
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
 
-    /* === 1. ЖИВАЯ АНИМАЦИЯ ФОНА (CANVAS NODES) === */
-    #canvas-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #F8FAFC; }
+    /* === 1. ЖИВАЯ АНИМАЦИЯ ФОНА (CANVAS NODES + ФОКУС МИКРОСКОПА) === */
+    @keyframes focusCalibration {
+      0%, 82%, 100% { filter: blur(0px); }
+      85% { filter: blur(4px); }
+      88% { filter: blur(1px); }
+      92% { filter: blur(5px); }
+      95% { filter: blur(0px); }
+    }
+    
+    #canvas-bg { 
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+      z-index: -1; background: #F8FAFC; 
+      animation: focusCalibration 14s infinite ease-in-out; 
+    }
+    
     .noise-overlay {
       position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.025;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
@@ -692,6 +705,7 @@
     const canvasEl = document.getElementById('canvas-bg');
     const ctxCanvas = canvasEl.getContext('2d');
     let bacteria = [];
+    let ripples = []; // Массив для эффекта поедания (распада)
     const bacteriaCount = window.innerWidth < 768 ? 35 : 70;
     let mouse = { x: null, y: null, targetX: 0, targetY: 0 };
 
@@ -704,6 +718,9 @@
       mouse.targetX = (e.clientX - window.innerWidth / 2) * 0.04;
       mouse.targetY = (e.clientY - window.innerHeight / 2) * 0.04;
     });
+
+    // Медицинские цвета (RGB формат для удобства работы с альфа-каналом)
+    const colors = ['239, 68, 68', '59, 130, 246', '16, 185, 129'];
 
     class Bacterium {
       constructor() { this.reset(true); }
@@ -725,12 +742,10 @@
         this.type = Math.random() > 0.6 ? 'rod' : 'round'; 
         this.length = this.type === 'rod' ? this.targetSize * (Math.random() * 2 + 1.5) : 0;
         
-        // Медицинские цвета (Красный, Синий, Изумрудный)
-        const colors = ['rgba(239, 68, 68, ', 'rgba(59, 130, 246, ', 'rgba(16, 185, 129, '];
-        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.colorRGB = colors[Math.floor(Math.random() * colors.length)];
         
-        // Значительно снижена прозрачность, чтобы не отвлекали от текста
-        this.opacity = Math.random() * 0.15 + 0.05; 
+        // ЕЩЕ МЕНЕЕ КОНТРАСТНЫЕ (глубокий задний фон)
+        this.opacity = Math.random() * 0.07 + 0.02; 
         
         this.wiggle = Math.random() * Math.PI * 2;
         this.wiggleSpeed = Math.random() * 0.03 + 0.01;
@@ -791,7 +806,7 @@
         ctxCanvas.rotate(this.angle);
         
         // 1. Внешняя мембрана / Ореол размытия
-        ctxCanvas.fillStyle = this.color + (this.opacity * 0.5) + ')';
+        ctxCanvas.fillStyle = `rgba(${this.colorRGB}, ${this.opacity * 0.5})`;
         ctxCanvas.beginPath();
         if (this.type === 'round') {
             ctxCanvas.arc(0, 0, this.baseSize * 1.5, 0, Math.PI * 2);
@@ -803,7 +818,7 @@
         ctxCanvas.fill();
 
         // 2. Основное тело бактерии
-        ctxCanvas.fillStyle = this.color + this.opacity + ')';
+        ctxCanvas.fillStyle = `rgba(${this.colorRGB}, ${this.opacity})`;
         ctxCanvas.beginPath();
         if (this.type === 'round') {
             ctxCanvas.arc(0, 0, this.baseSize, 0, Math.PI * 2);
@@ -815,7 +830,7 @@
         ctxCanvas.fill();
 
         // 3. Внутренняя структура (ядро)
-        ctxCanvas.fillStyle = this.color + (this.opacity + 0.15) + ')';
+        ctxCanvas.fillStyle = `rgba(${this.colorRGB}, ${this.opacity + 0.15})`;
         ctxCanvas.beginPath();
         if (this.type === 'round') {
             ctxCanvas.arc(0, 0, this.baseSize * 0.4, 0, Math.PI * 2);
@@ -850,9 +865,11 @@
             if (dist < b1.baseSize + b2.baseSize) {
                 // Если одна бактерия значительно больше другой (хищник и жертва)
                 if (b1.targetSize > b2.targetSize * 1.6) {
+                    ripples.push({x: b2.x, y: b2.y, z: b2.z, color: b2.colorRGB, life: 1.0, size: b2.baseSize});
                     b1.targetSize += 0.4; // Хищник растет
                     b2.reset(false);      // Жертва съедена и перерождается за краем экрана
                 } else if (b2.targetSize > b1.targetSize * 1.6) {
+                    ripples.push({x: b1.x, y: b1.y, z: b1.z, color: b1.colorRGB, life: 1.0, size: b1.baseSize});
                     b2.targetSize += 0.4;
                     b1.reset(false);
                 } else {
@@ -863,6 +880,30 @@
             }
         }
       }
+
+      // Отрисовка эффекта поедания (растворяющееся кольцо)
+      for(let i=ripples.length-1; i>=0; i--) {
+          let r = ripples[i];
+          r.size += 1.2 * r.z; // Кольцо расширяется
+          r.life -= 0.04;      // Кольцо угасает
+          
+          if(r.life <= 0) { 
+              ripples.splice(i, 1); 
+              continue; 
+          }
+          
+          let px = r.x + mouse.targetX * r.z;
+          let py = r.y + mouse.targetY * r.z;
+          
+          ctxCanvas.beginPath();
+          ctxCanvas.arc(px, py, r.size, 0, Math.PI*2);
+          ctxCanvas.fillStyle = `rgba(${r.color}, ${r.life * 0.15})`;
+          ctxCanvas.fill();
+          ctxCanvas.lineWidth = 1.5;
+          ctxCanvas.strokeStyle = `rgba(${r.color}, ${r.life * 0.4})`;
+          ctxCanvas.stroke();
+      }
+
       requestAnimationFrame(animateBacteria);
     }
     animateBacteria();
