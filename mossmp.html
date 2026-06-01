@@ -156,7 +156,18 @@
     .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
     .nav { display: flex; justify-content: space-between; align-items: center; }
     .brand { display: flex; align-items: center; gap: 16px; }
-    .brand img { height: 52px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.08)); }
+    
+    /* === АНИМИРОВАННЫЙ ЛОГОТИП В ШАПКЕ (СИРЕНА) === */
+    .brand img { 
+      height: 52px; 
+      animation: logoSirenHeaderPulse 2.5s infinite ease-in-out; 
+    }
+    @keyframes logoSirenHeaderPulse {
+      0% { filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.8)); transform: scale(1); }
+      50% { filter: drop-shadow(0 0 18px rgba(59, 130, 246, 0.9)); transform: scale(1.06); }
+      100% { filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.8)); transform: scale(1); }
+    }
+
     .brand-txt h1 { font-size: 1.2rem; font-weight: 900; line-height: 1.1; margin: 0; color: #0f172a; letter-spacing: -0.5px; }
     .brand-meta { display: flex; align-items: center; gap: 12px; margin-top: 5px; font-size: 0.75rem; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; }
     .hud-inline { display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; background: rgba(239, 68, 68, 0.08); padding: 3px 10px; border-radius: 6px; color: #dc2626; border: 1px solid rgba(239, 68, 68, 0.15); }
@@ -207,19 +218,35 @@
     .chip:hover, .chip.active { background: #fff; color: #ef4444; box-shadow: 0 6px 18px rgba(239, 68, 68, 0.12); transform: translateY(-2px); border-color: #fca5a5; }
     .chip.active { background: #0f172a; color: #fff; border-color: #0f172a; box-shadow: 0 6px 18px rgba(15,23,42,0.15); }
 
-    /* === 5. ИНТЕРАКТИВНЫЕ ПАПКИ КЛАССА "MASTERPIECE" === */
+    /* === 5. ИНТЕРАКТИВНЫЕ ПАПКИ КЛАССА "MASTERPIECE" И РАМКА-СИРЕНА === */
     .stack { display: flex; flex-direction: column; gap: 26px; padding-bottom: 140px; }
+    
     .folder { 
-      background: var(--glass); border: var(--border); border-radius: var(--radius); 
-      box-shadow: 0 12px 35px -12px rgba(0,0,0,0.04); overflow: hidden; position: relative;
+      border-radius: var(--radius); 
+      box-shadow: 0 12px 35px -12px rgba(0,0,0,0.04); position: relative;
       opacity: 0; transform: translateY(25px); 
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s, opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: transform, opacity;
     }
     .folder.reveal { opacity: 1; transform: translateY(0); }
-    .folder:hover { transform: translateY(-2px); box-shadow: 0 24px 45px -12px rgba(0,0,0,0.08); border-color: #fff; }
+    .folder:hover { transform: translateY(-2px); box-shadow: 0 24px 45px -12px rgba(0,0,0,0.08); }
     
-    .f-head { padding: 26px 32px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.25s; }
+    /* Анимированная рамка (Мигалка) для папки Охраны Труда */
+    .siren-border { position: relative; border: none !important; background: transparent !important; overflow: hidden; }
+    .siren-border::before {
+      content: ""; position: absolute; top: 50%; left: 50%; width: 250%; height: 250%;
+      background: conic-gradient(from 0deg, transparent 0deg, transparent 100deg, #ef4444 160deg, transparent 170deg, transparent 280deg, #3b82f6 340deg, transparent 350deg);
+      transform: translate(-50%, -50%); animation: rotateSirenBorder 3s linear infinite; z-index: 0;
+    }
+    @keyframes rotateSirenBorder { 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+    
+    .folder-inner-bg {
+      position: absolute; inset: 2px; background: rgba(255, 255, 255, 0.85); 
+      border-radius: calc(var(--radius) - 2px); z-index: 1; backdrop-filter: blur(12px);
+    }
+    .folder-content { position: relative; z-index: 2; width: 100%; height: 100%; }
+
+    .f-head { padding: 26px 32px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.25s; border-radius: calc(var(--radius) - 2px); }
     .f-head:hover { background: rgba(255,255,255,0.45); }
     .f-main { display: flex; align-items: center; gap: 22px; }
     
@@ -229,11 +256,6 @@
     @keyframes iconShake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(2.5deg); } 75% { transform: rotate(-2.5deg); } }
     
     .folder.active.red .f-icon { animation: iconPulse 2.2s infinite, iconShake 4.5s infinite ease-in-out; border: 1px solid rgba(239, 68, 68, 0.4); }
-    .folder.active.blue .f-icon { animation: iconPulseBlue 2.2s infinite, iconShake 4.5s infinite ease-in-out; border: 1px solid rgba(59, 130, 246, 0.4); }
-    .folder.active.green .f-icon { animation: iconPulseGreen 2.2s infinite, iconShake 4.5s infinite ease-in-out; border: 1px solid rgba(16, 185, 129, 0.4); }
-
-    @keyframes iconPulseBlue { 0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.35); } 70% { box-shadow: 0 0 0 14px rgba(59, 130, 246, 0); } 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); } }
-    @keyframes iconPulseGreen { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.35); } 70% { box-shadow: 0 0 0 14px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
 
     .f-txt h3 { margin: 0; font-size: 1.35rem; font-weight: 800; color: #0f172a; tracking: -0.3px; }
     .f-txt p { margin: 5px 0 0; font-size: 0.9rem; color: #64748B; font-weight: 500; }
@@ -241,10 +263,8 @@
     .folder.active .chevron { transform: rotate(180deg); color: #0f172a; }
 
     .red .f-icon { background: linear-gradient(135deg, #fee2e2, #fca5a5); color: #b91c1c; }
-    .blue .f-icon { background: linear-gradient(135deg, #eff6ff, #bfdbfe); color: #1d4ed8; }
-    .green .f-icon { background: linear-gradient(135deg, #ecfdf5, #a7f3d0); color: #047857; }
 
-    .f-body { max-height: 0; overflow: hidden; transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1); background: rgba(255,255,255,0.25); }
+    .f-body { max-height: 0; overflow: hidden; transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1); background: rgba(255,255,255,0.25); border-radius: 0 0 calc(var(--radius) - 2px) calc(var(--radius) - 2px); }
     .folder.active .f-body { max-height: 6000px; border-top: 1px solid rgba(226,232,240,0.7); }
 
     .sub-item { margin: 22px 32px; background: #fff; border-radius: 20px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.01); }
@@ -253,12 +273,10 @@
     .sub-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1); background: #f8fafc; opacity: 0; }
     .sub-item.open .sub-body { max-height: 3500px; padding: 12px 0; border-top: 1px solid #e2e8f0; opacity: 1; }
     .sub-item.open .sub-head { background: rgba(239, 68, 68, 0.03); color: #dc2626; }
-    .green-sub.open .sub-head { background: rgba(16, 185, 129, 0.03); color: #10b981; }
 
     /* === СТИЛИ ФАЙЛОВЫХ СТРОК И БЕЙДЖЕЙ === */
     .file { display: flex; align-items: center; gap: 18px; padding: 15px 26px; cursor: pointer; transition: all 0.25s; border-left: 4px solid transparent; position: relative; overflow: hidden; }
     .file:hover { background: #fff; border-left-color: #ef4444; transform: translateX(6px); }
-    .green-sub .file:hover { border-left-color: #10b981; }
     .file::after { content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent); transition: 0.5s; pointer-events: none; }
     .file:hover::after { left: 100%; }
 
@@ -272,29 +290,25 @@
     .badge.imp { background: #fee2e2; color: #991b1b; }
     .badge.sout-tag { background: #e0f2fe; color: #0369a1; }
 
-    .empty-block { padding: 45px; text-align: center; color: #94A3B8; font-size: 0.95rem; font-weight: 500; }
-    .empty-icon { font-size: 2.2rem; margin-bottom: 12px; display: block; opacity: 0.6; }
-
-    /* === 6. КНОПКА МЕССЕНДЖЕРА MAX === */
+    /* === 6. КНОПКА ТЕЛЕГРАМ (МЕССЕНДЖЕР MAX) УКОРОЧЕННАЯ === */
     .tg-float { 
       position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); 
       background: rgba(255,255,255,0.96); backdrop-filter: blur(15px); 
-      padding: 11px 26px 11px 16px; border-radius: 50px; display: flex; align-items: center; gap: 14px; 
+      padding: 10px 20px 10px 12px; border-radius: 50px; display: flex; align-items: center; gap: 12px; 
       box-shadow: 0 20px 50px rgba(15,23,42,0.15); border: 1px solid #fff; z-index: 1000; text-decoration: none; 
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); isolation: isolate; 
     }
     .tg-float:hover { transform: translateX(-50%) scale(1.04) translateY(-4px); box-shadow: 0 25px 60px rgba(59, 130, 246, 0.35); border-color: rgba(59, 130, 246, 0.3); }
-    .tg-logo { width: 40px; height: 40px; background: #2563EB; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); flex-shrink: 0;}
-    .tg-txt h4 { margin: 0; font-size: 0.95rem; color: #0f172a; font-weight: 800; tracking: -0.1px; white-space: nowrap; }
-    .tg-txt p { margin: 0; font-size: 0.72rem; color: #2563EB; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .tg-logo { width: 36px; height: 36px; background: #2563EB; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); flex-shrink: 0;}
+    .tg-txt h4 { margin: 0; font-size: 0.9rem; color: #0f172a; font-weight: 800; tracking: -0.1px; white-space: nowrap; }
+    .tg-txt p { margin: 0; font-size: 0.65rem; color: #2563EB; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 
     @media (max-width: 600px) {
-        /* Укорачиваем и облегчаем бейдж мессенджера на телефонах */
         .tg-float { bottom: 20px; padding: 8px 16px 8px 10px; gap: 10px; }
         .tg-logo { width: 32px; height: 32px; }
         .tg-logo svg { width: 16px; height: 16px; }
-        .tg-txt h4 { font-size: 0.8rem; }
-        .tg-txt p { font-size: 0.65rem; }
+        .tg-txt h4 { font-size: 0.85rem; }
+        .tg-txt p { font-size: 0.6rem; }
     }
 
     /* === 7. PDF VIEWER ENGINE СИСТЕМЫ СДО ВЕРСИИ 8.0 === */
@@ -421,242 +435,174 @@
     <!-- ИНТЕРАКТИВНЫЙ СТЕК ПАПОК С ПРЕДУСТАНОВЛЕННЫМИ 10+ МЕСТАМИ -->
     <div class="stack">
       
-      <!-- ПАПКА 1: ОХРАНА ТРУДА И СУОТ (КРАСНАЯ МЕДИЦИНСКАЯ ТЕМА) -->
-      <div class="folder red" id="f1">
-        <div class="f-head" onclick="toggleFolder('f1')">
-          <div class="f-main">
-            <div class="f-icon">🛡️</div>
-            <div class="f-txt"><h3>Охрана труда и Управление Рисками</h3><p>Реестр приказов, положений и инструкций по ТБ</p></div>
+      <!-- ПАПКА 1: ОХРАНА ТРУДА И СУОТ (КРАСНАЯ МЕДИЦИНСКАЯ ТЕМА С АНИМАЦИЕЙ СИРЕНЫ) -->
+      <div class="folder red siren-border" id="f1">
+        <div class="folder-inner-bg"></div>
+        <div class="folder-content">
+          <div class="f-head" onclick="toggleFolder('f1')">
+            <div class="f-main">
+              <div class="f-icon">🛡️</div>
+              <div class="f-txt"><h3>Охрана труда и Управление Рисками</h3><p>Реестр приказов, положений и инструкций по ТБ</p></div>
+            </div>
+            <div class="chevron">▼</div>
           </div>
-          <div class="chevron">▼</div>
-        </div>
-        
-        <div class="f-body">
           
-          <!-- Подраздел 1.1: Приказы (Ровно 10 позиций по ТЗ) -->
-          <div class="sub-item">
-            <div class="sub-head" onclick="toggleSub(this)"><span>📜 Реестр Приказов ГБУЗ МО "МОССМП"</span> <span>▼</span></div>
-            <div class="sub-body">
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №101/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge imp">Приказ №101/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Об утверждении Положения о Системе управления охраной труда (СУОТ) в ГБУЗ МО "МОССМП"</span>
+          <div class="f-body">
+            
+            <!-- Подраздел 1.1: Приказы (Ровно 10 позиций по ТЗ) -->
+            <div class="sub-item">
+              <div class="sub-head" onclick="toggleSub(this)"><span>📜 Реестр Приказов ГБУЗ МО "МОССМП"</span> <span>▼</span></div>
+              <div class="sub-body">
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №101/ОТ-26')">
+                  <div class="file-ico">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge imp">Приказ №101/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Об утверждении Положения о Системе управления охраной труда (СУОТ) в ГБУЗ МО "МОССМП"</span>
+                  </div>
                 </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №104/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Приказ №104/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Об организации обучения, стажировок и проверки знаний требований охраны труда персонала</span>
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №104/ОТ-26')">
+                  <div class="file-ico">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge">Приказ №104/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Об организации обучения, стажировок и проверки знаний требований охраны труда персонала</span>
+                  </div>
                 </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №108/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge imp">Приказ №108/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Об утверждении Норм бесплатной выдачи специальной одежды, обуви и СИЗ выездным бригадам</span>
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №108/ОТ-26')">
+                  <div class="file-ico">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge imp">Приказ №108/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Об утверждении Норм бесплатной выдачи специальной одежды, обуви и СИЗ выездным бригадам</span>
+                  </div>
                 </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №112/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Приказ №112/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">О назначении ответственных лиц за пожарную безопасность на подстанциях и в филиалах</span>
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №112/ОТ-26')">
+                  <div class="file-ico">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge">Приказ №112/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">О назначении ответственных лиц за пожарную безопасность на подстанциях и в филиалах</span>
+                  </div>
                 </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №115/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Приказ №115/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">О порядке проведения обязательных предсменных и послесменных медицинских осмотров водителей АСМП</span>
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №115/ОТ-26')">
+                  <div class="file-ico">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge">Приказ №115/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">О порядке проведения обязательных предсменных и послесменных медицинских осмотров водителей АСМП</span>
+                  </div>
                 </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №119/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Приказ №119/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Об утверждении Перечня должностей, подлежащих обязательному психиатрическому освидетельствованию</span>
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №119/ОТ-26')">
+                  <div class="file-ico">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge">Приказ №119/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Об утверждении Перечня должностей, подлежащих обязательному психиатрическому освидетельствованию</span>
+                  </div>
                 </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №122/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Приказ №122/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">О создании постоянно действующей комиссии по расследованию несчастных случаев на производстве</span>
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №122/ОТ-26')">
+                  <div class="file-ico">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge">Приказ №122/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">О создании постоянно действующей комиссии по расследованию несчастных случаев на производстве</span>
+                  </div>
                 </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №126/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge imp">Приказ №126/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">О проведении внепланового инструктажа по безопасности движения выездных бригад на сельских дорогах без разметки</span>
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №126/ОТ-26')">
+                  <div class="file-ico">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge imp">Приказ №126/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">О проведении внепланового инструктажа по безопасности движения выездных бригад на сельских дорогах без разметки</span>
+                  </div>
                 </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №130/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Приказ №130/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Об утверждении Положения о порядке учета и микроповреждений (микротравм) сотрудников СМП</span>
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №130/ОТ-26')">
+                  <div class="file-ico">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge">Приказ №130/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Об утверждении Положения о порядке учета и микроповреждений (микротравм) сотрудников СМП</span>
+                  </div>
                 </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №135/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Приказ №135/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Об утверждении Карт оценки и управления профессиональными рисками на рабочих местах станций скорой помощи</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Подраздел 1.2: Положения (Локальные акты) -->
-          <div class="sub-item">
-            <div class="sub-head" onclick="toggleSub(this)"><span>📂 Положения и Регламенты Безопасности</span> <span>▼</span></div>
-            <div class="sub-body">
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Положение СУОТ')">
-                <div class="file-ico">📋</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Положение</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Положение о функционировании СУОТ в медицинском учреждении скорой помощи</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Регламент Эвакуации')">
-                <div class="file-ico">🚨</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge imp">Регламент</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Регламент безопасной транспортировки и эвакуации экстренных пациентов бригадами СМП</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Инструкция ОТ Баллоны')">
-                <div class="file-ico">🦺</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Инструкция ОТ</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Инструкция по охране труда при работе со сжатыми газами и медицинскими кислородными баллонами в АСМП</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Протокол Безопасности Бригад')">
-                <div class="file-ico">⚠️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge imp">Протокол</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Протокол действий выездного персонала при возникновении угрозы физического нападения на вызове</span>
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №135/ОТ-26')">
+                  <div class="file-ico">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge">Приказ №135/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Об утверждении Карт оценки и управления профессиональными рисками на рабочих местах станций скорой помощи</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Подраздел 1.3: СОУТ (Спецоценка по подстанциям) -->
-          <div class="sub-item">
-            <div class="sub-head" onclick="toggleSub(this)"><span>🔬 Реестр Карт СОУТ (Спецоценка условий труда)</span> <span>▼</span></div>
-            <div class="sub-body">
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Сводная ведомость СОУТ')">
-                <div class="file-ico">📊</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge sout-tag">Сводная ведомость</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Сводная ведомость результатов проведения СОУТ — Центральный аппарат (Красногорск)</span>
+            <!-- Подраздел 1.2: Положения (Локальные акты) -->
+            <div class="sub-item">
+              <div class="sub-head" onclick="toggleSub(this)"><span>📂 Положения и Регламенты Безопасности</span> <span>▼</span></div>
+              <div class="sub-body">
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Положение СУОТ')">
+                  <div class="file-ico">📋</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge">Положение</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Положение о функционировании СУОТ в медицинском учреждении скорой помощи</span>
+                  </div>
                 </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Карты СОУТ - Реанимация')">
-                <div class="file-ico">📑</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge sout-tag">Карты СОУТ</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Карты СОУТ рабочих мест: Выездная бригада анестезиологии-реанимации</span>
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Регламент Эвакуации')">
+                  <div class="file-ico">🚨</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge imp">Регламент</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Регламент безопасной транспортировки и эвакуации экстренных пациентов бригадами СМП</span>
+                  </div>
                 </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Карты СОУТ - Фельдшеры')">
-                <div class="file-ico">📑</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge sout-tag">Карты СОУТ</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Карты СОУТ рабочих мест: Общепрофильная фельдшерская выездная бригада</span>
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Инструкция ОТ Баллоны')">
+                  <div class="file-ico">🦺</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge">Инструкция ОТ</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Инструкция по охране труда при работе со сжатыми газами и медицинскими кислородными баллонами в АСМП</span>
+                  </div>
                 </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Карты СОУТ - Сергиев Посад')">
-                <div class="file-ico">📑</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge sout-tag">Сергиев Посад</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Карты СОУТ рабочих мест: Персонал Сергиево-Посадской подстанции скорой медицинской помощи</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Мероприятия СОУТ')">
-                <div class="file-ico">📈</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge sout-tag">План</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Перечень рекомендуемых мероприятий по улучшению условий труда водителей и врачей АСМП</span>
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Протокол Безопасности Бригад')">
+                  <div class="file-ico">⚠️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge imp">Протокол</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Протокол действий выездного персонала при возникновении угрозы физического нападения на вызове</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-        </div>
-      </div>
-
-      <!-- ПАПКА 2: МЕДИЦИНСКИЕ АЛГОРИТМЫ И КЛИНИЧЕСКИЕ ПРОТОКОЛЫ (СИНЯЯ ТЕМА) -->
-      <div class="folder blue" id="f2">
-        <div class="f-head" onclick="toggleFolder('f2')">
-          <div class="f-main">
-            <div class="f-icon">🚑</div>
-            <div class="f-txt"><h3>Клинические Протоколы и Алгоритмы СМП</h3><p>Стандарты оказания экстренной медицинской помощи</p></div>
-          </div>
-          <div class="chevron">▼</div>
-        </div>
-        <div class="f-body">
-          <div class="sub-item blue-sub">
-            <div class="sub-head" onclick="toggleSub(this)"><span>📋 Протоколы Минздрава РФ (Догоспитальный этап)</span> <span>▼</span></div>
-            <div class="sub-body">
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Протокол ОКС')">
-                <div class="file-ico">🩺</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Алгоритм</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Протокол оказания скорой медицинской помощи при остром коронарном синдроме (ОКС)</span>
+            <!-- Подраздел 1.3: СОУТ (Спецоценка по подстанциям) -->
+            <div class="sub-item">
+              <div class="sub-head" onclick="toggleSub(this)"><span>🔬 Реестр Карт СОУТ (Спецоценка условий труда)</span> <span>▼</span></div>
+              <div class="sub-body">
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Сводная ведомость СОУТ')">
+                  <div class="file-ico">📊</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge sout-tag">Сводная ведомость</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Сводная ведомость результатов проведения СОУТ — Центральный аппарат (Красногорск)</span>
+                  </div>
                 </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Реанимация 220н')">
-                <div class="file-ico">⚡</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge imp">Минздрав 220н</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Алгоритм проведения расширенной сердечно-легочной реанимации (СЛР) бригадой СМП</span>
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Карты СОУТ - Реанимация')">
+                  <div class="file-ico">📑</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge sout-tag">Карты СОУТ</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Карты СОУТ рабочих мест: Выездная бригада анестезиологии-реанимации</span>
+                  </div>
                 </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Политравма ДТП')">
-                <div class="file-ico">💥</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Инструкция</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Протокол иммобилизации и ведения пациентов со множественной политравмой при ДТП</span>
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Карты СОУТ - Фельдшеры')">
+                  <div class="file-ico">📑</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge sout-tag">Карты СОУТ</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Карты СОУТ рабочих мест: Общепрофильная фельдшерская выездная бригада</span>
+                  </div>
+                </div>
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Карты СОУТ - Сергиев Посад')">
+                  <div class="file-ico">📑</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge sout-tag">Сергиев Посад</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Карты СОУТ рабочих мест: Персонал Сергиево-Посадской подстанции скорой медицинской помощи</span>
+                  </div>
+                </div>
+                <div class="file" onclick="openViewer('assets/mock.pdf', 'Мероприятия СОУТ')">
+                  <div class="file-ico">📈</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge sout-tag">План</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Перечень рекомендуемых мероприятий по улучшению условий труда водителей и врачей АСМП</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- ПАПКА 3: САНИТАРНО-ЭПИДЕМИОЛОГИЧЕСКИЙ РЕЖИМ (ЗЕЛЕНАЯ ТЕМА) -->
-      <div class="folder green" id="f3">
-        <div class="f-head" onclick="toggleFolder('f3')">
-          <div class="f-main">
-            <div class="f-icon">🧼</div>
-            <div class="f-txt"><h3>Санитарно-Эпидемиологический Режим</h3><p>Дезинфекция АСМП, СанПиН нормы, обращение с отходами</p></div>
-          </div>
-          <div class="chevron">▼</div>
-        </div>
-        <div class="f-body">
-          <div class="sub-item green-sub">
-            <div class="sub-head" onclick="toggleSub(this)"><span>🧫 Требования СанПиН и Эпидбезопасность</span> <span>▼</span></div>
-            <div class="sub-body">
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Дезинфекция Салона')">
-                <div class="file-ico">🪣</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Регламент</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Порядок проведения текущей и заключительной дезинфекции салона автомобиля скорой помощи</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Отходы Класса Б В')">
-                <div class="file-ico">☣️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge imp">СанПиН</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Инструкция по безопасному сбору, хранению и утилизации медицинских отходов классов Б и В</span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -671,7 +617,8 @@
   <!-- ИНТЕРАКТИВНЫЙ ИСТОЧНИК ИЗВЕСТИЙ СТАНЦИИ (MAX) -->
   <a href="https://max.ru/join/nE-hEr7PmCD8hAAPufWsW4p8ygTkFLGRMhwzNU9TNnw" target="_blank" class="tg-float">
     <div class="tg-logo">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff">
+      <!-- Универсальная иконка сообщения/мессенджера -->
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff">
         <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
       </svg>
     </div>
