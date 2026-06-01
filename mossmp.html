@@ -44,19 +44,29 @@
 
     /* === 1. ЖИВАЯ АНИМАЦИЯ ФОНА (CANVAS NODES + ФОКУС МИКРОСКОПА) === */
     @keyframes focusCalibration {
-      0%, 82%, 100% { filter: blur(0px); }
-      85% { filter: blur(4px); }
-      88% { filter: blur(1px); }
-      92% { filter: blur(5px); }
-      95% { filter: blur(0px); }
+      0%, 65%, 100% { filter: blur(0px); }
+      72% { filter: blur(6px); } /* Долгий и сильный расфокус */
+      82% { filter: blur(2px); } /* Попытка поймать фокус */
+      88% { filter: blur(5px); } /* Снова сбился */
+      95% { filter: blur(0px); } /* Фокус найден */
     }
     
     #canvas-bg { 
       position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
       z-index: -1; background: #F8FAFC; 
-      animation: focusCalibration 14s infinite ease-in-out; 
+      animation: focusCalibration 18s infinite ease-in-out; 
     }
     
+    .microscope-hud {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background: 
+        radial-gradient(circle at center, transparent 40%, rgba(15, 23, 42, 0.15) 100%), /* Виньетка (оптическое затенение) */
+        linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px), /* Горизонтальная измерительная сетка */
+        linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px); /* Вертикальная сетка */
+      background-size: 100% 100%, 40px 40px, 40px 40px;
+      background-position: center center;
+    }
+
     .noise-overlay {
       position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.025;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
@@ -332,6 +342,7 @@
 
   <div class="noise-overlay"></div>
   <canvas id="canvas-bg"></canvas>
+  <div class="microscope-hud"></div>
   <div class="orb-layer"><div class="orb o1"></div><div class="orb o2"></div></div>
 
   <!-- БЛОК ПРЕЛОАДЕРА (МИГАЛКИ СМП И НОВЫЙ ЛОГОТИП) -->
@@ -701,12 +712,16 @@
   </div>
 
   <script>
-    // === 1. ГЕНЕРАТОР МИКРОБИОЛОГИЧЕСКОЙ СРЕДЫ (БАКТЕРИИ ПОД МИКРОСКОПОМ) НА CANVAS ===
+    // === 1. ГЕНЕРАТОР МИКРОБИОЛОГИЧЕСКОЙ СРЕДЫ И МИКРОПЫЛИ НА CANVAS ===
     const canvasEl = document.getElementById('canvas-bg');
     const ctxCanvas = canvasEl.getContext('2d');
+    
     let bacteria = [];
-    let ripples = []; // Массив для эффекта поедания (распада)
+    let ripples = []; // Массив для эффекта растворения
+    let dust = [];    // Массив для плавающей микропыли
+    
     const bacteriaCount = window.innerWidth < 768 ? 35 : 70;
+    const dustCount = window.innerWidth < 768 ? 50 : 150;
     let mouse = { x: null, y: null, targetX: 0, targetY: 0 };
 
     function resizeCanvas() { canvasEl.width = window.innerWidth; canvasEl.height = window.innerHeight; }
@@ -719,21 +734,31 @@
       mouse.targetY = (e.clientY - window.innerHeight / 2) * 0.04;
     });
 
-    // Медицинские цвета (RGB формат для удобства работы с альфа-каналом)
+    // Медицинские цвета
     const colors = ['239, 68, 68', '59, 130, 246', '16, 185, 129'];
+
+    // Инициализация микропыли
+    for(let i=0; i<dustCount; i++) {
+        dust.push({
+            x: Math.random() * canvasEl.width,
+            y: Math.random() * canvasEl.height,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+            size: Math.random() * 1.2,
+            alpha: Math.random() * 0.4
+        });
+    }
 
     class Bacterium {
       constructor() { this.reset(true); }
       
       reset(initial = false) {
-        // Если перерождается после того, как ее съели - появляется за краем экрана
         this.x = initial ? Math.random() * canvasEl.width : (Math.random() > 0.5 ? -50 : canvasEl.width + 50);
         this.y = initial ? Math.random() * canvasEl.height : Math.random() * canvasEl.height;
-        this.z = Math.random() * 1.5 + 0.5; // Глубина резкости (масштаб)
+        this.z = Math.random() * 1.5 + 0.5; 
         this.vx = (Math.random() - 0.5) * 0.4 * this.z;
         this.vy = (Math.random() - 0.5) * 0.4 * this.z;
         
-        // Разброс размеров увеличен, чтобы были "хищники" и "жертвы"
         this.targetSize = (Math.random() * 5 + 2) * this.z; 
         this.baseSize = initial ? this.targetSize : 1; 
         
@@ -744,8 +769,8 @@
         
         this.colorRGB = colors[Math.floor(Math.random() * colors.length)];
         
-        // ЕЩЕ МЕНЕЕ КОНТРАСТНЫЕ (глубокий задний фон)
-        this.opacity = Math.random() * 0.07 + 0.02; 
+        // Ультра-низкий контраст для фона
+        this.opacity = Math.random() * 0.05 + 0.01; 
         
         this.wiggle = Math.random() * Math.PI * 2;
         this.wiggleSpeed = Math.random() * 0.03 + 0.01;
@@ -753,13 +778,11 @@
       }
       
       update() {
-        // Плавный рост (если съел кого-то или только родился)
         if (this.baseSize < this.targetSize) {
             this.baseSize += 0.05;
             if (this.type === 'rod') this.length = this.baseSize * 2.5;
         }
 
-        // Реалистичное движение "Run and Tumble" (Беги и кувыркайся)
         this.tumbleTimer--;
         if (this.tumbleTimer <= 0) {
             this.vx = (Math.random() - 0.5) * 0.6 * this.z;
@@ -767,7 +790,6 @@
             this.tumbleTimer = Math.random() * 150 + 50;
         }
 
-        // Имитация жидкости под микроскопом
         this.wiggle += this.wiggleSpeed;
         let wx = Math.cos(this.wiggle) * 0.3;
         let wy = Math.sin(this.wiggle) * 0.3;
@@ -776,7 +798,6 @@
         this.y += this.vy + wy;
         this.angle += this.vAngle;
 
-        // Плавный переход через края экрана
         if(this.x < -100) this.x = canvasEl.width + 100;
         if(this.x > canvasEl.width + 100) this.x = -100;
         if(this.y < -100) this.y = canvasEl.height + 100;
@@ -785,7 +806,6 @@
         let px = this.x + mouse.targetX * this.z;
         let py = this.y + mouse.targetY * this.z;
 
-        // Отталкивание от курсора (эффект поверхностного натяжения)
         if (mouse.x != null) {
             let dx = mouse.x - px; let dy = mouse.y - py;
             let dist = Math.sqrt(dx * dx + dy * dy);
@@ -805,7 +825,6 @@
         ctxCanvas.translate(px, py);
         ctxCanvas.rotate(this.angle);
         
-        // 1. Внешняя мембрана / Ореол размытия
         ctxCanvas.fillStyle = `rgba(${this.colorRGB}, ${this.opacity * 0.5})`;
         ctxCanvas.beginPath();
         if (this.type === 'round') {
@@ -817,7 +836,6 @@
         }
         ctxCanvas.fill();
 
-        // 2. Основное тело бактерии
         ctxCanvas.fillStyle = `rgba(${this.colorRGB}, ${this.opacity})`;
         ctxCanvas.beginPath();
         if (this.type === 'round') {
@@ -829,7 +847,6 @@
         }
         ctxCanvas.fill();
 
-        // 3. Внутренняя структура (ядро)
         ctxCanvas.fillStyle = `rgba(${this.colorRGB}, ${this.opacity + 0.15})`;
         ctxCanvas.beginPath();
         if (this.type === 'round') {
@@ -846,10 +863,26 @@
 
     for(let i=0; i<bacteriaCount; i++) bacteria.push(new Bacterium());
 
-    function animateBacteria() {
+    function animateEnvironment() {
       ctxCanvas.clearRect(0, 0, canvasEl.width, canvasEl.height);
       
-      // Логика фагоцитоза (поедания) и коллизий
+      // Отрисовка микропыли
+      ctxCanvas.fillStyle = 'rgba(100, 116, 139, 1)';
+      dust.forEach(d => {
+          d.x += d.vx; d.y += d.vy;
+          if(d.x < 0) d.x = canvasEl.width;
+          if(d.x > canvasEl.width) d.x = 0;
+          if(d.y < 0) d.y = canvasEl.height;
+          if(d.y > canvasEl.height) d.y = 0;
+          
+          ctxCanvas.globalAlpha = d.alpha;
+          ctxCanvas.beginPath();
+          ctxCanvas.arc(d.x, d.y, d.size, 0, Math.PI*2);
+          ctxCanvas.fill();
+      });
+      ctxCanvas.globalAlpha = 1.0;
+
+      // Логика бактерий
       for(let i=0; i<bacteria.length; i++) {
         let b1 = bacteria[i];
         b1.update();
@@ -861,19 +894,16 @@
             let dy = b1.y - b2.y;
             let dist = Math.sqrt(dx*dx + dy*dy);
             
-            // Если столкнулись
             if (dist < b1.baseSize + b2.baseSize) {
-                // Если одна бактерия значительно больше другой (хищник и жертва)
                 if (b1.targetSize > b2.targetSize * 1.6) {
                     ripples.push({x: b2.x, y: b2.y, z: b2.z, color: b2.colorRGB, life: 1.0, size: b2.baseSize});
-                    b1.targetSize += 0.4; // Хищник растет
-                    b2.reset(false);      // Жертва съедена и перерождается за краем экрана
+                    b1.targetSize += 0.4; 
+                    b2.reset(false);      
                 } else if (b2.targetSize > b1.targetSize * 1.6) {
                     ripples.push({x: b1.x, y: b1.y, z: b1.z, color: b1.colorRGB, life: 1.0, size: b1.baseSize});
                     b2.targetSize += 0.4;
                     b1.reset(false);
                 } else {
-                    // Иначе просто мягкое отталкивание друг от друга (броуновское движение)
                     b1.vx += dx * 0.001; b1.vy += dy * 0.001;
                     b2.vx -= dx * 0.001; b2.vy -= dy * 0.001;
                 }
@@ -881,11 +911,11 @@
         }
       }
 
-      // Отрисовка эффекта поедания (растворяющееся кольцо)
+      // Эффект всплеска при поедании
       for(let i=ripples.length-1; i>=0; i--) {
           let r = ripples[i];
-          r.size += 1.2 * r.z; // Кольцо расширяется
-          r.life -= 0.04;      // Кольцо угасает
+          r.size += 1.2 * r.z; 
+          r.life -= 0.03;      
           
           if(r.life <= 0) { 
               ripples.splice(i, 1); 
@@ -900,13 +930,13 @@
           ctxCanvas.fillStyle = `rgba(${r.color}, ${r.life * 0.15})`;
           ctxCanvas.fill();
           ctxCanvas.lineWidth = 1.5;
-          ctxCanvas.strokeStyle = `rgba(${r.color}, ${r.life * 0.4})`;
+          ctxCanvas.strokeStyle = `rgba(${r.color}, ${r.life * 0.3})`;
           ctxCanvas.stroke();
       }
 
-      requestAnimationFrame(animateBacteria);
+      requestAnimationFrame(animateEnvironment);
     }
-    animateBacteria();
+    animateEnvironment();
 
     // === 2. ЗАПУСК ПРЕЛОАДЕРА И КВАНТОВОЙ ПЕЧАТНОЙ МАШИНКИ ===
     window.onload = function() {
