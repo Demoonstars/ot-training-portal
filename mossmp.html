@@ -5,7 +5,7 @@
   <title>ГБУЗ МО "МОССМП" | Информационный Документационный Центр</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="description" content="Официальный нормативно-правовой и гигиенический реестр ГБУЗ МО МОССМП. Охрана труда, СОУТ, регламенты СМП.">
-  <link rel="icon" type="image/png" href="assets/Филин от.png">
+  <link rel="icon" type="image/png" href="assets/logomossmp.png">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,7 +53,7 @@
     .o1 { top: -15%; left: -15%; width: 65vw; height: 65vw; background: radial-gradient(circle, rgba(239, 68, 68, 0.15), transparent 70%); }
     .o2 { bottom: -15%; right: -15%; width: 75vw; height: 75vw; background: radial-gradient(circle, rgba(0, 150, 136, 0.15), transparent 70%); }
 
-    /* === 2. ФУТУРИСТИЧНЫЙ ПРЕЛОАДЕР С ОРБИТАМИ === */
+    /* === 2. МЕДИЦИНСКИЙ ПРЕЛОАДЕР (МИГАЛКИ СМП) === */
     #preloader { 
       position: fixed; inset: 0; z-index: 99999; background: #020617; 
       display: flex; flex-direction: column; justify-content: center; align-items: center; 
@@ -65,22 +65,68 @@
       animation: twinkle var(--duration) infinite ease-in-out; opacity: var(--opacity);
     }
     @keyframes twinkle { 
-      0%, 100% { opacity: 0.2; transform: scale(0.8); } 
-      50% { opacity: 1; transform: scale(1.3); filter: drop-shadow(0 0 8px rgba(255,255,255,0.8)); } 
+      0%, 100% { opacity: 0.1; transform: scale(0.8); } 
+      50% { opacity: 0.8; transform: scale(1.5); filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.8)); } 
     }
-    .solar-system { position: relative; width: 240px; height: 240px; display: flex; justify-content: center; align-items: center; z-index: 10; }
-    .planet-logo { width: 90px; height: auto; z-index: 10; object-fit: contain; filter: drop-shadow(0 0 30px rgba(239, 68, 68, 0.6)); animation: pulsePlanet 3.5s infinite ease-in-out; }
-    .orbit { position: absolute; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.07); display: flex; justify-content: center; align-items: center; pointer-events: none; }
-    .orb-1 { width: 150px; height: 150px; animation: orbitSpin 4s linear infinite; border-color: rgba(239, 68, 68, 0.3); }
-    .orb-1::before { content: ""; position: absolute; top: -4px; width: 8px; height: 8px; background: #ef4444; border-radius: 50%; box-shadow: 0 0 15px #ef4444; }
-    .orb-2 { width: 200px; height: 200px; animation: orbitSpin 7s linear infinite reverse; border-color: rgba(0, 150, 136, 0.3); }
-    .orb-2::before { content: ""; position: absolute; top: 20px; right: 20px; width: 10px; height: 10px; background: var(--c-neon); border-radius: 50%; box-shadow: 0 0 18px var(--c-neon); }
-    .orb-3 { width: 260px; height: 260px; animation: orbitSpin 12s linear infinite; border-color: rgba(59, 130, 246, 0.2); }
-    .orb-3::before { content: ""; position: absolute; bottom: -5px; width: 8px; height: 8px; background: #3b82f6; border-radius: 50%; box-shadow: 0 0 12px #3b82f6; }
-    .loading-status { margin-top: 45px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; z-index: 10; color: #00FFCC; letter-spacing: 5px; text-transform: uppercase; text-shadow: 0 0 8px rgba(0,255,204,0.6); }
 
-    @keyframes orbitSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    @keyframes pulsePlanet { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.4)); } 50% { transform: scale(1.06); filter: drop-shadow(0 0 45px rgba(239, 68, 68, 0.8)); } }
+    .beacon-system { position: relative; width: 280px; height: 280px; display: flex; justify-content: center; align-items: center; z-index: 10; }
+    
+    .medical-logo { 
+      width: 120px; height: auto; z-index: 10; object-fit: contain; 
+      filter: drop-shadow(0 0 25px rgba(37, 99, 235, 0.5)); 
+      animation: pulseMedical 2s infinite ease-in-out; 
+    }
+    
+    .beacon-ring { 
+      position: absolute; border-radius: 50%; border: 3px solid transparent; 
+      display: flex; justify-content: center; align-items: center; pointer-events: none; box-sizing: border-box; 
+    }
+    
+    .ring-1 { 
+      width: 180px; height: 180px; 
+      border-top-color: rgba(239, 68, 68, 0.9); 
+      border-bottom-color: rgba(59, 130, 246, 0.9); 
+      animation: sirenSpin 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; 
+      box-shadow: 0 0 25px rgba(239, 68, 68, 0.3), inset 0 0 25px rgba(59, 130, 246, 0.3); 
+    }
+    
+    .ring-2 { 
+      width: 240px; height: 240px; 
+      border-left-color: rgba(59, 130, 246, 0.7); 
+      border-right-color: rgba(239, 68, 68, 0.7); 
+      animation: sirenSpin 1.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite reverse; 
+      opacity: 0.8; 
+    }
+    
+    .siren-flare { position: absolute; width: 100%; height: 100%; border-radius: 50%; animation: sirenSweep 1.5s linear infinite; }
+    .red-flare::after { 
+      content: ''; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); 
+      width: 20px; height: 20px; background: #ef4444; border-radius: 50%; 
+      box-shadow: 0 0 40px 20px rgba(239, 68, 68, 0.7); 
+    }
+    .blue-flare { animation: sirenSweep 1.5s linear infinite reverse; animation-delay: -0.75s; }
+    .blue-flare::after { 
+      content: ''; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); 
+      width: 20px; height: 20px; background: #3b82f6; border-radius: 50%; 
+      box-shadow: 0 0 40px 20px rgba(59, 130, 246, 0.7); 
+    }
+
+    .loading-status { 
+      margin-top: 50px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; font-weight: 700;
+      z-index: 10; letter-spacing: 4px; text-transform: uppercase; 
+      animation: textPulse 1.2s infinite alternate; 
+    }
+
+    @keyframes sirenSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes sirenSweep { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes pulseMedical { 
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.5)); } 
+      50% { transform: scale(1.05); filter: drop-shadow(0 0 40px rgba(239, 68, 68, 0.8)); } 
+    }
+    @keyframes textPulse { 
+      0% { opacity: 0.7; text-shadow: 0 0 10px rgba(239,68,68,0.6); color: #fca5a5; } 
+      100% { opacity: 1; text-shadow: 0 0 20px rgba(59,130,246,0.9); color: #bfdbfe; } 
+    }
 
     /* === 3. ВЫСОКОТЕХНОЛОГИЧНАЯ ШАПКА И HUD ИНДИКАТОРЫ === */
     .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(226,232,240,0.8); padding: 14px 0; box-shadow: 0 4px 30px rgba(0,0,0,0.02); }
@@ -275,21 +321,24 @@
   <canvas id="canvas-bg"></canvas>
   <div class="orb-layer"><div class="orb o1"></div><div class="orb o2"></div></div>
 
+  <!-- БЛОК ПРЕЛОАДЕРА (МИГАЛКИ СМП И НОВЫЙ ЛОГОТИП) -->
   <div id="preloader">
     <div id="stars-container"></div>
-    <div class="solar-system">
-      <div class="orbit orb-1"></div>
-      <div class="orbit orb-2"></div>
-      <div class="orbit orb-3"></div>
-      <img src="assets/Филин от.png" class="planet-logo" alt="Logo">
+    <div class="beacon-system">
+      <div class="beacon-ring ring-1"></div>
+      <div class="beacon-ring ring-2"></div>
+      <div class="siren-flare red-flare"></div>
+      <div class="siren-flare blue-flare"></div>
+      <img src="assets/logomossmp.png" class="medical-logo" alt="Logo MOSSMP">
     </div>
-    <div class="loading-status">CONNECTING TO MOSSMP NETWORK</div>
+    <div class="loading-status">СИНХРОНИЗАЦИЯ БИОМЕТРИИ И РЕГЛАМЕНТОВ...</div>
   </div>
 
+  <!-- ШАПКА РЕСУРСА -->
   <header class="header">
     <div class="container nav">
       <div class="brand">
-        <img src="assets/Филин от.png" alt="Logo">
+        <img src="assets/logomossmp.png" alt="Logo">
         <div class="brand-info">
           <div class="brand-txt"><h1>ГБУЗ МО "МОССМП"</h1></div>
           <div class="brand-meta">
@@ -315,6 +364,7 @@
     </div>
   </header>
 
+  <!-- ЦЕНТРАЛЬНЫЙ БЛОК -->
   <main class="container">
     <div class="hero">
       <div class="greeting-box"><span id="typewriter"></span><span class="cursor"></span></div>
@@ -335,8 +385,10 @@
       </div>
     </div>
 
+    <!-- ИНТЕРАКТИВНЫЙ СТЕК ПАПОК С ПРЕДУСТАНОВЛЕННЫМИ 10+ МЕСТАМИ -->
     <div class="stack">
       
+      <!-- ПАПКА 1: ОХРАНА ТРУДА И СУОТ (КРАСНАЯ МЕДИЦИНСКАЯ ТЕМА) -->
       <div class="folder red" id="f1">
         <div class="f-head" onclick="toggleFolder('f1')">
           <div class="f-main">
@@ -348,6 +400,7 @@
         
         <div class="f-body">
           
+          <!-- Подраздел 1.1: Приказы (Ровно 10 позиций по ТЗ) -->
           <div class="sub-item">
             <div class="sub-head" onclick="toggleSub(this)"><span>📜 Реестр Приказов ГБУЗ МО "МОССМП"</span> <span>▼</span></div>
             <div class="sub-body">
@@ -424,6 +477,7 @@
             </div>
           </div>
 
+          <!-- Подраздел 1.2: Положения (Локальные акты) -->
           <div class="sub-item">
             <div class="sub-head" onclick="toggleSub(this)"><span>📂 Положения и Регламенты Безопасности</span> <span>▼</span></div>
             <div class="sub-body">
@@ -458,6 +512,7 @@
             </div>
           </div>
 
+          <!-- Подраздел 1.3: СОУТ (Спецоценка по подстанциям) -->
           <div class="sub-item">
             <div class="sub-head" onclick="toggleSub(this)"><span>🔬 Реестр Карт СОУТ (Спецоценка условий труда)</span> <span>▼</span></div>
             <div class="sub-body">
@@ -502,6 +557,7 @@
         </div>
       </div>
 
+      <!-- ПАПКА 2: МЕДИЦИНСКИЕ АЛГОРИТМЫ И КЛИНИЧЕСКИЕ ПРОТОКОЛЫ (СИНЯЯ ТЕМА) -->
       <div class="folder blue" id="f2">
         <div class="f-head" onclick="toggleFolder('f2')">
           <div class="f-main">
@@ -525,7 +581,7 @@
                 <div class="file-ico">⚡</div>
                 <div class="file-data">
                   <div class="file-meta-row"><span class="badge imp">Минздрав 220н</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Алгоритм проведения расширенной сердечно-легочной реанимации (СЛР) бригадой СМП</span>
+                  <span class="file-name">Алгоритм проведения расширенной серде-легочной реанимации (СЛР) бригадой СМП</span>
                 </div>
               </div>
               <div class="file" onclick="openViewer('assets/mock.pdf', 'Политравма ДТП')">
@@ -540,6 +596,7 @@
         </div>
       </div>
 
+      <!-- ПАПКА 3: САНИТАРНО-ЭПИДЕМИОЛОГИЧЕСКИЙ РЕЖИМ (ЗЕЛЕНАЯ ТЕМА) -->
       <div class="folder green" id="f3">
         <div class="f-head" onclick="toggleFolder('f3')">
           <div class="f-main">
@@ -578,6 +635,7 @@
     © 2026 ГБУЗ МО "МОССМП". Официальный внутренний реестр документации.
   </footer>
 
+  <!-- ИНТЕРАКТИВНЫЙ ИСТОЧНИК ИЗВЕСТИЙ СТАНЦИИ -->
   <a href="https://t.me/mossmp" target="_blank" class="tg-float">
     <div class="tg-logo">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff">
@@ -590,6 +648,7 @@
     </div>
   </a>
 
+  <!-- === АБСОЛЮТНЫЙ ИНТЕГРИРОВАННЫЙ PDF-ДВИЖЕК ВЕРСИИ 8.0 === -->
   <div class="pdf-modal" id="pdfModal">
     <div class="pdf-viewer-header">
       <div class="pdf-header-left">
