@@ -45,10 +45,10 @@
     /* === 1. ЖИВАЯ АНИМАЦИЯ ФОНА (CANVAS NODES + ФОКУС МИКРОСКОПА) === */
     @keyframes focusCalibration {
       0%, 65%, 100% { filter: blur(0px); }
-      72% { filter: blur(6px); } 
-      82% { filter: blur(2px); } 
-      88% { filter: blur(5px); } 
-      95% { filter: blur(0px); } 
+      72% { filter: blur(6px); } /* Долгий и сильный расфокус */
+      82% { filter: blur(2px); } /* Попытка поймать фокус */
+      88% { filter: blur(5px); } /* Снова сбился */
+      95% { filter: blur(0px); } /* Фокус найден */
     }
     
     #canvas-bg { 
@@ -60,9 +60,9 @@
     .microscope-hud {
       position: fixed; inset: 0; z-index: -1; pointer-events: none;
       background: 
-        radial-gradient(circle at center, transparent 40%, rgba(15, 23, 42, 0.15) 100%), 
-        linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px), 
-        linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px); 
+        radial-gradient(circle at center, transparent 40%, rgba(15, 23, 42, 0.15) 100%), /* Виньетка (оптическое затенение) */
+        linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px), /* Горизонтальная измерительная сетка */
+        linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px); /* Вертикальная сетка */
       background-size: 100% 100%, 40px 40px, 40px 40px;
       background-position: center center;
     }
@@ -279,7 +279,6 @@
     .file:hover::after { left: 100%; }
 
     .file-ico { font-size: 1.5rem; min-width: 32px; text-align: center; display: flex; align-items: center; justify-content: center; }
-    .file-ico { font-size: 1.5rem; min-width: 32px; text-align: center; display: flex; align-items: center; justify-content: center; }
     .file-data { display: flex; flex-direction: column; gap: 4px; flex-grow: 1; }
     .file-name { font-size: 0.98rem; font-weight: 600; color: #0f172a; line-height: 1.35; }
     .file-meta-row { display: flex; align-items: center; gap: 10px; }
@@ -367,7 +366,6 @@
   <div class="microscope-hud"></div>
   <div class="orb-layer"><div class="orb o1"></div><div class="orb o2"></div></div>
 
-  <!-- БЛОК ПРЕЛОАДЕРА (МИГАЛКИ СМП И НОВЫЙ ЛОГОТИП) -->
   <div id="preloader">
     <div id="stars-container"></div>
     <div class="beacon-system">
@@ -380,7 +378,6 @@
     <div class="loading-status">СИНХРОНИЗАЦИЯ БИОМЕТРИИ И РЕГЛАМЕНТОВ...</div>
   </div>
 
-  <!-- ШАПКА РЕСУРСА -->
   <header class="header">
     <div class="container nav">
       <div class="brand">
@@ -388,11 +385,10 @@
         <div class="brand-info">
           <div class="brand-txt"><h1>ГБУЗ МО "МОССМП"</h1></div>
           
-          <!-- МОДЕРНИЗИРОВАННЫЙ HUD ОБСТАНОВКИ (ПОГОДА И ВЕТЕР) -->
           <div class="hud-dashboard">
             <div class="hud-item"><span class="hud-dot"></span> <span id="systemTime">00:00:00</span></div>
             <div class="hud-separator"></div>
-            <div class="hud-item"><span class="hud-icon">🌡️</span> <span id="hud-temp">Загрузка...</span></div>
+            <div class="hud-item"><span class="hud-icon">🌡️</span> <span id="hud-temp">Синхронизация...</span></div>
             <div class="hud-separator"></div>
             <div class="hud-item"><span class="hud-icon">💨</span> <span id="hud-wind">Синхронизация...</span></div>
             <div class="hud-separator"></div>
@@ -415,7 +411,6 @@
     </div>
   </header>
 
-  <!-- ЦЕНТРАЛЬНЫЙ БЛОК -->
   <main class="container">
     <div class="hero">
       <div class="greeting-box"><span id="typewriter"></span><span class="cursor"></span></div>
@@ -436,10 +431,8 @@
       </div>
     </div>
 
-    <!-- ИНТЕРАКТИВНЫЙ СТЕК ПАПОК -->
     <div class="stack">
       
-      <!-- ПАПКА 1: ОХРАНА ТРУДА И СУОТ -->
       <div class="folder red" id="f1">
         <div class="f-head" onclick="toggleFolder('f1')">
           <div class="f-main">
@@ -451,7 +444,6 @@
         
         <div class="f-body">
           
-          <!-- Подраздел 1.1: Приказы (Ровно 10 позиций по ТЗ) -->
           <div class="sub-item">
             <div class="sub-head" onclick="toggleSub(this)"><span>📜 Реестр Приказов ГБУЗ МО "МОССМП"</span> <span>▼</span></div>
             <div class="sub-body">
@@ -528,7 +520,6 @@
             </div>
           </div>
 
-          <!-- Подраздел 1.2: Положения -->
           <div class="sub-item">
             <div class="sub-head" onclick="toggleSub(this)"><span>📂 Положения и Регламенты Безопасности</span> <span>▼</span></div>
             <div class="sub-body">
@@ -563,7 +554,6 @@
             </div>
           </div>
 
-          <!-- Подраздел 1.3: СОУТ -->
           <div class="sub-item">
             <div class="sub-head" onclick="toggleSub(this)"><span>🔬 Реестр Карт СОУТ (Спецоценка условий труда)</span> <span>▼</span></div>
             <div class="sub-body">
@@ -615,7 +605,6 @@
     © 2026 ГБУЗ МО "МОССМП". Официальный внутренний реестр документации.
   </footer>
 
-  <!-- ИНТЕРАКТИВНЫЙ ИСТОЧНИК ИЗВЕСТИЙ СТАНЦИИ (MAX) -->
   <a href="https://max.ru/join/nE-hEr7PmCD8hAAPufWsW4p8ygTkFLGRMhwzNU9TNnw" target="_blank" class="tg-float">
     <div class="tg-logo">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff">
@@ -628,7 +617,6 @@
     </div>
   </a>
 
-  <!-- === АБСОЛЮТНЫЙ ИНТЕГРИРОВАННЫЙ PDF-ДВИЖЕК ВЕРСИИ 8.0 === -->
   <div class="pdf-modal" id="pdfModal">
     <div class="pdf-viewer-header">
       <div class="pdf-header-left">
@@ -678,6 +666,7 @@
     
     const bacteriaCount = window.innerWidth < 768 ? 35 : 70;
     const dustCount = window.innerWidth < 768 ? 50 : 150;
+    const MAX_BACTERIA_SIZE = 24; // Ограничение роста бактерий (размер монетки)
     let mouse = { x: null, y: null, targetX: 0, targetY: 0 };
 
     function resizeCanvas() { canvasEl.width = window.innerWidth; canvasEl.height = window.innerHeight; }
@@ -713,7 +702,7 @@
         this.vx = (Math.random() - 0.5) * 0.4 * this.z;
         this.vy = (Math.random() - 0.5) * 0.4 * this.z;
         
-        this.targetSize = (Math.random() * 5 + 2) * this.z; 
+        this.targetSize = Math.min((Math.random() * 5 + 2) * this.z, MAX_BACTERIA_SIZE); 
         this.baseSize = initial ? this.targetSize : 1; 
         
         this.angle = Math.random() * Math.PI * 2;
@@ -847,11 +836,11 @@
             if (dist < b1.baseSize + b2.baseSize) {
                 if (b1.targetSize > b2.targetSize * 1.6) {
                     ripples.push({x: b2.x, y: b2.y, z: b2.z, color: b2.colorRGB, life: 1.0, size: b2.baseSize});
-                    b1.targetSize += 0.4; 
+                    b1.targetSize = Math.min(b1.targetSize + 0.4, MAX_BACTERIA_SIZE); 
                     b2.reset(false);      
                 } else if (b2.targetSize > b1.targetSize * 1.6) {
                     ripples.push({x: b1.x, y: b1.y, z: b1.z, color: b1.colorRGB, life: 1.0, size: b1.baseSize});
-                    b2.targetSize += 0.4;
+                    b2.targetSize = Math.min(b2.targetSize + 0.4, MAX_BACTERIA_SIZE);
                     b1.reset(false);
                 } else {
                     b1.vx += dx * 0.001; b1.vy += dy * 0.001;
@@ -887,7 +876,7 @@
     }
     animateEnvironment();
 
-    // === 2. ЗАПУСК ПРЕЛОАДЕРА И КВАНТОВОЙ ПЕЧАТНОЙ МАШИНКИ ===
+    // === 2. ЗАПУСК ПРЕЛОАДЕРА, КВАНТОВОЙ ПЕЧАТНОЙ МАШИНКИ И ПОГОДЫ ===
     window.onload = function() {
       const sc = document.getElementById('stars-container');
       for(let i=0; i<130; i++) {
@@ -906,7 +895,7 @@
         document.getElementById('preloader').style.opacity = '0';
         document.getElementById('preloader').style.visibility = 'hidden';
         startTypewriter();
-        initWeatherSync(); // Запуск синхронизации погоды
+        initWeatherSync(); // Запуск синхронизации погоды OpenWeatherMap
       }, 2000);
       setInterval(() => { document.getElementById('systemTime').textContent = new Date().toLocaleTimeString('ru-RU'); }, 1000);
     };
@@ -1133,26 +1122,33 @@
       folder.addEventListener('mouseleave', () => { folder.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`; });
     });
 
-    // === 5. ИНТЕГРАЦИЯ ДИНАМИЧЕСКОЙ ПОГОДЫ (ПРИВЯЗКА К API) ===
+    // === 5. ИНТЕГРАЦИЯ ДИНАМИЧЕСКОЙ ПОГОДЫ (OPENWEATHERMAP API) ===
     function initWeatherSync() {
-      // Сюда мы подставим настоящий URL, как только вы определите имя провайдера данных
       const apiKey = "e38f7928d64f8745b977195362b626be";
+      const city = "Moscow";
+      // Запрос к серверу OpenWeatherMap (Метрическая система, Русский язык)
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=ru`;
       
-      // Шаблон заглушки для симуляции до момента настройки адреса:
-      document.getElementById('hud-temp').textContent = "+18°C Москва";
-      document.getElementById('hud-wind').textContent = "Ветер: 3.4 м/с";
-      
-      /* Шаблон для боевого fetch-запроса:
-      fetch(`АДРЕС_СЕРВИСА_ПОВАЙДЕРА?city=Moscow&key=${apiKey}`)
+      fetch(url)
         .then(res => res.json())
         .then(data => {
-           // Парсинг ответа в зависимости от структуры провайдера
-           document.getElementById('hud-temp').textContent = data.temperature + "°C Москва";
-           document.getElementById('hud-wind').textContent = "Ветер: " + data.wind_speed + " м/с";
+           if(data.main && data.wind) {
+               const temp = Math.round(data.main.temp);
+               // Округляем ветер до 1 знака после запятой
+               const wind = Math.round(data.wind.speed * 10) / 10; 
+               
+               // Подставляем реальные данные в HUD
+               document.getElementById('hud-temp').textContent = (temp > 0 ? "+" : "") + temp + "°C Москва";
+               document.getElementById('hud-wind').textContent = "Ветер: " + wind + " м/с";
+           }
         }).catch(err => {
-           document.getElementById('hud-temp').textContent = "Ошибка сети";
+           console.error("Ошибка синхронизации погоды:", err);
+           document.getElementById('hud-temp').textContent = "Офлайн";
+           document.getElementById('hud-wind').textContent = "Нет сети";
         });
-      */
+        
+        // Автообновление каждые 15 минут, чтобы не спамить API
+        setTimeout(initWeatherSync, 900000);
     }
   </script>
 </body>
