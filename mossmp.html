@@ -45,10 +45,10 @@
     /* === 1. ЖИВАЯ АНИМАЦИЯ ФОНА (CANVAS NODES + ФОКУС МИКРОСКОПА) === */
     @keyframes focusCalibration {
       0%, 65%, 100% { filter: blur(0px); }
-      72% { filter: blur(6px); } /* Долгий и сильный расфокус */
-      82% { filter: blur(2px); } /* Попытка поймать фокус */
-      88% { filter: blur(5px); } /* Снова сбился */
-      95% { filter: blur(0px); } /* Фокус найден */
+      72% { filter: blur(6px); } 
+      82% { filter: blur(2px); } 
+      88% { filter: blur(5px); } 
+      95% { filter: blur(0px); } 
     }
     
     #canvas-bg { 
@@ -60,9 +60,9 @@
     .microscope-hud {
       position: fixed; inset: 0; z-index: -1; pointer-events: none;
       background: 
-        radial-gradient(circle at center, transparent 40%, rgba(15, 23, 42, 0.15) 100%), /* Виньетка (оптическое затенение) */
-        linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px), /* Горизонтальная измерительная сетка */
-        linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px); /* Вертикальная сетка */
+        radial-gradient(circle at center, transparent 40%, rgba(15, 23, 42, 0.15) 100%), 
+        linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px), 
+        linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px); 
       background-size: 100% 100%, 40px 40px, 40px 40px;
       background-position: center center;
     }
@@ -170,7 +170,7 @@
 
     .brand-txt h1 { font-size: 1.2rem; font-weight: 900; line-height: 1.1; margin: 0; color: #0f172a; letter-spacing: -0.5px; }
     
-    /* Новый HUD Dashboard (Виджет оперативной обстановки) */
+    /* HUD Dashboard (Виджет оперативной обстановки: Москва Погода + Ветер) */
     .hud-dashboard { 
       display: flex; align-items: center; gap: 10px; margin-top: 6px; 
       font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; 
@@ -185,12 +185,6 @@
     
     .hud-dot { width: 6px; height: 6px; background: #ef4444; border-radius: 50%; box-shadow: 0 0 8px #ef4444; animation: blink 1.2s infinite; }
     @keyframes blink { 50% { opacity: 0.4; } }
-
-    /* Canvas для интерактивной ЭКГ */
-    #ecg-canvas {
-       position: absolute; bottom: 0; left: 0; width: 100%; height: 26px; 
-       z-index: 1; pointer-events: none; opacity: 0.75;
-    }
 
     .actions { display: flex; gap: 14px; align-items: center; }
     .btn-portal { position: relative; display: flex; align-items: center; gap: 12px; padding: 0 22px; height: 46px; border-radius: 14px; background: #0f172a; color: #fff; text-decoration: none; overflow: hidden; box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15); border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -213,7 +207,7 @@
       .btn-portal, .btn-site { padding: 0; width: 46px; justify-content: center; }
       .btn-col { display: none; }
       .actions { gap: 8px; }
-      .hud-dashboard { display: none; /* Прячем сложный HUD на мелких экранах для чистоты */ }
+      .hud-dashboard { display: none; }
     }
 
     /* === 4. HERO И КВАНТОВЫЙ ИНТЕЛЛЕКТУАЛЬНЫЙ ПОИСК === */
@@ -285,6 +279,7 @@
     .file:hover::after { left: 100%; }
 
     .file-ico { font-size: 1.5rem; min-width: 32px; text-align: center; display: flex; align-items: center; justify-content: center; }
+    .file-ico { font-size: 1.5rem; min-width: 32px; text-align: center; display: flex; align-items: center; justify-content: center; }
     .file-data { display: flex; flex-direction: column; gap: 4px; flex-grow: 1; }
     .file-name { font-size: 0.98rem; font-weight: 600; color: #0f172a; line-height: 1.35; }
     .file-meta-row { display: flex; align-items: center; gap: 10px; }
@@ -294,7 +289,7 @@
     .badge.imp { background: #fee2e2; color: #991b1b; }
     .badge.sout-tag { background: #e0f2fe; color: #0369a1; }
 
-    /* === 6. КНОПКА ТЕЛЕГРАМ (МЕССЕНДЖЕР MAX) УКОРОЧЕННАЯ === */
+    /* === 6. КНОПКА МЕССЕНДЖЕРА MAX (УКОРОЧЕННАЯ) === */
     .tg-float { 
       position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); 
       background: rgba(255,255,255,0.96); backdrop-filter: blur(15px); 
@@ -385,7 +380,7 @@
     <div class="loading-status">СИНХРОНИЗАЦИЯ БИОМЕТРИИ И РЕГЛАМЕНТОВ...</div>
   </div>
 
-  <!-- ШАПКА РЕСУРСА + ЭКГ -->
+  <!-- ШАПКА РЕСУРСА -->
   <header class="header">
     <div class="container nav">
       <div class="brand">
@@ -393,13 +388,13 @@
         <div class="brand-info">
           <div class="brand-txt"><h1>ГБУЗ МО "МОССМП"</h1></div>
           
-          <!-- НОВЫЙ ВИДЖЕТ ОПЕРАТИВНОЙ ОБСТАНОВКИ (HUD) -->
+          <!-- МОДЕРНИЗИРОВАННЫЙ HUD ОБСТАНОВКИ (ПОГОДА И ВЕТЕР) -->
           <div class="hud-dashboard">
             <div class="hud-item"><span class="hud-dot"></span> <span id="systemTime">00:00:00</span></div>
             <div class="hud-separator"></div>
-            <div class="hud-item"><span class="hud-icon">🌡️</span> <span>+16°C Норма</span></div>
+            <div class="hud-item"><span class="hud-icon">🌡️</span> <span id="hud-temp">Загрузка...</span></div>
             <div class="hud-separator"></div>
-            <div class="hud-item"><span class="hud-icon">🛣️</span> <span>М-9: Свободно</span></div>
+            <div class="hud-item"><span class="hud-icon">💨</span> <span id="hud-wind">Синхронизация...</span></div>
             <div class="hud-separator"></div>
             <div class="hud-item status-ok"><span class="hud-icon">🛡️</span> <span>Режим: Штатный</span></div>
           </div>
@@ -418,9 +413,6 @@
         </div>
       </div>
     </div>
-    
-    <!-- CANVAS ДЛЯ ЭКГ-КАРДИОГРАММЫ ВНИЗУ ШАПКИ -->
-    <canvas id="ecg-canvas"></canvas>
   </header>
 
   <!-- ЦЕНТРАЛЬНЫЙ БЛОК -->
@@ -447,7 +439,7 @@
     <!-- ИНТЕРАКТИВНЫЙ СТЕК ПАПОК -->
     <div class="stack">
       
-      <!-- ПАПКА 1: ОХРАНА ТРУДА И СУОТ (ВОЗВРАЩЕНА В СТРОГИЙ ДИЗАЙН) -->
+      <!-- ПАПКА 1: ОХРАНА ТРУДА И СУОТ -->
       <div class="folder red" id="f1">
         <div class="f-head" onclick="toggleFolder('f1')">
           <div class="f-main">
@@ -459,7 +451,7 @@
         
         <div class="f-body">
           
-          <!-- Подраздел 1.1: Приказы -->
+          <!-- Подраздел 1.1: Приказы (Ровно 10 позиций по ТЗ) -->
           <div class="sub-item">
             <div class="sub-head" onclick="toggleSub(this)"><span>📜 Реестр Приказов ГБУЗ МО "МОССМП"</span> <span>▼</span></div>
             <div class="sub-body">
@@ -536,7 +528,7 @@
             </div>
           </div>
 
-          <!-- Подраздел 1.2: Положения (Локальные акты) -->
+          <!-- Подраздел 1.2: Положения -->
           <div class="sub-item">
             <div class="sub-head" onclick="toggleSub(this)"><span>📂 Положения и Регламенты Безопасности</span> <span>▼</span></div>
             <div class="sub-body">
@@ -571,7 +563,7 @@
             </div>
           </div>
 
-          <!-- Подраздел 1.3: СОУТ (Спецоценка по подстанциям) -->
+          <!-- Подраздел 1.3: СОУТ -->
           <div class="sub-item">
             <div class="sub-head" onclick="toggleSub(this)"><span>🔬 Реестр Карт СОУТ (Спецоценка условий труда)</span> <span>▼</span></div>
             <div class="sub-body">
@@ -895,74 +887,6 @@
     }
     animateEnvironment();
 
-    // === 1.5 ЭКГ МОНИТОРИНГ (КАРДИОГРАММА В ШАПКЕ) ===
-    const ecgCanvas = document.getElementById('ecg-canvas');
-    const ecgCtx = ecgCanvas.getContext('2d');
-    let ecgPoints = [];
-    let ecgPhase = 0;
-    let ecgStress = 0;
-
-    function resizeECG() {
-        ecgCanvas.width = window.innerWidth;
-        ecgCanvas.height = 26;
-        const pointsCount = Math.ceil(ecgCanvas.width / 3);
-        while(ecgPoints.length < pointsCount) ecgPoints.push(13);
-        while(ecgPoints.length > pointsCount) ecgPoints.shift();
-    }
-    window.addEventListener('resize', resizeECG);
-    resizeECG();
-
-    window.addEventListener('scroll', () => { ecgStress = Math.min(ecgStress + 0.15, 1); });
-    window.addEventListener('mousemove', () => { ecgStress = Math.min(ecgStress + 0.05, 1); });
-
-    function animateECG() {
-        ecgStress *= 0.98; // Плавное затухание активности
-        if (ecgStress < 0.01) ecgStress = 0;
-
-        let speed = 2.5 + ecgStress * 4.5; // Скорость зависит от стресса (мышь/скролл)
-        ecgPhase += speed;
-
-        let y = 13; // Базовая линия
-        let cycle = ecgPhase % 300; 
-        
-        // PQRST комплекс
-        if (cycle > 10 && cycle < 30) y = 13 - Math.sin((cycle - 10) * Math.PI / 20) * 3; // P
-        else if (cycle >= 40 && cycle < 45) y = 13 + 4; // Q
-        else if (cycle >= 45 && cycle < 50) y = 13 - 12; // R
-        else if (cycle >= 50 && cycle < 55) y = 13 + 6; // S
-        else if (cycle > 80 && cycle < 110) y = 13 - Math.sin((cycle - 80) * Math.PI / 30) * 5; // T
-        
-        // Шум (артефакты движения)
-        y += (Math.random() - 0.5) * ecgStress * 3;
-
-        ecgPoints.push(y);
-        ecgPoints.shift();
-
-        ecgCtx.clearRect(0, 0, ecgCanvas.width, ecgCanvas.height);
-        
-        ecgCtx.beginPath();
-        ecgCtx.moveTo(0, ecgPoints[0]);
-        for(let i=1; i<ecgPoints.length; i++) {
-            ecgCtx.lineTo(i * (ecgCanvas.width / ecgPoints.length), ecgPoints[i]);
-        }
-        
-        // Цвет: красный при нагрузке, синий в покое
-        const rColor = ecgStress > 0.4 ? '239, 68, 68' : '59, 130, 246';
-        
-        ecgCtx.strokeStyle = `rgba(${rColor}, 0.8)`;
-        ecgCtx.lineWidth = 1.5;
-        ecgCtx.lineJoin = 'round';
-        ecgCtx.stroke();
-        
-        ecgCtx.shadowBlur = 6;
-        ecgCtx.shadowColor = `rgba(${rColor}, 0.6)`;
-        ecgCtx.stroke();
-        ecgCtx.shadowBlur = 0;
-
-        requestAnimationFrame(animateECG);
-    }
-    animateECG();
-
     // === 2. ЗАПУСК ПРЕЛОАДЕРА И КВАНТОВОЙ ПЕЧАТНОЙ МАШИНКИ ===
     window.onload = function() {
       const sc = document.getElementById('stars-container');
@@ -982,6 +906,7 @@
         document.getElementById('preloader').style.opacity = '0';
         document.getElementById('preloader').style.visibility = 'hidden';
         startTypewriter();
+        initWeatherSync(); // Запуск синхронизации погоды
       }, 2000);
       setInterval(() => { document.getElementById('systemTime').textContent = new Date().toLocaleTimeString('ru-RU'); }, 1000);
     };
@@ -1207,6 +1132,28 @@
       });
       folder.addEventListener('mouseleave', () => { folder.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`; });
     });
+
+    // === 5. ИНТЕГРАЦИЯ ДИНАМИЧЕСКОЙ ПОГОДЫ (ПРИВЯЗКА К API) ===
+    function initWeatherSync() {
+      // Сюда мы подставим настоящий URL, как только вы определите имя провайдера данных
+      const apiKey = "e38f7928d64f8745b977195362b626be";
+      
+      // Шаблон заглушки для симуляции до момента настройки адреса:
+      document.getElementById('hud-temp').textContent = "+18°C Москва";
+      document.getElementById('hud-wind').textContent = "Ветер: 3.4 м/с";
+      
+      /* Шаблон для боевого fetch-запроса:
+      fetch(`АДРЕС_СЕРВИСА_ПОВАЙДЕРА?city=Moscow&key=${apiKey}`)
+        .then(res => res.json())
+        .then(data => {
+           // Парсинг ответа в зависимости от структуры провайдера
+           document.getElementById('hud-temp').textContent = data.temperature + "°C Москва";
+           document.getElementById('hud-wind').textContent = "Ветер: " + data.wind_speed + " м/с";
+        }).catch(err => {
+           document.getElementById('hud-temp').textContent = "Ошибка сети";
+        });
+      */
+    }
   </script>
 </body>
 </html>
