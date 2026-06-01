@@ -321,6 +321,7 @@
   <canvas id="canvas-bg"></canvas>
   <div class="orb-layer"><div class="orb o1"></div><div class="orb o2"></div></div>
 
+  <!-- БЛОК ПРЕЛОАДЕРА (МИГАЛКИ СМП И НОВЫЙ ЛОГОТИП) -->
   <div id="preloader">
     <div id="stars-container"></div>
     <div class="beacon-system">
@@ -333,6 +334,7 @@
     <div class="loading-status">СИНХРОНИЗАЦИЯ БИОМЕТРИИ И РЕГЛАМЕНТОВ...</div>
   </div>
 
+  <!-- ШАПКА РЕСУРСА -->
   <header class="header">
     <div class="container nav">
       <div class="brand">
@@ -362,6 +364,7 @@
     </div>
   </header>
 
+  <!-- ЦЕНТРАЛЬНЫЙ БЛОК -->
   <main class="container">
     <div class="hero">
       <div class="greeting-box"><span id="typewriter"></span><span class="cursor"></span></div>
@@ -382,8 +385,10 @@
       </div>
     </div>
 
+    <!-- ИНТЕРАКТИВНЫЙ СТЕК ПАПОК С ПРЕДУСТАНОВЛЕННЫМИ 10+ МЕСТАМИ -->
     <div class="stack">
       
+      <!-- ПАПКА 1: ОХРАНА ТРУДА И СУОТ (КРАСНАЯ МЕДИЦИНСКАЯ ТЕМА) -->
       <div class="folder red" id="f1">
         <div class="f-head" onclick="toggleFolder('f1')">
           <div class="f-main">
@@ -395,6 +400,7 @@
         
         <div class="f-body">
           
+          <!-- Подраздел 1.1: Приказы (Ровно 10 позиций по ТЗ) -->
           <div class="sub-item">
             <div class="sub-head" onclick="toggleSub(this)"><span>📜 Реестр Приказов ГБУЗ МО "МОССМП"</span> <span>▼</span></div>
             <div class="sub-body">
@@ -471,6 +477,7 @@
             </div>
           </div>
 
+          <!-- Подраздел 1.2: Положения (Локальные акты) -->
           <div class="sub-item">
             <div class="sub-head" onclick="toggleSub(this)"><span>📂 Положения и Регламенты Безопасности</span> <span>▼</span></div>
             <div class="sub-body">
@@ -505,6 +512,7 @@
             </div>
           </div>
 
+          <!-- Подраздел 1.3: СОУТ (Спецоценка по подстанциям) -->
           <div class="sub-item">
             <div class="sub-head" onclick="toggleSub(this)"><span>🔬 Реестр Карт СОУТ (Спецоценка условий труда)</span> <span>▼</span></div>
             <div class="sub-body">
@@ -549,6 +557,7 @@
         </div>
       </div>
 
+      <!-- ПАПКА 2: МЕДИЦИНСКИЕ АЛГОРИТМЫ И КЛИНИЧЕСКИЕ ПРОТОКОЛЫ (СИНЯЯ ТЕМА) -->
       <div class="folder blue" id="f2">
         <div class="f-head" onclick="toggleFolder('f2')">
           <div class="f-main">
@@ -587,6 +596,7 @@
         </div>
       </div>
 
+      <!-- ПАПКА 3: САНИТАРНО-ЭПИДЕМИОЛОГИЧЕСКИЙ РЕЖИМ (ЗЕЛЕНАЯ ТЕМА) -->
       <div class="folder green" id="f3">
         <div class="f-head" onclick="toggleFolder('f3')">
           <div class="f-main">
@@ -625,6 +635,7 @@
     © 2026 ГБУЗ МО "МОССМП". Официальный внутренний реестр документации.
   </footer>
 
+  <!-- ИНТЕРАКТИВНЫЙ ИСТОЧНИК ИЗВЕСТИЙ СТАНЦИИ -->
   <a href="https://t.me/mossmp" target="_blank" class="tg-float">
     <div class="tg-logo">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff">
@@ -637,6 +648,7 @@
     </div>
   </a>
 
+  <!-- === АБСОЛЮТНЫЙ ИНТЕГРИРОВАННЫЙ PDF-ДВИЖЕК ВЕРСИИ 8.0 === -->
   <div class="pdf-modal" id="pdfModal">
     <div class="pdf-viewer-header">
       <div class="pdf-header-left">
@@ -694,41 +706,66 @@
     });
 
     class Bacterium {
-      constructor() { this.reset(); }
-      reset() {
-        this.x = Math.random() * canvasEl.width;
-        this.y = Math.random() * canvasEl.height;
+      constructor() { this.reset(true); }
+      
+      reset(initial = false) {
+        // Если перерождается после того, как ее съели - появляется за краем экрана
+        this.x = initial ? Math.random() * canvasEl.width : (Math.random() > 0.5 ? -50 : canvasEl.width + 50);
+        this.y = initial ? Math.random() * canvasEl.height : Math.random() * canvasEl.height;
         this.z = Math.random() * 1.5 + 0.5; // Глубина резкости (масштаб)
-        this.vx = (Math.random() - 0.5) * 0.6 * this.z;
-        this.vy = (Math.random() - 0.5) * 0.6 * this.z;
-        this.baseSize = (Math.random() * 4 + 3) * this.z;
+        this.vx = (Math.random() - 0.5) * 0.4 * this.z;
+        this.vy = (Math.random() - 0.5) * 0.4 * this.z;
+        
+        // Разброс размеров увеличен, чтобы были "хищники" и "жертвы"
+        this.targetSize = (Math.random() * 5 + 2) * this.z; 
+        this.baseSize = initial ? this.targetSize : 1; 
+        
         this.angle = Math.random() * Math.PI * 2;
-        this.vAngle = (Math.random() - 0.5) * 0.03;
-        this.type = Math.random() > 0.5 ? 'rod' : 'round'; // Палочки или кокки
-        this.length = this.type === 'rod' ? this.baseSize * (Math.random() * 2 + 1.5) : 0;
+        this.vAngle = (Math.random() - 0.5) * 0.02;
+        this.type = Math.random() > 0.6 ? 'rod' : 'round'; 
+        this.length = this.type === 'rod' ? this.targetSize * (Math.random() * 2 + 1.5) : 0;
         
         // Медицинские цвета (Красный, Синий, Изумрудный)
         const colors = ['rgba(239, 68, 68, ', 'rgba(59, 130, 246, ', 'rgba(16, 185, 129, '];
         this.color = colors[Math.floor(Math.random() * colors.length)];
-        this.opacity = Math.random() * 0.4 + 0.15;
+        
+        // Значительно снижена прозрачность, чтобы не отвлекали от текста
+        this.opacity = Math.random() * 0.15 + 0.05; 
+        
         this.wiggle = Math.random() * Math.PI * 2;
-        this.wiggleSpeed = Math.random() * 0.05 + 0.02;
+        this.wiggleSpeed = Math.random() * 0.03 + 0.01;
+        this.tumbleTimer = Math.random() * 100;
       }
+      
       update() {
+        // Плавный рост (если съел кого-то или только родился)
+        if (this.baseSize < this.targetSize) {
+            this.baseSize += 0.05;
+            if (this.type === 'rod') this.length = this.baseSize * 2.5;
+        }
+
+        // Реалистичное движение "Run and Tumble" (Беги и кувыркайся)
+        this.tumbleTimer--;
+        if (this.tumbleTimer <= 0) {
+            this.vx = (Math.random() - 0.5) * 0.6 * this.z;
+            this.vy = (Math.random() - 0.5) * 0.6 * this.z;
+            this.tumbleTimer = Math.random() * 150 + 50;
+        }
+
         // Имитация жидкости под микроскопом
         this.wiggle += this.wiggleSpeed;
-        let wx = Math.cos(this.wiggle) * 0.5;
-        let wy = Math.sin(this.wiggle) * 0.5;
+        let wx = Math.cos(this.wiggle) * 0.3;
+        let wy = Math.sin(this.wiggle) * 0.3;
 
         this.x += this.vx + wx; 
         this.y += this.vy + wy;
         this.angle += this.vAngle;
 
         // Плавный переход через края экрана
-        if(this.x < -60) this.x = canvasEl.width + 60;
-        if(this.x > canvasEl.width + 60) this.x = -60;
-        if(this.y < -60) this.y = canvasEl.height + 60;
-        if(this.y > canvasEl.height + 60) this.y = -60;
+        if(this.x < -100) this.x = canvasEl.width + 100;
+        if(this.x > canvasEl.width + 100) this.x = -100;
+        if(this.y < -100) this.y = canvasEl.height + 100;
+        if(this.y > canvasEl.height + 100) this.y = -100;
 
         let px = this.x + mouse.targetX * this.z;
         let py = this.y + mouse.targetY * this.z;
@@ -744,6 +781,7 @@
             }
         }
       }
+      
       draw() {
         let px = this.x + mouse.targetX * this.z;
         let py = this.y + mouse.targetY * this.z;
@@ -752,8 +790,8 @@
         ctxCanvas.translate(px, py);
         ctxCanvas.rotate(this.angle);
         
-        // 1. Внешняя мембрана / Ореол размытия (имитация фокуса микроскопа)
-        ctxCanvas.fillStyle = this.color + (this.opacity * 0.4) + ')';
+        // 1. Внешняя мембрана / Ореол размытия
+        ctxCanvas.fillStyle = this.color + (this.opacity * 0.5) + ')';
         ctxCanvas.beginPath();
         if (this.type === 'round') {
             ctxCanvas.arc(0, 0, this.baseSize * 1.5, 0, Math.PI * 2);
@@ -776,8 +814,8 @@
         }
         ctxCanvas.fill();
 
-        // 3. Внутренняя структура (ядро / спора)
-        ctxCanvas.fillStyle = this.color + (this.opacity + 0.4) + ')';
+        // 3. Внутренняя структура (ядро)
+        ctxCanvas.fillStyle = this.color + (this.opacity + 0.15) + ')';
         ctxCanvas.beginPath();
         if (this.type === 'round') {
             ctxCanvas.arc(0, 0, this.baseSize * 0.4, 0, Math.PI * 2);
@@ -795,10 +833,36 @@
 
     function animateBacteria() {
       ctxCanvas.clearRect(0, 0, canvasEl.width, canvasEl.height);
-      bacteria.forEach(b => {
-        b.update(); 
-        b.draw();
-      });
+      
+      // Логика фагоцитоза (поедания) и коллизий
+      for(let i=0; i<bacteria.length; i++) {
+        let b1 = bacteria[i];
+        b1.update();
+        b1.draw();
+        
+        for(let j=i+1; j<bacteria.length; j++) {
+            let b2 = bacteria[j];
+            let dx = b1.x - b2.x;
+            let dy = b1.y - b2.y;
+            let dist = Math.sqrt(dx*dx + dy*dy);
+            
+            // Если столкнулись
+            if (dist < b1.baseSize + b2.baseSize) {
+                // Если одна бактерия значительно больше другой (хищник и жертва)
+                if (b1.targetSize > b2.targetSize * 1.6) {
+                    b1.targetSize += 0.4; // Хищник растет
+                    b2.reset(false);      // Жертва съедена и перерождается за краем экрана
+                } else if (b2.targetSize > b1.targetSize * 1.6) {
+                    b2.targetSize += 0.4;
+                    b1.reset(false);
+                } else {
+                    // Иначе просто мягкое отталкивание друг от друга (броуновское движение)
+                    b1.vx += dx * 0.001; b1.vy += dy * 0.001;
+                    b2.vx -= dx * 0.001; b2.vy -= dy * 0.001;
+                }
+            }
+        }
+      }
       requestAnimationFrame(animateBacteria);
     }
     animateBacteria();
