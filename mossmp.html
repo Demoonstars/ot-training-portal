@@ -321,7 +321,6 @@
   <canvas id="canvas-bg"></canvas>
   <div class="orb-layer"><div class="orb o1"></div><div class="orb o2"></div></div>
 
-  <!-- БЛОК ПРЕЛОАДЕРА (МИГАЛКИ СМП И НОВЫЙ ЛОГОТИП) -->
   <div id="preloader">
     <div id="stars-container"></div>
     <div class="beacon-system">
@@ -334,7 +333,6 @@
     <div class="loading-status">СИНХРОНИЗАЦИЯ БИОМЕТРИИ И РЕГЛАМЕНТОВ...</div>
   </div>
 
-  <!-- ШАПКА РЕСУРСА -->
   <header class="header">
     <div class="container nav">
       <div class="brand">
@@ -364,7 +362,6 @@
     </div>
   </header>
 
-  <!-- ЦЕНТРАЛЬНЫЙ БЛОК -->
   <main class="container">
     <div class="hero">
       <div class="greeting-box"><span id="typewriter"></span><span class="cursor"></span></div>
@@ -385,10 +382,8 @@
       </div>
     </div>
 
-    <!-- ИНТЕРАКТИВНЫЙ СТЕК ПАПОК С ПРЕДУСТАНОВЛЕННЫМИ 10+ МЕСТАМИ -->
     <div class="stack">
       
-      <!-- ПАПКА 1: ОХРАНА ТРУДА И СУОТ (КРАСНАЯ МЕДИЦИНСКАЯ ТЕМА) -->
       <div class="folder red" id="f1">
         <div class="f-head" onclick="toggleFolder('f1')">
           <div class="f-main">
@@ -400,7 +395,6 @@
         
         <div class="f-body">
           
-          <!-- Подраздел 1.1: Приказы (Ровно 10 позиций по ТЗ) -->
           <div class="sub-item">
             <div class="sub-head" onclick="toggleSub(this)"><span>📜 Реестр Приказов ГБУЗ МО "МОССМП"</span> <span>▼</span></div>
             <div class="sub-body">
@@ -477,7 +471,6 @@
             </div>
           </div>
 
-          <!-- Подраздел 1.2: Положения (Локальные акты) -->
           <div class="sub-item">
             <div class="sub-head" onclick="toggleSub(this)"><span>📂 Положения и Регламенты Безопасности</span> <span>▼</span></div>
             <div class="sub-body">
@@ -512,7 +505,6 @@
             </div>
           </div>
 
-          <!-- Подраздел 1.3: СОУТ (Спецоценка по подстанциям) -->
           <div class="sub-item">
             <div class="sub-head" onclick="toggleSub(this)"><span>🔬 Реестр Карт СОУТ (Спецоценка условий труда)</span> <span>▼</span></div>
             <div class="sub-body">
@@ -557,7 +549,6 @@
         </div>
       </div>
 
-      <!-- ПАПКА 2: МЕДИЦИНСКИЕ АЛГОРИТМЫ И КЛИНИЧЕСКИЕ ПРОТОКОЛЫ (СИНЯЯ ТЕМА) -->
       <div class="folder blue" id="f2">
         <div class="f-head" onclick="toggleFolder('f2')">
           <div class="f-main">
@@ -581,7 +572,7 @@
                 <div class="file-ico">⚡</div>
                 <div class="file-data">
                   <div class="file-meta-row"><span class="badge imp">Минздрав 220н</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Алгоритм проведения расширенной серде-легочной реанимации (СЛР) бригадой СМП</span>
+                  <span class="file-name">Алгоритм проведения расширенной сердечно-легочной реанимации (СЛР) бригадой СМП</span>
                 </div>
               </div>
               <div class="file" onclick="openViewer('assets/mock.pdf', 'Политравма ДТП')">
@@ -596,7 +587,6 @@
         </div>
       </div>
 
-      <!-- ПАПКА 3: САНИТАРНО-ЭПИДЕМИОЛОГИЧЕСКИЙ РЕЖИМ (ЗЕЛЕНАЯ ТЕМА) -->
       <div class="folder green" id="f3">
         <div class="f-head" onclick="toggleFolder('f3')">
           <div class="f-main">
@@ -635,7 +625,6 @@
     © 2026 ГБУЗ МО "МОССМП". Официальный внутренний реестр документации.
   </footer>
 
-  <!-- ИНТЕРАКТИВНЫЙ ИСТОЧНИК ИЗВЕСТИЙ СТАНЦИИ -->
   <a href="https://t.me/mossmp" target="_blank" class="tg-float">
     <div class="tg-logo">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff">
@@ -648,7 +637,6 @@
     </div>
   </a>
 
-  <!-- === АБСОЛЮТНЫЙ ИНТЕГРИРОВАННЫЙ PDF-ДВИЖЕК ВЕРСИИ 8.0 === -->
   <div class="pdf-modal" id="pdfModal">
     <div class="pdf-viewer-header">
       <div class="pdf-header-left">
@@ -688,12 +676,11 @@
   </div>
 
   <script>
-    // === 1. ГЕНЕРАТОР ВЫСОКОТЕХНОЛОГИЧНЫХ ЧАТ-ЧАСТИЦ НА CANVAS ===
+    // === 1. ГЕНЕРАТОР МИКРОБИОЛОГИЧЕСКОЙ СРЕДЫ (БАКТЕРИИ ПОД МИКРОСКОПОМ) НА CANVAS ===
     const canvasEl = document.getElementById('canvas-bg');
     const ctxCanvas = canvasEl.getContext('2d');
-    let particles = [];
-    let meteors = [];
-    const particleCount = window.innerWidth < 768 ? 45 : 100;
+    let bacteria = [];
+    const bacteriaCount = window.innerWidth < 768 ? 35 : 70;
     let mouse = { x: null, y: null, targetX: 0, targetY: 0 };
 
     function resizeCanvas() { canvasEl.width = window.innerWidth; canvasEl.height = window.innerHeight; }
@@ -706,86 +693,115 @@
       mouse.targetY = (e.clientY - window.innerHeight / 2) * 0.04;
     });
 
-    class Particle {
+    class Bacterium {
       constructor() { this.reset(); }
       reset() {
         this.x = Math.random() * canvasEl.width;
         this.y = Math.random() * canvasEl.height;
-        this.vx = (Math.random() - 0.5) * 0.35;
-        this.vy = (Math.random() - 0.5) * 0.35;
-        this.size = Math.random() * 1.8 + 0.6;
+        this.z = Math.random() * 1.5 + 0.5; // Глубина резкости (масштаб)
+        this.vx = (Math.random() - 0.5) * 0.6 * this.z;
+        this.vy = (Math.random() - 0.5) * 0.6 * this.z;
+        this.baseSize = (Math.random() * 4 + 3) * this.z;
+        this.angle = Math.random() * Math.PI * 2;
+        this.vAngle = (Math.random() - 0.5) * 0.03;
+        this.type = Math.random() > 0.5 ? 'rod' : 'round'; // Палочки или кокки
+        this.length = this.type === 'rod' ? this.baseSize * (Math.random() * 2 + 1.5) : 0;
+        
+        // Медицинские цвета (Красный, Синий, Изумрудный)
+        const colors = ['rgba(239, 68, 68, ', 'rgba(59, 130, 246, ', 'rgba(16, 185, 129, '];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.opacity = Math.random() * 0.4 + 0.15;
+        this.wiggle = Math.random() * Math.PI * 2;
+        this.wiggleSpeed = Math.random() * 0.05 + 0.02;
       }
       update() {
-        let px = this.x + mouse.targetX * (this.size * 0.4);
-        let py = this.y + mouse.targetY * (this.size * 0.4);
-        this.x += this.vx; this.y += this.vy;
-        if(this.x < 0 || this.x > canvasEl.width) this.vx *= -1;
-        if(this.y < 0 || this.y > canvasEl.height) this.vy *= -1;
+        // Имитация жидкости под микроскопом
+        this.wiggle += this.wiggleSpeed;
+        let wx = Math.cos(this.wiggle) * 0.5;
+        let wy = Math.sin(this.wiggle) * 0.5;
+
+        this.x += this.vx + wx; 
+        this.y += this.vy + wy;
+        this.angle += this.vAngle;
+
+        // Плавный переход через края экрана
+        if(this.x < -60) this.x = canvasEl.width + 60;
+        if(this.x > canvasEl.width + 60) this.x = -60;
+        if(this.y < -60) this.y = canvasEl.height + 60;
+        if(this.y > canvasEl.height + 60) this.y = -60;
+
+        let px = this.x + mouse.targetX * this.z;
+        let py = this.y + mouse.targetY * this.z;
+
+        // Отталкивание от курсора (эффект поверхностного натяжения)
         if (mouse.x != null) {
             let dx = mouse.x - px; let dy = mouse.y - py;
             let dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 130) {
-                const force = (130 - dist) / 130;
-                this.x -= (dx / dist) * force * 2.5; this.y -= (dy / dist) * force * 2.5;
+            if (dist < 150) {
+                const force = (150 - dist) / 150;
+                this.x -= (dx / dist) * force * 1.5; 
+                this.y -= (dy / dist) * force * 1.5;
             }
         }
       }
       draw() {
-        let px = this.x + mouse.targetX * (this.size * 0.4);
-        let py = this.y + mouse.targetY * (this.size * 0.4);
-        ctxCanvas.fillStyle = 'rgba(239, 68, 68, 0.3)';
-        ctxCanvas.beginPath(); ctxCanvas.arc(px, py, this.size, 0, Math.PI * 2); ctxCanvas.fill();
-      }
-    }
-
-    class Meteor {
-      constructor() { this.init(); }
-      init() {
-        this.x = Math.random() * canvasEl.width; this.y = -100;
-        this.speed = Math.random() * 8 + 6; this.len = Math.random() * 90 + 50;
-        this.angle = Math.PI / 4; this.active = true;
-      }
-      update() {
-        this.x += Math.cos(this.angle) * this.speed;
-        this.y += Math.sin(this.angle) * this.speed;
-        if (this.y > canvasEl.height + 200) this.active = false;
-      }
-      draw() {
-        const grad = ctxCanvas.createLinearGradient(this.x, this.y, this.x - this.len, this.y - this.len);
-        grad.addColorStop(0, 'rgba(239, 68, 68, 0.7)'); grad.addColorStop(1, 'transparent');
-        ctxCanvas.strokeStyle = grad; ctxCanvas.lineWidth = 1.2;
-        ctxCanvas.beginPath(); ctxCanvas.moveTo(this.x, this.y); ctxCanvas.lineTo(this.x - this.len, this.y - this.len); ctxCanvas.stroke();
-      }
-    }
-
-    for(let i=0; i<particleCount; i++) particles.push(new Particle());
-
-    function animateParticles() {
-      ctxCanvas.clearRect(0, 0, canvasEl.width, canvasEl.height);
-      if (Math.random() < 0.006 && meteors.length < 2) meteors.push(new Meteor());
-      meteors = meteors.filter(m => m.active);
-      meteors.forEach(m => { m.update(); m.draw(); });
-      particles.forEach((p, i) => {
-        p.update(); p.draw();
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          let px1 = p.x + mouse.targetX * (p.size * 0.4);
-          let py1 = p.y + mouse.targetY * (p.size * 0.4);
-          let px2 = p2.x + mouse.targetX * (p2.size * 0.4);
-          let py2 = p2.y + mouse.targetY * (p2.size * 0.4);
-          const dx = px1 - px2; const dy = py1 - py2;
-          const dist = Math.sqrt(dx*dx + dy*dy);
-          if(dist < 110) {
-            const opacity = (110 - dist) / 1200;
-            ctxCanvas.strokeStyle = `rgba(239, 68, 68, ${opacity})`;
-            ctxCanvas.lineWidth = 0.35;
-            ctxCanvas.beginPath(); ctxCanvas.moveTo(px1, py1); ctxCanvas.lineTo(px2, py2); ctxCanvas.stroke();
-          }
+        let px = this.x + mouse.targetX * this.z;
+        let py = this.y + mouse.targetY * this.z;
+        
+        ctxCanvas.save();
+        ctxCanvas.translate(px, py);
+        ctxCanvas.rotate(this.angle);
+        
+        // 1. Внешняя мембрана / Ореол размытия (имитация фокуса микроскопа)
+        ctxCanvas.fillStyle = this.color + (this.opacity * 0.4) + ')';
+        ctxCanvas.beginPath();
+        if (this.type === 'round') {
+            ctxCanvas.arc(0, 0, this.baseSize * 1.5, 0, Math.PI * 2);
+        } else {
+            ctxCanvas.arc(-this.length/2, 0, this.baseSize * 1.5, Math.PI/2, Math.PI*1.5);
+            ctxCanvas.arc(this.length/2, 0, this.baseSize * 1.5, Math.PI*1.5, Math.PI/2);
+            ctxCanvas.closePath();
         }
-      });
-      requestAnimationFrame(animateParticles);
+        ctxCanvas.fill();
+
+        // 2. Основное тело бактерии
+        ctxCanvas.fillStyle = this.color + this.opacity + ')';
+        ctxCanvas.beginPath();
+        if (this.type === 'round') {
+            ctxCanvas.arc(0, 0, this.baseSize, 0, Math.PI * 2);
+        } else {
+            ctxCanvas.arc(-this.length/2, 0, this.baseSize, Math.PI/2, Math.PI*1.5);
+            ctxCanvas.arc(this.length/2, 0, this.baseSize, Math.PI*1.5, Math.PI/2);
+            ctxCanvas.closePath();
+        }
+        ctxCanvas.fill();
+
+        // 3. Внутренняя структура (ядро / спора)
+        ctxCanvas.fillStyle = this.color + (this.opacity + 0.4) + ')';
+        ctxCanvas.beginPath();
+        if (this.type === 'round') {
+            ctxCanvas.arc(0, 0, this.baseSize * 0.4, 0, Math.PI * 2);
+        } else {
+            ctxCanvas.arc(-this.length/3, 0, this.baseSize * 0.4, 0, Math.PI * 2);
+            ctxCanvas.arc(this.length/3, 0, this.baseSize * 0.4, 0, Math.PI * 2);
+        }
+        ctxCanvas.fill();
+
+        ctxCanvas.restore();
+      }
     }
-    animateParticles();
+
+    for(let i=0; i<bacteriaCount; i++) bacteria.push(new Bacterium());
+
+    function animateBacteria() {
+      ctxCanvas.clearRect(0, 0, canvasEl.width, canvasEl.height);
+      bacteria.forEach(b => {
+        b.update(); 
+        b.draw();
+      });
+      requestAnimationFrame(animateBacteria);
+    }
+    animateBacteria();
 
     // === 2. ЗАПУСК ПРЕЛОАДЕРА И КВАНТОВОЙ ПЕЧАТНОЙ МАШИНКИ ===
     window.onload = function() {
