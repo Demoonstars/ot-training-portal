@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Материалы: Действия при угрозе БПЛА</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description" content="Инструктаж по действиям при атаке БПЛА: правила выживания, укрытия, действия при взрыве и завалах.">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@1,700&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  </script>
+
+  <style>
+    /* === ТЕМА: БЕЗОПАСНОСТЬ И УГРОЗА (Красный/Оранжевый/Темный) === */
+    body.masterpiece-theme {
+      background: linear-gradient(-45deg, #fff1f2, #ffedd5, #fef2f2, #ffffff);
+      background-size: 400% 400%; animation: gradientBG 15s ease infinite; min-height: 100vh;
+    }
+    @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    
+    @keyframes slideUpFade {
+      0% { opacity: 0; transform: translateY(15px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal-up { opacity: 1 !important; transform: none !important; } 
+    .js-loaded .reveal-up { opacity: 0 !important; transform: translateY(30px) !important; }
+    .js-loaded .reveal-up.visible { opacity: 1 !important; transform: translateY(0) !important; transition: 0.6s ease-out; }
+
+    body.pdf-fullscreen-active { overflow: hidden !important; }
+
+    .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 2000; background: transparent; }
+    .progress-bar { height: 100%; background: #e11d48; width: 0%; transition: width 0.1s; box-shadow: 0 0 10px rgba(225, 29, 72, 0.5); }
+
+    .breadcrumbs-bar { padding: 20px 0 10px; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px;
+      background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8);
+      border-radius: 99px; text-decoration: none; color: #64748b; font-weight: 600; font-size: 0.9rem;
+      transition: 0.3s; backdrop-filter: blur(5px);
+    }
+    .back-link:hover { background: #fff; color: #e11d48; transform: translateX(-5px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+
+    .glass-hero {
+      background: radial-gradient(circle at 100% 0%, rgba(225, 29, 72, 0.1) 0%, rgba(255, 255, 255, 0.9) 100%);
+      border: 1px solid rgba(255,255,255,0.9); border-radius: 24px; padding: 40px; margin-bottom: 30px;
+      position: relative; overflow: hidden; backdrop-filter: blur(20px);
+      box-shadow: 0 20px 40px -10px rgba(225, 29, 72, 0.1); transform-style: preserve-3d; transform: perspective(1000px);
+    }
+    
+    .hero-badge, .hero-title, .hero-desc { transform: translateZ(40px); position: relative; }
+    .hero-badge { display: inline-block; padding: 6px 12px; background: #ffe4e6; color: #be123c; border: 1px solid #fecdd3; border-radius: 8px; font-weight: 700; font-size: 0.8rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .hero-title { font-size: 2.2rem; font-weight: 800; color: #0f172a; margin: 0 0 15px; line-height: 1.1; }
+    .hero-desc { font-size: 1.05rem; color: #475569; max-width: 800px; line-height: 1.6; }
+
+    .steps-container { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 40px; flex-wrap: wrap; }
+    .step-item { flex: 1; min-width: 250px; background: rgba(255,255,255,0.6); border: 1px solid #fff; padding: 20px; border-radius: 16px; display: flex; align-items: center; gap: 15px; transition: 0.3s; }
+    .step-item:hover { background: #fff; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+    .step-num { width: 40px; height: 40px; background: #e11d48; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; }
+    .step-text h4 { margin: 0; font-size: 1rem; color: #1e293b; }
+    .step-text p { margin: 2px 0 0; font-size: 0.85rem; color: #64748b; }
+
+    .syllabus-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 40px; }
+    .syllabus-card { background: rgba(255,255,255,0.8); border-radius: 20px; padding: 2px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.5); }
+    .syllabus-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(225, 29, 72, 0.15), transparent 40%); opacity: 0; transition: opacity 0.5s; z-index: 0; pointer-events: none; }
+    .syllabus-card:hover::before { opacity: 1; }
+    .syllabus-inner { background: #fff; border-radius: 18px; padding: 24px; height: 100%; position: relative; z-index: 1; display: flex; flex-direction: column; }
+    .syl-icon { font-size: 2rem; margin-bottom: 15px; display: inline-block; transition: transform 0.3s; }
+    .syllabus-card:hover .syl-icon { transform: scale(1.2) rotate(5deg); }
+    .syl-title { font-size: 1.15rem; font-weight: 700; color: #1e293b; margin: 0 0 10px; }
+    .syl-list { margin: 0; padding-left: 20px; color: #64748b; font-size: 0.95rem; line-height: 1.6; }
+    .syl-list li { margin-bottom: 5px; }
+
+    .alert-zone { background: #fff1f2; border: 1px solid #fecdd3; border-left: 5px solid #e11d48; border-radius: 16px; padding: 25px; margin-bottom: 40px; }
+    .alert-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+    .alert-icon { font-size: 1.5rem; color: #e11d48; }
+    .alert-title { font-size: 1.2rem; font-weight: 800; color: #9f1239; margin: 0; }
+    .alert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+    .alert-item { display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #881337; font-weight: 500; }
+
+    .flip-section-title { font-size: 1.5rem; font-weight: 700; color: #0f172a; margin: 0 0 20px; text-align: center; }
+    .flip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px; }
+    .flip-card { background-color: transparent; height: 280px; perspective: 1000px; cursor: pointer; }
+    .flip-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1); border-radius: 20px; }
+    .flip-card:hover .flip-inner { transform: rotateY(180deg); }
+    .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #e2e8f0; }
+    .flip-front { background-color: #fff; color: #1e293b; }
+    .flip-back { background: linear-gradient(135deg, #e11d48, #0f172a); color: #f8fafc; transform: rotateY(180deg); box-shadow: inset 0 0 20px rgba(0,0,0,0.3); }
+    .flip-icon { font-size: 3rem; margin-bottom: 10px; }
+    .flip-text { font-size: 1.05rem; font-weight: 500; line-height: 1.5; text-shadow: 0 2px 4px rgba(0,0,0,0.6); }
+    .flip-label { text-transform: uppercase; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 10px; opacity: 0.8; }
+
+    /* === ИНТЕРАКТИВНЫЕ ВИДЖЕТЫ === */
+    .interactive-widget { background: #fff; border-radius: 24px; padding: 30px; box-shadow: 0 20px 50px -10px rgba(0,0,0,0.05); margin-bottom: 40px; border: 1px solid #e2e8f0; }
+    .widget-header { text-align: center; margin-bottom: 25px; }
+    .widget-header h3 { font-size: 1.5rem; color: #0f172a; margin: 0 0 10px; font-weight: 800; }
+    .widget-header p { color: #64748b; margin: 0; font-size: 0.95rem; }
+
+    /* Видео Контейнер */
+    .video-container { position: relative; padding-bottom: 56.25%; /* 16:9 */ height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .video-container iframe, .video-container video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+    /* Протокол Действий */
+    .widget-nav { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
+    .widget-step-btn { flex-shrink: 0; padding: 12px 20px; border-radius: 12px; background: #f1f5f9; color: #475569; font-weight: 700; font-size: 0.9rem; cursor: pointer; border: 2px solid transparent; transition: 0.3s; display: flex; align-items: center; gap: 8px;}
+    .widget-step-btn.active { background: #fff1f2; color: #e11d48; border-color: #e11d48; }
+    .widget-content-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 25px; display: flex; align-items: center; min-height: 150px;}
+    .widget-icon-large { font-size: 3rem; margin-right: 20px; opacity: 0.8; }
+    .widget-text { font-size: 1.05rem; color: #334155; line-height: 1.6; font-weight: 500; }
+
+    /* Чат Симулятор */
+    .chat-simulator { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
+    .chat-history { padding: 20px; display: flex; flex-direction: column; gap: 15px; min-height: 300px; max-height: 450px; overflow-y: auto; background: #f1f5f9; scroll-behavior: smooth; }
+    .chat-msg { display: flex; gap: 15px; max-width: 85%; opacity: 0; animation: slideUpFade 0.4s ease-out forwards; }
+    .trainee-msg { align-self: flex-start; }
+    .mentor-msg { align-self: flex-end; flex-direction: row-reverse; }
+    .msg-avatar { font-size: 1.8rem; background: #fff; border-radius: 50%; min-width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); flex-shrink: 0; }
+    .msg-bubble { background: #fff; padding: 15px 20px; border-radius: 20px; border-top-left-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); color: #334155; line-height: 1.5; font-size: 0.95rem; }
+    .mentor-msg .msg-bubble { background: #e11d48; color: #fff; border-radius: 20px; border-top-right-radius: 5px; }
+    .chat-options { background: #fff; padding: 20px; border-top: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 10px; transition: opacity 0.3s ease; }
+    .chat-btn { text-align: left; padding: 15px 20px; background: #fff; border: 2px solid #e2e8f0; border-radius: 12px; cursor: pointer; transition: 0.2s; color: #475569; font-weight: 500; font-size: 0.95rem; line-height: 1.4; }
+    .chat-btn:hover { border-color: #fb7185; background: #fff1f2; color: #be123c; transform: translateX(5px); box-shadow: 0 4px 10px rgba(225, 29, 72, 0.1); }
+    .chat-feedback { margin-top: 10px; padding: 15px 20px; border-radius: 16px; font-weight: 500; font-size: 0.95rem; line-height: 1.5; animation: slideUpFade 0.4s ease-out forwards; opacity: 0; }
+    .chat-feedback.success { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+    .chat-feedback.error { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+    .reset-chat-btn { margin-top: 15px; padding: 10px 20px; background: #0f172a; color: #fff; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+    .reset-chat-btn:hover { background: #334155; }
+    .typing-indicator { display: flex; gap: 5px; padding: 15px 20px; background: #fff; border-radius: 20px; border-top-left-radius: 5px; width: fit-content; align-items: center; height: 50px;}
+    .dot { width: 8px; height: 8px; background: #cbd5e1; border-radius: 50%; animation: typing 1.4s infinite ease-in-out both; }
+    .dot:nth-child(1) { animation-delay: -0.32s; }
+    .dot:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+    /* FAQ */
+    .faq-section { margin-bottom: 40px; }
+    .faq-title { text-align: center; font-size: 1.8rem; font-weight: 700; color: #0f172a; margin-bottom: 25px; }
+    .faq-item { background: #fff; border-radius: 16px; margin-bottom: 10px; border: 1px solid #e2e8f0; overflow: hidden; transition: 0.3s; }
+    .faq-item:hover { border-color: #fecdd3; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+    .faq-summary { padding: 18px 24px; cursor: pointer; font-weight: 600; color: #1e293b; display: flex; justify-content: space-between; align-items: center; list-style: none; }
+    .faq-summary::-webkit-details-marker { display: none; }
+    .faq-summary::after { content: "+"; font-size: 1.5rem; color: #94a3b8; transition: 0.3s; }
+    details[open] .faq-summary::after { transform: rotate(45deg); color: #e11d48; }
+    .faq-content { padding: 0 24px 24px; color: #64748b; font-size: 0.95rem; line-height: 1.6; }
+
+    /* CTA */
+    .test-zone { background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); border-radius: 30px; padding: 50px 30px; text-align: center; box-shadow: 0 20px 60px -10px rgba(0,0,0,0.1); border: 1px solid #fff; margin-bottom: 40px;}
+    .btn-magic { position: relative; display: inline-flex; justify-content: center; align-items: center; padding: 16px 32px; font-size: 1rem; font-weight: 700; color: #ffffff; background: #0f172a; border-radius: 99px; text-decoration: none; overflow: hidden; z-index: 10; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 10px 20px rgba(225, 29, 72, 0.2); }
+    .btn-magic-text { position: relative; z-index: 2; }
+    .btn-magic::before { 
+        content: ""; position: absolute; top: 50%; left: 50%; width: 300%; height: 300%; 
+        background: conic-gradient(transparent 0deg, transparent 260deg, #e11d48 280deg, #fb7185 320deg, #ffe4e6 360deg); 
+        transform: translate(-50%, -50%); animation: rotate-border 4s linear infinite; z-index: -2; 
+    }
+    .btn-magic::after { content: ""; position: absolute; inset: 2px; background: #0f172a; border-radius: 99px; z-index: -1; }
+    .btn-magic:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(225, 29, 72, 0.4); }
+    @keyframes rotate-border { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+
+    /* === PDF VIEWER V8.0 STYLES === */
+    .custom-pdf-viewer { background: #f1f5f9; border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 20px; position: relative; overflow: hidden; margin-bottom: 40px; box-shadow: 0 20px 50px -10px rgba(0,0,0,0.1); height: 700px; display: flex; flex-direction: column; transition: background 0.3s; }
+    .custom-pdf-viewer.dark-theme { background: #1e293b; border-color: #334155; }
+    .custom-pdf-viewer.dark-theme .pdf-viewer-header { background: #0f172a; border-bottom-color: #334155; color: #f1f5f9; }
+    .custom-pdf-viewer.dark-theme .pdf-file-info h3 { color: #f1f5f9; }
+    .custom-pdf-viewer.dark-theme .pdf-file-info p { color: #94a3b8; }
+    .custom-pdf-viewer.dark-theme .btn-pdf-action { background: #334155; color: #fff; border-color: #475569; }
+    .custom-pdf-viewer.dark-theme .pdf-canvas-wrapper { background: radial-gradient(#475569 1px, transparent 1px); background-size: 20px 20px; }
+    .custom-pdf-viewer.dark-theme #the-canvas { filter: brightness(0.9); }
+    .custom-pdf-viewer.fullscreen-mode { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; width: 100vw !important; height: 100vh !important; z-index: 2147483647 !important; border-radius: 0 !important; margin: 0 !important; border: none !important; background: #e2e8f0 !important; }
+    .pdf-viewer-header { background: #fff; padding: 10px 15px; border-bottom: 1px solid #cbd5e1; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-shrink: 0; z-index: 10; }
+    .pdf-header-left { display: flex; align-items: center; gap: 10px; overflow: hidden; }
+    .pdf-file-icon { width: 32px; height: 32px; background: #ffe4e6; color: #e11d48; flex-shrink: 0; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .pdf-file-info h3 { margin: 0; font-size: 0.9rem; color: #0f172a; overflow: hidden; text-overflow: ellipsis; }
+    .pdf-file-info p { margin: 0; font-size: 0.75rem; color: #64748b; }
+    .btn-pdf-action { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 0 12px; height: 36px; border-radius: 8px; background: #fff; border: 1px solid #cbd5e1; color: #334155; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .btn-pdf-action:hover { border-color: #e11d48; color: #e11d48; }
+    .pdf-read-progress { height: 3px; width: 0%; background: #e11d48; transition: width 0.2s; position: absolute; bottom: 0; left: 0; z-index: 15; }
+    .pdf-canvas-wrapper { flex-grow: 1; overflow: auto; display: flex; justify-content: flex-start; align-items: flex-start; padding: 20px; padding-bottom: 100px; background: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px; touch-action: pan-x pan-y pinch-zoom; -webkit-overflow-scrolling: touch; position: relative; cursor: grab; }
+    .pdf-canvas-wrapper.grabbing { cursor: grabbing; }
+    #the-canvas { box-shadow: 0 4px 15px rgba(0,0,0,0.15); background: #fff; transform-origin: top left; margin: auto; display: block; transition: transform 0.1s ease-out, box-shadow 0.3s; }
+    .pdf-toolbar { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); padding: 8px 12px; border-radius: 50px; display: flex; align-items: center; gap: 12px; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 50; white-space: nowrap; max-width: 95%; }
+    .tool-btn { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
+    .tool-btn-icon { width: 30px; height: 30px; border-radius: 50%; background: transparent; border: none; color: #cbd5e1; cursor: pointer; font-size: 1.2rem; }
+    .divider-v { width: 1px; height: 16px; background: rgba(255,255,255,0.2); }
+    .page-input-group { display: flex; align-items: center; gap: 5px; font-family: monospace; font-size: 0.9rem; }
+    #page_num_input { width: 40px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; text-align: center; border-radius: 4px; padding: 2px; -moz-appearance: textfield; }
+    #page_num_input:focus { border-color: #e11d48; outline: none; background: rgba(255,255,255,0.1); }
+    .pdf-loader { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #f1f5f9; z-index: 60; color: #64748b; font-weight: 600; }
+    .spinner { width: 40px; height: 40px; border: 4px solid #cbd5e1; border-top-color: #e11d48; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 10px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .gesture-hint { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: #fff; padding: 12px 20px; border-radius: 12px; text-align: center; pointer-events: none; opacity: 0; transition: opacity 0.5s; z-index: 70; }
+    .show-hint { opacity: 1; }
+    .btn-text { display: inline; } .btn-icon { display: none; }
+    @media (max-width: 600px) {
+        .btn-text { display: none; } .btn-icon { display: inline; font-size: 1.2rem; }
+        .custom-pdf-viewer { height: 500px; }
+        .pdf-toolbar { padding: 8px 10px; gap: 8px; }
+    }
+
+    /* Header Status */
+    .system-status-pulse { display: inline-block; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; box-shadow: 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse-green 2s infinite; margin-right: 6px; }
+    @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+    .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
+    @media (max-width: 900px) { .header-meta { display: none; } }
+  </style>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { corePlugins: { preflight: false } }
+  </script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="masterpiece-theme">
+
+<div class="progress-container"><div class="progress-bar" id="readingProgress"></div></div>
+
+<a class="skip-link" href="#main-content">Перейти к контенту</a>
+
+<div class="glass-wrapper">
+  
+  <header class="site-header transparent-header">
+    <div class="container header-inner">
+      <div class="header-brand">
+        <div class="brand-logo">
+          <img src="assets/Филин от.png" alt="Логотип СДО" style="width: 100%; height: 100%; object-fit: contain;">
+        </div>
+        <div>
+          <h1 class="site-title-mini">СДО</h1>
+          <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
+        </div>
+      </div>
+      <div class="header-meta">
+        <span id="current-date">Загрузка...</span>
+        <span style="display:flex; align-items:center;"><span class="system-status-pulse"></span> Online</span>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Главная</a></li>
+          <li><a href="programs.html" class="nav-link nav-link-active active">Каталог программ</a></li>
+          <li><a href="instructions.html" class="nav-link">Инструкции</a></li>
+          <li><a href="for-responsibles.html" class="nav-link">Ответственным</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="site-main">
+    <div class="container">
+
+      <div class="breadcrumbs-bar">
+        <a href="programs.html" class="back-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Вернуться в реестр программ
+        </a>
+      </div>
+
+      <section class="glass-hero reveal-up" id="tilt-hero">
+        <span class="hero-badge">Безопасность</span>
+        <h1 class="hero-title">Действия при угрозе БПЛА</h1>
+        <p class="hero-desc">
+          Реальность угрозы Атаки беспилотных летательных аппаратов (БПЛА) перестали быть маловероятной теорией и стали объективной угрозой. Изучите правила выживания, алгоритмы укрытия и протоколы действий для ИТР и руководителей.[cite: 2]
+        </p>
+      </section>
+
+      <div class="steps-container reveal-up delay-100">
+        <div class="step-item"><div class="step-num">1</div><div class="step-text"><h4>Материалы</h4><p>Изучите алгоритмы выживания</p></div></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-text"><h4>Интерактивы</h4><p>Посмотрите видеоматериалы</p></div></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-text"><h4>Тест</h4><p>Итоговая проверка знаний</p></div></div>
+      </div>
+
+      <div class="syllabus-grid reveal-up delay-200">
+        <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon" style="color: #e11d48;">🚁</span><h3 class="syl-title">Угроза в небе</h3><ul class="syl-list"><li>Действия в здании (Правило 2 стен)[cite: 2]</li><li>Действия на открытой местности[cite: 2]</li><li>Светомаскировка и транспорт[cite: 2]</li></ul></div></div>
+        <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon" style="color: #ea580c;">🔥</span><h3 class="syl-title">Смерть на земле</h3><ul class="syl-list"><li>Обнаружение упавших обломков[cite: 2]</li><li>Выживание при взрыве и обрушении[cite: 2]</li><li>Действия под завалами[cite: 2]</li></ul></div></div>
+        <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon" style="color: #2563eb;">🛡️</span><h3 class="syl-title">Роль Руководителя</h3><ul class="syl-list"><li>Юридическая база и перекличка[cite: 2]</li><li>Обеспечение зеленого коридора МЧС[cite: 2]</li><li>Взаимодействие со штабом[cite: 2]</li></ul></div></div>
+      </div>
+
+      <div class="alert-zone reveal-up delay-200">
+        <div class="alert-header"><div class="alert-icon">🛑</div><h3 class="alert-title">БАЗОВОЕ ПРАВИЛО «ТРЕХ НЕ»</h3></div>
+        <div class="alert-grid">
+            <div class="alert-item">✖ НЕ снимать и НЕ демаскировать. (Никаких видео для соцсетей, фонариков в ночное небо)[cite: 2]</div>
+            <div class="alert-item">✖ НЕ приближаться и НЕ трогать. (Касание упавшего дрона равносильно нажатию на детонатор)[cite: 2]</div>
+            <div class="alert-item">✖ НЕ оставаться на открытом месте. (Чистое поле или машина не защитят от осколков)[cite: 2]</div>
+        </div>
+      </div>
+
+      <section style="margin: 50px 0;" class="reveal-up delay-200">
+        <h2 class="flip-section-title">🤔 Смертельные заблуждения</h2>
+        <div class="flip-grid">
+            <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="flip-icon">🚗</div><div class="flip-label">Миф</div><div class="flip-text">"Кабина автомобиля или спецтехники — надежное укрытие от дронов."</div></div><div class="flip-back"><div class="flip-icon">💥</div><div class="flip-label">Реальность</div><div class="flip-text">Транспорт — это ловушка. Стекло превращается в шрапнель, металл прошивается, а полный бак детонирует. Бегите из машины![cite: 2]</div></div></div></div>
+            <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="flip-icon">📸</div><div class="flip-label">Миф</div><div class="flip-text">"Нужно снять обломки на видео, чтобы показать полиции, что случилось."</div></div><div class="flip-back"><div class="flip-icon">📵</div><div class="flip-label">Реальность</div><div class="flip-text">Излучение телефона может активировать электронный детонатор-ловушку. Замри, отойди на 100 метров и звони 112.[cite: 2]</div></div></div></div>
+            <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="flip-icon">🏃‍♂️</div><div class="flip-label">Миф</div><div class="flip-text">"Если начались взрывы, нужно бежать изо всех сил в укрытие."</div></div><div class="flip-back"><div class="flip-icon">🧱</div><div class="flip-label">Реальность</div><div class="flip-text">Бегущий в полный рост ловит максимум осколков. Если здание далеко — падайте на землю, закрыв шею, и ждите окончания атаки.[cite: 2]</div></div></div></div>
+        </div>
+      </section>
+
+      <section class="interactive-widget reveal-up delay-200">
+        <div class="widget-header">
+            <h3>Алгоритм «Правило двух стен» (В здании)</h3>
+            <p>Между вами и улицей должно быть как минимум две глухие стены[cite: 2]</p>
+        </div>
+        <div class="widget-nav" id="decompNav">
+            <div class="widget-step-btn active" data-step="1">Первая стена</div>
+            <div class="widget-step-btn" data-step="2">Вторая стена</div>
+            <div class="widget-step-btn" data-step="3">Идеальное укрытие</div>
+            <div class="widget-step-btn" data-step="4">Запреты</div>
+        </div>
+        <div class="widget-content-box" id="decompBox">
+            <div class="widget-icon-large" id="decompIcon">🧱</div>
+            <div class="widget-text" id="decompText">
+                <strong>Фасадная стена:</strong> Принимает на себя основной удар, взрывную волну и внешние осколки. Чаще всего она разрушается. Вы не должны находиться за ней.[cite: 2]
+            </div>
+        </div>
+      </section>
+      
+      <section class="interactive-widget reveal-up delay-200">
+        <div class="widget-header">
+          <h3>📹 Видеоматериалы и рекомендации ветеранов СВО</h3>
+          <p>Экспертный разбор действий при воздушной тревоге и обнаружении взрывоопасных предметов[cite: 1]</p>
+        </div>
+        
+        <div class="video-container">
+           <!-- Заглушка для видео плеера. Замените src на реальную ссылку (YouTube/Rutube/Внутренний сервер) -->
+           <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Видео инструктаж МЧС" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <p style="text-align: center; color: #64748b; font-size: 0.9rem;">В видео представлены материалы от сотрудников МЧС и ветеранов СВО с реальным боевым опытом.[cite: 1]</p>
+      </section>
+
+      <section class="reveal-up delay-200" id="materials">
+        <div class="custom-pdf-viewer" id="mainPdfContainer">
+          
+          <div class="pdf-viewer-header">
+            <div class="pdf-header-left">
+              <div class="pdf-file-icon">📄</div>
+              <div class="pdf-file-info">
+                <h3>ВВОДНЫЙ БЛОК. Угроза БПЛА</h3>
+                <p>Юридическая база и ответственность</p>
+              </div>
+            </div>
+            <div class="pdf-top-actions">
+                <button class="btn-pdf-action" id="themeBtn" title="Ночной режим">🌙</button>
+                <a href="assets/БПЛА_Инструктаж.pdf" download class="btn-pdf-action icon-only-mobile">
+                    <span class="btn-text">Скачать</span><span class="btn-icon">📥</span>
+                </a>
+                <button class="btn-pdf-action btn-fullscreen" id="fullscreenBtn" title="На весь экран">⛶</button>
+            </div>
+            <div class="pdf-read-progress" id="pdfInnerProgress"></div>
+          </div>
+
+          <div class="pdf-canvas-wrapper" id="pdfWrapper">
+            <canvas id="the-canvas"></canvas>
+            <div class="pdf-loader" id="pdfLoader"><div class="spinner"></div><span>Загрузка...</span></div>
+            <div class="gesture-hint" id="gestureHint">👆 2 клика — зум <br> 🖐️ Тяни — листать</div>
+          </div>
+
+          <div class="pdf-toolbar">
+            <button class="tool-btn" id="prev" title="Назад">←</button>
+            <div class="page-input-group">
+                <input type="number" id="page_num_input" value="1" min="1">
+                <span>/ <span id="page_count">--</span></span>
+            </div>
+            <button class="tool-btn" id="next" title="Вперед">→</button>
+            <div class="divider-v"></div>
+            <button class="tool-btn-icon" id="zoomOut">-</button>
+            <button class="tool-btn-icon" id="zoomIn">+</button>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="interactive-widget reveal-up delay-200">
+        <div class="widget-header">
+            <h3>💬 Тренажер: Действия руководителя при ЧС</h3>
+            <p>Отработайте алгоритмы действий в критических ситуациях[cite: 2]</p>
+            <div id="chatProgress" style="display: inline-block; background: #ffe4e6; color: #e11d48; padding: 4px 12px; border-radius: 99px; font-family: monospace; font-size: 0.8rem; font-weight: 700; margin-top: 10px;">СИТУАЦИЯ 1 ИЗ 5</div>
+        </div>
+        <div class="chat-simulator">
+           <div class="chat-history" id="chatHistory">
+              </div>
+           <div class="chat-options" id="chatOptions">
+              </div>
+        </div>
+      </section>
+
+      <section class="faq-section reveal-up delay-200">
+        <h2 class="faq-title">Частые вопросы</h2>
+        
+        <details class="faq-item">
+            <summary class="faq-summary">Что делать, если я в модульной бытовке, а тревога уже звучит?</summary>
+            <div class="faq-content">
+                Если вы находитесь в легкой строительной бытовке, модульном КПП или контейнере, правило стен не работает — пластик и тонкий металл прошиваются осколками насквозь. Если гул нарастает прямо над вами, немедленно покиньте бытовку и падайте в любую складку местности снаружи, закрыв голову руками.[cite: 2]
+            </div>
+        </details>
+        
+        <details class="faq-item">
+            <summary class="faq-summary">Почему нельзя звонить родным, стоя рядом с упавшим дроном?</summary>
+            <div class="faq-content">
+                Электромагнитное излучение от вашего устройства при звонке или отправке фото может активировать электронный взрыватель или радиореле дрона-ловушки. Необходимо отойти минимум на 100 метров, зайти за укрытие и только потом звонить 112.[cite: 2]
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary class="faq-summary">Я руководитель. Нужно ли мне эвакуироваться первым?</summary>
+            <div class="faq-content">
+                Руководитель или ответственный за смену уходит в укрытие последним, визуально проверяя, не остался ли кто-то в цеху/кабинете в состоянии ступора или паники. В укрытии необходимо провести жесткую перекличку по спискам.[cite: 2]
+            </div>
+        </details>
+      </section>
+
+      <div class="test-zone reveal-up delay-200">
+        <h2 style="font-size:1.8rem; font-weight:800; color:#0f172a; margin-bottom:15px;">Тест: Действия при БПЛА</h2>
+        <p style="color:#64748b; max-width:600px; margin:0 auto 30px; font-size:1.1rem;">Оценка знаний алгоритмов выживания и регламентов для руководителей.</p>
+        <a href="course-bpla-test.html" class="btn-magic">
+          <span class="btn-magic-text">Приступить к тестированию</span>
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="glass-footer">
+    <div class="container">
+      <p>© 2026 Служба Безопасности и Охраны Труда. Внутренний ресурс.</p>
+    </div>
+  </footer>
+
+  <button type="button" class="to-top" id="toTopBtn" aria-label="Наверх" title="Наверх" style="position:fixed; right:20px; bottom:20px; width:45px; height:45px; border-radius:50%; background:#fff; border:1px solid #e2e8f0; box-shadow:0 5px 15px rgba(0,0,0,0.1); cursor:pointer; opacity:0; transition:0.3s; z-index:90;">↑</button>
+
+</div>
+
+<script>
+  // === СТАНДАРТНЫЕ СКРИПТЫ СТРАНИЦЫ ===
+  document.addEventListener("DOMContentLoaded", function() {
+    document.body.classList.add('js-loaded'); 
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
+
+    const now = new Date();
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateStr = now.toLocaleDateString('ru-RU', dateOptions);
+    const dateEl = document.getElementById('current-date');
+    if (dateEl) {
+        dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+    }
+
+    const progressBar = document.getElementById('readingProgress');
+    const toTopBtn = document.getElementById('toTopBtn');
+    window.addEventListener('scroll', () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        progressBar.style.width = (scrollTop / scrollHeight) * 100 + "%";
+        toTopBtn.style.opacity = scrollTop > 600 ? "1" : "0";
+        toTopBtn.style.pointerEvents = scrollTop > 600 ? "auto" : "none";
+    });
+    toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    if (window.matchMedia("(min-width: 768px)").matches) {
+      const hero = document.getElementById('tilt-hero');
+      if(hero) {
+        hero.addEventListener('mousemove', (e) => {
+          const rect = hero.getBoundingClientRect();
+          const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+          const centerX = rect.width / 2; const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -1.5; 
+          const rotateY = ((x - centerX) / centerX) * 1.5;
+          hero.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        hero.addEventListener('mouseleave', () => { hero.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`; });
+      }
+      document.querySelectorAll('.spotlight-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+          card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        });
+      });
+    }
+
+    // === ВИДЖЕТ 2: ПРОТОКОЛ ДЕКОМПРЕССИИ (Адаптирован под БПЛА) ===
+    const decompData = {
+        1: { icon: "🧱", text: "<strong>Фасадная стена:</strong> Принимает на себя основной удар, взрывную волну и внешние осколки. Чаще всего она разрушается. Вы не должны находиться за ней.[cite: 2]" },
+        2: { icon: "🛡️", text: "<strong>Внутренняя стена:</strong> Принимает на себя осколки первой стены, куски арматуры и выбитые двери, спасая вас от смертельных травм.[cite: 2]" },
+        3: { icon: "🏃‍♂️", text: "<strong>Идеальные укрытия:</strong> Коридоры в центре здания, лестничные пролеты (монолитное ядро жесткости), санузлы или глухие кладовые. Сядьте на пол, сгруппируйтесь.[cite: 2]" },
+        4: { icon: "🛑", text: "<strong>Запреты:</strong> НЕ подходить к окнам. НЕ пользоваться лифтами (они станут ловушкой при обесточивании). НЕ прятаться на верхних этажах.[cite: 2]" }
+    };
+    
+    const decompBtns = document.querySelectorAll('#decompNav .widget-step-btn');
+    const decompText = document.getElementById('decompText');
+    const decompIcon = document.getElementById('decompIcon');
+
+    if(decompBtns.length > 0) {
+      decompBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+              decompBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const stepNum = btn.getAttribute('data-step');
+                decompText.style.opacity = '0'; decompIcon.style.opacity = '0';
+                setTimeout(() => {
+                  decompText.innerHTML = decompData[stepNum].text;
+                  decompIcon.textContent = decompData[stepNum].icon;
+                  decompText.style.opacity = '1'; decompIcon.style.opacity = '1';
+                }, 200);
+            });
+        });
+    }
+
+    // === ВИДЖЕТ 3: ЧАТ-СИМУЛЯТОР (5 СЦЕНАРИЕВ по БПЛА) ===
+    const chatScenarios = [
+      {
+        trainee: "Дмитрий (Охранник)",
+        avatar: "👮",
+        msg: "Нашел на территории за складом какую-то странную штуку, похожа на обломок дрона. Иду к ней, чтобы сфоткать и отправить вам.",
+        options: [
+          { text: "Давай, жду фото. Только аккуратно.", reply: "Хорошо, сейчас вплотную подойду.", isCorrect: false, feedback: "❌ <strong>Фатальная ошибка:</strong> Использование телефона рядом с БПЛА может вызвать детонацию. Плюс вы нарушили правило 'НЕ приближаться'.[cite: 2]" },
+          { text: "Стоять! Назад по своим следам на 100 метров! Ничего не снимай, оцепляй зону и звони 112 из укрытия.", reply: "Понял! Отхожу за угол склада.", isCorrect: true, feedback: "✅ <strong>Верно!</strong> Вы спасли ему жизнь. Правильный алгоритм: разорвать дистанцию, изолировать зону, доложить из безопасности.[cite: 2]" },
+          { text: "Попробуй палкой перевернуть, может там надписи есть.", reply: "Сейчас попробую...", isCorrect: false, feedback: "❌ <strong>Фатальная ошибка:</strong> Любое изменение положения активирует датчики самоликвидации. Это смерть.[cite: 2]" }
+        ]
+      },
+      {
+        trainee: "Елена (Менеджер)",
+        avatar: "👩‍💼",
+        msg: "Сирена воет! Я за рулем на подъезде к базе. Попытаюсь проскочить быстрее, чтобы успеть на парковку!",
+        options: [
+          { text: "Давай, жми на газ, мы тебя ждем в подвале!", reply: "Еду 120 км/ч, надеюсь пронесет...", isCorrect: false, feedback: "❌ <strong>Ошибка:</strong> Дрон летит со скоростью 150-200 км/ч. Обогнать угрозу невозможно, машина — это бензиновая ловушка.[cite: 2]" },
+          { text: "Спрячься под руль и не выходи из машины!", reply: "Хорошо, легла на сиденье.", isCorrect: false, feedback: "❌ <strong>Ошибка:</strong> Металл авто легко прошивается осколками, а полный бак сдетонирует. Кабина не защитит.[cite: 2]" },
+          { text: "Тормози немедленно! Глуши мотор, бросай ключи и беги в кювет или любую канаву! Ложись лицом вниз!", reply: "Поняла! Выбегаю, легла в траншею у дороги.", isCorrect: true, feedback: "✅ <strong>Отлично!</strong> Вывели человека из опасной зоны. Естественное углубление в земле (кювет) — лучшее укрытие на трассе.[cite: 2]" }
+        ]
+      },
+      {
+        trainee: "Иван (Прораб)",
+        avatar: "👷",
+        msg: "Был взрыв, цех частично обрушился! Мы в укрытии, но света нет, пылища страшная. Что делать?",
+        options: [
+          { text: "Зажги зажигалку, осмотри людей, нет ли раненых.", reply: "Чиркнул зажигалкой...", isCorrect: false, feedback: "❌ <strong>Смертельная ошибка:</strong> Взрыв мог повредить газовые трубы. Открытый огонь вызовет объемный взрыв газо-пылевой смеси.[cite: 2]" },
+          { text: "Всем натянуть одежду на лицо, дышать через ткань! При артериальном кровотечении — сразу жгут. Ползком двигайтесь к выходу вдоль несущих стен.", reply: "Понял! Закрыли лица, ползем вдоль капитальной стены.", isCorrect: true, feedback: "✅ <strong>Правильно!</strong> Защита дыхания от пыли и передвижение внизу, где есть кислород, вдоль прочных несущих конструкций.[cite: 2]" },
+          { text: "Бегите к выходу быстрее, пока не рухнуло остальное!", reply: "Бежим вслепую через дым!", isCorrect: false, feedback: "❌ <strong>Ошибка:</strong> Вслепую люди провалятся в проломы перекрытий или задохнутся гарью. Бежать нельзя, только ползком.[cite: 2]" }
+        ]
+      },
+      {
+        trainee: "Анна (Хостес)",
+        avatar: " receptionist",
+        msg: "Я застряла под завалом! Меня зажало, не могу выбраться. Пытаюсь растолкать плиты вокруг себя и кричу о помощи!",
+        options: [
+          { text: "Молодец, кричи громче и пытайся раскидать камни!", reply: "Толкаю плиту изо всех сил...", isCorrect: false, feedback: "❌ <strong>Фатальная ошибка:</strong> Движение плит вызовет вторичное обрушение. А крик сорвет голос и забьет легкие пылью.[cite: 2]" },
+          { text: "Не дергайся! Замри. Натяни ткань на лицо. Экономь кислород. Если есть кусок металла — ритмично стучи по бетону (3 удара - пауза), но не кричи постоянно.", reply: "Поняла. Нашла арматуру, стучу.", isCorrect: true, feedback: "✅ <strong>Идеально!</strong> Вы предотвратили вторичное обрушение. Ритмичный стук лучше всего передается по бетону и экономит силы.[cite: 2]" },
+          { text: "Включи фонарик на телефоне и свети им.", reply: "Включила, но садится батарея.", isCorrect: false, feedback: "❌ <strong>Ошибка:</strong> Фонарик посадит аккумулятор. Телефон нужен только для коротких СМС раз в полчаса.[cite: 2]" }
+        ]
+      },
+      {
+        trainee: "Олег (Начальник участка)",
+        avatar: "👔",
+        msg: "Сирена! Вывел людей в подвал. Приехали спасатели МЧС. Но у меня тут 5 рабочих от субподрядчика вообще без документов работают.",
+        options: [
+          { text: "Скажи МЧС только про официальных. Нелегальных спрячь, иначе нас оштрафуют.", reply: "Понял, скажу, что нас 40, а не 45.", isCorrect: false, feedback: "❌ <strong>Фатальная ошибка:</strong> МЧС не будет искать тех 5 человек под завалами. Это убийство и прямая уголовная ответственность для вас.[cite: 2]" },
+          { text: "Немедленно выдай старшему расчету МЧС точную цифру — сколько РЕАЛЬНО человек на объекте. Открой все ворота и обесточь здание.", reply: "Выдал списки, сказал, что всего 45 человек. Рубильник выключили.", isCorrect: true, feedback: "✅ <strong>Единственно верное решение.</strong> Жизни людей важнее штрафов. Обесточивание и зеленый коридор спасут жизни.[cite: 2]" },
+          { text: "Беги с объекта, пусть спасатели сами разбираются.", reply: "Уже в машине.", isCorrect: false, feedback: "❌ <strong>Ошибка:</strong> Оставление объекта и непредставление информации — преступление. Вы обязаны взаимодействовать со штабом.[cite: 2]" }
+        ]
+      }
+    ];
+
+    let currentChatIndex = 0;
+    const chatHistory = document.getElementById('chatHistory');
+    const chatOptions = document.getElementById('chatOptions');
+    const chatProgress = document.getElementById('chatProgress');
+    let isChatLocked = false;
+
+    function renderChatScenario() {
+      const scenario = chatScenarios[currentChatIndex];
+      if(chatProgress) chatProgress.textContent = `СИТУАЦИЯ ${currentChatIndex + 1} ИЗ ${chatScenarios.length}`;
+      
+      chatHistory.innerHTML = `
+        <div class="chat-msg trainee-msg" style="opacity: 1; transform: translateY(0); animation: none;">
+           <div class="msg-avatar">${scenario.avatar}</div>
+           <div class="msg-bubble">
+              <strong>${scenario.trainee}:</strong> ${scenario.msg}
+           </div>
+        </div>
+      `;
+
+      chatOptions.innerHTML = '';
+      scenario.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'chat-btn';
+        btn.textContent = opt.text;
+        btn.onclick = () => handleChatOption(idx);
+        chatOptions.appendChild(btn);
+      });
+
+      chatOptions.style.display = 'flex';
+      setTimeout(() => { chatOptions.style.opacity = '1'; }, 50);
+      isChatLocked = false;
+    }
+
+    function handleChatOption(optIndex) {
+      if(isChatLocked) return;
+      isChatLocked = true;
+
+      const scenario = chatScenarios[currentChatIndex];
+      const selectedOption = scenario.options[optIndex];
+
+      chatOptions.style.opacity = '0';
+      setTimeout(() => chatOptions.style.display = 'none', 300);
+      
+      const mentorMsgHTML = `<div class="chat-msg mentor-msg"><div class="msg-avatar">🧑‍🏫</div><div class="msg-bubble"><strong>Вы (Руководитель):</strong> ${selectedOption.text}</div></div>`;
+      chatHistory.insertAdjacentHTML('beforeend', mentorMsgHTML);
+      chatHistory.scrollTop = chatHistory.scrollHeight;
+
+      const typingId = 'typing-' + Date.now();
+      const typingHTML = `<div class="chat-msg trainee-msg" id="${typingId}"><div class="msg-avatar">${scenario.avatar}</div><div class="typing-indicator"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
+      
+      setTimeout(() => {
+          chatHistory.insertAdjacentHTML('beforeend', typingHTML);
+          chatHistory.scrollTop = chatHistory.scrollHeight;
+      }, 500);
+
+      setTimeout(() => {
+          const typingIndicator = document.getElementById(typingId);
+          if(typingIndicator) typingIndicator.remove();
+          
+          const traineeReplyHTML = `<div class="chat-msg trainee-msg"><div class="msg-avatar">${scenario.avatar}</div><div class="msg-bubble"><strong>${scenario.trainee}:</strong> ${selectedOption.reply}</div></div>`;
+          chatHistory.insertAdjacentHTML('beforeend', traineeReplyHTML);
+
+          setTimeout(() => {
+            let actionBtnHTML = '';
+            if (selectedOption.isCorrect) {
+                if (currentChatIndex < chatScenarios.length - 1) {
+                    actionBtnHTML = `<br><br><button onclick="nextChatScenario()" class="reset-chat-btn">▶️ Следующая ситуация</button>`;
+                } else {
+                    actionBtnHTML = `<br><br><button onclick="restartChatSimulator()" class="reset-chat-btn">🔄 Пройти тренажер заново</button>`;
+                }
+                const feedbackHTML = `<div class="chat-feedback success">${selectedOption.feedback}${actionBtnHTML}</div>`;
+                chatHistory.insertAdjacentHTML('beforeend', feedbackHTML);
+            } else {
+                const feedbackHTML = `<div class="chat-feedback error">${selectedOption.feedback}</div>`;
+                chatHistory.insertAdjacentHTML('beforeend', feedbackHTML);
+                setTimeout(() => {
+                    chatOptions.style.display = 'flex';
+                    setTimeout(() => { chatOptions.style.opacity = '1'; }, 50);
+                    chatHistory.scrollTop = chatHistory.scrollHeight;
+                    isChatLocked = false;
+                }, 1500);
+            }
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+          }, 800);
+
+      }, 2000);
+    }
+
+    window.nextChatScenario = function() {
+      currentChatIndex++;
+      renderChatScenario();
+    };
+
+    window.restartChatSimulator = function() {
+      currentChatIndex = 0;
+      renderChatScenario();
+    };
+
+    if(document.getElementById('chatOptions')) {
+      renderChatScenario();
+    }
+
+    // === PDF VIEWER LOGIC (V8.0) ===
+    const url = 'assets/БПЛА_Инструктаж.pdf'; 
+    const storageKey = 'bpla_pdf_page';
+    let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.0;
+    const canvas = document.getElementById('the-canvas'), ctx = canvas.getContext('2d');
+    const container = document.getElementById('mainPdfContainer');
+    const wrapper = document.getElementById('pdfWrapper');
+    const fsBtn = document.getElementById('fullscreenBtn');
+    const innerProgress = document.getElementById('pdfInnerProgress');
+    const themeBtn = document.getElementById('themeBtn');
+    const pageInput = document.getElementById('page_num_input');
+    const placeholder = document.createElement('div'); placeholder.style.display = 'none';
+
+    const savedPage = localStorage.getItem(storageKey);
+    if(savedPage) pageNum = parseInt(savedPage);
+
+    themeBtn.addEventListener('click', () => {
+        container.classList.toggle('dark-theme');
+        themeBtn.textContent = container.classList.contains('dark-theme') ? '☀️' : '🌙';
+    });
+
+    document.addEventListener('keydown', (e) => {
+        const rect = container.getBoundingClientRect();
+        const isVisible = (rect.top < window.innerHeight && rect.bottom > 0) || container.classList.contains('fullscreen-mode');
+        if (isVisible && document.activeElement !== pageInput) {
+            if (e.key === "ArrowLeft") document.getElementById('prev').click();
+            if (e.key === "ArrowRight") document.getElementById('next').click();
+            if (e.key === "+" || e.key === "=") document.getElementById('zoomIn').click();
+            if (e.key === "-" || e.key === "_") document.getElementById('zoomOut').click();
+        }
+        if (e.key === "Escape" && container.classList.contains('fullscreen-mode')) fsBtn.click();
+    });
+
+    pageInput.addEventListener('change', () => {
+        let val = parseInt(pageInput.value);
+        if (val >= 1 && val <= pdfDoc.numPages) { pageNum = val; queueRenderPage(pageNum); } else { pageInput.value = pageNum; }
+    });
+
+    fsBtn.addEventListener('click', () => {
+        const isFullscreen = container.classList.contains('fullscreen-mode');
+        if (!isFullscreen) {
+            container.parentNode.insertBefore(placeholder, container);
+            document.body.appendChild(container);
+            container.classList.add('fullscreen-mode');
+            document.body.classList.add('pdf-fullscreen-active'); 
+            fsBtn.textContent = '✕';
+            showGestureHint();
+        } else {
+            placeholder.parentNode.insertBefore(container, placeholder);
+            container.classList.remove('fullscreen-mode');
+            document.body.classList.remove('pdf-fullscreen-active');
+            fsBtn.textContent = '⛶';
+        }
+        setTimeout(() => renderPage(pageNum), 50);
+    });
+
+    function renderPage(num) {
+      pageRendering = true;
+      pdfDoc.getPage(num).then(function(page) {
+        const viewportOriginal = page.getViewport({scale: 1});
+        const availableWidth = wrapper.clientWidth - 30; 
+        let desiredScale = availableWidth / viewportOriginal.width;
+        if (scale !== 1.0) desiredScale = scale; else scale = parseFloat(desiredScale.toFixed(2));
+
+        const viewport = page.getViewport({scale: desiredScale});
+        canvas.height = viewport.height; canvas.width = viewport.width;
+
+        const renderContext = { canvasContext: ctx, viewport: viewport };
+        const renderTask = page.render(renderContext);
+
+        renderTask.promise.then(function() {
+          pageRendering = false;
+          document.getElementById('pdfLoader').style.display = 'none';
+          if (pageNumPending !== null) { renderPage(pageNumPending); pageNumPending = null; }
+        });
+      });
+      pageInput.value = num;
+      localStorage.setItem(storageKey, num);
+      if(pdfDoc) innerProgress.style.width = (num / pdfDoc.numPages) * 100 + '%';
+      if (scale > 1.0) canvas.classList.add('zoomed'); else canvas.classList.remove('zoomed');
+    }
+
+    function queueRenderPage(num) { if (pageRendering) pageNumPending = num; else renderPage(num); }
+
+    document.getElementById('prev').addEventListener('click', () => { if (pageNum <= 1) return; pageNum--; queueRenderPage(pageNum); });
+    document.getElementById('next').addEventListener('click', () => { if (pageNum >= pdfDoc.numPages) return; pageNum++; queueRenderPage(pageNum); });
+    document.getElementById('zoomIn').addEventListener('click', () => { scale += 0.25; renderPage(pageNum); });
+    document.getElementById('zoomOut').addEventListener('click', () => { if(scale > 0.5) scale -= 0.25; renderPage(pageNum); });
+
+    let isDragging = false, startX, startY, scrollLeft, scrollTop;
+    wrapper.addEventListener('mousedown', (e) => {
+        isDragging = true; wrapper.classList.add('grabbing');
+        startX = e.pageX - wrapper.offsetLeft; startY = e.pageY - wrapper.offsetTop;
+        scrollLeft = wrapper.scrollLeft; scrollTop = wrapper.scrollTop;
+    });
+    wrapper.addEventListener('mouseleave', () => { isDragging = false; wrapper.classList.remove('grabbing'); });
+    wrapper.addEventListener('mouseup', () => { isDragging = false; wrapper.classList.remove('grabbing'); });
+    wrapper.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - wrapper.offsetLeft; const y = e.pageY - wrapper.offsetTop;
+        const walkX = (x - startX) * 1.5; const walkY = (y - startY) * 1.5;
+        wrapper.scrollLeft = scrollLeft - walkX; wrapper.scrollTop = scrollTop - walkY;
+    });
+
+    let touchStartX = 0, touchEndX = 0, lastTap = 0;
+    wrapper.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+    wrapper.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        const currentTime = new Date().getTime();
+        if (currentTime - lastTap < 300) { scale = (scale > 1.2) ? 1.0 : 2.5; renderPage(pageNum); }
+        lastTap = currentTime;
+        if (scale <= 1.1) {
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 100) { 
+                if (diff > 0 && pageNum < pdfDoc.numPages) { pageNum++; queueRenderPage(pageNum); }
+                if (diff < 0 && pageNum > 1) { pageNum--; queueRenderPage(pageNum); }
+            }
+        }
+    }, {passive: true});
+
+    function showGestureHint() {
+        const hint = document.getElementById('gestureHint');
+        hint.classList.add('show-hint'); setTimeout(() => hint.classList.remove('show-hint'), 3000);
+    }
+
+    pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+      pdfDoc = pdfDoc_;
+      document.getElementById('page_count').textContent = pdfDoc.numPages;
+      renderPage(pageNum);
+    }).catch(err => {
+        console.error(err);
+        document.getElementById('pdfLoader').innerHTML = `<p style="text-align:center; padding:20px; color:red">Файл PDF не найден.<br>Убедитесь, что ${url} загружен.</p>`;
+    });
+    
+    window.addEventListener('resize', () => { if(pdfDoc) renderPage(pageNum); });
+  });
+</script>
+
+</body>
+</html>
