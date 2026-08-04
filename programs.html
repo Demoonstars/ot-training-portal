@@ -279,10 +279,11 @@
           <button class="filter-chip" aria-pressed="false" data-filter="san">Санминимум</button>
           <button class="filter-chip" aria-pressed="false" data-filter="hotel">Наставничество</button>
           <button class="filter-chip" aria-pressed="false" data-filter="conflict">Управление конфликтами</button>
+          <button class="filter-chip" aria-pressed="false" data-filter="bpla">Антитеррор / БПЛА</button>
         </div>
         
         <div id="resultsCount" style="text-align: center; margin-top: 15px; font-size: 0.85rem; color: #64748b; font-weight: 600;">
-          Доступно курсов: 8
+          Доступно курсов: 9
         </div>
       </div>
 
@@ -424,6 +425,24 @@
           </div>
         </article>
 
+        <!-- === НОВЫЙ БЛОК: ДЕЙСТВИЯ ПРИ УГРОЗЕ БПЛА === -->
+        <article class="program-card" data-cat="bpla" data-keywords="бпла дрон беспилотник антитеррор взрыв завал мчс эвакуация">
+          <div class="card-content">
+              <div class="card-top">
+                <div class="card-icon" style="background: #ffe4e6; color: #e11d48;">🚁</div>
+                <span class="status-tag">ФЗ-35 / 68-ФЗ</span>
+              </div>
+              <h3 class="card-title">Действия при угрозе БПЛА</h3>
+              <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
+              <p class="card-desc">
+                Алгоритмы выживания при атаке беспилотников. Правила укрытия, действия при взрыве, завалах и протоколы для ИТР.
+              </p>
+              <a href="course-bpla.html" class="card-btn">
+                Перейти к обучению <span>➔</span>
+              </a>
+          </div>
+        </article>
+
       </div>
 
       <div id="noResults" style="display:none; text-align:center; padding: 60px 20px; color: #64748b;">
@@ -458,7 +477,7 @@
 
     // 2. ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ (ДОБАВЛЕН НОВЫЙ СЛОГАН)
     const textElement = document.getElementById('typing-text');
-    const texts = ["Реестр программ обучения", "Актуальные знания", "Безопасность труда", "Санитарные нормы", "Развитие персонала", "Управление конфликтами"];
+    const texts = ["Реестр программ обучения", "Актуальные знания", "Безопасность труда", "Санитарные нормы", "Защита от БПЛА", "Управление конфликтами"];
     let textIndex = 0; charIndex = 0; isDeleting = false;
 
     function typeEffect() {
@@ -488,7 +507,6 @@
       });
     }
     animateCards();
-
 
     // 4. ПОИСК И ФИЛЬТРЫ
     const searchInput = document.getElementById('searchInput');
