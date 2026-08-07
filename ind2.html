@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>AURA CORE // Neural Topography OS</title>
+  <title>AURA CORE // Perfect Neural Topography</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,12 +14,11 @@
        ========================================= */
     :root {
       --bg-core: #04010a; 
-      --neon-purple: #9d00ff;
-      --neon-magenta: #d900ff;
-      --neon-cyan: #00f0ff;
+      --neon-purple: #8a2be2;
+      --neon-cyan: #00ffff;
       
       --glass-bg: rgba(6, 2, 14, 0.75);
-      --glass-border: rgba(157, 0, 255, 0.4);
+      --glass-border: rgba(138, 43, 226, 0.4);
       --text-main: #f8fafc;
       --text-muted: #8b79a5;
     }
@@ -32,10 +31,10 @@
       user-select: none;
     }
 
-    /* Эффект свечения экрана */
+    /* Эффект виньетки по краям для глубины */
     .screen-glow {
       position: absolute; inset: 0; z-index: 2; pointer-events: none;
-      background: radial-gradient(circle at center, transparent 30%, rgba(4, 1, 10, 0.9) 100%);
+      background: radial-gradient(circle at center, transparent 30%, rgba(4, 1, 10, 0.95) 100%);
     }
 
     #neural-engine { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; }
@@ -45,20 +44,20 @@
        ========================================= */
     .sys-bar {
       position: absolute; top: 0; left: 0; width: 100%; height: 40px;
-      background: rgba(0,0,0,0.4); border-bottom: 1px solid rgba(157, 0, 255, 0.2);
+      background: rgba(0,0,0,0.4); border-bottom: 1px solid rgba(138, 43, 226, 0.2);
       display: flex; justify-content: space-between; align-items: center;
       padding: 0 25px; z-index: 100; font-family: 'JetBrains Mono', monospace;
       font-size: 0.75rem; letter-spacing: 2px; backdrop-filter: blur(5px);
     }
     .sys-status { display: flex; align-items: center; gap: 15px; color: var(--neon-cyan); font-weight: 700; text-shadow: 0 0 10px var(--neon-cyan); }
-    .blinking-dot { width: 8px; height: 8px; background: var(--neon-magenta); border-radius: 50%; box-shadow: 0 0 15px var(--neon-magenta); animation: blink 1.5s infinite; }
+    .blinking-dot { width: 8px; height: 8px; background: var(--neon-cyan); border-radius: 50%; box-shadow: 0 0 15px var(--neon-cyan); animation: blink 1.5s infinite; }
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.1; } }
     
     .os-dock {
       position: absolute; bottom: 35px; left: 50%; transform: translateX(-50%);
       background: rgba(4, 1, 10, 0.85); border: 1px solid var(--glass-border);
       border-radius: 20px; padding: 12px 25px; display: flex; gap: 25px;
-      z-index: 100; backdrop-filter: blur(25px); box-shadow: 0 15px 50px rgba(0,0,0,0.9), 0 0 30px rgba(157, 0, 255, 0.3);
+      z-index: 100; backdrop-filter: blur(25px); box-shadow: 0 15px 50px rgba(0,0,0,0.9), 0 0 30px rgba(138, 43, 226, 0.3);
     }
     .dock-icon {
       width: 50px; height: 50px; border-radius: 12px; background: rgba(255,255,255,0.02);
@@ -66,7 +65,7 @@
       font-size: 1.6rem; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative; color: rgba(255,255,255,0.7);
     }
-    .dock-icon:hover { transform: translateY(-15px) scale(1.15); color: #fff; background: rgba(157, 0, 255, 0.2); border-color: var(--neon-magenta); box-shadow: 0 0 25px rgba(157, 0, 255, 0.6); }
+    .dock-icon:hover { transform: translateY(-15px) scale(1.15); color: #fff; background: rgba(138, 43, 226, 0.2); border-color: #d900ff; box-shadow: 0 0 25px rgba(138, 43, 226, 0.6); }
     
     .dock-label {
       position: absolute; top: -35px; font-family: 'JetBrains Mono'; font-size: 0.75rem;
@@ -76,24 +75,24 @@
     .dock-icon:hover .dock-label { opacity: 1; transform: translateY(-5px); }
 
     /* =========================================
-       HOLO WINDOWS
+       HOLO WINDOWS (Скрыты по умолчанию)
        ========================================= */
     .holo-window {
       position: absolute; width: 800px; height: 600px;
       background: var(--glass-bg); border: 1px solid var(--glass-border);
       border-radius: 16px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      box-shadow: inset 0 0 40px rgba(157, 0, 255, 0.1), 0 30px 60px rgba(0,0,0,0.95);
+      box-shadow: inset 0 0 40px rgba(138, 43, 226, 0.1), 0 30px 60px rgba(0,0,0,0.95);
       display: none; flex-direction: column; z-index: 10;
       transition: opacity 0.3s, filter 0.3s; overflow: hidden; resize: both; min-width: 600px; min-height: 400px;
     }
     .holo-window.active { display: flex; animation: windowOpen 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
-    .holo-window.focus { z-index: 50; box-shadow: inset 0 0 50px rgba(157, 0, 255, 0.2), 0 0 80px rgba(0,0,0,0.95); border-color: var(--neon-cyan); filter: blur(0px); }
+    .holo-window.focus { z-index: 50; box-shadow: inset 0 0 50px rgba(138, 43, 226, 0.2), 0 0 80px rgba(0,0,0,0.95); border-color: var(--neon-cyan); filter: blur(0px); }
     .holo-window.active:not(.focus) { filter: blur(3px); opacity: 0.6; }
     
     @keyframes windowOpen { from { opacity: 0; transform: scale(0.9) translateY(40px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
     .window-header {
-      background: rgba(0,0,0,0.85); padding: 15px 25px; border-bottom: 1px solid rgba(157, 0, 255, 0.3);
+      background: rgba(0,0,0,0.85); padding: 15px 25px; border-bottom: 1px solid rgba(138, 43, 226, 0.3);
       display: flex; justify-content: space-between; align-items: center; cursor: grab;
     }
     .window-header:active { cursor: grabbing; }
@@ -104,28 +103,9 @@
     .win-close { background: #ff0055; opacity: 0.6; }
     .win-close:hover { opacity: 1; box-shadow: 0 0 15px #ff0055; }
 
-    /* =========================================
-       CONTENT & PROMPTS
-       ========================================= */
     .window-content { padding: 40px; overflow-y: auto; flex-grow: 1; user-select: text; }
     .window-content::-webkit-scrollbar { width: 6px; }
-    .window-content::-webkit-scrollbar-thumb { background: rgba(157, 0, 255, 0.5); border-radius: 10px; }
-
-    .content-title { font-family: 'Orbitron', sans-serif; font-size: 1.6rem; color: #fff; margin-top: 0; margin-bottom: 25px; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; letter-spacing: 1px; }
-    .content-subtitle { font-family: 'JetBrains Mono'; font-size: 1.1rem; color: var(--neon-cyan); margin-top: 40px; margin-bottom: 15px; font-weight: 700; text-transform: uppercase; }
-    .content-text { font-size: 1rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 30px; }
-    .highlight { color: #fff; background: rgba(157, 0, 255, 0.2); padding: 2px 6px; border-radius: 4px; font-family: 'JetBrains Mono'; font-size: 0.9rem;}
-
-    .ai-prompt-block {
-      background: rgba(0,0,0,0.8); border-left: 4px solid var(--neon-purple);
-      padding: 25px; border-radius: 0 12px 12px 0; margin-bottom: 30px;
-      position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.8);
-    }
-    .ai-prompt-block::before { content: ''; position: absolute; top: 0; right: 0; width: 200px; height: 1px; background: linear-gradient(90deg, transparent, var(--neon-purple)); }
-    
-    .prompt-label { font-family: 'JetBrains Mono'; font-size: 0.8rem; color: var(--neon-magenta); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1.5px; }
-    .prompt-text { font-family: 'JetBrains Mono'; font-size: 0.95rem; line-height: 1.7; color: #fff; }
-    .decode-text { font-family: 'JetBrains Mono', monospace; }
+    .window-content::-webkit-scrollbar-thumb { background: rgba(138, 43, 226, 0.5); border-radius: 10px; }
 
     /* =========================================
        INITIALIZATION SCREEN
@@ -161,154 +141,50 @@
   <div class="sys-bar">
     <div class="sys-status">
       <div class="blinking-dot"></div>
-      <span>AURA CORE v4.0 // NEURAL TOPOGRAPHY ACTIVE</span>
+      <span>AURA CORE v5.0 // NEURAL TOPOGRAPHY ENGINE</span>
     </div>
     <div id="sys-clock">00:00:00</div>
   </div>
 
-  <!-- WINDOW 1: CORPORATE & OHS -->
+  <!-- WINDOW 1: Placeholder -->
   <div class="holo-window" id="win-work" style="top: 60px; left: 40px; width: 800px; height: 80vh;">
     <div class="window-header">
-      <div class="window-title">📊 MOD_01: КОРПОРАТИВНАЯ РАЗВЕДКА И СУОТ</div>
+      <div class="window-title">📊 MOD_01: БАЗА ДАННЫХ ИИ</div>
       <div class="window-controls"><button class="win-btn win-close" onclick="closeWindow('win-work')"></button></div>
     </div>
-    <div class="window-content">
-      <h2 class="content-title decode-title" data-target="УПРАВЛЕНИЕ И БИЗНЕС-ПРОЦЕССЫ">УПРАВЛЕНИЕ И БИЗНЕС-ПРОЦЕССЫ</h2>
-      <p class="content-text">Использование ИИ в корпоративной среде требует строгих рамок. Применяйте метод <span class="highlight">ROLE-CONTEXT-TASK</span> для получения документов юридической точности, пригодных для внедрения в любой организации.</p>
-      
-      <h3 class="content-subtitle">// 01. ОХРАНА ТРУДА (СУОТ) И ПБ</h3>
-      <div class="ai-prompt-block">
-        <div class="prompt-label" style="color: var(--neon-cyan);">ПРОМПТ: Разработка Политики СУОТ (Софрино)</div>
-        <div class="prompt-text decode-text" data-target='Действуй как Аудитор по Охране Труда с 15-летним стажем. Разработай проект приказа об утверждении новой политики СУОТ для гостиничного комплекса ООО «Софрино». База: Постановление Правительства РФ № 2464. Структура документа: 1) Цели введения, 2) Зоны ответственности руководителей подразделений (кухня, клининг, ресепшн), 3) График проведения внепланового инструктажа. Тон: канцелярский, строгий.'>Загрузка...</div>
-      </div>
-
-      <div class="ai-prompt-block">
-        <div class="prompt-label" style="color: var(--neon-cyan);">ПРОМПТ: Реструктуризация (Битрейс Телеком)</div>
-        <div class="prompt-text decode-text" data-target='Выступи в роли Директора по организационному развитию. Составь план реструктуризации технического отдела ООО «Битрейс Телеком» для повышения стандартов пожарной безопасности при работе с серверным оборудованием. Включи матрицу рисков и алгоритм действий при нештатных ситуациях.'>Загрузка...</div>
-      </div>
-
-      <h3 class="content-subtitle" style="color: var(--neon-magenta);">// 02. ДЕЛОВАЯ ПЕРЕПИСКА И АНАЛИТИКА</h3>
-      <div class="ai-prompt-block" style="border-left-color: var(--neon-magenta);">
-        <div class="prompt-label" style="color: var(--neon-magenta);">ПРОМПТ: Подготовка к защите проекта</div>
-        <div class="prompt-text decode-text" data-target='Действуй как профессор бизнес-школы. Подготовь материалы для защиты курсовой работы по дисциплине "Гостиничный менеджмент" для Екатерины Игоревны. Сгенерируй структуру из 10 слайдов презентации. Для каждого слайда напиши: 1) Точный заголовок, 2) Текст для отображения (буллиты), 3) Текст спикера (речь на 45 секунд), раскрывающий тезисы. Тема: Управление рисками в пиковые сезоны.'>Загрузка...</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- WINDOW 2: LIFE & HOBBY -->
-  <div class="holo-window" id="win-family" style="top: 100px; left: 850px; width: 650px; height: 70vh;">
-    <div class="window-header">
-      <div class="window-title">🧬 MOD_02: ПЕРСОНАЛЬНОЕ РАЗВИТИЕ И ДОМ</div>
-      <div class="window-controls"><button class="win-btn win-close" onclick="closeWindow('win-family')"></button></div>
-    </div>
-    <div class="window-content">
-      <h2 class="content-title decode-title" data-target="ИНТЕГРАЦИЯ ИИ В ЛИЧНУЮ СФЕРУ">ИНТЕГРАЦИЯ ИИ В ЛИЧНУЮ СФЕРУ</h2>
-      
-      <h3 class="content-subtitle" style="color: #ff007f;">// 01. ПРОДВИНУТАЯ ГЕЙМИФИКАЦИЯ (ДЕТИ)</h3>
-      <p class="content-text">ИИ может работать как интерактивный Dungeon Master для развития детей, подстраиваясь под их решения в реальном времени.</p>
-      <div class="ai-prompt-block" style="border-left-color: #ff007f;">
-        <div class="prompt-label" style="color: #ff007f;">ПРОМПТ: Интерактивный Квест</div>
-        <div class="prompt-text decode-text" data-target='Сыграй со мной в текстовую RPG. Главная героиня — девочка по имени Стеша. Жанр: научно-фантастическое приключение. Задача: Стеше нужно починить космический корабль, решая логические и математические задачи уровня 1 класса. Выдавай историю небольшими абзацами, задавай загадку и жди моего ответа (от лица Стеши), прежде чем продолжить.'>Загрузка...</div>
-      </div>
-
-      <h3 class="content-subtitle" style="color: #00ffaa;">// 02. РАСЧЕТЫ ДЛЯ ХОББИ (РЫБАЛКА)</h3>
-      <div class="ai-prompt-block" style="border-left-color: #00ffaa;">
-        <div class="prompt-label" style="color: #00ffaa;">ПРОМПТ: Физика спиннинговой снасти</div>
-        <div class="prompt-text decode-text" data-target='Действуй как эксперт-гидродинамик и профессиональный рыболов. У меня есть спиннинг марки "Osetr" с тестом 10-40 грамм. Условия: река с быстрым течением, глубина 6-8 метров, дно ракушечник. Рассчитай оптимальную толщину шнура (PE), вес свинцового груза и размер силиконовой приманки, чтобы приманка достигала дна за 4 секунды, не теряя чувствительности бланка.'>Загрузка...</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- WINDOW 3: DEV & IT -->
-  <div class="holo-window" id="win-code" style="top: 350px; left: 150px; width: 750px; height: 65vh;">
-    <div class="window-header">
-      <div class="window-title">💻 MOD_03: IT, РАЗРАБОТКА И ИНФРАСТРУКТУРА</div>
-      <div class="window-controls"><button class="win-btn win-close" onclick="closeWindow('win-code')"></button></div>
-    </div>
-    <div class="window-content">
-      <h2 class="content-title decode-title" data-target="АДМИНИСТРИРОВАНИЕ И КОД">АДМИНИСТРИРОВАНИЕ И КОД</h2>
-
-      <h3 class="content-subtitle" style="color: var(--neon-cyan);">// 01. СЕТЕВАЯ ИНФРАСТРУКТУРА (ИГРОВЫЕ СЕРВЕРЫ)</h3>
-      <div class="ai-prompt-block" style="border-left-color: var(--neon-cyan);">
-        <div class="prompt-label" style="color: var(--neon-cyan);">ПРОМПТ: Оптимизация сервера Rust</div>
-        <div class="prompt-text decode-text" data-target='Выступи в роли Senior DevOps инженера. Мы с коллегой, Игорем Андреевичем, развернули выделенный сервер Rust. При онлайне выше 15 человек начинаются потери пакетов и десинхронизация. Напиши оптимальный .bat файл запуска сервера, включающий тонкую настройку Garbage Collector (G1GC) и параметров network.tickrate.'>Загрузка...</div>
-      </div>
-      
-      <div class="ai-prompt-block" style="border-left-color: var(--neon-cyan);">
-        <div class="prompt-label" style="color: var(--neon-cyan);">ПРОМПТ: Конфликты Java Mods</div>
-        <div class="prompt-text decode-text" data-target='Я собираю тяжелую серверную сборку Minecraft. Моды "Create" и "Create: Aeronautics" конфликтуют при отрисовке сложных физических сущностей. Напиши пошаговый алгоритм профилирования сервера с помощью Spark и укажи JVM флаги для выделения 16 ГБ RAM с минимальными задержками (latency).'>Загрузка...</div>
-      </div>
-
-      <h3 class="content-subtitle" style="color: var(--neon-purple);">// 02. РАЗРАБОТКА И ОС</h3>
-      <div class="ai-prompt-block" style="border-left-color: var(--neon-purple);">
-        <div class="prompt-label" style="color: var(--neon-purple);">ПРОМПТ: Flutter Web Debugging</div>
-        <div class="prompt-text decode-text" data-target='В моем проекте на Flutter Web падает ошибка CORS при загрузке изображений через CanvasKit. Объясни техническую причину и напиши bash-скрипт для компиляции проекта с использованием HTML-рендерера, предварительно очистив кэш сборки.'>Загрузка...</div>
-      </div>
-      
-      <div class="ai-prompt-block" style="border-left-color: var(--neon-purple);">
-        <div class="prompt-label" style="color: var(--neon-purple);">ПРОМПТ: Скриптинг Windows 11</div>
-        <div class="prompt-text decode-text" data-target='Я выполнил чистую установку Windows 11. Напиши профессиональный PowerShell скрипт, который без вреда для системы: 1) Отключит службы телеметрии, 2) Удалит предустановленные UWP приложения (Bloatware), 3) Отключит индексацию на диске C для повышения производительности SSD.'>Загрузка...</div>
-      </div>
+    <div class="window-content" style="font-family: 'JetBrains Mono'; font-size: 14px; line-height: 1.6;">
+      <h2 style="color: var(--neon-cyan); font-family: 'Orbitron';">СИСТЕМА ИНИЦИАЛИЗИРОВАНА</h2>
+      <p>Движок топографического рендеринга успешно запущен. Модули обучения загружены в фоновом режиме. Интерфейс адаптирован под визуализацию пространственных данных.</p>
     </div>
   </div>
 
   <!-- DOCK -->
   <div class="os-dock">
     <div class="dock-icon" onclick="openWindow('win-work')" style="color: var(--neon-cyan);">
-      <span class="dock-label">Управление_СУОТ</span>📊
+      <span class="dock-label">Терминал_01</span>📊
     </div>
-    <div class="dock-icon" onclick="openWindow('win-family')" style="color: #ff007f;">
-      <span class="dock-label">Семья_Спорт</span>🧬
-    </div>
-    <div class="dock-icon" onclick="openWindow('win-code')" style="color: var(--neon-purple);">
-      <span class="dock-label">Dev_Инфраструктура</span>💻
+    <div class="dock-icon" onclick="openWindow('win-work')" style="color: #ff007f;">
+      <span class="dock-label">Терминал_02</span>🧬
     </div>
   </div>
 
   <script>
     // ==========================================
-    // 1. ИНИЦИАЛИЗАЦИЯ И ДЕКОДЕР
+    // 1. ИНИЦИАЛИЗАЦИЯ И ОКОННЫЙ МЕНЕДЖЕР
     // ==========================================
     function bootSystem() {
       const initScreen = document.getElementById('init-screen');
       initScreen.style.opacity = '0';
-      setTimeout(() => {
-        initScreen.style.display = 'none';
-        openWindow('win-work');
-      }, 1500);
+      setTimeout(() => { initScreen.style.display = 'none'; }, 1500);
     }
 
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>/\\|[]{}";
-    function decodeText(element) {
-      const targetText = element.getAttribute('data-target');
-      let iterations = 0;
-      element.innerText = "";
-      const interval = setInterval(() => {
-        element.innerText = targetText.split("").map((letter, index) => {
-          if (index < iterations) return targetText[index];
-          return chars[Math.floor(Math.random() * chars.length)];
-        }).join("");
-        if (iterations >= targetText.length) clearInterval(interval);
-        iterations += 2; // Очень быстрая расшифровка
-      }, 10);
-    }
-
-    // ==========================================
-    // 2. ОКОННЫЙ МЕНЕДЖЕР
-    // ==========================================
     let zIndexCounter = 10;
-    
     function openWindow(id) {
       const win = document.getElementById(id);
-      if(!win.classList.contains('active')) {
-        win.classList.add('active');
-        win.querySelectorAll('.decode-text, .decode-title').forEach(el => decodeText(el));
-      }
+      if(!win.classList.contains('active')) win.classList.add('active');
       focusWindow(win);
     }
-
     function closeWindow(id) { document.getElementById(id).classList.remove('active'); }
-
     function focusWindow(win) {
       document.querySelectorAll('.holo-window').forEach(w => w.classList.remove('focus'));
       win.classList.add('focus');
@@ -319,7 +195,6 @@
     document.querySelectorAll('.holo-window').forEach(win => {
       const header = win.querySelector('.window-header');
       let isDragging = false, startX, startY, initialX, initialY;
-
       win.addEventListener('mousedown', () => focusWindow(win));
       header.addEventListener('mousedown', (e) => {
         isDragging = true; startX = e.clientX; startY = e.clientY;
@@ -337,199 +212,206 @@
     setInterval(() => { document.getElementById('sys-clock').innerText = new Date().toLocaleTimeString('ru-RU'); }, 1000);
 
     // ==========================================
-    // 3. 3D NEURAL ENGINE (ПРОДВИНУТЫЙ РЕНДЕР ЛИЦА)
+    // 2. SECRET DISPLACEMENT ENGINE (ИСТИННЫЙ 3D РЕНДЕР)
     // ==========================================
     const canvas = document.getElementById('neural-engine');
     const ctx = canvas.getContext('2d');
-    let width, height, centerX, centerY;
+    let width, height;
     let time = 0;
-    let mouse = { x: -1000, y: -1000, radius: 250 };
     
+    // Скрытый холст для генерации карты высот (Depth Map)
+    const hiddenCanvas = document.createElement('canvas');
+    const hctx = hiddenCanvas.getContext('2d');
+    const depthSize = 256; 
+    hiddenCanvas.width = depthSize;
+    hiddenCanvas.height = depthSize;
+    let depthData = [];
+
+    function generateDepthMap() {
+      hctx.fillStyle = '#000'; // Черный фон (ноль высоты)
+      hctx.fillRect(0, 0, depthSize, depthSize);
+      
+      // Рисуем анатомию лица размытыми фигурами
+      // Чем белее цвет, тем выше точка на 3D графике
+      
+      // Базовая форма головы (овал)
+      hctx.fillStyle = 'rgba(100, 100, 100, 1)';
+      hctx.beginPath(); hctx.ellipse(128, 110, 70, 95, 0, 0, Math.PI*2); hctx.fill();
+      
+      // Лоб и надбровные дуги
+      hctx.fillStyle = 'rgba(180, 180, 180, 1)';
+      hctx.beginPath(); hctx.ellipse(128, 80, 55, 30, 0, 0, Math.PI*2); hctx.fill();
+      
+      // Глазницы (ВЫРЕЗАЕМ объем черным цветом)
+      hctx.globalCompositeOperation = 'source-over';
+      hctx.fillStyle = 'rgba(0, 0, 0, 1)';
+      hctx.beginPath(); hctx.ellipse(100, 105, 18, 12, 0, 0, Math.PI*2); hctx.fill();
+      hctx.beginPath(); hctx.ellipse(156, 105, 18, 12, 0, 0, Math.PI*2); hctx.fill();
+      
+      // Возвращаем режим наложения света
+      hctx.globalCompositeOperation = 'lighter';
+      
+      // Переносица и кончик носа (самые яркие точки)
+      hctx.fillStyle = 'rgba(200, 200, 200, 1)';
+      hctx.beginPath(); hctx.ellipse(128, 120, 12, 25, 0, 0, Math.PI*2); hctx.fill();
+      hctx.fillStyle = 'rgba(255, 255, 255, 1)'; // Кончик носа
+      hctx.beginPath(); hctx.ellipse(128, 145, 16, 12, 0, 0, Math.PI*2); hctx.fill();
+      
+      // Скулы
+      hctx.fillStyle = 'rgba(120, 120, 120, 1)';
+      hctx.beginPath(); hctx.ellipse(90, 135, 20, 25, -0.5, 0, Math.PI*2); hctx.fill();
+      hctx.beginPath(); hctx.ellipse(166, 135, 20, 25, 0.5, 0, Math.PI*2); hctx.fill();
+      
+      // Губы (две полоски)
+      hctx.fillStyle = 'rgba(140, 140, 140, 1)';
+      hctx.beginPath(); hctx.ellipse(128, 172, 25, 8, 0, 0, Math.PI*2); hctx.fill();
+      hctx.fillStyle = 'rgba(110, 110, 110, 1)';
+      hctx.beginPath(); hctx.ellipse(128, 182, 22, 6, 0, 0, Math.PI*2); hctx.fill();
+      
+      // Подбородок
+      hctx.fillStyle = 'rgba(170, 170, 170, 1)';
+      hctx.beginPath(); hctx.ellipse(128, 205, 28, 20, 0, 0, Math.PI*2); hctx.fill();
+
+      // Шея и ключицы
+      hctx.fillStyle = 'rgba(70, 70, 70, 1)';
+      hctx.beginPath(); hctx.ellipse(128, 230, 40, 40, 0, 0, Math.PI*2); hctx.fill();
+      hctx.beginPath(); hctx.ellipse(70, 256, 60, 20, -0.2, 0, Math.PI*2); hctx.fill();
+      hctx.beginPath(); hctx.ellipse(186, 256, 60, 20, 0.2, 0, Math.PI*2); hctx.fill();
+
+      // МАГИЯ: Сильное размытие (Blur) превращает пятна в идеальную гладкую 3D-карту
+      hctx.globalCompositeOperation = 'source-over';
+      hctx.fillStyle = 'rgba(0,0,0,0.5)';
+      
+      // Имплементация программного блюра через отрисовку с прозрачностью (кроссбраузерно)
+      for(let i=0; i<8; i++) {
+         hctx.drawImage(hiddenCanvas, -2, -2, depthSize+4, depthSize+4);
+         hctx.drawImage(hiddenCanvas, 2, 2, depthSize-4, depthSize-4);
+      }
+
+      // Сохраняем пиксели в массив
+      const imgData = hctx.getImageData(0, 0, depthSize, depthSize).data;
+      depthData = new Float32Array(depthSize * depthSize);
+      for(let i=0; i<depthData.length; i++) {
+        // Берем красный канал (R), нормализуем от 0 до 1
+        depthData[i] = imgData[i*4] / 255.0; 
+      }
+    }
+
+    // Функция получения высоты Z в точке (x, y) где координаты от 0 до 1
+    function getZ(x, y) {
+      if (x < 0 || x > 1 || y < 0 || y > 1) return 0;
+      let px = Math.floor(x * (depthSize - 1));
+      let py = Math.floor(y * (depthSize - 1));
+      return depthData[py * depthSize + px];
+    }
+
     function resize() { 
       width = canvas.width = window.innerWidth; 
       height = canvas.height = window.innerHeight; 
-      centerX = width / 2; centerY = height / 2;
+      generateDepthMap(); // Перегенерируем карту при ресайзе
     }
     window.addEventListener('resize', resize); resize();
-    document.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
-
-    // Параметры сетки
-    const numLines = 140; // Количество горизонтальных линий
-    const pointsPerLine = 250; // Детализация линии
-    const faceScale = 250; // Масштаб лица на экране
-    
-    // Математическая функция силуэта (Обрезает линии за пределами головы и плеч)
-    function getSilhouetteMask(nx, ny) {
-      // Голова
-      let head = Math.sqrt(Math.pow(nx/0.45, 2) + Math.pow((ny+0.2)/0.5, 2));
-      // Челюсть
-      let jaw = Math.sqrt(Math.pow(nx/0.3, 2) + Math.pow((ny-0.2)/0.35, 2));
-      // Шея
-      let neck = Math.sqrt(Math.pow(nx/0.18, 2) + Math.pow((ny-0.5)/0.25, 2));
-      // Плечи
-      let shoulders = Math.sqrt(Math.pow(nx/1.2, 2) + Math.pow((ny-0.9)/0.3, 2));
-      
-      let minD = Math.min(head, jaw, neck, shoulders);
-      return Math.max(0, 1 - Math.pow(minD, 6)); // Плавное затухание на краях
-    }
-
-    // Математическая функция глубины (Черты лица)
-    function getFaceDepth(nx, ny) {
-      let z = 0;
-      let mask = getSilhouetteMask(nx, ny);
-      if (mask <= 0.01) return 0; // Не просчитываем пустоту
-
-      // Базовый объем головы
-      z += Math.sin(mask * Math.PI / 2) * 0.4;
-      
-      // Нос (мощный выступ)
-      z += Math.exp(-(Math.pow(nx, 2)/0.003 + Math.pow(ny-0.1, 2)/0.08)) * 0.5;
-      z += Math.exp(-(Math.pow(nx, 2)/0.006 + Math.pow(ny-0.28, 2)/0.015)) * 0.4; // Кончик
-      
-      // Надбровные дуги
-      z += Math.exp(-(Math.pow(nx, 2)/0.08 + Math.pow(ny+0.05, 2)/0.01)) * 0.25;
-      
-      // Глазницы (глубокие впадины - отрицательный Z)
-      z -= Math.exp(-(Math.pow(Math.abs(nx)-0.16, 2)/0.01 + Math.pow(ny-0.03, 2)/0.01)) * 0.3;
-      
-      // Скулы
-      z += Math.exp(-(Math.pow(Math.abs(nx)-0.25, 2)/0.02 + Math.pow(ny-0.15, 2)/0.03)) * 0.3;
-      
-      // Губы
-      z += Math.exp(-(Math.pow(nx, 2)/0.015 + Math.pow(ny-0.42, 2)/0.01)) * 0.2;
-      z -= Math.exp(-(Math.pow(nx, 2)/0.015 + Math.pow(ny-0.44, 2)/0.001)) * 0.08; // Разрез рта
-      
-      // Подбородок
-      z += Math.exp(-(Math.pow(nx, 2)/0.02 + Math.pow(ny-0.55, 2)/0.015)) * 0.3;
-      
-      // Ключицы
-      z += Math.exp(-(Math.pow(Math.abs(nx)-0.4, 2)/0.1 + Math.pow(ny-0.85, 2)/0.005)) * 0.2;
-
-      return z * mask; // Обрезаем объем по краям силуэта
-    }
-
-    // Генератор частиц фона
-    let bgParticles = [];
-    for(let i=0; i<150; i++) {
-      bgParticles.push({
-        angle: Math.random() * Math.PI * 2,
-        radius: Math.random() * 800 + 100,
-        speed: (Math.random() - 0.5) * 0.005,
-        size: Math.random() * 2
-      });
-    }
 
     function animateEngine() {
-      // Глубокий черный фон
       ctx.fillStyle = '#04010a';
       ctx.fillRect(0, 0, width, height);
-      time += 0.01;
+      time += 0.02;
 
-      // 1. РАДИАЛЬНЫЕ КОЛЬЦА И ЧАСТИЦЫ НА ФОНЕ
+      let centerX = width / 2;
+      let centerY = height / 2;
+
+      // 1. КОНЦЕНТРИЧЕСКИЕ ВОЛНЫ НА ФОНЕ
       ctx.lineWidth = 1;
-      for(let r=1; r<=12; r++) {
-        let radius = (time * 20 + r * 80) % 1000;
+      for(let r=1; r<=15; r++) {
+        let radius = (time * 15 + r * 60) % (width/1.2);
         ctx.beginPath();
-        ctx.arc(centerX, centerY - 100, radius, 0, Math.PI * 2);
-        let opacity = 1 - (radius / 1000);
-        ctx.strokeStyle = `rgba(157, 0, 255, ${Math.max(0, opacity * 0.3)})`;
-        ctx.setLineDash([4, 20]);
+        ctx.arc(centerX, centerY - 50, radius, 0, Math.PI * 2);
+        let opacity = 1 - (radius / (width/1.5));
+        ctx.strokeStyle = `rgba(138, 43, 226, ${Math.max(0, opacity * 0.15)})`;
+        ctx.setLineDash([2, 8]);
         ctx.stroke();
       }
       ctx.setLineDash([]);
 
-      ctx.fillStyle = 'rgba(157, 0, 255, 0.6)';
-      bgParticles.forEach(p => {
-        p.angle += p.speed;
-        let px = centerX + Math.cos(p.angle) * p.radius;
-        let py = centerY - 100 + Math.sin(p.angle) * p.radius;
-        ctx.beginPath();
-        ctx.arc(px, py, p.size, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      // 2. ЦЕНТРАЛЬНЫЙ ЛУЧ
+      // 2. ЦЕНТРАЛЬНЫЙ ЛУЧ ЭНЕРГИИ
       let beamGrad = ctx.createLinearGradient(centerX, 0, centerX, height);
       beamGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
-      beamGrad.addColorStop(0.1, 'rgba(255, 255, 255, 1)'); // Источник света
-      beamGrad.addColorStop(0.3, 'rgba(157, 0, 255, 0.8)');
-      beamGrad.addColorStop(0.8, 'rgba(0, 240, 255, 0.3)');
-      beamGrad.addColorStop(1, 'rgba(0, 240, 255, 0)');
+      beamGrad.addColorStop(0.2, 'rgba(255, 255, 255, 1)'); // Ослепительный центр
+      beamGrad.addColorStop(0.4, 'rgba(138, 43, 226, 0.8)');
+      beamGrad.addColorStop(0.8, 'rgba(0, 255, 255, 0.2)');
+      beamGrad.addColorStop(1, 'rgba(0, 255, 255, 0)');
       
       ctx.beginPath();
       ctx.moveTo(centerX, 0);
       ctx.lineTo(centerX, height);
-      ctx.lineWidth = 3;
+      ctx.lineWidth = 2;
       ctx.strokeStyle = beamGrad;
       ctx.stroke();
       
-      // Свечение луча
-      ctx.lineWidth = 20;
-      ctx.strokeStyle = 'rgba(157, 0, 255, 0.15)';
+      // Свечение вокруг луча
+      ctx.lineWidth = 25;
+      ctx.strokeStyle = 'rgba(138, 43, 226, 0.1)';
       ctx.stroke();
 
-      // 3. РЕНДЕР 3D-ЛИЦА
+      // 3. РЕНДЕР ЛИЦА ИЗ ЛИНИЙ (Joy Division Effect)
+      const numLines = 100; // Количество горизонтальных линий
+      const pointsPerLine = 300; // Детализация линии
+      
+      // Задаем область на экране, где будет лицо (в процентах от экрана)
+      const faceWidth = Math.min(width * 0.8, 800); // Ограничиваем максимальную ширину лица
+      const faceHeight = faceWidth * 1.2; 
+      const startX = centerX - faceWidth / 2;
+      const startY = centerY - faceHeight / 2 - 50; // Чуть выше центра
+
+      // Создаем глобальный градиент для линий через весь экран
+      let lineGradient = ctx.createLinearGradient(0, 0, width, 0);
+      lineGradient.addColorStop(0, 'rgba(138, 43, 226, 0.3)'); // Фиолетовый край
+      lineGradient.addColorStop(0.3, 'rgba(138, 43, 226, 0.8)'); 
+      lineGradient.addColorStop(0.48, 'rgba(0, 255, 255, 0.9)'); // Циан ближе к центру
+      lineGradient.addColorStop(0.5, 'rgba(255, 255, 255, 1)');  // Белый луч в центре
+      lineGradient.addColorStop(0.52, 'rgba(0, 255, 255, 0.9)');
+      lineGradient.addColorStop(0.7, 'rgba(138, 43, 226, 0.8)');
+      lineGradient.addColorStop(1, 'rgba(138, 43, 226, 0.3)');
+
       ctx.lineWidth = 1.2;
+      ctx.strokeStyle = lineGradient;
       ctx.lineJoin = 'round';
-      
-      // Создаем глобальный градиент для всех линий лица
-      // По краям фиолетовый, в центре (где луч) циановый/белый
-      let faceGradient = ctx.createLinearGradient(centerX - 300, 0, centerX + 300, 0);
-      faceGradient.addColorStop(0, 'rgba(157, 0, 255, 0)');
-      faceGradient.addColorStop(0.2, 'rgba(157, 0, 255, 0.9)');
-      faceGradient.addColorStop(0.48, 'rgba(0, 240, 255, 0.8)');
-      faceGradient.addColorStop(0.5, 'rgba(255, 255, 255, 1)'); // Центр
-      faceGradient.addColorStop(0.52, 'rgba(0, 240, 255, 0.8)');
-      faceGradient.addColorStop(0.8, 'rgba(157, 0, 255, 0.9)');
-      faceGradient.addColorStop(1, 'rgba(157, 0, 255, 0)');
-      
-      ctx.strokeStyle = faceGradient;
 
       for (let i = 0; i < numLines; i++) {
-        let ny = (i / numLines) * 2 - 1; // Координаты от -1 до 1
-        let pixelY = ny * 350; 
-        
         ctx.beginPath();
-        let isDrawing = false;
+        
+        // yRatio идет от 0 до 1 (сверху вниз по лицу)
+        let yRatio = i / numLines; 
         
         for (let j = 0; j <= pointsPerLine; j++) {
-          let nx = (j / pointsPerLine) * 2.4 - 1.2; // Шире, чтобы плечи влезли
-          let pixelX = nx * 350;
+          // Линия идет через ВЕСЬ экран (xRatio от 0 до 1)
+          let xRatio = j / pointsPerLine; 
+          let screenX = xRatio * width;
           
-          let mask = getSilhouetteMask(nx, ny);
+          // Базовая высота линии на экране
+          let baseY = startY + yRatio * faceHeight;
           
-          if (mask > 0.01) {
-            let z = getFaceDepth(nx, ny);
-            
-            // Легкое "дыхание" данных
-            if (z > 0.1) z += Math.sin(nx * 20 - time * 4) * 0.01;
+          // Проверяем, находится ли точка над "лицом"
+          let z = 0;
+          if (screenX > startX && screenX < startX + faceWidth) {
+             // Переводим экранный X в локальный X лица (от 0 до 1)
+             let localFaceX = (screenX - startX) / faceWidth;
+             // Читаем высоту со скрытой карты глубины
+             z = getZ(localFaceX, yRatio);
+          }
 
-            let screenX = centerX + pixelX;
-            let screenY = centerY + pixelY - z * faceScale; // Выдавливаем Z вверх
+          // Выдавливаем линию вверх в зависимости от Z (макс высота экструзии 200px)
+          // Легкая анимация волны по лицу
+          let wave = (z > 0.1) ? Math.sin(xRatio * 30 - time * 3) * 2 : 0;
+          let screenY = baseY - (z * 200) + wave; 
 
-            // Реакция на курсор
-            let dx = mouse.x - screenX;
-            let dy = mouse.y - screenY;
-            let dist = Math.sqrt(dx*dx + dy*dy);
-            if (dist < mouse.radius) {
-              let force = Math.pow((mouse.radius - dist) / mouse.radius, 2);
-              screenY += force * 50; 
-            }
-
-            if (!isDrawing) {
-              ctx.moveTo(screenX, screenY);
-              isDrawing = true;
-            } else {
-              ctx.lineTo(screenX, screenY);
-            }
-            
-            // Светящиеся узлы на выступающих частях лица
-            if (Math.random() > 0.995 && z > 0.2) {
-              ctx.fillStyle = '#fff';
-              ctx.fillRect(screenX-1, screenY-1, 2.5, 2.5);
-            }
-          } else {
-            isDrawing = false;
+          if (j === 0) ctx.moveTo(screenX, screenY);
+          else ctx.lineTo(screenX, screenY);
+          
+          // Светящиеся частицы-искры на пересечениях (из референса 2)
+          if (Math.random() > 0.998 && z > 0) {
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.fillRect(screenX-1, screenY-1, 2, 2);
           }
         }
         ctx.stroke();
