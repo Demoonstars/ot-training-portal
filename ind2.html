@@ -2,11 +2,11 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>AURA CORE // Volumetric AI Terminal OS</title>
+  <title>AURA CORE // Nexus Chat Engine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&family=Rajdhani:wght@500;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&family=Rajdhani:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     /* =========================================
@@ -18,9 +18,8 @@
       --core-blue: #0055ff;
       --core-purple: #b700ff;
       
-      /* Базовые цвета панелей (сверх-прозрачные) */
-      --panel-bg: rgba(4, 7, 12, 0.35);
-      --panel-border: rgba(0, 255, 255, 0.15);
+      --panel-bg: rgba(4, 7, 12, 0.65);
+      --panel-border: rgba(0, 255, 255, 0.2);
       --text-main: #e2e8f0;
       --text-dim: #64748b;
       --highlight: #38bdf8;
@@ -34,12 +33,11 @@
       user-select: none; cursor: crosshair;
     }
 
-    #quantum-mirror-engine { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2; }
+    #quantum-mirror-engine { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2; pointer-events: none; }
     #post-processing { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 3; pointer-events: none; mix-blend-mode: screen; display: none; }
-    .space-dust { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(circle at center, transparent 20%, var(--bg-void) 100%); }
 
     /* =========================================
-       HUD PANELS (VOLUMETRIC MASTERCLASS)
+       HUD PANELS (MONOLITHIC COMMAND CENTER)
        ========================================= */
     .hud-layer {
       position: absolute; inset: 0; z-index: 10; pointer-events: none;
@@ -47,41 +45,37 @@
     }
     
     .hud-container {
-      width: 480px; display: flex; flex-direction: column; gap: 24px;
+      width: 480px; display: flex; flex-direction: column; gap: 20px;
       pointer-events: none; height: 100%; justify-content: center;
     }
     .hud-container > * { pointer-events: auto; }
 
-    /* Адаптивность для мобильных и планшетов */
     @media (max-width: 1400px) { .hud-container { width: 400px; } .hud-layer { padding: 20px; } }
     @media (max-width: 900px) {
       .hud-layer { flex-direction: column; justify-content: flex-start; overflow-y: auto; pointer-events: auto; padding: 15px; }
       .hud-container { width: 100%; height: auto; margin-bottom: 20px; }
-      #quantum-mirror-engine { opacity: 0.25; } /* Приглушаем фон для читаемости */
+      #quantum-mirror-engine { opacity: 0.4; } 
     }
 
-    /* УМНЫЕ КАРТОЧКИ (MAGNETIC GLOW & SPOTLIGHT) */
+    /* УМНЫЕ КАРТОЧКИ (MAGNETIC SPOTLIGHT) */
     .data-card {
       background: var(--panel-bg);
       border-radius: 12px; backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
       padding: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
       position: relative; overflow: hidden;
-      /* Отключаем стандартный бордер, используем псевдоэлемент для светящейся рамки */
       border: 1px solid rgba(255,255,255,0.02);
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     
-    /* Эффект свечения ВНУТРИ карточки за курсором */
     .data-card::before {
       content: ""; position: absolute; inset: 0; z-index: 0;
       background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.04), transparent 40%);
       pointer-events: none; transition: opacity 0.3s; opacity: 0;
     }
     
-    /* Эффект светящейся РАМКИ за курсором */
     .data-card::after {
       content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit;
-      padding: 1px; /* Толщина рамки */
+      padding: 1px; 
       background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--card-glow, var(--core-cyan)), transparent 40%);
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor; mask-composite: exclude;
@@ -90,15 +84,14 @@
 
     .data-card:hover { transform: translateY(-4px); box-shadow: 0 30px 60px rgba(0,0,0,0.9); }
     .data-card:hover::before, .data-card:hover::after { opacity: 1; }
-
-    /* Ограничиваем контент по z-index, чтобы он был поверх эффектов подсветки */
-    .card-content { position: relative; z-index: 2; }
+    .card-content { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column;}
 
     .card-header {
       font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: 700;
       color: #fff; text-shadow: 0 0 10px var(--card-glow, var(--core-cyan)); letter-spacing: 2px; margin-bottom: 20px;
       display: flex; align-items: center; justify-content: space-between;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 12px; text-transform: uppercase;
+      flex-shrink: 0;
     }
     
     .status-indicator {
@@ -110,40 +103,73 @@
 
     .block-title {
       font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--highlight);
-      text-transform: uppercase; margin-bottom: 12px; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;
+      text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;
     }
-    .block-title::before { content: '>'; font-size: 0.9rem; color: var(--card-glow, var(--core-cyan)); font-weight: bold; }
+    .block-title::before { content: '■'; font-size: 0.5rem; color: var(--text-dim); }
 
     /* =========================================
-       CYBER-TERMINAL PROMPTS (VOLUMETRIC MODULES)
+       CYBER-TERMINAL PROMPTS (STATIC)
        ========================================= */
-    .volumetric-module {
-      background: rgba(0, 0, 0, 0.7); border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 8px; margin-bottom: 20px; overflow: hidden;
+    .terminal-box {
+      background: #020409; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px; margin-bottom: 24px; overflow: hidden;
       font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; color: #cbd5e1;
       user-select: text; transition: 0.3s ease; position: relative;
     }
-    .volumetric-module:hover { border-color: var(--card-glow, var(--core-cyan)); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+    .terminal-box:hover { border-color: var(--card-glow, var(--core-cyan)); box-shadow: 0 0 15px rgba(0, 255, 255, 0.1); }
     
     .term-header {
-      background: rgba(255,255,255,0.03); padding: 8px 16px; font-size: 0.7rem; color: #64748b;
-      display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.05); padding: 6px 12px; font-size: 0.7rem; color: var(--text-dim);
+      display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05);
     }
-    .term-path { color: var(--card-glow, var(--core-cyan)); opacity: 0.7; }
+    .term-copy { cursor: pointer; color: var(--highlight); transition: 0.2s; font-weight: bold;}
+    .term-copy:hover { color: #fff; text-shadow: 0 0 5px var(--highlight); }
+    .term-copy.copied { color: #10b981; text-shadow: 0 0 5px #10b981; pointer-events: none; }
     
-    .term-actions { display: flex; gap: 8px; }
-    .term-copy { cursor: pointer; color: #cbd5e1; transition: 0.2s; font-weight: 600; background: rgba(255,255,255,0.05); padding: 2px 8px; border-radius: 4px; }
-    .term-copy:hover { background: var(--card-glow, var(--core-cyan)); color: #000; }
-    .term-copy.copied { background: #10b981; color: #000; pointer-events: none; }
-    .term-expand { cursor: pointer; color: var(--text-dim); background: rgba(255,255,255,0.03); padding: 2px 8px; border-radius: 4px; }
-    .term-expand:hover { background: rgba(255,255,255,0.1); color: #fff; }
-    
-    .term-body { padding: 16px; position: relative; }
+    .term-body { padding: 16px; }
     .term-body span.cmd { color: var(--card-glow, var(--core-cyan)); font-weight: bold; margin-right: 8px; }
     .term-body span.accent { color: #fff; font-weight: bold; }
 
-    .tag-group { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
-    .tag { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 4px 10px; border-radius: 6px; font-family: 'JetBrains Mono'; font-size: 0.65rem; color: #94a3b8; }
+    .tag-group { display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
+    .tag { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 4px 8px; border-radius: 4px; font-family: 'JetBrains Mono'; font-size: 0.65rem; color: var(--text-dim); }
+
+    /* =========================================
+       CHAT ENGINE UI
+       ========================================= */
+    .chat-history {
+      flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 15px;
+      padding-right: 10px; margin-bottom: 15px; font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5;
+    }
+    /* Скроллбар для чата */
+    .chat-history::-webkit-scrollbar { width: 4px; }
+    .chat-history::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 4px; }
+    .chat-history::-webkit-scrollbar-thumb { background: var(--core-purple); border-radius: 4px; }
+
+    .msg-wrap { display: flex; flex-direction: column; max-width: 90%; }
+    .msg-user { align-self: flex-end; align-items: flex-end; }
+    .msg-ai { align-self: flex-start; align-items: flex-start; }
+
+    .msg-bubble { padding: 10px 14px; border-radius: 8px; word-wrap: break-word; user-select: text;}
+    .msg-user .msg-bubble { background: rgba(0, 255, 255, 0.1); border: 1px solid rgba(0, 255, 255, 0.3); color: #fff; border-bottom-right-radius: 0; }
+    .msg-ai .msg-bubble { background: rgba(183, 0, 255, 0.1); border: 1px solid rgba(183, 0, 255, 0.3); color: #e2e8f0; border-bottom-left-radius: 0; }
+    
+    .msg-label { font-family: 'JetBrains Mono'; font-size: 0.6rem; color: var(--text-dim); margin-bottom: 4px; text-transform: uppercase; }
+
+    .chat-input-wrapper {
+      display: flex; gap: 10px; flex-shrink: 0;
+    }
+    .chat-input {
+      flex-grow: 1; background: #020409; border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 6px; padding: 12px 16px; color: #fff; font-family: 'Inter'; font-size: 0.9rem;
+      outline: none; transition: 0.3s;
+    }
+    .chat-input:focus { border-color: var(--core-purple); box-shadow: 0 0 15px rgba(183, 0, 255, 0.2); }
+    .chat-btn {
+      background: rgba(183, 0, 255, 0.2); border: 1px solid var(--core-purple);
+      color: #fff; border-radius: 6px; width: 45px; cursor: pointer; transition: 0.3s;
+      font-family: 'JetBrains Mono'; font-weight: bold;
+    }
+    .chat-btn:hover { background: var(--core-purple); box-shadow: 0 0 15px var(--core-purple); }
 
     /* =========================================
        BOOT SCREEN
@@ -151,115 +177,74 @@
     #boot-screen {
       position: fixed; inset: 0; background: var(--bg-void); z-index: 9999;
       display: flex; flex-direction: column; justify-content: center; align-items: center;
-      font-family: 'JetBrains Mono', monospace; color: var(--core-cyan); transition: opacity 1s ease;
+      font-family: 'JetBrains Mono', monospace; color: var(--core-cyan);
+      transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .boot-logo { font-family: 'Rajdhani', sans-serif; font-size: 4rem; font-weight: 900; letter-spacing: 8px; margin-bottom: 30px; text-shadow: 0 0 30px var(--core-cyan); }
-    .progress-bar-container { width: 400px; height: 2px; background: rgba(255,255,255,0.1); overflow: hidden; position: relative; border-radius: 2px; }
+    .boot-logo { font-family: 'Rajdhani', sans-serif; font-size: 4rem; font-weight: 700; letter-spacing: 8px; margin-bottom: 30px; text-shadow: 0 0 30px var(--core-cyan); }
+    .progress-bar-container { width: 400px; height: 1px; background: rgba(255,255,255,0.1); overflow: hidden; position: relative; }
     .progress-bar { height: 100%; background: var(--core-cyan); width: 0%; transition: width 0.1s; box-shadow: 0 0 15px var(--core-cyan); }
   </style>
 </head>
 <body>
 
-  <!-- BOOT SEQUENCE -->
   <div id="boot-screen">
-    <div class="boot-logo">AURA CORE v13.0</div>
+    <div class="boot-logo">AURA KERNEL</div>
     <div class="progress-bar-container"><div class="progress-bar" id="boot-progress"></div></div>
-    <div id="boot-text" style="margin-top: 20px; font-size: 0.85rem; color: #64748b; letter-spacing: 3px;">INITIALIZING VOLUME PANELS...</div>
+    <div id="boot-text" style="margin-top: 20px; font-size: 0.85rem; color: var(--text-dim); letter-spacing: 3px;">INITIALIZING CORE...</div>
   </div>
 
-  <!-- ДВИЖОК ОСТАЛСЯ НЕИЗМЕННЫМ (ТВОЙ ОРИГИНАЛ) -->
   <canvas id="quantum-mirror-engine"></canvas>
   <canvas id="post-processing"></canvas>
-  <div class="space-dust"></div>
 
-  <!-- HUD LAYER -->
   <div class="hud-layer" id="hud-layer">
     
-    <!-- LEFT HUD: СТРАТЕГИЯ И ОБУЧЕНИЕ -->
+    <!-- LEFT HUD: СТАТИЧНАЯ БАЗА ЗНАНИЙ -->
     <div class="hud-container">
-      
-      <div class="data-card spotlight-card" style="--card-glow: var(--core-cyan);" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
+      <div class="data-card spotlight-card" style="--card-glow: var(--core-cyan);">
         <div class="card-content">
-          <div class="card-header">SYS.01 // AI ОБУЧЕНИЕ И PROMPT DESIGN <div class="status-indicator">SYNCED</div></div>
+          <div class="card-header">SYS.01 // СТРАТЕГИЯ И УПРАВЛЕНИЕ <div class="status-indicator">SYNCED</div></div>
           
-          <div class="block-title">ОСНОВЫ PROMPT ENGINEERING (GENERALIZED)</div>
-          <div class="tag-group"><span class="tag">Fundamentals</span><span class="tag">Strategy</span></div>
-          <div class="volumetric-module">
-            <div class="term-header"><span class="term-path">root/strategy/prompt_basics.md</span><span class="term-actions"><span class="term-copy" data-copy="Действуй как эксперт по Prompt Engineering. Сформулируй 3 ключевых принципа создания эффективных промптов (Context, Clear Directives, Persona). Приведи примеры для каждого принципа, демонстрирующие разницу между слабым и сильным промптом.">COPY</span><span class="term-expand">[EXPAND]</span></span></div>
+          <div class="block-title">МАТРИЦА БИЗНЕС-РЕШЕНИЙ</div>
+          <div class="tag-group"><span class="tag">SWOT Analysis</span><span class="tag">Strategy</span></div>
+          <div class="terminal-box">
+            <div class="term-header"><span>root@aura:~# prompt_gen</span><span class="term-copy" data-copy="Действуй как Chief Strategy Officer. Проведи глубокий SWOT-анализ для внедрения ИИ в наш корпоративный сектор. Распиши 3 ключевых риска безопасности данных и предложи 3 протокола их минимизации. Результат выдай в виде строгой markdown-таблицы.">[COPY]</span></div>
             <div class="term-body">
-              <span class="cmd">AI></span><span class="accent">Действуй как эксперт.</span> Сформулируй 3 ключевых принципа создания эффективных промптов (Context, Directives, Persona). Приведи примеры, демонстрирующие разницу между слабым и сильным промптом.
+              <span class="cmd">AI></span><span class="accent">Действуй как Chief Strategy Officer.</span> Проведи глубокий SWOT-анализ для внедрения ИИ в наш корпоративный сектор. Распиши 3 ключевых риска безопасности данных и предложи протоколы их минимизации.
             </div>
           </div>
 
-          <div class="block-title">ОБУЧАЮЩИЕ СЦЕНАРИИ (FEYNMAN TECHNIQUE)</div>
-          <div class="tag-group"><span class="tag">Educational</span><span class="tag">Active Learning</span></div>
-          <div class="volumetric-module" style="margin-bottom: 0;">
-            <div class="term-header"><span class="term-path">root/strategy/feynman_enhanced.md</span><span class="term-actions"><span class="term-copy" data-copy="Примени Технику Фейнмана для объяснения [ВСТАВЬТЕ СЛОЖНУЮ ТЕМУ]. Сначала объясни концепцию так, как будто мне 10 лет (простые аналогии). Затем углуби детали, отвечая на мои уточняющие вопросы, и помоги мне выявить 'белые пятна' в моем понимании. Жди ответа после каждого этапа.">COPY</span><span class="term-expand">[EXPAND]</span></span></div>
+          <div class="block-title">ОПТИМИЗАЦИЯ РАБОЧИХ ПРОЦЕССОВ</div>
+          <div class="tag-group"><span class="tag">Workflow</span><span class="tag">Automation</span></div>
+          <div class="terminal-box" style="margin-bottom: 0;">
+            <div class="term-header"><span>root@aura:~# prompt_gen</span><span class="term-copy" data-copy="Выступи в роли бизнес-аналитика. Я предоставлю тебе транскрипт часового совещания команды. Твоя задача: 1) Выжать из текста главное резюме (Executive Summary). 2) Сформировать нумерованный список задач (Action Items) с указанием ответственных и дедлайнов.">[COPY]</span></div>
             <div class="term-body">
-              <span class="cmd">AI></span><span class="accent">Примени Технику Фейнмана.</span> Объясни концепцию [ВСТАВЬТЕ СЛОЖНУЮ ТЕМУ] так, как будто мне 10 лет. Затем углубляй детали, отвечая на мои вопросы, и помоги мне выявить 'белые пятна'.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="data-card spotlight-card" style="--card-glow: #3b82f6;" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
-        <div class="card-content">
-          <div class="card-header" style="color: #3b82f6; text-shadow: 0 0 10px #3b82f6;">SYS.02 // КОГНИТИВНЫЕ ХАКИ ОБУЧЕНИЯ <div class="status-indicator">ONLINE</div></div>
-          <div class="block-title">Active Recall & Spaced Repetition (GENERALIZED)</div>
-          <div class="volumetric-module" style="margin-bottom: 0;">
-            <div class="term-header"><span class="term-path">root/mind/active_learning.py</span><span class="term-actions"><span class="term-copy" data-copy="Сгенерируй для меня список из 10 вопросов для Active Recall по теме [ВСТАВЬТЕ ТЕМУ]. Вопросы должны требовать полного объяснения, а не просто ответов 'да/нет'. Не предоставляй ответы сразу, я буду отвечать на них по одному, а ты — проверять и углублять мои знания.">COPY</span><span class="term-expand">[EXPAND]</span></span></div>
-            <div class="term-body">
-              <span class="cmd" style="color: #3b82f6;">DATA></span><span class="accent">Сгенерируй список вопросов.</span> Ниже приведен сырой массив неструктурированных отзывов клиентов. Сгенерируй для меня 10 вопросов для Active Recall по теме [ВСТАВЬТЕ ТЕМУ]. Вопросы должны требовать объяснений. Не предоставляй ответы сразу.
+              <span class="cmd">AI></span><span class="accent">Выступи в роли бизнес-аналитика.</span> Я предоставлю транскрипт совещания. Твоя задача: 1) Сделать Executive Summary. 2) Сформировать нумерованный список задач (Action Items) с указанием ответственных.
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- RIGHT HUD: ПРОДУКТИВНОСТЬ И IT -->
+    <!-- RIGHT HUD: NEXUS-01 CHAT ENGINE -->
     <div class="hud-container">
-      <div class="data-card spotlight-card" style="--card-glow: var(--core-purple);" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
-        <div class="card-content">
-          <div class="card-header" style="color: var(--core-purple); text-shadow: 0 0 10px var(--core-purple);">SYS.03 // IT & РАБОЧИЙ ПРОЦЕСС <div class="status-indicator">ACTIVE</div></div>
+      <div class="data-card spotlight-card" style="--card-glow: var(--core-purple); height: 85vh; display: flex; flex-direction: column;">
+        <div class="card-content" style="flex-grow: 1;">
+          <div class="card-header" style="color: var(--core-purple); text-shadow: 0 0 10px var(--core-purple);">NEXUS-01 // AI ASSISTANT <div class="status-indicator">ONLINE</div></div>
           
-          <div class="block-title">ОПТИМИЗАЦИЯ СЕРВЕРНЫХ ПРОЦЕССОВ (GENERALIZED)</div>
-          <div class="tag-group"><span class="tag">DevOps</span><span class="tag">Workflow</span></div>
-          <div class="volumetric-module">
-            <div class="term-header"><span class="term-path">root/dev/server_perf.sh</span><span class="term-actions"><span class="term-copy" data-copy="Действуй как эксперт по высоконагруженным системам. Проанализируй логи конфигурации Garbage Collector (G1GC) выделенного сервера. Как оптимизировать параметры .bat файла запуска для минимизации задержек и устранения потери пакетов при пиковых нагрузках? Результат выдай в виде строгой markdown-таблицы.">COPY</span><span class="term-expand">[EXPAND]</span></span></div>
-            <div class="term-body">
-              <span class="cmd" style="color: var(--core-purple);">DEV></span><span class="accent">Действуй как DevOps-инженер.</span> Проанализируй логи Garbage Collector (G1GC). Как оптимизировать параметры запуска для минимизации задержек сервера? Результат выдай markdown-таблицей.
+          <!-- Окно истории чата -->
+          <div class="chat-history" id="chat-history">
+            <div class="msg-wrap msg-ai">
+              <div class="msg-label">NEXUS-01</div>
+              <div class="msg-bubble">Система активирована. Я — ИИ-архитектор промптов. Напиши <b>"создай промпт"</b>, и я помогу тебе составить идеальный запрос шаг за шагом.</div>
             </div>
           </div>
 
-          <div class="block-title">РЕФАКТОРИНГ И ДЕКОМПОЗИЦИЯ ЗАДАЧ (GENERALIZED)</div>
-          <div class="volumetric-module" style="margin-bottom: 0;">
-            <div class="term-header"><span class="term-path">root/dev/code_decompose.ts</span><span class="term-actions"><span class="term-copy" data-copy="Выступи в роли Senior Software Architect. У меня есть сложный фрагмент кода. Помоги мне: 1) Указать на антипаттерны и утечки памяти. 2) Предложить алгоритм его декомпозиции на 3 более простых, тестируемых сервиса, используя принципы SOLID. 3) Напиши bash-скрипт для очистки кэша компиляции и перезапуска окружения.">COPY</span><span class="term-expand">[EXPAND]</span></span></div>
-            <div class="term-body">
-              <span class="cmd" style="color: var(--core-purple);">DEV></span>Проведи Code Review и декомпозицию. Выступи в роли эксперта по ПБ. Разработай алгоритм реструктуризации ответственности при обесточивании. Перепиши код, следуя принципам SOLID, и добавь скрипт очистки кэша.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="data-card spotlight-card" style="--card-glow: #10b981;" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
-        <div class="card-content">
-          <div class="card-header" style="color: #10b981; text-shadow: 0 0 10px #10b981;">SYS.04 // КОГНИТИВНАЯ ЭФФЕКТИВНОСТЬ <div class="status-indicator">READY</div></div>
-          
-          <div class="block-title">Advanced Prompt Chaining (GENERALIZED)</div>
-          <div class="volumetric-module">
-            <div class="term-header"><span class="term-path">root/mind/prompt_chaining.md</span><span class="term-actions"><span class="term-copy" data-copy="Сыграй со мной в RPG. Главная героиня — девочка Стеша. Важное условие: обращайся к ней только по имени Стеша. Сюжет включает 3 математические загадки. Давай разберем эту сложную задачу, используя Prompt Chaining. Напиши цепочку из 3 промптов, где выход каждого становится контекстом для следующего (Decomposition, Analysis, Synthesis). Жди ответа после каждой.">COPY</span><span class="term-expand">[EXPAND]</span></span></div>
-            <div class="term-body">
-              <span class="cmd" style="color: #10b981;">EDU></span><span class="accent">Сыграй со мной в развивающую RPG.</span> Давай разберем эту задачу, используя Prompt Chaining. Напиши цепочку из 3 промптов, где выход каждого становится контекстом для следующего (Decomposition, Analysis, Synthesis).
-            </div>
+          <!-- Поле ввода -->
+          <div class="chat-input-wrapper">
+            <input type="text" id="chat-input" class="chat-input" placeholder="Введите команду..." autocomplete="off">
+            <button class="chat-btn" onclick="handleChatSubmit()">></button>
           </div>
 
-          <div class="block-title">ПРОДУКТИВНОСТЬ И ТАЙМ-МЕНЕДЖМЕНТ (GENERALIZED)</div>
-          <div class="volumetric-module" style="margin-bottom: 0;">
-            <div class="term-header"><span class="term-path">root/mind/time_hacking.txt</span><span class="term-actions"><span class="term-copy" data-copy="Сыграй роль коуча по продуктивности. Вот список моих задач на неделю. Сгруппируй их по приоритету (Матрица Эйзенхауэра) и предложи оптимальный график, используя метод интервальной работы. Учти буфер времени в 20% на форс-мажоры.">COPY</span><span class="term-expand">[EXPAND]</span></span></div>
-            <div class="term-body">
-              <span class="cmd" style="color: #10b981;">EDU></span>Сгруппируй задачи по приоритету (Eisenhower). Ниже приведен сырой массив неструктурированных отзывов клиентов. Сгруппируй их по Матрице Эйзенхауэра и предложи график работы. Учти буфер 20% на форс-мажоры.
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -268,38 +253,149 @@
 
   <script>
     // ==========================================
-    // 1. SMART SPOTLIGHT LOGIC (МАГИЯ ИНТЕРФЕЙСА)
+    // 0. СИСТЕМА КОПИРОВАНИЯ (С ДЕЛЕГИРОВАНИЕМ ДЛЯ ЧАТА)
+    // ==========================================
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('term-copy')) {
+        const btn = e.target;
+        const textToCopy = btn.getAttribute('data-copy');
+        if(!textToCopy) return;
+        
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          const originalText = btn.innerText;
+          btn.innerText = "[COPIED!]";
+          btn.classList.add('copied');
+          setTimeout(() => {
+            btn.innerText = originalText;
+            btn.classList.remove('copied');
+          }, 2000);
+        });
+      }
+    });
+
+    // ==========================================
+    // 1. NEXUS-01 CHAT ENGINE (STATE MACHINE)
+    // ==========================================
+    const chatHistory = document.getElementById('chat-history');
+    const chatInput = document.getElementById('chat-input');
+    
+    // Состояния: IDLE, ASK_ROLE, ASK_TASK, ASK_CONTEXT, ASK_FORMAT
+    let chatState = 'IDLE'; 
+    let promptData = { role: '', task: '', context: '', format: '' };
+
+    function appendMessage(sender, text, isHtml = false) {
+      const wrap = document.createElement('div');
+      wrap.className = `msg-wrap ${sender === 'user' ? 'msg-user' : 'msg-ai'}`;
+      
+      const label = document.createElement('div');
+      label.className = 'msg-label';
+      label.innerText = sender === 'user' ? 'OPERATOR' : 'NEXUS-01';
+      
+      const bubble = document.createElement('div');
+      bubble.className = 'msg-bubble';
+      if (isHtml) {
+        bubble.innerHTML = text;
+      } else {
+        bubble.innerText = text;
+      }
+      
+      wrap.appendChild(label);
+      wrap.appendChild(bubble);
+      chatHistory.appendChild(wrap);
+      chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+    function generateFinalPrompt() {
+      // Синтезируем финальный промпт на основе ответов
+      let finalPrompt = `Действуй как ${promptData.role}. Твоя задача: ${promptData.task}. `;
+      if (promptData.context.toLowerCase() !== 'нет' && promptData.context !== '-') {
+        finalPrompt += `Контекст: ${promptData.context}. `;
+      }
+      finalPrompt += `Формат ответа: ${promptData.format}.`;
+
+      // Создаем HTML структуру .terminal-box
+      let html = `
+        <div style="margin-top: 10px; font-weight: bold; color: var(--highlight);">Генерация завершена. Ваш промпт:</div>
+        <div class="terminal-box" style="margin-top: 10px; margin-bottom: 0;">
+          <div class="term-header">
+            <span>root@nexus:~# output</span>
+            <span class="term-copy" data-copy="${finalPrompt}">[COPY]</span>
+          </div>
+          <div class="term-body">
+            <span class="cmd">AI></span>${finalPrompt}
+          </div>
+        </div>
+      `;
+      appendMessage('ai', html, true);
+      
+      // Сбрасываем стейт
+      chatState = 'IDLE';
+      promptData = { role: '', task: '', context: '', format: '' };
+    }
+
+    function processAiLogic(input) {
+      const lowerInput = input.toLowerCase();
+
+      // Проверка на триггер (если ИИ спит)
+      if (chatState === 'IDLE') {
+        if (lowerInput.includes('промпт') || lowerInput.includes('напиши') || lowerInput.includes('создай')) {
+          chatState = 'ASK_ROLE';
+          appendMessage('ai', 'Запуск протокола генерации. Вопрос 1/4: Какую **РОЛЬ** должен сыграть ИИ? (Например: Senior DevOps, Маркетолог, Критик...)', true);
+        } else {
+          appendMessage('ai', 'Система обрабатывает запрос. Для активации экспертной генерации запроса, напишите команду, содержащую слово "промпт".');
+        }
+        return;
+      }
+
+      // Стейт-машина интервью
+      if (chatState === 'ASK_ROLE') {
+        promptData.role = input;
+        chatState = 'ASK_TASK';
+        appendMessage('ai', `Роль [${input}] принята. Вопрос 2/4: Какова главная **ЗАДАЧА**? Что именно должен сделать ИИ?`, true);
+      } 
+      else if (chatState === 'ASK_TASK') {
+        promptData.task = input;
+        chatState = 'ASK_CONTEXT';
+        appendMessage('ai', 'Задача зафиксирована. Вопрос 3/4: Есть ли важный **КОНТЕКСТ** или фоновая информация, которую нужно учесть? (Если нет, напишите "нет").', true);
+      }
+      else if (chatState === 'ASK_CONTEXT') {
+        promptData.context = input;
+        chatState = 'ASK_FORMAT';
+        appendMessage('ai', 'Контекст добавлен. Вопрос 4/4: В каком **ФОРМАТЕ** нужен ответ? (Например: Markdown таблица, строгий тон, JSON, без воды...)', true);
+      }
+      else if (chatState === 'ASK_FORMAT') {
+        promptData.format = input;
+        generateFinalPrompt();
+      }
+    }
+
+    function handleChatSubmit() {
+      const val = chatInput.value.trim();
+      if (!val) return;
+      appendMessage('user', val);
+      chatInput.value = '';
+      
+      // Имитация задержки "думания" ИИ
+      setTimeout(() => {
+        processAiLogic(val);
+      }, 600);
+    }
+
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleChatSubmit();
+    });
+
+    // ==========================================
+    // 2. SMART SPOTLIGHT LOGIC (МАГИЯ ИНТЕРФЕЙСА)
     // ==========================================
     const cards = document.querySelectorAll('.spotlight-card');
-    
     cards.forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        // Передаем координаты курсора внутрь CSS переменных
         card.style.setProperty('--mouse-x', `${x}px`);
         card.style.setProperty('--mouse-y', `${y}px`);
-      });
-    });
-
-    // ==========================================
-    // 2. COPY TO CLIPBOARD SYSTEM
-    // ==========================================
-    const copyBtns = document.querySelectorAll('.term-copy');
-    copyBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const textToCopy = btn.getAttribute('data-copy');
-        navigator.clipboard.writeText(textToCopy).then(() => {
-          btn.innerText = "COPIED!";
-          btn.classList.add('copied');
-          setTimeout(() => {
-            btn.innerText = "COPY";
-            btn.classList.remove('copied');
-          }, 2000);
-        }).catch(err => {
-          console.error('Failed to copy: ', err);
-        });
       });
     });
 
@@ -309,12 +405,10 @@
     const bootProgress = document.getElementById('boot-progress');
     const bootText = document.getElementById('boot-text');
     let loadVal = 0;
-    
     const bootInterval = setInterval(() => {
       loadVal += Math.random() * 15;
       if (loadVal > 100) loadVal = 100;
       bootProgress.style.width = loadVal + '%';
-      
       if (loadVal === 100) {
         clearInterval(bootInterval);
         bootText.innerText = "SYSTEM ACTIVE";
@@ -334,11 +428,8 @@
     const postCtx = postCanvas.getContext('2d');
     
     let width, height, cx, cy;
-    let mouse = { x: 0, y: 0, targetX: 0, targetY: 0, vx: 0, vy: 0 };
-    let lastMouse = { x: 0, y: 0 };
+    let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
     let shockwave = { radius: 0, active: false, intensity: 0 };
-    let idleTimer = 0; 
-    let isAutopilot = false;
     
     function resize() {
       width = canvas.width = postCanvas.width = window.innerWidth;
@@ -350,12 +441,6 @@
     document.addEventListener('mousemove', (e) => {
       mouse.targetX = (e.clientX - cx);
       mouse.targetY = (e.clientY - cy);
-      mouse.vx = mouse.targetX - lastMouse.x;
-      mouse.vy = mouse.targetY - lastMouse.y;
-      lastMouse.x = mouse.targetX;
-      lastMouse.y = mouse.targetY;
-      idleTimer = 0; 
-      isAutopilot = false;
     });
 
     document.addEventListener('mousedown', (e) => {
@@ -399,16 +484,6 @@
       });
     }
 
-    let dataPackets = [];
-    let streamSourceRect = null;
-    let isStreaming = false;
-
-    window.startDataStream = function(el) {
-      streamSourceRect = el.getBoundingClientRect();
-      isStreaming = true;
-    }
-    window.stopDataStream = function() { isStreaming = false; }
-
     let time = 0;
     let cameraRotX = 0;
     let cameraRotY = 0;
@@ -418,13 +493,6 @@
       ctx.fillRect(0, 0, width, height);
 
       time += 0.015;
-      idleTimer += 0.015;
-
-      if (idleTimer > 4) {
-         isAutopilot = true;
-         mouse.targetY = Math.sin(time * 0.5) * 200;
-         mouse.targetX = Math.cos(time * 0.5) * 400;
-      }
       
       if (shockwave.active) {
         shockwave.radius += 25;
@@ -460,16 +528,6 @@
         let fov = 1100;
         let scale = fov / (fov + finalZ + 800); 
         return { screenX: cx + x1 * scale, screenY: cy + y1 * scale, scale: scale, z: finalZ };
-      }
-
-      if (isStreaming && streamSourceRect && Math.random() > 0.5) {
-        let startX = streamSourceRect.left > width / 2 ? streamSourceRect.left : streamSourceRect.right;
-        let startY = streamSourceRect.top + Math.random() * streamSourceRect.height;
-        dataPackets.push({
-          x: startX, y: startY,
-          targetX: cx + (Math.random() - 0.5) * 50, targetY: cy + (Math.random() - 0.5) * 50,
-          progress: 0, speed: 0.02 + Math.random() * 0.03
-        });
       }
 
       let renderQueue = []; 
@@ -572,29 +630,6 @@
              ctx.beginPath(); ctx.arc(n.screenX, n.screenY, 0.8 * n.scale, 0, Math.PI*2); ctx.fill();
           }
         }
-      }
-
-      for (let i = dataPackets.length - 1; i >= 0; i--) {
-        let pkt = dataPackets[i];
-        pkt.progress += pkt.speed;
-        let easeProgress = Math.pow(pkt.progress, 2); 
-        let currX = pkt.x + (pkt.targetX - pkt.x) * easeProgress;
-        let currY = pkt.y + (pkt.targetY - pkt.y) * easeProgress;
-
-        if (pkt.progress > 0.8) {
-           let angle = pkt.progress * Math.PI * 10;
-           let spiralRadius = (1 - pkt.progress) * 50;
-           currX += Math.cos(angle) * spiralRadius;
-           currY += Math.sin(angle) * spiralRadius;
-        }
-
-        ctx.fillStyle = `rgba(0, 255, 255, ${1 - pkt.progress})`;
-        ctx.beginPath();
-        let stretch = 2 + (easeProgress * 15);
-        ctx.ellipse(currX, currY, stretch, 1.5, Math.atan2(pkt.targetY - pkt.y, pkt.targetX - pkt.x), 0, Math.PI * 2);
-        ctx.fill();
-
-        if (pkt.progress >= 1) dataPackets.splice(i, 1);
       }
 
       ctx.globalCompositeOperation = 'source-over';
