@@ -2,26 +2,26 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>AURA CORE // Neural Nexus OS</title>
+  <title>AURA CORE // Quantum Nexus OS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Rajdhani:wght@400;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Rajdhani:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     /* =========================================
-       PREMIUM DARK THEME (EYE-FRIENDLY)
+       PREMIUM DEEP SPACE THEME
        ========================================= */
     :root {
-      --bg-void: #03060d; 
-      --core-blue: #2563eb;
-      --core-cyan: #0ea5e9;
-      --core-purple: #8b5cf6;
+      --bg-void: #02040a; 
+      --core-blue: #0066ff;
+      --core-cyan: #00e5ff;
+      --core-purple: #9d00ff;
       
-      --panel-bg: rgba(10, 15, 25, 0.35);
-      --panel-border: rgba(37, 99, 235, 0.15);
+      --panel-bg: rgba(6, 9, 15, 0.4);
+      --panel-border: rgba(0, 229, 255, 0.15);
       --text-main: #cbd5e1;
-      --text-dim: #64748b;
+      --text-dim: #475569;
       --highlight: #38bdf8;
     }
 
@@ -36,7 +36,7 @@
     /* Фоновая глубина */
     .space-dust {
       position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background: radial-gradient(circle at center, transparent 30%, rgba(3, 6, 13, 0.95) 100%);
+      background: radial-gradient(circle at center, transparent 20%, var(--bg-void) 100%);
     }
 
     #nexus-engine { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2; }
@@ -45,29 +45,29 @@
        HUD PANELS (COMMAND CENTER)
        ========================================= */
     .hud-container {
-      position: absolute; top: 30px; bottom: 30px; width: 440px;
+      position: absolute; top: 40px; bottom: 40px; width: 440px;
       z-index: 10; display: flex; flex-direction: column; gap: 20px;
       pointer-events: none;
     }
     .hud-container > * { pointer-events: auto; }
     
-    .hud-left { left: 30px; }
-    .hud-right { right: 30px; }
+    .hud-left { left: 40px; }
+    .hud-right { right: 40px; }
 
     .data-card {
       background: var(--panel-bg); border: 1px solid var(--panel-border);
-      border-radius: 12px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.05);
+      border-radius: 12px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,255,255,0.05);
       position: relative; overflow: hidden;
     }
-    /* Элегантный светильник сверху карточки */
     .data-card::before {
-      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-      width: 40%; height: 1px; background: linear-gradient(90deg, transparent, var(--core-blue), transparent);
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--core-cyan), transparent);
+      opacity: 0.5;
     }
 
     .card-header {
-      font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; font-weight: 700;
+      font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: 700;
       color: var(--highlight); letter-spacing: 2px; margin-bottom: 20px;
       display: flex; align-items: center; justify-content: space-between;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 12px; text-transform: uppercase;
@@ -88,42 +88,35 @@
     }
 
     /* =========================================
-       TERMINAL PROMPTS (SOFT CONTRAST)
+       TERMINAL PROMPTS
        ========================================= */
     .terminal-box {
-      background: rgba(0, 0, 0, 0.4); border-left: 2px solid var(--core-purple);
+      background: rgba(0, 0, 0, 0.5); border-left: 2px solid var(--core-purple);
       padding: 16px; border-radius: 4px; margin-bottom: 20px;
       font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; color: #a5b4fc;
-      user-select: text; transition: 0.3s ease;
+      user-select: text; transition: 0.3s ease; position: relative;
     }
-    .terminal-box:hover { background: rgba(0, 0, 0, 0.6); border-left-color: var(--highlight); color: #cbd5e1; }
-    
+    .terminal-box:hover { background: rgba(0, 0, 0, 0.8); border-left-color: var(--core-cyan); color: #e2e8f0; }
     .terminal-box span.cmd { color: var(--core-purple); font-weight: bold; margin-right: 8px; }
 
     .tag-group { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
     .tag { 
-      background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); 
-      padding: 4px 8px; border-radius: 4px; font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--highlight); 
+      background: rgba(0, 229, 255, 0.05); border: 1px solid rgba(0, 229, 255, 0.2); 
+      padding: 4px 8px; border-radius: 4px; font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--core-cyan); 
     }
 
     /* =========================================
-       CENTER RETICLE & BOOT SCREEN
+       BOOT SCREEN
        ========================================= */
-    .center-reticle {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      width: 600px; height: 600px; border-radius: 50%; border: 1px dashed rgba(255,255,255,0.03);
-      pointer-events: none; z-index: 1;
-    }
-
     #boot-screen {
       position: fixed; inset: 0; background: var(--bg-void); z-index: 9999;
       display: flex; flex-direction: column; justify-content: center; align-items: center;
       font-family: 'JetBrains Mono', monospace; color: var(--highlight);
       transition: opacity 1.5s ease;
     }
-    .boot-logo { font-family: 'Rajdhani', sans-serif; font-size: 3.5rem; font-weight: 700; letter-spacing: 4px; margin-bottom: 30px; }
-    .progress-bar-container { width: 300px; height: 2px; background: rgba(255,255,255,0.1); overflow: hidden; }
-    .progress-bar { height: 100%; background: var(--highlight); width: 0%; transition: width 0.1s; }
+    .boot-logo { font-family: 'Rajdhani', sans-serif; font-size: 4rem; font-weight: 700; letter-spacing: 8px; margin-bottom: 30px; text-shadow: 0 0 20px var(--core-cyan); }
+    .progress-bar-container { width: 350px; height: 2px; background: rgba(255,255,255,0.1); overflow: hidden; position: relative; }
+    .progress-bar { height: 100%; background: var(--highlight); width: 0%; transition: width 0.1s; box-shadow: 0 0 10px var(--highlight); }
 
   </style>
 </head>
@@ -131,15 +124,14 @@
 
   <!-- BOOT SEQUENCE -->
   <div id="boot-screen">
-    <div class="boot-logo">AURA CORE</div>
+    <div class="boot-logo">AURA CORE v8</div>
     <div class="progress-bar-container"><div class="progress-bar" id="boot-progress"></div></div>
-    <div id="boot-text" style="margin-top: 15px; font-size: 0.8rem; color: var(--text-dim);">INITIALIZING KERNEL...</div>
+    <div id="boot-text" style="margin-top: 20px; font-size: 0.85rem; color: var(--text-dim); letter-spacing: 2px;">INITIALIZING QUANTUM KERNEL...</div>
   </div>
 
   <!-- 3D ENGINE CANVAS -->
   <canvas id="nexus-engine"></canvas>
   <div class="space-dust"></div>
-  <div class="center-reticle"></div>
 
   <!-- LEFT HUD: BUSINESS & INFRASTRUCTURE -->
   <div class="hud-container hud-left">
@@ -229,13 +221,13 @@
     let loadVal = 0;
     
     const bootInterval = setInterval(() => {
-      loadVal += Math.random() * 15;
+      loadVal += Math.random() * 12;
       if (loadVal > 100) loadVal = 100;
       bootProgress.style.width = loadVal + '%';
       
-      if (loadVal > 20) bootText.innerText = "LOADING NEURAL WEIGHTS...";
-      if (loadVal > 50) bootText.innerText = "CALIBRATING ORBITAL PROJECTIONS...";
-      if (loadVal > 80) bootText.innerText = "SYNCING WITH PROTOCOLS...";
+      if (loadVal > 30) bootText.innerText = "CALIBRATING ACCRETION DISK...";
+      if (loadVal > 60) bootText.innerText = "STABILIZING GRAVITY WELLS...";
+      if (loadVal > 90) bootText.innerText = "LINKING DATA NODES...";
       
       if (loadVal === 100) {
         clearInterval(bootInterval);
@@ -243,18 +235,20 @@
         setTimeout(() => {
           document.getElementById('boot-screen').style.opacity = '0';
           setTimeout(() => document.getElementById('boot-screen').style.display = 'none', 1500);
-        }, 500);
+        }, 400);
       }
-    }, 100);
+    }, 80);
 
     // ==========================================
-    // 2. 3D NEXUS ENGINE (CORE + ORBITS)
+    // 2. QUANTUM NEXUS ENGINE (V8.0)
     // ==========================================
     const canvas = document.getElementById('nexus-engine');
     const ctx = canvas.getContext('2d');
     let width, height, cx, cy;
     
-    let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    // Взаимодействие с мышью
+    let mouse = { x: 0, y: 0, targetX: 0, targetY: 0, vx: 0, vy: 0 };
+    let lastMouse = { x: 0, y: 0 };
     
     function resize() {
       width = canvas.width = window.innerWidth;
@@ -264,49 +258,45 @@
     window.addEventListener('resize', resize); resize();
 
     document.addEventListener('mousemove', (e) => {
-      // Нормализуем позицию мыши от -1 до 1 для вращения камеры
-      mouse.targetX = (e.clientX / width - 0.5) * 2;
-      mouse.targetY = (e.clientY / height - 0.5) * 2;
+      mouse.targetX = (e.clientX - cx);
+      mouse.targetY = (e.clientY - cy);
+      // Вычисляем скорость мыши для эффекта "разбрасывания" частиц
+      mouse.vx = mouse.targetX - lastMouse.x;
+      mouse.vy = mouse.targetY - lastMouse.y;
+      lastMouse.x = mouse.targetX;
+      lastMouse.y = mouse.targetY;
     });
 
-    // --- ГЕНЕРАЦИЯ ЯДРА (Сфера Фибоначчи) ---
+    // --- АРХИТЕКТУРА ДАННЫХ ---
     const coreNodes = [];
-    const numCoreNodes = 400; // Оптимальная плотность, чтобы не слепило
-    const coreRadius = 120;
-
-    for (let i = 0; i < numCoreNodes; i++) {
-      let phi = Math.acos(1 - 2 * (i + 0.5) / numCoreNodes);
+    const diskNodes = [];
+    
+    // 1. Плотное Ядро (Сфера)
+    for (let i = 0; i < 200; i++) {
+      let phi = Math.acos(1 - 2 * (i + 0.5) / 200);
       let theta = Math.PI * (1 + Math.sqrt(5)) * i;
-      
       coreNodes.push({
         baseX: Math.cos(theta) * Math.sin(phi),
         baseY: Math.sin(theta) * Math.sin(phi),
         baseZ: Math.cos(phi),
-        randomSeed: Math.random() * Math.PI * 2,
         x: 0, y: 0, z: 0, screenX: 0, screenY: 0, scale: 0
       });
     }
 
-    // --- ГЕНЕРАЦИЯ ОРБИТАЛЬНЫХ ПРОЕКЦИЙ (Кольца данных) ---
-    const orbits = [];
-    const numOrbits = 3;
-    const orbitRadii = [280, 380, 480];
-    
-    for (let o = 0; o < numOrbits; o++) {
-      let particles = [];
-      for (let p = 0; p < 80; p++) {
-        particles.push({
-          angle: Math.random() * Math.PI * 2,
-          speed: (Math.random() * 0.01 + 0.005) * (o % 2 === 0 ? 1 : -1), // Разное направление
-          size: Math.random() * 1.5 + 0.5,
-          x: 0, y: 0, z: 0, screenX: 0, screenY: 0, scale: 0
-        });
-      }
-      orbits.push({
-        radius: orbitRadii[o],
-        tiltX: Math.random() * Math.PI, // Наклон кольца
-        tiltY: Math.random() * Math.PI,
-        particles: particles
+    // 2. Аккреционный Диск (Вихрь частиц вокруг ядра)
+    for (let i = 0; i < 800; i++) {
+      let angle = Math.random() * Math.PI * 2;
+      let radius = 180 + Math.random() * 400 + Math.random() * 200; // Разброс частиц от центра
+      let speed = 20 / radius; // Чем ближе к центру, тем быстрее
+      
+      diskNodes.push({
+        angle: angle,
+        radius: radius,
+        baseRadius: radius,
+        speed: speed,
+        zOffset: (Math.random() - 0.5) * 80, // Толщина диска
+        x: 0, y: 0, z: 0, screenX: 0, screenY: 0, scale: 0,
+        vx: 0, vy: 0 // Инерция для гравитации мыши
       });
     }
 
@@ -315,31 +305,28 @@
     let cameraRotY = 0;
 
     function renderEngine() {
-      // Мягкая очистка экрана для легкого шлейфа (комфортно для глаз)
-      ctx.fillStyle = 'rgba(3, 6, 13, 0.4)';
+      // Очистка с глубоким шлейфом
+      ctx.fillStyle = 'rgba(2, 4, 10, 0.4)';
       ctx.fillRect(0, 0, width, height);
 
       time += 0.01;
       
-      // Плавное следование камеры за мышкой
-      cameraRotY += (mouse.targetX * 0.8 - cameraRotY) * 0.05;
-      cameraRotX += (mouse.targetY * 0.5 - cameraRotX) * 0.05;
+      // Плавная камера, реагирующая на курсор
+      cameraRotY += ((mouse.targetX * 0.001) - cameraRotY) * 0.05;
+      cameraRotX += ((mouse.targetY * 0.001) - cameraRotX) * 0.05;
 
-      // Матрицы поворота камеры
       let cx_cam = Math.cos(cameraRotX), sx_cam = Math.sin(cameraRotX);
       let cy_cam = Math.cos(cameraRotY), sy_cam = Math.sin(cameraRotY);
 
-      // Функция применения камеры и проекции
+      // Проектор из 3D в 2D
       function project(nodeX, nodeY, nodeZ) {
-        // Поворот Y
         let x1 = nodeX * cy_cam - nodeZ * sy_cam;
         let z1 = nodeX * sy_cam + nodeZ * cy_cam;
-        // Поворот X
         let y1 = nodeY * cx_cam - z1 * sx_cam;
         let finalZ = nodeY * sx_cam + z1 * cx_cam;
         
         let fov = 1000;
-        let scale = fov / (fov + finalZ + 800); // +800 отодвигает объект вдаль
+        let scale = fov / (fov + finalZ + 800); 
         return {
           screenX: cx + x1 * scale,
           screenY: cy + y1 * scale,
@@ -348,68 +335,77 @@
         };
       }
 
-      // --- 1. ОБНОВЛЕНИЕ И ОТРИСОВКА ОРБИТ (ПРОЕКЦИЙ) ---
-      // Не используем 'lighter', чтобы не слепить
-      ctx.globalCompositeOperation = 'source-over';
-      
-      orbits.forEach(orbit => {
-        // Поворот самого кольца
-        let cox = Math.cos(orbit.tiltX), sox = Math.sin(orbit.tiltX);
-        let coy = Math.cos(orbit.tiltY + time*0.1), soy = Math.sin(orbit.tiltY + time*0.1); // Кольца медленно вращаются
+      ctx.globalCompositeOperation = 'lighter'; // Аддитивное свечение
 
-        // Отрисовка слабой линии орбиты (траектории)
-        ctx.beginPath();
-        for(let a=0; a<=Math.PI*2; a+=0.1) {
-           let lx = Math.cos(a) * orbit.radius;
-           let lz = Math.sin(a) * orbit.radius;
-           
-           let rx = lx * coy - lz * soy;
-           let rz = lx * soy + lz * coy;
-           let ry = -rz * sox;
-           rz = rz * cox;
-
-           let proj = project(rx, ry, rz);
-           if (a===0) ctx.moveTo(proj.screenX, proj.screenY);
-           else ctx.lineTo(proj.screenX, proj.screenY);
-        }
-        ctx.strokeStyle = 'rgba(37, 99, 235, 0.05)'; // Очень слабая линия
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        // Отрисовка частиц на орбите
-        orbit.particles.forEach(p => {
-          p.angle += p.speed;
-          let px = Math.cos(p.angle) * orbit.radius;
-          let pz = Math.sin(p.angle) * orbit.radius;
-          
-          let rx = px * coy - pz * soy;
-          let rz = px * soy + pz * coy;
-          let ry = -rz * sox;
-          rz = rz * cox;
-
-          let proj = project(rx, ry, rz);
-          
-          let alpha = Math.min(1, Math.max(0, proj.scale * 1.5 - 0.5));
-          ctx.fillStyle = `rgba(56, 189, 248, ${alpha * 0.8})`; // Голубой
-          ctx.beginPath();
-          ctx.arc(proj.screenX, proj.screenY, p.size * proj.scale, 0, Math.PI*2);
-          ctx.fill();
-        });
-      });
-
-      // --- 2. ОБНОВЛЕНИЕ И ОТРИСОВКА ЯДРА ---
-      // "Дыхание" ядра
-      let currentCoreRadius = coreRadius + Math.sin(time * 2) * 5;
-
-      coreNodes.forEach(node => {
-        // Микро-пульсации отдельных узлов
-        let r = currentCoreRadius + Math.sin(time * 4 + node.randomSeed) * 8;
+      // --- 1. ОБРАБОТКА И ОТРИСОВКА ДИСКА (DYSON SWARM) ---
+      for (let i = 0; i < diskNodes.length; i++) {
+        let p = diskNodes[i];
+        p.angle += p.speed;
         
-        // Медленное вращение ядра вокруг своей оси
-        let rotY_core = time * 0.2;
-        let bx = node.baseX * r;
-        let by = node.baseY * r;
-        let bz = node.baseZ * r;
+        // Вращение в плоскости диска
+        let px = Math.cos(p.angle) * p.radius;
+        let pz = Math.sin(p.angle) * p.radius;
+        let py = p.zOffset + Math.sin(p.angle * 3 + time) * 20; // Легкие волны по диску
+
+        // Гравитационное возмущение от курсора
+        let mouseDist = Math.sqrt(Math.pow(mouse.targetX - px, 2) + Math.pow(mouse.targetY - py, 2));
+        if (mouseDist < 200) {
+          // Мышь "расталкивает" частицы
+          p.vx += (px - mouse.targetX) * 0.005;
+          p.vy += (py - mouse.targetY) * 0.005;
+        }
+        
+        // Возврат на базовую орбиту (упругость)
+        p.vx *= 0.9; // Трение
+        p.vy *= 0.9;
+        p.radius += p.vx;
+        p.zOffset += p.vy;
+        p.radius += (p.baseRadius - p.radius) * 0.05; // Пружина
+        p.zOffset += ((Math.random()-0.5)*80 - p.zOffset) * 0.01;
+
+        // Применяем наклон диска (он находится под углом)
+        let tilt = Math.PI / 4; 
+        let rx = px;
+        let ry = py * Math.cos(tilt) - pz * Math.sin(tilt);
+        let rz = py * Math.sin(tilt) + pz * Math.cos(tilt);
+
+        let proj = project(rx, ry, rz);
+        p.screenX = proj.screenX;
+        p.screenY = proj.screenY;
+        p.z = proj.z;
+        p.scale = proj.scale;
+
+        // Depth of Field (DOF): Дальние точки тусклее, ближние ярче и крупнее
+        let depthAlpha = Math.max(0, 1 - (proj.z + 800) / 1600);
+        let size = Math.max(0.5, p.scale * 2.5);
+
+        ctx.fillStyle = `rgba(0, 229, 255, ${depthAlpha * 0.7})`;
+        ctx.beginPath();
+        ctx.arc(p.screenX, p.screenY, size, 0, Math.PI * 2);
+        ctx.fill();
+
+        // КВАНТОВЫЕ РАЗРЯДЫ (Случайные связи между диском и центром)
+        if (Math.random() > 0.9995) {
+          ctx.beginPath();
+          ctx.moveTo(p.screenX, p.screenY);
+          ctx.lineTo(cx, cy);
+          let grad = ctx.createLinearGradient(p.screenX, p.screenY, cx, cy);
+          grad.addColorStop(0, `rgba(0, 229, 255, ${depthAlpha})`);
+          grad.addColorStop(1, 'rgba(157, 0, 255, 0)');
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+
+      // --- 2. ОБРАБОТКА И ОТРИСОВКА ЯДРА ---
+      let coreR = 100 + Math.sin(time * 3) * 5; // Пульсация
+      
+      coreNodes.forEach(node => {
+        let rotY_core = -time * 0.5; // Ядро крутится в обратную сторону
+        let bx = node.baseX * coreR;
+        let by = node.baseY * coreR;
+        let bz = node.baseZ * coreR;
 
         let rx = bx * Math.cos(rotY_core) - bz * Math.sin(rotY_core);
         let rz = bx * Math.sin(rotY_core) + bz * Math.cos(rotY_core);
@@ -421,26 +417,24 @@
         node.z = proj.z;
       });
 
-      // Сортировка ядра по глубине для правильного наложения
+      // Сортировка ядра (алгоритм художника)
       coreNodes.sort((a, b) => b.z - a.z);
 
-      // Отрисовка связей (Нейронная сеть ядра)
-      ctx.lineWidth = 0.5;
+      ctx.lineWidth = 0.8;
       for (let i = 0; i < coreNodes.length; i++) {
         let n1 = coreNodes[i];
-        if (n1.z > 100) continue; // Прячем заднюю часть сферы в тумане
+        if (n1.z > 200) continue; 
 
-        // Соединяем только с соседними узлами
-        for (let j = i + 1; j < Math.min(i + 15, coreNodes.length); j++) {
+        // Рисуем связи ядра (Нейросеть)
+        for (let j = i + 1; j < Math.min(i + 12, coreNodes.length); j++) {
           let n2 = coreNodes[j];
           let dx = n1.screenX - n2.screenX;
           let dy = n1.screenY - n2.screenY;
           let distSq = dx*dx + dy*dy;
 
-          if (distSq < 1500 * n1.scale) {
-            let opacity = (1 - (distSq / (1500 * n1.scale))) * 0.4;
-            // Цвет связей: от синего к фиолетовому
-            ctx.strokeStyle = `rgba(139, 92, 246, ${opacity})`;
+          if (distSq < 2000 * n1.scale) {
+            let opacity = (1 - (distSq / (2000 * n1.scale))) * 0.6;
+            ctx.strokeStyle = `rgba(157, 0, 255, ${opacity})`;
             ctx.beginPath();
             ctx.moveTo(n1.screenX, n1.screenY);
             ctx.lineTo(n2.screenX, n2.screenY);
@@ -448,14 +442,22 @@
           }
         }
         
-        // Отрисовка самого узла
-        let alpha = Math.max(0, 1 - (n1.z + 100) / 200); // Затухание в глубину
-        ctx.fillStyle = `rgba(37, 99, 235, ${alpha * 0.9})`;
+        let alpha = Math.max(0, 1 - (n1.z + 100) / 300);
+        ctx.fillStyle = `rgba(37, 99, 235, ${alpha})`;
         ctx.beginPath();
-        ctx.arc(n1.screenX, n1.screenY, 1.5 * n1.scale, 0, Math.PI*2);
+        ctx.arc(n1.screenX, n1.screenY, 2 * n1.scale, 0, Math.PI*2);
         ctx.fill();
+        
+        // Яркое белое ядро для передних точек
+        if (n1.z < -50) {
+           ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+           ctx.beginPath();
+           ctx.arc(n1.screenX, n1.screenY, 1 * n1.scale, 0, Math.PI*2);
+           ctx.fill();
+        }
       }
 
+      ctx.globalCompositeOperation = 'source-over';
       requestAnimationFrame(renderEngine);
     }
 
