@@ -2,11 +2,11 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>AURA CORE // Executive AI Terminal</title>
+  <title>AURA CORE // Volumetric AI Terminal OS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&family=Rajdhani:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&family=Rajdhani:wght@500;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     /* =========================================
@@ -18,8 +18,9 @@
       --core-blue: #0055ff;
       --core-purple: #b700ff;
       
-      /* Базовые цвета панелей */
-      --panel-bg: rgba(4, 7, 12, 0.45);
+      /* Базовые цвета панелей (сверх-прозрачные) */
+      --panel-bg: rgba(4, 7, 12, 0.35);
+      --panel-border: rgba(0, 255, 255, 0.15);
       --text-main: #e2e8f0;
       --text-dim: #64748b;
       --highlight: #38bdf8;
@@ -33,13 +34,12 @@
       user-select: none; cursor: crosshair;
     }
 
-    /* Фоновый движок */
     #quantum-mirror-engine { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2; }
     #post-processing { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 3; pointer-events: none; mix-blend-mode: screen; display: none; }
     .space-dust { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(circle at center, transparent 20%, var(--bg-void) 100%); }
 
     /* =========================================
-       HUD PANELS (SMART SPOTLIGHT UI)
+       HUD PANELS (VOLUMETRIC MASTERCLASS)
        ========================================= */
     .hud-layer {
       position: absolute; inset: 0; z-index: 10; pointer-events: none;
@@ -52,15 +52,15 @@
     }
     .hud-container > * { pointer-events: auto; }
 
-    /* АДАПТИВНОСТЬ ДЛЯ ПЛАНШЕТОВ И МОБИЛОК */
+    /* Адаптивность для мобильных и планшетов */
     @media (max-width: 1400px) { .hud-container { width: 400px; } .hud-layer { padding: 20px; } }
     @media (max-width: 900px) {
       .hud-layer { flex-direction: column; justify-content: flex-start; overflow-y: auto; pointer-events: auto; padding: 15px; }
       .hud-container { width: 100%; height: auto; margin-bottom: 20px; }
-      #quantum-mirror-engine { opacity: 0.25; } /* Сильно приглушаем фон для читаемости */
+      #quantum-mirror-engine { opacity: 0.25; } /* Приглушаем фон для читаемости */
     }
 
-    /* УМНЫЕ КАРТОЧКИ (MAGNETIC SPOTLIGHT) */
+    /* УМНЫЕ КАРТОЧКИ (MAGNETIC GLOW & SPOTLIGHT) */
     .data-card {
       background: var(--panel-bg);
       border-radius: 12px; backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
@@ -68,7 +68,7 @@
       position: relative; overflow: hidden;
       /* Отключаем стандартный бордер, используем псевдоэлемент для светящейся рамки */
       border: 1px solid rgba(255,255,255,0.02);
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
     }
     
     /* Эффект свечения ВНУТРИ карточки за курсором */
@@ -109,21 +109,21 @@
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
     .block-title {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #94a3b8;
-      text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--highlight);
+      text-transform: uppercase; margin-bottom: 12px; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;
     }
-    .block-title::before { content: '>'; font-size: 0.8rem; color: var(--card-glow, var(--core-cyan)); font-weight: bold; }
+    .block-title::before { content: '>'; font-size: 0.9rem; color: var(--card-glow, var(--core-cyan)); font-weight: bold; }
 
     /* =========================================
-       CYBER-TERMINAL PROMPTS (CODE BLOCKS)
+       CYBER-TERMINAL PROMPTS (VOLUMETRIC MODULES)
        ========================================= */
-    .terminal-box {
-      background: #020308; border: 1px solid rgba(255,255,255,0.05);
+    .volumetric-module {
+      background: rgba(0, 0, 0, 0.7); border: 1px solid rgba(255,255,255,0.05);
       border-radius: 8px; margin-bottom: 20px; overflow: hidden;
       font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; color: #cbd5e1;
       user-select: text; transition: 0.3s ease; position: relative;
     }
-    .terminal-box:hover { border-color: var(--card-glow, var(--core-cyan)); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+    .volumetric-module:hover { border-color: var(--card-glow, var(--core-cyan)); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
     
     .term-header {
       background: rgba(255,255,255,0.03); padding: 8px 16px; font-size: 0.7rem; color: #64748b;
@@ -131,9 +131,12 @@
     }
     .term-path { color: var(--card-glow, var(--core-cyan)); opacity: 0.7; }
     
+    .term-actions { display: flex; gap: 8px; }
     .term-copy { cursor: pointer; color: #cbd5e1; transition: 0.2s; font-weight: 600; background: rgba(255,255,255,0.05); padding: 2px 8px; border-radius: 4px; }
     .term-copy:hover { background: var(--card-glow, var(--core-cyan)); color: #000; }
     .term-copy.copied { background: #10b981; color: #000; pointer-events: none; }
+    .term-expand { cursor: pointer; color: var(--text-dim); background: rgba(255,255,255,0.03); padding: 2px 8px; border-radius: 4px; }
+    .term-expand:hover { background: rgba(255,255,255,0.1); color: #fff; }
     
     .term-body { padding: 16px; position: relative; }
     .term-body span.cmd { color: var(--card-glow, var(--core-cyan)); font-weight: bold; margin-right: 8px; }
@@ -150,7 +153,7 @@
       display: flex; flex-direction: column; justify-content: center; align-items: center;
       font-family: 'JetBrains Mono', monospace; color: var(--core-cyan); transition: opacity 1s ease;
     }
-    .boot-logo { font-family: 'Rajdhani', sans-serif; font-size: 4rem; font-weight: 700; letter-spacing: 8px; margin-bottom: 30px; text-shadow: 0 0 30px var(--core-cyan); }
+    .boot-logo { font-family: 'Rajdhani', sans-serif; font-size: 4rem; font-weight: 900; letter-spacing: 8px; margin-bottom: 30px; text-shadow: 0 0 30px var(--core-cyan); }
     .progress-bar-container { width: 400px; height: 2px; background: rgba(255,255,255,0.1); overflow: hidden; position: relative; border-radius: 2px; }
     .progress-bar { height: 100%; background: var(--core-cyan); width: 0%; transition: width 0.1s; box-shadow: 0 0 15px var(--core-cyan); }
   </style>
@@ -159,9 +162,9 @@
 
   <!-- BOOT SEQUENCE -->
   <div id="boot-screen">
-    <div class="boot-logo">AURA KERNEL</div>
+    <div class="boot-logo">AURA CORE v13.0</div>
     <div class="progress-bar-container"><div class="progress-bar" id="boot-progress"></div></div>
-    <div id="boot-text" style="margin-top: 20px; font-size: 0.85rem; color: #64748b; letter-spacing: 3px;">INITIALIZING CORE...</div>
+    <div id="boot-text" style="margin-top: 20px; font-size: 0.85rem; color: #64748b; letter-spacing: 3px;">INITIALIZING VOLUME PANELS...</div>
   </div>
 
   <!-- ДВИЖОК ОСТАЛСЯ НЕИЗМЕННЫМ (ТВОЙ ОРИГИНАЛ) -->
@@ -172,28 +175,28 @@
   <!-- HUD LAYER -->
   <div class="hud-layer" id="hud-layer">
     
-    <!-- LEFT HUD: СТРАТЕГИЯ И АНАЛИТИКА -->
+    <!-- LEFT HUD: СТРАТЕГИЯ И ОБУЧЕНИЕ -->
     <div class="hud-container">
       
       <div class="data-card spotlight-card" style="--card-glow: var(--core-cyan);" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
         <div class="card-content">
-          <div class="card-header">SYS.01 // СТРАТЕГИЯ И УПРАВЛЕНИЕ <div class="status-indicator">SYNCED</div></div>
+          <div class="card-header">SYS.01 // AI ОБУЧЕНИЕ И PROMPT DESIGN <div class="status-indicator">SYNCED</div></div>
           
-          <div class="block-title">МАТРИЦА БИЗНЕС-РЕШЕНИЙ</div>
-          <div class="tag-group"><span class="tag">SWOT Analysis</span><span class="tag">Executive</span></div>
-          <div class="terminal-box">
-            <div class="term-header"><span class="term-path">root/strategy/swot.sh</span><span class="term-copy" data-copy="Действуй как Chief Strategy Officer. Проведи глубокий SWOT-анализ внедрения генеративного ИИ в наш корпоративный сектор. Распиши 3 ключевых риска безопасности данных и предложи 3 протокола их минимизации. Результат выдай в виде строгой markdown-таблицы.">COPY</span></div>
+          <div class="block-title">ОСНОВЫ PROMPT ENGINEERING (GENERALIZED)</div>
+          <div class="tag-group"><span class="tag">Fundamentals</span><span class="tag">Strategy</span></div>
+          <div class="volumetric-module">
+            <div class="term-header"><span class="term-path">root/strategy/prompt_basics.md</span><span class="term-actions"><span class="term-copy" data-copy="Действуй как эксперт по Prompt Engineering. Сформулируй 3 ключевых принципа создания эффективных промптов (Context, Clear Directives, Persona). Приведи примеры для каждого принципа, демонстрирующие разницу между слабым и сильным промптом.">COPY</span><span class="term-expand">[EXPAND]</span></span></div>
             <div class="term-body">
-              <span class="cmd">AI></span><span class="accent">Действуй как Chief Strategy Officer.</span> Проведи глубокий SWOT-анализ внедрения генеративного ИИ в наш корпоративный сектор. Распиши 3 ключевых риска безопасности данных и предложи 3 протокола их минимизации. Выдай ответ таблицей.
+              <span class="cmd">AI></span><span class="accent">Действуй как эксперт.</span> Сформулируй 3 ключевых принципа создания эффективных промптов (Context, Directives, Persona). Приведи примеры, демонстрирующие разницу между слабым и сильным промптом.
             </div>
           </div>
 
-          <div class="block-title">ОПТИМИЗАЦИЯ РАБОЧИХ ПРОЦЕССОВ</div>
-          <div class="tag-group"><span class="tag">Workflow</span><span class="tag">Agile</span></div>
-          <div class="terminal-box" style="margin-bottom: 0;">
-            <div class="term-header"><span class="term-path">root/management/agile.sh</span><span class="term-copy" data-copy="Выступи в роли бизнес-аналитика. Ниже приведен транскрипт часового совещания команды. Твоя задача: 1) Составить Executive Summary. 2) Сформировать нумерованный список задач (Action Items) с указанием ответственных и дедлайнов по методологии SMART.">COPY</span></div>
+          <div class="block-title">ОБУЧАЮЩИЕ СЦЕНАРИИ (FEYNMAN TECHNIQUE)</div>
+          <div class="tag-group"><span class="tag">Educational</span><span class="tag">Active Learning</span></div>
+          <div class="volumetric-module" style="margin-bottom: 0;">
+            <div class="term-header"><span class="term-path">root/strategy/feynman_enhanced.md</span><span class="term-actions"><span class="term-copy" data-copy="Примени Технику Фейнмана для объяснения [ВСТАВЬТЕ СЛОЖНУЮ ТЕМУ]. Сначала объясни концепцию так, как будто мне 10 лет (простые аналогии). Затем углуби детали, отвечая на мои уточняющие вопросы, и помоги мне выявить 'белые пятна' в моем понимании. Жди ответа после каждого этапа.">COPY</span><span class="term-expand">[EXPAND]</span></span></div>
             <div class="term-body">
-              <span class="cmd">AI></span><span class="accent">Выступи в роли бизнес-аналитика.</span> Проанализируй транскрипт совещания. Составь Executive Summary и сформируй список задач (Action Items) с указанием ответственных и сроков по методологии SMART.
+              <span class="cmd">AI></span><span class="accent">Примени Технику Фейнмана.</span> Объясни концепцию [ВСТАВЬТЕ СЛОЖНУЮ ТЕМУ] так, как будто мне 10 лет. Затем углубляй детали, отвечая на мои вопросы, и помоги мне выявить 'белые пятна'.
             </div>
           </div>
         </div>
@@ -201,38 +204,38 @@
 
       <div class="data-card spotlight-card" style="--card-glow: #3b82f6;" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
         <div class="card-content">
-          <div class="card-header" style="color: #3b82f6; text-shadow: 0 0 10px #3b82f6;">SYS.02 // АНАЛИТИКА ДАННЫХ <div class="status-indicator">ONLINE</div></div>
-          <div class="block-title">ОБРАБОТКА МАССИВОВ ИНФОРМАЦИИ</div>
-          <div class="terminal-box" style="margin-bottom: 0;">
-            <div class="term-header"><span class="term-path">root/data/sentiment.py</span><span class="term-copy" data-copy="Роль: Data Scientist. Ниже приведен сырой массив неструктурированных отзывов клиентов. Проведи сентимент-анализ (тональность). Сгруппируй жалобы по 3 главным категориям и предложи программные или процессные решения для каждой проблемы.">COPY</span></div>
+          <div class="card-header" style="color: #3b82f6; text-shadow: 0 0 10px #3b82f6;">SYS.02 // КОГНИТИВНЫЕ ХАКИ ОБУЧЕНИЯ <div class="status-indicator">ONLINE</div></div>
+          <div class="block-title">Active Recall & Spaced Repetition (GENERALIZED)</div>
+          <div class="volumetric-module" style="margin-bottom: 0;">
+            <div class="term-header"><span class="term-path">root/mind/active_learning.py</span><span class="term-actions"><span class="term-copy" data-copy="Сгенерируй для меня список из 10 вопросов для Active Recall по теме [ВСТАВЬТЕ ТЕМУ]. Вопросы должны требовать полного объяснения, а не просто ответов 'да/нет'. Не предоставляй ответы сразу, я буду отвечать на них по одному, а ты — проверять и углублять мои знания.">COPY</span><span class="term-expand">[EXPAND]</span></span></div>
             <div class="term-body">
-              <span class="cmd" style="color: #3b82f6;">DATA></span><span class="accent">Роль: Data Scientist.</span> Проведи сентимент-анализ массива клиентских отзывов. Сгруппируй жалобы по 3 главным категориям и предложи алгоритмы решений для их устранения.
+              <span class="cmd" style="color: #3b82f6;">DATA></span><span class="accent">Сгенерируй список вопросов.</span> Ниже приведен сырой массив неструктурированных отзывов клиентов. Сгенерируй для меня 10 вопросов для Active Recall по теме [ВСТАВЬТЕ ТЕМУ]. Вопросы должны требовать объяснений. Не предоставляй ответы сразу.
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- RIGHT HUD: IT & ЛИЧНАЯ ЭФФЕКТИВНОСТЬ -->
+    <!-- RIGHT HUD: ПРОДУКТИВНОСТЬ И IT -->
     <div class="hud-container">
       <div class="data-card spotlight-card" style="--card-glow: var(--core-purple);" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
         <div class="card-content">
-          <div class="card-header" style="color: var(--core-purple); text-shadow: 0 0 10px var(--core-purple);">SYS.03 // IT АРХИТЕКТУРА И КОД <div class="status-indicator">ACTIVE</div></div>
+          <div class="card-header" style="color: var(--core-purple); text-shadow: 0 0 10px var(--core-purple);">SYS.03 // IT & РАБОЧИЙ ПРОЦЕСС <div class="status-indicator">ACTIVE</div></div>
           
-          <div class="block-title">СИСТЕМНЫЙ ДИЗАЙН (SYSTEM DESIGN)</div>
-          <div class="tag-group"><span class="tag">Architecture</span><span class="tag">DevOps</span></div>
-          <div class="terminal-box">
-            <div class="term-header"><span class="term-path">root/dev/sys_design.js</span><span class="term-copy" data-copy="Действуй как Senior Software Architect. Спроектируй масштабируемую микросервисную архитектуру для высоконагруженного веб-приложения (SaaS). Опиши логику выбора базы данных, брокера сообщений и методы обеспечения отказоустойчивости.">COPY</span></div>
+          <div class="block-title">ОПТИМИЗАЦИЯ СЕРВЕРНЫХ ПРОЦЕССОВ (GENERALIZED)</div>
+          <div class="tag-group"><span class="tag">DevOps</span><span class="tag">Workflow</span></div>
+          <div class="volumetric-module">
+            <div class="term-header"><span class="term-path">root/dev/server_perf.sh</span><span class="term-actions"><span class="term-copy" data-copy="Действуй как эксперт по высоконагруженным системам. Проанализируй логи конфигурации Garbage Collector (G1GC) выделенного сервера. Как оптимизировать параметры .bat файла запуска для минимизации задержек и устранения потери пакетов при пиковых нагрузках? Результат выдай в виде строгой markdown-таблицы.">COPY</span><span class="term-expand">[EXPAND]</span></span></div>
             <div class="term-body">
-              <span class="cmd" style="color: var(--core-purple);">DEV></span><span class="accent">Действуй как Senior Architect.</span> Спроектируй микросервисную архитектуру для высоконагруженного SaaS. Опиши выбор базы данных, системы кэширования и методы обеспечения отказоустойчивости узлов.
+              <span class="cmd" style="color: var(--core-purple);">DEV></span><span class="accent">Действуй как DevOps-инженер.</span> Проанализируй логи Garbage Collector (G1GC). Как оптимизировать параметры запуска для минимизации задержек сервера? Результат выдай markdown-таблицей.
             </div>
           </div>
 
-          <div class="block-title">РЕФАКТОРИНГ И CLEAN CODE</div>
-          <div class="terminal-box" style="margin-bottom: 0;">
-            <div class="term-header"><span class="term-path">root/dev/refactor.ts</span><span class="term-copy" data-copy="Проведи Code Review предоставленного ниже фрагмента кода. Укажи на антипаттерны, утечки памяти и уязвимости. Перепиши код, следуя принципам SOLID и DRY, и добавь подробные комментарии к изменениям.">COPY</span></div>
+          <div class="block-title">РЕФАКТОРИНГ И ДЕКОМПОЗИЦИЯ ЗАДАЧ (GENERALIZED)</div>
+          <div class="volumetric-module" style="margin-bottom: 0;">
+            <div class="term-header"><span class="term-path">root/dev/code_decompose.ts</span><span class="term-actions"><span class="term-copy" data-copy="Выступи в роли Senior Software Architect. У меня есть сложный фрагмент кода. Помоги мне: 1) Указать на антипаттерны и утечки памяти. 2) Предложить алгоритм его декомпозиции на 3 более простых, тестируемых сервиса, используя принципы SOLID. 3) Напиши bash-скрипт для очистки кэша компиляции и перезапуска окружения.">COPY</span><span class="term-expand">[EXPAND]</span></span></div>
             <div class="term-body">
-              <span class="cmd" style="color: var(--core-purple);">DEV></span>Проведи Code Review предоставленного фрагмента. Укажи на антипаттерны и уязвимости. Перепиши код, строго следуя принципам SOLID и DRY.
+              <span class="cmd" style="color: var(--core-purple);">DEV></span>Проведи Code Review и декомпозицию. Выступи в роли эксперта по ПБ. Разработай алгоритм реструктуризации ответственности при обесточивании. Перепиши код, следуя принципам SOLID, и добавь скрипт очистки кэша.
             </div>
           </div>
         </div>
@@ -240,21 +243,21 @@
 
       <div class="data-card spotlight-card" style="--card-glow: #10b981;" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
         <div class="card-content">
-          <div class="card-header" style="color: #10b981; text-shadow: 0 0 10px #10b981;">SYS.04 // ЛИЧНАЯ ЭФФЕКТИВНОСТЬ <div class="status-indicator">READY</div></div>
+          <div class="card-header" style="color: #10b981; text-shadow: 0 0 10px #10b981;">SYS.04 // КОГНИТИВНАЯ ЭФФЕКТИВНОСТЬ <div class="status-indicator">READY</div></div>
           
-          <div class="block-title">УСКОРЕННОЕ ОБУЧЕНИЕ (FEYNMAN)</div>
-          <div class="terminal-box">
-            <div class="term-header"><span class="term-path">root/mind/feynman.md</span><span class="term-copy" data-copy="Объясни концепцию [ВСТАВЬТЕ СЛОЖНУЮ ТЕМУ] используя Технику Фейнмана. Напиши объяснение так, как будто мне 12 лет, используя простые аналогии из повседневной жизни. Если я задам уточняющий вопрос, углубляй детали постепенно.">COPY</span></div>
+          <div class="block-title">Advanced Prompt Chaining (GENERALIZED)</div>
+          <div class="volumetric-module">
+            <div class="term-header"><span class="term-path">root/mind/prompt_chaining.md</span><span class="term-actions"><span class="term-copy" data-copy="Сыграй со мной в RPG. Главная героиня — девочка Стеша. Важное условие: обращайся к ней только по имени Стеша. Сюжет включает 3 математические загадки. Давай разберем эту сложную задачу, используя Prompt Chaining. Напиши цепочку из 3 промптов, где выход каждого становится контекстом для следующего (Decomposition, Analysis, Synthesis). Жди ответа после каждой.">COPY</span><span class="term-expand">[EXPAND]</span></span></div>
             <div class="term-body">
-              <span class="cmd" style="color: #10b981;">EDU></span>Объясни сложную концепцию, используя Технику Фейнмана (как для 12-летнего), с примерами из повседневной жизни. При моих вопросах — углубляй детали пошагово.
+              <span class="cmd" style="color: #10b981;">EDU></span><span class="accent">Сыграй со мной в развивающую RPG.</span> Давай разберем эту задачу, используя Prompt Chaining. Напиши цепочку из 3 промптов, где выход каждого становится контекстом для следующего (Decomposition, Analysis, Synthesis).
             </div>
           </div>
 
-          <div class="block-title">МАСТЕРСТВО ТАЙМ-МЕНЕДЖМЕНТА</div>
-          <div class="terminal-box" style="margin-bottom: 0;">
-            <div class="term-header"><span class="term-path">root/mind/planner.txt</span><span class="term-copy" data-copy="Роль: Коуч по продуктивности. Вот список моих задач на неделю с оценкой времени. Распредели их по дням, используя матрицу Эйзенхауэра и метод интервальной работы. Оставь буфер в 20% времени на форс-мажоры.">COPY</span></div>
+          <div class="block-title">ПРОДУКТИВНОСТЬ И ТАЙМ-МЕНЕДЖМЕНТ (GENERALIZED)</div>
+          <div class="volumetric-module" style="margin-bottom: 0;">
+            <div class="term-header"><span class="term-path">root/mind/time_hacking.txt</span><span class="term-actions"><span class="term-copy" data-copy="Сыграй роль коуча по продуктивности. Вот список моих задач на неделю. Сгруппируй их по приоритету (Матрица Эйзенхауэра) и предложи оптимальный график, используя метод интервальной работы. Учти буфер времени в 20% на форс-мажоры.">COPY</span><span class="term-expand">[EXPAND]</span></span></div>
             <div class="term-body">
-              <span class="cmd" style="color: #10b981;">EDU></span><span class="accent">Роль: Коуч по продуктивности.</span> Распредели мой пул задач на неделю по матрице Эйзенхауэра. Оставь буфер в 20% времени на форс-мажоры и глубокую работу.
+              <span class="cmd" style="color: #10b981;">EDU></span>Сгруппируй задачи по приоритету (Eisenhower). Ниже приведен сырой массив неструктурированных отзывов клиентов. Сгруппируй их по Матрице Эйзенхауэра и предложи график работы. Учти буфер 20% на форс-мажоры.
             </div>
           </div>
         </div>
@@ -356,7 +359,6 @@
     });
 
     document.addEventListener('mousedown', (e) => {
-      // Игнорируем клики по карточкам для взрыва фона
       if(e.target.closest('.data-card')) return;
       shockwave.active = true;
       shockwave.radius = 10;
