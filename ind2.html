@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>AURA CORE // Quantum Mirror OS</title>
+  <title>AURA CORE // Neural Synapse OS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +17,7 @@
       --core-cyan: #00ffff;
       --core-blue: #0055ff;
       --core-purple: #b700ff;
+      --stress-red: #ff3300; /* Цвет натяжения связей */
       
       --panel-bg: rgba(2, 5, 10, 0.55);
       --panel-border: rgba(0, 255, 255, 0.15);
@@ -52,9 +53,9 @@
       background: var(--panel-bg); border: 1px solid var(--panel-border);
       border-radius: 12px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
       padding: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 20px rgba(0, 255, 255, 0.02);
-      position: relative; overflow: hidden; transition: transform 0.3s;
+      position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.3s;
     }
-    .data-card:hover { transform: translateY(-5px); border-color: rgba(0, 255, 255, 0.4); }
+    .data-card:hover { transform: translateY(-5px); border-color: rgba(0, 255, 255, 0.5); box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 30px rgba(0, 255, 255, 0.05); }
     .data-card::after {
       content: ''; position: absolute; bottom: 0; right: 0;
       width: 30px; height: 30px;
@@ -117,9 +118,9 @@
 <body>
 
   <div id="boot-screen">
-    <div class="boot-logo">QUANTUM MIRROR</div>
+    <div class="boot-logo">SYNAPSE CORE</div>
     <div class="progress-bar-container"><div class="progress-bar" id="boot-progress"></div></div>
-    <div id="boot-text" style="margin-top: 20px; font-size: 0.85rem; color: var(--text-dim); letter-spacing: 3px;">INITIALIZING REFLECTIONS...</div>
+    <div id="boot-text" style="margin-top: 20px; font-size: 0.85rem; color: var(--text-dim); letter-spacing: 3px;">IGNITING DATA INGESTION...</div>
   </div>
 
   <canvas id="quantum-mirror-engine"></canvas>
@@ -127,7 +128,7 @@
 
   <!-- LEFT HUD -->
   <div class="hud-container hud-left">
-    <div class="data-card">
+    <div class="data-card" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
       <div class="card-header">SYS.01 // АНАЛИТИКА СУОТ <div class="status-indicator">SYNCED</div></div>
       <div class="block-title">ОБЪЕКТ: ООО «Софрино»</div>
       <div class="tag-group"><span class="tag">Пост. №2464</span><span class="tag">Охрана Труда</span></div>
@@ -141,7 +142,7 @@
       </div>
     </div>
 
-    <div class="data-card">
+    <div class="data-card" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
       <div class="card-header" style="color: var(--core-cyan);">SYS.02 // СИСТЕМНАЯ СРЕДА <div class="status-indicator">ONLINE</div></div>
       <div class="block-title">WORKSPACE: WIN 11 CLEAN INSTALL</div>
       <div class="terminal-box" style="border-left-color: var(--core-cyan); margin-bottom: 0;">
@@ -152,7 +153,7 @@
 
   <!-- RIGHT HUD -->
   <div class="hud-container hud-right">
-    <div class="data-card">
+    <div class="data-card" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
       <div class="card-header" style="color: var(--core-purple);">SYS.03 // IT & ИНФРАСТРУКТУРА <div class="status-indicator">ACTIVE</div></div>
       <div class="block-title">DEDICATED SERVER: RUST</div>
       <div class="terminal-box" style="border-left-color: var(--core-purple);">
@@ -164,7 +165,7 @@
       </div>
     </div>
 
-    <div class="data-card">
+    <div class="data-card" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
       <div class="card-header" style="color: #6ee7b7;">SYS.04 // ПЕРСОНАЛЬНЫЕ МОДЕЛИ <div class="status-indicator">READY</div></div>
       <div class="block-title">INTERACTIVE QUEST GENERATOR</div>
       <div class="terminal-box" style="border-left-color: #6ee7b7;">
@@ -200,7 +201,7 @@
     }, 60);
 
     // ==========================================
-    // 2. QUANTUM MIRROR ENGINE (Z-Sorted 3D + Reflections)
+    // 2. KINEMATIC ENGINE (Z-Sorted 3D + Reflections + Tension Physics)
     // ==========================================
     const canvas = document.getElementById('quantum-mirror-engine');
     const ctx = canvas.getContext('2d');
@@ -210,7 +211,7 @@
     
     let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
     let shockwave = { radius: 0, active: false, intensity: 0 };
-    let idleTimer = 0; // Для автопилота
+    let idleTimer = 0; 
     let isAutopilot = false;
     
     function resize() {
@@ -223,44 +224,38 @@
     document.addEventListener('mousemove', (e) => {
       mouse.targetX = (e.clientX - cx);
       mouse.targetY = (e.clientY - cy);
-      idleTimer = 0; // Сброс таймера автопилота
+      idleTimer = 0; 
       isAutopilot = false;
     });
 
-    // Supernova Click Effect (Взрыв + Глитч)
     document.addEventListener('mousedown', (e) => {
       shockwave.active = true;
       shockwave.radius = 10;
       shockwave.intensity = 1.0;
-      postCanvas.style.display = 'block'; // Включаем RGB искажение
+      postCanvas.style.display = 'block'; 
     });
 
     // --- АРХИТЕКТУРА ---
     let allNodes = [];
     const chars = "0101010101XYZA9F";
 
-    // Созвездия данных на фоне
-    let stars = [];
-    for(let i=0; i<80; i++) {
-        stars.push({ x: (Math.random()-0.5)*2000, y: (Math.random()-0.5)*2000, z: Math.random()*1000 + 500 });
-    }
-
-    // 1. Ядро
+    // 1. Ядро (Нейронная структура)
     const coreRadius = 80;
-    for (let i = 0; i < 200; i++) {
-      let phi = Math.acos(1 - 2 * (i + 0.5) / 200);
+    for (let i = 0; i < 250; i++) {
+      let phi = Math.acos(1 - 2 * (i + 0.5) / 250);
       let theta = Math.PI * (1 + Math.sqrt(5)) * i;
       allNodes.push({
         type: 'core',
         baseX: Math.cos(theta) * Math.sin(phi) * coreRadius,
         baseY: Math.sin(theta) * Math.sin(phi) * coreRadius,
         baseZ: Math.cos(phi) * coreRadius,
-        x: 0, y: 0, z: 0, screenX: 0, screenY: 0, scale: 0
+        x: 0, y: 0, z: 0, screenX: 0, screenY: 0, scale: 0,
+        currentX: 0, currentY: 0, currentZ: 0 // Для физики натяжения
       });
     }
 
     // 2. Аккреционный диск
-    for (let i = 0; i < 600; i++) {
+    for (let i = 0; i < 800; i++) {
       let angle = Math.random() * Math.PI * 2;
       let radius = 180 + Math.random() * 400 + Math.random() * 200; 
       let armOffset = Math.sin(angle * 3) * 50; 
@@ -278,10 +273,10 @@
     // 3. Кольца Данных
     const textRadii = [250, 450, 650];
     for (let o = 0; o < textRadii.length; o++) {
-      for (let i = 0; i < 50; i++) {
+      for (let i = 0; i < 60; i++) {
         allNodes.push({
           type: 'text', char: chars[Math.floor(Math.random() * chars.length)],
-          angle: (i / 50) * Math.PI * 2, radius: textRadii[o],
+          angle: (i / 60) * Math.PI * 2, radius: textRadii[o],
           speed: 0.002 * (o % 2 === 0 ? 1 : -1),
           x: 0, y: 0, z: 0, screenX: 0, screenY: 0, scale: 0
         });
@@ -290,26 +285,38 @@
 
     allNodes.push({ type: 'blackhole', x: 0, y: 0, z: 0, screenX: 0, screenY: 0, scale: 0 });
 
+    // --- ПАКЕТЫ ДАННЫХ (DATA INGESTION) ---
+    let dataPackets = [];
+    let streamSourceRect = null;
+    let isStreaming = false;
+
+    window.startDataStream = function(el) {
+      streamSourceRect = el.getBoundingClientRect();
+      isStreaming = true;
+    }
+    window.stopDataStream = function() {
+      isStreaming = false;
+    }
+
     let time = 0;
     let cameraRotX = 0;
     let cameraRotY = 0;
-    const floorY = 400; // Уровень стеклянного пола (отражающая поверхность)
+    const floorY = 400; 
 
     function renderEngine() {
-      ctx.fillStyle = 'rgba(1, 2, 5, 0.4)';
+      ctx.fillStyle = 'rgba(1, 2, 5, 0.35)';
       ctx.fillRect(0, 0, width, height);
 
       time += 0.015;
       idleTimer += 0.015;
 
-      // Автопилот (Кинематографический облет)
-      if (idleTimer > 3) {
+      if (idleTimer > 4) {
          isAutopilot = true;
          mouse.targetY = Math.sin(time * 0.5) * 200;
          mouse.targetX = Math.cos(time * 0.5) * 400;
       }
       
-      // Хроматическая аберрация (Глитч эффект)
+      // Глитч эффект взрыва
       if (shockwave.active) {
         shockwave.radius += 25;
         shockwave.intensity *= 0.93;
@@ -317,26 +324,21 @@
             shockwave.active = false;
             postCanvas.style.display = 'none';
         }
-        
         ctx.beginPath();
         ctx.arc(cx, cy, shockwave.radius, 0, Math.PI * 2);
         ctx.strokeStyle = `rgba(0, 255, 255, ${shockwave.intensity * 0.5})`;
         ctx.lineWidth = 2 + shockwave.intensity * 10;
         ctx.stroke();
 
-        // Пост-процессинг: разделение RGB каналов
         postCtx.clearRect(0,0,width,height);
         postCtx.globalCompositeOperation = 'lighter';
         let offset = shockwave.intensity * 30;
-        postCtx.fillStyle = 'red';
-        postCtx.drawImage(canvas, -offset, 0);
-        postCtx.fillStyle = 'blue';
-        postCtx.drawImage(canvas, offset, 0);
+        postCtx.fillStyle = 'red'; postCtx.drawImage(canvas, -offset, 0);
+        postCtx.fillStyle = 'blue'; postCtx.drawImage(canvas, offset, 0);
       }
       
-      // Плавная камера
-      cameraRotY += ((mouse.targetX * 0.002) - cameraRotY) * 0.03;
-      cameraRotX += ((mouse.targetY * 0.002) - cameraRotX) * 0.03;
+      cameraRotY += ((mouse.targetX * 0.002) - cameraRotY) * 0.05;
+      cameraRotX += ((mouse.targetY * 0.002) - cameraRotX) * 0.05;
 
       let cx_cam = Math.cos(cameraRotX), sx_cam = Math.sin(cameraRotX);
       let cy_cam = Math.cos(cameraRotY), sy_cam = Math.sin(cameraRotY);
@@ -351,27 +353,22 @@
         return { screenX: cx + x1 * scale, screenY: cy + y1 * scale, scale: scale, z: finalZ };
       }
 
-      // Отрисовка созвездий на фоне
-      ctx.lineWidth = 0.5;
-      for(let i=0; i<stars.length; i++) {
-         let s1 = stars[i];
-         let p1 = project(s1.x, s1.y, s1.z);
-         ctx.fillStyle = `rgba(255,255,255,${0.3 * p1.scale})`;
-         ctx.fillRect(p1.screenX, p1.screenY, 1.5, 1.5);
-
-         for(let j=i+1; j<stars.length; j++) {
-            let s2 = stars[j];
-            let dist = Math.sqrt(Math.pow(s1.x-s2.x,2) + Math.pow(s1.y-s2.y,2) + Math.pow(s1.z-s2.z,2));
-            if(dist < 300) {
-                let p2 = project(s2.x, s2.y, s2.z);
-                ctx.strokeStyle = `rgba(0, 255, 255, ${0.1 * p1.scale})`;
-                ctx.beginPath(); ctx.moveTo(p1.screenX, p1.screenY); ctx.lineTo(p2.screenX, p2.screenY); ctx.stroke();
-            }
-         }
+      // --- ГЕНЕРАЦИЯ ПОТОКА ДАННЫХ ИЗ ИНТЕРФЕЙСА ---
+      if (isStreaming && streamSourceRect && Math.random() > 0.5) {
+        // Создаем пакет данных, стартующий от края карточки
+        let startX = streamSourceRect.left > width / 2 ? streamSourceRect.left : streamSourceRect.right;
+        let startY = streamSourceRect.top + Math.random() * streamSourceRect.height;
+        dataPackets.push({
+          x: startX, y: startY,
+          targetX: cx + (Math.random() - 0.5) * 50,
+          targetY: cy + (Math.random() - 0.5) * 50,
+          progress: 0,
+          speed: 0.02 + Math.random() * 0.03
+        });
       }
 
-      // --- ПЕРЕСЧЕТ УЗЛОВ И СОЗДАНИЕ ОТРАЖЕНИЙ ---
-      let renderQueue = []; // Очередь для Z-сортировки реальных объектов И их отражений
+      // --- ПЕРЕСЧЕТ УЗЛОВ ---
+      let renderQueue = []; 
 
       for (let i = 0; i < allNodes.length; i++) {
         let n = allNodes[i];
@@ -379,9 +376,33 @@
 
         if (n.type === 'core') {
           let rotY_core = -time * 0.5; 
-          rx = n.baseX * Math.cos(rotY_core) - n.baseZ * Math.sin(rotY_core);
-          rz = n.baseX * Math.sin(rotY_core) + n.baseZ * Math.cos(rotY_core);
-          ry = n.baseY;
+          
+          // Базовая орбита узла ядра
+          let targetX = n.baseX * Math.cos(rotY_core) - n.baseZ * Math.sin(rotY_core);
+          let targetZ = n.baseX * Math.sin(rotY_core) + n.baseZ * Math.cos(rotY_core);
+          let targetY = n.baseY;
+
+          // ФИЗИКА НАТЯЖЕНИЯ (Гравитация мыши оттягивает узлы ядра)
+          // Нормализуем координаты мыши в 3D пространство (приблизительно)
+          let mouse3DX = (mouse.targetX) * 0.5;
+          let mouse3DY = (mouse.targetY) * 0.5;
+          
+          let dx = mouse3DX - targetX;
+          let dy = mouse3DY - targetY;
+          let dist = Math.sqrt(dx*dx + dy*dy);
+          
+          if (dist < 150) {
+             let pullForce = (150 - dist) / 150;
+             targetX += dx * pullForce * 0.8; // Узел тянется к мыши
+             targetY += dy * pullForce * 0.8;
+          }
+
+          // Узел плавно стремится к своей целевой позиции (пружина)
+          n.currentX += (targetX - n.currentX) * 0.1;
+          n.currentY += (targetY - n.currentY) * 0.1;
+          n.currentZ += (targetZ - n.currentZ) * 0.1;
+
+          rx = n.currentX; ry = n.currentY; rz = n.currentZ;
         } 
         else if (n.type === 'disk') {
           n.angle += n.speed;
@@ -412,31 +433,25 @@
         }
         else if (n.type === 'blackhole') { rx=0; ry=0; rz=0; }
 
-        // Проекция оригинала
         let proj = project(rx, ry, rz);
-        renderQueue.push({ ...n, screenX: proj.screenX, screenY: proj.screenY, scale: proj.scale, z: proj.z, isReflection: false });
+        n.screenX = proj.screenX; n.screenY = proj.screenY; n.scale = proj.scale; n.z = proj.z;
+        renderQueue.push({ ...n, isReflection: false });
 
-        // Проекция зеркального отражения (Ось Y инвертирована относительно пола)
         if (n.type !== 'blackhole') {
-            let reflectY = floorY + (floorY - ry); // Формула зеркала
+            let reflectY = floorY + (floorY - ry); 
             let refProj = project(rx, reflectY, rz);
-            // Добавляем отражение в очередь рендера только если оно в кадре
             if (refProj.screenY > cy) {
                 renderQueue.push({ ...n, screenX: refProj.screenX, screenY: refProj.screenY, scale: refProj.scale, z: refProj.z, isReflection: true });
             }
         }
       }
 
-      // ГЛОБАЛЬНАЯ СОРТИРОВКА (Оригиналы и отражения вместе)
       renderQueue.sort((a, b) => b.z - a.z);
-
       ctx.globalCompositeOperation = 'lighter'; 
 
       // --- ОТРИСОВКА ОЧЕРЕДИ ---
       for (let i = 0; i < renderQueue.length; i++) {
         let n = renderQueue[i];
-        
-        // Отражения рисуются тусклыми
         let alphaMod = n.isReflection ? 0.15 : 1.0;
         let depthAlpha = Math.max(0.05, 1 - (n.z + 800) / 1600) * alphaMod;
 
@@ -453,18 +468,51 @@
           ctx.fillText(char, n.screenX, n.screenY);
         }
         else if (n.type === 'blackhole' && !n.isReflection) {
-          ctx.globalCompositeOperation = 'source-over'; // Дыра стирает фон
+          ctx.globalCompositeOperation = 'source-over'; 
           ctx.beginPath();
           ctx.arc(n.screenX, n.screenY, (coreRadius - 15) * n.scale, 0, Math.PI * 2);
           ctx.fillStyle = '#010205'; 
           ctx.fill();
-          
           ctx.lineWidth = 3 * n.scale;
           ctx.strokeStyle = `rgba(0, 255, 255, 0.8)`;
           ctx.stroke();
           ctx.globalCompositeOperation = 'lighter';
         }
         else if (n.type === 'core') {
+          // Отрисовка кинематических связей между узлами ядра
+          if (!n.isReflection && n.z < 100) { // Оптимизация: не рисуем связи на отражениях
+             for (let j = i + 1; j < Math.min(i + 15, renderQueue.length); j++) {
+                let n2 = renderQueue[j];
+                if (n2.type !== 'core' || n2.isReflection) continue;
+
+                let dx = n.screenX - n2.screenX;
+                let dy = n.screenY - n2.screenY;
+                let distSq = dx*dx + dy*dy;
+
+                if (distSq < 2000 * n.scale) {
+                   // Расчет уровня "Стресса" (натяжения) связи
+                   let stress = distSq / (2000 * n.scale); 
+                   let opacity = (1 - stress) * 0.8;
+                   
+                   // Если связи сильно натянуты гравитацией мыши, они "накаляются" до красна
+                   let r = 0, g = 85, b = 255; // Базовый синий
+                   if (stress > 0.7) {
+                      // Переход в красный (Натяжение)
+                      let stressIntensity = (stress - 0.7) / 0.3; // 0 to 1
+                      r = 255;
+                      g = 85 - (85 * stressIntensity);
+                      b = 255 - (255 * stressIntensity);
+                   }
+
+                   ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;
+                   ctx.beginPath();
+                   ctx.moveTo(n.screenX, n.screenY);
+                   ctx.lineTo(n2.screenX, n2.screenY);
+                   ctx.stroke();
+                }
+             }
+          }
+
           let alpha = Math.max(0, 1 - (n.z + 100) / 300) * alphaMod;
           ctx.fillStyle = `rgba(0, 85, 255, ${alpha})`;
           ctx.beginPath(); ctx.arc(n.screenX, n.screenY, 2.5 * n.scale, 0, Math.PI*2); ctx.fill();
@@ -473,6 +521,37 @@
              ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.8})`;
              ctx.beginPath(); ctx.arc(n.screenX, n.screenY, 1 * n.scale, 0, Math.PI*2); ctx.fill();
           }
+        }
+      }
+
+      // --- ОТРИСОВКА ПАКЕТОВ ДАННЫХ (DATA INGESTION) ---
+      for (let i = dataPackets.length - 1; i >= 0; i--) {
+        let pkt = dataPackets[i];
+        pkt.progress += pkt.speed;
+        
+        // Эффект спагеттификации (растяжение пакета по мере приближения к сингулярности)
+        let easeProgress = Math.pow(pkt.progress, 2); 
+        
+        let currX = pkt.x + (pkt.targetX - pkt.x) * easeProgress;
+        let currY = pkt.y + (pkt.targetY - pkt.y) * easeProgress;
+
+        // Пакет закручивается по спирали у самого ядра
+        if (pkt.progress > 0.8) {
+           let angle = pkt.progress * Math.PI * 10;
+           let spiralRadius = (1 - pkt.progress) * 50;
+           currX += Math.cos(angle) * spiralRadius;
+           currY += Math.sin(angle) * spiralRadius;
+        }
+
+        ctx.fillStyle = `rgba(0, 255, 255, ${1 - pkt.progress})`;
+        ctx.beginPath();
+        // Пакет вытягивается в линию
+        let stretch = 2 + (easeProgress * 15);
+        ctx.ellipse(currX, currY, stretch, 1.5, Math.atan2(pkt.targetY - pkt.y, pkt.targetX - pkt.x), 0, Math.PI * 2);
+        ctx.fill();
+
+        if (pkt.progress >= 1) {
+          dataPackets.splice(i, 1);
         }
       }
 
