@@ -168,13 +168,21 @@
     }
     .chat-chip:hover { background: var(--core-purple); color: #fff; box-shadow: 0 0 10px var(--core-purple); }
 
-    /* Оформление сгенерированного мега-промпта */
+    /* ПРОФЕССИОНАЛЬНАЯ ОБЕРТКА ДЛЯ ИТОГОВОГО ПРОМПТА */
     .pro-prompt {
-      font-family: 'JetBrains Mono'; font-size: 0.75rem; color: #a5b4fc;
-      background: #000; padding: 12px; border-radius: 6px; border-left: 2px solid var(--core-cyan);
-      white-space: pre-wrap; margin-top: 10px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #cbd5e1;
+      background: #020308; padding: 16px; border-radius: 8px; 
+      border-left: 3px solid var(--core-cyan);
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+      white-space: pre-wrap; margin-top: 12px; line-height: 1.6;
     }
-    .pro-prompt span.h { color: var(--core-cyan); font-weight: bold; }
+    .pro-prompt .h1 { color: var(--core-cyan); font-weight: bold; display: block; margin-top: 10px; margin-bottom: 5px; }
+    .pro-prompt .h2 { color: var(--highlight); font-weight: bold; }
+    .pro-prompt .sys { color: #10b981; }
+
+    /* Системные логи (Имитация компиляции) */
+    .sys-log { font-family: 'JetBrains Mono'; font-size: 0.65rem; color: #64748b; line-height: 1.2; margin-top: 8px; }
+    .sys-log span { color: var(--core-purple); }
 
     /* Анимация печатания */
     .typing-dots { display: flex; gap: 4px; align-items: center; height: 20px; }
@@ -205,7 +213,7 @@
       display: flex; flex-direction: column; justify-content: center; align-items: center;
       font-family: 'JetBrains Mono', monospace; color: var(--core-cyan); transition: opacity 1s ease;
     }
-    .boot-logo { font-family: 'Rajdhani', sans-serif; font-size: 4rem; font-weight: 700; letter-spacing: 8px; margin-bottom: 30px; text-shadow: 0 0 30px var(--core-cyan); }
+    .boot-logo { font-family: 'Rajdhani', sans-serif; font-size: 4rem; font-weight: 900; letter-spacing: 8px; margin-bottom: 30px; text-shadow: 0 0 30px var(--core-cyan); }
     .progress-bar-container { width: 400px; height: 2px; background: rgba(255,255,255,0.1); overflow: hidden; position: relative; border-radius: 2px; }
     .progress-bar { height: 100%; background: var(--core-cyan); width: 0%; transition: width 0.1s; box-shadow: 0 0 15px var(--core-cyan); }
   </style>
@@ -216,7 +224,7 @@
   <div id="boot-screen">
     <div class="boot-logo">AURA CORE v15.0</div>
     <div class="progress-bar-container"><div class="progress-bar" id="boot-progress"></div></div>
-    <div id="boot-text" style="margin-top: 20px; font-size: 0.85rem; color: #64748b; letter-spacing: 3px;">INITIALIZING NEXUS EXPERT AI...</div>
+    <div id="boot-text" style="margin-top: 20px; font-size: 0.85rem; color: #64748b; letter-spacing: 3px;">INITIALIZING EXPERT AI...</div>
   </div>
 
   <!-- ДВИЖОК ОСТАЛСЯ НЕИЗМЕННЫМ -->
@@ -237,18 +245,24 @@
           <div class="block-title">ОСНОВЫ PROMPT ENGINEERING (R-T-C-F)</div>
           <div class="tag-group"><span class="tag">Framework</span><span class="tag">Strategy</span></div>
           <div class="volumetric-module">
-            <div class="term-header"><span class="term-path">root/strategy/prompt_framework.md</span><span class="term-actions"><span class="term-copy" data-copy="Действуй как Senior Prompt Engineer. Опиши фреймворк R-T-C-F (Role, Task, Context, Format). Приведи пример трансформации слабого промпта ('напиши статью про ИИ') в сильный с использованием этой структуры.">COPY</span></span></div>
+            <div class="term-header"><span class="term-path">root/strategy/prompt_framework.md</span><span class="term-actions"></span></div>
             <div class="term-body">
-              <span class="cmd">AI></span><span class="accent">Действуй как эксперт.</span> Опиши фреймворк R-T-C-F (Role, Task, Context, Format). Приведи пример трансформации слабого промпта в профессиональный с использованием этой структуры.
+              <span class="cmd">AI></span><span class="accent">Архитектура R-T-C-F:</span><br>
+              <span style="color:#94a3b8; font-size:0.75rem;">
+              • <b>Role:</b> Кем должен быть ИИ (Эксперт, Критик).<br>
+              • <b>Task:</b> Точная цель без двойных смыслов.<br>
+              • <b>Context:</b> Аудитория, фон, ситуация.<br>
+              • <b>Format:</b> Как именно вывести ответ (Markdown, JSON).
+              </span>
             </div>
           </div>
 
           <div class="block-title">ЦЕПОЧКИ РАССУЖДЕНИЙ (CHAIN OF THOUGHT)</div>
           <div class="tag-group"><span class="tag">Advanced</span><span class="tag">Logic</span></div>
           <div class="volumetric-module" style="margin-bottom: 0;">
-            <div class="term-header"><span class="term-path">root/strategy/cot_logic.md</span><span class="term-actions"><span class="term-copy" data-copy="Действуй как аналитик данных. Я дам тебе сложную логическую задачу. Прежде чем дать финальный ответ, обязательно распиши процесс своих рассуждений шаг за шагом (думай вслух), чтобы исключить галлюцинации и логические ошибки.">COPY</span></span></div>
+            <div class="term-header"><span class="term-path">root/strategy/cot_logic.md</span></div>
             <div class="term-body">
-              <span class="cmd">AI></span><span class="accent">Действуй как аналитик.</span> Прежде чем дать ответ на мою задачу, обязательно распиши процесс своих рассуждений шаг за шагом (Chain of Thought), чтобы исключить галлюцинации.
+              <span class="cmd">AI></span><span class="accent">Секретная директива:</span> Всегда добавляйте в промпт фразу <i>«Перед тем как дать итоговый ответ, распиши процесс своих рассуждений шаг за шагом»</i>. Это снижает риск галлюцинаций нейросетей на 80%.
             </div>
           </div>
         </div>
@@ -267,14 +281,14 @@
             <div class="msg-wrap msg-ai">
               <div class="msg-label">NEXUS-01</div>
               <div class="msg-bubble">
-                Система активирована. Я — ИИ-архитектор промптов уровня Senior.<br><br>Напиши <b>«создай промт»</b> (или любой синоним), и я проведу тебя через профессиональный фреймворк для сборки идеального запроса.
+                Система активирована. Я — ИИ-архитектор промптов уровня Senior.<br><br>Напиши <b>«создай промт»</b> (или любой синоним), и я соберу для тебя ультимативный запрос, который выжмет максимум из любой нейросети (ChatGPT, Claude, Gemini).
               </div>
             </div>
           </div>
 
           <!-- Поле ввода -->
           <div class="chat-input-wrapper">
-            <input type="text" id="chat-input" class="chat-input" placeholder="Введите 'промт' для старта..." autocomplete="off">
+            <input type="text" id="chat-input" class="chat-input" placeholder="Введите команду (например: промт)..." autocomplete="off">
             <button class="chat-btn" onclick="handleChatSubmit()">></button>
           </div>
 
@@ -308,19 +322,17 @@
       }
     });
 
-    // Функция для обработки кликов по чипсам-подсказкам в чате
     function chipClick(text) {
       document.getElementById('chat-input').value = text;
       handleChatSubmit();
     }
 
     // ==========================================
-    // 1. NEXUS-01 EXPERT CHAT ENGINE (SMART STATE MACHINE)
+    // 1. NEXUS-01 EXPERT CHAT ENGINE (СУПЕР-ИИ)
     // ==========================================
     const chatHistory = document.getElementById('chat-history');
     const chatInput = document.getElementById('chat-input');
     
-    // Состояния: IDLE, ASK_ROLE, ASK_TASK, ASK_CONTEXT, ASK_CONSTRAINTS, ASK_FORMAT
     let chatState = 'IDLE'; 
     let pData = { role: '', task: '', context: '', constraints: '', format: '' };
 
@@ -366,73 +378,94 @@
       }, delay);
     }
 
+    // ГЕНИАЛЬНЫЙ АЛГОРИТМ ГЕНЕРАЦИИ ПРОМПТА
     function generateFinalPrompt() {
-      // Собираем профессиональный МЕГА-ПРОМПТ
-      let finalPrompt = `Действуй как выдающийся ${pData.role}.\n\n`;
-      finalPrompt += `🎯 ТВОЯ ЗАДАЧА:\n${pData.task}\n\n`;
       
-      if (pData.context.toLowerCase() !== 'нет' && pData.context !== '-') {
-        finalPrompt += `📚 КОНТЕКСТ:\n${pData.context}\n\n`;
-      }
-      
-      if (pData.constraints.toLowerCase() !== 'нет' && pData.constraints !== '-') {
-        finalPrompt += `⚠️ ОГРАНИЧЕНИЯ И ПРАВИЛА:\n- ${pData.constraints.replace(/,/g, '\n- ')}\n\n`;
-      }
-      
-      finalPrompt += `📊 ФОРМАТ ОТВЕТА:\n${pData.format}`;
-
-      let html = `
-        <div style="font-weight: bold; color: var(--highlight);">Синтез завершен. Ваш профессиональный промпт готов:</div>
-        <div class="pro-prompt">
-<span class="h"># СИСТЕМНАЯ РОЛЬ</span>
-Действуй как выдающийся ${pData.role}.
-
-<span class="h"># ЗАДАЧА</span>
-${pData.task}
-${pData.context.toLowerCase() !== 'нет' ? `\n<span class="h"># КОНТЕКСТ</span>\n${pData.context}` : ''}
-${pData.constraints.toLowerCase() !== 'нет' ? `\n<span class="h"># ПРАВИЛА</span>\n- ${pData.constraints.replace(/,/g, '\n- ')}` : ''}
-
-<span class="h"># ФОРМАТ</span>
-${pData.format}
-        </div>
-        <div style="margin-top: 10px;">
-          <span class="term-copy" data-copy="${finalPrompt}" style="display:inline-block; padding: 6px 12px; background: var(--core-cyan); color: #000; border-radius: 4px; cursor: pointer; font-weight: bold;">[COPY TO CLIPBOARD]</span>
+      // Имитация системного лога перед выдачей
+      const logHtml = `
+        <div class="sys-log">
+          > <span>[SYS]</span> COMPILING DIRECTIVES...<br>
+          > <span>[SYS]</span> INJECTING CHAIN-OF-THOUGHT PROTOCOL...<br>
+          > <span>[SYS]</span> OPTIMIZING NLP VECTORS... OK.
         </div>
       `;
-      
-      showTyping(() => {
+      appendMessage('ai', logHtml, true);
+
+      setTimeout(() => {
+        // Очистка и форматирование ввода
+        const r = pData.role.trim();
+        const t = pData.task.trim();
+        const c = pData.context.trim();
+        const cn = pData.constraints.trim();
+        const f = pData.format.trim();
+
+        // СТРУКТУРА МЕГА-ПРОМПТА (Идеальна для GPT-4 / Claude Opus)
+        let finalPrompt = `[ИНСТРУКЦИЯ СИСТЕМЫ]\nТы — эксперт мирового уровня. Твоя роль: **${r}**.\nДействуй с позиции глубокой экспертизы, предлагая нестандартные, но высокоэффективные решения.\n\n`;
+        
+        finalPrompt += `[ГЛАВНАЯ ДИРЕКТИВА]\n**Задача:** ${t}\n`;
+        if (c.toLowerCase() !== 'нет' && c !== '-') {
+          finalPrompt += `**Контекст:** ${c}\n`;
+        }
+        
+        finalPrompt += `\n[ПРАВИЛА И ОГРАНИЧЕНИЯ]\n`;
+        finalPrompt += `- 🧠 **Мышление:** Перед тем как выдать итоговый результат, проведи пошаговый анализ задачи (Chain of Thought). Рассмотри возможные проблемы.\n`;
+        if (cn.toLowerCase() !== 'нет' && cn !== '-') {
+          finalPrompt += `- ⚠️ **Строгие правила:** ${cn.replace(/,/g, '\n- ')}\n`;
+        }
+        finalPrompt += `- 🚫 Исключи "воду", клише, абстрактные рассуждения и базовые советы. Выдавай только концентрат экспертизы.\n\n`;
+        
+        finalPrompt += `[ФОРМАТ ВЫВОДА]\n**Формат:** ${f}\nВыдай ответ строго в указанном формате, без лишних приветствий.`;
+
+        // Отрисовка красивой карточки
+        let html = `
+          <div class="pro-prompt">
+<span class="sys">[ИНСТРУКЦИЯ СИСТЕМЫ]</span>
+Ты — эксперт мирового уровня. Твоя роль: <span class="h2">**${r}**</span>.
+Действуй с позиции глубокой экспертизы.
+
+<span class="sys">[ГЛАВНАЯ ДИРЕКТИВА]</span>
+**Задача:** ${t}
+${c.toLowerCase() !== 'нет' && c !== '-' ? `**Контекст:** ${c}\n` : ''}
+<span class="sys">[ПРАВИЛА И ОГРАНИЧЕНИЯ]</span>
+- 🧠 **Мышление:** Перед тем как выдать итоговый результат, проведи пошаговый анализ (Chain of Thought).
+${cn.toLowerCase() !== 'нет' && cn !== '-' ? `- ⚠️ **Строгие правила:** ${cn.replace(/,/g, '\n- ')}\n` : ''}- 🚫 Исключи "воду", клише и базовые советы. Только концентрат.
+
+<span class="sys">[ФОРМАТ ВЫВОДА]</span>
+**Формат:** ${f}
+          </div>
+          <div style="margin-top: 12px; display: flex; justify-content: flex-end;">
+            <span class="term-copy" data-copy="${finalPrompt}" style="display:inline-block; padding: 8px 16px; background: var(--core-cyan); color: #000; border-radius: 6px; cursor: pointer; font-family: 'JetBrains Mono'; font-weight: bold; font-size: 0.8rem; box-shadow: 0 0 15px rgba(0,255,255,0.4);">[COPY TO CLIPBOARD]</span>
+          </div>
+        `;
+        
         appendMessage('ai', html, true);
         chatState = 'IDLE';
         pData = { role: '', task: '', context: '', constraints: '', format: '' };
         
-        // Предлагаем начать заново
-        setTimeout(() => {
-           appendMessage('ai', 'Для генерации нового запроса просто напишите <b>"создай промт"</b>.', true);
-        }, 2000);
-      }, 1500); 
+      }, 1200); 
     }
 
-    // ЛОГИКА ИНТЕРВЬЮ С УЛУЧШЕННЫМ REGEX
     function processAiLogic(input) {
-      const lowerInput = input.toLowerCase();
+      const lowerInput = input.trim().toLowerCase();
 
       if (chatState === 'IDLE') {
-        // Улавливаем любые опечатки и вариации
+        // Умный Regex улавливает даже опечатки
         if (/(промпт|промт|prompt|запрос|сгенерируй|создай|напиши)/i.test(lowerInput)) {
           chatState = 'ASK_ROLE';
           showTyping(() => {
-            let msg = `Инициализация фреймворка R-T-C-F. <br><br><b>ШАГ 1/5: РОЛЬ (Role)</b><br>От чьего лица должен действовать ИИ? Выберите из частых или напишите свою:
+            let msg = `Инициализация фреймворка R-T-C-F. <br><br><b>ШАГ 1/5: РОЛЬ (Role)</b><br>В какой области ИИ должен быть экспертом? Укажите профессию или выберите из списка:
               <div class="chat-chips">
-                <span class="chat-chip" onclick="chipClick('Senior Web Developer')">Senior Developer</span>
-                <span class="chat-chip" onclick="chipClick('Chief Strategy Officer')">CSO (Стратег)</span>
-                <span class="chat-chip" onclick="chipClick('Копирайтер')">Креативный Копирайтер</span>
+                <span class="chat-chip" onclick="chipClick('Senior Flutter Web Developer')">Flutter Web Dev</span>
+                <span class="chat-chip" onclick="chipClick('DevOps Инженер (Rust Server)')">DevOps (Rust)</span>
+                <span class="chat-chip" onclick="chipClick('Аудитор по Охране Труда (СУОТ)')">Аудитор СУОТ</span>
+                <span class="chat-chip" onclick="chipClick('Детский геймдизайнер')">Геймдизайнер</span>
               </div>`;
             appendMessage('ai', msg, true);
           });
         } else {
            showTyping(() => {
-             appendMessage('ai', 'Для запуска экспертного алгоритма генерации, напишите <b>"дай промт"</b> или <b>"создай запрос"</b>.', true);
-           });
+             appendMessage('ai', 'Для запуска алгоритма создания профессионального промпта, напишите команду: <b>"дай промт"</b>.', true);
+           }, 500);
         }
         return;
       }
@@ -441,10 +474,12 @@ ${pData.format}
         pData.role = input;
         chatState = 'ASK_TASK';
         showTyping(() => {
-          let msg = `Роль зафиксирована. <br><br><b>ШАГ 2/5: ЗАДАЧА (Task)</b><br>Какова главная цель? Что конкретно нужно сделать?
+          let msg = `Экспертиза задана. <br><br><b>ШАГ 2/5: ЗАДАЧА (Task)</b><br>Какова конечная цель? Что именно нужно сделать?
           <div class="chat-chips">
-                <span class="chat-chip" onclick="chipClick('Провести код-ревью и найти уязвимости')">Код-ревью</span>
-                <span class="chat-chip" onclick="chipClick('Написать продающий текст для лендинга')">Текст для лендинга</span>
+                <span class="chat-chip" onclick="chipClick('Оптимизировать сборку проекта и очистку CanvasKit')">Оптимизировать сборку</span>
+                <span class="chat-chip" onclick="chipClick('Проанализировать логи и настроить G1GC')">Настроить G1GC</span>
+                <span class="chat-chip" onclick="chipClick('Составить приказ о внедрении СДО')">Приказ СДО</span>
+                <span class="chat-chip" onclick="chipClick('Сгенерировать развивающий квест')">Создать квест</span>
               </div>`;
           appendMessage('ai', msg, true);
         });
@@ -453,23 +488,26 @@ ${pData.format}
         pData.task = input;
         chatState = 'ASK_CONTEXT';
         showTyping(() => {
-          let msg = `Отлично. <br><br><b>ШАГ 3/5: КОНТЕКСТ (Context)</b><br>Есть ли фоновая информация? Для кого мы это делаем? Какова наша ситуация?
+          let msg = `Директива понятна. <br><br><b>ШАГ 3/5: КОНТЕКСТ (Context)</b><br>Какова фоновая ситуация? Для кого это делается? (Если контекста нет, напишите "нет").
           <div class="chat-chips">
-                <span class="chat-chip" onclick="chipClick('Мы стартап, целевая аудитория - студенты')">Стартап для студентов</span>
-                <span class="chat-chip" onclick="chipClick('Нет')">Пропустить (Нет)</span>
+                <span class="chat-chip" onclick="chipClick('Главная героиня — девочка Стеша. Изучаем базовую физику.')">Квест для Стеши</span>
+                <span class="chat-chip" onclick="chipClick('Внедряется по Постановлению №2464')">Постановление №2464</span>
+                <span class="chat-chip" onclick="chipClick('Сервер испытывает десинхронизацию под нагрузкой')">Падение сервера</span>
+                <span class="chat-chip" onclick="chipClick('Нет')">Пропустить</span>
               </div>`;
           appendMessage('ai', msg, true);
         });
       }
       else if (chatState === 'ASK_CONTEXT') {
         pData.context = input;
-        chatState = 'ASK_CONSTRAINTS'; // НОВЫЙ ШАГ
+        chatState = 'ASK_CONSTRAINTS'; 
         showTyping(() => {
-          let msg = `Контекст учтен. <br><br><b>ШАГ 4/5: ОГРАНИЧЕНИЯ (Constraints)</b><br>Чего ИИ делать <b>НЕ ДОЛЖЕН</b>? Какие есть правила?
+          let msg = `Контекст интегрирован. <br><br><b>ШАГ 4/5: ОГРАНИЧЕНИЯ (Constraints)</b><br>Самый важный шаг. Чего ИИ делать <b>КАТЕГОРИЧЕСКИ НЕЛЬЗЯ</b>?
           <div class="chat-chips">
-                <span class="chat-chip" onclick="chipClick('Без воды, не использовать корпоративные штампы, только факты')">Без воды и штампов</span>
-                <span class="chat-chip" onclick="chipClick('Не использовать сторонние библиотеки, только чистый JS')">Только Vanilla JS</span>
-                <span class="chat-chip" onclick="chipClick('Нет')">Пропустить (Нет)</span>
+                <span class="chat-chip" onclick="chipClick('Без сторонних библиотек, только нативные скрипты')">Только Native</span>
+                <span class="chat-chip" onclick="chipClick('Обращайся к ребенку строго по имени Стеша')">Только имя Стеша</span>
+                <span class="chat-chip" onclick="chipClick('Исключить общие фразы, использовать строгий бюрократический язык')">Бюрократический стиль</span>
+                <span class="chat-chip" onclick="chipClick('Нет')">Пропустить</span>
               </div>`;
           appendMessage('ai', msg, true);
         });
@@ -478,11 +516,11 @@ ${pData.format}
         pData.constraints = input;
         chatState = 'ASK_FORMAT';
         showTyping(() => {
-          let msg = `Понял. <br><br><b>ШАГ 5/5: ФОРМАТ (Format)</b><br>В каком виде выдать результат?
+          let msg = `Правила установлены. <br><br><b>ШАГ 5/5: ФОРМАТ (Format)</b><br>В каком визуальном виде предоставить результат?
           <div class="chat-chips">
-                <span class="chat-chip" onclick="chipClick('Строгая Markdown таблица')">Markdown Таблица</span>
-                <span class="chat-chip" onclick="chipClick('JSON формат')">JSON</span>
-                <span class="chat-chip" onclick="chipClick('Нумерованный пошаговый список')">Список (Step-by-step)</span>
+                <span class="chat-chip" onclick="chipClick('Bash-скрипт с подробными комментариями')">Bash / Code</span>
+                <span class="chat-chip" onclick="chipClick('Строгая Markdown-таблица')">Markdown Таблица</span>
+                <span class="chat-chip" onclick="chipClick('Пошаговый интерактивный диалог (по одному сообщению)')">Интерактивный диалог</span>
               </div>`;
           appendMessage('ai', msg, true);
         });
