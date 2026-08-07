@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>AURA CORE // Neural Synapse OS</title>
+  <title>AURA CORE // Adaptive Matrix OS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,14 +10,14 @@
 
   <style>
     /* =========================================
-       ULTRA DEEP SPACE THEME
+       PREMIUM DEEP SPACE THEME
        ========================================= */
     :root {
       --bg-void: #010205; 
       --core-cyan: #00ffff;
       --core-blue: #0055ff;
       --core-purple: #b700ff;
-      --stress-red: #ff3300; /* Цвет натяжения связей */
+      --stress-red: #ff3300;
       
       --panel-bg: rgba(2, 5, 10, 0.55);
       --panel-border: rgba(0, 255, 255, 0.15);
@@ -32,22 +32,38 @@
       overflow: hidden; background-color: var(--bg-void);
       font-family: 'Inter', sans-serif; color: var(--text-main);
       user-select: none; cursor: crosshair;
+      perspective: 1000px; /* Для 3D параллакса UI */
     }
 
     #quantum-mirror-engine { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2; }
     #post-processing { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 3; pointer-events: none; mix-blend-mode: screen; display: none; }
 
     /* =========================================
-       HUD PANELS (COMMAND CENTER)
+       HUD PANELS (ADAPTIVE COMMAND CENTER)
        ========================================= */
+    .hud-layer {
+      position: absolute; inset: 0; z-index: 10; pointer-events: none;
+      display: flex; justify-content: space-between; padding: 40px;
+      transition: transform 0.1s ease-out; /* Плавный параллакс */
+      transform-style: preserve-3d;
+    }
+    
     .hud-container {
-      position: absolute; top: 40px; bottom: 40px; width: 440px;
-      z-index: 10; display: flex; flex-direction: column; gap: 20px;
-      pointer-events: none;
+      width: 440px; display: flex; flex-direction: column; gap: 20px;
+      pointer-events: none; height: 100%; justify-content: center;
     }
     .hud-container > * { pointer-events: auto; }
-    .hud-left { left: 40px; }
-    .hud-right { right: 40px; }
+
+    /* Адаптивность для меньших экранов (Планшеты) */
+    @media (max-width: 1400px) {
+      .hud-container { width: 350px; }
+      .hud-layer { padding: 20px; }
+    }
+    @media (max-width: 900px) {
+      .hud-layer { flex-direction: column; justify-content: flex-start; overflow-y: auto; pointer-events: auto; padding: 10px; }
+      .hud-container { width: 100%; height: auto; margin-bottom: 20px; }
+      #quantum-mirror-engine { opacity: 0.5; } /* Приглушаем фон для читаемости на мобилках */
+    }
 
     .data-card {
       background: var(--panel-bg); border: 1px solid var(--panel-border);
@@ -55,7 +71,7 @@
       padding: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 20px rgba(0, 255, 255, 0.02);
       position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.3s;
     }
-    .data-card:hover { transform: translateY(-5px); border-color: rgba(0, 255, 255, 0.5); box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 30px rgba(0, 255, 255, 0.05); }
+    .data-card:hover { border-color: rgba(0, 255, 255, 0.5); box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 30px rgba(0, 255, 255, 0.05); }
     .data-card::after {
       content: ''; position: absolute; bottom: 0; right: 0;
       width: 30px; height: 30px;
@@ -126,56 +142,61 @@
   <canvas id="quantum-mirror-engine"></canvas>
   <canvas id="post-processing"></canvas>
 
-  <!-- LEFT HUD -->
-  <div class="hud-container hud-left">
-    <div class="data-card" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
-      <div class="card-header">SYS.01 // АНАЛИТИКА СУОТ <div class="status-indicator">SYNCED</div></div>
-      <div class="block-title">ОБЪЕКТ: ООО «Софрино»</div>
-      <div class="tag-group"><span class="tag">Пост. №2464</span><span class="tag">Охрана Труда</span></div>
-      <div class="terminal-box">
-        <span class="cmd">SYS></span>Действуй как Аудитор. Составь проект приказа о внедрении системы дистанционного обучения (СДО) для гостиничного комплекса. Укажи регламент фиксации цифрового следа тестирования.
+  <!-- PARALLAX HUD LAYER -->
+  <div class="hud-layer" id="hud-layer">
+    
+    <!-- LEFT HUD -->
+    <div class="hud-container">
+      <div class="data-card" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
+        <div class="card-header">SYS.01 // АНАЛИТИКА СУОТ <div class="status-indicator">SYNCED</div></div>
+        <div class="block-title">ОБЪЕКТ: ООО «Софрино»</div>
+        <div class="tag-group"><span class="tag">Пост. №2464</span><span class="tag">Охрана Труда</span></div>
+        <div class="terminal-box">
+          <span class="cmd">SYS></span>Действуй как Аудитор. Составь проект приказа о внедрении системы дистанционного обучения (СДО) для гостиничного комплекса. Укажи регламент фиксации цифрового следа тестирования.
+        </div>
+        <div class="block-title">ОБЪЕКТ: ООО «Битрейс Телеком»</div>
+        <div class="tag-group"><span class="tag">Пожарная Безопасность</span><span class="tag">Реструктуризация</span></div>
+        <div class="terminal-box" style="margin-bottom: 0;">
+          <span class="cmd">SYS></span>Выступи в роли эксперта по ПБ. Разработай алгоритм действий и план реструктуризации ответственности при нештатном обесточивании серверных узлов телекоммуникационной компании.
+        </div>
       </div>
-      <div class="block-title">ОБЪЕКТ: ООО «Битрейс Телеком»</div>
-      <div class="tag-group"><span class="tag">Пожарная Безопасность</span><span class="tag">Реструктуризация</span></div>
-      <div class="terminal-box" style="margin-bottom: 0;">
-        <span class="cmd">SYS></span>Выступи в роли эксперта по ПБ. Разработай алгоритм действий и план реструктуризации ответственности при нештатном обесточивании серверных узлов телекоммуникационной компании.
+
+      <div class="data-card" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
+        <div class="card-header" style="color: var(--core-cyan);">SYS.02 // СИСТЕМНАЯ СРЕДА <div class="status-indicator">ONLINE</div></div>
+        <div class="block-title">WORKSPACE: WIN 11 CLEAN INSTALL</div>
+        <div class="terminal-box" style="border-left-color: var(--core-cyan); margin-bottom: 0;">
+          <span class="cmd" style="color: var(--core-cyan);">EXE></span>Я выполнил чистую установку Windows 11. Напиши безопасный PowerShell скрипт для: 1) Отключения служб телеметрии, 2) Удаления предустановленного Bloatware, 3) Оптимизации работы SSD.
+        </div>
       </div>
     </div>
 
-    <div class="data-card" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
-      <div class="card-header" style="color: var(--core-cyan);">SYS.02 // СИСТЕМНАЯ СРЕДА <div class="status-indicator">ONLINE</div></div>
-      <div class="block-title">WORKSPACE: WIN 11 CLEAN INSTALL</div>
-      <div class="terminal-box" style="border-left-color: var(--core-cyan); margin-bottom: 0;">
-        <span class="cmd" style="color: var(--core-cyan);">EXE></span>Я выполнил чистую установку Windows 11. Напиши безопасный PowerShell скрипт для: 1) Отключения служб телеметрии, 2) Удаления предустановленного Bloatware, 3) Оптимизации работы SSD.
+    <!-- RIGHT HUD -->
+    <div class="hud-container">
+      <div class="data-card" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
+        <div class="card-header" style="color: var(--core-purple);">SYS.03 // IT & ИНФРАСТРУКТУРА <div class="status-indicator">ACTIVE</div></div>
+        <div class="block-title">DEDICATED SERVER: RUST</div>
+        <div class="terminal-box" style="border-left-color: var(--core-purple);">
+          <span class="cmd" style="color: var(--core-purple);">NET></span>Действуй как DevOps. Мы с Игорем Андреевичем сталкиваемся с десинхронизацией на сервере Rust. Проанализируй логи. Как оптимизировать Garbage Collector (G1GC) в .bat файле запуска?
+        </div>
+        <div class="block-title">COMPILE: FLUTTER WEB</div>
+        <div class="terminal-box" style="border-left-color: var(--core-purple); margin-bottom: 0;">
+          <span class="cmd" style="color: var(--core-purple);">DEV></span>Объясни ошибки рендеринга слоев CanvasKit при сборке Flutter Web. Напиши bash-скрипт для очистки кэша и компиляции через HTML-рендерер.
+        </div>
       </div>
-    </div>
-  </div>
 
-  <!-- RIGHT HUD -->
-  <div class="hud-container hud-right">
-    <div class="data-card" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
-      <div class="card-header" style="color: var(--core-purple);">SYS.03 // IT & ИНФРАСТРУКТУРА <div class="status-indicator">ACTIVE</div></div>
-      <div class="block-title">DEDICATED SERVER: RUST</div>
-      <div class="terminal-box" style="border-left-color: var(--core-purple);">
-        <span class="cmd" style="color: var(--core-purple);">NET></span>Действуй как DevOps. Мы с Игорем Андреевичем сталкиваемся с десинхронизацией на сервере Rust. Проанализируй логи. Как оптимизировать Garbage Collector (G1GC) в .bat файле запуска?
-      </div>
-      <div class="block-title">COMPILE: FLUTTER WEB</div>
-      <div class="terminal-box" style="border-left-color: var(--core-purple); margin-bottom: 0;">
-        <span class="cmd" style="color: var(--core-purple);">DEV></span>Объясни ошибки рендеринга слоев CanvasKit при сборке Flutter Web. Напиши bash-скрипт для очистки кэша и компиляции через HTML-рендерер.
+      <div class="data-card" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
+        <div class="card-header" style="color: #6ee7b7;">SYS.04 // ПЕРСОНАЛЬНЫЕ МОДЕЛИ <div class="status-indicator">READY</div></div>
+        <div class="block-title">INTERACTIVE QUEST GENERATOR</div>
+        <div class="terminal-box" style="border-left-color: #6ee7b7;">
+          <span class="cmd" style="color: #6ee7b7;">AI></span>Сыграй со мной в развивающую RPG. Главная героиня — девочка Стеша. Важное условие: обращайся к ней только по имени Стеша. Сюжет включает 3 математические загадки. Жди ответа после каждой.
+        </div>
+        <div class="block-title">HYDRODYNAMICS: OSETR RIG</div>
+        <div class="terminal-box" style="border-left-color: #6ee7b7; margin-bottom: 0;">
+          <span class="cmd" style="color: #6ee7b7;">AI></span>Рассчитай оптимальную толщину шнура (PE) и вес джиг-головки для спиннинга "Osetr". Условия: сильное течение, глубина 6-8м. Цель: падение приманки за 4 секунды с сохранением тактильности бланка.
+        </div>
       </div>
     </div>
 
-    <div class="data-card" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
-      <div class="card-header" style="color: #6ee7b7;">SYS.04 // ПЕРСОНАЛЬНЫЕ МОДЕЛИ <div class="status-indicator">READY</div></div>
-      <div class="block-title">INTERACTIVE QUEST GENERATOR</div>
-      <div class="terminal-box" style="border-left-color: #6ee7b7;">
-        <span class="cmd" style="color: #6ee7b7;">AI></span>Сыграй со мной в развивающую RPG. Главная героиня — девочка Стеша. Важное условие: обращайся к ней только по имени Стеша. Сюжет включает 3 математические загадки. Жди ответа после каждой.
-      </div>
-      <div class="block-title">HYDRODYNAMICS: OSETR RIG</div>
-      <div class="terminal-box" style="border-left-color: #6ee7b7; margin-bottom: 0;">
-        <span class="cmd" style="color: #6ee7b7;">AI></span>Рассчитай оптимальную толщину шнура (PE) и вес джиг-головки для спиннинга "Osetr". Условия: сильное течение, глубина 6-8м. Цель: падение приманки за 4 секунды с сохранением тактильности бланка.
-      </div>
-    </div>
   </div>
 
   <script>
@@ -201,23 +222,46 @@
     }, 60);
 
     // ==========================================
-    // 2. KINEMATIC ENGINE (Z-Sorted 3D + Reflections + Tension Physics)
+    // 2. KINEMATIC ENGINE (Optimized)
     // ==========================================
     const canvas = document.getElementById('quantum-mirror-engine');
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: false }); // Отключение альфа-канала холста ускоряет рендер
     const postCanvas = document.getElementById('post-processing');
     const postCtx = postCanvas.getContext('2d');
-    let width, height, cx, cy;
+    const hudLayer = document.getElementById('hud-layer');
     
+    let width, height, cx, cy;
     let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
     let shockwave = { radius: 0, active: false, intensity: 0 };
     let idleTimer = 0; 
     let isAutopilot = false;
     
+    // --- ПРЕ-РЕНДЕРИНГ СПРАЙТОВ (УЛЬТРА-ОПТИМИЗАЦИЯ) ---
+    // Рисовать градиенты каждый кадр очень "дорого". Мы создаем их один раз в памяти.
+    const createParticleSprite = (colorStr, size) => {
+      const offCanvas = document.createElement('canvas');
+      offCanvas.width = size * 2; offCanvas.height = size * 2;
+      const offCtx = offCanvas.getContext('2d');
+      const grad = offCtx.createRadialGradient(size, size, 0, size, size, size);
+      grad.addColorStop(0, 'rgba(255, 255, 255, 1)'); // Белое ядро
+      grad.addColorStop(0.3, colorStr.replace(')', ', 0.8)').replace('rgb', 'rgba')); 
+      grad.addColorStop(1, colorStr.replace(')', ', 0)').replace('rgb', 'rgba'));
+      offCtx.fillStyle = grad;
+      offCtx.beginPath(); offCtx.arc(size, size, size, 0, Math.PI * 2); offCtx.fill();
+      return offCanvas;
+    };
+
+    const spriteBlue = createParticleSprite('rgb(37, 99, 235)', 16);
+    const spriteCyan = createParticleSprite('rgb(0, 229, 255)', 16);
+
+    // Адаптивная инициализация
+    let isMobile = window.innerWidth < 900;
+    
     function resize() {
       width = canvas.width = postCanvas.width = window.innerWidth;
       height = canvas.height = postCanvas.height = window.innerHeight;
       cx = width / 2; cy = height / 2;
+      isMobile = width < 900;
     }
     window.addEventListener('resize', resize); resize();
 
@@ -226,23 +270,32 @@
       mouse.targetY = (e.clientY - cy);
       idleTimer = 0; 
       isAutopilot = false;
+      
+      // Параллакс интерфейса (Наклон слоя)
+      if(!isMobile) {
+        const rotateX = (mouse.targetY / height) * 10; // max 5 deg
+        const rotateY = -(mouse.targetX / width) * 10;
+        hudLayer.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      }
     });
 
     document.addEventListener('mousedown', (e) => {
+      if(e.target.tagName === 'BUTTON' || e.target.closest('a')) return;
       shockwave.active = true;
       shockwave.radius = 10;
       shockwave.intensity = 1.0;
       postCanvas.style.display = 'block'; 
     });
 
-    // --- АРХИТЕКТУРА ---
     let allNodes = [];
-    const chars = "0101010101XYZA9F";
+    
+    // Динамический LOD: На мобилках генерируем в 2 раза меньше частиц
+    const coreCount = isMobile ? 120 : 250;
+    const diskCount = isMobile ? 350 : 800;
 
-    // 1. Ядро (Нейронная структура)
-    const coreRadius = 80;
-    for (let i = 0; i < 250; i++) {
-      let phi = Math.acos(1 - 2 * (i + 0.5) / 250);
+    const coreRadius = isMobile ? 60 : 80;
+    for (let i = 0; i < coreCount; i++) {
+      let phi = Math.acos(1 - 2 * (i + 0.5) / coreCount);
       let theta = Math.PI * (1 + Math.sqrt(5)) * i;
       allNodes.push({
         type: 'core',
@@ -250,14 +303,13 @@
         baseY: Math.sin(theta) * Math.sin(phi) * coreRadius,
         baseZ: Math.cos(phi) * coreRadius,
         x: 0, y: 0, z: 0, screenX: 0, screenY: 0, scale: 0,
-        currentX: 0, currentY: 0, currentZ: 0 // Для физики натяжения
+        currentX: 0, currentY: 0, currentZ: 0 
       });
     }
 
-    // 2. Аккреционный диск
-    for (let i = 0; i < 800; i++) {
+    for (let i = 0; i < diskCount; i++) {
       let angle = Math.random() * Math.PI * 2;
-      let radius = 180 + Math.random() * 400 + Math.random() * 200; 
+      let radius = 180 + Math.random() * (isMobile? 200 : 400) + Math.random() * 200; 
       let armOffset = Math.sin(angle * 3) * 50; 
       radius += armOffset;
       let speed = 25 / radius; 
@@ -270,53 +322,35 @@
       });
     }
 
-    // 3. Кольца Данных
-    const textRadii = [250, 450, 650];
-    for (let o = 0; o < textRadii.length; o++) {
-      for (let i = 0; i < 60; i++) {
-        allNodes.push({
-          type: 'text', char: chars[Math.floor(Math.random() * chars.length)],
-          angle: (i / 60) * Math.PI * 2, radius: textRadii[o],
-          speed: 0.002 * (o % 2 === 0 ? 1 : -1),
-          x: 0, y: 0, z: 0, screenX: 0, screenY: 0, scale: 0
-        });
-      }
-    }
-
-    allNodes.push({ type: 'blackhole', x: 0, y: 0, z: 0, screenX: 0, screenY: 0, scale: 0 });
-
-    // --- ПАКЕТЫ ДАННЫХ (DATA INGESTION) ---
     let dataPackets = [];
     let streamSourceRect = null;
     let isStreaming = false;
 
     window.startDataStream = function(el) {
+      if(isMobile) return; // Отключаем фишку на мобилках для сохранения FPS
       streamSourceRect = el.getBoundingClientRect();
       isStreaming = true;
     }
-    window.stopDataStream = function() {
-      isStreaming = false;
-    }
+    window.stopDataStream = function() { isStreaming = false; }
 
     let time = 0;
     let cameraRotX = 0;
     let cameraRotY = 0;
-    const floorY = 400; 
 
     function renderEngine() {
-      ctx.fillStyle = 'rgba(1, 2, 5, 0.35)';
+      // Имитация глубокого черного с затиранием следов
+      ctx.fillStyle = 'rgba(1, 2, 5, 0.4)';
       ctx.fillRect(0, 0, width, height);
 
       time += 0.015;
       idleTimer += 0.015;
 
-      if (idleTimer > 4) {
+      if (idleTimer > 4 && !isMobile) {
          isAutopilot = true;
          mouse.targetY = Math.sin(time * 0.5) * 200;
          mouse.targetX = Math.cos(time * 0.5) * 400;
       }
       
-      // Глитч эффект взрыва
       if (shockwave.active) {
         shockwave.radius += 25;
         shockwave.intensity *= 0.93;
@@ -353,21 +387,16 @@
         return { screenX: cx + x1 * scale, screenY: cy + y1 * scale, scale: scale, z: finalZ };
       }
 
-      // --- ГЕНЕРАЦИЯ ПОТОКА ДАННЫХ ИЗ ИНТЕРФЕЙСА ---
       if (isStreaming && streamSourceRect && Math.random() > 0.5) {
-        // Создаем пакет данных, стартующий от края карточки
         let startX = streamSourceRect.left > width / 2 ? streamSourceRect.left : streamSourceRect.right;
         let startY = streamSourceRect.top + Math.random() * streamSourceRect.height;
         dataPackets.push({
           x: startX, y: startY,
-          targetX: cx + (Math.random() - 0.5) * 50,
-          targetY: cy + (Math.random() - 0.5) * 50,
-          progress: 0,
-          speed: 0.02 + Math.random() * 0.03
+          targetX: cx + (Math.random() - 0.5) * 50, targetY: cy + (Math.random() - 0.5) * 50,
+          progress: 0, speed: 0.02 + Math.random() * 0.03
         });
       }
 
-      // --- ПЕРЕСЧЕТ УЗЛОВ ---
       let renderQueue = []; 
 
       for (let i = 0; i < allNodes.length; i++) {
@@ -376,32 +405,24 @@
 
         if (n.type === 'core') {
           let rotY_core = -time * 0.5; 
-          
-          // Базовая орбита узла ядра
           let targetX = n.baseX * Math.cos(rotY_core) - n.baseZ * Math.sin(rotY_core);
           let targetZ = n.baseX * Math.sin(rotY_core) + n.baseZ * Math.cos(rotY_core);
           let targetY = n.baseY;
 
-          // ФИЗИКА НАТЯЖЕНИЯ (Гравитация мыши оттягивает узлы ядра)
-          // Нормализуем координаты мыши в 3D пространство (приблизительно)
           let mouse3DX = (mouse.targetX) * 0.5;
           let mouse3DY = (mouse.targetY) * 0.5;
-          
-          let dx = mouse3DX - targetX;
-          let dy = mouse3DY - targetY;
+          let dx = mouse3DX - targetX; let dy = mouse3DY - targetY;
           let dist = Math.sqrt(dx*dx + dy*dy);
           
-          if (dist < 150) {
+          if (dist < 150 && !isMobile) { // На мобилках физика натяжения отключена
              let pullForce = (150 - dist) / 150;
-             targetX += dx * pullForce * 0.8; // Узел тянется к мыши
+             targetX += dx * pullForce * 0.8; 
              targetY += dy * pullForce * 0.8;
           }
 
-          // Узел плавно стремится к своей целевой позиции (пружина)
           n.currentX += (targetX - n.currentX) * 0.1;
           n.currentY += (targetY - n.currentY) * 0.1;
           n.currentZ += (targetZ - n.currentZ) * 0.1;
-
           rx = n.currentX; ry = n.currentY; rz = n.currentZ;
         } 
         else if (n.type === 'disk') {
@@ -424,118 +445,68 @@
           let tilt = Math.PI / 6; 
           rx = px; ry = py * Math.cos(tilt) - pz * Math.sin(tilt); rz = py * Math.sin(tilt) + pz * Math.cos(tilt);
         }
-        else if (n.type === 'text') {
-          n.angle += n.speed;
-          let px = Math.cos(n.angle) * n.radius;
-          let pz = Math.sin(n.angle) * n.radius;
-          let tilt = Math.PI / 6; 
-          rx = px; ry = -pz * Math.sin(tilt); rz = pz * Math.cos(tilt);
-        }
-        else if (n.type === 'blackhole') { rx=0; ry=0; rz=0; }
 
         let proj = project(rx, ry, rz);
         n.screenX = proj.screenX; n.screenY = proj.screenY; n.scale = proj.scale; n.z = proj.z;
-        renderQueue.push({ ...n, isReflection: false });
-
-        if (n.type !== 'blackhole') {
-            let reflectY = floorY + (floorY - ry); 
-            let refProj = project(rx, reflectY, rz);
-            if (refProj.screenY > cy) {
-                renderQueue.push({ ...n, screenX: refProj.screenX, screenY: refProj.screenY, scale: refProj.scale, z: refProj.z, isReflection: true });
-            }
-        }
+        renderQueue.push(n);
       }
 
       renderQueue.sort((a, b) => b.z - a.z);
       ctx.globalCompositeOperation = 'lighter'; 
 
-      // --- ОТРИСОВКА ОЧЕРЕДИ ---
       for (let i = 0; i < renderQueue.length; i++) {
         let n = renderQueue[i];
-        let alphaMod = n.isReflection ? 0.15 : 1.0;
-        let depthAlpha = Math.max(0.05, 1 - (n.z + 800) / 1600) * alphaMod;
+        let depthAlpha = Math.max(0.05, 1 - (n.z + 800) / 1600);
 
         if (n.type === 'disk') {
-          let size = Math.max(0.2, n.scale * 2.5);
-          let color = (shockwave.active && !n.isReflection) ? `rgba(255, 255, 255, ${depthAlpha})` : `rgba(0, 255, 255, ${depthAlpha * 0.6})`;
-          ctx.fillStyle = color;
-          ctx.beginPath(); ctx.arc(n.screenX, n.screenY, size, 0, Math.PI * 2); ctx.fill();
+          // ИСПОЛЬЗУЕМ СПРАЙТЫ ВМЕСТО РАСЧЕТОВ (Оптимизация)
+          ctx.globalAlpha = depthAlpha * 0.6;
+          let drawSize = Math.max(1, 16 * n.scale);
+          ctx.drawImage(spriteCyan, n.screenX - drawSize/2, n.screenY - drawSize/2, drawSize, drawSize);
+          ctx.globalAlpha = 1.0;
         } 
-        else if (n.type === 'text') {
-          ctx.font = `${Math.max(6, 12 * n.scale)}px JetBrains Mono`;
-          ctx.fillStyle = `rgba(183, 0, 255, ${depthAlpha * 0.8})`;
-          let char = (shockwave.active && Math.random() > 0.5 && !n.isReflection) ? chars[Math.floor(Math.random() * chars.length)] : n.char;
-          ctx.fillText(char, n.screenX, n.screenY);
-        }
-        else if (n.type === 'blackhole' && !n.isReflection) {
-          ctx.globalCompositeOperation = 'source-over'; 
-          ctx.beginPath();
-          ctx.arc(n.screenX, n.screenY, (coreRadius - 15) * n.scale, 0, Math.PI * 2);
-          ctx.fillStyle = '#010205'; 
-          ctx.fill();
-          ctx.lineWidth = 3 * n.scale;
-          ctx.strokeStyle = `rgba(0, 255, 255, 0.8)`;
-          ctx.stroke();
-          ctx.globalCompositeOperation = 'lighter';
-        }
         else if (n.type === 'core') {
-          // Отрисовка кинематических связей между узлами ядра
-          if (!n.isReflection && n.z < 100) { // Оптимизация: не рисуем связи на отражениях
-             for (let j = i + 1; j < Math.min(i + 15, renderQueue.length); j++) {
+          // Оптимизация линий: рисуем меньше связей на мобильных устройствах
+          let connectionLimit = isMobile ? 5 : 12;
+          
+          if (n.z < 100) {
+             for (let j = i + 1; j < Math.min(i + connectionLimit, renderQueue.length); j++) {
                 let n2 = renderQueue[j];
-                if (n2.type !== 'core' || n2.isReflection) continue;
+                if (n2.type !== 'core') continue;
 
-                let dx = n.screenX - n2.screenX;
-                let dy = n.screenY - n2.screenY;
+                let dx = n.screenX - n2.screenX; let dy = n.screenY - n2.screenY;
                 let distSq = dx*dx + dy*dy;
 
                 if (distSq < 2000 * n.scale) {
-                   // Расчет уровня "Стресса" (натяжения) связи
                    let stress = distSq / (2000 * n.scale); 
                    let opacity = (1 - stress) * 0.8;
                    
-                   // Если связи сильно натянуты гравитацией мыши, они "накаляются" до красна
-                   let r = 0, g = 85, b = 255; // Базовый синий
-                   if (stress > 0.7) {
-                      // Переход в красный (Натяжение)
-                      let stressIntensity = (stress - 0.7) / 0.3; // 0 to 1
-                      r = 255;
-                      g = 85 - (85 * stressIntensity);
-                      b = 255 - (255 * stressIntensity);
+                   let r = 0, g = 85, b = 255; 
+                   if (stress > 0.7 && !isMobile) {
+                      let stressIntensity = (stress - 0.7) / 0.3; 
+                      r = 255; g = 85 - (85 * stressIntensity); b = 255 - (255 * stressIntensity);
                    }
-
                    ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;
-                   ctx.beginPath();
-                   ctx.moveTo(n.screenX, n.screenY);
-                   ctx.lineTo(n2.screenX, n2.screenY);
-                   ctx.stroke();
+                   ctx.beginPath(); ctx.moveTo(n.screenX, n.screenY); ctx.lineTo(n2.screenX, n2.screenY); ctx.stroke();
                 }
              }
           }
 
-          let alpha = Math.max(0, 1 - (n.z + 100) / 300) * alphaMod;
-          ctx.fillStyle = `rgba(0, 85, 255, ${alpha})`;
-          ctx.beginPath(); ctx.arc(n.screenX, n.screenY, 2.5 * n.scale, 0, Math.PI*2); ctx.fill();
-          
-          if (n.z < 0) {
-             ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.8})`;
-             ctx.beginPath(); ctx.arc(n.screenX, n.screenY, 1 * n.scale, 0, Math.PI*2); ctx.fill();
-          }
+          ctx.globalAlpha = Math.max(0, 1 - (n.z + 100) / 300);
+          let drawSize = 16 * n.scale;
+          ctx.drawImage(spriteBlue, n.screenX - drawSize/2, n.screenY - drawSize/2, drawSize, drawSize);
+          ctx.globalAlpha = 1.0;
         }
       }
 
-      // --- ОТРИСОВКА ПАКЕТОВ ДАННЫХ (DATA INGESTION) ---
+      // Отрисовка пакетов данных
       for (let i = dataPackets.length - 1; i >= 0; i--) {
         let pkt = dataPackets[i];
         pkt.progress += pkt.speed;
-        
-        // Эффект спагеттификации (растяжение пакета по мере приближения к сингулярности)
         let easeProgress = Math.pow(pkt.progress, 2); 
-        
         let currX = pkt.x + (pkt.targetX - pkt.x) * easeProgress;
         let currY = pkt.y + (pkt.targetY - pkt.y) * easeProgress;
 
-        // Пакет закручивается по спирали у самого ядра
         if (pkt.progress > 0.8) {
            let angle = pkt.progress * Math.PI * 10;
            let spiralRadius = (1 - pkt.progress) * 50;
@@ -545,14 +516,11 @@
 
         ctx.fillStyle = `rgba(0, 255, 255, ${1 - pkt.progress})`;
         ctx.beginPath();
-        // Пакет вытягивается в линию
         let stretch = 2 + (easeProgress * 15);
         ctx.ellipse(currX, currY, stretch, 1.5, Math.atan2(pkt.targetY - pkt.y, pkt.targetX - pkt.x), 0, Math.PI * 2);
         ctx.fill();
 
-        if (pkt.progress >= 1) {
-          dataPackets.splice(i, 1);
-        }
+        if (pkt.progress >= 1) dataPackets.splice(i, 1);
       }
 
       ctx.globalCompositeOperation = 'source-over';
