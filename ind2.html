@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>AURA CORE // Volumetric HUD OS</title>
+  <title>AURA CORE // Universal Nexus OS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,13 +10,13 @@
 
   <style>
     /* =========================================
-       DEEP SPACE & NEON VARIABLES
+       DEEP SPACE THEME
        ========================================= */
     :root {
       --bg-void: #010205; 
-      --core-blue: #0044ff;
       --core-cyan: #00ffff;
-      --core-purple: #9d00ff;
+      --core-blue: #0055ff;
+      --core-purple: #b700ff;
       --highlight: #38bdf8;
     }
 
@@ -28,128 +28,85 @@
       user-select: none;
     }
 
-    #nexus-engine { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; }
-
-    /* Фоновый шум */
-    .space-dust {
-      position: absolute; inset: 0; z-index: 2; pointer-events: none;
-      background: radial-gradient(circle at center, transparent 15%, var(--bg-void) 100%);
-    }
+    /* Фоновый канвас должен быть строго позади всего */
+    #nexus-engine { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none; }
 
     /* =========================================
-       VOLUMETRIC HUD PANELS (РЕВОЛЮЦИЯ)
+       HUD PANELS
        ========================================= */
+    .hud-layer {
+      position: absolute; inset: 0; z-index: 10; pointer-events: none;
+      display: flex; justify-content: space-between; padding: 40px;
+    }
+    
     .hud-container {
-      position: absolute; top: 40px; bottom: 40px; width: 480px;
-      z-index: 10; display: flex; flex-direction: column; gap: 30px;
-      pointer-events: none; perspective: 1500px; /* Задаем глубину 3D сцены */
+      width: 460px; display: flex; flex-direction: column; gap: 20px;
+      pointer-events: none; height: 100%; justify-content: center;
     }
-    .hud-container > * { pointer-events: auto; }
-    
-    .hud-left { left: 40px; }
-    .hud-right { right: 40px; }
 
-    /* ОПРЕДЕЛЕНИЕ ЭКСПЕРИМЕНТАЛЬНОЙ CSS АНИМАЦИИ ДЛЯ ЛАЗЕРА */
-    @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
-    @keyframes spin { to { --angle: 360deg; } }
-
-    /* Карточка как 3D объект */
     .data-card {
-      background: rgba(3, 5, 12, 0.5); 
-      border-radius: 12px; 
-      backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-      padding: 2px; /* Место для лазерной рамки */
-      position: relative; 
-      box-shadow: 0 30px 60px rgba(0,0,0,0.9), inset 0 1px 1px rgba(255,255,255,0.05);
-      
-      transform-style: preserve-3d; /* Позволяет дочерним элементам выходить в 3D */
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      background: rgba(3, 5, 12, 0.6); border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 12px; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      padding: 24px; position: relative; pointer-events: auto; /* ВАЖНО: включаем события мыши */
+      box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 1px 1px rgba(255,255,255,0.05);
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
     }
-    
-    /* Оптоволоконный лазерный контур */
-    .data-card::before {
-      content: ""; position: absolute; inset: 0; border-radius: 12px;
-      background: conic-gradient(from var(--angle), transparent 70%, var(--core-cyan) 80%, var(--core-purple) 100%);
-      animation: spin 4s linear infinite;
-      z-index: -1; 
-      opacity: 0.5; transition: opacity 0.3s;
-    }
-    .data-card:hover::before { opacity: 1; animation: spin 2s linear infinite; }
-    
-    /* Слой стекла */
-    .card-glass {
-      background: rgba(4, 7, 15, 0.8);
-      border-radius: 10px; width: 100%; height: 100%;
-      padding: 25px;
-      transform-style: preserve-3d;
-    }
-
-    /* ВНУТРЕННИЙ КОНТЕНТ (ПАРИТ НАД СТЕКЛОМ) */
-    .card-inner-3d {
-      transform: translateZ(40px); /* Выдавливаем текст в пространство! */
-      transform-style: preserve-3d;
+    .data-card:hover { 
+      border-color: rgba(0, 255, 255, 0.5); transform: translateY(-3px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.95), inset 0 0 20px rgba(0, 255, 255, 0.05); 
     }
 
     .card-header {
-      font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; font-weight: 900;
-      color: #fff; text-shadow: 0 0 15px var(--core-cyan); letter-spacing: 2px; margin-bottom: 20px;
+      font-family: 'Rajdhani', sans-serif; font-size: 1.25rem; font-weight: 700;
+      color: #fff; text-shadow: 0 0 10px var(--core-cyan); letter-spacing: 2px; margin-bottom: 20px;
       display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 1px solid rgba(0, 255, 255, 0.2); padding-bottom: 12px; text-transform: uppercase;
-      transform: translateZ(10px); /* Заголовок еще выше */
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 12px; text-transform: uppercase;
     }
-
+    
     .status-indicator {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #10b981;
-      display: flex; align-items: center; gap: 6px; text-shadow: none; letter-spacing: 1px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #10b981;
+      display: flex; align-items: center; gap: 6px; letter-spacing: 1px; text-shadow: none;
     }
     .status-indicator::before {
       content: ''; width: 6px; height: 6px; background: #10b981; border-radius: 50%;
-      box-shadow: 0 0 10px #10b981; animation: pulse 1s infinite;
+      box-shadow: 0 0 10px #10b981; animation: pulse 1.5s infinite;
     }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
     .block-title {
       font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--highlight);
-      text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1.5px;
+      text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;
     }
+    .block-title::before { content: '■'; font-size: 0.5rem; color: #64748b; }
 
     /* =========================================
-       TERMINAL PROMPTS (ДЕШИФРОВКА & ХРОМАТИКА)
+       CYBER-TERMINAL PROMPTS
        ========================================= */
-    .terminal-box {
-      background: rgba(0, 0, 0, 0.7); border-left: 3px solid var(--core-purple);
-      padding: 18px; border-radius: 4px; margin-bottom: 25px;
-      font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.7; color: #94a3b8;
-      user-select: text; position: relative;
-      transition: all 0.3s ease;
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 10px 20px rgba(0,0,0,0.5);
+    .cipher-box {
+      background: #020409; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px; margin-bottom: 24px; overflow: hidden;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; color: #94a3b8;
+      transition: 0.3s ease; position: relative; pointer-events: auto; /* ВАЖНО: Включаем события мыши */
     }
+    .cipher-box:hover { border-color: var(--core-cyan); box-shadow: 0 0 15px rgba(0, 255, 255, 0.1); color: #fff; }
     
-    /* Магнитный RGB-Глитч при наведении */
-    .terminal-box:hover { 
-      background: rgba(0, 0, 0, 0.95); 
-      border-left-color: var(--core-cyan); 
-      color: #fff;
-      transform: translateZ(20px) scale(1.02); /* Кнопка тянется к курсору */
-      box-shadow: 
-        inset 0 0 30px rgba(0, 255, 255, 0.1),
-        0 20px 30px rgba(0,0,0,0.8),
-        -3px 0 0 rgba(255, 0, 0, 0.5), /* Хроматическая аберрация RED */
-        3px 0 0 rgba(0, 255, 255, 0.5); /* Хроматическая аберрация CYAN */
+    .term-header {
+      background: rgba(255,255,255,0.05); padding: 8px 12px; font-size: 0.7rem; color: #64748b;
+      display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05);
     }
+    .term-copy { cursor: pointer; color: var(--highlight); transition: 0.2s; font-weight: bold; }
+    .term-copy:hover { color: #fff; text-shadow: 0 0 8px var(--highlight); }
+    .term-copy.copied { color: #10b981; text-shadow: 0 0 8px #10b981; pointer-events: none; }
     
-    .terminal-box span.cmd { color: var(--core-purple); font-weight: bold; margin-right: 8px; transition: 0.3s; }
-    .terminal-box:hover span.cmd { color: var(--core-cyan); text-shadow: 0 0 8px var(--core-cyan); }
+    .term-body { padding: 16px; user-select: text; }
+    .term-body span.cmd { color: var(--core-cyan); font-weight: bold; margin-right: 8px; transition: 0.3s; }
+    .cipher-box:hover span.cmd { text-shadow: 0 0 8px var(--core-cyan); }
 
-    /* Эффект мерцающего курсора в тексте */
-    .cursor-blink::after {
-      content: '█'; color: var(--core-cyan); margin-left: 5px; animation: blink 1s step-end infinite;
-      display: none;
-    }
-    .terminal-box:hover .cursor-blink::after { display: inline-block; }
+    .cursor-blink::after { content: '█'; color: var(--core-cyan); margin-left: 5px; animation: blink 1s step-end infinite; display: none; }
+    .cipher-box:hover .cursor-blink::after { display: inline-block; }
 
-    .tag-group { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
-    .tag { background: rgba(0, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.2); padding: 4px 8px; border-radius: 4px; font-family: 'JetBrains Mono'; font-size: 0.65rem; color: var(--core-cyan); }
+    .tag-group { display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
+    .tag { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 4px 8px; border-radius: 4px; font-family: 'JetBrains Mono'; font-size: 0.65rem; color: #94a3b8; }
 
     /* =========================================
        BOOT SCREEN
@@ -157,93 +114,102 @@
     #boot-screen {
       position: fixed; inset: 0; background: var(--bg-void); z-index: 9999;
       display: flex; flex-direction: column; justify-content: center; align-items: center;
-      transition: opacity 1.5s ease;
+      font-family: 'JetBrains Mono', monospace; color: var(--core-cyan);
+      transition: opacity 1s ease;
     }
-    .boot-logo { font-family: 'Rajdhani', sans-serif; font-size: 5rem; font-weight: 900; letter-spacing: 12px; margin-bottom: 30px; color: transparent; -webkit-text-stroke: 2px var(--core-cyan); text-shadow: 0 0 20px rgba(0,255,255,0.5); }
+    .boot-logo { font-family: 'Rajdhani', sans-serif; font-size: 4rem; font-weight: 900; letter-spacing: 8px; margin-bottom: 30px; color: #fff; text-shadow: 0 0 20px var(--core-cyan); }
+    .progress-bar-container { width: 400px; height: 2px; background: rgba(255,255,255,0.1); overflow: hidden; position: relative; }
+    .progress-bar { height: 100%; background: var(--core-cyan); width: 0%; transition: width 0.1s; box-shadow: 0 0 10px var(--core-cyan); }
   </style>
 </head>
 <body>
 
   <!-- BOOT SCREEN -->
   <div id="boot-screen">
-    <div class="boot-logo">AURA CORE</div>
+    <div class="boot-logo">AURA KERNEL</div>
+    <div class="progress-bar-container"><div class="progress-bar" id="boot-progress"></div></div>
   </div>
 
-  <!-- 3D ENGINE CANVAS (Движок Сингулярности) -->
+  <!-- 3D ENGINE CANVAS -->
   <canvas id="nexus-engine"></canvas>
-  <div class="space-dust"></div>
 
-  <!-- LEFT HUD: СТРАТЕГИЯ И АНАЛИТИКА -->
-  <div class="hud-container hud-left">
+  <!-- HUD LAYER -->
+  <div class="hud-layer">
     
-    <div class="data-card 3d-card">
-      <div class="card-glass">
-        <div class="card-inner-3d">
-          <div class="card-header">SYS.01 // БИЗНЕС СТРАТЕГИЯ <div class="status-indicator">SYNCED</div></div>
-          
-          <div class="block-title">КРИТИЧЕСКИЙ АНАЛИЗ (SWOT)</div>
-          <div class="tag-group"><span class="tag">Strategy</span><span class="tag">Management</span></div>
-          <div class="terminal-box cipher-box">
-            <span class="cmd">AI></span><span class="cipher-text cursor-blink" data-text="Выступи в роли Chief Strategy Officer. Проведи глубокий SWOT-анализ внедрения генеративного ИИ в корпоративный сектор. Распиши 3 ключевых риска безопасности данных и предложи архитектурные решения для их устранения.">0x8F9A... [AWAITING FOCUS]</span>
+    <!-- LEFT HUD: БИЗНЕС И ДАННЫЕ -->
+    <div class="hud-container">
+      <div class="data-card">
+        <div class="card-header">SYS.01 // БИЗНЕС СТРАТЕГИЯ <div class="status-indicator">SYNCED</div></div>
+        
+        <div class="block-title">КРИТИЧЕСКИЙ АНАЛИЗ (SWOT)</div>
+        <div class="tag-group"><span class="tag">Strategy</span><span class="tag">Management</span></div>
+        <div class="cipher-box">
+          <div class="term-header"><span>root@aura:~# prompt_gen</span><span class="term-copy" data-copy="Выступи в роли Chief Strategy Officer. Проведи глубокий SWOT-анализ внедрения микросервисной архитектуры в корпоративный сектор. Распиши 3 ключевых риска безопасности данных и предложи архитектурные решения для их устранения. Результат выдай в виде строгой markdown-таблицы.">[COPY]</span></div>
+          <div class="term-body">
+            <span class="cmd">AI></span><span class="cipher-text cursor-blink" data-text="Выступи в роли Chief Strategy Officer. Проведи глубокий SWOT-анализ внедрения микросервисной архитектуры в корпоративный сектор. Распиши 3 ключевых риска безопасности данных и предложи архитектурные решения для их устранения. Результат выдай в виде строгой markdown-таблицы.">0x8F9A... [AWAITING FOCUS]</span>
           </div>
+        </div>
 
-          <div class="block-title">ОПТИМИЗАЦИЯ РАБОЧИХ ПРОЦЕССОВ</div>
-          <div class="tag-group"><span class="tag">Workflow</span><span class="tag">Scrum</span></div>
-          <div class="terminal-box cipher-box" style="margin-bottom: 0;">
-            <span class="cmd">AI></span><span class="cipher-text cursor-blink" data-text="Выступи в роли бизнес-аналитика. Я предоставлю транскрипт часового совещания. Твоя задача: 1) Сделать Executive Summary. 2) Сформировать нумерованный список задач (Action Items) с указанием ответственных и сроков по методологии SMART.">0xB4C1... [AWAITING FOCUS]</span>
+        <div class="block-title">ОПТИМИЗАЦИЯ РАБОЧИХ ПРОЦЕССОВ</div>
+        <div class="tag-group"><span class="tag">Workflow</span><span class="tag">Scrum</span></div>
+        <div class="cipher-box" style="margin-bottom: 0;">
+          <div class="term-header"><span>root@aura:~# prompt_gen</span><span class="term-copy" data-copy="Выступи в роли бизнес-аналитика. Я предоставлю транскрипт совещания команды. Твоя задача: 1) Сделать Executive Summary. 2) Сформировать нумерованный список задач (Action Items) с указанием ответственных и сроков по методологии SMART.">[COPY]</span></div>
+          <div class="term-body">
+            <span class="cmd">AI></span><span class="cipher-text cursor-blink" data-text="Выступи в роли бизнес-аналитика. Я предоставлю транскрипт совещания команды. Твоя задача: 1) Сделать Executive Summary. 2) Сформировать нумерованный список задач (Action Items) с указанием ответственных и сроков по методологии SMART.">0xB4C1... [AWAITING FOCUS]</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="data-card">
+        <div class="card-header" style="color: var(--core-cyan);">SYS.02 // АНАЛИТИКА ДАННЫХ <div class="status-indicator">ONLINE</div></div>
+        <div class="block-title">ОБРАБОТКА МАССИВОВ (BIG DATA)</div>
+        <div class="cipher-box" style="border-left-color: var(--core-cyan); margin-bottom: 0;">
+          <div class="term-header"><span>root@aura:~# data_parse</span><span class="term-copy" data-copy="Роль: Data Scientist. Ниже приведен сырой массив неструктурированных логов метрик сервера. Проведи анализ. Сгруппируй логи и выдели основные узкие места производительности, предложив технические решения для балансировки нагрузки.">[COPY]</span></div>
+          <div class="term-body">
+            <span class="cmd" style="color: var(--core-cyan);">DATA></span><span class="cipher-text cursor-blink" data-text="Роль: Data Scientist. Ниже приведен сырой массив неструктурированных логов метрик сервера. Проведи анализ. Сгруппируй логи и выдели основные узкие места производительности, предложив технические решения для балансировки нагрузки.">0x4D2E... [AWAITING FOCUS]</span>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="data-card 3d-card">
-      <div class="card-glass">
-        <div class="card-inner-3d">
-          <div class="card-header" style="color: var(--core-cyan);">SYS.02 // АНАЛИТИКА ДАННЫХ <div class="status-indicator">ONLINE</div></div>
-          <div class="block-title">ОБРАБОТКА МАССИВОВ (BIG DATA)</div>
-          <div class="terminal-box cipher-box" style="border-left-color: var(--core-cyan); margin-bottom: 0;">
-            <span class="cmd" style="color: var(--core-cyan);">DATA></span><span class="cipher-text cursor-blink" data-text="Роль: Data Scientist. Ниже приведен сырой массив неструктурированных отзывов клиентов (JSON). Проведи сентимент-анализ (тональность). Сгруппируй жалобы по 3 главным категориям и предложи программные решения для каждой.">0x4D2E... [AWAITING FOCUS]</span>
+    <!-- RIGHT HUD: IT И ПРОДУКТИВНОСТЬ -->
+    <div class="hud-container">
+      <div class="data-card">
+        <div class="card-header" style="color: var(--core-purple);">SYS.03 // ИНФРАСТРУКТУРА И КОД <div class="status-indicator">ACTIVE</div></div>
+        
+        <div class="block-title">ОПТИМИЗАЦИЯ СЕРВЕРОВ И СЕТЕЙ</div>
+        <div class="cipher-box" style="border-left-color: var(--core-purple);">
+          <div class="term-header"><span>root@aura:~# sys_design</span><span class="term-copy" data-copy="Действуй как DevOps-инженер. Проанализируй конфигурацию выделенного сервера Rust. Напиши оптимальные параметры запуска G1GC (Garbage Collector) для устранения десинхронизации и потери пакетов Steam.">[COPY]</span></div>
+          <div class="term-body">
+            <span class="cmd" style="color: var(--core-purple);">DEV></span><span class="cipher-text cursor-blink" data-text="Действуй как DevOps-инженер. Проанализируй конфигурацию выделенного сервера Rust. Напиши оптимальные параметры запуска G1GC (Garbage Collector) для устранения десинхронизации и потери пакетов Steam.">0xA1F0... [AWAITING FOCUS]</span>
+          </div>
+        </div>
+
+        <div class="block-title">РЕФАКТОРИНГ И CLEAN CODE</div>
+        <div class="cipher-box" style="border-left-color: var(--core-purple); margin-bottom: 0;">
+          <div class="term-header"><span>root@aura:~# code_review</span><span class="term-copy" data-copy="Выступи в роли Senior Developer. Напиши bash-скрипт для принудительной очистки кэша компиляции Flutter Web с использованием HTML-рендерера вместо CanvasKit. Учти возможные проблемы политик CORS при развертывании.">[COPY]</span></div>
+          <div class="term-body">
+            <span class="cmd" style="color: var(--core-purple);">DEV></span><span class="cipher-text cursor-blink" data-text="Выступи в роли Senior Developer. Напиши bash-скрипт для принудительной очистки кэша компиляции Flutter Web с использованием HTML-рендерера вместо CanvasKit. Учти возможные проблемы политик CORS при развертывании.">0x99BB... [AWAITING FOCUS]</span>
           </div>
         </div>
       </div>
-    </div>
 
-  </div>
-
-  <!-- RIGHT HUD: IT & ПРОДУКТИВНОСТЬ -->
-  <div class="hud-container hud-right">
-    
-    <div class="data-card 3d-card">
-      <div class="card-glass">
-        <div class="card-inner-3d">
-          <div class="card-header" style="color: var(--core-purple);">SYS.03 // ИНФРАСТРУКТУРА И КОД <div class="status-indicator">ACTIVE</div></div>
-          
-          <div class="block-title">АРХИТЕКТУРА И СИСТЕМНЫЙ ДИЗАЙН</div>
-          <div class="terminal-box cipher-box" style="border-left-color: var(--core-purple);">
-            <span class="cmd" style="color: var(--core-purple);">DEV></span><span class="cipher-text cursor-blink" data-text="Действуй как Senior Software Architect. Спроектируй масштабируемую микросервисную архитектуру для высоконагруженного приложения. Опиши выбор базы данных, брокера сообщений (Kafka/RabbitMQ) и методы обеспечения отказоустойчивости.">0xA1F0... [AWAITING FOCUS]</span>
-          </div>
-
-          <div class="block-title">РЕФАКТОРИНГ И CLEAN CODE</div>
-          <div class="terminal-box cipher-box" style="border-left-color: var(--core-purple); margin-bottom: 0;">
-            <span class="cmd" style="color: var(--core-purple);">DEV></span><span class="cipher-text cursor-blink" data-text="Проведи Code Review фрагмента кода. Укажи на антипаттерны, утечки памяти и уязвимости. Перепиши код, строго следуя принципам SOLID и DRY, и добавь JSDoc комментарии к критическим функциям.">0x99BB... [AWAITING FOCUS]</span>
+      <div class="data-card">
+        <div class="card-header" style="color: #10b981;">SYS.04 // ЛИЧНАЯ ЭФФЕКТИВНОСТЬ <div class="status-indicator">READY</div></div>
+        
+        <div class="block-title">УСКОРЕННОЕ ОБУЧЕНИЕ (FEYNMAN)</div>
+        <div class="cipher-box" style="border-left-color: #10b981;">
+          <div class="term-header"><span>root@aura:~# learn_module</span><span class="term-copy" data-copy="Объясни концепцию инкапсуляции и полиморфизма в ООП, используя Технику Фейнмана. Напиши объяснение для новичка, используя простые аналогии из повседневной жизни. При уточнении — углубляй детали пошагово.">[COPY]</span></div>
+          <div class="term-body">
+            <span class="cmd" style="color: #10b981;">EDU></span><span class="cipher-text cursor-blink" data-text="Объясни концепцию инкапсуляции и полиморфизма в ООП, используя Технику Фейнмана. Напиши объяснение для новичка, используя простые аналогии из повседневной жизни. При уточнении — углубляй детали пошагово.">0x3E7D... [AWAITING FOCUS]</span>
           </div>
         </div>
-      </div>
-    </div>
 
-    <div class="data-card 3d-card">
-      <div class="card-glass">
-        <div class="card-inner-3d">
-          <div class="card-header" style="color: #10b981;">SYS.04 // НЕЙРО-ПРОДУКТИВНОСТЬ <div class="status-indicator">READY</div></div>
-          
-          <div class="block-title">УСКОРЕННОЕ ОБУЧЕНИЕ (FEYNMAN)</div>
-          <div class="terminal-box cipher-box" style="border-left-color: #10b981;">
-            <span class="cmd" style="color: #10b981;">EDU></span><span class="cipher-text cursor-blink" data-text="Объясни концепцию [Сложная Тема] используя Технику Фейнмана. Напиши объяснение так, как будто мне 12 лет, используя простые аналогии из повседневной жизни. При уточнении — углубляй детали пошагово.">0x3E7D... [AWAITING FOCUS]</span>
-          </div>
-
-          <div class="block-title">МАСТЕРСТВО ТАЙМ-МЕНЕДЖМЕНТА</div>
-          <div class="terminal-box cipher-box" style="border-left-color: #10b981; margin-bottom: 0;">
-            <span class="cmd" style="color: #10b981;">EDU></span><span class="cipher-text cursor-blink" data-text="Роль: Коуч по продуктивности. Распредели мой список задач на неделю, используя матрицу Эйзенхауэра и метод интервальной работы. Оставь буфер в 20% времени на форс-мажоры и генерацию идей.">0x7C2A... [AWAITING FOCUS]</span>
+        <div class="block-title">ГЕНЕРАЦИЯ ОБРАЗОВАТЕЛЬНЫХ СЦЕНАРИЕВ</div>
+        <div class="cipher-box" style="border-left-color: #10b981; margin-bottom: 0;">
+          <div class="term-header"><span>root@aura:~# generate_quest</span><span class="term-copy" data-copy="Роль: Детский геймдизайнер. Сгенерируй сценарий развивающего текстового квеста. Главная героиня — девочка Стеша. Важно: обращайся к ней только по имени Стеша. Интегрируй 3 логические загадки на понимание базовых законов физики. Жди моего ответа после каждой.">[COPY]</span></div>
+          <div class="term-body">
+            <span class="cmd" style="color: #10b981;">EDU></span><span class="cipher-text cursor-blink" data-text="Роль: Детский геймдизайнер. Сгенерируй сценарий развивающего текстового квеста. Главная героиня — девочка Стеша. Важно: обращайся к ней только по имени Стеша. Интегрируй 3 логические загадки на понимание базовых законов физики. Жди моего ответа после каждой.">0x7C2A... [AWAITING FOCUS]</span>
           </div>
         </div>
       </div>
@@ -255,45 +221,23 @@
     // ==========================================
     // 1. ИНИЦИАЛИЗАЦИЯ
     // ==========================================
-    setTimeout(() => {
-      document.getElementById('boot-screen').style.opacity = '0';
-      setTimeout(() => document.getElementById('boot-screen').style.display = 'none', 1500);
-    }, 1000);
+    const bootProgress = document.getElementById('boot-progress');
+    let loadVal = 0;
+    const bootInterval = setInterval(() => {
+      loadVal += Math.random() * 20;
+      if (loadVal >= 100) {
+        loadVal = 100;
+        clearInterval(bootInterval);
+        setTimeout(() => {
+          document.getElementById('boot-screen').style.opacity = '0';
+          setTimeout(() => document.getElementById('boot-screen').style.display = 'none', 1000);
+        }, 300);
+      }
+      bootProgress.style.width = loadVal + '%';
+    }, 50);
 
     // ==========================================
-    // 2. ВОЛЮМЕТРИЧЕСКОЕ СТЕКЛО (3D TILT EFFECT)
-    // ==========================================
-    // Каждая карточка реагирует на курсор индивидуально, создавая объем
-    const cards3D = document.querySelectorAll('.3d-card');
-    
-    cards3D.forEach(card => {
-      card.addEventListener('mousemove', e => {
-        // Убираем плавную транзицию во время движения, чтобы карточка следовала за мышью мгновенно
-        card.style.transition = 'none';
-        
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left; // x position within the element.
-        const y = e.clientY - rect.top;  // y position within the element.
-        
-        const cx = rect.width / 2;
-        const cy = rect.height / 2;
-        
-        // Вычисляем угол наклона (max 12 градусов)
-        const rotateX = ((y - cy) / cy) * -12; 
-        const rotateY = ((x - cx) / cx) * 12;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-      });
-      
-      card.addEventListener('mouseleave', () => {
-        // Возвращаем плавность при отпускании мыши
-        card.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-      });
-    });
-
-    // ==========================================
-    // 3. КВАНТОВАЯ ДЕШИФРОВКА ВЗГЛЯДА (CIPHER EFFECT)
+    // 2. КВАНТОВАЯ ДЕШИФРОВКА (CIPHER EFFECT)
     // ==========================================
     const cipherBoxes = document.querySelectorAll('.cipher-box');
     const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
@@ -311,37 +255,50 @@
         
         interval = setInterval(() => {
           textElement.innerText = originalText.split("").map((letter, index) => {
-            if (index < iterations) return originalText[index]; // Оставляем правильную букву
-            return charset[Math.floor(Math.random() * charset.length)]; // Генерим шум
+            if (index < iterations) return originalText[index]; 
+            return charset[Math.floor(Math.random() * charset.length)]; 
           }).join("");
           
           if (iterations >= originalText.length) {
             clearInterval(interval);
             isDecoded = true;
           }
-          iterations += 2; // Скорость расшифровки
+          iterations += 2; 
         }, 15);
       });
 
-      // При уводе курсора текст снова "зашифровывается" в HEX-строку
       box.addEventListener('mouseleave', () => {
         clearInterval(interval);
         isDecoded = false;
-        // Генерируем рандомный HEX для эффекта спящего режима
         let hex = "0x" + Math.floor(Math.random()*16777215).toString(16).toUpperCase();
         textElement.innerText = `${hex}... [AWAITING FOCUS]`;
       });
     });
 
+    // ==========================================
+    // 3. COPY TO CLIPBOARD
+    // ==========================================
+    const copyBtns = document.querySelectorAll('.term-copy');
+    copyBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const textToCopy = btn.getAttribute('data-copy');
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          btn.innerText = "[COPIED!]";
+          btn.classList.add('copied');
+          setTimeout(() => {
+            btn.innerText = "[COPY]";
+            btn.classList.remove('copied');
+          }, 2000);
+        });
+      });
+    });
 
     // ==========================================
-    // 4. QUANTUM NEXUS ENGINE (КАНВАС НА ФОНЕ)
+    // 4. BULLETPROOF 3D ENGINE (КВАНТОВАЯ СИНГУЛЯРНОСТЬ)
     // ==========================================
-    // Используем уже настроенный торический узел с гравитацией мыши
     const canvas = document.getElementById('nexus-engine');
-    const ctx = canvas.getContext('2d', { alpha: false });
+    const ctx = canvas.getContext('2d');
     let width, height, cx, cy;
-    let mouse = { targetX: 0, targetY: 0 };
     
     function resize() {
       width = canvas.width = window.innerWidth;
@@ -349,94 +306,172 @@
       cx = width / 2; cy = height / 2;
     }
     window.addEventListener('resize', resize); resize();
+
+    // Параметры камеры
+    let time = 0;
+    let camRotX = 0, camRotY = 0;
+    let targetCamRotX = 0, targetCamRotY = 0;
+
     document.addEventListener('mousemove', (e) => {
-      mouse.targetX = (e.clientX - cx); mouse.targetY = (e.clientY - cy);
+      targetCamRotY = (e.clientX / width - 0.5) * 1.5;
+      targetCamRotX = (e.clientY / height - 0.5) * 1.5;
     });
 
+    // Генерация ядра (Сфера из точек)
     const coreNodes = [];
-    const diskNodes = [];
-    for (let i = 0; i < 200; i++) {
-      let phi = Math.acos(1 - 2 * (i + 0.5) / 200);
+    const numCore = 300;
+    const coreRadius = 130;
+    for (let i = 0; i < numCore; i++) {
+      let phi = Math.acos(1 - 2 * (i + 0.5) / numCore);
       let theta = Math.PI * (1 + Math.sqrt(5)) * i;
-      coreNodes.push({ baseX: Math.cos(theta) * Math.sin(phi)*80, baseY: Math.sin(theta) * Math.sin(phi)*80, baseZ: Math.cos(phi)*80, x:0, y:0, z:0, sx:0, sy:0, s:0, cx:0, cy:0, cz:0 });
-    }
-    for (let i = 0; i < 700; i++) {
-      let a = Math.random() * Math.PI * 2;
-      let r = 180 + Math.random() * 400; r += Math.sin(a * 3) * 50; 
-      let hz = (Math.random() - 0.5) * 80 * (r/300); 
-      diskNodes.push({ a: a, r: r, br: r, s: 25/r, zO: hz, x:0, y:0, z:0, sx:0, sy:0, s:0, vx:0, vy:0 });
+      coreNodes.push({
+        bx: Math.cos(theta) * Math.sin(phi) * coreRadius,
+        by: Math.sin(theta) * Math.sin(phi) * coreRadius,
+        bz: Math.cos(phi) * coreRadius,
+        sx: 0, sy: 0, scale: 0, z: 0
+      });
     }
 
-    let time = 0; let camX = 0; let camY = 0;
+    // Генерация аккреционного диска (Частицы на орбите)
+    const diskNodes = [];
+    const numDisk = 600;
+    for (let i = 0; i < numDisk; i++) {
+      let angle = Math.random() * Math.PI * 2;
+      let r = 200 + Math.random() * 400; 
+      r += Math.sin(angle * 4) * 40; // Рукава спирали
+      diskNodes.push({
+        angle: angle,
+        radius: r,
+        speed: 20 / r,
+        zOffset: (Math.random() - 0.5) * 60 * (r / 300),
+        sx: 0, sy: 0, scale: 0, z: 0
+      });
+    }
 
     function renderEngine() {
-      ctx.fillStyle = 'rgba(1, 2, 5, 0.4)'; ctx.fillRect(0, 0, width, height);
-      time += 0.015;
-      camY += ((mouse.targetX * 0.001) - camY) * 0.05; camX += ((mouse.targetY * 0.001) - camX) * 0.05;
-      let ccx = Math.cos(camX), scx = Math.sin(camX), ccy = Math.cos(camY), scy = Math.sin(camY);
+      // Очистка с эффектом motion blur
+      ctx.fillStyle = 'rgba(1, 2, 5, 0.35)';
+      ctx.fillRect(0, 0, width, height);
 
-      function proj(nx, ny, nz) {
-        let x1 = nx*ccy - nz*scy, z1 = nx*scy + nz*ccy;
-        let y1 = ny*ccx - z1*scx, fz = ny*scx + z1*ccx;
-        let scale = 1100 / (1100 + fz + 800); 
-        return { sx: cx + x1 * scale, sy: cy + y1 * scale, s: scale, z: fz };
-      }
-
-      ctx.globalCompositeOperation = 'lighter'; 
-
-      for (let i = 0; i < diskNodes.length; i++) {
-        let n = diskNodes[i]; n.a += n.s;
-        let px = Math.cos(n.a) * n.r, pz = Math.sin(n.a) * n.r, py = n.zO; 
-        n.vx *= 0.9; n.vy *= 0.9; n.r += n.vx; n.zO += n.vy; n.r += (n.br - n.r) * 0.05; 
-        let rx = px, ry = py*Math.cos(0.5) - pz*Math.sin(0.5), rz = py*Math.sin(0.5) + pz*Math.cos(0.5);
-        let pr = proj(rx, ry, rz);
-        n.sx = pr.sx; n.sy = pr.sy; n.z = pr.z; n.s = pr.s;
-      }
-
-      for (let i = 0; i < coreNodes.length; i++) {
-        let n = coreNodes[i];
-        let tr = -time*0.5; 
-        let tx = n.baseX*Math.cos(tr) - n.baseZ*Math.sin(tr), tz = n.baseX*Math.sin(tr) + n.baseZ*Math.cos(tr), ty = n.baseY;
-        let dx = mouse.targetX*0.5 - tx, dy = mouse.targetY*0.5 - ty, d = Math.sqrt(dx*dx + dy*dy);
-        if (d < 150) { let f = (150-d)/150; tx+=dx*f*0.8; ty+=dy*f*0.8; }
-        n.cx += (tx-n.cx)*0.1; n.cy += (ty-n.cy)*0.1; n.cz += (tz-n.cz)*0.1;
-        let pr = proj(n.cx, n.cy, n.cz);
-        n.sx = pr.sx; n.sy = pr.sy; n.z = pr.z; n.s = pr.s;
-      }
-
-      let all = [...coreNodes, ...diskNodes].sort((a, b) => b.z - a.z);
+      time += 0.01;
       
-      for (let i=0; i<all.length; i++) {
-        let n = all[i];
-        let alpha = Math.max(0.05, 1 - (n.z + 800)/1600);
-        if (n.br) { // Disk
-          ctx.fillStyle = `rgba(0, 255, 255, ${alpha*0.6})`;
-          ctx.beginPath(); ctx.arc(n.sx, n.sy, Math.max(0.2, n.s*2.5), 0, Math.PI*2); ctx.fill();
-        } else { // Core
-          if (n.z < 100) {
-            for (let j=i+1; j<Math.min(i+12, all.length); j++) {
-              let n2 = all[j]; if(n2.br) continue;
-              let dsq = Math.pow(n.sx-n2.sx,2) + Math.pow(n.sy-n2.sy,2);
-              if (dsq < 2000*n.s) {
-                let st = dsq/(2000*n.s), op = (1-st)*0.8;
-                let r=0, g=85, b=255; 
-                if (st > 0.7) { r=255; g=85-(85*(st-0.7)/0.3); b=255-(255*(st-0.7)/0.3); }
-                ctx.strokeStyle = `rgba(${r},${g},${b},${op})`;
-                ctx.beginPath(); ctx.moveTo(n.sx, n.sy); ctx.lineTo(n2.sx, n2.sy); ctx.stroke();
-              }
+      // Сглаживание камеры
+      camRotX += (targetCamRotX - camRotX) * 0.05;
+      camRotY += (targetCamRotY - camRotY) * 0.05;
+
+      let ccx = Math.cos(camRotX), scx = Math.sin(camRotX);
+      let ccy = Math.cos(camRotY), scy = Math.sin(camRotY);
+
+      function project(x, y, z) {
+        // Вращение по Y
+        let x1 = x * ccy - z * scy;
+        let z1 = x * scy + z * ccy;
+        // Вращение по X
+        let y1 = y * ccx - z1 * scx;
+        let finalZ = y * scx + z1 * ccx;
+        
+        let fov = 1000;
+        let scale = fov / (fov + finalZ + 800); // 800 - отдаление камеры
+        return { sx: cx + x1 * scale, sy: cy + y1 * scale, s: scale, z: finalZ };
+      }
+
+      ctx.globalCompositeOperation = 'lighter';
+      let renderQueue = [];
+
+      // 1. Просчет ядра
+      let coreRotY = -time * 0.4;
+      let crC = Math.cos(coreRotY), crS = Math.sin(coreRotY);
+      
+      for(let i=0; i<coreNodes.length; i++) {
+        let n = coreNodes[i];
+        // Пульсация
+        let pulse = 1 + Math.sin(time * 3 + n.bx * 0.05) * 0.05;
+        let tx = n.bx * pulse; let ty = n.by * pulse; let tz = n.bz * pulse;
+        
+        // Вращение ядра
+        let rx = tx * crC - tz * crS;
+        let rz = tx * crS + tz * crC;
+        
+        let p = project(rx, ty, rz);
+        renderQueue.push({ type: 'core', sx: p.sx, sy: p.sy, s: p.s, z: p.z, idx: i });
+        
+        // Обновляем координаты для отрисовки связей
+        n.sx = p.sx; n.sy = p.sy; n.s = p.s; n.z = p.z;
+      }
+
+      // 2. Просчет диска
+      for(let i=0; i<diskNodes.length; i++) {
+        let n = diskNodes[i];
+        n.angle += n.speed;
+        let px = Math.cos(n.angle) * n.radius;
+        let pz = Math.sin(n.angle) * n.radius;
+        let py = n.zOffset + Math.sin(n.angle * 3 + time * 2) * 10;
+        
+        // Наклон диска
+        let tilt = Math.PI / 6;
+        let ry = py * Math.cos(tilt) - pz * Math.sin(tilt);
+        let rz = py * Math.sin(tilt) + pz * Math.cos(tilt);
+
+        let p = project(px, ry, rz);
+        renderQueue.push({ type: 'disk', sx: p.sx, sy: p.sy, s: p.s, z: p.z });
+      }
+
+      // Сортировка Z-buffer
+      renderQueue.sort((a, b) => b.z - a.z);
+
+      // Отрисовка
+      for(let i=0; i<renderQueue.length; i++) {
+        let node = renderQueue[i];
+        let alpha = Math.max(0.05, 1 - (node.z + 800) / 1600);
+
+        if (node.type === 'disk') {
+          ctx.fillStyle = `rgba(0, 255, 255, ${alpha * 0.6})`;
+          ctx.beginPath();
+          ctx.arc(node.sx, node.sy, Math.max(0.5, node.s * 2.5), 0, Math.PI*2);
+          ctx.fill();
+        } 
+        else if (node.type === 'core') {
+          // Отрисовка связей ядра
+          if (node.z < 100) {
+            let originalNode = coreNodes[node.idx];
+            for (let j = node.idx + 1; j < Math.min(node.idx + 12, coreNodes.length); j++) {
+               let n2 = coreNodes[j];
+               let dx = originalNode.sx - n2.sx;
+               let dy = originalNode.sy - n2.sy;
+               let distSq = dx*dx + dy*dy;
+               
+               if (distSq < 3000 * originalNode.s) {
+                 let lineAlpha = (1 - distSq / (3000 * originalNode.s)) * 0.5;
+                 ctx.strokeStyle = `rgba(157, 0, 255, ${lineAlpha})`;
+                 ctx.lineWidth = 0.8;
+                 ctx.beginPath();
+                 ctx.moveTo(originalNode.sx, originalNode.sy);
+                 ctx.lineTo(n2.sx, n2.sy);
+                 ctx.stroke();
+               }
             }
           }
-          ctx.fillStyle = `rgba(0, 85, 255, ${Math.max(0, 1-(n.z+100)/300)})`;
-          ctx.beginPath(); ctx.arc(n.sx, n.sy, 2.5*n.s, 0, Math.PI*2); ctx.fill();
-          if (n.z < 0) {
-            ctx.fillStyle = `rgba(255, 255, 255, ${alpha*0.8})`;
-            ctx.beginPath(); ctx.arc(n.sx, n.sy, 1*n.s, 0, Math.PI*2); ctx.fill();
+
+          // Сама точка ядра
+          let coreAlpha = Math.max(0, 1 - (node.z + 100) / 300);
+          ctx.fillStyle = `rgba(0, 85, 255, ${coreAlpha})`;
+          ctx.beginPath();
+          ctx.arc(node.sx, node.sy, 2.5 * node.s, 0, Math.PI*2);
+          ctx.fill();
+
+          if (node.z < 0) {
+            ctx.fillStyle = `rgba(255, 255, 255, ${coreAlpha * 0.8})`;
+            ctx.beginPath();
+            ctx.arc(node.sx, node.sy, 1 * node.s, 0, Math.PI*2);
+            ctx.fill();
           }
         }
       }
+
       ctx.globalCompositeOperation = 'source-over';
       requestAnimationFrame(renderEngine);
     }
+
     renderEngine();
   </script>
 </body>
