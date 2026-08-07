@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>AURA CORE // Volumetric AI Terminal OS</title>
+  <title>AURA CORE // Expert Prompt Terminal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +33,7 @@
       user-select: none; cursor: crosshair;
     }
 
-    #quantum-mirror-engine { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2; }
+    #quantum-mirror-engine { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2; pointer-events: none;}
     #post-processing { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 3; pointer-events: none; mix-blend-mode: screen; display: none; }
     .space-dust { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(circle at center, transparent 20%, var(--bg-void) 100%); }
 
@@ -129,8 +129,6 @@
     .term-copy { cursor: pointer; color: #cbd5e1; transition: 0.2s; font-weight: 600; background: rgba(255,255,255,0.05); padding: 2px 8px; border-radius: 4px; }
     .term-copy:hover { background: var(--card-glow, var(--core-cyan)); color: #000; }
     .term-copy.copied { background: #10b981; color: #000; pointer-events: none; }
-    .term-expand { cursor: pointer; color: var(--text-dim); background: rgba(255,255,255,0.03); padding: 2px 8px; border-radius: 4px; }
-    .term-expand:hover { background: rgba(255,255,255,0.1); color: #fff; }
     
     .term-body { padding: 16px; position: relative; }
     .term-body span.cmd { color: var(--card-glow, var(--core-cyan)); font-weight: bold; margin-right: 8px; }
@@ -140,7 +138,7 @@
     .tag { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 4px 10px; border-radius: 6px; font-family: 'JetBrains Mono'; font-size: 0.65rem; color: #94a3b8; }
 
     /* =========================================
-       CHAT ENGINE UI (NEXUS-01)
+       CHAT ENGINE UI (NEXUS-01 EXPERT)
        ========================================= */
     .chat-history {
       flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 15px;
@@ -155,13 +153,30 @@
     .msg-user { align-self: flex-end; align-items: flex-end; }
     .msg-ai { align-self: flex-start; align-items: flex-start; }
 
-    .msg-bubble { padding: 12px 16px; border-radius: 8px; word-wrap: break-word; user-select: text;}
+    .msg-bubble { padding: 12px 16px; border-radius: 8px; word-wrap: break-word; user-select: text; position: relative;}
     .msg-user .msg-bubble { background: rgba(0, 255, 255, 0.1); border: 1px solid rgba(0, 255, 255, 0.3); color: #fff; border-bottom-right-radius: 0; }
     .msg-ai .msg-bubble { background: rgba(183, 0, 255, 0.1); border: 1px solid rgba(183, 0, 255, 0.3); color: #e2e8f0; border-bottom-left-radius: 0; }
     
     .msg-label { font-family: 'JetBrains Mono'; font-size: 0.6rem; color: var(--text-dim); margin-bottom: 4px; text-transform: uppercase; }
 
-    /* Анимация печатания (Typing Indicator) */
+    /* Интерактивные чипсы (подсказки) в чате */
+    .chat-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+    .chat-chip {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(183, 0, 255, 0.4);
+      color: #bae6fd; font-family: 'JetBrains Mono'; font-size: 0.7rem; padding: 4px 10px;
+      border-radius: 12px; cursor: pointer; transition: 0.2s;
+    }
+    .chat-chip:hover { background: var(--core-purple); color: #fff; box-shadow: 0 0 10px var(--core-purple); }
+
+    /* Оформление сгенерированного мега-промпта */
+    .pro-prompt {
+      font-family: 'JetBrains Mono'; font-size: 0.75rem; color: #a5b4fc;
+      background: #000; padding: 12px; border-radius: 6px; border-left: 2px solid var(--core-cyan);
+      white-space: pre-wrap; margin-top: 10px;
+    }
+    .pro-prompt span.h { color: var(--core-cyan); font-weight: bold; }
+
+    /* Анимация печатания */
     .typing-dots { display: flex; gap: 4px; align-items: center; height: 20px; }
     .typing-dots span { width: 6px; height: 6px; background: var(--core-purple); border-radius: 50%; animation: typeBounce 1.4s infinite ease-in-out both; }
     .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
@@ -190,7 +205,7 @@
       display: flex; flex-direction: column; justify-content: center; align-items: center;
       font-family: 'JetBrains Mono', monospace; color: var(--core-cyan); transition: opacity 1s ease;
     }
-    .boot-logo { font-family: 'Rajdhani', sans-serif; font-size: 4rem; font-weight: 900; letter-spacing: 8px; margin-bottom: 30px; text-shadow: 0 0 30px var(--core-cyan); }
+    .boot-logo { font-family: 'Rajdhani', sans-serif; font-size: 4rem; font-weight: 700; letter-spacing: 8px; margin-bottom: 30px; text-shadow: 0 0 30px var(--core-cyan); }
     .progress-bar-container { width: 400px; height: 2px; background: rgba(255,255,255,0.1); overflow: hidden; position: relative; border-radius: 2px; }
     .progress-bar { height: 100%; background: var(--core-cyan); width: 0%; transition: width 0.1s; box-shadow: 0 0 15px var(--core-cyan); }
   </style>
@@ -199,12 +214,12 @@
 
   <!-- BOOT SEQUENCE -->
   <div id="boot-screen">
-    <div class="boot-logo">AURA CORE v14.0</div>
+    <div class="boot-logo">AURA CORE v15.0</div>
     <div class="progress-bar-container"><div class="progress-bar" id="boot-progress"></div></div>
-    <div id="boot-text" style="margin-top: 20px; font-size: 0.85rem; color: #64748b; letter-spacing: 3px;">INITIALIZING NEXUS AI...</div>
+    <div id="boot-text" style="margin-top: 20px; font-size: 0.85rem; color: #64748b; letter-spacing: 3px;">INITIALIZING NEXUS EXPERT AI...</div>
   </div>
 
-  <!-- ДВИЖОК ОСТАЛСЯ НЕИЗМЕННЫМ (ТВОЙ ОРИГИНАЛ) -->
+  <!-- ДВИЖОК ОСТАЛСЯ НЕИЗМЕННЫМ -->
   <canvas id="quantum-mirror-engine"></canvas>
   <canvas id="post-processing"></canvas>
   <div class="space-dust"></div>
@@ -212,28 +227,28 @@
   <!-- HUD LAYER -->
   <div class="hud-layer" id="hud-layer">
     
-    <!-- LEFT HUD: БАЗА ЗНАНИЙ (ОБУЧЕНИЕ И КОД) -->
+    <!-- LEFT HUD: БАЗА ЗНАНИЙ -->
     <div class="hud-container">
       
-      <div class="data-card spotlight-card" style="--card-glow: var(--core-cyan);" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
+      <div class="data-card spotlight-card" style="--card-glow: var(--core-cyan);">
         <div class="card-content">
-          <div class="card-header">SYS.01 // AI ОБУЧЕНИЕ И PROMPT DESIGN <div class="status-indicator">SYNCED</div></div>
+          <div class="card-header">SYS.01 // ИНЖЕНЕРИЯ ПРОМПТОВ <div class="status-indicator">SYNCED</div></div>
           
-          <div class="block-title">ОСНОВЫ PROMPT ENGINEERING</div>
-          <div class="tag-group"><span class="tag">Fundamentals</span><span class="tag">Strategy</span></div>
+          <div class="block-title">ОСНОВЫ PROMPT ENGINEERING (R-T-C-F)</div>
+          <div class="tag-group"><span class="tag">Framework</span><span class="tag">Strategy</span></div>
           <div class="volumetric-module">
-            <div class="term-header"><span class="term-path">root/strategy/prompt_basics.md</span><span class="term-actions"><span class="term-copy" data-copy="Действуй как эксперт по Prompt Engineering. Сформулируй 3 ключевых принципа создания эффективных промптов (Context, Clear Directives, Persona). Приведи примеры для каждого принципа, демонстрирующие разницу между слабым и сильным промптом.">COPY</span><span class="term-expand">[EXPAND]</span></span></div>
+            <div class="term-header"><span class="term-path">root/strategy/prompt_framework.md</span><span class="term-actions"><span class="term-copy" data-copy="Действуй как Senior Prompt Engineer. Опиши фреймворк R-T-C-F (Role, Task, Context, Format). Приведи пример трансформации слабого промпта ('напиши статью про ИИ') в сильный с использованием этой структуры.">COPY</span></span></div>
             <div class="term-body">
-              <span class="cmd">AI></span><span class="accent">Действуй как эксперт.</span> Сформулируй 3 ключевых принципа создания эффективных промптов. Приведи примеры, демонстрирующие разницу между слабым и сильным промптом.
+              <span class="cmd">AI></span><span class="accent">Действуй как эксперт.</span> Опиши фреймворк R-T-C-F (Role, Task, Context, Format). Приведи пример трансформации слабого промпта в профессиональный с использованием этой структуры.
             </div>
           </div>
 
-          <div class="block-title">ОБУЧАЮЩИЕ СЦЕНАРИИ (FEYNMAN TECHNIQUE)</div>
-          <div class="tag-group"><span class="tag">Educational</span><span class="tag">Active Learning</span></div>
+          <div class="block-title">ЦЕПОЧКИ РАССУЖДЕНИЙ (CHAIN OF THOUGHT)</div>
+          <div class="tag-group"><span class="tag">Advanced</span><span class="tag">Logic</span></div>
           <div class="volumetric-module" style="margin-bottom: 0;">
-            <div class="term-header"><span class="term-path">root/strategy/feynman.md</span><span class="term-actions"><span class="term-copy" data-copy="Примени Технику Фейнмана для объяснения [ВСТАВЬТЕ СЛОЖНУЮ ТЕМУ]. Сначала объясни концепцию так, как будто мне 10 лет (простые аналогии). Затем углуби детали, отвечая на мои уточняющие вопросы, и помоги мне выявить 'белые пятна' в моем понимании. Жди ответа после каждого этапа.">COPY</span><span class="term-expand">[EXPAND]</span></span></div>
+            <div class="term-header"><span class="term-path">root/strategy/cot_logic.md</span><span class="term-actions"><span class="term-copy" data-copy="Действуй как аналитик данных. Я дам тебе сложную логическую задачу. Прежде чем дать финальный ответ, обязательно распиши процесс своих рассуждений шаг за шагом (думай вслух), чтобы исключить галлюцинации и логические ошибки.">COPY</span></span></div>
             <div class="term-body">
-              <span class="cmd">AI></span><span class="accent">Примени Технику Фейнмана.</span> Объясни концепцию [ВСТАВЬТЕ СЛОЖНУЮ ТЕМУ] так, как будто мне 10 лет. Затем углубляй детали, отвечая на мои вопросы.
+              <span class="cmd">AI></span><span class="accent">Действуй как аналитик.</span> Прежде чем дать ответ на мою задачу, обязательно распиши процесс своих рассуждений шаг за шагом (Chain of Thought), чтобы исключить галлюцинации.
             </div>
           </div>
         </div>
@@ -241,23 +256,25 @@
 
     </div>
 
-    <!-- RIGHT HUD: NEXUS-01 CHAT ENGINE -->
+    <!-- RIGHT HUD: NEXUS-01 EXPERT CHAT ENGINE -->
     <div class="hud-container">
       <div class="data-card spotlight-card" style="--card-glow: var(--core-purple); height: 85vh; display: flex; flex-direction: column;">
         <div class="card-content" style="flex-grow: 1;">
-          <div class="card-header" style="color: var(--core-purple); text-shadow: 0 0 10px var(--core-purple);">NEXUS-01 // AI ASSISTANT <div class="status-indicator">ONLINE</div></div>
+          <div class="card-header" style="color: var(--core-purple); text-shadow: 0 0 10px var(--core-purple);">NEXUS-01 // EXPERT PROMPT AI <div class="status-indicator">ONLINE</div></div>
           
           <!-- Окно истории чата -->
           <div class="chat-history" id="chat-history">
             <div class="msg-wrap msg-ai">
               <div class="msg-label">NEXUS-01</div>
-              <div class="msg-bubble">Система активирована. Я — ИИ-архитектор промптов. Напиши <b>"создай промпт"</b> (или просто <b>"промт"</b>), и я помогу тебе составить идеальный запрос шаг за шагом.</div>
+              <div class="msg-bubble">
+                Система активирована. Я — ИИ-архитектор промптов уровня Senior.<br><br>Напиши <b>«создай промт»</b> (или любой синоним), и я проведу тебя через профессиональный фреймворк для сборки идеального запроса.
+              </div>
             </div>
           </div>
 
           <!-- Поле ввода -->
           <div class="chat-input-wrapper">
-            <input type="text" id="chat-input" class="chat-input" placeholder="Введите команду..." autocomplete="off">
+            <input type="text" id="chat-input" class="chat-input" placeholder="Введите 'промт' для старта..." autocomplete="off">
             <button class="chat-btn" onclick="handleChatSubmit()">></button>
           </div>
 
@@ -269,7 +286,7 @@
 
   <script>
     // ==========================================
-    // 0. СИСТЕМА КОПИРОВАНИЯ (С ДЕЛЕГИРОВАНИЕМ ДЛЯ ЧАТА)
+    // 0. СИСТЕМА КОПИРОВАНИЯ (ДЕЛЕГИРОВАНИЕ ДЛЯ ЧАТА)
     // ==========================================
     document.addEventListener('click', (e) => {
       if (e.target.classList.contains('term-copy')) {
@@ -291,15 +308,21 @@
       }
     });
 
+    // Функция для обработки кликов по чипсам-подсказкам в чате
+    function chipClick(text) {
+      document.getElementById('chat-input').value = text;
+      handleChatSubmit();
+    }
+
     // ==========================================
-    // 1. NEXUS-01 CHAT ENGINE (УМНАЯ STATE MACHINE)
+    // 1. NEXUS-01 EXPERT CHAT ENGINE (SMART STATE MACHINE)
     // ==========================================
     const chatHistory = document.getElementById('chat-history');
     const chatInput = document.getElementById('chat-input');
     
-    // Состояния: IDLE, ASK_ROLE, ASK_TASK, ASK_CONTEXT, ASK_FORMAT
+    // Состояния: IDLE, ASK_ROLE, ASK_TASK, ASK_CONTEXT, ASK_CONSTRAINTS, ASK_FORMAT
     let chatState = 'IDLE'; 
-    let promptData = { role: '', task: '', context: '', format: '' };
+    let pData = { role: '', task: '', context: '', constraints: '', format: '' };
 
     function scrollToBottom() {
       chatHistory.scrollTop = chatHistory.scrollHeight;
@@ -324,8 +347,7 @@
       scrollToBottom();
     }
 
-    // Имитация печатания
-    function showTyping(callback, delay = 1000) {
+    function showTyping(callback, delay = 800) {
       const wrap = document.createElement('div');
       wrap.className = `msg-wrap msg-ai typing-wrap`;
       const label = document.createElement('div');
@@ -339,78 +361,134 @@
       scrollToBottom();
 
       setTimeout(() => {
-        wrap.remove(); // Удаляем пузырек с точками
-        callback();    // Выводим реальное сообщение
+        wrap.remove(); 
+        callback();    
       }, delay);
     }
 
     function generateFinalPrompt() {
-      let finalPrompt = `Действуй как ${promptData.role}. Твоя задача: ${promptData.task}. `;
-      if (promptData.context.toLowerCase() !== 'нет' && promptData.context !== '-') {
-        finalPrompt += `Контекст: ${promptData.context}. `;
+      // Собираем профессиональный МЕГА-ПРОМПТ
+      let finalPrompt = `Действуй как выдающийся ${pData.role}.\n\n`;
+      finalPrompt += `🎯 ТВОЯ ЗАДАЧА:\n${pData.task}\n\n`;
+      
+      if (pData.context.toLowerCase() !== 'нет' && pData.context !== '-') {
+        finalPrompt += `📚 КОНТЕКСТ:\n${pData.context}\n\n`;
       }
-      finalPrompt += `Формат ответа: ${promptData.format}.`;
+      
+      if (pData.constraints.toLowerCase() !== 'нет' && pData.constraints !== '-') {
+        finalPrompt += `⚠️ ОГРАНИЧЕНИЯ И ПРАВИЛА:\n- ${pData.constraints.replace(/,/g, '\n- ')}\n\n`;
+      }
+      
+      finalPrompt += `📊 ФОРМАТ ОТВЕТА:\n${pData.format}`;
 
       let html = `
-        <div style="margin-top: 5px; font-weight: bold; color: var(--highlight);">Генерация завершена. Ваш идеальный промпт:</div>
-        <div class="volumetric-module" style="margin-top: 15px; margin-bottom: 0; box-shadow: 0 0 15px rgba(183, 0, 255, 0.2);">
-          <div class="term-header">
-            <span>root@nexus:~# output</span>
-            <span class="term-actions"><span class="term-copy" data-copy="${finalPrompt}">[COPY]</span></span>
-          </div>
-          <div class="term-body">
-            <span class="cmd" style="color: var(--core-purple);">AI></span>${finalPrompt}
-          </div>
+        <div style="font-weight: bold; color: var(--highlight);">Синтез завершен. Ваш профессиональный промпт готов:</div>
+        <div class="pro-prompt">
+<span class="h"># СИСТЕМНАЯ РОЛЬ</span>
+Действуй как выдающийся ${pData.role}.
+
+<span class="h"># ЗАДАЧА</span>
+${pData.task}
+${pData.context.toLowerCase() !== 'нет' ? `\n<span class="h"># КОНТЕКСТ</span>\n${pData.context}` : ''}
+${pData.constraints.toLowerCase() !== 'нет' ? `\n<span class="h"># ПРАВИЛА</span>\n- ${pData.constraints.replace(/,/g, '\n- ')}` : ''}
+
+<span class="h"># ФОРМАТ</span>
+${pData.format}
+        </div>
+        <div style="margin-top: 10px;">
+          <span class="term-copy" data-copy="${finalPrompt}" style="display:inline-block; padding: 6px 12px; background: var(--core-cyan); color: #000; border-radius: 4px; cursor: pointer; font-weight: bold;">[COPY TO CLIPBOARD]</span>
         </div>
       `;
+      
       showTyping(() => {
         appendMessage('ai', html, true);
         chatState = 'IDLE';
-        promptData = { role: '', task: '', context: '', format: '' };
-      }, 1500); // Чуть дольше "думает" перед выдачей результата
+        pData = { role: '', task: '', context: '', constraints: '', format: '' };
+        
+        // Предлагаем начать заново
+        setTimeout(() => {
+           appendMessage('ai', 'Для генерации нового запроса просто напишите <b>"создай промт"</b>.', true);
+        }, 2000);
+      }, 1500); 
     }
 
+    // ЛОГИКА ИНТЕРВЬЮ С УЛУЧШЕННЫМ REGEX
     function processAiLogic(input) {
       const lowerInput = input.toLowerCase();
 
-      // Мощный Regex триггер (ловит опечатки типа "промт", "сгенерируй", "запрос")
       if (chatState === 'IDLE') {
+        // Улавливаем любые опечатки и вариации
         if (/(промпт|промт|prompt|запрос|сгенерируй|создай|напиши)/i.test(lowerInput)) {
           chatState = 'ASK_ROLE';
           showTyping(() => {
-            appendMessage('ai', 'Инициализация генератора промптов. Шаг 1/4: Какую **РОЛЬ** должен сыграть ИИ? <br><br><span style="color:#94a3b8; font-size:0.75rem;">(Например: Senior DevOps инженер, Специалист по охране труда, Маркетолог или Flutter-разработчик)</span>', true);
-          }, 800);
+            let msg = `Инициализация фреймворка R-T-C-F. <br><br><b>ШАГ 1/5: РОЛЬ (Role)</b><br>От чьего лица должен действовать ИИ? Выберите из частых или напишите свою:
+              <div class="chat-chips">
+                <span class="chat-chip" onclick="chipClick('Senior Web Developer')">Senior Developer</span>
+                <span class="chat-chip" onclick="chipClick('Chief Strategy Officer')">CSO (Стратег)</span>
+                <span class="chat-chip" onclick="chipClick('Копирайтер')">Креативный Копирайтер</span>
+              </div>`;
+            appendMessage('ai', msg, true);
+          });
         } else {
            showTyping(() => {
-             appendMessage('ai', 'Запрос принят, но не распознан как команда генерации. Для запуска экспертного алгоритма используйте слова: <b>промт</b>, <b>создай</b> или <b>запрос</b>.', true);
-           }, 600);
+             appendMessage('ai', 'Для запуска экспертного алгоритма генерации, напишите <b>"дай промт"</b> или <b>"создай запрос"</b>.', true);
+           });
         }
         return;
       }
 
       if (chatState === 'ASK_ROLE') {
-        promptData.role = input;
+        pData.role = input;
         chatState = 'ASK_TASK';
         showTyping(() => {
-          appendMessage('ai', `Роль [${input}] принята. Шаг 2/4: Какова главная **ЗАДАЧА**? Что именно должен сделать ИИ?`, true);
-        }, 800);
+          let msg = `Роль зафиксирована. <br><br><b>ШАГ 2/5: ЗАДАЧА (Task)</b><br>Какова главная цель? Что конкретно нужно сделать?
+          <div class="chat-chips">
+                <span class="chat-chip" onclick="chipClick('Провести код-ревью и найти уязвимости')">Код-ревью</span>
+                <span class="chat-chip" onclick="chipClick('Написать продающий текст для лендинга')">Текст для лендинга</span>
+              </div>`;
+          appendMessage('ai', msg, true);
+        });
       } 
       else if (chatState === 'ASK_TASK') {
-        promptData.task = input;
+        pData.task = input;
         chatState = 'ASK_CONTEXT';
         showTyping(() => {
-          appendMessage('ai', 'Задача зафиксирована. Шаг 3/4: Есть ли важный **КОНТЕКСТ** или фоновая информация, которую нужно учесть? <br><br><span style="color:#94a3b8; font-size:0.75rem;">(Например: "У нас гостиничный бизнес" или "Сервер падает при пинг-атаках". Если контекста нет, напишите "нет").</span>', true);
-        }, 1000);
+          let msg = `Отлично. <br><br><b>ШАГ 3/5: КОНТЕКСТ (Context)</b><br>Есть ли фоновая информация? Для кого мы это делаем? Какова наша ситуация?
+          <div class="chat-chips">
+                <span class="chat-chip" onclick="chipClick('Мы стартап, целевая аудитория - студенты')">Стартап для студентов</span>
+                <span class="chat-chip" onclick="chipClick('Нет')">Пропустить (Нет)</span>
+              </div>`;
+          appendMessage('ai', msg, true);
+        });
       }
       else if (chatState === 'ASK_CONTEXT') {
-        promptData.context = input;
+        pData.context = input;
+        chatState = 'ASK_CONSTRAINTS'; // НОВЫЙ ШАГ
+        showTyping(() => {
+          let msg = `Контекст учтен. <br><br><b>ШАГ 4/5: ОГРАНИЧЕНИЯ (Constraints)</b><br>Чего ИИ делать <b>НЕ ДОЛЖЕН</b>? Какие есть правила?
+          <div class="chat-chips">
+                <span class="chat-chip" onclick="chipClick('Без воды, не использовать корпоративные штампы, только факты')">Без воды и штампов</span>
+                <span class="chat-chip" onclick="chipClick('Не использовать сторонние библиотеки, только чистый JS')">Только Vanilla JS</span>
+                <span class="chat-chip" onclick="chipClick('Нет')">Пропустить (Нет)</span>
+              </div>`;
+          appendMessage('ai', msg, true);
+        });
+      }
+      else if (chatState === 'ASK_CONSTRAINTS') {
+        pData.constraints = input;
         chatState = 'ASK_FORMAT';
         showTyping(() => {
-          appendMessage('ai', 'Контекст добавлен. Шаг 4/4: В каком **ФОРМАТЕ** нужен ответ? <br><br><span style="color:#94a3b8; font-size:0.75rem;">(Например: Markdown таблица, строгий бюрократический тон, JSON-формат, без воды...)</span>', true);
-        }, 800);
+          let msg = `Понял. <br><br><b>ШАГ 5/5: ФОРМАТ (Format)</b><br>В каком виде выдать результат?
+          <div class="chat-chips">
+                <span class="chat-chip" onclick="chipClick('Строгая Markdown таблица')">Markdown Таблица</span>
+                <span class="chat-chip" onclick="chipClick('JSON формат')">JSON</span>
+                <span class="chat-chip" onclick="chipClick('Нумерованный пошаговый список')">Список (Step-by-step)</span>
+              </div>`;
+          appendMessage('ai', msg, true);
+        });
       }
       else if (chatState === 'ASK_FORMAT') {
-        promptData.format = input;
+        pData.format = input;
         generateFinalPrompt();
       }
     }
@@ -420,8 +498,6 @@
       if (!val) return;
       appendMessage('user', val);
       chatInput.value = '';
-      
-      // Запускаем логику сразу, задержки внутри (showTyping)
       processAiLogic(val);
     }
 
@@ -430,7 +506,7 @@
     });
 
     // ==========================================
-    // 2. SMART SPOTLIGHT LOGIC (МАГИЯ ИНТЕРФЕЙСА)
+    // 2. SMART SPOTLIGHT LOGIC 
     // ==========================================
     const cards = document.querySelectorAll('.spotlight-card');
     cards.forEach(card => {
@@ -449,7 +525,6 @@
     const bootProgress = document.getElementById('boot-progress');
     const bootText = document.getElementById('boot-text');
     let loadVal = 0;
-    
     const bootInterval = setInterval(() => {
       loadVal += Math.random() * 15;
       if (loadVal > 100) loadVal = 100;
@@ -499,7 +574,7 @@
     });
 
     document.addEventListener('mousedown', (e) => {
-      if(e.target.closest('.data-card')) return;
+      if(e.target.closest('.data-card') || e.target.closest('.chat-input-wrapper')) return;
       shockwave.active = true;
       shockwave.radius = 10;
       shockwave.intensity = 1.0;
@@ -538,16 +613,6 @@
         x: 0, y: 0, z: 0, screenX: 0, screenY: 0, scale: 0, vx: 0, vy: 0 
       });
     }
-
-    let dataPackets = [];
-    let streamSourceRect = null;
-    let isStreaming = false;
-
-    window.startDataStream = function(el) {
-      streamSourceRect = el.getBoundingClientRect();
-      isStreaming = true;
-    }
-    window.stopDataStream = function() { isStreaming = false; }
 
     let time = 0;
     let cameraRotX = 0;
@@ -600,16 +665,6 @@
         let fov = 1100;
         let scale = fov / (fov + finalZ + 800); 
         return { screenX: cx + x1 * scale, screenY: cy + y1 * scale, scale: scale, z: finalZ };
-      }
-
-      if (isStreaming && streamSourceRect && Math.random() > 0.5) {
-        let startX = streamSourceRect.left > width / 2 ? streamSourceRect.left : streamSourceRect.right;
-        let startY = streamSourceRect.top + Math.random() * streamSourceRect.height;
-        dataPackets.push({
-          x: startX, y: startY,
-          targetX: cx + (Math.random() - 0.5) * 50, targetY: cy + (Math.random() - 0.5) * 50,
-          progress: 0, speed: 0.02 + Math.random() * 0.03
-        });
       }
 
       let renderQueue = []; 
@@ -712,29 +767,6 @@
              ctx.beginPath(); ctx.arc(n.screenX, n.screenY, 0.8 * n.scale, 0, Math.PI*2); ctx.fill();
           }
         }
-      }
-
-      for (let i = dataPackets.length - 1; i >= 0; i--) {
-        let pkt = dataPackets[i];
-        pkt.progress += pkt.speed;
-        let easeProgress = Math.pow(pkt.progress, 2); 
-        let currX = pkt.x + (pkt.targetX - pkt.x) * easeProgress;
-        let currY = pkt.y + (pkt.targetY - pkt.y) * easeProgress;
-
-        if (pkt.progress > 0.8) {
-           let angle = pkt.progress * Math.PI * 10;
-           let spiralRadius = (1 - pkt.progress) * 50;
-           currX += Math.cos(angle) * spiralRadius;
-           currY += Math.sin(angle) * spiralRadius;
-        }
-
-        ctx.fillStyle = `rgba(0, 255, 255, ${1 - pkt.progress})`;
-        ctx.beginPath();
-        let stretch = 2 + (easeProgress * 15);
-        ctx.ellipse(currX, currY, stretch, 1.5, Math.atan2(pkt.targetY - pkt.y, pkt.targetX - pkt.x), 0, Math.PI * 2);
-        ctx.fill();
-
-        if (pkt.progress >= 1) dataPackets.splice(i, 1);
       }
 
       ctx.globalCompositeOperation = 'source-over';
