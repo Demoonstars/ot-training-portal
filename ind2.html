@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>AURA OS // Нейросетевая среда обучения</title>
+  <title>AURA CORE // Neural Space</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,71 +10,70 @@
 
   <style>
     /* =========================================
-       GLOBAL VARIABLES & RESET
+       DEEP SPACE NEURAL THEME
        ========================================= */
     :root {
-      --space-black: #02040a;
-      --neon-blue: #00f0ff;
-      --neon-purple: #b026ff;
-      --glass-bg: rgba(7, 10, 20, 0.75);
-      --glass-border: rgba(0, 240, 255, 0.25);
+      --bg-core: #090212; /* Глубокий фиолетово-черный */
+      --neon-purple: #9d00ff;
+      --neon-magenta: #ff00ff;
+      --neon-cyan: #00f0ff;
+      --beam-light: rgba(255, 255, 255, 0.9);
+      
+      --glass-bg: rgba(9, 2, 18, 0.65);
+      --glass-border: rgba(157, 0, 255, 0.3);
       --text-main: #e2e8f0;
-      --text-muted: #94a3b8;
-      --alert-red: #ff003c;
+      --text-muted: #8b79a5;
     }
 
     * { box-sizing: border-box; }
     body, html {
       margin: 0; padding: 0; width: 100vw; height: 100vh;
-      overflow: hidden; background-color: var(--space-black);
+      overflow: hidden; background-color: var(--bg-core);
       font-family: 'Inter', sans-serif; color: var(--text-main);
       user-select: none;
     }
 
-    /* =========================================
-       CANVAS & BACKGROUND
-       ========================================= */
-    #ai-core-canvas { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; }
-    
-    .vignette {
-      position: absolute; inset: 0; z-index: 2; pointer-events: none;
-      background: radial-gradient(circle at center, transparent 10%, rgba(2, 4, 10, 0.95) 100%);
+    /* Эффект старых мониторов / сканлайны для "живого" пространства */
+    .scanlines {
+      position: absolute; inset: 0; z-index: 5; pointer-events: none;
+      background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+      background-size: 100% 4px; opacity: 0.3;
     }
 
+    #ai-canvas { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; }
+
     /* =========================================
-       TOP BAR
+       SYSTEM TOP BAR & DOCK
        ========================================= */
     .sys-bar {
       position: absolute; top: 0; left: 0; width: 100%; height: 40px;
-      background: rgba(0,0,0,0.8); border-bottom: 1px solid var(--glass-border);
+      background: rgba(0,0,0,0.5); border-bottom: 1px solid var(--glass-border);
       display: flex; justify-content: space-between; align-items: center;
       padding: 0 20px; z-index: 100; font-family: 'JetBrains Mono', monospace;
       font-size: 0.75rem; letter-spacing: 1px; backdrop-filter: blur(10px);
     }
-    .sys-status { display: flex; align-items: center; gap: 15px; color: var(--neon-blue); }
-    .blinking-dot { width: 8px; height: 8px; background: var(--neon-blue); border-radius: 50%; box-shadow: 0 0 10px var(--neon-blue); animation: blink 1s infinite; }
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .sys-status { display: flex; align-items: center; gap: 15px; color: var(--neon-cyan); }
+    .blinking-dot { width: 8px; height: 8px; background: var(--neon-magenta); border-radius: 50%; box-shadow: 0 0 15px var(--neon-magenta); animation: blink 1s infinite; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
     
-    /* =========================================
-       DOCK LAUNCHER
-       ========================================= */
     .os-dock {
       position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-      background: rgba(10, 15, 30, 0.8); border: 1px solid var(--glass-border);
-      border-radius: 20px; padding: 12px 25px; display: flex; gap: 25px;
-      z-index: 100; backdrop-filter: blur(20px); box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+      background: rgba(9, 2, 18, 0.85); border: 1px solid var(--glass-border);
+      border-radius: 24px; padding: 12px 25px; display: flex; gap: 25px;
+      z-index: 100; backdrop-filter: blur(20px); box-shadow: 0 10px 40px rgba(0,0,0,0.9), 0 0 20px rgba(157, 0, 255, 0.2);
     }
     .dock-icon {
-      width: 55px; height: 55px; border-radius: 12px; background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: center; align-items: center;
-      font-size: 1.8rem; cursor: pointer; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      width: 55px; height: 55px; border-radius: 14px; background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: center; align-items: center;
+      font-size: 1.8rem; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
     }
-    .dock-icon:hover { transform: translateY(-15px) scale(1.15); background: rgba(0, 240, 255, 0.2); border-color: var(--neon-blue); box-shadow: 0 0 25px rgba(0, 240, 255, 0.4); }
+    .dock-icon:hover { transform: translateY(-15px) scale(1.15); background: rgba(157, 0, 255, 0.2); border-color: var(--neon-magenta); box-shadow: 0 0 25px rgba(157, 0, 255, 0.5); }
+    
     .dock-label {
       position: absolute; top: -35px; font-family: 'JetBrains Mono'; font-size: 0.75rem;
-      background: #000; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--neon-blue);
-      color: var(--neon-blue); opacity: 0; transition: 0.2s; pointer-events: none; white-space: nowrap;
+      background: #000; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--neon-magenta);
+      color: var(--neon-magenta); opacity: 0; transition: 0.2s; pointer-events: none; white-space: nowrap;
     }
     .dock-icon:hover .dock-label { opacity: 1; transform: translateY(-5px); }
 
@@ -82,200 +81,199 @@
        HOLO WINDOWS
        ========================================= */
     .holo-window {
-      position: absolute; width: 650px; height: 500px;
+      position: absolute; width: 750px; height: 550px;
       background: var(--glass-bg); border: 1px solid var(--glass-border);
-      border-radius: 16px; backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-      box-shadow: inset 0 0 20px rgba(0,240,255,0.05), 0 25px 50px rgba(0,0,0,0.8);
+      border-radius: 16px; backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+      box-shadow: inset 0 0 20px rgba(157, 0, 255, 0.1), 0 25px 60px rgba(0,0,0,0.9);
       display: none; flex-direction: column; z-index: 10;
-      transition: opacity 0.3s, filter 0.3s;
-      overflow: hidden; resize: both; min-width: 500px; min-height: 400px;
+      transition: opacity 0.3s, filter 0.3s; overflow: hidden; resize: both; min-width: 600px; min-height: 400px;
     }
-    .holo-window.active { display: flex; animation: windowOpen 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-    .holo-window.focus { z-index: 50; box-shadow: inset 0 0 20px rgba(0,240,255,0.15), 0 0 40px rgba(0,240,255,0.25); border-color: var(--neon-blue); filter: blur(0px); }
-    .holo-window.active:not(.focus) { filter: blur(2px); opacity: 0.8; }
+    .holo-window.active { display: flex; animation: windowOpen 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    .holo-window.focus { z-index: 50; box-shadow: inset 0 0 30px rgba(157, 0, 255, 0.2), 0 0 50px rgba(157, 0, 255, 0.15); border-color: var(--neon-magenta); filter: blur(0px); }
+    .holo-window.active:not(.focus) { filter: blur(3px); opacity: 0.6; }
     
-    @keyframes windowOpen { from { opacity: 0; transform: scale(0.95) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    @keyframes windowOpen { from { opacity: 0; transform: scale(0.9) translateY(30px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
     .window-header {
-      background: rgba(0,0,0,0.6); padding: 15px 25px; border-bottom: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.7); padding: 15px 25px; border-bottom: 1px solid rgba(255,255,255,0.05);
       display: flex; justify-content: space-between; align-items: center; cursor: grab;
     }
     .window-header:active { cursor: grabbing; }
-    .window-title { font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 700; color: var(--neon-blue); letter-spacing: 1px; }
+    .window-title { font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 700; color: var(--neon-cyan); letter-spacing: 1px; }
     
     .window-controls { display: flex; gap: 10px; }
     .win-btn { width: 16px; height: 16px; border-radius: 50%; border: none; cursor: pointer; transition: 0.2s; }
-    .win-close { background: var(--alert-red); opacity: 0.7; }
-    .win-close:hover { opacity: 1; box-shadow: 0 0 15px var(--alert-red); }
+    .win-close { background: #ff0055; opacity: 0.7; }
+    .win-close:hover { opacity: 1; box-shadow: 0 0 15px #ff0055; }
 
     /* =========================================
-       CONTENT TYPOGRAPHY & SCROLLING
+       CONTENT TYPOGRAPHY & PROMPTS
        ========================================= */
-    .window-content { padding: 30px; overflow-y: auto; flex-grow: 1; user-select: text; }
-    .window-content::-webkit-scrollbar { width: 8px; }
-    .window-content::-webkit-scrollbar-thumb { background: rgba(0,240,255,0.3); border-radius: 10px; }
+    .window-content { padding: 35px; overflow-y: auto; flex-grow: 1; user-select: text; }
+    .window-content::-webkit-scrollbar { width: 6px; }
+    .window-content::-webkit-scrollbar-thumb { background: rgba(157, 0, 255, 0.4); border-radius: 10px; }
 
-    .content-title { font-family: 'Orbitron', sans-serif; font-size: 1.4rem; color: #fff; margin-top: 0; margin-bottom: 15px; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
-    .content-subtitle { font-family: 'JetBrains Mono'; font-size: 1rem; color: var(--neon-purple); margin-top: 25px; margin-bottom: 10px; font-weight: 700; }
-    .content-text { font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 20px; }
-    .highlight { color: #fff; font-weight: 600; }
+    .content-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: #fff; margin-top: 0; margin-bottom: 20px; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; }
+    .content-subtitle { font-family: 'JetBrains Mono'; font-size: 1.05rem; color: var(--neon-cyan); margin-top: 30px; margin-bottom: 12px; font-weight: 700; }
+    .content-text { font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 25px; }
 
     .ai-prompt-block {
-      background: rgba(0,0,0,0.5); border-left: 4px solid var(--neon-blue);
-      padding: 20px; border-radius: 0 12px 12px 0; margin-bottom: 25px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      background: rgba(0,0,0,0.6); border-left: 4px solid var(--neon-purple);
+      padding: 22px; border-radius: 0 12px 12px 0; margin-bottom: 25px;
+      position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     }
-    .prompt-label { font-family: 'JetBrains Mono'; font-size: 0.75rem; color: var(--neon-blue); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
-    .prompt-text { font-family: 'JetBrains Mono'; font-size: 0.95rem; line-height: 1.6; color: #fff; }
+    /* Декоративная линия внутри промпта */
+    .ai-prompt-block::before { content: ''; position: absolute; top: 0; right: 0; width: 100px; height: 1px; background: linear-gradient(90deg, transparent, var(--neon-purple)); }
+    
+    .prompt-label { font-family: 'JetBrains Mono'; font-size: 0.75rem; color: var(--neon-magenta); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+    .prompt-text { font-family: 'JetBrains Mono'; font-size: 0.95rem; line-height: 1.6; color: #e2e8f0; }
     .decode-text { font-family: 'JetBrains Mono', monospace; }
+
+    .highlight-tag { background: rgba(0, 240, 255, 0.1); border: 1px solid rgba(0, 240, 255, 0.3); padding: 2px 6px; border-radius: 4px; color: var(--neon-cyan); font-family: 'JetBrains Mono'; font-size: 0.8rem; }
 
     /* =========================================
        INITIALIZATION SCREEN
        ========================================= */
     #init-screen {
-      position: fixed; inset: 0; background: var(--space-black); z-index: 10000;
+      position: fixed; inset: 0; background: var(--bg-core); z-index: 10000;
       display: flex; flex-direction: column; justify-content: center; align-items: center;
-      transition: opacity 1s;
+      transition: opacity 1.5s ease-out;
     }
     .init-btn {
-      background: transparent; border: 2px solid var(--neon-blue); color: var(--neon-blue);
+      background: transparent; border: 1px solid var(--neon-magenta); color: var(--neon-magenta);
       font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 700;
-      padding: 20px 50px; border-radius: 8px; cursor: pointer; position: relative;
-      overflow: hidden; transition: 0.3s; text-transform: uppercase; letter-spacing: 3px;
+      padding: 20px 60px; border-radius: 4px; cursor: pointer; position: relative;
+      overflow: hidden; transition: 0.3s; text-transform: uppercase; letter-spacing: 4px;
+      box-shadow: inset 0 0 20px rgba(157,0,255,0.1), 0 0 20px rgba(157,0,255,0.2);
     }
-    .init-btn:hover { background: rgba(0, 240, 255, 0.1); box-shadow: 0 0 40px rgba(0,240,255,0.6); }
+    .init-btn:hover { background: rgba(157, 0, 255, 0.15); box-shadow: inset 0 0 30px rgba(157,0,255,0.4), 0 0 50px rgba(157,0,255,0.6); text-shadow: 0 0 10px #fff; }
 
   </style>
 </head>
 <body>
 
-  <!-- INITIALIZATION SCREEN -->
+  <!-- INITIALIZATION -->
   <div id="init-screen">
-    <button class="init-btn" onclick="bootSystem()">ЗАПУСТИТЬ ОБУЧЕНИЕ ИИ</button>
+    <button class="init-btn" onclick="bootSystem()">СИНХРОНИЗАЦИЯ</button>
   </div>
 
-  <!-- CANVAS BACKGROUND (AI FACE SWARM) -->
-  <canvas id="ai-core-canvas"></canvas>
-  <div class="vignette"></div>
+  <!-- NEURAL CANVAS (TOPOGRAPHY & RINGS) -->
+  <canvas id="ai-canvas"></canvas>
+  <div class="scanlines"></div>
 
   <!-- TOP BAR -->
   <div class="sys-bar">
     <div class="sys-status">
       <div class="blinking-dot"></div>
-      <span>NEURAL INTERFACE // СТАТУС: ВЕДЕТСЯ ЗАПИСЬ БАЗЫ ЗНАНИЙ</span>
+      <span>AURA CORE // АКТИВНЫЙ ОПЕРАТОР: АНТОН ЮРЬЕВИЧ</span>
     </div>
     <div id="sys-clock">00:00:00</div>
   </div>
 
-  <!-- WINDOW 1: WORK & BUSINESS (MAXIMIZED CONTENT) -->
-  <div class="holo-window" id="win-work" style="top: 60px; left: 40px; width: 700px; height: 75vh;">
+  <!-- WINDOW 1: MANAGEMENT & OHS -->
+  <div class="holo-window" id="win-work" style="top: 70px; left: 50px; width: 750px; height: 75vh;">
     <div class="window-header">
-      <div class="window-title">📊 MOD_01: УПРАВЛЕНИЕ, СУОТ & МЕНЕДЖМЕНТ</div>
+      <div class="window-title">🛡️ MOD_01: УПРАВЛЕНИЕ, БИЗНЕС И СУОТ</div>
       <div class="window-controls"><button class="win-btn win-close" onclick="closeWindow('win-work')"></button></div>
     </div>
     <div class="window-content">
-      <h2 class="content-title decode-title" data-target="ТЕОРИЯ ПРОМПТ-ИНЖИНИРИНГА">ТЕОРИЯ ПРОМПТ-ИНЖИНИРИНГА</h2>
-      <p class="content-text">Чтобы ИИ выдавал профессиональный результат, а не шаблонный текст, необходимо использовать структуру <span class="highlight">«Роль + Контекст + Задача + Формат»</span>. Нейросеть должна понимать, от чьего лица она действует и для кого пишет.</p>
+      <h2 class="content-title decode-title" data-target="ПРОФЕССИОНАЛЬНЫЙ ПРОМПТ-ИНЖИНИРИНГ">ПРОФЕССИОНАЛЬНЫЙ ПРОМПТ-ИНЖИНИРИНГ</h2>
+      <p class="content-text">Для решения комплексных бизнес-задач используется фреймворк <span class="highlight-tag">CREATE</span> (Context, Request, Explanation, Action, Tone, Extras). Нейросеть выступает в роли эксперта с заданными параметрами организации.</p>
       
-      <h3 class="content-subtitle">// 01. АВТОМАТИЗАЦИЯ ОХРАНЫ ТРУДА</h3>
-      <p class="content-text">Создание внутренних приказов, матриц рисков и протоколов обучения больше не требует долгих часов. ИИ отлично знает Постановление № 2464 и ТК РФ.</p>
+      <h3 class="content-subtitle">// 01. ПОЛИТИКИ И СТРУКТУРНЫЕ ИЗМЕНЕНИЯ</h3>
+      <p class="content-text">Генерация нормативных документов требует строгой привязки к актуальному законодательству и специфике предприятия.</p>
       <div class="ai-prompt-block">
-        <div class="prompt-label" style="color: var(--neon-blue);">Шаблон промпта: Инструктаж и Политика</div>
-        <div class="prompt-text decode-text" data-target='Действуй как Главный специалист по охране труда с 10-летним опытом. Напиши проект приказа о внедрении новой инструкции по пожарной безопасности для сотрудников ООО «Битрейс Телеком». Опирайся на актуальные нормативы. Структура документа должна включать: обоснование, зоны ответственности руководителей отделов и сроки проведения первичного инструктажа. Тон: строгий, корпоративный.'>Загрузка...</div>
+        <div class="prompt-label" style="color: var(--neon-magenta);">PROMPT: Организационные изменения (Битрейс Телеком)</div>
+        <div class="prompt-text decode-text" data-target='Действуй как Главный специалист по охране труда и пожарной безопасности. Разработай структуру организационных изменений для ООО «Битрейс Телеком». Задача: интегрировать новые требования по ПБ с учетом специфики обслуживания телекоммуникационных узлов. Документ должен содержать: 1) Цели изменений, 2) Матрицу распределения ответственности среди руководителей отделов, 3) План-график проведения целевых инструктажей. Тон: официально-деловой, без вводных слов.'>Загрузка...</div>
       </div>
 
-      <h3 class="content-subtitle">// 02. МЕНЕДЖМЕНТ И АНАЛИТИКА</h3>
-      <p class="content-text">Помощь в подготовке академических или презентационных материалов по управлению. Нейросеть может структурировать массив данных.</p>
-      <div class="ai-prompt-block" style="border-left-color: var(--neon-purple);">
-        <div class="prompt-label" style="color: var(--neon-purple);">Шаблон промпта: Подготовка курсовой / Презентации</div>
-        <div class="prompt-text decode-text" data-target='Выступи в роли профессора кафедры гостиничного бизнеса. Сгенерируй детальную структуру презентации (10 слайдов) на тему "Инновационные методы управления гостиничным комплексом" для курсовой работы Екатерины Игоревны. Для каждого слайда пропиши: 1) Заголовок, 2) Основной тезис, 3) Визуальные элементы (что должно быть на картинке или графике).'>Загрузка...</div>
+      <div class="ai-prompt-block">
+        <div class="prompt-label" style="color: var(--neon-magenta);">PROMPT: Инструктаж и СУОТ (Софрино)</div>
+        <div class="prompt-text decode-text" data-target='Выступи в роли эксперта по СУОТ. Подготовь черновик приказа для Парк-Отеля ООО «Софрино» о внедрении новой программы обучения требованиям охраны труда в соответствии с Постановлением № 2464. Обязательно учти специфику работы гостиничного и ресторанного персонала. Выдели отдельным блоком порядок фиксации цифрового следа тестирования.'>Загрузка...</div>
       </div>
-      
-      <h3 class="content-subtitle">// 03. ДЕЛОВАЯ ПЕРЕПИСКА</h3>
-      <div class="ai-prompt-block" style="border-left-color: #00ffaa;">
-        <div class="prompt-label" style="color: #00ffaa;">Шаблон промпта: Сложные письма</div>
-        <div class="prompt-text decode-text" data-target='Напиши официальное письмо подрядчику о срыве сроков поставки серверов. Тон: вежливый, но максимально жесткий с юридической точки зрения. Укажи на нарушение пункта 4.2 договора и потребуй предоставить официальный ответ в течение 24 часов.'>Загрузка...</div>
+
+      <h3 class="content-subtitle" style="color: var(--neon-purple);">// 02. МЕНЕДЖМЕНТ И ПРЕЗЕНТАЦИИ</h3>
+      <p class="content-text">Синтез и структурирование академических и бизнес-материалов.</p>
+      <div class="ai-prompt-block" style="border-left-color: var(--neon-purple);">
+        <div class="prompt-label" style="color: var(--neon-purple);">PROMPT: Защита курсовой работы</div>
+        <div class="prompt-text decode-text" data-target='Сгенерируй профессиональные тексты для презентации и видеоматериалов по курсу "Гостиничный менеджмент". Это необходимо для защиты итоговой работы Екатерины Игоревны Попихиной. Структура: 8 слайдов. Для каждого слайда пропиши: Заголовок, 3 ключевых тезиса для экрана и подробный текст спикера (на 40 секунд речи). Тема: "Оптимизация сервиса в условиях пиковой загрузки отеля".'>Загрузка...</div>
       </div>
     </div>
   </div>
 
   <!-- WINDOW 2: FAMILY & HOBBY -->
-  <div class="holo-window" id="win-family" style="top: 100px; left: 800px; width: 600px; height: 60vh;">
+  <div class="holo-window" id="win-family" style="top: 120px; left: 820px; width: 600px; height: 60vh;">
     <div class="window-header">
-      <div class="window-title">🏠 MOD_02: СЕМЬЯ, ХОББИ & ИГРЫ</div>
+      <div class="window-title">🧬 MOD_02: СЕМЬЯ & СПОРТИВНОЕ ХОББИ</div>
       <div class="window-controls"><button class="win-btn win-close" onclick="closeWindow('win-family')"></button></div>
     </div>
     <div class="window-content">
-      <h2 class="content-title decode-title" data-target="ГЕНЕРАТИВНЫЙ ИИ ДЛЯ ДОМА">ГЕНЕРАТИВНЫЙ ИИ ДЛЯ ДОМА</h2>
-      <p class="content-text">Нейросети обладают невероятным творческим потенциалом, который можно использовать для развития детей или аналитики сложных хобби.</p>
-
-      <h3 class="content-subtitle" style="color: #ff007f;">// 01. ДЕТСКОЕ ОБРАЗОВАНИЕ И КВЕСТЫ</h3>
-      <p class="content-text">Чтобы игра была интересной, ИИ нужно ограничить рамками (возраст, интересы ребенка, место проведения).</p>
+      <h2 class="content-title decode-title" data-target="ПЕРСОНАЛЬНЫЕ АНАЛИТИЧЕСКИЕ МОДЕЛИ">ПЕРСОНАЛЬНЫЕ АНАЛИТИЧЕСКИЕ МОДЕЛИ</h2>
+      
+      <h3 class="content-subtitle" style="color: #ff007f;">// 01. ГЕЙМИФИКАЦИЯ ОБРАЗОВАНИЯ</h3>
       <div class="ai-prompt-block" style="border-left-color: #ff007f;">
-        <div class="prompt-label" style="color: #ff007f;">Шаблон промпта: Интерактивная сказка</div>
-        <div class="prompt-text decode-text" data-target='Действуй как профессиональный детский писатель. Придумай интерактивную сказку-квест для девочки по имени Стеша. Сюжет: она отправляется в волшебный лес, чтобы спасти пропавшую звезду. Вплети в сюжет 3 загадки на логику. После каждой загадки останавливай повествование и жди моего ответа, прежде чем продолжить историю.'>Загрузка...</div>
+        <div class="prompt-label" style="color: #ff007f;">PROMPT: Проектная игра</div>
+        <div class="prompt-text decode-text" data-target='Действуй как детский геймдизайнер. Разработай сценарий интерактивной развивающей игры. Главная героиня — Стеша. Важное правило: обращайся к ней только по имени Стеша. Сюжет должен включать три академические загадки (логика и математика начального уровня), завязанные на спасении сказочных животных. Напиши детальный план проекта и текст ведущего.'>Загрузка...</div>
       </div>
 
-      <h3 class="content-subtitle" style="color: #ffaa00;">// 02. РЫБОЛОВНЫЙ СПОРТ И АНАЛИТИКА</h3>
-      <p class="content-text">ИИ отлично справляется с расчетом физических параметров и подбором оборудования.</p>
-      <div class="ai-prompt-block" style="border-left-color: #ffaa00;">
-        <div class="prompt-label" style="color: #ffaa00;">Шаблон промпта: Расчет снастей</div>
-        <div class="prompt-text decode-text" data-target='Выступи в роли эксперта по спортивной спиннинговой ловле. Сделай расчет оптимального оборудования: какая толщина шнура (в PE) и вес джиг-головки лучше всего подойдут для спиннинга марки Osetr (тест 10-30г), если ловля происходит на реке с сильным течением и глубиной 6 метров?'>Загрузка...</div>
+      <h3 class="content-subtitle" style="color: #00ffaa;">// 02. АНАЛИТИКА ЭКИПИРОВКИ</h3>
+      <p class="content-text">ИИ способен обрабатывать спецификации физических материалов и давать точные рекомендации на основе гидродинамики.</p>
+      <div class="ai-prompt-block" style="border-left-color: #00ffaa;">
+        <div class="prompt-label" style="color: #00ffaa;">PROMPT: Расчет физики снастей</div>
+        <div class="prompt-text decode-text" data-target='Выступи в роли рыболова-спортсмена высшей категории. Дай подробные рекомендации по сборке спиннинговой снасти. Удилище: марка "Osetr". Условия: джиговая ловля, среднее и сильное течение, перепады глубин до 8 метров. Рассчитай оптимальную разрывную нагрузку шнура, размер катушки и вес грузов для обеспечения максимальной чувствительности бланка.'>Загрузка...</div>
       </div>
     </div>
   </div>
 
   <!-- WINDOW 3: DEV & IT -->
-  <div class="holo-window" id="win-code" style="top: 300px; left: 200px; width: 680px; height: 60vh;">
+  <div class="holo-window" id="win-code" style="top: 320px; left: 180px; width: 700px; height: 60vh;">
     <div class="window-header">
-      <div class="window-title">💻 MOD_03: DEV, СЕРВЕРЫ & ОС</div>
+      <div class="window-title">💻 MOD_03: DEV, СЕРВЕРЫ И АРХИТЕКТУРА</div>
       <div class="window-controls"><button class="win-btn win-close" onclick="closeWindow('win-code')"></button></div>
     </div>
     <div class="window-content">
-      <h2 class="content-title decode-title" data-target="СИСТЕМНОЕ АДМИНИСТРИРОВАНИЕ">СИСТЕМНОЕ АДМИНИСТРИРОВАНИЕ</h2>
-      <p class="content-text">ИИ — идеальный напарник для поиска багов, написания скриптов и настройки серверов. Чем больше логов вы ему дадите, тем точнее будет ответ.</p>
+      <h2 class="content-title decode-title" data-target="IT И СИСТЕМНОЕ АДМИНИСТРИРОВАНИЕ">IT И СИСТЕМНОЕ АДМИНИСТРИРОВАНИЕ</h2>
 
-      <h3 class="content-subtitle" style="color: #00ff66;">// 01. ИГРОВЫЕ СЕРВЕРЫ (RUST & MINECRAFT)</h3>
-      <div class="ai-prompt-block" style="border-left-color: #00ff66;">
-        <div class="prompt-label" style="color: #00ff66;">Шаблон промпта: Оптимизация Rust</div>
-        <div class="prompt-text decode-text" data-target='Проанализируй проблему выделенного сервера Rust, который мы настраиваем для совместной игры с Игорем Андреевичем. Сервер лагает при загрузке кастомной карты. Какие команды нужно прописать в bat-файле запуска для правильного распределения Garbage Collector и сетевого протокола Steam?'>Загрузка...</div>
+      <h3 class="content-subtitle" style="color: #00f0ff;">// 01. ОТЛАДКА ИГРОВЫХ СЕРВЕРОВ (RUST / MINECRAFT)</h3>
+      <div class="ai-prompt-block" style="border-left-color: #00f0ff;">
+        <div class="prompt-label" style="color: #00f0ff;">PROMPT: Сетевая инфраструктура Rust</div>
+        <div class="prompt-text decode-text" data-target='Действуй как DevOps-инженер. Мы с товарищем, Игорем Андреевичем Шишковым, сталкиваемся с проблемами подключения к нашему выделенному серверу Rust через Steam. Проанализируй логи (прикрепить ниже). Какие параметры в файле конфигурации и командной строке запуска нужно изменить для устранения потери пакетов и оптимизации пинга?'>Загрузка...</div>
       </div>
       
-      <div class="ai-prompt-block" style="border-left-color: #00ff66;">
-        <div class="prompt-label" style="color: #00ff66;">Шаблон промпта: Конфликт модов</div>
-        <div class="prompt-text decode-text" data-target='Я собираю техническую сборку Minecraft. Как правильно оптимизировать совместную работу модов Create и Create: Aeronautics, чтобы минимизировать нагрузку на процессор при симуляции физики полета?'>Загрузка...</div>
+      <div class="ai-prompt-block" style="border-left-color: #00f0ff;">
+        <div class="prompt-label" style="color: #00f0ff;">PROMPT: Конфликт модификаций Java</div>
+        <div class="prompt-text decode-text" data-target='Я собираю сложную индустриальную сборку Minecraft. Помоги разработать стратегию оптимизации для модов "Create" и "Create: Aeronautics". Напиши оптимальные аргументы запуска Java (JVM Flags) для выделения оперативной памяти и настройки Garbage Collector, чтобы предотвратить просадки TPS при построении сложных механизмов.'>Загрузка...</div>
       </div>
 
-      <h3 class="content-subtitle" style="color: #00ccff;">// 02. ВЕБ-РАЗРАБОТКА (HTML / FLUTTER)</h3>
-      <div class="ai-prompt-block" style="border-left-color: #00ccff;">
-        <div class="prompt-label" style="color: #00ccff;">Шаблон промпта: Баги компиляции</div>
-        <div class="prompt-text decode-text" data-target='Я компилирую приложение на Flutter Web, но получаю ошибку рендеринга слоев CanvasKit при загрузке страницы. Объясни, почему это происходит, и напиши чистый bash-скрипт для принудительной очистки кэша перед новой сборкой.'>Загрузка...</div>
+      <h3 class="content-subtitle" style="color: #b026ff;">// 02. ВЕБ-КОМПИЛЯЦИЯ И ОС</h3>
+      <div class="ai-prompt-block" style="border-left-color: #b026ff;">
+        <div class="prompt-label" style="color: #b026ff;">PROMPT: Сборка Flutter Web</div>
+        <div class="prompt-text decode-text" data-target='Я разработчик. Мое интерактивное приложение на Flutter при компиляции для Web выдает ошибки рендеринга слоев. Напиши подробный алгоритм траблшутинга и предоставь команды терминала для полной очистки кэша фреймворка и принудительной пересборки проекта с использованием HTML-рендерера вместо CanvasKit.'>Загрузка...</div>
       </div>
-
-      <h3 class="content-subtitle" style="color: #fff;">// 03. ОПЕРАЦИОННЫЕ СИСТЕМЫ</h3>
-      <div class="ai-prompt-block" style="border-left-color: #fff;">
-        <div class="prompt-label" style="color: #fff;">Шаблон промпта: Настройка Windows 11</div>
-        <div class="prompt-text decode-text" data-target='Я только что отформатировал компьютер и выполнил чистую установку Windows 11. Напиши пошаговый чеклист и PowerShell-скрипт для отключения встроенной телеметрии, удаления мусорных UWP-приложений и оптимизации системы для игр.'>Загрузка...</div>
+      
+      <div class="ai-prompt-block" style="border-left-color: #b026ff;">
+        <div class="prompt-label" style="color: #b026ff;">PROMPT: Clean Install Windows 11</div>
+        <div class="prompt-text decode-text" data-target='Я только что отформатировал SSD и установил чистую Windows 11. Напиши комплексный PowerShell-скрипт для настройки "чистой" рабочей среды: отключение телеметрии, удаление предустановленного мусора (Bloatware) и оптимизация служб для программирования и игр.'>Загрузка...</div>
       </div>
     </div>
   </div>
 
   <!-- DOCK -->
   <div class="os-dock">
-    <div class="dock-icon" onclick="openWindow('win-work')" style="color: var(--neon-blue);">
-      <span class="dock-label">Управление_Бизнес</span>📊
+    <div class="dock-icon" onclick="openWindow('win-work')" style="color: var(--neon-cyan);">
+      <span class="dock-label">Управление_СУОТ</span>🛡️
     </div>
     <div class="dock-icon" onclick="openWindow('win-family')" style="color: #ff007f;">
-      <span class="dock-label">Семья_Хобби</span>🏠
+      <span class="dock-label">Семья_Спорт</span>🧬
     </div>
-    <div class="dock-icon" onclick="openWindow('win-code')" style="color: #00ff66;">
-      <span class="dock-label">Dev_Серверы</span>💻
+    <div class="dock-icon" onclick="openWindow('win-code')" style="color: var(--neon-purple);">
+      <span class="dock-label">Dev_Инфраструктура</span>💻
     </div>
   </div>
 
   <script>
     // ==========================================
-    // 1. ИНИЦИАЛИЗАЦИЯ И ДЕКОДЕР ТЕКСТА
+    // 1. ИНИЦИАЛИЗАЦИЯ И ДЕКОДЕР
     // ==========================================
     function bootSystem() {
       const initScreen = document.getElementById('init-screen');
@@ -283,10 +281,10 @@
       setTimeout(() => {
         initScreen.style.display = 'none';
         openWindow('win-work');
-      }, 1000);
+      }, 1500);
     }
 
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>";
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>/\\|[]";
     function decodeText(element) {
       const targetText = element.getAttribute('data-target');
       let iterations = 0;
@@ -297,12 +295,12 @@
           return chars[Math.floor(Math.random() * chars.length)];
         }).join("");
         if (iterations >= targetText.length) clearInterval(interval);
-        iterations += 1.5; // Ускоренная расшифровка
-      }, 15);
+        iterations += 1.5; 
+      }, 10);
     }
 
     // ==========================================
-    // 2. ОКОННЫЙ МЕНЕДЖЕР (DRAG & DROP)
+    // 2. ОКОННЫЙ МЕНЕДЖЕР
     // ==========================================
     let zIndexCounter = 10;
     
@@ -310,7 +308,6 @@
       const win = document.getElementById(id);
       if(!win.classList.contains('active')) {
         win.classList.add('active');
-        // Запускаем расшифровку только заголовков и промптов для красоты
         win.querySelectorAll('.decode-text, .decode-title').forEach(el => decodeText(el));
       }
       focusWindow(win);
@@ -346,123 +343,142 @@
     setInterval(() => { document.getElementById('sys-clock').innerText = new Date().toLocaleTimeString('ru-RU'); }, 1000);
 
     // ==========================================
-    // 3. МАГИЯ CANVAS (ЛЕТЯЩЕЕ ЛИЦО ИИ)
+    // 3. CANVAS: КОНЦЕНТРИЧЕСКИЕ ВОЛНЫ + ТОПОГРАФИЧЕСКОЕ ЛИЦО
     // ==========================================
-    const canvas = document.getElementById('ai-core-canvas');
+    const canvas = document.getElementById('ai-canvas');
     const ctx = canvas.getContext('2d');
     let width, height, centerX, centerY;
-    let particles = [];
-    let mouse = { x: -1000, y: -1000, radius: 150 };
-
+    let mouse = { x: -1000, y: -1000, radius: 200 };
+    let rings = [];
+    
     function resize() { 
       width = canvas.width = window.innerWidth; 
       height = canvas.height = window.innerHeight; 
-      centerX = width / 2;
-      centerY = height / 2;
+      centerX = width / 2; centerY = height / 2;
     }
-    window.addEventListener('resize', resize);
-    resize();
+    window.addEventListener('resize', resize); resize();
     document.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
 
-    // Класс частицы, летающей по орбите конкретной "черты лица"
-    class FaceParticle {
-      constructor(feature) {
-        this.feature = feature; // 'head', 'leftEye', 'rightEye', 'mouth'
-        this.angle = Math.random() * Math.PI * 2;
-        this.speed = (Math.random() * 0.015) + 0.005; // Разная скорость вращения
-        this.radiusOffset = (Math.random() * 30) - 15; // Хаотичный разброс
-        this.size = Math.random() * 2 + 0.5;
-        this.color = Math.random() > 0.4 ? 'rgba(0, 240, 255, 0.8)' : 'rgba(176, 38, 255, 0.8)';
-        this.x = centerX;
-        this.y = centerY;
-      }
+    // Инициализация пульсирующих колец фона
+    for(let i=0; i<8; i++) {
+      rings.push({ radius: i * 150, speed: 0.5 + Math.random()*0.5 });
+    }
 
-      update() {
-        this.angle += this.speed;
-        let targetX, targetY;
-
-        // Математически задаем орбиты для черт лица
-        if (this.feature === 'head') {
-          // Овал головы
-          targetX = centerX + Math.cos(this.angle) * (160 + this.radiusOffset);
-          targetY = centerY + Math.sin(this.angle) * (220 + this.radiusOffset);
-        } else if (this.feature === 'leftEye') {
-          // Левый глаз
-          targetX = centerX - 60 + Math.cos(this.angle) * (20 + this.radiusOffset);
-          targetY = centerY - 50 + Math.sin(this.angle) * (15 + this.radiusOffset);
-        } else if (this.feature === 'rightEye') {
-          // Правый глаз
-          targetX = centerX + 60 + Math.cos(this.angle) * (20 + this.radiusOffset);
-          targetY = centerY - 50 + Math.sin(this.angle) * (15 + this.radiusOffset);
-        } else if (this.feature === 'mouth') {
-          // Рот (Используем модуль синуса для создания изгиба "улыбки")
-          targetX = centerX + Math.cos(this.angle) * (60 + this.radiusOffset);
-          targetY = centerY + 80 + Math.abs(Math.sin(this.angle)) * 25 + (this.radiusOffset * 0.5);
-        }
-
-        // Взаимодействие с курсором (разлетаются при наведении мыши)
-        let dx = mouse.x - targetX;
-        let dy = mouse.y - targetY;
-        let distance = Math.sqrt(dx * dx + dy * dy);
+    // Процедурная генерация линий, формирующих 3D-лицо
+    const lines = [];
+    const numLines = 60;
+    const pointsPerLine = 100;
+    
+    for(let i = 0; i < numLines; i++) {
+      let points = [];
+      let baseY = (i / numLines) * 400 - 200; // От -200 до 200 по оси Y (центр лица)
+      
+      for(let j = 0; j <= pointsPerLine; j++) {
+        let baseX = (j / pointsPerLine) * 300 - 150; // От -150 до 150 по оси X
         
-        if (distance < mouse.radius) {
-          let force = (mouse.radius - distance) / mouse.radius;
-          targetX -= (dx / distance) * force * 100;
-          targetY -= (dy / distance) * force * 100;
-        }
+        // Математическое искажение глубины (Z) для имитации формы головы
+        let z = 0;
+        let distFromCenter = Math.sqrt(baseX*baseX + baseY*baseY);
+        
+        // Базовая сфера головы
+        if (distFromCenter < 150) z += Math.cos(distFromCenter / 150 * Math.PI / 2) * 50;
+        // Надбровные дуги
+        if (baseY > -60 && baseY < -20 && Math.abs(baseX) < 70) z += 15;
+        // Нос
+        if (baseY > -20 && baseY < 40 && Math.abs(baseX) < 20) z += 35 - Math.abs(baseX);
+        // Глазные впадины
+        if (baseY > -40 && baseY < 0 && Math.abs(baseX) > 20 && Math.abs(baseX) < 60) z -= 15;
+        // Подбородок
+        if (baseY > 80 && baseY < 140 && Math.abs(baseX) < 40) z += 20;
 
-        // Плавное следование к целевой точке (создает эффект полета/шлейфа)
-        this.x += (targetX - this.x) * 0.05;
-        this.y += (targetY - this.y) * 0.05;
+        points.push({ x: baseX, y: baseY, z: z, originalZ: z });
       }
-
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-      }
+      lines.push(points);
     }
 
-    // Инициализация роя частиц
-    function initSwarm() {
-      particles = [];
-      // Добавляем частицы пропорционально размерам черт
-      for(let i=0; i<300; i++) particles.push(new FaceParticle('head'));
-      for(let i=0; i<80; i++) particles.push(new FaceParticle('leftEye'));
-      for(let i=0; i<80; i++) particles.push(new FaceParticle('rightEye'));
-      for(let i=0; i<120; i++) particles.push(new FaceParticle('mouth'));
-    }
+    let time = 0;
 
-    function animateSwarm() {
-      // Очистка с эффектом шлейфа (движение частиц оставляет след)
-      ctx.fillStyle = 'rgba(2, 4, 10, 0.15)'; 
+    function animateCanvas() {
+      // Глубокий темный фон
+      ctx.fillStyle = '#090212';
       ctx.fillRect(0, 0, width, height);
       
-      particles.forEach(p => { p.update(); p.draw(); });
+      time += 0.02;
 
-      // Рисуем нейронные связи (линии между близкими частицами)
-      ctx.strokeStyle = 'rgba(0, 240, 255, 0.05)';
-      ctx.lineWidth = 0.5;
+      // 1. РИСУЕМ КОНЦЕНТРИЧЕСКИЕ ВОЛНЫ И ЛУЧ (КАК НА ИЗОБРАЖЕНИИ)
+      ctx.lineWidth = 1;
+      rings.forEach(ring => {
+        ring.radius += ring.speed;
+        if(ring.radius > width) ring.radius = 0;
+        
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, ring.radius, 0, Math.PI * 2);
+        let opacity = 1 - (ring.radius / (width/1.5));
+        if(opacity < 0) opacity = 0;
+        
+        ctx.strokeStyle = `rgba(157, 0, 255, ${opacity * 0.3})`;
+        // Пунктирный паттерн для техно-стиля
+        ctx.setLineDash([4, 8, 15, 8]);
+        ctx.stroke();
+      });
+      ctx.setLineDash([]); // Сброс
+
+      // Вертикальный центральный луч
+      let gradient = ctx.createLinearGradient(centerX, 0, centerX, height);
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 0)');
+      gradient.addColorStop(0.2, 'rgba(255, 255, 255, 0.8)');
+      gradient.addColorStop(0.5, 'rgba(157, 0, 255, 0.5)');
+      gradient.addColorStop(1, 'rgba(0, 240, 255, 0)');
+      
       ctx.beginPath();
-      for(let i=0; i<particles.length; i+=4) { // Шаг 4 для оптимизации
-        for(let j=i+1; j<particles.length; j+=4) {
-          let dx = particles[i].x - particles[j].x;
-          let dy = particles[i].y - particles[j].y;
-          if(dx*dx + dy*dy < 2000) { // Если частицы близко
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-          }
-        }
-      }
+      ctx.moveTo(centerX, 0);
+      ctx.lineTo(centerX, height);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = gradient;
       ctx.stroke();
 
-      requestAnimationFrame(animateSwarm);
+      // 2. РИСУЕМ ТОПОГРАФИЧЕСКОЕ ЛИЦО ИЗ ЛИНИЙ
+      ctx.lineWidth = 1.5;
+      
+      for(let i = 0; i < lines.length; i++) {
+        ctx.beginPath();
+        for(let j = 0; j < lines[i].length; j++) {
+          let pt = lines[i][j];
+          
+          // Легкая "дыхательная" анимация
+          pt.z = pt.originalZ + Math.sin(time + pt.y/20 + pt.x/20) * 3;
+
+          // Проекция 3D в 2D (Изометрия с перспективой)
+          let screenX = centerX + pt.x * 2.5;
+          let screenY = centerY + pt.y * 2.5 - pt.z * 2.5; // Z поднимает линию вверх
+
+          // Реакция на мышь (отталкивание материи)
+          let dx = mouse.x - screenX;
+          let dy = mouse.y - screenY;
+          let dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < mouse.radius) {
+            let force = (mouse.radius - dist) / mouse.radius;
+            screenY += force * 40; // Продавливаем линии вниз при наведении
+          }
+
+          if(j === 0) ctx.moveTo(screenX, screenY);
+          else ctx.lineTo(screenX, screenY);
+        }
+        
+        // Цвет линий: градиент от фиолетового к циану в зависимости от высоты (Z)
+        let lineY = lines[i][0].y;
+        let r = 157; 
+        let g = Math.max(0, Math.min(240, (lineY + 200) / 400 * 240)); 
+        let b = 255;
+        
+        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, 0.8)`;
+        ctx.stroke();
+      }
+
+      requestAnimationFrame(animateCanvas);
     }
     
-    initSwarm();
-    animateSwarm();
-
+    animateCanvas();
   </script>
 </body>
 </html>
