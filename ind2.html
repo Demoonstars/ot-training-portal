@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>AURA CORE // Adaptive Matrix OS</title>
+  <title>AURA CORE // Universal AI Terminal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,12 +17,11 @@
       --core-cyan: #00ffff;
       --core-blue: #0055ff;
       --core-purple: #b700ff;
-      --stress-red: #ff3300;
       
-      --panel-bg: rgba(2, 5, 10, 0.55);
-      --panel-border: rgba(0, 255, 255, 0.15);
+      --panel-bg: rgba(4, 7, 12, 0.65);
+      --panel-border: rgba(0, 255, 255, 0.2);
       --text-main: #e2e8f0;
-      --text-dim: #475569;
+      --text-dim: #64748b;
       --highlight: #38bdf8;
     }
 
@@ -32,89 +31,89 @@
       overflow: hidden; background-color: var(--bg-void);
       font-family: 'Inter', sans-serif; color: var(--text-main);
       user-select: none; cursor: crosshair;
-      perspective: 1000px; /* Для 3D параллакса UI */
     }
 
     #quantum-mirror-engine { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2; }
     #post-processing { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 3; pointer-events: none; mix-blend-mode: screen; display: none; }
 
     /* =========================================
-       HUD PANELS (ADAPTIVE COMMAND CENTER)
+       HUD PANELS (MONOLITHIC COMMAND CENTER)
        ========================================= */
+    /* Убрали 3D трансформации, оставили строгую фиксацию */
     .hud-layer {
       position: absolute; inset: 0; z-index: 10; pointer-events: none;
       display: flex; justify-content: space-between; padding: 40px;
-      transition: transform 0.1s ease-out; /* Плавный параллакс */
-      transform-style: preserve-3d;
     }
     
     .hud-container {
-      width: 440px; display: flex; flex-direction: column; gap: 20px;
+      width: 460px; display: flex; flex-direction: column; gap: 20px;
       pointer-events: none; height: 100%; justify-content: center;
     }
     .hud-container > * { pointer-events: auto; }
 
-    /* Адаптивность для меньших экранов (Планшеты) */
-    @media (max-width: 1400px) {
-      .hud-container { width: 350px; }
-      .hud-layer { padding: 20px; }
-    }
+    @media (max-width: 1400px) { .hud-container { width: 380px; } .hud-layer { padding: 20px; } }
     @media (max-width: 900px) {
-      .hud-layer { flex-direction: column; justify-content: flex-start; overflow-y: auto; pointer-events: auto; padding: 10px; }
+      .hud-layer { flex-direction: column; justify-content: flex-start; overflow-y: auto; pointer-events: auto; padding: 15px; }
       .hud-container { width: 100%; height: auto; margin-bottom: 20px; }
-      #quantum-mirror-engine { opacity: 0.5; } /* Приглушаем фон для читаемости на мобилках */
+      #quantum-mirror-engine { opacity: 0.4; } 
     }
 
     .data-card {
       background: var(--panel-bg); border: 1px solid var(--panel-border);
-      border-radius: 12px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      padding: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 20px rgba(0, 255, 255, 0.02);
-      position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.3s;
+      border-radius: 8px; backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+      padding: 0; box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 1px 1px rgba(255,255,255,0.05);
+      position: relative; overflow: hidden; transition: border-color 0.3s, box-shadow 0.3s;
     }
-    .data-card:hover { border-color: rgba(0, 255, 255, 0.5); box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 30px rgba(0, 255, 255, 0.05); }
-    .data-card::after {
-      content: ''; position: absolute; bottom: 0; right: 0;
-      width: 30px; height: 30px;
-      border-bottom: 2px solid var(--core-cyan); border-right: 2px solid var(--core-cyan);
-      opacity: 0.5; border-bottom-right-radius: 12px;
-    }
+    .data-card:hover { border-color: rgba(0, 255, 255, 0.6); box-shadow: 0 20px 60px rgba(0,0,0,0.95), inset 0 0 30px rgba(0, 255, 255, 0.05); }
+    
+    .card-inner { padding: 24px; }
 
     .card-header {
-      font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: 700;
+      font-family: 'Rajdhani', sans-serif; font-size: 1.25rem; font-weight: 700;
       color: #fff; text-shadow: 0 0 10px var(--core-cyan); letter-spacing: 2px; margin-bottom: 20px;
       display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 12px; text-transform: uppercase;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 15px; text-transform: uppercase;
     }
     
     .status-indicator {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #10b981;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #10b981;
       display: flex; align-items: center; gap: 6px; letter-spacing: 0; text-shadow: none;
     }
-    .status-indicator::before {
-      content: ''; width: 6px; height: 6px; background: #10b981; border-radius: 50%;
-      box-shadow: 0 0 10px #10b981; animation: pulse 1.5s infinite;
-    }
+    .status-indicator::before { content: ''; width: 6px; height: 6px; background: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; animation: pulse 1.5s infinite; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
     .block-title {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-dim);
-      text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--highlight);
+      text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;
     }
+    .block-title::before { content: '■'; font-size: 0.5rem; color: var(--text-dim); }
 
+    /* =========================================
+       CYBER-TERMINAL PROMPTS
+       ========================================= */
     .terminal-box {
-      background: rgba(0, 0, 0, 0.6); border-left: 2px solid var(--core-purple);
-      padding: 16px; border-radius: 4px; margin-bottom: 20px;
+      background: #020409; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px; margin-bottom: 24px; overflow: hidden;
       font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; color: #cbd5e1;
       user-select: text; transition: 0.3s ease; position: relative;
-      box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
     }
-    .terminal-box:hover { background: rgba(0, 0, 0, 0.9); border-left-color: var(--core-cyan); color: #fff; }
-    .terminal-box span.cmd { color: var(--core-purple); font-weight: bold; margin-right: 8px; }
+    .terminal-box:hover { border-color: var(--core-cyan); box-shadow: 0 0 15px rgba(0, 255, 255, 0.1); }
+    
+    .term-header {
+      background: rgba(255,255,255,0.05); padding: 6px 12px; font-size: 0.7rem; color: var(--text-dim);
+      display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .term-copy { cursor: pointer; color: var(--highlight); transition: 0.2s; }
+    .term-copy:hover { color: #fff; text-shadow: 0 0 5px var(--highlight); }
+    
+    .term-body { padding: 16px; }
+    .term-body span.cmd { color: var(--core-cyan); font-weight: bold; margin-right: 8px; }
+    .term-body span.accent { color: var(--core-purple); font-weight: bold; }
 
-    .tag-group { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .tag-group { display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
     .tag { 
-      background: rgba(0, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.2); 
-      padding: 4px 8px; border-radius: 4px; font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--core-cyan); 
+      background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); 
+      padding: 4px 8px; border-radius: 4px; font-family: 'JetBrains Mono'; font-size: 0.65rem; color: var(--text-dim); 
     }
 
     /* =========================================
@@ -134,65 +133,100 @@
 <body>
 
   <div id="boot-screen">
-    <div class="boot-logo">SYNAPSE CORE</div>
+    <div class="boot-logo">AURA KERNEL</div>
     <div class="progress-bar-container"><div class="progress-bar" id="boot-progress"></div></div>
-    <div id="boot-text" style="margin-top: 20px; font-size: 0.85rem; color: var(--text-dim); letter-spacing: 3px;">IGNITING DATA INGESTION...</div>
+    <div id="boot-text" style="margin-top: 20px; font-size: 0.85rem; color: var(--text-dim); letter-spacing: 3px;">INITIALIZING CORE...</div>
   </div>
 
   <canvas id="quantum-mirror-engine"></canvas>
   <canvas id="post-processing"></canvas>
 
-  <!-- PARALLAX HUD LAYER -->
+  <!-- HUD LAYER (Strict, No Tilt) -->
   <div class="hud-layer" id="hud-layer">
     
-    <!-- LEFT HUD -->
+    <!-- LEFT HUD: СТРАТЕГИЯ И АНАЛИТИКА -->
     <div class="hud-container">
       <div class="data-card" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
-        <div class="card-header">SYS.01 // АНАЛИТИКА СУОТ <div class="status-indicator">SYNCED</div></div>
-        <div class="block-title">ОБЪЕКТ: ООО «Софрино»</div>
-        <div class="tag-group"><span class="tag">Пост. №2464</span><span class="tag">Охрана Труда</span></div>
-        <div class="terminal-box">
-          <span class="cmd">SYS></span>Действуй как Аудитор. Составь проект приказа о внедрении системы дистанционного обучения (СДО) для гостиничного комплекса. Укажи регламент фиксации цифрового следа тестирования.
-        </div>
-        <div class="block-title">ОБЪЕКТ: ООО «Битрейс Телеком»</div>
-        <div class="tag-group"><span class="tag">Пожарная Безопасность</span><span class="tag">Реструктуризация</span></div>
-        <div class="terminal-box" style="margin-bottom: 0;">
-          <span class="cmd">SYS></span>Выступи в роли эксперта по ПБ. Разработай алгоритм действий и план реструктуризации ответственности при нештатном обесточивании серверных узлов телекоммуникационной компании.
+        <div class="card-inner">
+          <div class="card-header">SYS.01 // СТРАТЕГИЯ И УПРАВЛЕНИЕ <div class="status-indicator">SYNCED</div></div>
+          
+          <div class="block-title">МАТРИЦА БИЗНЕС-РЕШЕНИЙ</div>
+          <div class="tag-group"><span class="tag">SWOT Analysis</span><span class="tag">Strategy</span></div>
+          <div class="terminal-box">
+            <div class="term-header"><span>root@aura:~# prompt_gen</span><span class="term-copy">[COPY]</span></div>
+            <div class="term-body">
+              <span class="cmd">AI></span><span class="accent">Действуй как Chief Strategy Officer.</span> Проведи глубокий SWOT-анализ для внедрения ИИ в наш корпоративный сектор. Распиши 3 ключевых риска безопасности данных и предложи 3 протокола их минимизации. Результат выдай в виде строгой markdown-таблицы.
+            </div>
+          </div>
+
+          <div class="block-title">ОПТИМИЗАЦИЯ РАБОЧИХ ПРОЦЕССОВ</div>
+          <div class="tag-group"><span class="tag">Workflow</span><span class="tag">Automation</span></div>
+          <div class="terminal-box" style="margin-bottom: 0;">
+            <div class="term-header"><span>root@aura:~# prompt_gen</span><span class="term-copy">[COPY]</span></div>
+            <div class="term-body">
+              <span class="cmd">AI></span><span class="accent">Выступи в роли бизнес-аналитика.</span> Я предоставлю тебе транскрипт часового совещания команды. Твоя задача: 1) Выжать из текста главное резюме (Executive Summary). 2) Сформировать нумерованный список задач (Action Items) с указанием ответственных и дедлайнов.
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="data-card" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
-        <div class="card-header" style="color: var(--core-cyan);">SYS.02 // СИСТЕМНАЯ СРЕДА <div class="status-indicator">ONLINE</div></div>
-        <div class="block-title">WORKSPACE: WIN 11 CLEAN INSTALL</div>
-        <div class="terminal-box" style="border-left-color: var(--core-cyan); margin-bottom: 0;">
-          <span class="cmd" style="color: var(--core-cyan);">EXE></span>Я выполнил чистую установку Windows 11. Напиши безопасный PowerShell скрипт для: 1) Отключения служб телеметрии, 2) Удаления предустановленного Bloatware, 3) Оптимизации работы SSD.
+        <div class="card-inner">
+          <div class="card-header" style="color: var(--core-cyan);">SYS.02 // АНАЛИТИКА ДАННЫХ <div class="status-indicator">ONLINE</div></div>
+          <div class="block-title">ОБРАБОТКА МАССИВОВ ИНФОРМАЦИИ</div>
+          <div class="terminal-box" style="border-left-color: var(--core-cyan); margin-bottom: 0;">
+            <div class="term-header"><span>root@aura:~# data_parse</span><span class="term-copy">[COPY]</span></div>
+            <div class="term-body">
+              <span class="cmd" style="color: var(--core-cyan);">DATA></span><span class="accent">Роль: Data Scientist.</span> Ниже приведен сырой массив неструктурированных отзывов клиентов. Проведи сентимент-анализ (тональность). Сгруппируй жалобы по 3 главным категориям и предложи технические решения для каждой проблемы.
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- RIGHT HUD -->
+    <!-- RIGHT HUD: IT & ЛИЧНАЯ ЭФФЕКТИВНОСТЬ -->
     <div class="hud-container">
       <div class="data-card" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
-        <div class="card-header" style="color: var(--core-purple);">SYS.03 // IT & ИНФРАСТРУКТУРА <div class="status-indicator">ACTIVE</div></div>
-        <div class="block-title">DEDICATED SERVER: RUST</div>
-        <div class="terminal-box" style="border-left-color: var(--core-purple);">
-          <span class="cmd" style="color: var(--core-purple);">NET></span>Действуй как DevOps. Мы с Игорем Андреевичем сталкиваемся с десинхронизацией на сервере Rust. Проанализируй логи. Как оптимизировать Garbage Collector (G1GC) в .bat файле запуска?
-        </div>
-        <div class="block-title">COMPILE: FLUTTER WEB</div>
-        <div class="terminal-box" style="border-left-color: var(--core-purple); margin-bottom: 0;">
-          <span class="cmd" style="color: var(--core-purple);">DEV></span>Объясни ошибки рендеринга слоев CanvasKit при сборке Flutter Web. Напиши bash-скрипт для очистки кэша и компиляции через HTML-рендерер.
+        <div class="card-inner">
+          <div class="card-header" style="color: var(--core-purple);">SYS.03 // IT & РАЗРАБОТКА <div class="status-indicator">ACTIVE</div></div>
+          
+          <div class="block-title">АРХИТЕКТУРА И СИСТЕМНЫЙ ДИЗАЙН</div>
+          <div class="terminal-box" style="border-left-color: var(--core-purple);">
+            <div class="term-header"><span>root@aura:~# sys_design</span><span class="term-copy">[COPY]</span></div>
+            <div class="term-body">
+              <span class="cmd" style="color: var(--core-purple);">DEV></span><span class="accent">Действуй как Senior Software Architect.</span> Спроектируй масштабируемую микросервисную архитектуру для высоконагруженного веб-приложения. Опиши выбор базы данных, брокера сообщений и методы обеспечения отказоустойчивости.
+            </div>
+          </div>
+
+          <div class="block-title">РЕФАКТОРИНГ И CLEAN CODE</div>
+          <div class="terminal-box" style="border-left-color: var(--core-purple); margin-bottom: 0;">
+            <div class="term-header"><span>root@aura:~# code_review</span><span class="term-copy">[COPY]</span></div>
+            <div class="term-body">
+              <span class="cmd" style="color: var(--core-purple);">DEV></span>Проведи Code Review предоставленного ниже фрагмента кода. Укажи на антипаттерны, утечки памяти и уязвимости. Перепиши код, следуя принципам SOLID и DRY, и добавь подробные комментарии к изменениям.
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="data-card" onmouseenter="startDataStream(this)" onmouseleave="stopDataStream()">
-        <div class="card-header" style="color: #6ee7b7;">SYS.04 // ПЕРСОНАЛЬНЫЕ МОДЕЛИ <div class="status-indicator">READY</div></div>
-        <div class="block-title">INTERACTIVE QUEST GENERATOR</div>
-        <div class="terminal-box" style="border-left-color: #6ee7b7;">
-          <span class="cmd" style="color: #6ee7b7;">AI></span>Сыграй со мной в развивающую RPG. Главная героиня — девочка Стеша. Важное условие: обращайся к ней только по имени Стеша. Сюжет включает 3 математические загадки. Жди ответа после каждой.
-        </div>
-        <div class="block-title">HYDRODYNAMICS: OSETR RIG</div>
-        <div class="terminal-box" style="border-left-color: #6ee7b7; margin-bottom: 0;">
-          <span class="cmd" style="color: #6ee7b7;">AI></span>Рассчитай оптимальную толщину шнура (PE) и вес джиг-головки для спиннинга "Osetr". Условия: сильное течение, глубина 6-8м. Цель: падение приманки за 4 секунды с сохранением тактильности бланка.
+        <div class="card-inner">
+          <div class="card-header" style="color: #10b981;">SYS.04 // ЛИЧНАЯ ЭФФЕКТИВНОСТЬ <div class="status-indicator">READY</div></div>
+          
+          <div class="block-title">УСКОРЕННОЕ ОБУЧЕНИЕ (FEYNMAN TECHNIQUE)</div>
+          <div class="terminal-box" style="border-left-color: #10b981;">
+            <div class="term-header"><span>root@aura:~# learn_module</span><span class="term-copy">[COPY]</span></div>
+            <div class="term-body">
+              <span class="cmd" style="color: #10b981;">EDU></span>Объясни концепцию [Сложная Тема] используя Технику Фейнмана. Напиши объяснение так, как будто мне 12 лет, используя простые аналогии из повседневной жизни. Если я задам уточняющий вопрос, углубляй детали постепенно.
+            </div>
+          </div>
+
+          <div class="block-title">МАСТЕРСТВО ТАЙМ-МЕНЕДЖМЕНТА</div>
+          <div class="terminal-box" style="border-left-color: #10b981; margin-bottom: 0;">
+            <div class="term-header"><span>root@aura:~# time_sync</span><span class="term-copy">[COPY]</span></div>
+            <div class="term-body">
+              <span class="cmd" style="color: #10b981;">EDU></span><span class="accent">Роль: Коуч по продуктивности.</span> Вот список моих задач на неделю с оценкой времени. Распредели их по дням, используя матрицу Эйзенхауэра и метод интервальной работы (Помодоро). Оставь буфер в 20% времени на форс-мажоры.
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -211,6 +245,7 @@
       loadVal += Math.random() * 15;
       if (loadVal > 100) loadVal = 100;
       bootProgress.style.width = loadVal + '%';
+      
       if (loadVal === 100) {
         clearInterval(bootInterval);
         bootText.innerText = "SYSTEM ACTIVE";
@@ -225,10 +260,9 @@
     // 2. KINEMATIC ENGINE (Optimized)
     // ==========================================
     const canvas = document.getElementById('quantum-mirror-engine');
-    const ctx = canvas.getContext('2d', { alpha: false }); // Отключение альфа-канала холста ускоряет рендер
+    const ctx = canvas.getContext('2d', { alpha: false }); 
     const postCanvas = document.getElementById('post-processing');
     const postCtx = postCanvas.getContext('2d');
-    const hudLayer = document.getElementById('hud-layer');
     
     let width, height, cx, cy;
     let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
@@ -236,14 +270,12 @@
     let idleTimer = 0; 
     let isAutopilot = false;
     
-    // --- ПРЕ-РЕНДЕРИНГ СПРАЙТОВ (УЛЬТРА-ОПТИМИЗАЦИЯ) ---
-    // Рисовать градиенты каждый кадр очень "дорого". Мы создаем их один раз в памяти.
     const createParticleSprite = (colorStr, size) => {
       const offCanvas = document.createElement('canvas');
       offCanvas.width = size * 2; offCanvas.height = size * 2;
       const offCtx = offCanvas.getContext('2d');
       const grad = offCtx.createRadialGradient(size, size, 0, size, size, size);
-      grad.addColorStop(0, 'rgba(255, 255, 255, 1)'); // Белое ядро
+      grad.addColorStop(0, 'rgba(255, 255, 255, 1)'); 
       grad.addColorStop(0.3, colorStr.replace(')', ', 0.8)').replace('rgb', 'rgba')); 
       grad.addColorStop(1, colorStr.replace(')', ', 0)').replace('rgb', 'rgba'));
       offCtx.fillStyle = grad;
@@ -254,7 +286,6 @@
     const spriteBlue = createParticleSprite('rgb(37, 99, 235)', 16);
     const spriteCyan = createParticleSprite('rgb(0, 229, 255)', 16);
 
-    // Адаптивная инициализация
     let isMobile = window.innerWidth < 900;
     
     function resize() {
@@ -270,17 +301,10 @@
       mouse.targetY = (e.clientY - cy);
       idleTimer = 0; 
       isAutopilot = false;
-      
-      // Параллакс интерфейса (Наклон слоя)
-      if(!isMobile) {
-        const rotateX = (mouse.targetY / height) * 10; // max 5 deg
-        const rotateY = -(mouse.targetX / width) * 10;
-        hudLayer.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      }
     });
 
     document.addEventListener('mousedown', (e) => {
-      if(e.target.tagName === 'BUTTON' || e.target.closest('a')) return;
+      if(e.target.tagName === 'SPAN' || e.target.closest('.terminal-box')) return;
       shockwave.active = true;
       shockwave.radius = 10;
       shockwave.intensity = 1.0;
@@ -289,7 +313,6 @@
 
     let allNodes = [];
     
-    // Динамический LOD: На мобилках генерируем в 2 раза меньше частиц
     const coreCount = isMobile ? 120 : 250;
     const diskCount = isMobile ? 350 : 800;
 
@@ -327,7 +350,7 @@
     let isStreaming = false;
 
     window.startDataStream = function(el) {
-      if(isMobile) return; // Отключаем фишку на мобилках для сохранения FPS
+      if(isMobile) return; 
       streamSourceRect = el.getBoundingClientRect();
       isStreaming = true;
     }
@@ -338,7 +361,6 @@
     let cameraRotY = 0;
 
     function renderEngine() {
-      // Имитация глубокого черного с затиранием следов
       ctx.fillStyle = 'rgba(1, 2, 5, 0.4)';
       ctx.fillRect(0, 0, width, height);
 
@@ -414,7 +436,7 @@
           let dx = mouse3DX - targetX; let dy = mouse3DY - targetY;
           let dist = Math.sqrt(dx*dx + dy*dy);
           
-          if (dist < 150 && !isMobile) { // На мобилках физика натяжения отключена
+          if (dist < 150 && !isMobile) { 
              let pullForce = (150 - dist) / 150;
              targetX += dx * pullForce * 0.8; 
              targetY += dy * pullForce * 0.8;
@@ -459,14 +481,12 @@
         let depthAlpha = Math.max(0.05, 1 - (n.z + 800) / 1600);
 
         if (n.type === 'disk') {
-          // ИСПОЛЬЗУЕМ СПРАЙТЫ ВМЕСТО РАСЧЕТОВ (Оптимизация)
           ctx.globalAlpha = depthAlpha * 0.6;
           let drawSize = Math.max(1, 16 * n.scale);
           ctx.drawImage(spriteCyan, n.screenX - drawSize/2, n.screenY - drawSize/2, drawSize, drawSize);
           ctx.globalAlpha = 1.0;
         } 
         else if (n.type === 'core') {
-          // Оптимизация линий: рисуем меньше связей на мобильных устройствах
           let connectionLimit = isMobile ? 5 : 12;
           
           if (n.z < 100) {
@@ -499,7 +519,6 @@
         }
       }
 
-      // Отрисовка пакетов данных
       for (let i = dataPackets.length - 1; i >= 0; i--) {
         let pkt = dataPackets[i];
         pkt.progress += pkt.speed;
