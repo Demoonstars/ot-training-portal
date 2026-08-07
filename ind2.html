@@ -26,35 +26,29 @@
     * { box-sizing: border-box; }
     body, html {
       margin: 0; padding: 0; width: 100vw; height: 100vh;
-      overflow: hidden; /* Строго без скролла - это ОС, а не сайт */
-      background-color: var(--space-black);
-      font-family: 'Inter', sans-serif;
-      color: var(--text-main);
-      user-select: none; /* Запрет выделения текста для удобного драг-н-дропа */
+      overflow: hidden; background-color: var(--space-black);
+      font-family: 'Inter', sans-serif; color: var(--text-main);
+      user-select: none;
     }
 
     /* =========================================
-       BACKGROUND & AI CORE (CANVAS)
+       BACKGROUND & AI HEAD (CANVAS)
        ========================================= */
-    #ai-core-canvas {
-      position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1;
-    }
+    #ai-core-canvas { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; }
     
     .vignette {
       position: absolute; inset: 0; z-index: 2; pointer-events: none;
-      background: radial-gradient(circle at center, transparent 30%, var(--space-black) 100%);
+      background: radial-gradient(circle at center, transparent 20%, var(--space-black) 100%);
     }
 
     .grid-overlay {
-      position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0.15;
-      background-image: 
-        linear-gradient(var(--neon-blue) 1px, transparent 1px),
-        linear-gradient(90deg, var(--neon-blue) 1px, transparent 1px);
-      background-size: 40px 40px;
-      transform: perspective(500px) rotateX(60deg) translateY(100px) translateZ(-200px);
+      position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0.1;
+      background-image: linear-gradient(var(--neon-blue) 1px, transparent 1px), linear-gradient(90deg, var(--neon-blue) 1px, transparent 1px);
+      background-size: 50px 50px;
+      transform: perspective(600px) rotateX(60deg) translateY(100px) translateZ(-200px);
       animation: grid-move 10s linear infinite;
     }
-    @keyframes grid-move { from { background-position: 0 0; } to { background-position: 0 40px; } }
+    @keyframes grid-move { from { background-position: 0 0; } to { background-position: 0 50px; } }
 
     /* =========================================
        SYSTEM TOP BAR
@@ -85,11 +79,7 @@
       font-size: 1.5rem; cursor: pointer; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
     }
-    .dock-icon:hover {
-      transform: translateY(-15px) scale(1.2);
-      background: rgba(0, 240, 255, 0.2); border-color: var(--neon-blue);
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
-    }
+    .dock-icon:hover { transform: translateY(-15px) scale(1.2); background: rgba(0, 240, 255, 0.2); border-color: var(--neon-blue); box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); }
     .dock-label {
       position: absolute; top: -30px; font-family: 'JetBrains Mono'; font-size: 0.7rem;
       background: #000; padding: 4px 8px; border-radius: 4px; border: 1px solid var(--neon-blue);
@@ -98,24 +88,22 @@
     .dock-icon:hover .dock-label { opacity: 1; transform: translateY(-5px); }
 
     /* =========================================
-       DRAGGABLE HOLO-WINDOWS (SPATIAL UI)
+       DRAGGABLE HOLO-WINDOWS
        ========================================= */
     .holo-window {
-      position: absolute; top: 100px; left: 100px; width: 450px;
+      position: absolute; width: 480px;
       background: var(--glass-bg); border: 1px solid var(--glass-border);
       border-radius: 16px; backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
       box-shadow: inset 0 0 20px rgba(0,240,255,0.05), 0 25px 50px rgba(0,0,0,0.8);
       display: none; flex-direction: column; z-index: 10;
-      transition: transform 0.1s, box-shadow 0.3s;
+      transition: opacity 0.3s, transform 0.1s, filter 0.3s;
       overflow: hidden; resize: both; min-width: 400px; min-height: 250px;
     }
     .holo-window.active { display: flex; animation: windowOpen 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-    .holo-window.focus { z-index: 50; box-shadow: inset 0 0 20px rgba(0,240,255,0.1), 0 0 30px rgba(0,240,255,0.2); border-color: var(--neon-blue); }
+    .holo-window.focus { z-index: 50; box-shadow: inset 0 0 20px rgba(0,240,255,0.1), 0 0 30px rgba(0,240,255,0.2); border-color: var(--neon-blue); filter: blur(0px); }
+    .holo-window.active:not(.focus) { filter: blur(3px); opacity: 0.7; } /* DOF Эффект */
     
-    @keyframes windowOpen {
-      from { opacity: 0; transform: scale(0.9) translateY(20px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
+    @keyframes windowOpen { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
     .window-header {
       background: rgba(0,0,0,0.5); padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -130,12 +118,6 @@
     .win-close:hover { opacity: 1; box-shadow: 0 0 10px var(--alert-red); }
 
     .window-content { padding: 20px; overflow-y: auto; flex-grow: 1; }
-    .window-content::-webkit-scrollbar { width: 6px; }
-    .window-content::-webkit-scrollbar-thumb { background: rgba(0,240,255,0.3); border-radius: 10px; }
-
-    /* =========================================
-       CONTENT STYLING (PROMPTS & TEXT)
-       ========================================= */
     .module-desc { font-size: 0.9rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 20px; }
     
     .ai-prompt-block {
@@ -145,15 +127,30 @@
     }
     .prompt-title { font-family: 'JetBrains Mono'; font-size: 0.75rem; color: var(--neon-purple); margin-bottom: 8px; text-transform: uppercase; }
     .prompt-text { font-family: 'Inter'; font-size: 0.9rem; line-height: 1.5; color: #fff; user-select: text; }
-    
-    /* Декодер эффект для текста */
     .decode-text { font-family: 'JetBrains Mono', monospace; }
+
+    /* =========================================
+       CUSTOM NEURAL CONTEXT MENU
+       ========================================= */
+    #context-menu {
+      position: fixed; display: none; width: 220px;
+      background: rgba(5, 8, 15, 0.9); border: 1px solid var(--neon-blue);
+      border-radius: 8px; box-shadow: 0 5px 20px rgba(0, 240, 255, 0.3);
+      padding: 8px; z-index: 9999; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+      backdrop-filter: blur(10px);
+    }
+    .ctx-item {
+      padding: 10px; color: var(--text-main); cursor: pointer; border-radius: 4px;
+      display: flex; align-items: center; gap: 10px; transition: 0.2s;
+    }
+    .ctx-item:hover { background: rgba(0, 240, 255, 0.15); color: var(--neon-blue); padding-left: 15px; }
+    .ctx-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 5px 0; }
 
     /* =========================================
        INITIALIZATION SCREEN
        ========================================= */
     #init-screen {
-      position: fixed; inset: 0; background: var(--space-black); z-index: 999;
+      position: fixed; inset: 0; background: var(--space-black); z-index: 10000;
       display: flex; flex-direction: column; justify-content: center; align-items: center;
       transition: opacity 1s;
     }
@@ -166,8 +163,7 @@
     .init-btn:hover { background: rgba(0, 240, 255, 0.1); box-shadow: 0 0 30px rgba(0,240,255,0.5); }
     .init-btn::before {
       content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(0,240,255,0.4), transparent);
-      transition: 0.5s;
+      background: linear-gradient(90deg, transparent, rgba(0,240,255,0.4), transparent); transition: 0.5s;
     }
     .init-btn:hover::before { left: 100%; }
 
@@ -180,86 +176,76 @@
     <button class="init-btn" onclick="bootSystem()">Init OS</button>
   </div>
 
+  <!-- Пользовательское Контекстное Меню -->
+  <div id="context-menu">
+    <div class="ctx-item"><span>👁️</span> Анализ области</div>
+    <div class="ctx-item"><span>🔄</span> Рекалибровка ядра</div>
+    <div class="ctx-divider"></div>
+    <div class="ctx-item" style="color: var(--alert-red);"><span>🛑</span> Завершить сеанс</div>
+  </div>
+
   <!-- Ядро ИИ на фоне -->
   <canvas id="ai-core-canvas"></canvas>
   <div class="grid-overlay"></div>
   <div class="vignette"></div>
 
-  <!-- Верхний бар -->
   <div class="sys-bar">
     <div class="sys-status">
       <div class="blinking-dot"></div>
-      <span>AURA CORE_v2.0 // NEURAL LINK ACTIVE</span>
+      <span style="text-transform: uppercase;">AURA CORE // ОПЕРАТОР: АНТОН ЮРЬЕВИЧ</span>
     </div>
     <div id="sys-clock">00:00:00</div>
   </div>
 
-  <!-- Окна ОС (Скрыты по умолчанию) -->
-  
-  <!-- ОКНО 1: Охрана труда -->
+  <!-- ОКНО 1: БИЗНЕС И ЗАДАЧИ (Обобщенное) -->
   <div class="holo-window" id="win-work" style="top: 80px; left: 50px;">
     <div class="window-header">
-      <div class="window-title"><span>🛡️</span> MOD_01: СУОТ & ДОКУМЕНТАЦИЯ</div>
+      <div class="window-title"><span>📊</span> MOD_01: БИЗНЕС & УПРАВЛЕНИЕ</div>
       <div class="window-controls"><button class="win-btn win-close" onclick="closeWindow('win-work')"></button></div>
     </div>
     <div class="window-content">
-      <p class="module-desc">Генерация нормативной документации и автоматизация рутины специалиста по охране труда.</p>
+      <p class="module-desc">Использование ИИ как виртуального ассистента для решения любых корпоративных задач: от переписки до аналитики.</p>
       
       <div class="ai-prompt-block">
-        <div class="prompt-title">Генерация инструктажа</div>
-        <div class="prompt-text decode-text" data-target="Сгенерируй инструкции по технике безопасности для сотрудников парка-отеля ООО «Софрино». Учитывай специфику гостиничного комплекса и актуальные нормы Постановления №2464.">Загрузка данных...</div>
+        <div class="prompt-title">Деловая коммуникация</div>
+        <div class="prompt-text decode-text" data-target="Составь вежливое, но строгое письмо подрядчику о нарушении сроков поставки оборудования. Опирайся на пункт договора 4.2. Тон письма: профессиональный, без эмоций, с призывом дать ответ до завтра.">Загрузка данных...</div>
       </div>
 
       <div class="ai-prompt-block">
-        <div class="prompt-title">Аналитика профрисков</div>
-        <div class="prompt-text decode-text" data-target="Выступи в роли эксперта по охране труда. Составь матрицу профессиональных рисков для сотрудников ООО «Битрейс Телеком», учитывая специфику телекоммуникационного оборудования.">Загрузка данных...</div>
+        <div class="prompt-title">Стратегия и Анализ</div>
+        <div class="prompt-text decode-text" data-target="Проанализируй предоставленный текст корпоративной политики. Выдели три главных узких места, которые могут привести к юридическим рискам, и предложи варианты их формулировок.">Загрузка данных...</div>
       </div>
     </div>
   </div>
 
-  <!-- ОКНО 2: Семья и Хобби -->
+  <!-- ОКНО 2: СЕМЬЯ И ДОМ -->
   <div class="holo-window" id="win-family" style="top: 150px; left: 600px; width: 500px;">
     <div class="window-header">
-      <div class="window-title"><span>🎣</span> MOD_02: ДОМ & ХОББИ</div>
+      <div class="window-title"><span>🏠</span> MOD_02: ДОМ & СЕМЬЯ</div>
       <div class="window-controls"><button class="win-btn win-close" onclick="closeWindow('win-family')"></button></div>
     </div>
     <div class="window-content">
-      <p class="module-desc">Использование ИИ для организации семейного досуга и расчетов для хобби.</p>
+      <p class="module-desc">Генерация образовательного и развлекательного контента для личной жизни.</p>
       
       <div class="ai-prompt-block" style="border-left-color: #ff007f;">
-        <div class="prompt-title" style="color: #ff007f;">Интерактивная сказка</div>
-        <div class="prompt-text decode-text" data-target="Придумай интерактивную сказку-квест, где главная героиня — девочка по имени Стеша. Вплети в сюжет три логические загадки, которые ей нужно решить, чтобы расколдовать лес.">Загрузка данных...</div>
-      </div>
-
-      <div class="ai-prompt-block" style="border-left-color: #ff007f;">
-        <div class="prompt-title" style="color: #ff007f;">Расчет снастей (Спиннинг)</div>
-        <div class="prompt-text decode-text" data-target="Действуй как профессиональный рыболов. Какая катушка и толщина шнура лучше всего подойдут для спиннинга марки Osetr при джиговой ловле на среднем течении?">Загрузка данных...</div>
+        <div class="prompt-title" style="color: #ff007f;">Обучающий квест</div>
+        <div class="prompt-text decode-text" data-target="Разработай сценарий домашнего квеста. Главная участница — Стеша. Ей нужно найти 'сокровище', решая 4 логические загадки, связанные с животными. Дай пошаговый план, где спрятать подсказки.">Загрузка данных...</div>
       </div>
     </div>
   </div>
 
-  <!-- ОКНО 3: Код и Игры -->
-  <div class="holo-window" id="win-code" style="top: 300px; left: 100px; width: 480px;">
+  <!-- ОКНО 3: DEV & HOBBY -->
+  <div class="holo-window" id="win-code" style="top: 350px; left: 150px; width: 480px;">
     <div class="window-header">
       <div class="window-title"><span>💻</span> MOD_03: DEV & GAMING</div>
       <div class="window-controls"><button class="win-btn win-close" onclick="closeWindow('win-code')"></button></div>
     </div>
     <div class="window-content">
-      <p class="module-desc">Ассистент для поиска багов в коде (Flutter/HTML) и настройки игровых серверов.</p>
+      <p class="module-desc">Решение технических проблем при администрировании игр и веб-разработке.</p>
       
       <div class="ai-prompt-block" style="border-left-color: #00ff66;">
-        <div class="prompt-title" style="color: #00ff66;">Анализ логов сервера</div>
-        <div class="prompt-text decode-text" data-target="Найди причину конфликта в прикрепленных логах выделенного сервера Rust, который мы настраиваем для совместной игры с Игорем Андреевичем. Оптимизируй параметры запуска.">Загрузка данных...</div>
-      </div>
-
-      <div class="ai-prompt-block" style="border-left-color: #00ff66;">
-        <div class="prompt-title" style="color: #00ff66;">Оптимизация Minecraft</div>
-        <div class="prompt-text decode-text" data-target="Как правильно распределить оперативную память и настроить аргументы Java для сборки Minecraft с тяжелыми модификациями Create и Create: Aeronautics?">Загрузка данных...</div>
-      </div>
-      
-      <div class="ai-prompt-block" style="border-left-color: #00ff66;">
-        <div class="prompt-title" style="color: #00ff66;">Отладка Flutter Web</div>
-        <div class="prompt-text decode-text" data-target="Почему при компиляции проекта на Flutter Web возникает ошибка рендеринга слоев CanvasKit? Напиши скрипт для чистой сборки.">Загрузка данных...</div>
+        <div class="prompt-title" style="color: #00ff66;">Отладка серверов Rust</div>
+        <div class="prompt-text decode-text" data-target="Проанализируй краш-лог выделенного сервера Rust. Сервер зависает при подключении более 10 игроков. Как изменить параметры запуска для оптимизации сетевого протокола?">Загрузка данных...</div>
       </div>
     </div>
   </div>
@@ -267,49 +253,46 @@
   <!-- Панель запуска (Dock) -->
   <div class="os-dock">
     <div class="dock-icon" onclick="openWindow('win-work')" style="color: var(--neon-blue);">
-      <span class="dock-label">Работа_СУОТ</span>🛡️
+      <span class="dock-label">Бизнес_Задачи</span>📊
     </div>
     <div class="dock-icon" onclick="openWindow('win-family')" style="color: #ff007f;">
-      <span class="dock-label">Семья_Хобби</span>🎣
+      <span class="dock-label">Дом_Семья</span>🏠
     </div>
     <div class="dock-icon" onclick="openWindow('win-code')" style="color: #00ff66;">
-      <span class="dock-label">Код_Игры</span>💻
+      <span class="dock-label">IT_Хобби</span>💻
     </div>
   </div>
 
   <script>
     // ==========================================
-    // 1. ИНИЦИАЛИЗАЦИЯ И ДЕКОДЕР ТЕКСТА
+    // 1. ИНИЦИАЛИЗАЦИЯ И ДЕКОДЕР
     // ==========================================
     function bootSystem() {
       const initScreen = document.getElementById('init-screen');
       initScreen.style.opacity = '0';
       setTimeout(() => {
         initScreen.style.display = 'none';
-        // Открываем первое окно для вау-эффекта
         openWindow('win-work');
       }, 1000);
     }
 
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>[]{}";
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
     function decodeText(element) {
       const targetText = element.getAttribute('data-target');
       let iterations = 0;
       element.innerText = "";
-      
       const interval = setInterval(() => {
         element.innerText = targetText.split("").map((letter, index) => {
           if (index < iterations) return targetText[index];
           return chars[Math.floor(Math.random() * chars.length)];
         }).join("");
-        
         if (iterations >= targetText.length) clearInterval(interval);
-        iterations += 1; // Скорость декодирования
+        iterations += 1;
       }, 20);
     }
 
     // ==========================================
-    // 2. ОКОННЫЙ МЕНЕДЖЕР (DRAG & DROP)
+    // 2. ОКОННЫЙ МЕНЕДЖЕР (DOF + DRAG & DROP)
     // ==========================================
     let zIndexCounter = 10;
 
@@ -317,15 +300,12 @@
       const win = document.getElementById(id);
       if(!win.classList.contains('active')) {
         win.classList.add('active');
-        // Запускаем расшифровку текста внутри окна
         win.querySelectorAll('.decode-text').forEach(el => decodeText(el));
       }
       focusWindow(win);
     }
 
-    function closeWindow(id) {
-      document.getElementById(id).classList.remove('active');
-    }
+    function closeWindow(id) { document.getElementById(id).classList.remove('active'); }
 
     function focusWindow(win) {
       document.querySelectorAll('.holo-window').forEach(w => w.classList.remove('focus'));
@@ -334,81 +314,127 @@
       win.style.zIndex = zIndexCounter;
     }
 
-    // Логика перетаскивания окон
     document.querySelectorAll('.holo-window').forEach(win => {
       const header = win.querySelector('.window-header');
       let isDragging = false, startX, startY, initialX, initialY;
 
-      // Фокус при клике на окно
       win.addEventListener('mousedown', () => focusWindow(win));
 
       header.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
-        initialX = win.offsetLeft;
-        initialY = win.offsetTop;
+        isDragging = true; startX = e.clientX; startY = e.clientY;
+        initialX = win.offsetLeft; initialY = win.offsetTop;
         document.body.style.cursor = 'grabbing';
       });
 
       document.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-        win.style.left = `${initialX + dx}px`;
-        win.style.top = `${initialY + dy}px`;
+        win.style.left = `${initialX + (e.clientX - startX)}px`;
+        win.style.top = `${initialY + (e.clientY - startY)}px`;
       });
-
-      document.addEventListener('mouseup', () => {
-        isDragging = false;
-        document.body.style.cursor = 'default';
-      });
+      document.addEventListener('mouseup', () => { isDragging = false; document.body.style.cursor = 'default'; });
     });
 
     // ==========================================
-    // 3. ЧАСЫ СИСТЕМЫ
+    // 3. НЕЙРО-МЕНЮ (CUSTOM CONTEXT MENU)
     // ==========================================
-    setInterval(() => {
-      document.getElementById('sys-clock').innerText = new Date().toLocaleTimeString('ru-RU');
-    }, 1000);
+    const contextMenu = document.getElementById('context-menu');
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault(); // Отключаем стандартное меню
+      contextMenu.style.display = 'block';
+      
+      // Проверка на выход за края экрана
+      let x = e.clientX; let y = e.clientY;
+      if (x + 220 > window.innerWidth) x = window.innerWidth - 220;
+      if (y + 150 > window.innerHeight) y = window.innerHeight - 150;
+      
+      contextMenu.style.left = `${x}px`;
+      contextMenu.style.top = `${y}px`;
+    });
+    document.addEventListener('click', () => { contextMenu.style.display = 'none'; });
+
+    setInterval(() => { document.getElementById('sys-clock').innerText = new Date().toLocaleTimeString('ru-RU'); }, 1000);
 
     // ==========================================
-    // 4. ЯДРО ИИ (CANVAS ГЕНЕРАЦИЯ)
+    // 4. ГЕНЕРАЦИЯ ГОЛОВЫ ИИ ИЗ ЧАСТИЦ (MAGIC!)
     // ==========================================
     const canvas = document.getElementById('ai-core-canvas');
     const ctx = canvas.getContext('2d');
     let width, height;
     let particles = [];
-    let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let targetPoints = [];
+    let mouse = { x: -1000, y: -1000, radius: 100 };
 
-    function resize() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    }
+    function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
     window.addEventListener('resize', resize);
     resize();
-    
-    document.addEventListener('mousemove', (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    });
+    document.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
 
-    class CoreParticle {
-      constructor() {
-        this.angle = Math.random() * Math.PI * 2;
-        this.radius = Math.random() * 200 + 50;
-        this.speed = (Math.random() - 0.5) * 0.02;
-        this.size = Math.random() * 2;
-        this.color = Math.random() > 0.5 ? '#00f0ff' : '#b026ff';
+    // Создаем скрытый Canvas для получения карты пикселей силуэта
+    function scanSilhouette() {
+      const tempCanvas = document.createElement('canvas');
+      const tCtx = tempCanvas.getContext('2d');
+      tempCanvas.width = 400; tempCanvas.height = 400;
+      
+      tCtx.font = "bold 300px sans-serif";
+      tCtx.textAlign = "center";
+      tCtx.textBaseline = "middle";
+      tCtx.fillStyle = "white";
+      tCtx.fillText("👤", 200, 200); // Рисуем силуэт
+
+      const imgData = tCtx.getImageData(0, 0, 400, 400).data;
+      
+      // Сканируем пиксели с шагом (для оптимизации)
+      for(let y = 0; y < 400; y += 6) {
+        for(let x = 0; x < 400; x += 6) {
+          const alpha = imgData[(y * 400 + x) * 4 + 3];
+          if(alpha > 128) {
+            targetPoints.push({ x: x - 200, y: y - 200 }); // Центруем координаты
+          }
+        }
+      }
+    }
+
+    class BrainParticle {
+      constructor(target) {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.baseX = target.x;
+        this.baseY = target.y;
+        this.density = (Math.random() * 30) + 1;
+        this.size = Math.random() * 2 + 0.5;
+        this.color = Math.random() > 0.3 ? 'rgba(0, 240, 255, 0.8)' : 'rgba(176, 38, 255, 0.8)';
       }
       update() {
-        this.angle += this.speed;
-        // Легкое притяжение к мыши
-        let targetX = (width / 2) + Math.cos(this.angle) * this.radius + (mouse.x - width/2) * 0.05;
-        let targetY = (height / 2) + Math.sin(this.angle) * this.radius + (mouse.y - height/2) * 0.05;
+        // Вычисляем позицию частицы в центре экрана
+        const targetX = (width / 2) + this.baseX * 1.5;
+        const targetY = (height / 2) + this.baseY * 1.5;
+
+        // Взаимодействие с мышью
+        let dx = mouse.x - this.x;
+        let dy = mouse.y - this.y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
         
-        this.x = targetX;
-        this.y = targetY;
+        let forceDirectionX = dx / distance;
+        let forceDirectionY = dy / distance;
+        let maxDistance = mouse.radius;
+        let force = (maxDistance - distance) / maxDistance;
+        let directionX = forceDirectionX * force * this.density;
+        let directionY = forceDirectionY * force * this.density;
+
+        if (distance < mouse.radius) {
+          this.x -= directionX;
+          this.y -= directionY;
+        } else {
+          // Плавное возвращение на свое место в матрице головы
+          if (this.x !== targetX) {
+            let dx = this.x - targetX;
+            this.x -= dx / 15;
+          }
+          if (this.y !== targetY) {
+            let dy = this.y - targetY;
+            this.y -= dy / 15;
+          }
+        }
       }
       draw() {
         ctx.beginPath();
@@ -418,32 +444,30 @@
       }
     }
 
-    for (let i = 0; i < 300; i++) particles.push(new CoreParticle());
+    function initBrain() {
+      scanSilhouette();
+      particles = [];
+      targetPoints.forEach(pt => {
+        particles.push(new BrainParticle(pt));
+      });
+    }
 
-    function animateCore() {
-      ctx.fillStyle = 'rgba(2, 4, 10, 0.2)'; // Эффект хвоста
-      ctx.fillRect(0, 0, width, height);
+    function animateBrain() {
+      ctx.clearRect(0, 0, width, height);
       
-      // Рисуем центральные кольца
-      ctx.beginPath();
-      ctx.arc(width/2 + (mouse.x - width/2)*0.02, height/2 + (mouse.y - height/2)*0.02, 100, 0, Math.PI*2);
-      ctx.strokeStyle = 'rgba(0, 240, 255, 0.1)';
-      ctx.lineWidth = 1;
-      ctx.stroke();
-
       particles.forEach(p => {
         p.update();
         p.draw();
       });
 
-      // Соединение близких частиц линиями
-      ctx.strokeStyle = 'rgba(0, 240, 255, 0.05)';
+      // Соединяем близкие частицы линиями для эффекта нейросети
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.04)';
       ctx.beginPath();
-      for(let i=0; i<particles.length; i+=3) {
-        for(let j=i+1; j<particles.length; j+=3) {
+      for(let i = 0; i < particles.length; i += 4) {
+        for(let j = i + 1; j < particles.length; j += 4) {
           let dx = particles[i].x - particles[j].x;
           let dy = particles[i].y - particles[j].y;
-          if(dx*dx + dy*dy < 5000) {
+          if(dx*dx + dy*dy < 1500) {
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
           }
@@ -451,9 +475,11 @@
       }
       ctx.stroke();
 
-      requestAnimationFrame(animateCore);
+      requestAnimationFrame(animateBrain);
     }
-    animateCore();
+    
+    initBrain();
+    animateBrain();
 
   </script>
 </body>
