@@ -12,7 +12,7 @@
        display: inline-block; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%;
        box-shadow: 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse-green 2s infinite; margin-right: 6px;
      }
-     
+
      @keyframes pulse-green {
        0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
        70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
@@ -22,7 +22,7 @@
      /* === Responsive Header === */
      .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
      @media (max-width: 900px) { .header-meta { display: none; } }
-     
+
      /* === Animation Classes === */
      /* Класс для плавного схлопывания элемента */
      .collapse-remove {
@@ -48,7 +48,7 @@
 <a class="skip-link" href="#main-content">Перейти к контенту</a>
 
 <div class="glass-wrapper">
-  
+
   <header class="site-header transparent-header">
     <div class="container header-inner">
       <div class="header-brand">
@@ -77,7 +77,7 @@
 
   <main id="main-content" class="site-main">
     <div class="container">
-    
+
     <a href="ot-intro.html" class="back-link">
       <span>←</span> Вернуться к материалам курса
     </a>
@@ -91,7 +91,7 @@
         Результаты тестирования фиксируются в автоматической системе протоколирования
         согласно Постановлению Правительства РФ № 2464.
       </p>
-      
+
       <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
         <span class="status-badge">Вопросов: 10</span>
         <span class="status-badge">Порог: 85%</span>
@@ -114,7 +114,7 @@
             персональных данных для целей оформления результатов обучения.
           </span>
         </label>
-        
+
         <button id="unlock-btn" class="btn btn-magic btn-disabled" disabled style="width: 100%; justify-content: center;">
           <span>🔓 Подтвердить и начать тест</span>
         </button>
@@ -122,7 +122,7 @@
     </section>
 
     <section class="section-card test-wrapper">
-      
+
       <div class="test-overlay" id="test-lock">
         <div>
           <span class="lock-icon">🔒</span>
@@ -131,10 +131,12 @@
         </div>
       </div>
 
-      <div id="otp_wgt_27gckuaakwvlm"></div>
-      
+      <!-- Online Test Pad Test Widget (#601128) -->
+      <div id="otp_wgt_s267t6rvkrfqw"></div>
+
     </section>
 
+    </div>
   </main>
 
   <footer class="site-footer">
@@ -155,14 +157,14 @@
       }
   });
 
-  // 2. СКРИПТ ВАШЕГО ВИДЖЕТА
+  // 2. СКРИПТ НОВОГО ВИДЖЕТА (#601128)
   function loadTestWidget() {
     var otp_wjs_dt = (new Date).getTime();
     (function (w, d, n, s, rp) {
         w[n] = w[n] || [];
         rp = {};
         w[n].push(function () {
-            otp_render_widget(d.getElementById("otp_wgt_27gckuaakwvlm"), 'onlinetestpad.com', '27gckuaakwvlm', rp);
+            otp_render_widget(d.getElementById("otp_wgt_s267t6rvkrfqw"), 'onlinetestpad.com', 's267t6rvkrfqw', rp);
         }); 
         s = d.createElement("script");
         s.type = "text/javascript";
@@ -177,7 +179,7 @@
   const btn = document.getElementById('unlock-btn');
   const lock = document.getElementById('test-lock');
   const consentSection = document.getElementById('consent-section');
-  const infoCard = document.getElementById('info-card'); // Верхняя карточка
+  const infoCard = document.getElementById('info-card');
   const testWrapper = document.querySelector('.test-wrapper');
   let widgetLoaded = false;
 
@@ -195,7 +197,7 @@
     if (!btn.disabled) {
       // А. Убираем замок
       lock.classList.add('hidden'); 
-      
+
       // Б. Загружаем виджет
       if (!widgetLoaded) {
         loadTestWidget();
@@ -207,7 +209,6 @@
       infoCard.classList.add('collapse-remove');
 
       // Г. Прокрутка к тесту
-      // Немного ждем, пока анимация начнет отрабатывать, чтобы скролл был плавным
       setTimeout(() => {
         testWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 300);
