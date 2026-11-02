@@ -5,6 +5,13 @@
   <title>СДО | Корпоративный портал безопасности</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Единая автоматизированная информационная система обучения и проверки знаний требований охраны труда (СУОТ).">
+
+  <!-- ИЗМЕНЕНИЕ: Open Graph для корректного шаринга в соцсетях -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="СДО | Корпоративный портал безопасности">
+  <meta property="og:description" content="Единая автоматизированная информационная система обучения и проверки знаний требований охраны труда (СУОТ).">
+  <meta property="og:locale" content="ru_RU">
+
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -248,6 +255,9 @@
       box-shadow: 0 6px 16px rgba(225, 29, 72, 0.25);
     }
 
+    /* ИЗМЕНЕНИЕ: .welcome-title теперь применяется к <h1>,
+       но стили класса полностью перекрывают дефолтные стили h1,
+       поэтому визуально ничего не меняется. */
     .welcome-title {
       font-size: clamp(1.8rem, 3.5vw, 2.35rem);
       font-weight: 900;
@@ -1281,20 +1291,36 @@
         background: radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.25), transparent 60%);
       }
     }
+
+    /* ИЗМЕНЕНИЕ: уважаем prefers-reduced-motion для анимаций
+       внутри страницы (canvas, orbs, tilt и т.д.). */
+    @media (prefers-reduced-motion: reduce) {
+      .aurora-orb,
+      .system-status-pulse,
+      .pulse-dot,
+      .btn-magic::before,
+      .rgb-quote-card::before {
+        animation: none !important;
+      }
+      body.masterpiece-theme {
+        animation: none !important;
+        background-size: 100% 100% !important;
+      }
+    }
   </style>
 </head>
 <body class="masterpiece-theme">
 
-<!-- Верхний индикатор чтения -->
-<div class="scroll-progress-bar" id="scrollProgress"></div>
+<!-- ИЗМЕНЕНИЕ: декоративные элементы помечены aria-hidden -->
+<div class="scroll-progress-bar" id="scrollProgress" aria-hidden="true"></div>
 
 <!-- Атмосферные световые сферы -->
-<div class="aurora-orb orb-1"></div>
-<div class="aurora-orb orb-2"></div>
-<div class="aurora-orb orb-3"></div>
+<div class="aurora-orb orb-1" aria-hidden="true"></div>
+<div class="aurora-orb orb-2" aria-hidden="true"></div>
+<div class="aurora-orb orb-3" aria-hidden="true"></div>
 
 <!-- Интерактивный нейронный фон -->
-<canvas id="neural-canvas"></canvas>
+<canvas id="neural-canvas" aria-hidden="true"></canvas>
 
 <!-- Всплывающий стеклянный тултип для дат и праздников календаря -->
 <div class="cal-floating-tooltip" id="calTooltip" role="tooltip"></div>
@@ -1302,16 +1328,19 @@
 <a class="skip-link" href="#main-content">Перейти к контенту</a>
 
 <div class="glass-wrapper">
-  
-  <!-- ШАПКА САЙТА (Оригинальная структура и ссылки) -->
+
+  <!-- ШАПКА САЙТА -->
   <header class="site-header transparent-header">
     <div class="container header-inner">
       <div class="header-brand">
         <div class="brand-logo">
-          <img src="assets/Филин от.png" alt="Логотип СДО" style="width: 100%; height: 100%; object-fit: contain;">
+          <!-- ИЗМЕНЕНИЕ: добавлены width/height для предотвращения CLS -->
+          <img src="assets/Филин от.png" alt="Логотип СДО" width="42" height="42" style="width: 100%; height: 100%; object-fit: contain;">
         </div>
         <div>
-          <h1 class="site-title-mini">СДО</h1>
+          <!-- ИЗМЕНЕНИЕ: h1 заменён на div — это не основной заголовок страницы,
+               а название бренда. Основной h1 — в hero-блоке ниже. -->
+          <div class="site-title-mini">СДО</div>
           <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
         </div>
       </div>
@@ -1334,12 +1363,12 @@
     <div class="container">
 
       <div class="dashboard-container">
-        
+
         <div class="main-column">
-          
+
           <!-- 1. ГЛАВНЫЙ ПРИВЕТСТВЕННЫЙ БЛОК -->
           <div class="hero-welcome reveal-up" id="tilt-hero">
-            <svg class="hero-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <svg class="hero-watermark" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
               <path d="M9 12l2 2 4-4"/>
             </svg>
@@ -1351,7 +1380,10 @@
                   <span class="live-clock-pill" id="liveClockPill" title="Точное системное время">🕒 --:--:--</span>
                 </div>
                 <div class="hero-quick-tools">
-                  <button type="button" class="tool-pill-btn" id="contrastToggleBtn" title="Переключить четкость стеклянных панелей">
+                  <!-- ИЗМЕНЕНИЕ: добавлен aria-label для понятного имени кнопки -->
+                  <button type="button" class="tool-pill-btn" id="contrastToggleBtn"
+                          title="Переключить четкость стеклянных панелей"
+                          aria-label="Переключить контрастность стеклянных панелей">
                     ✨ Четкость
                   </button>
                   <button type="button" class="tool-pill-btn sos-pill" id="heroSosBtn" title="Экстренная памятка действий при ЧС и БПЛА">
@@ -1360,11 +1392,12 @@
                 </div>
               </div>
 
-              <h2 class="welcome-title"><span id="greeting-text" class="greeting-highlight">Добрый день</span>, коллега!</h2>
+              <!-- ИЗМЕНЕНИЕ: <h2> заменён на <h1> — это главный заголовок страницы -->
+              <h1 class="welcome-title"><span id="greeting-text" class="greeting-highlight">Добрый день</span>, коллега!</h1>
               <p class="welcome-text">
                 Добро пожаловать в единую систему управления обучением. Портал предназначен для автоматизации процессов инструктажа и проверки знания требований охраны труда в соответствии с <strong>Постановлением № 2464</strong>.
               </p>
-              
+
               <div class="hero-actions-row">
                 <a href="programs.html" class="btn-magic">
                   <span>Перейти в реестр программ</span>
@@ -1390,9 +1423,9 @@
             <a href="programs.html" class="resume-link-btn" id="resumeActionLink">Открыть лекцию ➔</a>
           </div>
 
-          <!-- 2. ОРИГИНАЛЬНЫЕ 4 КАРТОЧКИ ПРЕИМУЩЕСТВ (SPOTLIGHT EFFECT) -->
+          <!-- 2. ОРИГИНАЛЬНЫЕ 4 КАРТОЧКИ ПРЕИМУЩЕСТВ -->
           <div class="info-grid reveal-up delay-100">
-            
+
             <div class="spotlight-card">
               <div class="spotlight-inner">
                 <div class="info-icon" style="background: #ecfdf5; color: #10b981;">🎯</div>
@@ -1460,8 +1493,8 @@
 
         <!-- ПРАВАЯ КОЛОНКА (САЙДБАР) -->
         <aside class="sidebar-column reveal-up delay-200">
-          
-          <!-- ПРОИЗВОДСТВЕННЫЙ КАЛЕНДАРЬ 3.0 С ОПИСАНИЕМ ПРАЗДНИКОВ ПРИ НАВЕДЕНИИ -->
+
+          <!-- ПРОИЗВОДСТВЕННЫЙ КАЛЕНДАРЬ 3.0 -->
           <div class="sidebar-widget">
             <div class="cal-widget-top">
               <div class="cal-title-wrap">
@@ -1475,7 +1508,6 @@
               </div>
             </div>
 
-            <!-- Автоматическая сводка рабочих дней и нормы часов в месяце -->
             <div class="cal-stats-strip">
               <div class="cal-stat-item">
                 <span class="cal-stat-val" id="statWorkDays">--</span>
@@ -1493,23 +1525,21 @@
 
             <div class="calendar-grid" id="calendar-grid"></div>
 
-            <!-- Легенда календаря -->
             <div class="cal-legend">
               <span class="legend-item"><span class="legend-box" style="background: #10b981;"></span> Сегодня</span>
               <span class="legend-item"><span class="legend-box" style="background: #e11d48;"></span> Праздник РФ</span>
               <span class="legend-item"><span class="legend-box" style="background: #2563eb;"></span> Дата ОТ/МЧС</span>
             </div>
 
-            <!-- Живое табло описания праздника и калькулятора сроков обучения -->
             <div class="cal-helper-panel" id="calHelperPanel">
               💡 <strong>Наведите курсор</strong> на красную или синюю дату, чтобы увидеть название праздника, или <strong>кликните</strong> для расчета сроков обучения (+13 раб. дней).
             </div>
           </div>
 
-          <!-- НОРМАТИВНАЯ БАЗА (ВСЕ 5 ОРИГИНАЛЬНЫХ ССЫЛОК) -->
+          <!-- НОРМАТИВНАЯ БАЗА -->
           <div class="sidebar-widget">
             <h4 class="npa-title">⚖️ Нормативная база</h4>
-            
+
             <a href="https://www.consultant.ru/document/cons_doc_LAW_405174/" target="_blank" rel="noopener noreferrer" class="npa-item">
               <span style="font-size: 1.2rem;">📜</span>
               <div>
@@ -1603,12 +1633,17 @@
 </nav>
 
 <!-- МОДАЛЬНОЕ ОКНО 1: БЫСТРЫЙ И ГОЛОСОВОЙ ПОИСК -->
-<div class="modal-overlay" id="searchModal">
+<!-- ИЗМЕНЕНИЕ: добавлен aria-hidden="true" — изначально модалка скрыта от скринридеров -->
+<div class="modal-overlay" id="searchModal" aria-hidden="true">
   <div class="modal-box" role="dialog" aria-modal="true" aria-label="Быстрый поиск по порталу">
     <div class="search-modal-header">
-      <span style="font-size: 1.2rem;">🔍</span>
-      <input type="text" class="search-modal-input" id="searchModalInput" placeholder="Поиск курса или теста (например: БПЛА, Первая помощь)...">
-      <button type="button" class="voice-mic-btn" id="voiceSearchBtn" title="Голосовой поиск">🎤</button>
+      <span style="font-size: 1.2rem;" aria-hidden="true">🔍</span>
+      <!-- ИЗМЕНЕНИЕ: добавлен aria-label для поля поиска -->
+      <input type="text" class="search-modal-input" id="searchModalInput"
+             placeholder="Поиск курса или теста (например: БПЛА, Первая помощь)..."
+             aria-label="Поиск курса или теста">
+      <!-- ИЗМЕНЕНИЕ: добавлен aria-label для кнопки голосового ввода -->
+      <button type="button" class="voice-mic-btn" id="voiceSearchBtn" title="Голосовой поиск" aria-label="Голосовой поиск">🎤</button>
       <button type="button" class="modal-close" id="closeSearchModal">Закрыть</button>
     </div>
     <div class="search-results-list" id="searchResultsList"></div>
@@ -1616,7 +1651,8 @@
 </div>
 
 <!-- МОДАЛЬНОЕ ОКНО 2: ОПЕРАТИВНАЯ ПАМЯТКА ЧС И БПЛА -->
-<div class="modal-overlay" id="sosModal">
+<!-- ИЗМЕНЕНИЕ: добавлен aria-hidden="true" -->
+<div class="modal-overlay" id="sosModal" aria-hidden="true">
   <div class="modal-box" role="dialog" aria-modal="true" aria-label="Экстренная памятка ЧС">
     <div class="sos-modal-top">
       <div>
@@ -1654,6 +1690,9 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     document.body.classList.add('js-loaded');
+
+    // ИЗМЕНЕНИЕ: единый флаг для reduced-motion — используется в canvas и tilt
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // === 1. ДАТА В ШАПКЕ, ЖИВЫЕ ЧАСЫ И УМНОЕ ПРИВЕТСТВИЕ ===
     const now = new Date();
@@ -1759,14 +1798,21 @@
     function renderMiniPrograms(roleFilter = 'all') {
       if (!miniGrid) return;
       const list = roleFilter === 'all' ? coursesData : coursesData.filter(c => c.roles.includes(roleFilter));
-      miniGrid.innerHTML = list.map(c => `
+      miniGrid.innerHTML = list.map(c => {
+        // ИЗМЕНЕНИЕ (безопасность): приводим page к числу и проверяем,
+        // чтобы в innerHTML не попала произвольная строка из localStorage.
+        const pageNum = Number(c.page);
+        const savedBadge = Number.isFinite(pageNum) && pageNum > 1
+          ? `<span class="mp-saved">📖 Стр. ${pageNum}</span>`
+          : '';
+        return `
         <article class="mini-prog-card">
           <div class="mp-top">
             <div class="mp-icon" style="background: ${c.bg};">${c.icon}</div>
             <div>
               <h4 class="mp-title">${c.title}</h4>
               <div class="mp-badge">${c.badge}</div>
-              ${c.page && parseInt(c.page) > 1 ? `<span class="mp-saved">📖 Стр. ${c.page}</span>` : ''}
+              ${savedBadge}
             </div>
           </div>
           <div class="mp-actions">
@@ -1774,7 +1820,8 @@
             ${c.testUrl ? `<a href="${c.testUrl}" class="mp-btn-test" title="Сразу к тесту">Тест</a>` : ''}
           </div>
         </article>
-      `).join('');
+      `;
+      }).join('');
     }
 
     roleBtns.forEach(btn => {
@@ -1786,7 +1833,7 @@
     });
     renderMiniPrograms('all');
 
-    // === 5. ПРОИЗВОДСТВЕННЫЙ КАЛЕНДАРЬ 3.0 С ОПИСАНИЕМ ПРАЗДНИКОВ ПРИ НАВЕДЕНИИ ===
+    // === 5. ПРОИЗВОДСТВЕННЫЙ КАЛЕНДАРЬ 3.0 ===
     let calYear = now.getFullYear();
     let calMonth = now.getMonth();
     const calGrid = document.getElementById('calendar-grid');
@@ -1796,6 +1843,8 @@
     const statWorkDaysEl = document.getElementById('statWorkDays');
     const statOffDaysEl = document.getElementById('statOffDays');
     const statWorkHoursEl = document.getElementById('statWorkHours');
+
+    const CAL_DEFAULT_HELPER_HTML = `💡 <strong>Наведите курсор</strong> на красную или синюю дату, чтобы увидеть название праздника, или <strong>кликните</strong> для расчета сроков обучения.`;
 
     // Полная база официальных государственных праздников РФ (Ст. 112 ТК РФ)
     const holidaysDB = {
@@ -1877,6 +1926,13 @@
       calGrid.innerHTML = '';
       lockedInfoHTML = null;
       lockedPanelClass = '';
+
+      // ИЗМЕНЕНИЕ (баг): сбрасываем информационную панель при смене месяца,
+      // чтобы не показывать данные о ранее выбранном дне.
+      if (calHelper) {
+        calHelper.className = 'cal-helper-panel';
+        calHelper.innerHTML = CAL_DEFAULT_HELPER_HTML;
+      }
 
       const firstDayDate = new Date(year, month, 1);
       calTitle.textContent = firstDayDate.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' });
@@ -1994,7 +2050,7 @@
             calHelper.innerHTML = lockedInfoHTML;
           } else {
             calHelper.className = 'cal-helper-panel';
-            calHelper.innerHTML = `💡 <strong>Наведите курсор</strong> на красную или синюю дату, чтобы увидеть название праздника, или <strong>кликните</strong> для расчета сроков обучения.`;
+            calHelper.innerHTML = CAL_DEFAULT_HELPER_HTML;
           }
         });
 
@@ -2067,8 +2123,9 @@
     }, { passive: true });
 
     // === 6. 3D TILT И SPOTLIGHT EFFECT (ДЛЯ ПК) ===
-    const hero = document.getElementById('tilt-hero');
-    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    // ИЗМЕНЕНИЕ: при prefers-reduced-motion 3D-tilt отключается.
+    if (!prefersReducedMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      const hero = document.getElementById('tilt-hero');
       if (hero) {
         hero.addEventListener('mousemove', (e) => {
           const rect = hero.getBoundingClientRect();
@@ -2120,16 +2177,66 @@
     const searchResultsList = document.getElementById('searchResultsList');
     const sosModal = document.getElementById('sosModal');
 
+    // ИЗМЕНЕНИЕ (доступность): управление фокусом в модальных окнах.
+    // Сохраняем активный элемент до открытия и возвращаем ему фокус при закрытии.
+    let previousFocus = null;
+    let activeModal = null;
+
+    function getFocusable(modal) {
+      return Array.from(modal.querySelectorAll(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      ));
+    }
+
+    function trapFocusHandler(e) {
+      if (e.key !== 'Tab' || !activeModal) return;
+      const focusable = getFocusable(activeModal);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    }
+
+    function openModal(modal, focusTarget) {
+      previousFocus = document.activeElement;
+      activeModal = modal;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.addEventListener('keydown', trapFocusHandler, true);
+      setTimeout(() => {
+        const target = focusTarget || getFocusable(modal)[0];
+        if (target) target.focus();
+      }, 60);
+    }
+
+    function closeModal(modal) {
+      if (!modal.classList.contains('open')) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.removeEventListener('keydown', trapFocusHandler, true);
+      if (activeModal === modal) activeModal = null;
+      if (previousFocus && typeof previousFocus.focus === 'function') {
+        previousFocus.focus();
+        previousFocus = null;
+      }
+    }
+
+    // ИЗМЕНЕНИЕ (безопасность): пользовательский запрос выводится через textContent,
+    // чтобы исключить XSS при пустом результате поиска.
     function renderSearchModalList(query = '') {
       if (!searchResultsList) return;
       const q = query.toLowerCase().trim();
       const filtered = searchItems.filter(i => i.title.toLowerCase().includes(q) || i.tag.toLowerCase().includes(q));
       if (filtered.length === 0) {
-        const safeQuery = document.createElement('div');
-safeQuery.style.cssText = 'padding: 24px; text-align: center; color: #64748b;';
-safeQuery.textContent = `Ничего не найдено по запросу «${query}»`;
-searchResultsList.innerHTML = '';
-searchResultsList.appendChild(safeQuery);
+        searchResultsList.innerHTML = '';
+        const msg = document.createElement('div');
+        msg.style.cssText = 'padding: 24px; text-align: center; color: #64748b;';
+        msg.textContent = `Ничего не найдено по запросу «${query}»`;
+        searchResultsList.appendChild(msg);
         return;
       }
       searchResultsList.innerHTML = filtered.map(i => `
@@ -2144,31 +2251,43 @@ searchResultsList.appendChild(safeQuery);
     }
 
     function openSearchModal(initialText = '') {
-      searchModal.classList.add('open');
+      openModal(searchModal, searchInput);
       searchInput.value = initialText;
       renderSearchModalList(initialText);
-      setTimeout(() => searchInput.focus(), 60);
+    }
+
+    function closeSearchModalFn() {
+      closeModal(searchModal);
+    }
+
+    function openSosModal() {
+      openModal(sosModal, document.getElementById('closeSosModal'));
+    }
+
+    function closeSosModalFn() {
+      closeModal(sosModal);
     }
 
     document.getElementById('openSearchBtn')?.addEventListener('click', () => openSearchModal(''));
     document.getElementById('mobSearchBtn')?.addEventListener('click', () => openSearchModal(''));
-    document.getElementById('closeSearchModal')?.addEventListener('click', () => searchModal.classList.remove('open'));
-    searchModal?.addEventListener('click', (e) => { if (e.target === searchModal) searchModal.classList.remove('open'); });
+    document.getElementById('closeSearchModal')?.addEventListener('click', closeSearchModalFn);
+    searchModal?.addEventListener('click', (e) => { if (e.target === searchModal) closeSearchModalFn(); });
     searchInput?.addEventListener('input', (e) => renderSearchModalList(e.target.value));
 
-    document.getElementById('heroSosBtn')?.addEventListener('click', () => sosModal.classList.add('open'));
-    document.getElementById('mobSosBtn')?.addEventListener('click', () => sosModal.classList.add('open'));
-    document.getElementById('closeSosModal')?.addEventListener('click', () => sosModal.classList.remove('open'));
-    sosModal?.addEventListener('click', (e) => { if (e.target === sosModal) sosModal.classList.remove('open'); });
+    document.getElementById('heroSosBtn')?.addEventListener('click', openSosModal);
+    document.getElementById('mobSosBtn')?.addEventListener('click', openSosModal);
+    document.getElementById('closeSosModal')?.addEventListener('click', closeSosModalFn);
+    sosModal?.addEventListener('click', (e) => { if (e.target === sosModal) closeSosModalFn(); });
 
     document.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
-        searchModal.classList.contains('open') ? searchModal.classList.remove('open') : openSearchModal('');
+        if (searchModal.classList.contains('open')) closeSearchModalFn();
+        else openSearchModal('');
       }
       if (e.key === 'Escape') {
-        searchModal.classList.remove('open');
-        sosModal.classList.remove('open');
+        if (searchModal.classList.contains('open')) closeSearchModalFn();
+        if (sosModal.classList.contains('open')) closeSosModalFn();
       }
     });
 
@@ -2212,7 +2331,7 @@ searchResultsList.appendChild(safeQuery);
         height = canvas.height = window.innerHeight;
       }, { passive: true });
 
-      if (!isMobile) {
+      if (!isMobile && !prefersReducedMotion) {
         window.addEventListener('mousemove', (e) => {
           mouse.x = e.clientX;
           mouse.y = e.clientY;
@@ -2227,6 +2346,17 @@ searchResultsList.appendChild(safeQuery);
           vy: (Math.random() - 0.5) * 0.38,
           r: Math.random() * 2 + 1.2
         });
+      }
+
+      function drawStaticFrame() {
+        ctx.clearRect(0, 0, width, height);
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(37, 99, 235, 0.22)';
+          ctx.fill();
+        }
       }
 
       function animateCanvas() {
@@ -2272,7 +2402,14 @@ searchResultsList.appendChild(safeQuery);
         }
         requestAnimationFrame(animateCanvas);
       }
-      animateCanvas();
+
+      // ИЗМЕНЕНИЕ: при prefers-reduced-motion не запускаем бесконечную анимацию,
+      // а рисуем один статичный кадр.
+      if (prefersReducedMotion) {
+        drawStaticFrame();
+      } else {
+        animateCanvas();
+      }
     }
   });
 </script>
