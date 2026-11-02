@@ -2,213 +2,446 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>СДО | Регламент обучения</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Порядок допуска к самостоятельной работе: инструкции по работе с порталом, требования к тестированию и оформлению результатов.">
+  <title>Регламент обучения в СДО — пошаговая инструкция | Охрана труда</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- ===== SEO ===== -->
+  <meta name="description" content="Пошаговый регламент обучения в СДО: 4 шага дистанционного обучения, критерии допуска, требования к идентификации и ответы на частые вопросы. Проходной балл — 85%.">
+  <meta name="keywords" content="СДО, дистанционное обучение, охрана труда, проверка знаний, тестирование, регламент обучения, инструкция, проходной балл">
+  <meta name="author" content="Служба Охраны Труда">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="theme-color" content="#2563eb">
+  <link rel="canonical" href="https://example.com/instructions.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Регламент обучения в СДО — пошаговая инструкция">
+  <meta property="og:description" content="Как пройти обучение и проверку знаний в СДО: 4 шага, критерии допуска, FAQ.">
+  <meta property="og:url" content="https://example.com/instructions.html">
+  <meta property="og:site_name" content="СДО — Система дистанционного обучения">
+  <meta property="og:locale" content="ru_RU">
+  <!-- Замените на реальную картинку 1200x630 -->
+  <meta property="og:image" content="https://example.com/assets/og-instructions.jpg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Регламент обучения в СДО">
+  <meta name="twitter:description" content="Пошаговая инструкция по дистанционному обучению и тестированию.">
+  <meta name="twitter:image" content="https://example.com/assets/og-instructions.jpg">
+
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/Филин от.png">
 
+  <!-- ===== СТИЛИ СТРАНИЦЫ ===== -->
   <style>
-    /* 1. HERO BLOCK */
-    .instr-hero {
-      text-align: center;
-      padding: 40px 20px;
-      margin-bottom: 20px;
+    /* ---------- ЦВЕТОВЫЕ ПЕРЕМЕННЫЕ (светлая/тёмная тема) ---------- */
+    :root {
+      --c-card: rgba(255,255,255,0.72);
+      --c-card-solid: #ffffff;
+      --c-text: #0f172a;
+      --c-text-2: #475569;
+      --c-text-3: #64748b;
+      --c-border: #ffffff;
+      --c-accent: #2563eb;
+      --c-accent-2: #3b82f6;
+      --c-success: #10b981;
+      --c-line: #bfdbfe;
+      --c-faq-bg: rgba(255,255,255,0.8);
+      --c-faq-border: rgba(148,163,184,0.2);
+      --c-dot-1: #2563eb;
+      --c-dot-2: #1d4ed8;
+      --c-dot-1-done: #10b981;
+      --c-dot-2-done: #059669;
+      --c-shadow: rgba(0,0,0,0.05);
     }
-    .instr-title { font-size: 2.2rem; font-weight: 800; color: #0f172a; margin-bottom: 15px; }
-    .instr-lead { font-size: 1.1rem; color: #475569; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --c-card: rgba(30,41,59,0.65);
+      --c-card-solid: #1e293b;
+      --c-text: #f1f5f9;
+      --c-text-2: #cbd5e1;
+      --c-text-3: #94a3b8;
+      --c-border: rgba(148,163,184,0.2);
+      --c-accent: #60a5fa;
+      --c-accent-2: #93c5fd;
+      --c-success: #34d399;
+      --c-line: rgba(96,165,250,0.3);
+      --c-faq-bg: rgba(30,41,59,0.65);
+      --c-faq-border: rgba(148,163,184,0.25);
+      --c-dot-1: #60a5fa;
+      --c-dot-2: #3b82f6;
+      --c-dot-1-done: #34d399;
+      --c-dot-2-done: #10b981;
+      --c-shadow: rgba(0,0,0,0.4);
+    }
+    [data-theme="dark"] body.masterpiece-theme {
+      background-color: #0f172a;
+      background-image:
+        radial-gradient(1200px 600px at 10% 0%, rgba(59,130,246,0.15), transparent 60%),
+        radial-gradient(800px 400px at 90% 100%, rgba(139,92,246,0.10), transparent 60%);
+    }
 
-    /* 2. TIMELINE (ВАУ-ВЕРСИЯ) */
+    /* ---------- READING PROGRESS ---------- */
+    .reading-progress {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: linear-gradient(90deg, #3b82f6, #2563eb);
+      z-index: 9999; transition: width 0.1s linear;
+      pointer-events: none;
+    }
+
+    /* ---------- BREADCRUMBS ---------- */
+    .breadcrumbs {
+      font-size: 0.85rem; color: var(--c-text-3);
+      padding: 20px 0 0; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    }
+    .breadcrumbs a { color: var(--c-text-3); text-decoration: none; transition: color 0.2s; }
+    .breadcrumbs a:hover { color: var(--c-accent); }
+    .breadcrumbs .sep { opacity: 0.5; }
+    .breadcrumbs [aria-current="page"] { color: var(--c-text); font-weight: 600; }
+
+    /* ---------- HERO ---------- */
+    .instr-hero {
+      text-align: center; padding: 30px 20px 20px; margin-bottom: 20px;
+    }
+    .instr-eyebrow {
+      display: inline-block; font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--c-accent); background: rgba(37,99,235,0.10);
+      padding: 6px 14px; border-radius: 999px; margin-bottom: 18px;
+    }
+    .instr-title {
+      font-size: clamp(1.7rem, 4vw, 2.6rem); font-weight: 800;
+      color: var(--c-text); margin: 0 0 15px; line-height: 1.15;
+    }
+    .instr-lead {
+      font-size: 1.08rem; color: var(--c-text-2); max-width: 780px;
+      margin: 0 auto 22px; line-height: 1.65;
+    }
+    .instr-meta {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 10px 22px; font-size: 0.88rem; color: var(--c-text-3);
+      margin-bottom: 22px;
+    }
+    .instr-meta-item { display: inline-flex; align-items: center; gap: 6px; }
+    .instr-actions {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+    }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px; border-radius: 12px; font-size: 0.92rem; font-weight: 600;
+      background: var(--c-card); color: var(--c-text);
+      border: 1px solid var(--c-border); cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+      font-family: inherit;
+    }
+    .btn-ghost:hover { transform: translateY(-2px); box-shadow: 0 8px 20px -6px var(--c-shadow); background: var(--c-card-solid); }
+    .btn-ghost:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+    .btn-ghost svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    /* ---------- PROGRESS PANEL ---------- */
+    .instr-progress {
+      max-width: 900px; margin: 0 auto 50px;
+      background: var(--c-card); border: 1px solid var(--c-border);
+      border-radius: 20px; padding: 22px 26px;
+      backdrop-filter: blur(12px); box-shadow: 0 10px 30px -12px var(--c-shadow);
+    }
+    .instr-progress-top {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px;
+      justify-content: space-between; margin-bottom: 14px;
+    }
+    .instr-progress-label {
+      font-size: 0.95rem; font-weight: 600; color: var(--c-text);
+      display: inline-flex; align-items: center; gap: 10px;
+    }
+    .instr-progress-label strong { color: var(--c-accent); font-weight: 800; }
+    .instr-progress-reset {
+      background: none; border: none; font-size: 0.85rem; font-weight: 600;
+      color: var(--c-text-3); cursor: pointer; padding: 6px 12px;
+      border-radius: 8px; transition: color 0.2s, background 0.2s;
+      font-family: inherit;
+    }
+    .instr-progress-reset:hover { color: var(--c-text); background: rgba(148,163,184,0.12); }
+    .instr-progress-bar {
+      height: 10px; background: rgba(148,163,184,0.18);
+      border-radius: 999px; overflow: hidden;
+    }
+    .instr-progress-fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--c-accent), var(--c-success));
+      border-radius: 999px; transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .instr-progress-hint {
+      margin-top: 10px; font-size: 0.82rem; color: var(--c-text-3);
+    }
+
+    /* ---------- TIMELINE ---------- */
     .timeline-container {
-      position: relative;
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 20px 0;
+      position: relative; max-width: 900px; margin: 40px auto; padding: 20px 0;
     }
-    /* Линия */
     .timeline-container::before {
-      content: '';
-      position: absolute;
-      top: 20px; bottom: 0; left: 24px; /* Мобильный вид */
-      width: 3px;
-      background: linear-gradient(to bottom, #3b82f6, #e2e8f0 80%, transparent); /* Градиентная линия */
-      border-radius: 4px;
+      content: ''; position: absolute; top: 20px; bottom: 0; left: 24px;
+      width: 3px; border-radius: 4px;
+      background: linear-gradient(to bottom, var(--c-accent-2), var(--c-line) 80%, transparent);
     }
-    
     @media (min-width: 768px) {
       .timeline-container::before { left: 50%; transform: translateX(-50%); }
     }
-
     .timeline-item {
-      position: relative;
-      margin-bottom: 50px;
-      width: 100%;
-      display: flex;
-      justify-content: flex-end;
-      padding-left: 70px;
+      position: relative; margin-bottom: 50px; width: 100%;
+      display: flex; justify-content: flex-end; padding-left: 70px;
     }
-
-    /* Чередование (Zig-Zag) */
     @media (min-width: 768px) {
-      .timeline-item:nth-child(odd) { justify-content: flex-start; padding-left: 0; padding-right: 50%; }
-      .timeline-item:nth-child(even) { justify-content: flex-end; padding-left: 50%; padding-right: 0; }
-      
+      .timeline-item:nth-child(odd)  { justify-content: flex-start; padding-left: 0; padding-right: 50%; }
+      .timeline-item:nth-child(even) { justify-content: flex-end;   padding-left: 50%; padding-right: 0; }
       .timeline-content { width: 90%; }
-      .timeline-item:nth-child(odd) .timeline-content { margin-right: 50px; text-align: right; }
-      .timeline-item:nth-child(even) .timeline-content { margin-left: 50px; text-align: left; }
-      
-      /* Соединительная линия к карточке */
+      .timeline-item:nth-child(odd)  .timeline-content { margin-right: 50px; text-align: right; }
+      .timeline-item:nth-child(even) .timeline-content { margin-left: 50px;  text-align: left;  }
       .timeline-item:nth-child(odd)::after {
-        content: ''; position: absolute; top: 25px; right: 50%; width: 50px; height: 2px; background: #bfdbfe; z-index: 0;
+        content: ''; position: absolute; top: 25px; right: 50%; width: 50px; height: 2px;
+        background: var(--c-line); z-index: 0;
       }
       .timeline-item:nth-child(even)::after {
-        content: ''; position: absolute; top: 25px; left: 50%; width: 50px; height: 2px; background: #bfdbfe; z-index: 0;
+        content: ''; position: absolute; top: 25px; left: 50%; width: 50px; height: 2px;
+        background: var(--c-line); z-index: 0;
       }
+      .timeline-item:nth-child(odd) .step-header { flex-direction: row-reverse; }
     }
 
-    /* КРУГ (DOT) - Исправленный контраст */
+    /* Точка шага */
     .timeline-dot {
-      position: absolute;
-      left: 0; /* На мобильном */
-      top: 0;
+      position: absolute; left: 0; top: 0;
       width: 50px; height: 50px;
-      
-      /* Градиентный фон для круга */
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      color: #ffffff; /* Белый текст */
-      
-      border-radius: 50%;
-      box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.8), 0 8px 20px rgba(37, 99, 235, 0.4);
-      z-index: 2;
-      
-      /* Центрирование цифры */
+      background: linear-gradient(135deg, var(--c-dot-1), var(--c-dot-2));
+      color: #ffffff; border-radius: 50%;
+      box-shadow: 0 0 0 6px rgba(255,255,255,0.8), 0 8px 20px rgba(37,99,235,0.4);
+      z-index: 2; border: 2px solid var(--c-card-solid);
       display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 1.1rem;
-      border: 2px solid #fff;
+      font-weight: 800; font-size: 1.05rem;
+      transition: background 0.4s, transform 0.3s;
     }
-
-    /* Пульсация круга */
+    .timeline-dot .dot-check { display: none; width: 24px; height: 24px; stroke: #fff; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
     .timeline-dot::before {
       content: ''; position: absolute; inset: -4px; border-radius: 50%;
-      border: 2px solid rgba(37, 99, 235, 0.3);
-      animation: ripple 2s infinite;
+      border: 2px solid rgba(37,99,235,0.3); animation: ripple 2s infinite;
     }
     @keyframes ripple {
-      0% { transform: scale(1); opacity: 1; }
+      0%   { transform: scale(1);   opacity: 1; }
       100% { transform: scale(1.6); opacity: 0; }
     }
-
     @media (min-width: 768px) {
       .timeline-dot { left: 50%; transform: translateX(-50%); }
     }
+    /* Отметка «выполнено» */
+    .timeline-item.is-done .timeline-dot {
+      background: linear-gradient(135deg, var(--c-dot-1-done), var(--c-dot-2-done));
+      box-shadow: 0 0 0 6px rgba(255,255,255,0.8), 0 8px 20px rgba(16,185,129,0.4);
+    }
+    .timeline-item.is-done .timeline-dot .dot-num  { display: none; }
+    .timeline-item.is-done .timeline-dot .dot-check{ display: block; }
+    .timeline-item.is-done .timeline-dot::before   { border-color: rgba(16,185,129,0.3); }
 
+    /* Подсветка следующего шага */
+    .timeline-item.is-next .timeline-content {
+      box-shadow: 0 10px 30px -5px rgba(37,99,235,0.25), 0 0 0 2px rgba(37,99,235,0.18);
+    }
+
+    /* Контент шага */
     .timeline-content {
-      background: rgba(255,255,255,0.7);
-      border: 1px solid #fff;
-      border-radius: 20px;
-      padding: 24px;
+      background: var(--c-card); border: 1px solid var(--c-border);
+      border-radius: 20px; padding: 22px 24px;
       backdrop-filter: blur(12px);
-      box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
-      transition: transform 0.3s;
+      box-shadow: 0 10px 30px -5px var(--c-shadow);
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
       position: relative; z-index: 1;
     }
-    .timeline-content:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.15); background: #fff; }
-
-    .step-title { font-size: 1.2rem; font-weight: 800; color: #0f172a; margin: 0 0 10px; }
-    .step-desc { font-size: 0.95rem; color: #475569; margin: 0; line-height: 1.6; }
-    .step-desc a { color: #2563eb; font-weight: 600; text-decoration: none; border-bottom: 1px dashed; }
-
-    /* 3. CHECKLIST PANEL (3D CARDS) */
-    .requirements-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-      margin-top: 40px;
+    .timeline-content:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -10px rgba(37,99,235,0.15);
+      background: var(--c-card-solid);
     }
-    
-    /* Класс для 3D эффекта (как на главной) */
+    .timeline-item.is-done .timeline-content { opacity: 0.85; }
+
+    .step-header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-bottom: 14px;
+    }
+    .step-time {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; font-weight: 600; color: var(--c-text-3);
+      background: rgba(148,163,184,0.12); padding: 4px 10px; border-radius: 999px;
+    }
+    .step-actions { display: inline-flex; gap: 6px; align-items: center; }
+
+    .step-check, .step-copy {
+      width: 34px; height: 34px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 2px solid rgba(148,163,184,0.35); background: transparent;
+      cursor: pointer; transition: all 0.25s; padding: 0; flex-shrink: 0;
+    }
+    .step-check svg, .step-copy svg {
+      width: 16px; height: 16px; stroke: var(--c-text-3); fill: none; stroke-width: 3;
+      stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.25s;
+    }
+    .step-copy svg { stroke-width: 2; }
+    .step-check:hover { border-color: var(--c-accent); }
+    .step-check:hover svg { stroke: var(--c-accent); }
+    .step-copy:hover { border-color: var(--c-accent); }
+    .step-copy:hover svg { stroke: var(--c-accent); }
+    .step-check[aria-pressed="true"] {
+      background: var(--c-success); border-color: var(--c-success);
+    }
+    .step-check[aria-pressed="true"] svg { stroke: #ffffff; }
+    .step-check:focus-visible, .step-copy:focus-visible {
+      outline: 2px solid var(--c-accent); outline-offset: 2px;
+    }
+
+    .step-title {
+      font-size: 1.18rem; font-weight: 800; color: var(--c-text);
+      margin: 0 0 10px; line-height: 1.3;
+    }
+    .step-desc { font-size: 0.95rem; color: var(--c-text-2); margin: 0; line-height: 1.65; }
+    .step-desc a {
+      color: var(--c-accent); font-weight: 600; text-decoration: none;
+      border-bottom: 1px dashed; transition: color 0.2s;
+    }
+    .step-desc a:hover { color: var(--c-accent-2); }
+    .step-desc strong { color: var(--c-text); }
+
+    /* ---------- REQUIREMENTS ---------- */
+    .requirements-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px; margin-top: 40px;
+    }
     .tilt-card {
-      background: #fff;
-      border-radius: 24px;
-      padding: 30px;
-      border: 1px solid rgba(148,163,184,0.15);
-      box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03);
-      transition: transform 0.1s; /* Быстрая реакция для скрипта */
+      background: var(--c-card-solid); border-radius: 24px; padding: 30px;
+      border: 1px solid var(--c-faq-border);
+      box-shadow: 0 10px 30px -5px var(--c-shadow);
+      transition: transform 0.1s;
       position: relative; overflow: hidden;
     }
-    
-    /* Свечение */
     .tilt-card::before {
-      content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(37,99,235,0.05), transparent 40%);
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                  rgba(37,99,235,0.06), transparent 40%);
       opacity: 0; transition: opacity 0.5s; pointer-events: none;
     }
     .tilt-card:hover::before { opacity: 1; }
-
-    .req-icon { 
-      font-size: 2.5rem; margin-bottom: 20px; 
-      display: inline-block; 
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    .req-icon {
+      font-size: 2.4rem; margin-bottom: 18px; display: inline-block;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.12));
     }
-    .req-title { font-size: 1.2rem; font-weight: 700; margin: 0 0 15px; color: #1e293b; }
-    
+    .req-title { font-size: 1.18rem; font-weight: 700; margin: 0 0 15px; color: var(--c-text); }
     .req-list { list-style: none; padding: 0; margin: 0; }
     .req-list li {
       position: relative; padding-left: 28px; margin-bottom: 12px;
-      font-size: 0.95rem; color: #334155; line-height: 1.5;
+      font-size: 0.94rem; color: var(--c-text-2); line-height: 1.55;
     }
     .req-list li::before {
-      content: "✔";
-      position: absolute; left: 0; top: 0;
-      color: #10b981; font-weight: 800; font-size: 1rem;
-      /* Анимация галочки */
-      animation: checkPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      content: "✔"; position: absolute; left: 0; top: 0;
+      color: var(--c-success); font-weight: 800; font-size: 1rem;
       opacity: 0; transform: scale(0);
+      transition: opacity 0.35s, transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    
-    /* Задержка анимации для галочек */
-    .req-card:hover li::before { opacity: 1; transform: scale(1); }
-    .req-card:hover li:nth-child(1)::before { animation-delay: 0.1s; }
-    .req-card:hover li:nth-child(2)::before { animation-delay: 0.2s; }
-    .req-card:hover li:nth-child(3)::before { animation-delay: 0.3s; }
+    .tilt-card:hover li::before { opacity: 1; transform: scale(1); }
+    .tilt-card:hover li:nth-child(1)::before { transition-delay: 0.05s; }
+    .tilt-card:hover li:nth-child(2)::before { transition-delay: 0.15s; }
+    .tilt-card:hover li:nth-child(3)::before { transition-delay: 0.25s; }
 
-    @keyframes checkPop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
-
-    /* 4. FAQ ACCORDION */
+    /* ---------- FAQ ---------- */
     .faq-accordion { max-width: 800px; margin: 40px auto; }
+    .faq-search-wrap {
+      position: relative; margin-bottom: 18px;
+    }
+    .faq-search-wrap svg {
+      position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+      width: 18px; height: 18px; stroke: var(--c-text-3); fill: none; stroke-width: 2;
+      pointer-events: none;
+    }
+    .faq-search {
+      width: 100%; padding: 14px 16px 14px 46px; font-size: 0.95rem; font-family: inherit;
+      border-radius: 14px; border: 1px solid var(--c-faq-border);
+      background: var(--c-faq-bg); color: var(--c-text);
+      backdrop-filter: blur(6px); transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .faq-search:focus {
+      outline: none; border-color: var(--c-accent);
+      box-shadow: 0 0 0 4px rgba(37,99,235,0.12);
+    }
     .faq-item {
-      background: rgba(255,255,255,0.8);
-      border: 1px solid rgba(148,163,184,0.2);
-      border-radius: 16px;
-      margin-bottom: 12px;
-      overflow: hidden;
-      backdrop-filter: blur(5px);
-      transition: box-shadow 0.3s;
+      background: var(--c-faq-bg);
+      border: 1px solid var(--c-faq-border);
+      border-radius: 16px; margin-bottom: 12px; overflow: hidden;
+      backdrop-filter: blur(6px); transition: box-shadow 0.3s, border-color 0.3s;
     }
-    .faq-item:hover { box-shadow: 0 8px 20px -5px rgba(0,0,0,0.06); border-color: rgba(37,99,235,0.3); }
-
+    .faq-item:hover {
+      box-shadow: 0 8px 20px -5px var(--c-shadow);
+      border-color: rgba(37,99,235,0.35);
+    }
     .faq-trigger {
-      width: 100%; text-align: left; padding: 20px 24px;
-      background: none; border: none; font-weight: 700; color: #1e293b;
+      width: 100%; text-align: left; padding: 18px 22px;
+      background: none; border: none; font-weight: 700; color: var(--c-text);
       cursor: pointer; display: flex; justify-content: space-between; align-items: center;
-      font-size: 1.05rem;
+      gap: 16px; font-size: 1rem; font-family: inherit;
     }
-    .faq-icon { 
-      width: 24px; height: 24px; border-radius: 50%; background: #f1f5f9; color: #2563eb;
-      display: flex; align-items: center; justify-content: center; font-size: 0.8rem;
-      transition: transform 0.3s, background 0.3s;
+    .faq-trigger:focus-visible { outline: 2px solid var(--c-accent); outline-offset: -4px; border-radius: 16px; }
+    .faq-icon {
+      width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(37,99,235,0.10); color: var(--c-accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; transition: transform 0.3s, background 0.3s, color 0.3s;
     }
-    .faq-trigger[aria-expanded="true"] .faq-icon { transform: rotate(180deg); background: #2563eb; color: #fff; }
-    
+    .faq-trigger[aria-expanded="true"] .faq-icon {
+      transform: rotate(180deg); background: var(--c-accent); color: #fff;
+    }
     .faq-content {
       max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;
-      padding: 0 24px; color: #475569; line-height: 1.7;
+      padding: 0 22px; color: var(--c-text-2); line-height: 1.7; font-size: 0.95rem;
     }
-    .faq-trigger[aria-expanded="true"] + .faq-content { padding-bottom: 24px; }
+    .faq-trigger[aria-expanded="true"] + .faq-content { padding-bottom: 20px; }
+    .faq-no-results {
+      display: none; text-align: center; padding: 30px;
+      color: var(--c-text-3); font-size: 0.95rem;
+    }
+    .faq-no-results.is-visible { display: block; }
 
-    /* Анимация статуса (дубль) */
+    /* ---------- FLOATING ACTIONS ---------- */
+    .float-stack {
+      position: fixed; right: 20px; bottom: 20px; z-index: 999;
+      display: flex; flex-direction: column; gap: 10px; align-items: center;
+    }
+    .float-btn {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--c-card-solid); border: 1px solid var(--c-faq-border);
+      box-shadow: 0 8px 24px -8px var(--c-shadow);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+      padding: 0;
+    }
+    .float-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 28px -8px var(--c-shadow); }
+    .float-btn svg { width: 20px; height: 20px; stroke: var(--c-text); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .float-btn:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+    #back-to-top { opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.2s; }
+    #back-to-top.is-visible { opacity: 1; pointer-events: auto; }
+    #theme-toggle .icon-sun { display: none; }
+    [data-theme="dark"] #theme-toggle .icon-sun  { display: block; }
+    [data-theme="dark"] #theme-toggle .icon-moon { display: none; }
+
+    /* ---------- TOAST ---------- */
+    .toast {
+      position: fixed; left: 50%; bottom: 30px; transform: translate(-50%, 20px);
+      background: var(--c-text); color: var(--c-card-solid);
+      padding: 12px 22px; border-radius: 12px; font-size: 0.9rem; font-weight: 600;
+      box-shadow: 0 10px 30px -8px rgba(0,0,0,0.35);
+      opacity: 0; pointer-events: none; transition: opacity 0.25s, transform 0.25s;
+      z-index: 10000;
+    }
+    .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+    /* ---------- СТАТУС «ONLINE» ---------- */
     .system-status-pulse {
       display: inline-block; width: 8px; height: 8px;
       background-color: #10b981; border-radius: 50%;
@@ -216,69 +449,226 @@
       animation: pulse-green 2s infinite; margin-right: 6px;
     }
     @keyframes pulse-green {
-      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      0%   { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70%  { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
       100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
     }
     .header-meta {
-      font-size: 0.75rem; color: #64748b; font-weight: 500;
+      font-size: 0.75rem; color: var(--c-text-3); font-weight: 500;
       display: flex; align-items: center; gap: 15px; margin-left: auto;
     }
     @media (max-width: 900px) { .header-meta { display: none; } }
+
+    /* ---------- REDUCED MOTION ---------- */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ---------- PRINT ---------- */
+    @media print {
+      .site-header, .glass-footer, .float-stack, .reading-progress,
+      .breadcrumbs, .instr-actions, .instr-progress, .step-actions,
+      .faq-search-wrap, .toast { display: none !important; }
+      body { background: #fff !important; color: #000 !important; }
+      .timeline-content, .tilt-card, .faq-item {
+        background: #fff !important; border: 1px solid #ccc !important;
+        box-shadow: none !important; backdrop-filter: none !important;
+      }
+      .timeline-container::before,
+      .timeline-item::after { background: #999 !important; }
+      .timeline-dot { background: #333 !important; box-shadow: none !important; }
+      .timeline-dot::before { display: none !important; }
+      .faq-content { max-height: none !important; padding: 0 22px 20px !important; }
+      .faq-icon { display: none !important; }
+      .instr-title { color: #000 !important; }
+      .instr-lead, .step-desc, .req-list li, .faq-content { color: #333 !important; }
+      .step-title, .req-title, .faq-trigger { color: #000 !important; }
+    }
   </style>
+
+  <!-- ===== СТРУКТУРИРОВАННЫЕ ДАННЫЕ (SEO) ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://example.com/instructions.html#webpage",
+        "url": "https://example.com/instructions.html",
+        "name": "Регламент обучения в СДО — пошаговая инструкция",
+        "description": "Пошаговый алгоритм дистанционного обучения и проверки знаний в СДО.",
+        "inLanguage": "ru-RU",
+        "isPartOf": { "@id": "https://example.com/#website" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://example.com/instructions.html#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://example.com/index.html" },
+          { "@type": "ListItem", "position": 2, "name": "Инструкции", "item": "https://example.com/instructions.html" }
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "name": "Регламент обучения в СДО",
+        "description": "Как пройти дистанционное обучение и проверку знаний: 4 шага.",
+        "totalTime": "PT55M",
+        "step": [
+          { "@type": "HowToStep", "position": 1, "name": "Назначение обучения", "text": "Получите от руководителя уведомление. Уточните вид программы (ОТ, ПБ или Первая помощь) и сроки.", "url": "https://example.com/instructions.html#step-1" },
+          { "@type": "HowToStep", "position": 2, "name": "Изучение материалов", "text": "Перейдите в Каталог программ, выберите нужный курс и изучите видеолекции.", "url": "https://example.com/instructions.html#step-2" },
+          { "@type": "HowToStep", "position": 3, "name": "Идентификация", "text": "Перед тестом заполните форму: ФИО, должность, подразделение — строго как в паспорте и трудовом договоре.", "url": "https://example.com/instructions.html#step-3" },
+          { "@type": "HowToStep", "position": 4, "name": "Проверка знаний", "text": "Пройдите итоговое тестирование. Проходной балл — 85%.", "url": "https://example.com/instructions.html#step-4" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Сбой во время теста. Что делать?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Обновите страницу (F5). Если тест прервался — зайдите заново. При повторной ошибке сделайте скриншот и отправьте в службу техподдержки." }
+          },
+          {
+            "@type": "Question",
+            "name": "Сколько попыток дается на сдачу?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Количество попыток технически не ограничено, если иное не установлено вашим руководителем. Рекомендуем повторить материал перед пересдачей." }
+          },
+          {
+            "@type": "Question",
+            "name": "Где посмотреть мой результат?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Результат (балл и статус «Сдано/Не сдано») отображается на экране сразу после отправки формы. Копия протокола уходит ответственному." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
+
 <body class="masterpiece-theme">
+
+<!-- Индикатор прокрутки -->
+<div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
 
 <a class="skip-link" href="#main-content">Перейти к контенту</a>
 
 <div class="glass-wrapper">
-  
+
+  <!-- ===== ШАПКА ===== -->
   <header class="site-header transparent-header">
     <div class="container header-inner">
       <div class="header-brand">
-<div class="brand-logo">
-  <img src="assets/Филин от.png" alt="Логотип СДО" style="width: 100%; height: 100%; object-fit: contain;">
-</div>
+        <div class="brand-logo">
+          <img src="assets/Филин от.png" alt="Логотип СДО" style="width:100%;height:100%;object-fit:contain;">
+        </div>
         <div>
           <h1 class="site-title-mini">СДО</h1>
           <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
         </div>
       </div>
-      
+
       <div class="header-meta">
         <span id="current-date">Загрузка...</span>
-        <span style="display:flex; align-items:center;">
-            <span class="system-status-pulse"></span> Online
+        <span style="display:flex;align-items:center;">
+          <span class="system-status-pulse"></span> Online
         </span>
       </div>
 
-      <nav class="main-nav">
+      <nav class="main-nav" aria-label="Основная навигация">
         <ul class="nav-list">
           <li><a href="index.html" class="nav-link">Главная</a></li>
           <li><a href="programs.html" class="nav-link">Каталог программ</a></li>
-          <li><a href="instructions.html" class="nav-link nav-link-active active">Инструкции</a></li>
+          <li><a href="instructions.html" class="nav-link nav-link-active active" aria-current="page">Инструкции</a></li>
           <li><a href="for-responsibles.html" class="nav-link">Ответственным</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
+  <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
   <main id="main-content" class="site-main">
     <div class="container">
 
-      <section class="instr-hero reveal-up">
+      <!-- Хлебные крошки -->
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <a href="index.html">Главная</a>
+        <span class="sep" aria-hidden="true">›</span>
+        <span aria-current="page">Инструкции</span>
+      </nav>
+
+      <!-- HERO -->
+      <section class="instr-hero">
+        <span class="instr-eyebrow">Пошаговая инструкция</span>
         <h2 class="instr-title">Регламент обучения</h2>
         <p class="instr-lead">
           Пошаговый алгоритм действий сотрудника при дистанционном обучении и проверке знаний.
+          Отмечайте выполненные шаги — прогресс сохранится в браузере.
         </p>
+        <div class="instr-meta">
+          <span class="instr-meta-item">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            ~5 мин чтения
+          </span>
+          <span class="instr-meta-item">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Обновлено: <time datetime="2026-01-15">15 января 2026</time>
+          </span>
+        </div>
+        <div class="instr-actions">
+          <button type="button" class="btn-ghost" id="share-btn">
+            <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            Поделиться
+          </button>
+          <button type="button" class="btn-ghost" id="print-btn">
+            <svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            Печать
+          </button>
+        </div>
       </section>
 
-      <section class="section">
+      <!-- ПАНЕЛЬ ПРОГРЕССА -->
+      <div class="instr-progress" id="instr-progress">
+        <div class="instr-progress-top">
+          <span class="instr-progress-label">
+            Ваш прогресс: <strong id="progress-count" aria-live="polite">0</strong> из <span id="progress-total">4</span>
+          </span>
+          <button type="button" class="instr-progress-reset" id="progress-reset">Сбросить</button>
+        </div>
+        <div class="instr-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Прогресс прохождения инструкции">
+          <div class="instr-progress-fill" id="progress-fill"></div>
+        </div>
+        <p class="instr-progress-hint">Нажмите на кружок «✓» у шага, чтобы отметить его выполненным. Прогресс сохраняется только в этом браузере.</p>
+      </div>
+
+      <!-- ТАЙМЛАЙН -->
+      <section class="section" aria-label="Шаги обучения">
         <div class="timeline-container">
-          
-          <div class="timeline-item reveal-up delay-100">
-            <div class="timeline-dot">01</div>
+
+          <!-- ШАГ 1 -->
+          <div class="timeline-item" data-step="1" id="step-1">
+            <div class="timeline-dot" aria-hidden="true">
+              <span class="dot-num">01</span>
+              <svg class="dot-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
             <div class="timeline-content">
+              <div class="step-header">
+                <span class="step-time">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  5 мин
+                </span>
+                <div class="step-actions">
+                  <button type="button" class="step-copy" data-copy-step="1" aria-label="Скопировать ссылку на шаг 1" title="Скопировать ссылку">
+                    <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                  </button>
+                  <button type="button" class="step-check" aria-pressed="false" aria-label="Отметить шаг 1 как выполненный">
+                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  </button>
+                </div>
+              </div>
               <h3 class="step-title">Назначение обучения</h3>
               <p class="step-desc">
                 Получите от руководителя уведомление. Уточните вид программы (ОТ, ПБ или Первая помощь) и сроки.
@@ -286,9 +676,27 @@
             </div>
           </div>
 
-          <div class="timeline-item reveal-up delay-100">
-            <div class="timeline-dot">02</div>
+          <!-- ШАГ 2 -->
+          <div class="timeline-item" data-step="2" id="step-2">
+            <div class="timeline-dot" aria-hidden="true">
+              <span class="dot-num">02</span>
+              <svg class="dot-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
             <div class="timeline-content">
+              <div class="step-header">
+                <span class="step-time">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  30 мин
+                </span>
+                <div class="step-actions">
+                  <button type="button" class="step-copy" data-copy-step="2" aria-label="Скопировать ссылку на шаг 2" title="Скопировать ссылку">
+                    <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                  </button>
+                  <button type="button" class="step-check" aria-pressed="false" aria-label="Отметить шаг 2 как выполненный">
+                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  </button>
+                </div>
+              </div>
               <h3 class="step-title">Изучение материалов</h3>
               <p class="step-desc">
                 Перейдите в <a href="programs.html">Каталог программ</a>. Выберите нужный курс и изучите видеолекции.
@@ -296,23 +704,59 @@
             </div>
           </div>
 
-          <div class="timeline-item reveal-up delay-100">
-            <div class="timeline-dot">03</div>
+          <!-- ШАГ 3 -->
+          <div class="timeline-item" data-step="3" id="step-3">
+            <div class="timeline-dot" aria-hidden="true">
+              <span class="dot-num">03</span>
+              <svg class="dot-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
             <div class="timeline-content">
+              <div class="step-header">
+                <span class="step-time">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  5 мин
+                </span>
+                <div class="step-actions">
+                  <button type="button" class="step-copy" data-copy-step="3" aria-label="Скопировать ссылку на шаг 3" title="Скопировать ссылку">
+                    <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                  </button>
+                  <button type="button" class="step-check" aria-pressed="false" aria-label="Отметить шаг 3 как выполненный">
+                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  </button>
+                </div>
+              </div>
               <h3 class="step-title">Идентификация</h3>
               <p class="step-desc">
-                Перед началом теста заполните форму: ФИО, должность, подразделение. 
+                Перед началом теста заполните форму: ФИО, должность, подразделение.
                 <strong>Данные строго как в паспорте и трудовом договоре.</strong>
               </p>
             </div>
           </div>
 
-          <div class="timeline-item reveal-up delay-100">
-            <div class="timeline-dot">04</div>
+          <!-- ШАГ 4 -->
+          <div class="timeline-item" data-step="4" id="step-4">
+            <div class="timeline-dot" aria-hidden="true">
+              <span class="dot-num">04</span>
+              <svg class="dot-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
             <div class="timeline-content">
+              <div class="step-header">
+                <span class="step-time">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  15 мин
+                </span>
+                <div class="step-actions">
+                  <button type="button" class="step-copy" data-copy-step="4" aria-label="Скопировать ссылку на шаг 4" title="Скопировать ссылку">
+                    <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                  </button>
+                  <button type="button" class="step-check" aria-pressed="false" aria-label="Отметить шаг 4 как выполненный">
+                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  </button>
+                </div>
+              </div>
               <h3 class="step-title">Проверка знаний</h3>
               <p class="step-desc">
-                Пройдите итоговое тестирование. Проходной балл — 85%.
+                Пройдите итоговое тестирование. Проходной балл — <strong>85%</strong>.
               </p>
             </div>
           </div>
@@ -320,12 +764,13 @@
         </div>
       </section>
 
-      <section class="section reveal-up">
-        <h2 style="text-align: center; margin-bottom: 30px;">Критерии допуска</h2>
+      <!-- КРИТЕРИИ ДОПУСКА -->
+      <section class="section" aria-labelledby="criteria-heading">
+        <h2 id="criteria-heading" style="text-align:center;margin-bottom:30px;color:var(--c-text);">Критерии допуска</h2>
         <div class="requirements-grid">
-          
+
           <div class="tilt-card">
-            <div class="req-icon">🆔</div>
+            <div class="req-icon" aria-hidden="true">🆔</div>
             <h3 class="req-title">Персональные данные</h3>
             <ul class="req-list">
               <li>ФИО вводится полностью.</li>
@@ -335,7 +780,7 @@
           </div>
 
           <div class="tilt-card">
-            <div class="req-icon">💻</div>
+            <div class="req-icon" aria-hidden="true">💻</div>
             <h3 class="req-title">Технические условия</h3>
             <ul class="req-list">
               <li>Стабильный интернет.</li>
@@ -345,7 +790,7 @@
           </div>
 
           <div class="tilt-card">
-            <div class="req-icon">⚖️</div>
+            <div class="req-icon" aria-hidden="true">⚖️</div>
             <h3 class="req-title">Ответственность</h3>
             <ul class="req-list">
               <li>Запрещено участие третьих лиц.</li>
@@ -357,25 +802,30 @@
         </div>
       </section>
 
-      <section class="section reveal-up" style="margin-top: 60px;">
-        <h2 style="text-align: center; margin-bottom: 30px;">Частые вопросы</h2>
-        
+      <!-- FAQ -->
+      <section class="section" aria-labelledby="faq-heading" style="margin-top:60px;">
+        <h2 id="faq-heading" style="text-align:center;margin-bottom:30px;color:var(--c-text);">Частые вопросы</h2>
+
         <div class="faq-accordion">
-          
+          <div class="faq-search-wrap">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="search" class="faq-search" id="faq-search" placeholder="Поиск по вопросам…" aria-label="Поиск по часто задаваемым вопросам">
+          </div>
+
           <div class="faq-item">
             <button class="faq-trigger" aria-expanded="false">
               Сбой во время теста. Что делать?
-              <span class="faq-icon">▼</span>
+              <span class="faq-icon" aria-hidden="true">▼</span>
             </button>
             <div class="faq-content">
-              <p>Обновите страницу (F5). Если тест прервался, зайдите заново. При повторной ошибке сделайте скриншот и отправьте в службу техподдержки.</p>
+              <p>Обновите страницу (F5). Если тест прервался — зайдите заново. При повторной ошибке сделайте скриншот и отправьте в службу техподдержки.</p>
             </div>
           </div>
 
           <div class="faq-item">
             <button class="faq-trigger" aria-expanded="false">
               Сколько попыток дается на сдачу?
-              <span class="faq-icon">▼</span>
+              <span class="faq-icon" aria-hidden="true">▼</span>
             </button>
             <div class="faq-content">
               <p>Количество попыток технически не ограничено, если иное не установлено вашим руководителем. Рекомендуем повторить материал перед пересдачей.</p>
@@ -385,19 +835,21 @@
           <div class="faq-item">
             <button class="faq-trigger" aria-expanded="false">
               Где посмотреть мой результат?
-              <span class="faq-icon">▼</span>
+              <span class="faq-icon" aria-hidden="true">▼</span>
             </button>
             <div class="faq-content">
-              <p>Результат (балл и статус "Сдано/Не сдано") отображается на экране сразу после отправки формы. Копия протокола уходит ответственному.</p>
+              <p>Результат (балл и статус «Сдано/Не сдано») отображается на экране сразу после отправки формы. Копия протокола уходит ответственному.</p>
             </div>
           </div>
 
+          <div class="faq-no-results" id="faq-no-results">Ничего не найдено. Попробуйте другой запрос.</div>
         </div>
       </section>
 
     </div>
   </main>
 
+  <!-- ===== ПОДВАЛ ===== -->
   <footer class="glass-footer">
     <div class="container">
       <p>© 2026 Служба Охраны Труда. Внутренний ресурс.</p>
@@ -406,62 +858,292 @@
 
 </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    
-    // 1. Дата в шапке
-    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const dateStr = new Date().toLocaleDateString('ru-RU', dateOptions);
-    const dateEl = document.getElementById('current-date');
-    if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+<!-- Плавающие кнопки -->
+<div class="float-stack">
+  <button type="button" class="float-btn" id="theme-toggle" aria-label="Переключить тёмную/светлую тему" title="Сменить тему">
+    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+  </button>
+  <button type="button" class="float-btn" id="back-to-top" aria-label="Наверх" title="Наверх">
+    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+</div>
 
-    // 2. Аккордеон
-    const triggers = document.querySelectorAll('.faq-trigger');
-    triggers.forEach(trigger => {
-      trigger.addEventListener('click', () => {
-        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
-        const content = trigger.nextElementSibling;
-        trigger.setAttribute('aria-expanded', !isExpanded);
-        if (!isExpanded) {
-          content.style.maxHeight = content.scrollHeight + "px";
-        } else {
-          content.style.maxHeight = null;
-        }
-      });
+<!-- Тост-уведомление -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ===== Безопасный доступ к localStorage ===== */
+  const storage = {
+    get(key, fallback) {
+      try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
+      catch (e) { return fallback; }
+    },
+    set(key, value) {
+      try { localStorage.setItem(key, JSON.stringify(value)); return true; }
+      catch (e) { return false; }
+    }
+  };
+
+  const PROGRESS_KEY = 'sdo_instructions_progress_v1';
+  const THEME_KEY = 'sdo_theme';
+
+  /* ===== Элементы ===== */
+  const $ = (sel, ctx = document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+
+  /* ===== 1. Дата в шапке ===== */
+  const dateEl = $('#current-date');
+  if (dateEl) {
+    const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const s = new Date().toLocaleDateString('ru-RU', opts);
+    dateEl.textContent = s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  /* ===== 2. Тема (светлая/тёмная) ===== */
+  const themeToggle = $('#theme-toggle');
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.body.setAttribute('data-theme', theme);
+  }
+  const savedTheme = storage.get(THEME_KEY, null);
+  if (savedTheme === 'dark' || savedTheme === 'light') {
+    applyTheme(savedTheme);
+  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    applyTheme('dark');
+  }
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      storage.set(THEME_KEY, next);
+    });
+  }
+
+  /* ===== 3. Чек-лист прогресса ===== */
+  const timelineItems = $$('.timeline-item[data-step]');
+  const progressFill = $('#progress-fill');
+  const progressCount = $('#progress-count');
+  const progressTotal = $('#progress-total');
+  const progressBar = document.querySelector('.instr-progress-bar');
+  const progressReset = $('#progress-reset');
+
+  let state = storage.get(PROGRESS_KEY, {});
+
+  function updateProgress() {
+    const total = timelineItems.length;
+    let done = 0;
+    timelineItems.forEach(item => {
+      const step = item.dataset.step;
+      const isDone = !!state[step];
+      item.classList.toggle('is-done', isDone);
+      const check = item.querySelector('.step-check');
+      if (check) check.setAttribute('aria-pressed', isDone ? 'true' : 'false');
+      if (isDone) done++;
     });
 
-    // 3. Анимация скролла
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
-
-    // 4. 3D Tilt для карточек требований (только десктоп)
-    if (window.matchMedia("(min-width: 768px)").matches) {
-      const cards = document.querySelectorAll('.tilt-card');
-      cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          card.style.setProperty('--mouse-x', `${x}px`);
-          card.style.setProperty('--mouse-y', `${y}px`);
-          
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          const rotateX = ((y - centerY) / centerY) * -3; 
-          const rotateY = ((x - centerX) / centerX) * 3;
-          
-          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
-        });
-      });
+    if (progressCount) progressCount.textContent = done;
+    if (progressTotal) progressTotal.textContent = total;
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    if (progressFill) progressFill.style.width = pct + '%';
+    if (progressBar) {
+      progressBar.setAttribute('aria-valuenow', pct);
     }
+
+    // Подсветка «следующего» шага
+    timelineItems.forEach(i => i.classList.remove('is-next'));
+    if (done < total) {
+      const next = timelineItems.find(i => !state[i.dataset.step]);
+      if (next) next.classList.add('is-next');
+    }
+  }
+
+  timelineItems.forEach(item => {
+    const btn = item.querySelector('.step-check');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const step = item.dataset.step;
+      state[step] = !state[step];
+      storage.set(PROGRESS_KEY, state);
+      updateProgress();
+    });
   });
+
+  if (progressReset) {
+    progressReset.addEventListener('click', () => {
+      state = {};
+      storage.set(PROGRESS_KEY, state);
+      updateProgress();
+      showToast('Прогресс сброшен');
+    });
+  }
+
+  updateProgress();
+
+  /* ===== 4. Ссылки на шаги ===== */
+  function copyToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    // Fallback
+    return new Promise((resolve, reject) => {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); resolve(); }
+      catch (e) { reject(e); }
+      document.body.removeChild(ta);
+    });
+  }
+
+  $$('.step-copy').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const step = btn.dataset.copyStep;
+      const url = location.origin + location.pathname + '#step-' + step;
+      try {
+        await copyToClipboard(url);
+        showToast('Ссылка на шаг скопирована');
+      } catch (e) {
+        showToast('Не удалось скопировать');
+      }
+    });
+  });
+
+  /* ===== 5. Тосты ===== */
+  const toastEl = $('#toast');
+  let toastTimer;
+  function showToast(msg) {
+    if (!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('is-visible'), 2200);
+  }
+
+  /* ===== 6. Кнопка «Поделиться» ===== */
+  const shareBtn = $('#share-btn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', async () => {
+      const data = {
+        title: document.title,
+        text: 'Регламент обучения в СДО — пошаговая инструкция',
+        url: location.href
+      };
+      if (navigator.share) {
+        try { await navigator.share(data); }
+        catch (e) { /* пользователь отменил — не ошибка */ }
+      } else {
+        try {
+          await copyToClipboard(data.url);
+          showToast('Ссылка скопирована');
+        } catch (e) {
+          showToast('Не удалось поделиться');
+        }
+      }
+    });
+  }
+
+  /* ===== 7. Кнопка «Печать» ===== */
+  const printBtn = $('#print-btn');
+  if (printBtn) {
+    printBtn.addEventListener('click', () => window.print());
+  }
+
+  /* ===== 8. Аккордеон FAQ ===== */
+  const faqTriggers = $$('.faq-trigger');
+  faqTriggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+      const content = trigger.nextElementSibling;
+      trigger.setAttribute('aria-expanded', !isExpanded);
+      if (!isExpanded) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+      } else {
+        content.style.maxHeight = null;
+      }
+    });
+  });
+
+  /* ===== 9. Поиск по FAQ ===== */
+  const faqSearch = $('#faq-search');
+  const faqItems = $$('.faq-item');
+  const noResults = $('#faq-no-results');
+  if (faqSearch) {
+    faqSearch.addEventListener('input', () => {
+      const q = faqSearch.value.trim().toLowerCase();
+      let visible = 0;
+      faqItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        const match = !q || text.includes(q);
+        item.style.display = match ? '' : 'none';
+        if (match) visible++;
+      });
+      if (noResults) noResults.classList.toggle('is-visible', visible === 0 && q.length > 0);
+    });
+  }
+
+  /* ===== 10. Индикатор прокрутки + кнопка «наверх» ===== */
+  const readingProgress = $('#reading-progress');
+  const backToTop = $('#back-to-top');
+
+  function onScroll() {
+    const doc = document.documentElement;
+    const scrolled = doc.scrollTop || document.body.scrollTop;
+    const total = doc.scrollHeight - doc.clientHeight;
+    const pct = total > 0 ? (scrolled / total) * 100 : 0;
+    if (readingProgress) readingProgress.style.width = pct + '%';
+    if (backToTop) backToTop.classList.toggle('is-visible', scrolled > 400);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  if (backToTop) {
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* ===== 11. 3D-эффект карточек (только desktop) ===== */
+  if (window.matchMedia('(min-width: 768px)').matches) {
+    $$('.tilt-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', x + 'px');
+        card.style.setProperty('--mouse-y', y + 'px');
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const rx = ((y - cy) / cy) * -3;
+        const ry = ((x - cx) / cx) * 3;
+        card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+      });
+    });
+  }
+
+  /* ===== 12. Плавный скролл для якорных ссылок ===== */
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href^="#"]');
+    if (!link) return;
+    const id = link.getAttribute('href').slice(1);
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    history.replaceState(null, '', '#' + id);
+  });
+})();
 </script>
 
 </body>
