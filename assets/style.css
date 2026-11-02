@@ -1,4 +1,12 @@
 /* =========================================
+   style (1).css — ИСПРАВЛЕННАЯ ВЕРСИЯ
+   Изменения:
+   1. .site-footer расширен до .site-footer, .glass-footer
+   2. Добавлен блок prefers-reduced-motion (доступность)
+   Остальные стили сохранены без изменений.
+   ========================================= */
+
+/* =========================================
    1. CORE VARIABLES & THEME ENGINE
    ========================================= */
 :root {
@@ -11,12 +19,12 @@
   --radius-md: 16px;
   --radius-sm: 12px;
   --container-width: 1200px;
-  
+
   /* --- БАЗОВАЯ ТЕМА (Default: Охрана Труда - Blue/Green) --- */
   --primary: #2563eb;          /* Основной синий */
   --primary-hover: #1d4ed8;    /* Темнее при наведении */
   --primary-glow: rgba(37, 99, 235, 0.4); /* Свечение */
-  
+
   --accent: #10b981;           /* Акцент (зеленый) */
   --accent-glow: rgba(16, 185, 129, 0.4);
 
@@ -206,13 +214,13 @@ img { max-width: 100%; height: auto; display: block; }
 /* Мобильная навигация (Scrollable Strip) */
 @media (max-width: 900px) {
   .site-subtitle-mini { display: none; } /* Скрываем подзаголовок на планшетах */
-  
+
   .header-inner {
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
   }
-  
+
   .header-brand { justify-content: center; }
 
   .main-nav {
@@ -222,7 +230,7 @@ img { max-width: 100%; height: auto; display: block; }
     padding-bottom: 5px; /* Место для скроллбара */
     justify-content: flex-start;
   }
-  
+
   .nav-list {
     padding: 0 5px; /* Отступы по краям */
   }
@@ -463,8 +471,11 @@ li { margin-bottom: 8px; }
 
 /* =========================================
    10. FOOTER
+   ИЗМЕНЕНИЕ: добавлен .glass-footer, т.к. в HTML
+   используется именно этот класс, а стилей для него не было.
    ========================================= */
-.site-footer {
+.site-footer,
+.glass-footer {
   text-align: center;
   padding: 40px 20px;
   margin-top: auto; /* Footer always at bottom */
@@ -484,3 +495,27 @@ li { margin-bottom: 8px; }
 
 .delay-100 { transition-delay: 0.1s; }
 .delay-200 { transition-delay: 0.2s; }
+
+/* =========================================
+   12. REDUCED MOTION (Доступность)
+   ИЗМЕНЕНИЕ: отключаем анимации для пользователей,
+   у которых включен режим "уменьшить движение".
+   ========================================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  body {
+    animation: none !important;
+    background-size: 100% 100% !important;
+  }
+  .reveal-up {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
