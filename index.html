@@ -2125,7 +2125,11 @@
       const q = query.toLowerCase().trim();
       const filtered = searchItems.filter(i => i.title.toLowerCase().includes(q) || i.tag.toLowerCase().includes(q));
       if (filtered.length === 0) {
-        searchResultsList.innerHTML = `<div style="padding: 24px; text-align: center; color: #64748b;">Ничего не найдено по запросу «${query}»</div>`;
+        const safeQuery = document.createElement('div');
+safeQuery.style.cssText = 'padding: 24px; text-align: center; color: #64748b;';
+safeQuery.textContent = `Ничего не найдено по запросу «${query}»`;
+searchResultsList.innerHTML = '';
+searchResultsList.appendChild(safeQuery);
         return;
       }
       searchResultsList.innerHTML = filtered.map(i => `
