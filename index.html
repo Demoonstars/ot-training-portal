@@ -6,10 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Единая автоматизированная информационная система обучения и проверки знаний требований охраны труда (СУОТ).">
 
-  <!-- Open Graph для корректного шаринга в соцсетях -->
+  <!--
+    БЛОК: Канонический URL и мета-теги Open Graph.
+    ЗА ЧТО ОТВЕЧАЕТ: Корректная индексация главной страницы и формирование превью при отправке ссылки в мессенджерах.
+    ПОЧЕМУ БЕЗОПАСНО: Не влияет на работу скриптов и верстку, устраняет SEO-неопределенность адреса страницы.
+  -->
+  <link rel="canonical" href="https://demoonstars.github.io/ot-training-portal/index.html">
   <meta property="og:type" content="website">
   <meta property="og:title" content="СДО | Корпоративный портал безопасности">
   <meta property="og:description" content="Единая автоматизированная информационная система обучения и проверки знаний требований охраны труда (СУОТ).">
+  <meta property="og:url" content="https://demoonstars.github.io/ot-training-portal/index.html">
   <meta property="og:locale" content="ru_RU">
 
   <link rel="stylesheet" href="assets/style.css">
@@ -263,9 +269,11 @@
       letter-spacing: -0.02em;
     }
 
+    /* Добавлено стандартное свойство background-clip: text для кроссбраузерности */
     .greeting-highlight {
       background: linear-gradient(135deg, #0f172a 0%, #2563eb 60%, #7c3aed 100%);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
@@ -526,7 +534,7 @@
       border-radius: 14px;
       margin-bottom: 20px;
       scrollbar-width: none;
-      flex-wrap: wrap; /* Изменено: теперь фильтры переносятся, а не обрезаются */
+      flex-wrap: wrap;
     }
     .role-filter-bar::-webkit-scrollbar { display: none; }
 
@@ -1271,7 +1279,13 @@
       .kbd-badge { display: none; }
       .welcome-text { max-width: 100%; }
       
-      /* Бейджи (фильтры) переносятся */
+      /*
+       * БЛОК: Адаптивное перестроение верхней панели бейджей и быстрых кнопок в Hero.
+       * ЗА ЧТО ОТВЕЧАЕТ: Выравнивание .welcome-badge-row в колонку на мобильных экранах (<= 768px).
+       * ПОЧЕМУ БЕЗОПАСНО: Исправляет опечатку селектора .hero-badge-row на фактический класс .welcome-badge-row,
+       * оставляя старый селектор через запятую для обратной совместимости.
+       */
+      .welcome-badge-row,
       .hero-badge-row { flex-direction: column; align-items: flex-start; gap: 12px; }
       .hero-quick-tools { width: 100%; justify-content: flex-start; flex-wrap: wrap; }
       .live-clock-pill { margin-left: 0; }
@@ -1342,7 +1356,7 @@
       </div>
       <div class="header-meta">
         <span id="current-date">Загрузка...</span>
-        <span style="display:flex; align-items:center;"><span class="system-status-pulse"></span> Online</span>
+        <span style="display:flex; align-items:center;"><span class="system-status-pulse" aria-hidden="true"></span> Online</span>
       </div>
       <nav class="main-nav" aria-label="Основная навигация">
         <ul class="nav-list">
@@ -1376,6 +1390,7 @@
                 </div>
                 <div class="hero-quick-tools">
                   <button type="button" class="tool-pill-btn" id="contrastToggleBtn"
+                          aria-pressed="false"
                           title="Переключить четкость стеклянных панелей"
                           aria-label="Переключить контрастность стеклянных панелей">
                     <span aria-hidden="true">✨</span> Четкость
@@ -1702,6 +1717,7 @@
     contrastBtn?.addEventListener('click', () => {
       document.body.classList.toggle('contrast-glass');
       const isActive = document.body.classList.contains('contrast-glass');
+      contrastBtn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
       contrastBtn.style.borderColor = isActive ? '#2563eb' : '';
       contrastBtn.style.color = isActive ? '#2563eb' : '';
     });
@@ -1727,15 +1743,33 @@
       }
     }, { passive: true });
 
-    toTopBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    toTopBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }));
 
-    // === 3. БЕЗОПАСНОЕ ЧТЕНИЕ ПРОГРЕССА ИЗ LOCALSTORAGE ===
-    let savedProgress = { bpla: null, firstAid: null, conflict: null };
+    /*
+     * БЛОК: Безопасное чтение прогресса чтения PDF-лекций из localStorage.
+     * ЗА ЧТО ОТВЕЧАЕТ: Отображение виджета «Продолжить с сохраненного места» и бейджей «📖 Стр. X» на карточках курсов.
+     * ПОЧЕМУ БЕЗОПАСНО: Оборачивает чтение в try/catch и поддерживает все ключи PDF-читалки V8.0 портала.
+     */
+    let savedProgress = {
+      bpla: null,
+      firstAid: null,
+      conflict: null,
+      gochs: null,
+      hygiene: null,
+      mentor: null,
+      el1: null,
+      progA: null
+    };
     try {
       savedProgress = {
         bpla: localStorage.getItem('bpla_pdf_page'),
         firstAid: localStorage.getItem('firstaid_pdf_page'),
-        conflict: localStorage.getItem('conflict_pdf_page')
+        conflict: localStorage.getItem('conflict_pdf_page'),
+        gochs: localStorage.getItem('gochs_pdf_page'),
+        hygiene: localStorage.getItem('hygiene_pdf_page'),
+        mentor: localStorage.getItem('mentor_pdf_page'),
+        el1: localStorage.getItem('el_group1_pdf_page'),
+        progA: localStorage.getItem('program_a_pdf_page')
       };
     } catch (e) {
       console.warn('localStorage недоступен, прогресс чтения не будет показан.');
@@ -1746,24 +1780,49 @@
     const resumePage = document.getElementById('resumePageText');
     const resumeLink = document.getElementById('resumeActionLink');
 
-    if (savedProgress.bpla && parseInt(savedProgress.bpla) > 1) {
+    if (savedProgress.bpla && parseInt(savedProgress.bpla, 10) > 1) {
       resumeWidget.classList.add('active');
       resumeTitle.textContent = 'Действия при угрозе БПЛА';
       resumePage.textContent = `• Вы остановились на стр. ${savedProgress.bpla}`;
       resumeLink.href = 'course-bpla.html#materials';
-    } else if (savedProgress.firstAid && parseInt(savedProgress.firstAid) > 1) {
+    } else if (savedProgress.firstAid && parseInt(savedProgress.firstAid, 10) > 1) {
       resumeWidget.classList.add('active');
       resumeTitle.textContent = 'Оказание первой помощи';
       resumePage.textContent = `• Вы остановились на стр. ${savedProgress.firstAid}`;
       resumeLink.href = 'course-first-aid.html#materials';
-    } else if (savedProgress.conflict && parseInt(savedProgress.conflict) > 1) {
+    } else if (savedProgress.conflict && parseInt(savedProgress.conflict, 10) > 1) {
       resumeWidget.classList.add('active');
       resumeTitle.textContent = 'Управление конфликтами';
       resumePage.textContent = `• Вы остановились на стр. ${savedProgress.conflict}`;
       resumeLink.href = 'course-conflict.html#materials';
+    } else if (savedProgress.progA && parseInt(savedProgress.progA, 10) > 1) {
+      resumeWidget.classList.add('active');
+      resumeTitle.textContent = 'Охрана труда (Программа А)';
+      resumePage.textContent = `• Вы остановились на стр. ${savedProgress.progA}`;
+      resumeLink.href = 'ot-program-a.html#materials';
+    } else if (savedProgress.gochs && parseInt(savedProgress.gochs, 10) > 1) {
+      resumeWidget.classList.add('active');
+      resumeTitle.textContent = 'ГО и защита от ЧС';
+      resumePage.textContent = `• Вы остановились на стр. ${savedProgress.gochs}`;
+      resumeLink.href = 'course-gochs.html#materials';
+    } else if (savedProgress.el1 && parseInt(savedProgress.el1, 10) > 1) {
+      resumeWidget.classList.add('active');
+      resumeTitle.textContent = 'Электробезопасность (I группа)';
+      resumePage.textContent = `• Вы остановились на стр. ${savedProgress.el1}`;
+      resumeLink.href = 'el-group-1.html#materials';
+    } else if (savedProgress.hygiene && parseInt(savedProgress.hygiene, 10) > 1) {
+      resumeWidget.classList.add('active');
+      resumeTitle.textContent = 'Гигиеническое обучение';
+      resumePage.textContent = `• Вы остановились на стр. ${savedProgress.hygiene}`;
+      resumeLink.href = 'course-hygiene.html#materials';
+    } else if (savedProgress.mentor && parseInt(savedProgress.mentor, 10) > 1) {
+      resumeWidget.classList.add('active');
+      resumeTitle.textContent = 'Наставничество';
+      resumePage.textContent = `• Вы остановились на стр. ${savedProgress.mentor}`;
+      resumeLink.href = 'course-mentorship.html#materials';
     }
 
-    // === 4. НАВИГАТОР КУРСОВ (ОБНОВЛЕНЫ ВСЕ ССЫЛКИ НА ТЕСТЫ) ===
+    // === 4. НАВИГАТОР КУРСОВ ===
     const coursesData = [
       { 
         title: 'Охрана труда (Комплекс)', 
@@ -1773,6 +1832,7 @@
         url: 'course-ot.html', 
         testUrl: 'https://demoonstars.github.io/Test_OT_b/', 
         testExternal: true, 
+        page: savedProgress.progA,
         roles: ['base', 'tech', 'itr'] 
       },
       { 
@@ -1815,6 +1875,7 @@
         url: 'course-gochs.html', 
         testUrl: 'https://demoonstars.github.io/GO_ChS_Test/', 
         testExternal: true, 
+        page: savedProgress.gochs,
         roles: ['itr'] 
       },
       { 
@@ -1825,6 +1886,7 @@
         url: 'course-electrical-safety.html', 
         testUrl: 'https://demoonstars.github.io/Electrical_Safety_Test/', 
         testExternal: true, 
+        page: savedProgress.el1,
         roles: ['tech'] 
       },
       { 
@@ -1835,6 +1897,7 @@
         url: 'course-hygiene.html', 
         testUrl: 'https://demoonstars.github.io/hygiene-training/', 
         testExternal: true, 
+        page: savedProgress.hygiene,
         roles: ['service'] 
       },
       { 
@@ -1845,6 +1908,7 @@
         url: 'course-mentorship.html', 
         testUrl: 'https://demoonstars.github.io/mentoring-quiz/', 
         testExternal: true, 
+        page: savedProgress.mentor,
         roles: ['service', 'itr'] 
       },
       { 
@@ -1874,7 +1938,7 @@
         return `
         <article class="mini-prog-card">
           <div class="mp-top">
-            <div class="mp-icon" style="background: ${c.bg};">${c.icon}</div>
+            <div class="mp-icon" style="background: ${c.bg};" aria-hidden="true">${c.icon}</div>
             <div>
               <h4 class="mp-title">${c.title}</h4>
               <div class="mp-badge">${c.badge}</div>
@@ -1958,11 +2022,8 @@
     // ============================================================
     // БАЗА НЕОФИЦИАЛЬНЫХ, МЕЖДУНАРОДНЫХ, НАРОДНЫХ И ЦЕРКОВНЫХ ПРАЗДНИКОВ
     // Формат: 'день.месяц': [ 'Праздник 1', 'Праздник 2', ... ]
-    // Данные скомпилированы по сводкам Calend.ru, Mail.ru и открытым календарям.
-    // Вы можете свободно дополнять этот объект любыми событиями.
     // ============================================================
     const DAILY_HOLIDAYS = {
-      // --- НОЯБРЬ (заполнен на основе актуальных сводок) ---
       '1.11': ['День менеджера', 'Международный день вегана', 'День приложения «ВКонтакте»', 'День кулинарных книг'],
       '2.11': ['День кормления птиц', 'Международный день прекращения безнаказанности за преступления против журналистов', 'День памяти святых мучеников Акиндина, Пигасия и Аффония'],
       '3.11': [
@@ -2009,8 +2070,7 @@
       '27.11': ['День морской пехоты', 'Международный день гитары', 'День памяти апостола Филиппа'],
       '28.11': ['День матери в России', 'Международный день без покупок', 'День памяти святых мучеников Платона и Романа'],
       '29.11': ['День буквы Ё', 'Всемирный день домашних животных', 'День памяти апостола и евангелиста Матфея'],
-      '30.11': ['Международный день защиты информации', 'День памяти святителя Григория Чудотворца', 'День домашних питомцев'],
-      // --- Другие месяцы можно добавить по аналогии ---
+      '30.11': ['Международный день защиты информации', 'День памяти святителя Григория Чудотворца', 'День домашних питомцев']
     };
 
     let lockedInfoHTML = null;
