@@ -1,9 +1,5 @@
 /* =========================================
-   style (1).css — ИСПРАВЛЕННАЯ ВЕРСИЯ
-   Изменения:
-   1. .site-footer расширен до .site-footer, .glass-footer
-   2. Добавлен блок prefers-reduced-motion (доступность)
-   Остальные стили сохранены без изменений.
+   style.css — ОБНОВЛЕННАЯ ВЕРСИЯ
    ========================================= */
 
 /* =========================================
@@ -123,12 +119,10 @@ img { max-width: 100%; height: auto; display: block; }
   padding: 0 20px;
 }
 
-/* Мобильная адаптация контейнера */
 @media (max-width: 768px) {
   .container { padding: 0 16px; }
 }
 
-/* Wrapper для эффекта стекла на весь экран (опционально) */
 .glass-wrapper {
   min-height: 100vh;
   display: flex;
@@ -213,29 +207,21 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* Мобильная навигация (Scrollable Strip) */
 @media (max-width: 900px) {
-  .site-subtitle-mini { display: none; } /* Скрываем подзаголовок на планшетах */
-
+  .site-subtitle-mini { display: none; }
   .header-inner {
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
   }
-
   .header-brand { justify-content: center; }
-
   .main-nav {
     width: 100%;
-    overflow-x: auto; /* Горизонтальный скролл */
+    overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 5px; /* Место для скроллбара */
+    padding-bottom: 5px;
     justify-content: flex-start;
   }
-
-  .nav-list {
-    padding: 0 5px; /* Отступы по краям */
-  }
-
-  /* Скрываем скроллбар но оставляем функционал */
+  .nav-list { padding: 0 5px; }
   .main-nav::-webkit-scrollbar { height: 0; width: 0; display: none; }
 }
 
@@ -246,17 +232,16 @@ img { max-width: 100%; height: auto; display: block; }
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
-  padding: clamp(20px, 4vw, 40px); /* Адаптивный padding */
+  padding: clamp(20px, 4vw, 40px);
   margin-bottom: 30px;
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   box-shadow: var(--shadow-card);
   position: relative;
-  overflow: hidden; /* Чтобы блики не вылезали */
+  overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Эффект прожектора (Spotlight) */
 .spotlight-card::before {
   content: "";
   position: absolute;
@@ -272,7 +257,6 @@ img { max-width: 100%; height: auto; display: block; }
   pointer-events: none;
 }
 
-/* Включаем эффекты только на устройствах с мышью */
 @media (hover: hover) {
   .spotlight-card:hover::before { opacity: 1; }
   .section-card:hover {
@@ -291,7 +275,7 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-  font-size: clamp(1.8rem, 5vw, 2.5rem); /* Адаптивный размер */
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
   font-weight: 800;
   letter-spacing: -1px;
   margin-bottom: 20px;
@@ -351,7 +335,6 @@ li { margin-bottom: 8px; }
   overflow: hidden;
 }
 
-/* Primary Button */
 .btn-primary {
   background: var(--text-main);
   color: #fff;
@@ -363,7 +346,6 @@ li { margin-bottom: 8px; }
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-/* Magic Button (Rainbow Border) */
 .btn-magic {
   background: #0f172a;
   color: #fff;
@@ -383,7 +365,6 @@ li { margin-bottom: 8px; }
 
 @keyframes rotate { 100% { transform: translate(-50%,-50%) rotate(1turn); } }
 
-/* Disabled State */
 .btn-disabled, .btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
@@ -391,7 +372,6 @@ li { margin-bottom: 8px; }
   pointer-events: none;
 }
 
-/* Ссылка "Назад" */
 .back-link {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 8px 16px; margin-bottom: 20px;
@@ -420,7 +400,6 @@ li { margin-bottom: 8px; }
   cursor: pointer; padding: 10px; border-radius: 8px;
   transition: 0.2s;
 }
-/* Улучшаем кликабельность на мобилках */
 .consent-label:hover, .consent-label:active { background: rgba(255,255,255,0.6); }
 
 .consent-label input[type="checkbox"] {
@@ -433,7 +412,6 @@ li { margin-bottom: 8px; }
 
 .consent-text { font-size: 0.9rem; line-height: 1.4; color: var(--text-main); }
 
-/* Обертка для теста (iframe wrapper) */
 .test-wrapper {
   position: relative;
   min-height: 500px;
@@ -462,7 +440,7 @@ li { margin-bottom: 8px; }
    ========================================= */
 .pdf-viewer-frame {
   width: 100%;
-  height: 80vh; /* Адаптивная высота */
+  height: 80vh;
   min-height: 500px;
   border: none;
   border-radius: var(--radius-md);
@@ -471,14 +449,12 @@ li { margin-bottom: 8px; }
 
 /* =========================================
    10. FOOTER
-   ИЗМЕНЕНИЕ: добавлен .glass-footer, т.к. в HTML
-   используется именно этот класс, а стилей для него не было.
    ========================================= */
 .site-footer,
 .glass-footer {
   text-align: center;
   padding: 40px 20px;
-  margin-top: auto; /* Footer always at bottom */
+  margin-top: auto;
   color: var(--text-muted);
   font-size: 0.85rem;
   border-top: 1px solid rgba(255,255,255,0.4);
@@ -498,8 +474,6 @@ li { margin-bottom: 8px; }
 
 /* =========================================
    12. REDUCED MOTION (Доступность)
-   ИЗМЕНЕНИЕ: отключаем анимации для пользователей,
-   у которых включен режим "уменьшить движение".
    ========================================= */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -518,4 +492,16 @@ li { margin-bottom: 8px; }
     opacity: 1 !important;
     transform: none !important;
   }
+  /* Отключаем 3D-переворот для тех, у кого укачивание от анимаций */
+  .flip-card:hover .flip-inner, .flip-card:focus .flip-inner {
+    transform: none !important;
+  }
+  .flip-front, .flip-back {
+    /* Просто показываем текст без переворота */
+    position: relative;
+    backface-visibility: visible;
+    transform: none !important;
+  }
+  .flip-front { display: none; }
+  .flip-back { display: flex; }
 }
