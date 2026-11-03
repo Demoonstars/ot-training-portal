@@ -5,6 +5,19 @@
   <title>СДО | Первая помощь</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Полный курс по оказанию первой помощи пострадавшим с интерактивным тренажером.">
+
+  <!--
+    БЛОК: Канонический URL и мета-теги Open Graph.
+    ЗА ЧТО ОТВЕЧАЕТ: Корректная индексация страницы курса и превью при отправке ссылки в соцсетях и мессенджерах.
+    ПОЧЕМУ БЕЗОПАСНО: Мета-теги в <head> не влияют на верстку и работу скриптов.
+  -->
+  <link rel="canonical" href="https://demoonstars.github.io/ot-training-portal/course-first-aid.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="СДО | Первая помощь">
+  <meta property="og:description" content="Полный курс по оказанию первой помощи пострадавшим с интерактивным тренажером.">
+  <meta property="og:url" content="https://demoonstars.github.io/ot-training-portal/course-first-aid.html">
+  <meta property="og:locale" content="ru_RU">
+
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -71,16 +84,23 @@
       margin-bottom: 30px;
       position: relative; overflow: hidden;
       backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       box-shadow: 0 20px 40px -10px rgba(225, 29, 72, 0.1);
       transform-style: preserve-3d;
       transform: perspective(1000px);
       transition: transform 0.1s ease;
     }
+    /*
+     * БЛОК: Декоративная фоновая иконка в карточке Hero (.hero-card::before).
+     * ЗА ЧТО ОТВЕЧАЕТ: Отображение полупрозрачного символа пластыря с поворотом и 3D-глубиной.
+     * ПОЧЕМУ БЕЗОПАСНО: Объединяет rotate(-15deg) и translateZ(20px) в одно свойство transform,
+     * устраняя ошибку перезаписи первого свойства вторым.
+     */
     .hero-card::before {
       content: "🩹";
       position: absolute; right: -20px; bottom: -40px; font-size: 12rem;
-      opacity: 0.1; transform: rotate(-15deg); pointer-events: none;
-      transform: translateZ(20px);
+      opacity: 0.1; pointer-events: none;
+      transform: rotate(-15deg) translateZ(20px);
     }
     .hero-content { position: relative; transform: translateZ(30px); }
 
@@ -147,7 +167,9 @@
       transition: transform 0.6s; transform-style: preserve-3d;
       box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1); border-radius: 20px;
     }
-    .flip-card:hover .flip-inner { transform: rotateY(180deg); }
+    .flip-card:hover .flip-inner,
+    .flip-card:focus .flip-inner,
+    .flip-card:focus-within .flip-inner { transform: rotateY(180deg); }
     .flip-front, .flip-back {
       position: absolute; width: 100%; height: 100%;
       -webkit-backface-visibility: hidden; backface-visibility: hidden;
@@ -187,6 +209,7 @@
     .custom-pdf-viewer.dark-theme .pdf-canvas-wrapper { background: radial-gradient(#475569 1px, transparent 1px); background-size: 20px 20px; }
     .custom-pdf-viewer.dark-theme #the-canvas { filter: brightness(0.9); }
     .custom-pdf-viewer.fullscreen-mode { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; width: 100vw !important; height: 100vh !important; z-index: 2147483647 !important; border-radius: 0 !important; margin: 0 !important; border: none !important; background: #e2e8f0 !important; }
+    .custom-pdf-viewer.fullscreen-mode.dark-theme { background: #0f172a !important; }
     .pdf-viewer-header { background: #fff; padding: 10px 15px; border-bottom: 1px solid #cbd5e1; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-shrink: 0; z-index: 10; }
     .pdf-header-left { display: flex; align-items: center; gap: 10px; overflow: hidden; }
     .pdf-file-icon { width: 32px; height: 32px; flex-shrink: 0; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; background: #ffe4e6; color: #be123c; }
@@ -198,7 +221,8 @@
     .pdf-canvas-wrapper { flex-grow: 1; overflow: auto; display: flex; justify-content: flex-start; align-items: flex-start; padding: 20px; padding-bottom: 100px; background: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px; touch-action: pan-x pan-y pinch-zoom; -webkit-overflow-scrolling: touch; position: relative; cursor: grab; }
     .pdf-canvas-wrapper.grabbing { cursor: grabbing; }
     #the-canvas { box-shadow: 0 4px 15px rgba(0,0,0,0.15); background: #fff; transform-origin: top left; margin: auto; display: block; transition: transform 0.1s ease-out, box-shadow 0.3s; }
-    .pdf-toolbar { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); padding: 8px 12px; border-radius: 50px; display: flex; align-items: center; gap: 12px; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 50; white-space: nowrap; max-width: 95%; }
+    #the-canvas.zoomed { box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .pdf-toolbar { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 8px 12px; border-radius: 50px; display: flex; align-items: center; gap: 12px; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 50; white-space: nowrap; max-width: 95%; }
     .tool-btn { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
     .tool-btn-icon { width: 30px; height: 30px; border-radius: 50%; background: transparent; border: none; color: #cbd5e1; cursor: pointer; font-size: 1.2rem; }
     .divider-v { width: 1px; height: 16px; background: rgba(255,255,255,0.2); }
@@ -242,6 +266,11 @@
       display: inline-block; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%;
       box-shadow: 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse-green 2s infinite; margin-right: 6px;
     }
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
     .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
     @media (max-width: 900px) { .header-meta { display: none; } }
 
@@ -269,18 +298,19 @@
     <div class="container header-inner">
       <div class="header-brand">
         <div class="brand-logo">
-          <img src="assets/Филин от.png" alt="Логотип СДО" style="width: 100%; height: 100%; object-fit: contain;">
+          <img src="assets/Филин от.png" alt="Логотип СДО" width="42" height="42" style="width: 100%; height: 100%; object-fit: contain;">
         </div>
         <div>
-          <h1 class="site-title-mini">СДО</h1>
+          <!-- Бренд в шапке: div вместо h1 для сохранения единственного главного заголовка h1 в Hero -->
+          <div class="site-title-mini">СДО</div>
           <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
         </div>
       </div>
       <div class="header-meta">
         <span id="current-date">Загрузка...</span>
-        <span style="display:flex; align-items:center;"><span class="system-status-pulse"></span> Online</span>
+        <span style="display:flex; align-items:center;"><span class="system-status-pulse" aria-hidden="true"></span> Online</span>
       </div>
-      <nav class="main-nav">
+      <nav class="main-nav" aria-label="Основная навигация">
         <ul class="nav-list">
           <li><a href="index.html" class="nav-link">Главная</a></li>
           <li><a href="programs.html" class="nav-link nav-link-active active">Каталог программ</a></li>
@@ -294,10 +324,10 @@
   <main id="main-content" class="site-main">
     <div class="container">
 
-      <nav class="breadcrumbs" style="margin-bottom: 20px; font-size: 0.9rem; color: #64748b;">
+      <nav class="breadcrumbs" aria-label="Хлебные крошки" style="margin-bottom: 20px; font-size: 0.9rem; color: #64748b;">
         <a href="programs.html" style="color: inherit; text-decoration: none; transition: 0.2s;">← Каталог программ</a>
-        <span style="margin: 0 8px; opacity: 0.5;">/</span>
-        <span style="color: #0f172a; font-weight: 600;">Первая помощь</span>
+        <span style="margin: 0 8px; opacity: 0.5;" aria-hidden="true">/</span>
+        <span style="color: #0f172a; font-weight: 600;" aria-current="page">Первая помощь</span>
       </nav>
 
       <section class="hero-card reveal-up" id="tilt-hero">
@@ -315,7 +345,7 @@
           <h3>⚡️ Уже знаете материал?</h3>
           <p>Если вы проходили обучение недавно и уверены в своих знаниях, можете сразу перейти к итоговому тесту.</p>
         </div>
-        <a href="https://demoonstars.github.io/First_aid/" class="btn-fast-test">Пройти тест досрочно ➔</a>
+        <a href="https://demoonstars.github.io/First_aid/" target="_blank" rel="noopener noreferrer" class="btn-fast-test">Пройти тест досрочно ➔</a>
       </div>
 
       <div class="steps-container reveal-up delay-200">
@@ -325,7 +355,7 @@
       </div>
 
       <div class="alert-zone reveal-up delay-200">
-        <div class="alert-header"><div class="alert-icon">🛑</div><h3 class="alert-title">КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО</h3></div>
+        <div class="alert-header"><div class="alert-icon" aria-hidden="true">🛑</div><h3 class="alert-title">КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО</h3></div>
         <div class="alert-grid">
             <div class="alert-item">✖ Извлекать инородные предметы из раны.</div>
             <div class="alert-item">✖ Вправлять вывихи и переломы.</div>
@@ -341,38 +371,38 @@
           
           <div class="pdf-viewer-header">
             <div class="pdf-header-left">
-              <div class="pdf-file-icon">📄</div>
+              <div class="pdf-file-icon" aria-hidden="true">📄</div>
               <div class="pdf-file-info">
                 <h3>ПП Лекция: Без мифов и паники</h3>
                 <p>Полный конспект курса и алгоритмы спасения</p>
               </div>
             </div>
             <div class="pdf-top-actions">
-                <button class="btn-pdf-action" id="themeBtn" title="Ночной режим">🌙</button>
-                <a href="assets/ПП Лекция.pdf" download class="btn-pdf-action icon-only-mobile">
-                    <span class="btn-text">Скачать</span><span class="btn-icon">📥</span>
+                <button type="button" class="btn-pdf-action" id="themeBtn" title="Ночной режим" aria-label="Переключить ночной режим">🌙</button>
+                <a href="assets/ПП Лекция.pdf" download class="btn-pdf-action icon-only-mobile" aria-label="Скачать PDF">
+                    <span class="btn-text">Скачать</span><span class="btn-icon" aria-hidden="true">📥</span>
                 </a>
-                <button class="btn-pdf-action btn-fullscreen" id="fullscreenBtn" title="На весь экран">⛶</button>
+                <button type="button" class="btn-pdf-action btn-fullscreen" id="fullscreenBtn" title="На весь экран" aria-label="Развернуть на весь экран">⛶</button>
             </div>
             <div class="pdf-read-progress" id="pdfInnerProgress"></div>
           </div>
 
           <div class="pdf-canvas-wrapper" id="pdfWrapper">
             <canvas id="the-canvas"></canvas>
-            <div class="pdf-loader" id="pdfLoader"><div class="spinner"></div><span>Загрузка...</span></div>
+            <div class="pdf-loader" id="pdfLoader"><div class="spinner" aria-hidden="true"></div><span>Загрузка...</span></div>
             <div class="gesture-hint" id="gestureHint">👆 2 клика — зум <br> 🖐️ Тяни — листать</div>
           </div>
 
           <div class="pdf-toolbar">
-            <button class="tool-btn" id="prev" title="Назад">←</button>
+            <button type="button" class="tool-btn" id="prev" title="Назад" aria-label="Предыдущая страница">←</button>
             <div class="page-input-group">
-                <input type="number" id="page_num_input" value="1" min="1">
+                <input type="number" id="page_num_input" value="1" min="1" aria-label="Номер страницы">
                 <span>/ <span id="page_count">--</span></span>
             </div>
-            <button class="tool-btn" id="next" title="Вперед">→</button>
-            <div class="divider-v"></div>
-            <button class="tool-btn-icon" id="zoomOut">-</button>
-            <button class="tool-btn-icon" id="zoomIn">+</button>
+            <button type="button" class="tool-btn" id="next" title="Вперед" aria-label="Следующая страница">→</button>
+            <div class="divider-v" aria-hidden="true"></div>
+            <button type="button" class="tool-btn-icon" id="zoomOut" title="Уменьшить" aria-label="Уменьшить масштаб">-</button>
+            <button type="button" class="tool-btn-icon" id="zoomIn" title="Увеличить" aria-label="Увеличить масштаб">+</button>
           </div>
 
         </div>
@@ -381,22 +411,23 @@
       <section style="margin: 50px 0;">
         <h2 class="flip-section-title">🤔 Миф или Реальность?</h2>
         <div class="flip-grid">
-            <div class="flip-card">
+            <!-- Добавлен tabindex="0" для клавиатурного доступа -->
+            <div class="flip-card" tabindex="0">
                 <div class="flip-inner">
-                    <div class="flip-front"><div class="flip-icon">🧈</div><div class="flip-label">Миф</div><div class="flip-text">"Надо смазать ожог маслом или сметаной."</div></div>
-                    <div class="flip-back"><div class="flip-icon">❄️</div><div class="flip-label">Реальность</div><div class="flip-text">Масло создает пленку и удерживает жар. Ожог нужно только охлаждать водой!</div></div>
+                    <div class="flip-front"><div class="flip-icon" aria-hidden="true">🧈</div><div class="flip-label">Миф</div><div class="flip-text">"Надо смазать ожог маслом или сметаной."</div></div>
+                    <div class="flip-back"><div class="flip-icon" aria-hidden="true">❄️</div><div class="flip-label">Реальность</div><div class="flip-text">Масло создает пленку и удерживает жар. Ожог нужно только охлаждать водой!</div></div>
                 </div>
             </div>
-            <div class="flip-card">
+            <div class="flip-card" tabindex="0">
                 <div class="flip-inner">
-                    <div class="flip-front"><div class="flip-icon">🥄</div><div class="flip-label">Миф</div><div class="flip-text">"При эпилепсии нужно разжать зубы ложкой."</div></div>
-                    <div class="flip-back"><div class="flip-icon">🚫</div><div class="flip-label">Реальность</div><div class="flip-text">Нельзя ничего совать в рот! Вы сломаете зубы. Просто придержите голову.</div></div>
+                    <div class="flip-front"><div class="flip-icon" aria-hidden="true">🥄</div><div class="flip-label">Миф</div><div class="flip-text">"При эпилепсии нужно разжать зубы ложкой."</div></div>
+                    <div class="flip-back"><div class="flip-icon" aria-hidden="true">🚫</div><div class="flip-label">Реальность</div><div class="flip-text">Нельзя ничего совать в рот! Вы сломаете зубы. Просто придержите голову.</div></div>
                 </div>
             </div>
-            <div class="flip-card">
+            <div class="flip-card" tabindex="0">
                 <div class="flip-inner">
-                    <div class="flip-front"><div class="flip-icon">🤕</div><div class="flip-label">Миф</div><div class="flip-text">"При кровотечении из носа запрокинь голову назад."</div></div>
-                    <div class="flip-back"><div class="flip-icon">⬇️</div><div class="flip-label">Реальность</div><div class="flip-text">Голову наклоняют ВПЕРЕД, чтобы кровь не попала в дыхательные пути.</div></div>
+                    <div class="flip-front"><div class="flip-icon" aria-hidden="true">🤕</div><div class="flip-label">Миф</div><div class="flip-text">"При кровотечении из носа запрокинь голову назад."</div></div>
+                    <div class="flip-back"><div class="flip-icon" aria-hidden="true">⬇️</div><div class="flip-label">Реальность</div><div class="flip-text">Голову наклоняют ВПЕРЕД, чтобы кровь не попала в дыхательные пути.</div></div>
                 </div>
             </div>
         </div>
@@ -478,6 +509,14 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
+    /*
+     * БЛОК: Активация класса js-loaded и проверка prefers-reduced-motion.
+     * ЗА ЧТО ОТВЕЧАЕТ: Включает плавные анимации появления секций (.reveal-up) только при работающем JS.
+     * ПОЧЕМУ БЕЗОПАСНО: Гарантирует, что контент виден без JS и плавно анимируется с JS.
+     */
+    document.body.classList.add('js-loaded');
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // 1. ДАТА
     const now = new Date();
     const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -500,15 +539,17 @@
       window.addEventListener('scroll', () => {
           const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
           const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-          progressBar.style.width = (scrollTop / scrollHeight) * 100 + "%";
+          if (scrollHeight > 0) {
+            progressBar.style.width = (scrollTop / scrollHeight) * 100 + "%";
+          }
           toTopBtn.style.opacity = scrollTop > 600 ? "1" : "0";
           toTopBtn.style.pointerEvents = scrollTop > 600 ? "auto" : "none";
-      });
-      toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      }, { passive: true });
+      toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }));
     }
 
     // 4. ЭФФЕКТЫ ДЛЯ HERO
-    if (window.matchMedia("(min-width: 768px)").matches) {
+    if (!prefersReducedMotion && window.matchMedia("(min-width: 768px)").matches) {
       const hero = document.getElementById('tilt-hero');
       if(hero) {
         hero.addEventListener('mousemove', (e) => {
@@ -525,7 +566,12 @@
       }
     }
 
-    // 5. PDF VIEWER LOGIC
+    /*
+     * БЛОК: Логика интерактивной PDF-читалки V8.0 (с защитой от гонок рендеринга и сбоев localStorage).
+     * ЗА ЧТО ОТВЕЧАЕТ: Отрисовка PDF на <canvas>, зум, полноэкранный режим, ночная тема и запоминание страницы.
+     * ПОЧЕМУ БЕЗОПАСНО: Все вызовы рендера переведены на queueRenderPage(), добавлены проверки if (!pdfDoc) return
+     * и обёртка try/catch для localStorage.
+     */
     const url = 'assets/ПП Лекция.pdf'; 
     const storageKey = 'firstaid_pdf_page';
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.0;
@@ -541,8 +587,10 @@
     if(container && canvas && wrapper) {
       const placeholder = document.createElement('div'); placeholder.style.display = 'none';
 
-      const savedPage = localStorage.getItem(storageKey);
-      if(savedPage) pageNum = parseInt(savedPage);
+      try {
+        const savedPage = parseInt(localStorage.getItem(storageKey), 10);
+        if (Number.isFinite(savedPage) && savedPage >= 1) pageNum = savedPage;
+      } catch (e) {}
 
       themeBtn.addEventListener('click', () => {
           container.classList.toggle('dark-theme');
@@ -550,6 +598,7 @@
       });
 
       document.addEventListener('keydown', (e) => {
+          if (!pdfDoc) return;
           const rect = container.getBoundingClientRect();
           const isVisible = (rect.top < window.innerHeight && rect.bottom > 0) || container.classList.contains('fullscreen-mode');
           if (isVisible && document.activeElement !== pageInput) {
@@ -562,8 +611,14 @@
       });
 
       pageInput.addEventListener('change', () => {
-          let val = parseInt(pageInput.value);
-          if (val >= 1 && val <= pdfDoc.numPages) { pageNum = val; queueRenderPage(pageNum); } else { pageInput.value = pageNum; }
+          if (!pdfDoc) return;
+          let val = parseInt(pageInput.value, 10);
+          if (Number.isFinite(val) && val >= 1 && val <= pdfDoc.numPages) {
+              pageNum = val;
+              queueRenderPage(pageNum);
+          } else {
+              pageInput.value = pageNum;
+          }
       });
 
       fsBtn.addEventListener('click', () => {
@@ -581,10 +636,11 @@
               document.body.classList.remove('pdf-fullscreen-active');
               fsBtn.textContent = '⛶';
           }
-          setTimeout(() => renderPage(pageNum), 50);
+          if (pdfDoc) setTimeout(() => queueRenderPage(pageNum), 50);
       });
 
       function renderPage(num) {
+        if (!pdfDoc) return;
         pageRendering = true;
         pdfDoc.getPage(num).then(function(page) {
           const viewportOriginal = page.getViewport({scale: 1});
@@ -602,20 +658,22 @@
             pageRendering = false;
             document.getElementById('pdfLoader').style.display = 'none';
             if (pageNumPending !== null) { renderPage(pageNumPending); pageNumPending = null; }
+          }).catch(function() {
+            pageRendering = false;
           });
         });
         pageInput.value = num;
-        localStorage.setItem(storageKey, num);
+        try { localStorage.setItem(storageKey, num); } catch (e) {}
         if(pdfDoc) innerProgress.style.width = (num / pdfDoc.numPages) * 100 + '%';
         if (scale > 1.0) canvas.classList.add('zoomed'); else canvas.classList.remove('zoomed');
       }
 
       function queueRenderPage(num) { if (pageRendering) pageNumPending = num; else renderPage(num); }
 
-      document.getElementById('prev').addEventListener('click', () => { if (pageNum <= 1) return; pageNum--; queueRenderPage(pageNum); });
-      document.getElementById('next').addEventListener('click', () => { if (pageNum >= pdfDoc.numPages) return; pageNum++; queueRenderPage(pageNum); });
-      document.getElementById('zoomIn').addEventListener('click', () => { scale += 0.25; renderPage(pageNum); });
-      document.getElementById('zoomOut').addEventListener('click', () => { if(scale > 0.5) scale -= 0.25; renderPage(pageNum); });
+      document.getElementById('prev').addEventListener('click', () => { if (!pdfDoc || pageNum <= 1) return; pageNum--; queueRenderPage(pageNum); });
+      document.getElementById('next').addEventListener('click', () => { if (!pdfDoc || pageNum >= pdfDoc.numPages) return; pageNum++; queueRenderPage(pageNum); });
+      document.getElementById('zoomIn').addEventListener('click', () => { if (!pdfDoc) return; scale += 0.25; queueRenderPage(pageNum); });
+      document.getElementById('zoomOut').addEventListener('click', () => { if (!pdfDoc) return; if(scale > 0.5) { scale -= 0.25; queueRenderPage(pageNum); } });
 
       let isDragging = false, startX, startY, scrollLeft, scrollTop;
       wrapper.addEventListener('mousedown', (e) => {
@@ -636,9 +694,10 @@
       let touchStartX = 0, touchEndX = 0, lastTap = 0;
       wrapper.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
       wrapper.addEventListener('touchend', e => {
+          if (!pdfDoc) return;
           touchEndX = e.changedTouches[0].screenX;
           const currentTime = new Date().getTime();
-          if (currentTime - lastTap < 300) { scale = (scale > 1.2) ? 1.0 : 2.5; renderPage(pageNum); }
+          if (currentTime - lastTap < 300) { scale = (scale > 1.2) ? 1.0 : 2.5; queueRenderPage(pageNum); }
           lastTap = currentTime;
           if (scale <= 1.1) {
               const diff = touchStartX - touchEndX;
@@ -654,16 +713,22 @@
           hint.classList.add('show-hint'); setTimeout(() => hint.classList.remove('show-hint'), 3000);
       }
 
-      pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+      pdfjsLib.getDocument(encodeURI(url)).promise.then(function(pdfDoc_) {
         pdfDoc = pdfDoc_;
         document.getElementById('page_count').textContent = pdfDoc.numPages;
-        renderPage(pageNum);
+        if (pageNum > pdfDoc.numPages || pageNum < 1) pageNum = 1;
+        queueRenderPage(pageNum);
       }).catch(err => {
           console.error(err);
           document.getElementById('pdfLoader').innerHTML = `<p style="text-align:center; padding:20px; color:red">Файл PDF не найден.<br>Убедитесь, что файл <b>ПП Лекция.pdf</b> находится в папке <b>assets</b>.</p>`;
       });
       
-      window.addEventListener('resize', () => { if(pdfDoc) renderPage(pageNum); });
+      let resizeTimeout = null;
+      window.addEventListener('resize', () => {
+        if (!pdfDoc) return;
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => queueRenderPage(pageNum), 100);
+      }, { passive: true });
     }
   });
 </script>
@@ -684,11 +749,30 @@
     }
   };
 
+  /*
+   * БЛОК: Звуковой движок тренажера (Web Audio API Singleton).
+   * ЗА ЧТО ОТВЕЧАЕТ: Синтез звуковых сигналов успеха, ошибки, пульса, тиканья таймера и СЛР.
+   * ПОЧЕМУ БЕЗОПАСНО: Переиспользует один экземпляр sharedAudioCtx вместо создания десятков
+   * новых AudioContext, предотвращая утечку памяти и блокировку аудио в браузерах.
+   */
+  let sharedAudioCtx = null;
+
+  const getAudioContext = () => {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return null;
+    if (!sharedAudioCtx || sharedAudioCtx.state === 'closed') {
+      sharedAudioCtx = new AudioCtx();
+    }
+    if (sharedAudioCtx.state === 'suspended') {
+      sharedAudioCtx.resume().catch(() => {});
+    }
+    return sharedAudioCtx;
+  };
+
   const playSound = (type) => {
     try {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContext) return;
-      const ctx = new AudioContext();
+      const ctx = getAudioContext();
+      if (!ctx) return;
       const osc = ctx.createOscillator();
       const gainNode = ctx.createGain();
       
@@ -807,7 +891,7 @@
     ]},
     { step: "УРОВЕНЬ 20 / 30 • ТРАВМЫ", title: "Химия в глазах", icon: <Eye className="w-12 h-12" style={{color: '#facc15'}} />, description: "В глаз попало едкое химическое вещество (растворитель). Что нужно использовать?", hex: "#facc15", type: "inventory", items: [
         { id: 'water', icon: <Droplets />, name: "Много воды", isCorrect: true, feedback: "ВЕРНО! Нужно немедленно промывать глаз проточной водой не менее 20 минут." },
-        { id: 'hand', icon: <Hand />, name: "Потереть рукавом", isCorrect: false, feedback: "ОШИБКА! Трение вотрет химикат глубже в роговицу.", deadly: false },
+        { id: 'hand', icon: <Hand />, name: "Потереть рукавом", isCorrect: false, feedback: "ОШИБКА! Трение вотрет химикат глужбе в роговицу.", deadly: false },
         { id: 'bandage', icon: <Plus />, name: "Сухая повязка", isCorrect: false, feedback: "ОШИБКА! Закрыть глаз с химикатом внутри — значит позволить кислоте/щелочи выжигать глаз дальше.", deadly: true }
     ]},
     { step: "УРОВЕНЬ 21 / 30 • КРИТИЧЕСКИЕ СОСТОЯНИЯ", title: "Боль в сердце", icon: <HeartPulse className="w-12 h-12" style={{color: '#ef4444'}} />, description: "Человек жалуется на резкую, жгучую боль за грудиной, отдающую в левую руку и челюсть. Страх смерти. Подозрение на инфаркт.", hex: "#ef4444", choices: [
@@ -892,7 +976,7 @@
       </p>
       <div className="grid grid-cols-3 gap-3 md:gap-4">
         {scenario.items.map((item, idx) => (
-          <button key={idx} onClick={() => onChoice(item)} className="flex flex-col items-center justify-center p-3 md:p-4 bg-slate-950 border border-slate-700 rounded-xl hover:border-cyan-400 hover:bg-cyan-950/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all group">
+          <button type="button" key={idx} onClick={() => onChoice(item)} className="flex flex-col items-center justify-center p-3 md:p-4 bg-slate-950 border border-slate-700 rounded-xl hover:border-cyan-400 hover:bg-cyan-950/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all group">
             <div className="p-2 md:p-3 bg-slate-800 rounded-full group-hover:bg-cyan-900 text-slate-400 group-hover:text-cyan-400 transition-all mb-2 md:mb-3 shadow-lg">
               {item.icon}
             </div>
@@ -1127,7 +1211,7 @@
                   </div>
                   <div className="flex-1 space-y-6 text-left">
                     <div>
-                      <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-500 drop-shadow-sm">КОД: СПАСЕНИЕ</h1>
+                      <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-500 drop-shadow-sm">КОД: СПАСЕНИЕ</h2>
                       <div className="flex items-center gap-3 mt-2">
                         <span className="w-8 h-px bg-cyan-500" />
                         <p className="text-cyan-400 font-mono tracking-widest text-xs uppercase">AR Симулятор: Полный Курс (30 Этапов)</p>
@@ -1140,7 +1224,7 @@
                       <p className="text-cyan-400 opacity-80 animate-pulse mt-2">► ОЖИДАНИЕ ОПЕРАТОРА</p>
                     </div>
                     <p className="text-slate-300 text-sm leading-relaxed max-w-sm">Вас ждет полный симулятор экстренных ситуаций. Травмы, ожоги, инфаркты и аварии. Сохраняйте холодный рассудок.</p>
-                    <button onClick={startGame} className="relative group overflow-hidden bg-cyan-600/20 border border-cyan-500 text-cyan-300 font-bold tracking-widest px-8 py-4 rounded-lg hover:bg-cyan-500 hover:text-slate-900 transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.1)] hover:shadow-[0_0_40px_rgba(6,182,212,0.6)] w-full md:w-auto text-center flex justify-center">
+                    <button type="button" onClick={startGame} className="relative group overflow-hidden bg-cyan-600/20 border border-cyan-500 text-cyan-300 font-bold tracking-widest px-8 py-4 rounded-lg hover:bg-cyan-500 hover:text-slate-900 transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.1)] hover:shadow-[0_0_40px_rgba(6,182,212,0.6)] w-full md:w-auto text-center flex justify-center">
                       <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shine" />
                       <span className="flex items-center gap-3 relative z-10"><Play className="w-5 h-5 fill-current" /> НАЧАТЬ ЭКЗАМЕН</span>
                     </button>
@@ -1157,7 +1241,7 @@
                   </div>
                   <p className="text-base md:text-lg text-white max-w-md mx-auto">Сделайте <strong className="text-red-400 text-2xl">{CPR_TARGET}</strong> нажатий на грудную клетку до истечения таймера!</p>
                   <div className="flex justify-center my-6 md:my-8">
-                    <button onClick={doCPR} className="relative group focus:outline-none transition-transform active:scale-90">
+                    <button type="button" onClick={doCPR} className="relative group focus:outline-none transition-transform active:scale-90">
                       <div className="absolute inset-0 bg-red-500 rounded-full blur-xl opacity-50 group-hover:opacity-80 transition-opacity" />
                       <div className="relative bg-gradient-to-b from-red-500 to-red-800 p-6 md:p-8 rounded-full border-4 border-red-400 shadow-[0_0_40px_rgba(239,68,68,0.8)]"><HeartPulse className="w-16 h-16 md:w-20 md:h-20 text-white" /></div>
                     </button>
@@ -1176,7 +1260,7 @@
                   <div className="flex flex-col items-center text-center space-y-3 md:space-y-4 border-b border-white/5 pb-4 md:pb-6 relative">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-full bg-gradient-to-b from-white/5 to-transparent blur-2xl -z-10" />
                     <div className="p-3 md:p-4 rounded-2xl bg-slate-950/50 border shadow-2xl transition-colors duration-500" style={{ borderColor: `${currentScenario.hex}40`, boxShadow: `0 0 30px ${currentScenario.hex}20` }}>{currentScenario.icon}</div>
-                    <h2 className="text-lg md:text-2xl font-bold tracking-tight text-white px-2">{currentScenario.title}</h2>
+                    <h3 className="text-lg md:text-2xl font-bold tracking-tight text-white px-2">{currentScenario.title}</h3>
                     <p className="text-sm md:text-base text-slate-300 font-light leading-relaxed px-2 md:px-0">{currentScenario.description}</p>
                   </div>
                   
@@ -1187,7 +1271,7 @@
                   ) : (
                     <div className="grid grid-cols-1 gap-3 mt-4 md:mt-6">
                       {currentScenario.choices.map((choice, idx) => (
-                        <button key={idx} onClick={() => handleChoice(choice)} className="group relative w-full text-left p-4 md:p-5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-cyan-500 hover:bg-slate-800/80 transition-all duration-300 overflow-hidden shadow-lg hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] min-h-[70px] flex items-center">
+                        <button type="button" key={idx} onClick={() => handleChoice(choice)} className="group relative w-full text-left p-4 md:p-5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-cyan-500 hover:bg-slate-800/80 transition-all duration-300 overflow-hidden shadow-lg hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] min-h-[70px] flex items-center">
                           <div className="absolute top-0 left-0 h-full w-1 bg-cyan-500 scale-y-0 group-hover:scale-y-100 origin-bottom transition-transform duration-300 shadow-[0_0_10px_rgba(6,182,212,0.8)]" />
                           <div className="flex items-start gap-3 w-full">
                             <span className="font-mono text-xs text-cyan-500/70 group-hover:text-cyan-400 mt-1 bg-cyan-950/40 px-2 py-1 rounded shadow-inner shrink-0">[{idx + 1}]</span>
@@ -1228,7 +1312,7 @@
                     {feedback.text}
                   </p>
 
-                  <button onClick={handleNext} className="group relative overflow-hidden inline-block border border-slate-500 text-white font-bold tracking-widest px-6 py-3 md:px-8 md:py-4 rounded-full hover:bg-white hover:text-slate-900 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all shadow-lg text-xs md:text-sm">
+                  <button type="button" onClick={handleNext} className="group relative overflow-hidden inline-block border border-slate-500 text-white font-bold tracking-widest px-6 py-3 md:px-8 md:py-4 rounded-full hover:bg-white hover:text-slate-900 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all shadow-lg text-xs md:text-sm">
                     <span>{health <= 0 && !hasUsedCPR ? 'ЭКСТРЕННАЯ РЕАНИМАЦИЯ' : (health <= 0 ? 'АНАЛИЗ ПРОВАЛА' : 'СЛЕДУЮЩИЙ ЭТАП')}</span>
                   </button>
                 </div>
@@ -1238,7 +1322,7 @@
                 <div className="text-center space-y-6 animate-fade-in relative z-10 my-auto">
                   <AlertTriangle className="w-20 h-20 md:w-24 md:h-24 text-red-500 mx-auto drop-shadow-[0_0_40px_rgba(239,68,68,0.8)] animate-pulse" />
                   <div>
-                    <h1 className="text-3xl md:text-5xl font-black text-red-500 tracking-tighter uppercase mb-2 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">Система отключена</h1>
+                    <h2 className="text-3xl md:text-5xl font-black text-red-500 tracking-tighter uppercase mb-2 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">Система отключена</h2>
                     <p className="text-red-400/80 font-mono tracking-widest text-[10px] md:text-xs uppercase border border-red-500/30 bg-red-950/50 inline-block px-3 py-1 rounded shadow-inner">Пациент потерян / Протокол прерван</p>
                   </div>
                   <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
@@ -1251,7 +1335,7 @@
                       <span className="text-xl md:text-2xl font-mono text-slate-300 font-bold">{avgReaction}с</span>
                     </div>
                   </div>
-                  <button onClick={startGame} className="mt-4 border border-red-500/50 hover:border-red-500 hover:shadow-[0_0_15px_rgba(239,68,68,0.4)] text-red-400 hover:text-red-300 font-bold tracking-widest px-6 py-3 rounded-full transition-all inline-flex items-center gap-2 bg-red-950/30 hover:bg-red-900/50 text-[10px] md:text-xs">
+                  <button type="button" onClick={startGame} className="mt-4 border border-red-500/50 hover:border-red-500 hover:shadow-[0_0_15px_rgba(239,68,68,0.4)] text-red-400 hover:text-red-300 font-bold tracking-widest px-6 py-3 rounded-full transition-all inline-flex items-center gap-2 bg-red-950/30 hover:bg-red-900/50 text-[10px] md:text-xs">
                     <RotateCcw className="w-4 h-4" /> ПЕРЕЗАГРУЗИТЬ ПРОТОКОЛ
                   </button>
                 </div>
@@ -1264,7 +1348,7 @@
                     <CheckCircle2 className="w-6 h-6 md:w-8 md:h-8 text-emerald-400 absolute bottom-0 right-0 bg-[#020617] rounded-full drop-shadow-[0_0_10px_rgba(52,211,153,0.8)]" />
                   </div>
                   <div>
-                    <h1 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 tracking-tighter uppercase mb-2 drop-shadow-lg">Модуль Пройден</h1>
+                    <h2 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 tracking-tighter uppercase mb-2 drop-shadow-lg">Модуль Пройден</h2>
                     <p className="text-emerald-400/80 font-mono tracking-widest text-[10px] md:text-xs uppercase border border-emerald-500/30 bg-emerald-950/30 inline-block px-3 py-1 rounded shadow-inner">Статус: Все 30 этапов пройдены</p>
                   </div>
                   <div className="bg-slate-900/80 border border-cyan-500/30 p-4 md:p-6 rounded-2xl shadow-[0_0_30px_rgba(6,182,212,0.15)] text-left space-y-4 mx-2 md:mx-0">
@@ -1276,7 +1360,7 @@
                       <div><div className="text-slate-400 text-[9px] md:text-[10px] tracking-widest mb-1 font-mono">СТРЕССОУСТОЙЧИВОСТЬ</div><div className={`text-xl md:text-2xl font-mono font-bold ${stressResistance > 70 ? 'text-emerald-400' : 'text-amber-400'}`}>{stressResistance}%</div></div>
                     </div>
                   </div>
-                  <button onClick={startGame} className="mt-4 border border-emerald-500 text-emerald-400 hover:text-slate-900 hover:bg-emerald-400 font-bold tracking-widest px-6 py-3 rounded-full transition-all inline-flex items-center gap-2 shadow-[0_0_20px_rgba(52,211,153,0.2)] hover:shadow-[0_0_40px_rgba(52,211,153,0.6)] text-[10px] md:text-xs">
+                  <button type="button" onClick={startGame} className="mt-4 border border-emerald-500 text-emerald-400 hover:text-slate-900 hover:bg-emerald-400 font-bold tracking-widest px-6 py-3 rounded-full transition-all inline-flex items-center gap-2 shadow-[0_0_20px_rgba(52,211,153,0.2)] hover:shadow-[0_0_40px_rgba(52,211,153,0.6)] text-[10px] md:text-xs">
                     <RotateCcw className="w-4 h-4" /> НАЧАТЬ НОВЫЙ ЦИКЛ
                   </button>
                 </div>
