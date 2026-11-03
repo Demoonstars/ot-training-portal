@@ -6,27 +6,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <!-- ===== SEO ===== -->
+  <!--
+    БЛОК: SEO-метатеги, Canonical, Open Graph и Twitter Cards.
+    ЗА ЧТО ОТВЕЧАЕТ: Индексация страницы поисковиками и карточка превью при отправке ссылки.
+    ПОЧЕМУ БЕЗОПАСНО: Заглушки https://example.com заменены на реальный URL портала на GitHub Pages
+    и существующее изображение assets/hero-training.jpg.
+  -->
   <meta name="description" content="Кабинет ответственного за дистанционное обучение: функции, нормативная база, алгоритм организации, калькулятор сроков, интерактивный чек-лист, шаблоны сообщений и полезные материалы.">
   <meta name="keywords" content="СДО, ответственный за обучение, охрана труда, регламент, проверка знаний, инструктажи, протоколы, нормативная база, калькулятор сроков, чек-лист">
   <meta name="author" content="Служба Охраны Труда">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <meta name="theme-color" content="#7c3aed">
-  <link rel="canonical" href="https://example.com/for-responsibles.html">
+  <link rel="canonical" href="https://demoonstars.github.io/ot-training-portal/for-responsibles.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="Кабинет ответственного за обучение — регламент и инструменты">
   <meta property="og:description" content="Всё для организации дистанционного обучения: алгоритм, чек-лист, калькулятор сроков, шаблоны сообщений и нормативная база.">
-  <meta property="og:url" content="https://example.com/for-responsibles.html">
+  <meta property="og:url" content="https://demoonstars.github.io/ot-training-portal/for-responsibles.html">
   <meta property="og:site_name" content="СДО — Система дистанционного обучения">
   <meta property="og:locale" content="ru_RU">
-  <meta property="og:image" content="https://example.com/assets/og-responsibles.jpg">
+  <meta property="og:image" content="https://demoonstars.github.io/ot-training-portal/assets/hero-training.jpg">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Кабинет ответственного за обучение">
   <meta name="twitter:description" content="Алгоритм, чек-лист, калькулятор сроков и шаблоны сообщений для ответственного за СДО.">
-  <meta name="twitter:image" content="https://example.com/assets/og-responsibles.jpg">
+  <meta name="twitter:image" content="https://demoonstars.github.io/ot-training-portal/assets/hero-training.jpg">
 
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -91,6 +97,28 @@
         radial-gradient(1200px 600px at 10% 0%, rgba(124,58,237,0.18), transparent 60%),
         radial-gradient(800px 400px at 90% 100%, rgba(37,99,235,0.12), transparent 60%);
     }
+    /*
+     * БЛОК: Поддержка темной темы для шапки сайта (.site-header).
+     * ЗА ЧТО ОТВЕЧАЕТ: Корректный темный фон и светлый текст навигации при включении ночного режима.
+     * ПОЧЕМУ БЕЗОПАСНО: Применяется только при наличии атрибута [data-theme="dark"].
+     */
+    [data-theme="dark"] .site-header {
+      background: rgba(15, 23, 42, 0.85);
+      border-bottom-color: rgba(148, 163, 184, 0.2);
+    }
+    [data-theme="dark"] .site-title-mini {
+      color: var(--c-text);
+    }
+    [data-theme="dark"] .site-subtitle-mini,
+    [data-theme="dark"] .nav-link {
+      color: var(--c-text-2);
+    }
+    [data-theme="dark"] .nav-link:hover,
+    [data-theme="dark"] .nav-link.active,
+    [data-theme="dark"] .nav-link-active {
+      color: var(--c-violet);
+      background: rgba(30, 41, 59, 0.8);
+    }
 
     /* ---------- READING PROGRESS ---------- */
     .reading-progress {
@@ -141,7 +169,9 @@
       padding: 10px 18px; border-radius: 12px; font-size: 0.92rem; font-weight: 600;
       background: var(--c-card-glass); color: var(--c-text);
       border: 1px solid var(--c-border-strong); cursor: pointer;
-      backdrop-filter: blur(8px); font-family: inherit;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      font-family: inherit;
       transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
     }
     .btn-ghost:hover { transform: translateY(-2px); box-shadow: 0 8px 20px -6px var(--c-shadow-sm); background: var(--c-card); }
@@ -157,6 +187,7 @@
       padding: 8px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 600;
       background: var(--c-card-glass); color: var(--c-text-2); text-decoration: none;
       border: 1px solid var(--c-border); backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       transition: all 0.2s;
     }
     .toc a:hover {
@@ -172,6 +203,7 @@
     .stat-card {
       background: var(--c-card-glass); border: 1px solid var(--c-border-strong);
       border-radius: 16px; padding: 20px; backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       text-align: center; box-shadow: 0 8px 20px -8px var(--c-shadow-sm);
       transition: transform 0.2s, box-shadow 0.3s;
     }
@@ -248,6 +280,7 @@
     .process-card {
       background: var(--c-card-glass); border: 1px solid var(--c-border-strong);
       border-radius: 18px; padding: 22px; backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       box-shadow: var(--c-shadow-sm); position: relative;
       transition: transform 0.25s, box-shadow 0.3s;
     }
@@ -496,6 +529,7 @@
       border-radius: 14px; border: 1px solid var(--c-border);
       background: var(--c-card-glass); color: var(--c-text);
       backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     .faq-search:focus {
@@ -506,6 +540,7 @@
       background: var(--c-card-glass); border: 1px solid var(--c-border);
       border-radius: 16px; margin-bottom: 12px; overflow: hidden;
       backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       transition: box-shadow 0.3s, border-color 0.3s;
     }
     .faq-item:hover { box-shadow: var(--c-shadow-sm); border-color: var(--c-violet-border); }
@@ -592,9 +627,16 @@
     }
     @media (max-width: 900px) { .header-meta { display: none; } }
 
-    /* ---------- REVEAL (fallback) ---------- */
-    .reveal-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .reveal-up.visible { opacity: 1; transform: translateY(0); }
+    /* ---------- REVEAL (безопасная анимация с защитой от отключения JS) ---------- */
+    /*
+     * БЛОК: Плавное появление секций при скролле (.reveal-up).
+     * ЗА ЧТО ОТВЕЧАЕТ: Скрытие секций до попадания во вьюпорт и плавный подъем.
+     * ПОЧЕМУ БЕЗОПАСНО: Скрытие (opacity: 0) активно только при наличии класса body.js-loaded,
+     * поэтому при сбое или блокировке JS все блоки страницы остаются видимыми.
+     */
+    .reveal-up { opacity: 1; transform: none; }
+    body.js-loaded .reveal-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    body.js-loaded .reveal-up.visible { opacity: 1; transform: translateY(0); }
     .reveal-up.delay-100 { transition-delay: 0.1s; }
     .reveal-up.delay-200 { transition-delay: 0.2s; }
     .reveal-up.delay-300 { transition-delay: 0.3s; }
@@ -606,6 +648,11 @@
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
+      .reveal-up,
+      body.js-loaded .reveal-up {
+        opacity: 1 !important;
+        transform: none !important;
+      }
     }
 
     /* ---------- PRINT ---------- */
@@ -616,6 +663,7 @@
       .docs-toolbar, .template-copy, .faq-search-wrap, .toast,
       .btn-ghost { display: none !important; }
       body { background: #fff !important; color: #000 !important; }
+      .reveal-up, body.js-loaded .reveal-up { opacity: 1 !important; transform: none !important; }
       .admin-card, .process-card, .calc-card, .doc-item, .template-card,
       .faq-item, .stat-card {
         background: #fff !important; border: 1px solid #ccc !important;
@@ -646,19 +694,19 @@
     "@graph": [
       {
         "@type": "WebPage",
-        "@id": "https://example.com/for-responsibles.html#webpage",
-        "url": "https://example.com/for-responsibles.html",
+        "@id": "https://demoonstars.github.io/ot-training-portal/for-responsibles.html#webpage",
+        "url": "https://demoonstars.github.io/ot-training-portal/for-responsibles.html",
         "name": "Кабинет ответственного за обучение — регламент и инструменты",
         "description": "Инструкции, чек-лист, калькулятор сроков, шаблоны сообщений и полезные материалы для ответственного за дистанционное обучение.",
         "inLanguage": "ru-RU",
-        "isPartOf": { "@id": "https://example.com/#website" }
+        "isPartOf": { "@id": "https://demoonstars.github.io/ot-training-portal/#website" }
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://example.com/for-responsibles.html#breadcrumb",
+        "@id": "https://demoonstars.github.io/ot-training-portal/for-responsibles.html#breadcrumb",
         "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://example.com/index.html" },
-          { "@type": "ListItem", "position": 2, "name": "Ответственным", "item": "https://example.com/for-responsibles.html" }
+          { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://demoonstars.github.io/ot-training-portal/index.html" },
+          { "@type": "ListItem", "position": 2, "name": "Ответственным", "item": "https://demoonstars.github.io/ot-training-portal/for-responsibles.html" }
         ]
       },
       {
@@ -715,10 +763,11 @@
     <div class="container header-inner">
       <div class="header-brand">
         <div class="brand-logo">
-          <img src="assets/Филин от.png" alt="Логотип СДО" style="width:100%;height:100%;object-fit:contain;">
+          <img src="assets/Филин от.png" alt="Логотип СДО" width="42" height="42" style="width:100%;height:100%;object-fit:contain;">
         </div>
         <div>
-          <h1 class="site-title-mini">СДО</h1>
+          <!-- Бренд в шапке: div вместо h1, чтобы главный заголовок страницы был один -->
+          <div class="site-title-mini">СДО</div>
           <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
         </div>
       </div>
@@ -726,7 +775,7 @@
       <div class="header-meta">
         <span id="current-date">Загрузка...</span>
         <span style="display:flex;align-items:center;">
-          <span class="system-status-pulse"></span> Online
+          <span class="system-status-pulse" aria-hidden="true"></span> Online
         </span>
       </div>
 
@@ -755,28 +804,29 @@
       <!-- HERO -->
       <section class="admin-hero">
         <div class="admin-badge">Зона ответственности</div>
-        <h2 class="admin-title">Кабинет ответственного за обучение</h2>
+        <!-- Единственный h1 на странице -->
+        <h1 class="admin-title">Кабинет ответственного за обучение</h1>
         <p class="admin-lead">
           Всё для организации дистанционного обучения: нормативная база, пошаговый алгоритм,
           интерактивный чек-лист, калькулятор сроков и готовые шаблоны сообщений.
         </p>
         <div class="instr-meta">
           <span class="instr-meta-item">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             ~7 мин чтения
           </span>
           <span class="instr-meta-item">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             Обновлено: <time datetime="2026-01-15">15 января 2026</time>
           </span>
         </div>
         <div class="instr-actions">
           <button type="button" class="btn-ghost" id="share-btn">
-            <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
             Поделиться
           </button>
           <button type="button" class="btn-ghost" id="print-btn">
-            <svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
             Печать / PDF
           </button>
         </div>
@@ -822,7 +872,7 @@
         <div class="admin-grid">
 
           <div class="admin-card card-purple">
-            <div class="card-icon-wrap">📋</div>
+            <div class="card-icon-wrap" aria-hidden="true">📋</div>
             <h3 class="card-title">Функции ответственного</h3>
             <ul class="task-list">
               <li>Формирование <strong>списков на обучение</strong> по штатному расписанию.</li>
@@ -835,12 +885,12 @@
           </div>
 
           <div class="admin-card card-blue">
-            <div class="card-icon-wrap icon-blue">⚖️</div>
+            <div class="card-icon-wrap icon-blue" aria-hidden="true">⚖️</div>
             <h3 class="card-title">Нормативная база</h3>
             <ul class="task-list">
               <li><strong>ТК РФ</strong>, ст. 214 и 219 — обязанности работодателя по обучению.</li>
               <li><strong>Постановление Правительства РФ № 2464</strong> от 24.12.2021 — порядок обучения по ОТ.</li>
-              <li><strong>Приказ МЧС России № 806</strong> от 18.11.2021 — инструктажи по пожарной безопасности.</li>
+              <li><strong>Приказ МЧС России № 1120</strong> (ранее № 806) — инструктажи по пожарной безопасности.</li>
               <li><strong>Приказ Минтруда № 776н</strong> — примерное положение о СУОТ.</li>
               <li><strong>ГОСТ 12.0.004-2015</strong> — организация обучения по безопасности труда.</li>
               <li><strong>Локальные акты</strong> — положение об обучении, приказы о комиссии.</li>
@@ -848,7 +898,7 @@
           </div>
 
           <div class="admin-card card-orange">
-            <div class="card-icon-wrap icon-orange">⚙️</div>
+            <div class="card-icon-wrap icon-orange" aria-hidden="true">⚙️</div>
             <h3 class="card-title">Работа с результатами</h3>
             <ul class="task-list">
               <li>Выгрузка из Google Forms / Excel в формате CSV.</li>
@@ -871,22 +921,22 @@
         </div>
         <div class="process-steps">
           <div class="process-card">
-            <div class="process-num">1</div>
+            <div class="process-num" aria-hidden="true">1</div>
             <h4 class="process-title">Планирование</h4>
             <p class="process-text">Определите категории работников и необходимые программы (ОТ, ПБ, Первая помощь) согласно штатному расписанию.</p>
           </div>
           <div class="process-card">
-            <div class="process-num">2</div>
+            <div class="process-num" aria-hidden="true">2</div>
             <h4 class="process-title">Информирование</h4>
             <p class="process-text">Направьте сотрудникам ссылки на соответствующие страницы портала. Установите дедлайн сдачи тестов.</p>
           </div>
           <div class="process-card">
-            <div class="process-num">3</div>
+            <div class="process-num" aria-hidden="true">3</div>
             <h4 class="process-title">Контроль</h4>
             <p class="process-text">Отслеживайте прохождение через сводную таблицу результатов. Напоминайте должникам за 3 дня до дедлайна.</p>
           </div>
           <div class="process-card">
-            <div class="process-num">4</div>
+            <div class="process-num" aria-hidden="true">4</div>
             <h4 class="process-title">Оформление</h4>
             <p class="process-text">На основании успешных тестов подпишите протоколы и внесите записи в журналы инструктажей.</p>
           </div>
@@ -1035,17 +1085,17 @@
             <input type="search" class="docs-search" id="docs-search" placeholder="Поиск по документам…" aria-label="Поиск по документам">
           </div>
           <div class="docs-filters" role="group" aria-label="Фильтр по категориям">
-            <button type="button" class="filter-btn is-active" data-filter="all">Все</button>
-            <button type="button" class="filter-btn" data-filter="instruction">Инструкции</button>
-            <button type="button" class="filter-btn" data-filter="template">Шаблоны</button>
-            <button type="button" class="filter-btn" data-filter="normative">Нормативные</button>
+            <button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true">Все</button>
+            <button type="button" class="filter-btn" data-filter="instruction" aria-pressed="false">Инструкции</button>
+            <button type="button" class="filter-btn" data-filter="template" aria-pressed="false">Шаблоны</button>
+            <button type="button" class="filter-btn" data-filter="normative" aria-pressed="false">Нормативные</button>
           </div>
         </div>
 
         <div class="docs-list" id="docs-list">
 
           <a href="#" class="doc-item" data-category="instruction" data-doc-name="Памятка по выгрузке отчётов">
-            <span class="doc-icon">📑</span>
+            <span class="doc-icon" aria-hidden="true">📑</span>
             <div class="doc-info">
               <h4>Памятка по выгрузке отчётов</h4>
               <p>Пошаговая инструкция по экспорту данных из Google Forms в Excel для секретарей.</p>
@@ -1054,7 +1104,7 @@
           </a>
 
           <a href="#" class="doc-item" data-category="instruction" data-doc-name="Инструкция по работе с протоколами">
-            <span class="doc-icon">📄</span>
+            <span class="doc-icon" aria-hidden="true">📄</span>
             <div class="doc-info">
               <h4>Инструкция по работе с протоколами</h4>
               <p>Порядок заполнения, подписания и архивирования протоколов проверки знаний.</p>
@@ -1063,7 +1113,7 @@
           </a>
 
           <a href="#" class="doc-item" data-category="template" data-doc-name="Образец приказа о допуске">
-            <span class="doc-icon">📎</span>
+            <span class="doc-icon" aria-hidden="true">📎</span>
             <div class="doc-info">
               <h4>Образец приказа о допуске</h4>
               <p>Шаблон документа для оформления допуска сотрудника после проверки знаний.</p>
@@ -1072,7 +1122,7 @@
           </a>
 
           <a href="#" class="doc-item" data-category="template" data-doc-name="Шаблон протокола проверки знаний">
-            <span class="doc-icon">📝</span>
+            <span class="doc-icon" aria-hidden="true">📝</span>
             <div class="doc-info">
               <h4>Шаблон протокола проверки знаний</h4>
               <p>Готовая форма протокола заседания комиссии по проверке знаний требований ОТ.</p>
@@ -1081,7 +1131,7 @@
           </a>
 
           <a href="#" class="doc-item" data-category="template" data-doc-name="Форма журнала инструктажей">
-            <span class="doc-icon">📒</span>
+            <span class="doc-icon" aria-hidden="true">📒</span>
             <div class="doc-info">
               <h4>Форма журнала инструктажей</h4>
               <p>Стандартная форма журнала регистрации инструктажей по охране труда.</p>
@@ -1090,7 +1140,7 @@
           </a>
 
           <a href="#" class="doc-item" data-category="normative" data-doc-name="Положение об обучении по ОТ">
-            <span class="doc-icon">📜</span>
+            <span class="doc-icon" aria-hidden="true">📜</span>
             <div class="doc-info">
               <h4>Положение об обучении по ОТ</h4>
               <p>Локальный акт предприятия, регламентирующий обучение и проверку знаний.</p>
@@ -1099,7 +1149,7 @@
           </a>
 
           <a href="#" class="doc-item" data-category="normative" data-doc-name="Регламент защиты данных">
-            <span class="doc-icon">🔒</span>
+            <span class="doc-icon" aria-hidden="true">🔒</span>
             <div class="doc-info">
               <h4>Регламент защиты персональных данных</h4>
               <p>Правила обработки и хранения персональных данных при тестировании.</p>
@@ -1109,7 +1159,7 @@
 
         </div>
 
-        <div class="docs-empty" id="docs-empty">По запросу ничего не найдено. Попробуйте изменить фильтр.</div>
+        <div class="docs-empty" id="docs-empty" role="status" aria-live="polite">По запросу ничего не найдено. Попробуйте изменить фильтр.</div>
       </section>
 
       <!-- TEMPLATES -->
@@ -1125,7 +1175,7 @@
             <div class="template-header">
               <span class="template-title">📣 Информирование о назначении</span>
               <button type="button" class="template-copy" data-template-id="info">
-                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                 Копировать
               </button>
             </div>
@@ -1141,7 +1191,7 @@
             <div class="template-header">
               <span class="template-title">⏰ Напоминание о дедлайне</span>
               <button type="button" class="template-copy" data-template-id="remind">
-                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                 Копировать
               </button>
             </div>
@@ -1156,7 +1206,7 @@
             <div class="template-header">
               <span class="template-title">🔄 Неудовлетворительный результат</span>
               <button type="button" class="template-copy" data-template-id="fail">
-                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                 Копировать
               </button>
             </div>
@@ -1184,7 +1234,7 @@
           </div>
 
           <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
+            <button type="button" class="faq-trigger" aria-expanded="false">
               Что делать, если сотрудник не уложился в срок?
               <span class="faq-icon" aria-hidden="true">▼</span>
             </button>
@@ -1194,7 +1244,7 @@
           </div>
 
           <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
+            <button type="button" class="faq-trigger" aria-expanded="false">
               Как аннулировать результат при подлоге данных?
               <span class="faq-icon" aria-hidden="true">▼</span>
             </button>
@@ -1204,7 +1254,7 @@
           </div>
 
           <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
+            <button type="button" class="faq-trigger" aria-expanded="false">
               Нужно ли хранить протоколы в бумажном виде?
               <span class="faq-icon" aria-hidden="true">▼</span>
             </button>
@@ -1214,7 +1264,7 @@
           </div>
 
           <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
+            <button type="button" class="faq-trigger" aria-expanded="false">
               Как проверить корректность ФИО перед занесением в протокол?
               <span class="faq-icon" aria-hidden="true">▼</span>
             </button>
@@ -1223,7 +1273,7 @@
             </div>
           </div>
 
-          <div class="faq-no-results" id="faq-no-results">Ничего не найдено. Попробуйте другой запрос.</div>
+          <div class="faq-no-results" id="faq-no-results" role="status" aria-live="polite">Ничего не найдено. Попробуйте другой запрос.</div>
         </div>
       </section>
 
@@ -1242,11 +1292,11 @@
 <!-- Плавающие кнопки -->
 <div class="float-stack">
   <button type="button" class="float-btn" id="theme-toggle" aria-label="Переключить тёмную/светлую тему" title="Сменить тему">
-    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
   </button>
   <button type="button" class="float-btn" id="back-to-top" aria-label="Наверх" title="Наверх">
-    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 </div>
 
@@ -1256,6 +1306,10 @@
 <script>
 (function () {
   'use strict';
+
+  document.body.classList.add('js-loaded');
+
+  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ===== Безопасный localStorage ===== */
   const storage = {
@@ -1472,8 +1526,12 @@
   if (docsSearch) docsSearch.addEventListener('input', applyDocsFilter);
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('is-active'));
+      filterBtns.forEach(b => {
+        b.classList.remove('is-active');
+        b.setAttribute('aria-pressed', 'false');
+      });
       btn.classList.add('is-active');
+      btn.setAttribute('aria-pressed', 'true');
       currentFilter = btn.dataset.filter;
       applyDocsFilter();
     });
@@ -1498,7 +1556,6 @@
       const id = btn.dataset.templateId;
       const body = $('#template-' + id);
       if (!body) return;
-      // Копируем чистый текст (с плейсхолдерами в квадратных скобках)
       const text = body.innerText.trim();
       try {
         await copyToClipboard(text);
@@ -1523,6 +1580,16 @@
       }
     });
   });
+
+  // Пересчет высоты открытых пунктов FAQ при изменении ширины экрана
+  window.addEventListener('resize', () => {
+    faqTriggers.forEach(trigger => {
+      if (trigger.getAttribute('aria-expanded') === 'true') {
+        const content = trigger.nextElementSibling;
+        if (content) content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+  }, { passive: true });
 
   const faqSearch = $('#faq-search');
   const faqItems = $$('.faq-item');
@@ -1555,7 +1622,7 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
   if (backToTop) {
-    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }));
   }
 
   /* ===== 11. Появление секций (IntersectionObserver) ===== */
@@ -1580,7 +1647,7 @@
     const target = document.getElementById(id);
     if (!target) return;
     e.preventDefault();
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
     history.replaceState(null, '', '#' + id);
   });
 
