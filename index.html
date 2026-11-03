@@ -15,7 +15,6 @@
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Оставлены только необходимые начертания шрифтов для ускорения загрузки -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Merriweather:ital,wght@1,700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -89,6 +88,9 @@
     .glass-wrapper {
       position: relative;
       z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     .scroll-progress-bar {
@@ -217,6 +219,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-wrap: wrap;
     }
 
     .tool-pill-btn {
@@ -523,6 +526,7 @@
       border-radius: 14px;
       margin-bottom: 20px;
       scrollbar-width: none;
+      flex-wrap: wrap; /* Изменено: теперь фильтры переносятся, а не обрезаются */
     }
     .role-filter-bar::-webkit-scrollbar { display: none; }
 
@@ -1244,6 +1248,9 @@
       display: flex; align-items: center; gap: 15px; margin-left: auto;
     }
 
+    /* =========================================
+       МОБИЛЬНАЯ АДАПТАЦИЯ (ГЛАВНЫЕ ИСПРАВЛЕНИЯ)
+       ========================================= */
     @media (max-width: 960px) {
       .dashboard-container { grid-template-columns: 1fr; gap: 24px; }
       .header-meta { display: none; }
@@ -1253,12 +1260,35 @@
       body.masterpiece-theme { padding-bottom: calc(74px + var(--safe-bottom)); }
       .mobile-bottom-nav { display: flex; }
       .to-top-btn { bottom: calc(84px + var(--safe-bottom)); right: 16px; }
+      
+      /* Карточки в одну колонку */
       .info-grid { grid-template-columns: 1fr; gap: 16px; }
-      .hero-actions-row { flex-direction: column; align-items: stretch; }
-      .btn-magic, .btn-quick-search { width: 100%; justify-content: center; }
+      .mini-programs-grid { grid-template-columns: 1fr; }
+      
+      /* Кнопки на всю ширину */
+      .hero-actions-row { flex-direction: column; align-items: stretch; width: 100%; }
+      .btn-magic, .btn-quick-search { width: 100%; justify-content: center; text-align: center; padding: 14px 20px; }
       .kbd-badge { display: none; }
       .welcome-text { max-width: 100%; }
+      
+      /* Бейджи (фильтры) переносятся */
+      .hero-badge-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .hero-quick-tools { width: 100%; justify-content: flex-start; flex-wrap: wrap; }
+      .live-clock-pill { margin-left: 0; }
+      
+      /* Календарь */
+      .cal-stats-strip { grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 8px 4px; }
+      .cal-stat-val { font-size: 0.8rem; }
+      .cal-stat-lbl { font-size: 0.6rem; }
+      .cal-day { max-width: 32px; font-size: 0.75rem; border-radius: 8px; }
       .cal-floating-tooltip { display: none; }
+      
+      /* Сайдбар */
+      .sidebar-widget { padding: 16px; }
+      
+      /* Виджет "Продолжить чтение" */
+      .resume-widget { flex-direction: column; align-items: flex-start; }
+      .resume-link-btn { width: 100%; text-align: center; }
     }
 
     @media (hover: none) and (pointer: coarse) {
@@ -1285,7 +1315,6 @@
 </head>
 <body class="masterpiece-theme">
 
-<!-- Декоративные элементы помечены aria-hidden -->
 <div class="scroll-progress-bar" id="scrollProgress" aria-hidden="true"></div>
 
 <div class="aurora-orb orb-1" aria-hidden="true"></div>
@@ -1701,7 +1730,6 @@
     toTopBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
     // === 3. БЕЗОПАСНОЕ ЧТЕНИЕ ПРОГРЕССА ИЗ LOCALSTORAGE ===
-    // Оборачиваем в try/catch: в приватном режиме Safari localStorage может быть недоступен.
     let savedProgress = { bpla: null, firstAid: null, conflict: null };
     try {
       savedProgress = {
@@ -1735,18 +1763,101 @@
       resumeLink.href = 'course-conflict.html#materials';
     }
 
-    // === 4. НАВИГАТОР КУРСОВ ===
-    // ИСПРАВЛЕНИЕ: ссылки на тесты приведены к реальным URL (внешние тесты открываются в новой вкладке).
+    // === 4. НАВИГАТОР КУРСОВ (ОБНОВЛЕНЫ ВСЕ ССЫЛКИ НА ТЕСТЫ) ===
     const coursesData = [
-      { title: 'Охрана труда (Комплекс)', badge: 'ПП № 2464', icon: '🛡️', bg: '#ecfdf5', url: 'course-ot.html', roles: ['base', 'tech', 'itr'] },
-      { title: 'Пожарная безопасность', badge: 'МЧС № 1120', icon: '🔥', bg: '#fff7ed', url: 'course-fire-safety.html', roles: ['base', 'tech', 'itr'] },
-      { title: 'Первая помощь', badge: 'Минздрав 220н', icon: '🩹', bg: '#fef2f2', url: 'course-first-aid.html', testUrl: 'first-aid-test.html', page: savedProgress.firstAid, roles: ['base', 'service'] },
-      { title: 'Действия при угрозе БПЛА', badge: 'ФЗ-35 / 68-ФЗ', icon: '🚁', bg: '#ffe4e6', url: 'course-bpla.html', testUrl: 'https://demoonstars.github.io/UAV_Threat_Test/', testExternal: true, page: savedProgress.bpla, roles: ['base', 'itr', 'tech'] },
-      { title: 'ГО и защита от ЧС', badge: 'ФЗ № 28 / № 68', icon: '📢', bg: '#eff6ff', url: 'course-gochs.html', roles: ['itr'] },
-      { title: 'Электробезопасность', badge: 'Приказ № 903н', icon: '⚡', bg: '#fefce8', url: 'course-electrical-safety.html', roles: ['tech'] },
-      { title: 'Гигиеническое обучение', badge: 'СанПиН 2.1.3678-20', icon: '🧼', bg: '#f0fdf4', url: 'course-hygiene.html', roles: ['service'] },
-      { title: 'Наставничество', badge: 'Профстандарт', icon: '🛎️', bg: '#faf5ff', url: 'course-mentorship.html', roles: ['service', 'itr'] },
-      { title: 'Управление конфликтами', badge: 'Soft Skills', icon: '🧠', bg: '#fdf2f8', url: 'course-conflict.html', testUrl: 'https://demoonstars.github.io/conflict-management/', testExternal: true, page: savedProgress.conflict, roles: ['service', 'itr'] }
+      { 
+        title: 'Охрана труда (Комплекс)', 
+        badge: 'ПП № 2464', 
+        icon: '🛡️', 
+        bg: '#ecfdf5', 
+        url: 'course-ot.html', 
+        testUrl: 'https://demoonstars.github.io/Test_OT_b/', 
+        testExternal: true, 
+        roles: ['base', 'tech', 'itr'] 
+      },
+      { 
+        title: 'Пожарная безопасность', 
+        badge: 'МЧС № 1120', 
+        icon: '🔥', 
+        bg: '#fff7ed', 
+        url: 'course-fire-safety.html', 
+        testUrl: 'https://demoonstars.github.io/Test_-_-_b/', 
+        testExternal: true, 
+        roles: ['base', 'tech', 'itr'] 
+      },
+      { 
+        title: 'Первая помощь', 
+        badge: 'Минздрав 220н', 
+        icon: '🩹', 
+        bg: '#fef2f2', 
+        url: 'course-first-aid.html', 
+        testUrl: 'https://demoonstars.github.io/First_aid/', 
+        testExternal: true, 
+        page: savedProgress.firstAid, 
+        roles: ['base', 'service'] 
+      },
+      { 
+        title: 'Действия при угрозе БПЛА', 
+        badge: 'ФЗ-35 / 68-ФЗ', 
+        icon: '🚁', 
+        bg: '#ffe4e6', 
+        url: 'course-bpla.html', 
+        testUrl: 'https://demoonstars.github.io/UAV_Threat_Test/', 
+        testExternal: true, 
+        page: savedProgress.bpla, 
+        roles: ['base', 'itr', 'tech'] 
+      },
+      { 
+        title: 'ГО и защита от ЧС', 
+        badge: 'ФЗ № 28 / № 68', 
+        icon: '📢', 
+        bg: '#eff6ff', 
+        url: 'course-gochs.html', 
+        testUrl: 'https://demoonstars.github.io/GO_ChS_Test/', 
+        testExternal: true, 
+        roles: ['itr'] 
+      },
+      { 
+        title: 'Электробезопасность', 
+        badge: 'Приказ № 903н', 
+        icon: '⚡', 
+        bg: '#fefce8', 
+        url: 'course-electrical-safety.html', 
+        testUrl: 'https://demoonstars.github.io/Electrical_Safety_Test/', 
+        testExternal: true, 
+        roles: ['tech'] 
+      },
+      { 
+        title: 'Гигиеническое обучение', 
+        badge: 'СанПиН 2.1.3678-20', 
+        icon: '🧼', 
+        bg: '#f0fdf4', 
+        url: 'course-hygiene.html', 
+        testUrl: 'https://demoonstars.github.io/hygiene-training/', 
+        testExternal: true, 
+        roles: ['service'] 
+      },
+      { 
+        title: 'Наставничество', 
+        badge: 'Профстандарт', 
+        icon: '🛎️', 
+        bg: '#faf5ff', 
+        url: 'course-mentorship.html', 
+        testUrl: 'https://demoonstars.github.io/mentoring-quiz/', 
+        testExternal: true, 
+        roles: ['service', 'itr'] 
+      },
+      { 
+        title: 'Управление конфликтами', 
+        badge: 'Soft Skills', 
+        icon: '🧠', 
+        bg: '#fdf2f8', 
+        url: 'course-conflict.html', 
+        testUrl: 'https://demoonstars.github.io/conflict-management/', 
+        testExternal: true, 
+        page: savedProgress.conflict, 
+        roles: ['service', 'itr'] 
+      }
     ];
 
     const miniGrid = document.getElementById('miniProgramsGrid');
@@ -1756,7 +1867,6 @@
       if (!miniGrid) return;
       const list = roleFilter === 'all' ? coursesData : coursesData.filter(c => c.roles.includes(roleFilter));
       miniGrid.innerHTML = list.map(c => {
-        // Безопасное приведение номера страницы: защита от XSS через localStorage
         const pageNum = Number(c.page);
         const savedBadge = Number.isFinite(pageNum) && pageNum > 1
           ? `<span class="mp-saved">📖 Стр. ${pageNum}</span>`
@@ -2075,7 +2185,7 @@
       }
     }, { passive: true });
 
-    // === 6. 3D TILT И SPOTLIGHT (только ПК и без reduced motion) ===
+    // === 6. 3D TILT И SPOTLIGHT ===
     if (!prefersReducedMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
       const hero = document.getElementById('tilt-hero');
       if (hero) {
@@ -2111,7 +2221,7 @@
       { title: 'Охрана труда (Комплексная программа)', tag: 'ПП № 2464', icon: '🛡️', url: 'course-ot.html' },
       { title: 'Пожарная безопасность', tag: 'МЧС № 1120', icon: '🔥', url: 'course-fire-safety.html' },
       { title: 'Оказание первой помощи пострадавшим', tag: 'Минздрав 220н', icon: '🩹', url: 'course-first-aid.html' },
-      { title: 'Итоговый тест: Первая помощь', tag: 'Тестирование', icon: '🎯', url: 'first-aid-test.html' },
+      { title: 'Итоговый тест: Первая помощь', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/First_aid/' },
       { title: 'Действия при угрозе атаки БПЛА', tag: 'ФЗ-35 / 68-ФЗ', icon: '🚁', url: 'course-bpla.html' },
       { title: 'Итоговый тест: Действия при угрозе БПЛА', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/UAV_Threat_Test/' },
       { title: 'ГО и защита от чрезвычайных ситуаций', tag: 'ФЗ № 28', icon: '📢', url: 'course-gochs.html' },
