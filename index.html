@@ -1903,7 +1903,7 @@
     });
     renderMiniPrograms('all');
 
-    // === 5. ПРОИЗВОДСТВЕННЫЙ КАЛЕНДАРЬ ===
+    // === 5. ПРОИЗВОДСТВЕННЫЙ КАЛЕНДАРЬ (С РАСШИРЕННОЙ СВОДКОЙ) ===
     let calYear = now.getFullYear();
     let calMonth = now.getMonth();
     const calGrid = document.getElementById('calendar-grid');
@@ -1914,8 +1914,9 @@
     const statOffDaysEl = document.getElementById('statOffDays');
     const statWorkHoursEl = document.getElementById('statWorkHours');
 
-    const CAL_DEFAULT_HELPER_HTML = `💡 <strong>Наведите курсор</strong> на красную или синюю дату, чтобы увидеть название праздника, или <strong>кликните</strong> для расчета сроков обучения.`;
+    const CAL_DEFAULT_HELPER_HTML = `💡 <strong>Наведите курсор</strong> на красную или синюю дату, чтобы увидеть название праздника, или <strong>кликните</strong> для полной сводки дня.`;
 
+    // Официальные праздники и выходные (по производственному календарю)
     const holidaysDB = {
       '1.1': { title: 'Новогодние каникулы', desc: 'Официальный нерабочий праздничный день в РФ (ст. 112 ТК РФ).' },
       '2.1': { title: 'Новогодние каникулы', desc: 'Официальный нерабочий праздничный день в РФ (ст. 112 ТК РФ).' },
@@ -1935,6 +1936,7 @@
       '31.12': { title: 'Канун Нового года', desc: 'Официальный нерабочий выходной день по производственному календарю.' }
     };
 
+    // Профессиональные праздники ОТ/МЧС (наносятся точкой на календаре)
     const proDaysDB = {
       '1.3': { title: 'Всемирный день гражданской обороны', desc: 'Профессиональная дата служб ГО и защиты от ЧС.' },
       '28.4': { title: 'Всемирный день охраны труда', desc: 'Главный профессиональный праздник специалистов по ОТ и культуре безопасности!' },
@@ -1943,6 +1945,7 @@
       '27.12': { title: 'День спасателя Российской Федерации', desc: 'Профессиональный праздник сотрудников МЧС и служб спасения.' }
     };
 
+    // Предпраздничные (сокращённые) дни
     const preHolidaysDB = {
       '22.2': 'Предпраздничный день (продолжительность работы сокращается на 1 час).',
       '7.3': 'Предпраздничный день перед 8 Марта (сокращенный на 1 час рабочий день).',
@@ -1950,6 +1953,32 @@
       '8.5': 'Предпраздничный день перед Днем Победы (сокращается на 1 час).',
       '11.6': 'Предпраздничный день перед Днем России (сокращается на 1 час).',
       '3.11': 'Предпраздничный день перед 4 Ноября (сокращается на 1 час).'
+    };
+
+    // Дополнительные даты (церковные, профессиональные, международные)
+    // Формат: 'день.месяц': [ { title, category }, ... ]
+    const extraDates = {
+      // Православные
+      '7.1':   [{ title: 'Рождество Христово', category: 'Церковный праздник' }],
+      '19.1':  [{ title: 'Крещение Господне', category: 'Церковный праздник' }],
+      '15.2':  [{ title: 'Сретение Господне', category: 'Церковный праздник' }],
+      '5.4':   [{ title: 'Вход Господень в Иерусалим (Вербное воскресенье)', category: 'Церковный праздник' }],
+      '12.4':  [{ title: 'ПАСХА ХРИСТОВА', category: 'Церковный праздник' }],
+      '28.5':  [
+        { title: 'Вознесение Господне', category: 'Церковный праздник' },
+        { title: 'День пограничника', category: 'Профессиональный праздник' }
+      ],
+      '7.6':   [{ title: 'День Святой Троицы (Пятидесятница)', category: 'Церковный праздник' }],
+      '12.7':  [{ title: 'День апостолов Петра и Павла', category: 'Церковный праздник' }],
+      '28.8':  [{ title: 'Успение Пресвятой Богородицы', category: 'Церковный праздник' }],
+      '21.9':  [{ title: 'Рождество Пресвятой Богородицы', category: 'Церковный праздник' }],
+      '27.9':  [{ title: 'Воздвижение Креста Господня', category: 'Церковный праздник' }],
+      '4.12':  [{ title: 'Введение во храм Пресвятой Богородицы', category: 'Церковный праздник' }],
+      // Профессиональные и международные
+      '18.2':  [{ title: 'День вина (National Drink Wine Day)', category: 'Неофициальный праздник' }],
+      '27.12': [
+        { title: 'День спасателя РФ', category: 'Профессиональный праздник' }
+      ]
     };
 
     let lockedInfoHTML = null;
@@ -2122,6 +2151,7 @@
           calGrid.querySelectorAll('.cal-day').forEach(el => el.classList.remove('selected-day'));
           dayEl.classList.add('selected-day');
 
+          // Расчёт сроков от выбранной даты
           const work13 = addWorkDays(currentDayDate, 13);
           const cal60 = new Date(currentDayDate.getTime());
           cal60.setDate(cal60.getDate() + 60);
@@ -2129,20 +2159,51 @@
           const work13Str = work13.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
           const cal60Str = cal60.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
 
-          const headerLine = holidayInfo
-            ? `🎉 <strong>${fullDateLabel} — ${holidayInfo.title}</strong>`
-            : proInfo
-            ? `🛡️ <strong>${fullDateLabel} — ${proInfo.title}</strong>`
-            : `📅 <strong>Отсчет сроков от ${fullDateLabel}:</strong>`;
+          // Статус дня
+          let statusLine = '';
+          let statusClass = '';
+          if (holidayInfo) {
+            statusLine = `🎉 <strong>${holidayInfo.title}</strong> — нерабочий праздничный день`;
+            statusClass = 'is-holiday-view';
+          } else if (isWeekend) {
+            statusLine = `🏖️ <strong>Выходной день</strong> (${dayOfWeek === 6 ? 'Суббота' : 'Воскресенье'})`;
+            statusClass = 'is-holiday-view';
+          } else if (preHolidayText) {
+            statusLine = `⚡ <strong>Рабочий день, сокращённый на 1 час</strong> (предпраздничный)`;
+            statusClass = 'is-pro-view';
+          } else {
+            statusLine = `💼 <strong>Штатный рабочий день</strong> (8 ч)`;
+            statusClass = 'is-pro-view';
+          }
 
-          lockedPanelClass = panelClass;
+          // Дополнительные события (церковные, профессиональные, международные)
+          const extras = extraDates[dateKey] || [];
+          let extraHtml = '';
+          if (extras.length) {
+            extraHtml = extras.map(ev =>
+              `<div style="margin-top:4px; font-size:0.85rem;"><strong>${ev.category}:</strong> ${ev.title}</div>`
+            ).join('');
+          }
+
+          // Сроки обучения (показываем только для рабочих дней)
+          let deadlinesHtml = '';
+          if (!holidayInfo && !isWeekend) {
+            deadlinesHtml = `
+              <div style="margin-top:8px; font-size:0.78rem; border-top:1px dashed #cbd5e1; padding-top:6px;">
+                • +13 раб. дней (стажировка/тест): <strong style="color:#047857;">до ${work13Str}</strong><br>
+                • Допуск по ПП № 2464 (+60 дн.): <strong>до ${cal60Str}</strong>
+              </div>
+            `;
+          }
+
+          lockedPanelClass = statusClass;
           lockedInfoHTML = `
-            ${headerLine}
-            <div style="margin-top:4px; font-size:0.76rem;">
-              • +13 раб. дней (стажировка/тест): <strong style="color:#047857;">до ${work13Str}</strong><br>
-              • Допуск по ПП № 2464 (+60 дн.): <strong>до ${cal60Str}</strong>
-            </div>
+            <div style="font-weight:800; margin-bottom:4px;">📅 ${fullDateLabel}</div>
+            <div style="font-size:0.9rem;">${statusLine}</div>
+            ${extraHtml}
+            ${deadlinesHtml}
           `;
+
           calHelper.className = `cal-helper-panel ${lockedPanelClass}`;
           calHelper.innerHTML = lockedInfoHTML;
         });
