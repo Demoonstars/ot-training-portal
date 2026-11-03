@@ -6,28 +6,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <!-- ===== SEO ===== -->
+  <!--
+    БЛОК: SEO-метатеги, Canonical и Open Graph.
+    ЗА ЧТО ОТВЕЧАЕТ: Корректная индексация страницы и превью в мессенджерах.
+    ПОЧЕМУ БЕЗОПАСНО: Заглушки https://example.com заменены на фактический адрес портала на GitHub Pages
+    и реальный файл обложки assets/hero-training.jpg.
+  -->
   <meta name="description" content="Пошаговый регламент обучения в СДО: 4 шага дистанционного обучения, критерии допуска, требования к идентификации и ответы на частые вопросы. Проходной балл — 85%.">
   <meta name="keywords" content="СДО, дистанционное обучение, охрана труда, проверка знаний, тестирование, регламент обучения, инструкция, проходной балл">
   <meta name="author" content="Служба Охраны Труда">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <meta name="theme-color" content="#2563eb">
-  <link rel="canonical" href="https://example.com/instructions.html">
+  <link rel="canonical" href="https://demoonstars.github.io/ot-training-portal/instructions.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="Регламент обучения в СДО — пошаговая инструкция">
   <meta property="og:description" content="Как пройти обучение и проверку знаний в СДО: 4 шага, критерии допуска, FAQ.">
-  <meta property="og:url" content="https://example.com/instructions.html">
+  <meta property="og:url" content="https://demoonstars.github.io/ot-training-portal/instructions.html">
   <meta property="og:site_name" content="СДО — Система дистанционного обучения">
   <meta property="og:locale" content="ru_RU">
-  <!-- Замените на реальную картинку 1200x630 -->
-  <meta property="og:image" content="https://example.com/assets/og-instructions.jpg">
+  <meta property="og:image" content="https://demoonstars.github.io/ot-training-portal/assets/hero-training.jpg">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Регламент обучения в СДО">
   <meta name="twitter:description" content="Пошаговая инструкция по дистанционному обучению и тестированию.">
-  <meta name="twitter:image" content="https://example.com/assets/og-instructions.jpg">
+  <meta name="twitter:image" content="https://demoonstars.github.io/ot-training-portal/assets/hero-training.jpg">
 
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -83,6 +88,28 @@
         radial-gradient(1200px 600px at 10% 0%, rgba(59,130,246,0.15), transparent 60%),
         radial-gradient(800px 400px at 90% 100%, rgba(139,92,246,0.10), transparent 60%);
     }
+    /*
+     * БЛОК: Поддержка темной темы для шапки и навигации.
+     * ЗА ЧТО ОТВЕЧАЕТ: Корректный темный фон и контрастный текст в .site-header при включении [data-theme="dark"].
+     * ПОЧЕМУ БЕЗОПАСНО: Переопределяет светлый фон шапки только при активном атрибуте data-theme="dark".
+     */
+    [data-theme="dark"] .site-header {
+      background: rgba(15, 23, 42, 0.85);
+      border-bottom-color: rgba(148, 163, 184, 0.2);
+    }
+    [data-theme="dark"] .site-title-mini {
+      color: var(--c-text);
+    }
+    [data-theme="dark"] .site-subtitle-mini,
+    [data-theme="dark"] .nav-link {
+      color: var(--c-text-2);
+    }
+    [data-theme="dark"] .nav-link:hover,
+    [data-theme="dark"] .nav-link.active,
+    [data-theme="dark"] .nav-link-active {
+      color: var(--c-accent);
+      background: rgba(30, 41, 59, 0.8);
+    }
 
     /* ---------- READING PROGRESS ---------- */
     .reading-progress {
@@ -135,6 +162,7 @@
       background: var(--c-card); color: var(--c-text);
       border: 1px solid var(--c-border); cursor: pointer;
       backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
       font-family: inherit;
     }
@@ -147,7 +175,9 @@
       max-width: 900px; margin: 0 auto 50px;
       background: var(--c-card); border: 1px solid var(--c-border);
       border-radius: 20px; padding: 22px 26px;
-      backdrop-filter: blur(12px); box-shadow: 0 10px 30px -12px var(--c-shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px -12px var(--c-shadow);
     }
     .instr-progress-top {
       display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px;
@@ -254,6 +284,7 @@
       background: var(--c-card); border: 1px solid var(--c-border);
       border-radius: 20px; padding: 22px 24px;
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       box-shadow: 0 10px 30px -5px var(--c-shadow);
       transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
       position: relative; z-index: 1;
@@ -365,7 +396,9 @@
       width: 100%; padding: 14px 16px 14px 46px; font-size: 0.95rem; font-family: inherit;
       border-radius: 14px; border: 1px solid var(--c-faq-border);
       background: var(--c-faq-bg); color: var(--c-text);
-      backdrop-filter: blur(6px); transition: border-color 0.2s, box-shadow 0.2s;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
     .faq-search:focus {
       outline: none; border-color: var(--c-accent);
@@ -375,7 +408,9 @@
       background: var(--c-faq-bg);
       border: 1px solid var(--c-faq-border);
       border-radius: 16px; margin-bottom: 12px; overflow: hidden;
-      backdrop-filter: blur(6px); transition: box-shadow 0.3s, border-color 0.3s;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      transition: box-shadow 0.3s, border-color 0.3s;
     }
     .faq-item:hover {
       box-shadow: 0 8px 20px -5px var(--c-shadow);
@@ -466,6 +501,10 @@
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
+      .tilt-card li::before {
+        opacity: 1 !important;
+        transform: scale(1) !important;
+      }
     }
 
     /* ---------- PRINT ---------- */
@@ -497,19 +536,19 @@
     "@graph": [
       {
         "@type": "WebPage",
-        "@id": "https://example.com/instructions.html#webpage",
-        "url": "https://example.com/instructions.html",
+        "@id": "https://demoonstars.github.io/ot-training-portal/instructions.html#webpage",
+        "url": "https://demoonstars.github.io/ot-training-portal/instructions.html",
         "name": "Регламент обучения в СДО — пошаговая инструкция",
         "description": "Пошаговый алгоритм дистанционного обучения и проверки знаний в СДО.",
         "inLanguage": "ru-RU",
-        "isPartOf": { "@id": "https://example.com/#website" }
+        "isPartOf": { "@id": "https://demoonstars.github.io/ot-training-portal/#website" }
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://example.com/instructions.html#breadcrumb",
+        "@id": "https://demoonstars.github.io/ot-training-portal/instructions.html#breadcrumb",
         "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://example.com/index.html" },
-          { "@type": "ListItem", "position": 2, "name": "Инструкции", "item": "https://example.com/instructions.html" }
+          { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://demoonstars.github.io/ot-training-portal/index.html" },
+          { "@type": "ListItem", "position": 2, "name": "Инструкции", "item": "https://demoonstars.github.io/ot-training-portal/instructions.html" }
         ]
       },
       {
@@ -518,10 +557,10 @@
         "description": "Как пройти дистанционное обучение и проверку знаний: 4 шага.",
         "totalTime": "PT55M",
         "step": [
-          { "@type": "HowToStep", "position": 1, "name": "Назначение обучения", "text": "Получите от руководителя уведомление. Уточните вид программы (ОТ, ПБ или Первая помощь) и сроки.", "url": "https://example.com/instructions.html#step-1" },
-          { "@type": "HowToStep", "position": 2, "name": "Изучение материалов", "text": "Перейдите в Каталог программ, выберите нужный курс и изучите видеолекции.", "url": "https://example.com/instructions.html#step-2" },
-          { "@type": "HowToStep", "position": 3, "name": "Идентификация", "text": "Перед тестом заполните форму: ФИО, должность, подразделение — строго как в паспорте и трудовом договоре.", "url": "https://example.com/instructions.html#step-3" },
-          { "@type": "HowToStep", "position": 4, "name": "Проверка знаний", "text": "Пройдите итоговое тестирование. Проходной балл — 85%.", "url": "https://example.com/instructions.html#step-4" }
+          { "@type": "HowToStep", "position": 1, "name": "Назначение обучения", "text": "Получите от руководителя уведомление. Уточните вид программы (ОТ, ПБ или Первая помощь) и сроки.", "url": "https://demoonstars.github.io/ot-training-portal/instructions.html#step-1" },
+          { "@type": "HowToStep", "position": 2, "name": "Изучение материалов", "text": "Перейдите в Каталог программ, выберите нужный курс и изучите видеолекции.", "url": "https://demoonstars.github.io/ot-training-portal/instructions.html#step-2" },
+          { "@type": "HowToStep", "position": 3, "name": "Идентификация", "text": "Перед тестом заполните форму: ФИО, должность, подразделение — строго как в паспорте и трудовом договоре.", "url": "https://demoonstars.github.io/ot-training-portal/instructions.html#step-3" },
+          { "@type": "HowToStep", "position": 4, "name": "Проверка знаний", "text": "Пройдите итоговое тестирование. Проходной балл — 85%.", "url": "https://demoonstars.github.io/ot-training-portal/instructions.html#step-4" }
         ]
       },
       {
@@ -563,10 +602,11 @@
     <div class="container header-inner">
       <div class="header-brand">
         <div class="brand-logo">
-          <img src="assets/Филин от.png" alt="Логотип СДО" style="width:100%;height:100%;object-fit:contain;">
+          <img src="assets/Филин от.png" alt="Логотип СДО" width="42" height="42" style="width:100%;height:100%;object-fit:contain;">
         </div>
         <div>
-          <h1 class="site-title-mini">СДО</h1>
+          <!-- Бренд в шапке: div вместо h1, чтобы главный заголовок страницы был один -->
+          <div class="site-title-mini">СДО</div>
           <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
         </div>
       </div>
@@ -574,7 +614,7 @@
       <div class="header-meta">
         <span id="current-date">Загрузка...</span>
         <span style="display:flex;align-items:center;">
-          <span class="system-status-pulse"></span> Online
+          <span class="system-status-pulse" aria-hidden="true"></span> Online
         </span>
       </div>
 
@@ -603,28 +643,29 @@
       <!-- HERO -->
       <section class="instr-hero">
         <span class="instr-eyebrow">Пошаговая инструкция</span>
-        <h2 class="instr-title">Регламент обучения</h2>
+        <!-- Единственный h1 на странице -->
+        <h1 class="instr-title">Регламент обучения</h1>
         <p class="instr-lead">
           Пошаговый алгоритм действий сотрудника при дистанционном обучении и проверке знаний.
           Отмечайте выполненные шаги — прогресс сохранится в браузере.
         </p>
         <div class="instr-meta">
           <span class="instr-meta-item">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             ~5 мин чтения
           </span>
           <span class="instr-meta-item">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             Обновлено: <time datetime="2026-01-15">15 января 2026</time>
           </span>
         </div>
         <div class="instr-actions">
           <button type="button" class="btn-ghost" id="share-btn">
-            <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
             Поделиться
           </button>
           <button type="button" class="btn-ghost" id="print-btn">
-            <svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
             Печать
           </button>
         </div>
@@ -657,15 +698,15 @@
             <div class="timeline-content">
               <div class="step-header">
                 <span class="step-time">
-                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                   5 мин
                 </span>
                 <div class="step-actions">
                   <button type="button" class="step-copy" data-copy-step="1" aria-label="Скопировать ссылку на шаг 1" title="Скопировать ссылку">
-                    <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
                   </button>
                   <button type="button" class="step-check" aria-pressed="false" aria-label="Отметить шаг 1 как выполненный">
-                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
                   </button>
                 </div>
               </div>
@@ -685,15 +726,15 @@
             <div class="timeline-content">
               <div class="step-header">
                 <span class="step-time">
-                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                   30 мин
                 </span>
                 <div class="step-actions">
                   <button type="button" class="step-copy" data-copy-step="2" aria-label="Скопировать ссылку на шаг 2" title="Скопировать ссылку">
-                    <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
                   </button>
                   <button type="button" class="step-check" aria-pressed="false" aria-label="Отметить шаг 2 как выполненный">
-                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
                   </button>
                 </div>
               </div>
@@ -713,15 +754,15 @@
             <div class="timeline-content">
               <div class="step-header">
                 <span class="step-time">
-                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                   5 мин
                 </span>
                 <div class="step-actions">
                   <button type="button" class="step-copy" data-copy-step="3" aria-label="Скопировать ссылку на шаг 3" title="Скопировать ссылку">
-                    <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
                   </button>
                   <button type="button" class="step-check" aria-pressed="false" aria-label="Отметить шаг 3 как выполненный">
-                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
                   </button>
                 </div>
               </div>
@@ -742,15 +783,15 @@
             <div class="timeline-content">
               <div class="step-header">
                 <span class="step-time">
-                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                   15 мин
                 </span>
                 <div class="step-actions">
                   <button type="button" class="step-copy" data-copy-step="4" aria-label="Скопировать ссылку на шаг 4" title="Скопировать ссылку">
-                    <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
                   </button>
                   <button type="button" class="step-check" aria-pressed="false" aria-label="Отметить шаг 4 как выполненный">
-                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
                   </button>
                 </div>
               </div>
@@ -813,7 +854,7 @@
           </div>
 
           <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
+            <button type="button" class="faq-trigger" aria-expanded="false">
               Сбой во время теста. Что делать?
               <span class="faq-icon" aria-hidden="true">▼</span>
             </button>
@@ -823,7 +864,7 @@
           </div>
 
           <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
+            <button type="button" class="faq-trigger" aria-expanded="false">
               Сколько попыток дается на сдачу?
               <span class="faq-icon" aria-hidden="true">▼</span>
             </button>
@@ -833,7 +874,7 @@
           </div>
 
           <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
+            <button type="button" class="faq-trigger" aria-expanded="false">
               Где посмотреть мой результат?
               <span class="faq-icon" aria-hidden="true">▼</span>
             </button>
@@ -861,11 +902,11 @@
 <!-- Плавающие кнопки -->
 <div class="float-stack">
   <button type="button" class="float-btn" id="theme-toggle" aria-label="Переключить тёмную/светлую тему" title="Сменить тему">
-    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
   </button>
   <button type="button" class="float-btn" id="back-to-top" aria-label="Наверх" title="Наверх">
-    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 </div>
 
@@ -875,6 +916,8 @@
 <script>
 (function () {
   'use strict';
+
+  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ===== Безопасный доступ к localStorage ===== */
   const storage = {
@@ -989,7 +1032,6 @@
     if (navigator.clipboard && navigator.clipboard.writeText) {
       return navigator.clipboard.writeText(text);
     }
-    // Fallback
     return new Promise((resolve, reject) => {
       const ta = document.createElement('textarea');
       ta.value = text;
@@ -1071,6 +1113,16 @@
     });
   });
 
+  // Пересчет высоты открытых пунктов FAQ при изменении ширины экрана
+  window.addEventListener('resize', () => {
+    faqTriggers.forEach(trigger => {
+      if (trigger.getAttribute('aria-expanded') === 'true') {
+        const content = trigger.nextElementSibling;
+        if (content) content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+  }, { passive: true });
+
   /* ===== 9. Поиск по FAQ ===== */
   const faqSearch = $('#faq-search');
   const faqItems = $$('.faq-item');
@@ -1106,12 +1158,12 @@
 
   if (backToTop) {
     backToTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
     });
   }
 
-  /* ===== 11. 3D-эффект карточек (только desktop) ===== */
-  if (window.matchMedia('(min-width: 768px)').matches) {
+  /* ===== 11. 3D-эффект карточек (только desktop и без reduced motion) ===== */
+  if (!prefersReducedMotion && window.matchMedia('(min-width: 768px)').matches) {
     $$('.tilt-card').forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
@@ -1140,7 +1192,7 @@
     const target = document.getElementById(id);
     if (!target) return;
     e.preventDefault();
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
     history.replaceState(null, '', '#' + id);
   });
 })();
