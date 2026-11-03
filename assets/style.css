@@ -1,9 +1,10 @@
 /* =========================================
-   style.css — ОБНОВЛЕННАЯ ВЕРСИЯ
+   style.css — ОБНОВЛЕННАЯ ВЕРСИЯ (С АУДИТОМ И ЗАЩИТОЙ СОВМЕСТИМОСТИ)
    ========================================= */
 
 /* =========================================
    1. CORE VARIABLES & THEME ENGINE
+   Блок базовых CSS-переменных: шрифты, скругления, палитра и стекломорфизм.
    ========================================= */
 :root {
   /* --- ШРИФТЫ --- */
@@ -58,8 +59,10 @@ body.theme-aid {
   --bg-gradient: linear-gradient(-45deg, #fff1f2, #ffe4e6, #fef2f2, #ffffff);
 }
 
-/* 3. ГО И ЧС (Защита - Deep Blue/Amber) */
-body.theme-gochs {
+/* 3. ГО И ЧС (Защита - Deep Blue/Amber)
+   Добавлен синоним body.gochs-theme для обратной совместимости с gochs-materials.html */
+body.theme-gochs,
+body.gochs-theme {
   --primary: #2563eb;
   --primary-hover: #1e40af;
   --primary-glow: rgba(37, 99, 235, 0.4);
@@ -69,6 +72,7 @@ body.theme-gochs {
 
 /* =========================================
    2. GLOBAL RESET & BASE
+   Сброс box-sizing, плавный скролл, живой фон и ссылка быстрого перехода (.skip-link).
    ========================================= */
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -95,14 +99,20 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* Доступность: Ссылка для скринридеров */
+/* Доступность: Ссылка для скринридеров и клавиатурной навигации */
 .skip-link {
   position: absolute; top: -100px; left: 10px;
   background: var(--primary); color: #fff;
   padding: 10px 15px; z-index: 9999;
   border-radius: 8px; transition: top 0.3s;
+  font-weight: 600;
 }
-.skip-link:focus { top: 10px; }
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 10px;
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
 
 a { color: var(--primary); text-decoration: none; transition: 0.2s; }
 a:hover { opacity: 0.8; }
@@ -111,6 +121,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* =========================================
    3. LAYOUT & CONTAINER
+   Центрирующий контейнер и flex-обертка страницы.
    ========================================= */
 .container {
   width: 100%;
@@ -131,6 +142,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* =========================================
    4. HEADER (Responsive Glass)
+   Липкая шапка сайта, логотип, статус системы и адаптивная навигация.
    ========================================= */
 .site-header {
   position: sticky; top: 0; z-index: 100;
@@ -177,6 +189,39 @@ img { max-width: 100%; height: auto; display: block; }
   white-space: nowrap;
 }
 
+/*
+ * БЛОК: Пульсирующий индикатор статуса «Online» и мета-блок даты в шапке.
+ * ЗА ЧТО ОТВЕЧАЕТ: Отображение зеленого кружка и текущей даты во всех шапках портала.
+ * ПОЧЕМУ БЕЗОПАСНО: Вынесено в глобальный CSS как страховка для страниц (например, course-gochs.html),
+ * где локальное правило .system-status-pulse было пропущено.
+ */
+.system-status-pulse {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: pulse-green 2s infinite;
+  margin-right: 6px;
+}
+
+@keyframes pulse-green {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.header-meta {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: auto;
+}
+
 /* Навигация (Desktop) */
 .main-nav { flex-grow: 1; display: flex; justify-content: flex-end; }
 .nav-list {
@@ -208,6 +253,7 @@ img { max-width: 100%; height: auto; display: block; }
 /* Мобильная навигация (Scrollable Strip) */
 @media (max-width: 900px) {
   .site-subtitle-mini { display: none; }
+  .header-meta { display: none; }
   .header-inner {
     flex-direction: column;
     align-items: stretch;
@@ -227,6 +273,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* =========================================
    5. UI CARDS & GLASSMORPHISM
+   Стеклянные секции и эффект подсветки за курсором (.spotlight-card).
    ========================================= */
 .section-card {
   background: var(--glass-bg);
@@ -265,8 +312,25 @@ img { max-width: 100%; height: auto; display: block; }
   }
 }
 
+/*
+ * БЛОК: Доступность 3D-карточек «Миф / Реальность» (.flip-card) с клавиатуры.
+ * ЗА ЧТО ОТВЕЧАЕТ: Переворот карточки не только при наведении мыши (:hover), но и при фокусе (:focus, :focus-within).
+ * ПОЧЕМУ БЕЗОПАСНО: Не меняет поведение для мыши, но делает обратную сторону карточки доступной по клавише Tab.
+ */
+.flip-card:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+  border-radius: 20px;
+}
+.flip-card:hover .flip-inner,
+.flip-card:focus .flip-inner,
+.flip-card:focus-within .flip-inner {
+  transform: rotateY(180deg);
+}
+
 /* =========================================
    6. TYPOGRAPHY & ELEMENTS
+   Базовая типографика и статусные бейджи.
    ========================================= */
 h1, h2, h3, h4 {
   color: var(--text-main);
@@ -317,6 +381,7 @@ li { margin-bottom: 8px; }
 
 /* =========================================
    7. BUTTONS & INTERACTIVE
+   Кнопки действий, кнопка с вращающимся градиентом (.btn-magic) и ссылка «Назад».
    ========================================= */
 .btn {
   display: inline-flex;
@@ -365,6 +430,17 @@ li { margin-bottom: 8px; }
 
 @keyframes rotate { 100% { transform: translate(-50%,-50%) rotate(1turn); } }
 
+/*
+ * БЛОК: Глобальный кейфрейм rotate-border.
+ * ЗА ЧТО ОТВЕЧАЕТ: Вращение градиентной рамки в локальных переопределениях .btn-magic::before.
+ * ПОЧЕМУ БЕЗОПАСНО: Страхует страницы (например, ot-intro.html), где вызывается animation: rotate-border,
+ * но сам @keyframes rotate-border был пропущен в локальном теге <style>.
+ */
+@keyframes rotate-border {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
 .btn-disabled, .btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
@@ -385,6 +461,7 @@ li { margin-bottom: 8px; }
 
 /* =========================================
    8. LEGAL CONSENT & TESTS (Forms)
+   Блоки согласия и оверлей блокировки теста.
    ========================================= */
 .legal-box {
   background: rgba(255, 255, 255, 0.5);
@@ -437,6 +514,7 @@ li { margin-bottom: 8px; }
 
 /* =========================================
    9. PDF VIEWER & IFRAMES
+   Базовые стили фрейма PDF.
    ========================================= */
 .pdf-viewer-frame {
   width: 100%;
@@ -449,6 +527,7 @@ li { margin-bottom: 8px; }
 
 /* =========================================
    10. FOOTER
+   Подвал сайта.
    ========================================= */
 .site-footer,
 .glass-footer {
@@ -462,6 +541,7 @@ li { margin-bottom: 8px; }
 
 /* =========================================
    11. ANIMATIONS UTILS
+   Плавное всплытие секций при скролле (.reveal-up) и задержки.
    ========================================= */
 .reveal-up {
   opacity: 0; transform: translateY(30px);
@@ -471,9 +551,11 @@ li { margin-bottom: 8px; }
 
 .delay-100 { transition-delay: 0.1s; }
 .delay-200 { transition-delay: 0.2s; }
+.delay-300 { transition-delay: 0.3s; }
 
 /* =========================================
    12. REDUCED MOTION (Доступность)
+   Отключение тяжелых анимаций и 3D-вращений при системной настройке уменьшения движения.
    ========================================= */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -493,7 +575,9 @@ li { margin-bottom: 8px; }
     transform: none !important;
   }
   /* Отключаем 3D-переворот для тех, у кого укачивание от анимаций */
-  .flip-card:hover .flip-inner, .flip-card:focus .flip-inner {
+  .flip-card:hover .flip-inner,
+  .flip-card:focus .flip-inner,
+  .flip-card:focus-within .flip-inner {
     transform: none !important;
   }
   .flip-front, .flip-back {
