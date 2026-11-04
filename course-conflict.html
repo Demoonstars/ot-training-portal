@@ -6,6 +6,19 @@
   <!-- Убрано user-scalable=no для доступности -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Психология агрессии, принцип Айсберга и протокол декомпрессии.">
+
+  <!--
+    БЛОК: Канонический URL и мета-теги Open Graph.
+    ЗА ЧТО ОТВЕЧАЕТ: Индексация страницы и формирование превью при пересылке ссылки в мессенджерах.
+    ПОЧЕМУ БЕЗОПАСНО: Мета-теги в <head> не влияют на верстку и работу скриптов.
+  -->
+  <link rel="canonical" href="https://demoonstars.github.io/ot-training-portal/course-conflict.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Материалы: Управление конфликтами | СДО">
+  <meta property="og:description" content="Психология агрессии, принцип Айсберга и протокол декомпрессии.">
+  <meta property="og:url" content="https://demoonstars.github.io/ot-training-portal/course-conflict.html">
+  <meta property="og:locale" content="ru_RU">
+
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +38,7 @@
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  <!-- Стили, специфичные для этой страницы (перенесены из старого файла) -->
+  <!-- Стили, специфичные для этой страницы -->
   <style>
     /* === 1. НОВАЯ ТЕМА: СПОКОЙСТВИЕ И РАЗУМ (Океанический/Бирюзовый) === */
     body.masterpiece-theme {
@@ -38,6 +51,30 @@
       0% { opacity: 0; transform: translateY(15px); }
       100% { opacity: 1; transform: translateY(0); }
     }
+
+    /*
+     * БЛОК: Восстановленные анимации для React-тренажера HR Messenger.
+     * ЗА ЧТО ОТВЕЧАЕТ: Тряска смартфона при ошибке (.shake-error) и плавное появление сообщений (.animate-fade-in, .animate-slide-up).
+     * ПОЧЕМУ БЕЗОПАСНО: Добавляет определения для классов, которые уже используются в функции vibratePhone() и JSX-разметке.
+     */
+    @keyframes shakeError {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px) rotate(-1deg); }
+      40%, 80% { transform: translateX(8px) rotate(1deg); }
+    }
+    .shake-error {
+      animation: shakeError 0.45s ease-in-out;
+    }
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slide-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in { animation: fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .animate-slide-up { animation: slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
     .reveal-up { opacity: 1 !important; transform: none !important; } 
     .js-loaded .reveal-up { opacity: 0 !important; transform: translateY(30px) !important; }
@@ -54,6 +91,7 @@
       background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8);
       border-radius: 99px; text-decoration: none; color: #64748b; font-weight: 600; font-size: 0.9rem;
       transition: 0.3s; backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
     }
     .back-link:hover { background: #fff; color: #0ea5e9; transform: translateX(-5px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
@@ -61,6 +99,7 @@
       background: radial-gradient(circle at 100% 0%, rgba(14, 165, 233, 0.1) 0%, rgba(255, 255, 255, 0.9) 100%);
       border: 1px solid rgba(255,255,255,0.9); border-radius: 24px; padding: 40px; margin-bottom: 30px;
       position: relative; overflow: hidden; backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       box-shadow: 0 20px 40px -10px rgba(14, 165, 233, 0.1); transform-style: preserve-3d; transform: perspective(1000px);
     }
     
@@ -100,7 +139,9 @@
     .flip-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1); border-radius: 20px; }
     
     /* Доступность: переворот по фокусу и наведению */
-    .flip-card:hover .flip-inner, .flip-card:focus .flip-inner { transform: rotateY(180deg); }
+    .flip-card:hover .flip-inner,
+    .flip-card:focus .flip-inner,
+    .flip-card:focus-within .flip-inner { transform: rotateY(180deg); }
     
     .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #e2e8f0; }
     .flip-front { background-color: #fff; color: #1e293b; }
@@ -119,30 +160,34 @@
     .brain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; }
     .brain-svg-box { background: #0f172a; border-radius: 24px; padding: 30px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.5); min-height: 250px; width: 100%; box-sizing: border-box; overflow: hidden;}
     .brain-info { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 20px; padding: 30px; min-height: 220px; display: flex; flex-direction: column; justify-content: center; transition: all 0.3s; }
-    .brain-part { cursor: pointer; transition: all 0.3s ease; -webkit-tap-highlight-color: transparent; }
-    .brain-part:hover { filter: drop-shadow(0 0 15px currentColor); }
+    .brain-part { cursor: pointer; transition: all 0.3s ease; -webkit-tap-highlight-color: transparent; outline: none; }
+    .brain-part:hover,
+    .brain-part:focus-visible { filter: drop-shadow(0 0 15px currentColor); }
     @media (max-width: 768px) { .brain-grid { grid-template-columns: 1fr; } .brain-info { min-height: 180px; padding: 20px;} .brain-svg-box { padding: 20px; } }
 
     /* 2. Айсберг Конфликта */
     .iceberg-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
     @media (min-width: 768px) { .iceberg-grid { grid-template-columns: 1fr 1fr; } }
     .iceberg-options { display: flex; flex-direction: column; gap: 15px; justify-content: center;}
-    .iceberg-btn { padding: 20px; border-radius: 16px; background: #f8fafc; border: 2px solid #e2e8f0; cursor: pointer; transition: 0.3s; font-weight: 600; color: #475569; text-align: center; font-size: 1.1rem;}
+    .iceberg-btn { padding: 20px; border-radius: 16px; background: #f8fafc; border: 2px solid #e2e8f0; cursor: pointer; transition: 0.3s; font-weight: 600; color: #475569; text-align: center; font-size: 1.1rem; font-family: inherit; }
     .iceberg-btn:hover { background: #f0f9ff; border-color: #bae6fd; }
+    .iceberg-btn:focus-visible { outline: 2px solid #0ea5e9; outline-offset: 2px; }
     .iceberg-btn.active { background: #f0fdfa; border-color: #0ea5e9; color: #0369a1; box-shadow: 0 10px 20px rgba(14, 165, 233, 0.15); transform: scale(1.02); }
     
     .iceberg-result { background: linear-gradient(to bottom, #38bdf8, #0f172a); border-radius: 20px; padding: 30px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; transition: 0.3s; min-height: 250px;}
-    .iceberg-result::before { content: "🧊"; position: absolute; right: -10px; bottom: -20px; font-size: 12rem; opacity: 0.2; }
+    .iceberg-result::before { content: "🧊"; position: absolute; right: -10px; bottom: -20px; font-size: 12rem; opacity: 0.2; pointer-events: none; }
     .iceberg-title { font-size: 1.8rem; font-weight: 800; margin: 0 0 15px; color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.6); position: relative; z-index: 1;}
     .iceberg-desc { font-size: 1.05rem; line-height: 1.6; font-weight: 500; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.8); margin: 0; position: relative; z-index: 1; }
 
     /* Протокол Декомпрессии */
     .widget-nav { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
-    .widget-step-btn { flex-shrink: 0; padding: 12px 20px; border-radius: 12px; background: #f1f5f9; color: #475569; font-weight: 700; font-size: 0.9rem; cursor: pointer; border: 2px solid transparent; transition: 0.3s; display: flex; align-items: center; gap: 8px;}
+    .widget-step-btn { flex-shrink: 0; padding: 12px 20px; border-radius: 12px; background: #f1f5f9; color: #475569; font-weight: 700; font-size: 0.9rem; cursor: pointer; border: 2px solid transparent; transition: 0.3s; display: flex; align-items: center; gap: 8px; font-family: inherit; }
+    .widget-step-btn:hover { background: #e2e8f0; }
+    .widget-step-btn:focus-visible { outline: 2px solid #0ea5e9; outline-offset: 2px; }
     .widget-step-btn.active { background: #f0fdfa; color: #0ea5e9; border-color: #0ea5e9; }
     .widget-content-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 25px; display: flex; align-items: center; min-height: 150px;}
-    .widget-icon-large { font-size: 3rem; margin-right: 20px; opacity: 0.8; }
-    .widget-text { font-size: 1.05rem; color: #334155; line-height: 1.6; font-weight: 500; }
+    .widget-icon-large { font-size: 3rem; margin-right: 20px; opacity: 0.8; transition: opacity 0.2s; }
+    .widget-text { font-size: 1.05rem; color: #334155; line-height: 1.6; font-weight: 500; transition: opacity 0.2s; }
 
     /* Чат Симулятор */
     .chat-simulator { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
@@ -154,12 +199,12 @@
     .msg-bubble { background: #fff; padding: 15px 20px; border-radius: 20px; border-top-left-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); color: #334155; line-height: 1.5; font-size: 0.95rem; }
     .mentor-msg .msg-bubble { background: #0ea5e9; color: #fff; border-radius: 20px; border-top-right-radius: 5px; }
     .chat-options { background: #fff; padding: 20px; border-top: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 10px; transition: opacity 0.3s ease; }
-    .chat-btn { text-align: left; padding: 15px 20px; background: #fff; border: 2px solid #e2e8f0; border-radius: 12px; cursor: pointer; transition: 0.2s; color: #475569; font-weight: 500; font-size: 0.95rem; line-height: 1.4; }
+    .chat-btn { text-align: left; padding: 15px 20px; background: #fff; border: 2px solid #e2e8f0; border-radius: 12px; cursor: pointer; transition: 0.2s; color: #475569; font-weight: 500; font-size: 0.95rem; line-height: 1.4; font-family: inherit; }
     .chat-btn:hover { border-color: #38bdf8; background: #f0f9ff; color: #0284c7; transform: translateX(5px); box-shadow: 0 4px 10px rgba(14, 165, 233, 0.1); }
     .chat-feedback { margin-top: 10px; padding: 15px 20px; border-radius: 16px; font-weight: 500; font-size: 0.95rem; line-height: 1.5; animation: slideUpFade 0.4s ease-out forwards; opacity: 0; }
     .chat-feedback.success { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
     .chat-feedback.error { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
-    .reset-chat-btn { margin-top: 15px; padding: 10px 20px; background: #0f172a; color: #fff; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+    .reset-chat-btn { margin-top: 15px; padding: 10px 20px; background: #0f172a; color: #fff; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; font-family: inherit; }
     .reset-chat-btn:hover { background: #334155; }
     .typing-indicator { display: flex; gap: 5px; padding: 15px 20px; background: #fff; border-radius: 20px; border-top-left-radius: 5px; width: fit-content; align-items: center; height: 50px;}
     .dot { width: 8px; height: 8px; background: #cbd5e1; border-radius: 50%; animation: typing 1.4s infinite ease-in-out both; }
@@ -172,7 +217,7 @@
     .breathe-circle-wrap { position: relative; width: 250px; height: 250px; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; }
     .breathe-circle { position: absolute; width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle, #38bdf8, transparent 70%); box-shadow: 0 0 40px #0ea5e9; opacity: 0.3; transition: all 0.2s; pointer-events: none;}
     .breathe-text { position: relative; z-index: 10; color: #fff; font-size: 1.8rem; font-weight: 800; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-    .breathe-btn { background: #fff; color: #0369a1; border: none; padding: 15px 30px; border-radius: 99px; font-weight: 800; font-size: 1rem; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.2); margin: 0 auto; z-index: 10; position: relative; display: inline-flex; align-items: center; gap: 8px;}
+    .breathe-btn { background: #fff; color: #0369a1; border: none; padding: 15px 30px; border-radius: 99px; font-weight: 800; font-size: 1rem; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.2); margin: 0 auto; z-index: 10; position: relative; display: inline-flex; align-items: center; gap: 8px; font-family: inherit; }
     .breathe-btn:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
     .breathe-active .breathe-circle { animation: breatheAnim 19s infinite linear; }
     
@@ -195,7 +240,7 @@
     .faq-content { padding: 0 24px 24px; color: #64748b; font-size: 0.95rem; line-height: 1.6; }
 
     /* CTA */
-    .test-zone { background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); border-radius: 30px; padding: 50px 30px; text-align: center; box-shadow: 0 20px 60px -10px rgba(0,0,0,0.1); border: 1px solid #fff; margin-bottom: 40px;}
+    .test-zone { background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 30px; padding: 50px 30px; text-align: center; box-shadow: 0 20px 60px -10px rgba(0,0,0,0.1); border: 1px solid #fff; margin-bottom: 40px;}
     .btn-magic { position: relative; display: inline-flex; justify-content: center; align-items: center; padding: 16px 32px; font-size: 1rem; font-weight: 700; color: #ffffff; background: #0f172a; border-radius: 99px; text-decoration: none; overflow: hidden; z-index: 10; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2); }
     .btn-magic-text { position: relative; z-index: 2; }
     .btn-magic::before { 
@@ -217,18 +262,22 @@
     .custom-pdf-viewer.dark-theme .pdf-canvas-wrapper { background: radial-gradient(#475569 1px, transparent 1px); background-size: 20px 20px; }
     .custom-pdf-viewer.dark-theme #the-canvas { filter: brightness(0.9); }
     .custom-pdf-viewer.fullscreen-mode { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; width: 100vw !important; height: 100vh !important; z-index: 2147483647 !important; border-radius: 0 !important; margin: 0 !important; border: none !important; background: #e2e8f0 !important; }
-    .pdf-viewer-header { background: #fff; padding: 10px 15px; border-bottom: 1px solid #cbd5e1; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-shrink: 0; z-index: 10; }
+    .custom-pdf-viewer.fullscreen-mode.dark-theme { background: #0f172a !important; }
+    .pdf-viewer-header { background: #fff; padding: 10px 15px; border-bottom: 1px solid #cbd5e1; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-shrink: 0; z-index: 10; position: relative; }
     .pdf-header-left { display: flex; align-items: center; gap: 10px; overflow: hidden; }
     .pdf-file-icon { width: 32px; height: 32px; background: #e0f2fe; color: #0284c7; flex-shrink: 0; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .pdf-file-info { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .pdf-file-info h3 { margin: 0; font-size: 0.9rem; color: #0f172a; overflow: hidden; text-overflow: ellipsis; }
     .pdf-file-info p { margin: 0; font-size: 0.75rem; color: #64748b; }
+    .pdf-top-actions { display: flex; gap: 8px; align-items: center; }
     .btn-pdf-action { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 0 12px; height: 36px; border-radius: 8px; background: #fff; border: 1px solid #cbd5e1; color: #334155; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
     .btn-pdf-action:hover { border-color: #0ea5e9; color: #0ea5e9; }
     .pdf-read-progress { height: 3px; width: 0%; background: #0ea5e9; transition: width 0.2s; position: absolute; bottom: 0; left: 0; z-index: 15; }
     .pdf-canvas-wrapper { flex-grow: 1; overflow: auto; display: flex; justify-content: flex-start; align-items: flex-start; padding: 20px; padding-bottom: 100px; background: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px; touch-action: pan-x pan-y pinch-zoom; -webkit-overflow-scrolling: touch; position: relative; cursor: grab; }
     .pdf-canvas-wrapper.grabbing { cursor: grabbing; }
     #the-canvas { box-shadow: 0 4px 15px rgba(0,0,0,0.15); background: #fff; transform-origin: top left; margin: auto; display: block; transition: transform 0.1s ease-out, box-shadow 0.3s; }
-    .pdf-toolbar { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); padding: 8px 12px; border-radius: 50px; display: flex; align-items: center; gap: 12px; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 50; white-space: nowrap; max-width: 95%; }
+    #the-canvas.zoomed { box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .pdf-toolbar { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 8px 12px; border-radius: 50px; display: flex; align-items: center; gap: 12px; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 50; white-space: nowrap; max-width: 95%; }
     .tool-btn { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
     .tool-btn-icon { width: 30px; height: 30px; border-radius: 50%; background: transparent; border: none; color: #cbd5e1; cursor: pointer; font-size: 1.2rem; }
     .divider-v { width: 1px; height: 16px; background: rgba(255,255,255,0.2); }
@@ -247,10 +296,10 @@
         .pdf-toolbar { padding: 8px 10px; gap: 8px; }
     }
 
-    /* НОВОЕ: Стартовый экран PDF (Ленивая загрузка) */
+    /* Стартовый экран PDF (Ленивая загрузка) */
     .pdf-start-screen { position: absolute; inset: 0; background: #f1f5f9; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 20; text-align: center; padding: 20px; }
     .custom-pdf-viewer.dark-theme .pdf-start-screen { background: #1e293b; color: #f1f5f9; }
-    .pdf-start-btn { padding: 15px 30px; background: #0ea5e9; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.2s; box-shadow: 0 5px 15px rgba(14,165,233,0.3); }
+    .pdf-start-btn { padding: 15px 30px; background: #0ea5e9; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.2s; box-shadow: 0 5px 15px rgba(14,165,233,0.3); font-family: inherit; }
     .pdf-start-btn:hover { background: #0284c7; transform: scale(1.02); }
 
     /* Header Status */
@@ -283,7 +332,7 @@
     <div class="container header-inner">
       <div class="header-brand">
         <div class="brand-logo">
-          <img src="assets/Филин от.png" alt="Логотип СДО" style="width: 100%; height: 100%; object-fit: contain;">
+          <img src="assets/Филин от.png" alt="Логотип СДО" width="42" height="42" style="width: 100%; height: 100%; object-fit: contain;">
         </div>
         <div>
           <!-- Изменено с h1 на div для SEO (h1 должен быть один на странице) -->
@@ -293,9 +342,9 @@
       </div>
       <div class="header-meta">
         <span id="current-date">Загрузка...</span>
-        <span style="display:flex; align-items:center;"><span class="system-status-pulse"></span> Online</span>
+        <span style="display:flex; align-items:center;"><span class="system-status-pulse" aria-hidden="true"></span> Online</span>
       </div>
-      <nav class="main-nav">
+      <nav class="main-nav" aria-label="Основная навигация">
         <ul class="nav-list">
           <li><a href="index.html" class="nav-link">Главная</a></li>
           <li><a href="programs.html" class="nav-link nav-link-active active">Каталог программ</a></li>
@@ -311,7 +360,7 @@
 
       <div class="breadcrumbs-bar">
         <a href="programs.html" class="back-link">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           Вернуться в реестр программ
         </a>
       </div>
@@ -331,13 +380,13 @@
       </div>
 
       <div class="syllabus-grid reveal-up delay-200">
-        <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon" style="color: #0ea5e9;">🧠</span><h3 class="syl-title">Природа агрессии</h3><ul class="syl-list"><li>Амигдала и режим «Бей или Беги».</li><li>Гормоны стресса (кортизол).</li><li>Осознанный контроль эмоций.</li></ul></div></div>
-        <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon" style="color: #0284c7;">🧊</span><h3 class="syl-title">Принцип Айсберга</h3><ul class="syl-list"><li>Почему крик — это верхушка.</li><li>Скрытые мотивы: страх потери.</li><li>Снятие личной ответственности.</li></ul></div></div>
-        <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon" style="color: #10b981;">🚑</span><h3 class="syl-title">Декомпрессия</h3><ul class="syl-list"><li>Восстановление после конфликта.</li><li>Вентиляция эмоций.</li><li>Утилизация адреналина.</li></ul></div></div>
+        <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon" style="color: #0ea5e9;" aria-hidden="true">🧠</span><h3 class="syl-title">Природа агрессии</h3><ul class="syl-list"><li>Амигдала и режим «Бей или Беги».</li><li>Гормоны стресса (кортизол).</li><li>Осознанный контроль эмоций.</li></ul></div></div>
+        <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon" style="color: #0284c7;" aria-hidden="true">🧊</span><h3 class="syl-title">Принцип Айсберга</h3><ul class="syl-list"><li>Почему крик — это верхушка.</li><li>Скрытые мотивы: страх потери.</li><li>Снятие личной ответственности.</li></ul></div></div>
+        <div class="syllabus-card spotlight-card"><div class="syllabus-inner"><span class="syl-icon" style="color: #10b981;" aria-hidden="true">🚑</span><h3 class="syl-title">Декомпрессия</h3><ul class="syl-list"><li>Восстановление после конфликта.</li><li>Вентиляция эмоций.</li><li>Утилизация адреналина.</li></ul></div></div>
       </div>
 
       <div class="alert-zone reveal-up delay-200">
-        <div class="alert-header"><div class="alert-icon">🛑</div><h3 class="alert-title">ЧЕГО ДЕЛАТЬ НЕЛЬЗЯ</h3></div>
+        <div class="alert-header"><div class="alert-icon" aria-hidden="true">🛑</div><h3 class="alert-title">ЧЕГО ДЕЛАТЬ НЕЛЬЗЯ</h3></div>
         <div class="alert-grid">
             <div class="alert-item">✖ Принимать крик клиента на свой личный счет (это не про вас).</div>
             <div class="alert-item">✖ Начинать разбор ошибок по скрипту сразу после инцидента.</div>
@@ -350,9 +399,9 @@
         <h2 class="flip-section-title">🤔 Мифы о конфликтах</h2>
         <div class="flip-grid">
             <!-- Добавлен tabindex="0" для доступности с клавиатуры -->
-            <div class="flip-card" tabindex="0"><div class="flip-inner"><div class="flip-front"><div class="flip-icon">😡</div><div class="flip-label">Миф</div><div class="flip-text">"Клиент ненавидит лично меня и специально хочет меня унизить."</div></div><div class="flip-back"><div class="flip-icon">🧊</div><div class="flip-label">Реальность</div><div class="flip-text">Принцип Айсберга: клиент кричит от страха, потери контроля или усталости. Вы просто попались под руку.</div></div></div></div>
-            <div class="flip-card" tabindex="0"><div class="flip-inner"><div class="flip-front"><div class="flip-icon">📝</div><div class="flip-label">Миф</div><div class="flip-text">"Чтобы научить, нужно сразу после конфликта разобрать ошибку по регламенту."</div></div><div class="flip-back"><div class="flip-icon">🧪</div><div class="flip-label">Реальность</div><div class="flip-text">Кортизол полностью блокирует логику и память. Разбор полетов возможен только через 2-3 часа.</div></div></div></div>
-            <div class="flip-card" tabindex="0"><div class="flip-inner"><div class="flip-front"><div class="flip-icon">🤖</div><div class="flip-label">Миф</div><div class="flip-text">"Настоящий профи вообще не должен испытывать стресс, когда на него кричат."</div></div><div class="flip-back"><div class="flip-icon">🧠</div><div class="flip-label">Реальность</div><div class="flip-text">Амигдала реагирует автоматически, выбрасывая адреналин. Задача профи — контролировать реакцию, а не отрицать химию тела.</div></div></div></div>
+            <div class="flip-card" tabindex="0"><div class="flip-inner"><div class="flip-front"><div class="flip-icon" aria-hidden="true">😡</div><div class="flip-label">Миф</div><div class="flip-text">"Клиент ненавидит лично меня и специально хочет меня унизить."</div></div><div class="flip-back"><div class="flip-icon" aria-hidden="true">🧊</div><div class="flip-label">Реальность</div><div class="flip-text">Принцип Айсберга: клиент кричит от страха, потери контроля или усталости. Вы просто попались под руку.</div></div></div></div>
+            <div class="flip-card" tabindex="0"><div class="flip-inner"><div class="flip-front"><div class="flip-icon" aria-hidden="true">📝</div><div class="flip-label">Миф</div><div class="flip-text">"Чтобы научить, нужно сразу после конфликта разобрать ошибку по регламенту."</div></div><div class="flip-back"><div class="flip-icon" aria-hidden="true">🧪</div><div class="flip-label">Реальность</div><div class="flip-text">Кортизол полностью блокирует логику и память. Разбор полетов возможен только через 2-3 часа.</div></div></div></div>
+            <div class="flip-card" tabindex="0"><div class="flip-inner"><div class="flip-front"><div class="flip-icon" aria-hidden="true">🤖</div><div class="flip-label">Миф</div><div class="flip-text">"Настоящий профи вообще не должен испытывать стресс, когда на него кричат."</div></div><div class="flip-back"><div class="flip-icon" aria-hidden="true">🧠</div><div class="flip-label">Реальность</div><div class="flip-text">Амигдала реагирует автоматически, выбрасывая адреналин. Задача профи — контролировать реакцию, а не отрицать химию тела.</div></div></div></div>
         </div>
       </section>
 
@@ -363,11 +412,11 @@
         </div>
         <div class="brain-grid">
           <div class="brain-svg-box">
-             <svg viewBox="0 0 240 200" style="width: 100%; max-width: 300px; height: auto; overflow: visible;">
+             <svg viewBox="0 0 240 200" style="width: 100%; max-width: 300px; height: auto; overflow: visible;" role="img" aria-label="Схема отделов мозга: Неокортекс и Амигдала">
                 <path d="M105,150 C105,180 90,195 90,195 L125,195 C125,195 120,180 120,150" fill="none" stroke="#64748b" stroke-width="4" stroke-linecap="round"/>
                 <path d="M125,150 C150,150 160,170 145,185 C130,200 115,180 115,160 Z" fill="none" stroke="#94a3b8" stroke-width="3" stroke-dasharray="4,4"/>
                 
-                <g id="neocortex-path" class="brain-part">
+                <g id="neocortex-path" class="brain-part" role="button" tabindex="0" aria-label="Показать роль Неокортекса (Логика)">
                     <path d="M110,20 C60,20 20,60 30,110 C35,135 60,150 90,145 C95,144 100,140 100,135 C100,120 115,115 125,125 C135,135 160,145 180,130 C200,110 210,70 170,35 C150,20 130,20 110,20 Z" fill="rgba(14, 165, 233, 0.05)" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M50,50 Q70,70 90,40 M40,80 Q70,90 80,70 M140,40 Q160,60 180,50 M150,80 Q130,100 160,110 M100,20 Q110,50 130,30" fill="none" stroke="#38bdf8" stroke-width="1.5" opacity="0.5"/>
                 </g>
@@ -378,14 +427,14 @@
                 <line id="amy-line" x1="110" y1="100" x2="210" y2="100" stroke="#f43f5e" stroke-width="2" opacity="0" style="transition: all 0.3s"/>
                 <text id="amy-text" x="215" y="104" fill="#f43f5e" font-size="14" font-weight="bold" font-family="monospace" text-anchor="start" opacity="0" style="transition: all 0.3s">АМИГДАЛА</text>
 
-                <g id="amygdala-path" class="brain-part">
+                <g id="amygdala-path" class="brain-part" role="button" tabindex="0" aria-label="Показать роль Амигдалы (Эмоции)">
                     <circle cx="110" cy="100" r="14" fill="rgba(225, 29, 72, 0.3)" stroke="#f43f5e" stroke-width="3" />
                     <circle cx="110" cy="100" r="4" fill="#fb7185" />
                 </g>
              </svg>
           </div>
 
-          <div class="brain-info" id="brain-info">
+          <div class="brain-info" id="brain-info" aria-live="polite">
              <h4 style="font-size:1.5rem; color:#0f172a; margin-bottom:10px;">Как работает мозг в стрессе?</h4>
              <p style="color:#475569; line-height:1.6; margin:0;">Нажмите или наведите курсор на <strong>Амигдалу</strong> (центр эмоций) или <strong>Неокортекс</strong> (логику), чтобы узнать, почему разъяренный клиент физически не способен слышать ваши разумные аргументы.</p>
           </div>
@@ -398,15 +447,15 @@
             <p>Узнайте, что на самом деле скрывается за криком и претензиями гостя</p>
         </div>
         <div class="iceberg-grid">
-            <div class="iceberg-options">
-                <button class="iceberg-btn active" id="btn-tip">
+            <div class="iceberg-options" role="group" aria-label="Уровни айсберга конфликта">
+                <button type="button" class="iceberg-btn active" id="btn-tip" aria-pressed="true">
                     🏔️ Вершина (То, что мы видим)
                 </button>
-                <button class="iceberg-btn" id="btn-water">
+                <button type="button" class="iceberg-btn" id="btn-water" aria-pressed="false">
                     🌊 Под водой (Истинные причины)
                 </button>
             </div>
-            <div class="iceberg-result" id="icebergResult">
+            <div class="iceberg-result" id="icebergResult" aria-live="polite">
                 <h4 class="iceberg-title" id="icebergTitle">Агрессия и претензии</h4>
                 <p class="iceberg-desc" id="icebergDesc">Громкий голос, оскорбления, угрозы написать жалобу, переход на личности, требование немедленного возврата денег. Это защитная реакция психики.</p>
             </div>
@@ -418,15 +467,15 @@
             <h3>Протокол «Декомпрессии» (Скорая помощь)</h3>
             <p>Алгоритм действий руководителя после жесткого конфликта сотрудника с гостем</p>
         </div>
-        <div class="widget-nav" id="decompNav">
-            <div class="widget-step-btn active" data-step="1">1. Разрыв</div>
-            <div class="widget-step-btn" data-step="2">2. Эмоции</div>
-            <div class="widget-step-btn" data-step="3">3. Снятие вины</div>
-            <div class="widget-step-btn" data-step="4">4. Адреналин</div>
-            <div class="widget-step-btn" data-step="5">5. Логика</div>
+        <div class="widget-nav" id="decompNav" role="group" aria-label="Шаги протокола декомпрессии">
+            <button type="button" class="widget-step-btn active" data-step="1" aria-pressed="true">1. Разрыв</button>
+            <button type="button" class="widget-step-btn" data-step="2" aria-pressed="false">2. Эмоции</button>
+            <button type="button" class="widget-step-btn" data-step="3" aria-pressed="false">3. Снятие вины</button>
+            <button type="button" class="widget-step-btn" data-step="4" aria-pressed="false">4. Адреналин</button>
+            <button type="button" class="widget-step-btn" data-step="5" aria-pressed="false">5. Логика</button>
         </div>
-        <div class="widget-content-box" id="decompBox">
-            <div class="widget-icon-large" id="decompIcon">🏃</div>
+        <div class="widget-content-box" id="decompBox" aria-live="polite">
+            <div class="widget-icon-large" id="decompIcon" aria-hidden="true">🏃</div>
             <div class="widget-text" id="decompText">
                 <strong>Физический разрыв:</strong> Немедленно уберите сотрудника с линии или от стойки хотя бы на 10-15 минут. Ему нужно физически покинуть зону, где произошел стрессовый триггер.
             </div>
@@ -437,10 +486,10 @@
         <div class="widget-header">
             <h3>💬 Тренажер: Коммуникация в стрессе</h3>
             <p>Отработайте 5 реальных сценариев общения со стажерами разных служб</p>
-            <div id="chatProgress" style="display: inline-block; background: #e0f2fe; color: #0284c7; padding: 4px 12px; border-radius: 99px; font-family: monospace; font-size: 0.8rem; font-weight: 700; margin-top: 10px;">СИТУАЦИЯ 1 ИЗ 5</div>
+            <div id="chatProgress" style="display: inline-block; background: #e0f2fe; color: #0284c7; padding: 4px 12px; border-radius: 99px; font-family: monospace; font-size: 0.8rem; font-weight: 700; margin-top: 10px;" aria-live="polite">СИТУАЦИЯ 1 ИЗ 5</div>
         </div>
         <div class="chat-simulator">
-           <div class="chat-history" id="chatHistory"></div>
+           <div class="chat-history" id="chatHistory" aria-live="polite"></div>
            <div class="chat-options" id="chatOptions"></div>
         </div>
       </section>
@@ -449,18 +498,18 @@
         <div class="custom-pdf-viewer" id="mainPdfContainer">
           <div class="pdf-viewer-header">
             <div class="pdf-header-left">
-              <div class="pdf-file-icon">📄</div>
+              <div class="pdf-file-icon" aria-hidden="true">📄</div>
               <div class="pdf-file-info">
                 <h3>Материалы: Управление конфликтами</h3>
                 <p>Анатомия агрессии и протокол</p>
               </div>
             </div>
             <div class="pdf-top-actions">
-                <button class="btn-pdf-action" id="themeBtn" title="Ночной режим" aria-label="Переключить ночной режим">🌙</button>
-                <a href="assets/Тема управления конфликтами.pdf" download class="btn-pdf-action icon-only-mobile">
-                    <span class="btn-text">Скачать</span><span class="btn-icon">📥</span>
+                <button type="button" class="btn-pdf-action" id="themeBtn" title="Ночной режим" aria-label="Переключить ночной режим">🌙</button>
+                <a href="assets/Тема управления конфликтами.pdf" download class="btn-pdf-action icon-only-mobile" aria-label="Скачать PDF">
+                    <span class="btn-text">Скачать</span><span class="btn-icon" aria-hidden="true">📥</span>
                 </a>
-                <button class="btn-pdf-action btn-fullscreen" id="fullscreenBtn" title="На весь экран" aria-label="Развернуть на весь экран">⛶</button>
+                <button type="button" class="btn-pdf-action btn-fullscreen" id="fullscreenBtn" title="На весь экран" aria-label="Развернуть на весь экран">⛶</button>
             </div>
             <div class="pdf-read-progress" id="pdfInnerProgress"></div>
           </div>
@@ -468,27 +517,27 @@
           <div class="pdf-canvas-wrapper" id="pdfWrapper">
             <!-- Стартовый экран (скрывается после нажатия) -->
             <div id="pdfStartScreen" class="pdf-start-screen">
-              <span style="font-size: 3rem; margin-bottom: 15px;">📖</span>
+              <span style="font-size: 3rem; margin-bottom: 15px;" aria-hidden="true">📖</span>
               <h4 style="margin-bottom: 15px; font-size: 1.2rem;">Лекция готова к чтению</h4>
-              <button class="pdf-start-btn" onclick="startPdfLoad()">Открыть для чтения</button>
+              <button type="button" class="pdf-start-btn" onclick="startPdfLoad()">Открыть для чтения</button>
               <p style="margin-top: 15px; font-size: 0.85rem; opacity: 0.7; max-width: 300px;">Нажмите, чтобы загрузить страницы. Мы не скачиваем файл автоматически, экономя ваш трафик.</p>
             </div>
 
             <canvas id="the-canvas"></canvas>
-            <div class="pdf-loader" id="pdfLoader" style="display: none;"><div class="spinner"></div><span>Загрузка...</span></div>
+            <div class="pdf-loader" id="pdfLoader" style="display: none;"><div class="spinner" aria-hidden="true"></div><span>Загрузка...</span></div>
             <div class="gesture-hint" id="gestureHint">👆 2 клика — зум <br> 🖐️ Тяни — листать</div>
           </div>
 
           <div class="pdf-toolbar">
-            <button class="tool-btn" id="prev" title="Назад" aria-label="Предыдущая страница">←</button>
+            <button type="button" class="tool-btn" id="prev" title="Назад" aria-label="Предыдущая страница">←</button>
             <div class="page-input-group">
                 <input type="number" id="page_num_input" value="1" min="1" aria-label="Номер страницы">
                 <span>/ <span id="page_count">--</span></span>
             </div>
-            <button class="tool-btn" id="next" title="Вперед" aria-label="Следующая страница">→</button>
-            <div class="divider-v"></div>
-            <button class="tool-btn-icon" id="zoomOut" aria-label="Уменьшить масштаб">-</button>
-            <button class="tool-btn-icon" id="zoomIn" aria-label="Увеличить масштаб">+</button>
+            <button type="button" class="tool-btn" id="next" title="Вперед" aria-label="Следующая страница">→</button>
+            <div class="divider-v" aria-hidden="true"></div>
+            <button type="button" class="tool-btn-icon" id="zoomOut" title="Уменьшить" aria-label="Уменьшить масштаб">-</button>
+            <button type="button" class="tool-btn-icon" id="zoomIn" title="Увеличить" aria-label="Увеличить масштаб">+</button>
           </div>
         </div>
       </section>
@@ -501,9 +550,9 @@
         <div class="breathe-box">
            <div class="breathe-circle-wrap">
               <div class="breathe-circle" id="breathe-circle"></div>
-              <div class="breathe-text" id="breathe-text">Готовы?</div>
+              <div class="breathe-text" id="breathe-text" aria-live="polite">Готовы?</div>
            </div>
-           <button id="breathe-btn" class="breathe-btn">
+           <button type="button" id="breathe-btn" class="breathe-btn">
               ▶ НАЧАТЬ ПРАКТИКУ
            </button>
         </div>
@@ -574,6 +623,8 @@
   // === СТАНДАРТНЫЕ СКРИПТЫ СТРАНИЦЫ ===
   document.addEventListener("DOMContentLoaded", function() {
     document.body.classList.add('js-loaded'); 
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
     }, { threshold: 0.1 });
@@ -592,15 +643,17 @@
     window.addEventListener('scroll', () => {
         const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
         const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        if (scrollHeight > 0) {
+        if (scrollHeight > 0 && progressBar) {
             progressBar.style.width = (scrollTop / scrollHeight) * 100 + "%";
         }
-        toTopBtn.style.opacity = scrollTop > 600 ? "1" : "0";
-        toTopBtn.style.pointerEvents = scrollTop > 600 ? "auto" : "none";
-    });
-    toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        if (toTopBtn) {
+          toTopBtn.style.opacity = scrollTop > 600 ? "1" : "0";
+          toTopBtn.style.pointerEvents = scrollTop > 600 ? "auto" : "none";
+        }
+    }, { passive: true });
+    toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }));
 
-    if (window.matchMedia("(min-width: 768px)").matches) {
+    if (!prefersReducedMotion && window.matchMedia("(min-width: 768px)").matches) {
       const hero = document.getElementById('tilt-hero');
       if(hero) {
         hero.addEventListener('mousemove', (e) => {
@@ -622,7 +675,12 @@
       });
     }
 
-    // === ВИДЖЕТ 0: АНАТОМИЯ МОЗГА ===
+    /*
+     * БЛОК: Интерактивная схема «Анатомия мозга: Захват Амигдалы».
+     * ЗА ЧТО ОТВЕЧАЕТ: Отображение описания Неокортекса и Амигдалы при наведении, клике или нажатии Enter/Space.
+     * ПОЧЕМУ БЕЗОПАСНО: Убран вызов e.preventDefault() на touchstart, который блокировал прокрутку экрана на смартфонах;
+     * вместо него используется стандартный click и клавиатурные события.
+     */
     const neo = document.getElementById('neocortex-path');
     const amy = document.getElementById('amygdala-path');
     const bInfo = document.getElementById('brain-info');
@@ -641,6 +699,7 @@
         bInfo.style.borderColor = '#0ea5e9';
         bInfo.style.boxShadow = '0 10px 20px rgba(14, 165, 233, 0.1)';
         if(neoLine) { neoLine.style.opacity = '1'; neoText.style.opacity = '1'; }
+        if(amyLine) { amyLine.style.opacity = '0'; amyText.style.opacity = '0'; }
       };
 
       const triggerAmy = () => {
@@ -648,6 +707,7 @@
         bInfo.style.borderColor = '#e11d48';
         bInfo.style.boxShadow = '0 10px 20px rgba(225, 29, 72, 0.1)';
         if(amyLine) { amyLine.style.opacity = '1'; amyText.style.opacity = '1'; }
+        if(neoLine) { neoLine.style.opacity = '0'; neoText.style.opacity = '0'; }
       };
 
       const resetInfo = () => {
@@ -663,10 +723,17 @@
       neo.addEventListener('mouseout', resetInfo);
       amy.addEventListener('mouseout', resetInfo);
 
-      neo.addEventListener('touchstart', (e) => { e.preventDefault(); triggerNeo(); });
-      amy.addEventListener('touchstart', (e) => { e.preventDefault(); triggerAmy(); });
+      neo.addEventListener('click', (e) => { e.stopPropagation(); triggerNeo(); });
+      amy.addEventListener('click', (e) => { e.stopPropagation(); triggerAmy(); });
+
+      neo.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); triggerNeo(); }
+      });
+      amy.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); triggerAmy(); }
+      });
       
-      document.addEventListener('touchstart', (e) => {
+      document.addEventListener('click', (e) => {
          if(!neo.contains(e.target) && !amy.contains(e.target)) resetInfo();
       });
     }
@@ -685,8 +752,12 @@
     if(icebergBtns.length > 0) {
       icebergBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-              icebergBtns.forEach(b => b.classList.remove('active'));
+              icebergBtns.forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-pressed', 'false');
+              });
                 btn.classList.add('active');
+                btn.setAttribute('aria-pressed', 'true');
                 const state = btn.id;
                 
                 icebergResult.style.opacity = '0';
@@ -716,8 +787,12 @@
     if(decompBtns.length > 0) {
       decompBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-              decompBtns.forEach(b => b.classList.remove('active'));
+              decompBtns.forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-pressed', 'false');
+              });
                 btn.classList.add('active');
+                btn.setAttribute('aria-pressed', 'true');
                 const stepNum = btn.getAttribute('data-step');
                 decompText.style.opacity = '0'; decompIcon.style.opacity = '0';
                 setTimeout(() => {
@@ -795,7 +870,7 @@
       
       chatHistory.innerHTML = `
         <div class="chat-msg trainee-msg" style="opacity: 1; transform: translateY(0); animation: none;">
-           <div class="msg-avatar">${scenario.avatar}</div>
+           <div class="msg-avatar" aria-hidden="true">${scenario.avatar}</div>
            <div class="msg-bubble">
               <strong>${scenario.trainee}:</strong> ${scenario.msg}
            </div>
@@ -805,6 +880,7 @@
       chatOptions.innerHTML = '';
       scenario.options.forEach((opt, idx) => {
         const btn = document.createElement('button');
+        btn.type = 'button';
         btn.className = 'chat-btn';
         btn.textContent = opt.text;
         btn.onclick = () => handleChatOption(idx);
@@ -826,12 +902,12 @@
       chatOptions.style.opacity = '0';
       setTimeout(() => chatOptions.style.display = 'none', 300);
       
-      const mentorMsgHTML = `<div class="chat-msg mentor-msg"><div class="msg-avatar">🧑‍🏫</div><div class="msg-bubble"><strong>Вы (Наставник):</strong> ${selectedOption.text}</div></div>`;
+      const mentorMsgHTML = `<div class="chat-msg mentor-msg"><div class="msg-avatar" aria-hidden="true">🧑‍🏫</div><div class="msg-bubble"><strong>Вы (Наставник):</strong> ${selectedOption.text}</div></div>`;
       chatHistory.insertAdjacentHTML('beforeend', mentorMsgHTML);
       chatHistory.scrollTop = chatHistory.scrollHeight;
 
       const typingId = 'typing-' + Date.now();
-      const typingHTML = `<div class="chat-msg trainee-msg" id="${typingId}"><div class="msg-avatar">${scenario.avatar}</div><div class="typing-indicator"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
+      const typingHTML = `<div class="chat-msg trainee-msg" id="${typingId}"><div class="msg-avatar" aria-hidden="true">${scenario.avatar}</div><div class="typing-indicator" role="status" aria-label="Сотрудник печатает"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
       
       setTimeout(() => {
           chatHistory.insertAdjacentHTML('beforeend', typingHTML);
@@ -842,16 +918,16 @@
           const typingIndicator = document.getElementById(typingId);
           if(typingIndicator) typingIndicator.remove();
           
-          const traineeReplyHTML = `<div class="chat-msg trainee-msg"><div class="msg-avatar">${scenario.avatar}</div><div class="msg-bubble"><strong>${scenario.trainee}:</strong> ${selectedOption.reply}</div></div>`;
+          const traineeReplyHTML = `<div class="chat-msg trainee-msg"><div class="msg-avatar" aria-hidden="true">${scenario.avatar}</div><div class="msg-bubble"><strong>${scenario.trainee}:</strong> ${selectedOption.reply}</div></div>`;
           chatHistory.insertAdjacentHTML('beforeend', traineeReplyHTML);
 
           setTimeout(() => {
             let actionBtnHTML = '';
             if (selectedOption.isCorrect) {
                 if (currentChatIndex < chatScenarios.length - 1) {
-                    actionBtnHTML = `<br><br><button onclick="nextChatScenario()" class="reset-chat-btn">▶️ Следующая ситуация</button>`;
+                    actionBtnHTML = `<br><br><button type="button" onclick="nextChatScenario()" class="reset-chat-btn">▶️ Следующая ситуация</button>`;
                 } else {
-                    actionBtnHTML = `<br><br><button onclick="restartChatSimulator()" class="reset-chat-btn">🔄 Пройти тренажер заново</button>`;
+                    actionBtnHTML = `<br><br><button type="button" onclick="restartChatSimulator()" class="reset-chat-btn">🔄 Пройти тренажер заново</button>`;
                 }
                 const feedbackHTML = `<div class="chat-feedback success">${selectedOption.feedback}${actionBtnHTML}</div>`;
                 chatHistory.insertAdjacentHTML('beforeend', feedbackHTML);
@@ -923,7 +999,7 @@
         }, 4000);
     }
 
-    // === PDF VIEWER LOGIC (С ЛЕНИВОЙ ЗАГРУЗКОЙ) ===
+    // === PDF VIEWER LOGIC (С ЛЕНИВОЙ ЗАГРУЗКОЙ И БЕЗОПАСНОЙ ОЧЕРЕДЬЮ РЕНДЕРА) ===
     const url = 'assets/Тема управления конфликтами.pdf'; 
     const storageKey = 'conflict_pdf_page';
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.0;
@@ -938,8 +1014,10 @@
     const pageInput = document.getElementById('page_num_input');
     const placeholder = document.createElement('div'); placeholder.style.display = 'none';
 
-    const savedPage = localStorage.getItem(storageKey);
-    if(savedPage) pageNum = parseInt(savedPage);
+    try {
+      const savedPage = parseInt(localStorage.getItem(storageKey), 10);
+      if (Number.isFinite(savedPage) && savedPage >= 1) pageNum = savedPage;
+    } catch (e) {}
 
     themeBtn.addEventListener('click', () => {
         container.classList.toggle('dark-theme');
@@ -947,9 +1025,10 @@
     });
 
     document.addEventListener('keydown', (e) => {
+        if (!pdfDoc || !pdfLoaded) return;
         const rect = container.getBoundingClientRect();
         const isVisible = (rect.top < window.innerHeight && rect.bottom > 0) || container.classList.contains('fullscreen-mode');
-        if (isVisible && document.activeElement !== pageInput && pdfLoaded) {
+        if (isVisible && document.activeElement !== pageInput) {
             if (e.key === "ArrowLeft") document.getElementById('prev').click();
             if (e.key === "ArrowRight") document.getElementById('next').click();
             if (e.key === "+" || e.key === "=") document.getElementById('zoomIn').click();
@@ -959,9 +1038,9 @@
     });
 
     pageInput.addEventListener('change', () => {
-        if (!pdfDoc) return;
-        let val = parseInt(pageInput.value);
-        if (val >= 1 && val <= pdfDoc.numPages) { pageNum = val; queueRenderPage(pageNum); } else { pageInput.value = pageNum; }
+        if (!pdfDoc || !pdfLoaded) return;
+        let val = parseInt(pageInput.value, 10);
+        if (Number.isFinite(val) && val >= 1 && val <= pdfDoc.numPages) { pageNum = val; queueRenderPage(pageNum); } else { pageInput.value = pageNum; }
     });
 
     fsBtn.addEventListener('click', () => {
@@ -979,7 +1058,7 @@
             document.body.classList.remove('pdf-fullscreen-active');
             fsBtn.textContent = '⛶';
         }
-        setTimeout(() => { if(pdfLoaded) renderPage(pageNum); }, 50);
+        setTimeout(() => { if(pdfLoaded && pdfDoc) queueRenderPage(pageNum); }, 50);
     });
 
     function renderPage(num) {
@@ -1001,20 +1080,22 @@
           pageRendering = false;
           document.getElementById('pdfLoader').style.display = 'none';
           if (pageNumPending !== null) { renderPage(pageNumPending); pageNumPending = null; }
+        }).catch(function() {
+          pageRendering = false;
         });
       });
       pageInput.value = num;
-      localStorage.setItem(storageKey, num);
+      try { localStorage.setItem(storageKey, num); } catch (e) {}
       if(pdfDoc) innerProgress.style.width = (num / pdfDoc.numPages) * 100 + '%';
       if (scale > 1.0) canvas.classList.add('zoomed'); else canvas.classList.remove('zoomed');
     }
 
     function queueRenderPage(num) { if (pageRendering) pageNumPending = num; else renderPage(num); }
 
-    document.getElementById('prev').addEventListener('click', () => { if (pageNum <= 1 || !pdfLoaded) return; pageNum--; queueRenderPage(pageNum); });
+    document.getElementById('prev').addEventListener('click', () => { if (!pdfDoc || pageNum <= 1 || !pdfLoaded) return; pageNum--; queueRenderPage(pageNum); });
     document.getElementById('next').addEventListener('click', () => { if (!pdfDoc || pageNum >= pdfDoc.numPages || !pdfLoaded) return; pageNum++; queueRenderPage(pageNum); });
-    document.getElementById('zoomIn').addEventListener('click', () => { if(!pdfLoaded) return; scale += 0.25; renderPage(pageNum); });
-    document.getElementById('zoomOut').addEventListener('click', () => { if(!pdfLoaded) return; if(scale > 0.5) scale -= 0.25; renderPage(pageNum); });
+    document.getElementById('zoomIn').addEventListener('click', () => { if(!pdfDoc || !pdfLoaded) return; scale += 0.25; queueRenderPage(pageNum); });
+    document.getElementById('zoomOut').addEventListener('click', () => { if(!pdfDoc || !pdfLoaded) return; if(scale > 0.5) { scale -= 0.25; queueRenderPage(pageNum); } });
 
     let isDragging = false, startX, startY, scrollLeft, scrollTop;
     wrapper.addEventListener('mousedown', (e) => {
@@ -1036,10 +1117,10 @@
     let touchStartX = 0, touchEndX = 0, lastTap = 0;
     wrapper.addEventListener('touchstart', e => { if(pdfLoaded) touchStartX = e.changedTouches[0].screenX; }, {passive: true});
     wrapper.addEventListener('touchend', e => {
-        if (!pdfLoaded) return;
+        if (!pdfLoaded || !pdfDoc) return;
         touchEndX = e.changedTouches[0].screenX;
         const currentTime = new Date().getTime();
-        if (currentTime - lastTap < 300) { scale = (scale > 1.2) ? 1.0 : 2.5; renderPage(pageNum); }
+        if (currentTime - lastTap < 300) { scale = (scale > 1.2) ? 1.0 : 2.5; queueRenderPage(pageNum); }
         lastTap = currentTime;
         if (scale <= 1.1) {
             const diff = touchStartX - touchEndX;
@@ -1060,16 +1141,17 @@
         document.getElementById('pdfStartScreen').style.display = 'none';
         document.getElementById('pdfLoader').style.display = 'flex';
         
-        if (pdfLoaded) {
+        if (pdfLoaded && pdfDoc) {
             document.getElementById('pdfLoader').style.display = 'none';
             return;
         }
         
         pdfLoaded = true;
-        pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+        pdfjsLib.getDocument(encodeURI(url)).promise.then(function(pdfDoc_) {
           pdfDoc = pdfDoc_;
           document.getElementById('page_count').textContent = pdfDoc.numPages;
-          renderPage(pageNum);
+          if (pageNum > pdfDoc.numPages || pageNum < 1) pageNum = 1;
+          queueRenderPage(pageNum);
         }).catch(err => {
             console.error(err);
             pdfLoaded = false;
@@ -1077,18 +1159,43 @@
         });
     };
     
-    window.addEventListener('resize', () => { if(pdfLoaded) renderPage(pageNum); });
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      if (!pdfLoaded || !pdfDoc) return;
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => queueRenderPage(pageNum), 100);
+    }, { passive: true });
   });
 </script>
 
-<!-- React скрипт для HR-тренажера (оставлен без изменений, кроме адаптивности контейнера) -->
+<!-- React скрипт для HR-тренажера -->
 <script type="text/babel">
   const { useState, useEffect, useRef } = React;
   const { createRoot } = ReactDOM;
 
+  /*
+   * БЛОК: Единый экземпляр AudioContext (Singleton) для тренажера HR Messenger.
+   * ЗА ЧТО ОТВЕЧАЕТ: Озвучивание кликов, успешных и ошибочных решений в 15 кейсах.
+   * ПОЧЕМУ БЕЗОПАСНО: Устраняет создание нового AudioContext при каждом клике, предотвращая утечку памяти.
+   */
+  let sharedAudioCtx = null;
+
+  const getAudioContext = () => {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return null;
+    if (!sharedAudioCtx || sharedAudioCtx.state === 'closed') {
+      sharedAudioCtx = new AudioCtx();
+    }
+    if (sharedAudioCtx.state === 'suspended') {
+      sharedAudioCtx.resume().catch(() => {});
+    }
+    return sharedAudioCtx;
+  };
+
   const playSound = (type) => {
     try {
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const ctx = getAudioContext();
+      if (!ctx) return;
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.connect(gain);
@@ -1334,9 +1441,9 @@
             </div>
             <div className="flex-1 flex flex-col items-center justify-center p-6 text-center z-10 bg-gradient-to-b from-slate-900 to-[#0b1426]">
                <div className="text-6xl mb-4 drop-shadow-[0_0_15px_rgba(37,99,235,0.5)]">📱</div>
-               <h2 className="text-2xl font-black text-white mb-2">HR Messenger</h2>
+               <h3 className="text-2xl font-black text-white mb-2">HR Messenger</h3>
                <p className="text-slate-400 text-sm mb-8">15 сложных кейсов управления командой. Решите их в формате переписки.</p>
-               <button onClick={startGame} className="bg-blue-600 text-white font-bold py-4 px-8 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:bg-blue-500 transition-transform hover:scale-105 active:scale-95 w-full uppercase tracking-wider">
+               <button type="button" onClick={startGame} className="bg-blue-600 text-white font-bold py-4 px-8 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:bg-blue-500 transition-transform hover:scale-105 active:scale-95 w-full uppercase tracking-wider border-0 cursor-pointer">
                  ОТКРЫТЬ ЧАТЫ
                </button>
             </div>
@@ -1355,10 +1462,10 @@
             </div>
             <div className="flex-1 flex flex-col items-center justify-center p-6 text-center z-10 bg-gradient-to-b from-slate-900 to-[#0b1426] animate-fade-in">
                <div className="text-6xl mb-4">{isPerfect ? '🏆' : '📊'}</div>
-               <h2 className="text-2xl font-black text-white mb-2">Чат завершен</h2>
+               <h3 className="text-2xl font-black text-white mb-2">Чат завершен</h3>
                <div className="text-5xl font-black text-emerald-400 mb-2">{score}/{scenarios.length}</div>
                <p className="text-slate-400 text-sm mb-8">правильных решений.</p>
-               <button onClick={startGame} className="bg-slate-700 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-slate-600 transition-transform w-full">
+               <button type="button" onClick={startGame} className="bg-slate-700 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-slate-600 transition-transform w-full border-0 cursor-pointer">
                  НОВЫЕ СООБЩЕНИЯ
                </button>
             </div>
@@ -1420,7 +1527,7 @@
             {feedback && (
               <div className={`p-4 rounded-xl text-sm border animate-slide-up text-center mb-4 shadow-lg ${feedback.isCorrect ? 'bg-emerald-900/30 border-emerald-500/50 text-emerald-100' : 'bg-rose-900/30 border-rose-500/50 text-rose-100'}`}>
                 <div dangerouslySetInnerHTML={{__html: feedback.text}} />
-                <button onClick={handleNext} className={`mt-4 px-6 py-2 rounded-full font-bold text-xs uppercase tracking-wider w-full shadow-sm transition-colors ${feedback.isCorrect ? 'bg-emerald-500 hover:bg-emerald-400 text-white' : 'bg-rose-500 hover:bg-rose-400 text-white'}`}>
+                <button type="button" onClick={handleNext} className={`mt-4 px-6 py-2 rounded-full font-bold text-xs uppercase tracking-wider w-full shadow-sm transition-colors border-0 cursor-pointer ${feedback.isCorrect ? 'bg-emerald-500 hover:bg-emerald-400 text-white' : 'bg-rose-500 hover:bg-rose-400 text-white'}`}>
                   {currentIdx < scenarios.length - 1 ? 'Далее ➔' : 'Завершить ➔'}
                 </button>
               </div>
@@ -1434,7 +1541,7 @@
               <p className="text-slate-400 text-[10px] uppercase tracking-widest text-center mb-3">Ваш ответ:</p>
               <div className="flex flex-col gap-2 max-h-[35vh] overflow-y-auto pr-1 no-scrollbar pb-2">
                 {scenario.options.map((opt, idx) => (
-                  <button key={idx} onClick={() => handleOption(opt)} className="text-left bg-slate-700 hover:bg-slate-600 text-white text-sm p-3 rounded-xl transition-colors border border-slate-600 hover:border-blue-400 leading-relaxed shadow-sm">
+                  <button type="button" key={idx} onClick={() => handleOption(opt)} className="text-left bg-slate-700 hover:bg-slate-600 text-white text-sm p-3 rounded-xl transition-colors border border-slate-600 hover:border-blue-400 leading-relaxed shadow-sm cursor-pointer">
                     {opt.text}
                   </button>
                 ))}
