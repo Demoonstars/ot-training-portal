@@ -5,6 +5,19 @@
   <title>СДО | Пожарная безопасность</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Обучение мерам пожарной безопасности: вводный и первичный инструктажи, действия при пожаре.">
+
+  <!--
+    БЛОК: Канонический URL и мета-теги Open Graph.
+    ЗА ЧТО ОТВЕЧАЕТ: Корректная индексация страницы курса и превью при пересылке ссылки в мессенджерах.
+    ПОЧЕМУ БЕЗОПАСНО: Мета-теги в <head> не влияют на верстку и работу скриптов.
+  -->
+  <link rel="canonical" href="https://demoonstars.github.io/ot-training-portal/course-fire-safety.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="СДО | Пожарная безопасность">
+  <meta property="og:description" content="Обучение мерам пожарной безопасности: вводный и первичный инструктажи, действия при пожаре.">
+  <meta property="og:url" content="https://demoonstars.github.io/ot-training-portal/course-fire-safety.html">
+  <meta property="og:locale" content="ru_RU">
+
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,6 +37,15 @@
       100% { background-position: 0% 50%; }
     }
 
+    /*
+     * БЛОК: Защитная анимация появления секций (.reveal-up).
+     * ЗА ЧТО ОТВЕЧАЕТ: Скрывает элементы до прокрутки только при активном JS (класс .js-loaded на <body>).
+     * ПОЧЕМУ БЕЗОПАСНО: Гарантирует видимость контента, если JS отключен или заблокирован.
+     */
+    .reveal-up { opacity: 1 !important; transform: none !important; }
+    .js-loaded .reveal-up { opacity: 0 !important; transform: translateY(30px) !important; }
+    .js-loaded .reveal-up.visible { opacity: 1 !important; transform: translateY(0) !important; transition: 0.6s ease-out; }
+
     /* === LMS LAYOUT === */
     .course-layout {
       display: grid;
@@ -42,7 +64,10 @@
       margin-bottom: 30px;
       position: relative; overflow: hidden;
       backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       box-shadow: 0 20px 40px -10px rgba(249, 115, 22, 0.1);
+      transform-style: preserve-3d;
+      transform: perspective(1000px);
     }
     
     .course-hero::before {
@@ -56,10 +81,11 @@
       background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa;
       padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700;
       margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;
+      position: relative; z-index: 1;
     }
 
-    .hero-title { font-size: 2rem; font-weight: 800; color: #0f172a; margin: 0 0 15px; line-height: 1.1; }
-    .hero-desc { font-size: 1.05rem; color: #475569; max-width: 650px; line-height: 1.6; }
+    .hero-title { font-size: 2rem; font-weight: 800; color: #0f172a; margin: 0 0 15px; line-height: 1.1; position: relative; z-index: 1; }
+    .hero-desc { font-size: 1.05rem; color: #475569; max-width: 650px; line-height: 1.6; position: relative; z-index: 1; }
 
     /* === MANDATORY BLOCK (Акцентный - Вводный) === */
     .mandatory-block {
@@ -71,7 +97,7 @@
       position: relative;
       overflow: hidden;
       margin-bottom: 40px;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .mandatory-block:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -5px rgba(234, 88, 12, 0.25); }
 
@@ -113,7 +139,7 @@
       border: 1px solid rgba(226, 232, 240, 0.8);
       position: relative; overflow: hidden;
       display: flex; flex-direction: column;
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
     }
     .prog-card::before {
       content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
@@ -123,6 +149,20 @@
     .prog-card:hover::before { opacity: 1; }
     .prog-card:hover { transform: translateY(-4px); border-color: #f97316; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
 
+    /*
+     * БЛОК: Внутренняя flex-обертка карточки программы (.prog-content).
+     * ЗА ЧТО ОТВЕЧАЕТ: Выравнивание кнопки «Перейти к обучению» по нижнему краю карточки.
+     * ПОЧЕМУ БЕЗОПАСНО: Передает flex-контекст от .prog-card к дочерним элементам.
+     */
+    .prog-content {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      flex-grow: 1;
+      position: relative;
+      z-index: 1;
+    }
+
     .prog-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
     .prog-icon { font-size: 2rem; background: #fff7ed; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: 1px solid #ffedd5; }
     .prog-badge { font-size: 0.7rem; font-weight: 700; color: #9a3412; background: #fff; padding: 4px 8px; border-radius: 6px; border: 1px solid #ffedd5; }
@@ -131,6 +171,7 @@
     .prog-desc { font-size: 0.9rem; color: #64748b; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
 
     .btn-prog-link {
+      margin-top: auto;
       display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px;
       background: #f8fafc; color: #334155; border: 1px solid #e2e8f0;
       border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 0.9rem;
@@ -142,6 +183,7 @@
     .course-sidebar {
       position: sticky; top: 100px;
       background: rgba(255,255,255,0.6); backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
       border: 1px solid rgba(255,255,255,0.8); border-radius: 20px; padding: 20px;
     }
 
@@ -153,6 +195,7 @@
       text-decoration: none; color: #334155; font-size: 0.85rem; margin-bottom: 10px;
       transition: 0.2s;
     }
+    .npa-link:last-child { margin-bottom: 0; }
     .npa-link:hover { border-color: #ea580c; transform: translateX(3px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
     .npa-icon { font-size: 1.2rem; flex-shrink: 0; }
 
@@ -165,6 +208,14 @@
       z-index: 100; display: flex; align-items: flex-start; gap: 12px;
       animation: slideIn 0.5s ease-out forwards;
     }
+    .toast-close {
+      margin-left: auto; cursor: pointer; color: #94a3b8;
+      background: none; border: none; padding: 2px 6px; font-size: 1rem; line-height: 1;
+      border-radius: 6px; transition: color 0.2s, background 0.2s;
+    }
+    .toast-close:hover { color: #0f172a; background: #f1f5f9; }
+    .toast-close:focus-visible { outline: 2px solid #ea580c; outline-offset: 2px; }
+
     @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     @keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
 
@@ -198,18 +249,19 @@
     <div class="container header-inner">
       <div class="header-brand">
         <div class="brand-logo">
-          <img src="assets/Филин от.png" alt="Логотип СДО" style="width: 100%; height: 100%; object-fit: contain;">
+          <img src="assets/Филин от.png" alt="Логотип СДО" width="42" height="42" style="width: 100%; height: 100%; object-fit: contain;">
         </div>
         <div>
-          <h1 class="site-title-mini">СДО</h1>
+          <!-- Бренд в шапке: div вместо h1, чтобы главный заголовок страницы был один -->
+          <div class="site-title-mini">СДО</div>
           <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
         </div>
       </div>
       <div class="header-meta">
         <span id="current-date">Загрузка...</span>
-        <span style="display:flex; align-items:center;"><span class="system-status-pulse"></span> Online</span>
+        <span style="display:flex; align-items:center;"><span class="system-status-pulse" aria-hidden="true"></span> Online</span>
       </div>
-      <nav class="main-nav">
+      <nav class="main-nav" aria-label="Основная навигация">
         <ul class="nav-list">
           <li><a href="index.html" class="nav-link">Главная</a></li>
           <li><a href="programs.html" class="nav-link nav-link-active active">Каталог программ</a></li>
@@ -223,10 +275,10 @@
   <main id="main-content" class="site-main">
     <div class="container">
 
-      <nav class="breadcrumbs" style="margin-bottom: 20px; font-size: 0.9rem; color: #64748b;">
+      <nav class="breadcrumbs" aria-label="Хлебные крошки" style="margin-bottom: 20px; font-size: 0.9rem; color: #64748b;">
         <a href="programs.html" style="color: inherit; text-decoration: none; transition: 0.2s;">← Каталог программ</a>
-        <span style="margin: 0 8px; opacity: 0.5;">/</span>
-        <span style="color: #0f172a; font-weight: 600;">Пожарная безопасность</span>
+        <span style="margin: 0 8px; opacity: 0.5;" aria-hidden="true">/</span>
+        <span style="color: #0f172a; font-weight: 600;" aria-current="page">Пожарная безопасность</span>
       </nav>
 
       <div class="course-layout">
@@ -244,28 +296,28 @@
           <div class="mandatory-block reveal-up delay-100">
             <div class="mandatory-label">Обязательный этап</div>
             <h2 class="mandatory-title">
-              <span style="font-size: 2rem;">📢</span> Вводный инструктаж
+              <span style="font-size: 2rem;" aria-hidden="true">📢</span> Вводный инструктаж
             </h2>
             <p class="mandatory-text">
               Проходится всеми вновь принимаемыми на работу лицами до начала трудовой деятельности. Основы системы предотвращения пожаров и эвакуации.
             </p>
             
             <a href="fire-intro-materials.html" class="btn-start-big">
-              Начать вводный инструктаж ➔
+              Начать вводный инструктаж <span aria-hidden="true">➔</span>
             </a>
           </div>
 
-          <h3 style="margin-bottom: 20px; font-size: 1.4rem; color: #0f172a;" class="reveal-up delay-200">
+          <h2 style="margin-bottom: 20px; font-size: 1.4rem; color: #0f172a;" class="reveal-up delay-200">
             Инструктаж на рабочем месте
             <span style="font-size:0.9rem; color:#64748b; font-weight:400; margin-left:10px;">(повторный/первичный)</span>
-          </h3>
+          </h2>
 
           <div class="programs-grid reveal-up delay-200">
             
             <div class="prog-card">
               <div class="prog-content">
                 <div class="prog-header">
-                  <div class="prog-icon">🧯</div>
+                  <div class="prog-icon" aria-hidden="true">🧯</div>
                   <span class="prog-badge">П/Р Инструктаж</span>
                 </div>
                 <h3 class="prog-title">Инструктаж на рабочем месте</h3>
@@ -280,29 +332,30 @@
 
         <aside class="course-sidebar reveal-up delay-100">
           
-          <h4 class="npa-title">⚖️ Нормативная база</h4>
+          <h4 class="npa-title"><span aria-hidden="true">⚖️</span> Нормативная база</h4>
           
-          <a href="https://www.consultant.ru/document/cons_doc_LAW_499164/" target="_blank" class="npa-link">
-            <span class="npa-icon">📜</span>
+          <!-- Добавлен rel="noopener noreferrer" для безопасности при открытии внешних ссылок -->
+          <a href="https://www.consultant.ru/document/cons_doc_LAW_499164/" target="_blank" rel="noopener noreferrer" class="npa-link">
+            <span class="npa-icon" aria-hidden="true">📜</span>
             <div>
-              <div style="font-weight: 600;">Приказ МЧС России от №1120</div>
+              <div style="font-weight: 600;">Приказ МЧС России №1120</div>
               <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Порядок обучения</div>
             </div>
           </a>
           
-          <a href="https://www.consultant.ru/document/cons_doc_LAW_5438/" target="_blank" class="npa-link">
-            <span class="npa-icon">🔥</span>
+          <a href="https://www.consultant.ru/document/cons_doc_LAW_5438/" target="_blank" rel="noopener noreferrer" class="npa-link">
+            <span class="npa-icon" aria-hidden="true">🔥</span>
             <div>
               <div style="font-weight: 600;">Федеральный закон №69-ФЗ</div>
               <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">О пожарной безопасности</div>
             </div>
           </a>
 
-          <a href="https://www.consultant.ru/document/cons_doc_LAW_363260/" target="_blank" class="npa-link">
-            <span class="npa-icon">🏢</span>
+          <a href="https://www.consultant.ru/document/cons_doc_LAW_363260/" target="_blank" rel="noopener noreferrer" class="npa-link">
+            <span class="npa-icon" aria-hidden="true">🏢</span>
             <div>
               <div style="font-weight: 600;">Постановление Правительства РФ №1479</div>
-              <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">ПРАВИЛА ПРОТИВОПОЖАРНОГО РЕЖИМА В РОССИЙСКОЙ ФЕДЕРАЦИИ</div>
+              <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Правила противопожарного режима в РФ</div>
             </div>
           </a>
 
@@ -319,19 +372,22 @@
     </div>
   </footer>
 
-  <div class="toast-notification" id="courseToast">
-    <div style="font-size: 1.5rem;">🚒</div>
+  <div class="toast-notification" id="courseToast" role="status" aria-live="polite">
+    <div style="font-size: 1.5rem;" aria-hidden="true">🚒</div>
     <div>
       <div style="font-weight: 700; font-size: 0.9rem; color: #0f172a;">Важно</div>
       <div style="font-size: 0.85rem; color: #64748b;">Проверьте срок действия вашего удостоверения по ПБ.</div>
     </div>
-    <div class="toast-close" style="margin-left:auto; cursor:pointer; color:#94a3b8;" onclick="document.getElementById('courseToast').style.display='none'">✕</div>
+    <button type="button" class="toast-close" aria-label="Закрыть уведомление" onclick="document.getElementById('courseToast').style.display='none'">✕</button>
   </div>
 
 </div>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
+    document.body.classList.add('js-loaded');
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // 1. Дата
     const now = new Date();
     const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -348,7 +404,7 @@
     document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
 
     // 3. Эффекты мыши (3D Tilt + Spotlight)
-    if (window.matchMedia("(min-width: 768px)").matches) {
+    if (!prefersReducedMotion && window.matchMedia("(min-width: 768px)").matches) {
       
       // Hero Tilt
       const hero = document.getElementById('tilt-hero');
