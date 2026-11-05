@@ -2,14 +2,63 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Вводный инструктаж по ГО и ЧС — материалы</title>
+  <title>Вводный инструктаж по ГО и ЧС — материалы | СДО</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description"
-        content="Материалы вводного инструктажа по ГО и ЧС: просмотр PDF, скачивание и переход к итоговому тесту." />
-  <link rel="stylesheet" href="assets/style.css" />
+        content="Материалы вводного инструктажа по ГО и ЧС: просмотр PDF, скачивание, контрольные вопросы самопроверки и переход к итоговому тесту." />
 
-  <!-- Локальные стили только для этой страницы -->
+  <!--
+    БЛОК: Канонический URL и мета-теги Open Graph.
+    ЗА ЧТО ОТВЕЧАЕТ: Индексация страницы и корректное превью ссылки в мессенджерах.
+    ПОЧЕМУ БЕЗОПАСНО: Мета-теги в <head> не влияют на верстку и работу скриптов.
+  -->
+  <link rel="canonical" href="https://demoonstars.github.io/ot-training-portal/gochs-materials.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Вводный инструктаж по ГО и ЧС — материалы | СДО" />
+  <meta property="og:description" content="Материалы вводного инструктажа по ГО и ЧС: просмотр PDF, скачивание, самопроверка и переход к итоговому тесту." />
+  <meta property="og:url" content="https://demoonstars.github.io/ot-training-portal/gochs-materials.html" />
+  <meta property="og:locale" content="ru_RU" />
+
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Подключение PDF.js для единой интерактивной читалки V8.0 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  </script>
+
+  <!-- Локальные стили для этой страницы -->
   <style>
+    body.gochs-theme {
+      background: linear-gradient(-45deg, #eff6ff, #dbeafe, #e0f2fe, #f0f9ff);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+    }
+
+    body.pdf-fullscreen-active { overflow: hidden !important; }
+
+    /* Прогресс-бар чтения вверху экрана */
+    .progress-container {
+      position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 2000; background: transparent;
+    }
+    .progress-bar {
+      height: 100%; background: #2563eb; width: 0%; transition: width 0.1s;
+      box-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
+    }
+
+    /* Навигация "Назад" */
+    .back-nav { padding: 20px 0 10px; }
+    .back-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border-radius: 50%; background: #2563eb; color: #ffffff;
+      flex-shrink: 0;
+    }
+    .back-svg { width: 16px; height: 16px; display: block; }
+
     .g-hero h1 { margin: 0; }
     .g-hero p { margin-top: 10px; }
 
@@ -27,8 +76,9 @@
       padding: 8px 12px;
       border-radius: 999px;
       font-size: 0.9rem;
+      font-weight: 600;
       line-height: 1;
-      background: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.85);
       border: 1px solid rgba(17,24,39,0.08);
       color: #0f172a;
       white-space: nowrap;
@@ -43,13 +93,16 @@
     }
     .g-nav a {
       font-size: 0.9rem;
+      font-weight: 600;
       text-decoration: none;
-      padding: 7px 10px;
+      padding: 8px 14px;
       border-radius: 10px;
-      border: 1px solid rgba(17,24,39,0.08);
+      border: 1px solid rgba(37, 99, 235, 0.2);
       background: #fff;
       color: #2563eb;
+      transition: all 0.2s ease;
     }
+    .g-nav a:hover { background: #eff6ff; transform: translateY(-1px); }
     .g-nav a:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
 
     .g-badges {
@@ -60,10 +113,12 @@
     }
     .g-badge {
       font-size: 0.9rem;
-      padding: 8px 10px;
+      padding: 8px 12px;
       border-radius: 12px;
       background: #f8fafc;
-      border: 1px solid #e5e7eb;
+      border: 1px solid #e2e8f0;
+      color: #334155;
+      font-weight: 500;
       max-width: 100%;
     }
 
@@ -76,11 +131,11 @@
     .g-callout {
       border-radius: 14px;
       border: 1px solid rgba(17,24,39,0.08);
-      background: rgba(255,255,255,0.7);
-      padding: clamp(12px, 3vw, 16px);
+      background: rgba(255,255,255,0.75);
+      padding: clamp(14px, 3vw, 18px);
       margin-top: 14px;
     }
-    .g-callout h3 { margin: 0 0 8px; font-size: 1rem; }
+    .g-callout h3 { margin: 0 0 8px; font-size: 1rem; color: #0f172a; }
     .g-callout p { margin: 0; }
     .g-callout ul { margin: 10px 0 0; padding-left: 18px; }
 
@@ -95,7 +150,81 @@
       gap: 10px;
       margin-top: 0;
     }
-    .g-title-row .emoji { font-size: 1.15rem; }
+    .g-title-row .emoji { font-size: 1.25rem; }
+
+    /*
+     * БЛОК: Стили карточки скачивания материала (.material-download-card).
+     * ЗА ЧТО ОТВЕЧАЕТ: Визуальное оформление блока быстрого открытия/скачивания PDF.
+     * ПОЧЕМУ БЕЗОПАСНО: Добавляет отсутствовавшие CSS-правила для существующей HTML-разметки карточки.
+     */
+    .material-download-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 22px;
+      margin: 18px 0;
+      background: #ffffff;
+      border: 1px solid #bfdbfe;
+      border-left: 5px solid #2563eb;
+      border-radius: 16px;
+      text-decoration: none;
+      color: #0f172a;
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      flex-wrap: wrap;
+    }
+    .material-download-card:hover {
+      transform: translateY(-2px);
+      border-color: #2563eb;
+      box-shadow: 0 15px 30px -5px rgba(37, 99, 235, 0.16);
+      opacity: 1;
+    }
+    .material-icon-wrap {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: #eff6ff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .material-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+      min-width: 200px;
+    }
+    .material-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #2563eb;
+    }
+    .material-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .material-meta {
+      font-size: 0.82rem;
+      color: #64748b;
+    }
+    .material-badge {
+      padding: 10px 18px;
+      border-radius: 10px;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .material-download-card:hover .material-badge {
+      background: #1d4ed8;
+    }
 
     /* A/B блоки в 2 колонки на планшете/ПК */
     .g-grid-2 {
@@ -106,6 +235,18 @@
     }
     @media (min-width: 768px) {
       .g-grid-2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Блок кнопки итогового теста */
+    .test-actions {
+      margin: 22px 0 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .test-hint {
+      font-size: 0.9rem;
+      color: #64748b;
     }
 
     /* Финал */
@@ -119,21 +260,107 @@
     .g-finish p { margin: 0; }
     .g-finish .muted { margin-top: 10px; color: #6b7280; font-size: 0.95rem; }
 
+    /* === PDF VIEWER V8.0 STYLES === */
+    .custom-pdf-viewer {
+      background: #f1f5f9; border: 1px solid rgba(148, 163, 184, 0.3);
+      border-radius: 20px; position: relative; overflow: hidden;
+      margin: 20px 0; box-shadow: 0 20px 50px -10px rgba(0,0,0,0.1);
+      height: 700px; display: flex; flex-direction: column; transition: background 0.3s;
+    }
+    .custom-pdf-viewer.dark-theme { background: #1e293b; border-color: #334155; }
+    .custom-pdf-viewer.dark-theme .pdf-viewer-header { background: #0f172a; border-bottom-color: #334155; color: #f1f5f9; }
+    .custom-pdf-viewer.dark-theme .pdf-file-info h3 { color: #f1f5f9; }
+    .custom-pdf-viewer.dark-theme .pdf-file-info p { color: #94a3b8; }
+    .custom-pdf-viewer.dark-theme .btn-pdf-action { background: #334155; color: #fff; border-color: #475569; }
+    .custom-pdf-viewer.dark-theme .pdf-canvas-wrapper { background: radial-gradient(#475569 1px, transparent 1px); background-size: 20px 20px; }
+    .custom-pdf-viewer.dark-theme #the-canvas { filter: brightness(0.9); }
+
+    .custom-pdf-viewer.fullscreen-mode {
+      position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+      width: 100vw !important; height: 100vh !important;
+      z-index: 2147483647 !important; border-radius: 0 !important; margin: 0 !important; border: none !important;
+      background: #e2e8f0 !important;
+    }
+    .custom-pdf-viewer.fullscreen-mode.dark-theme { background: #0f172a !important; }
+
+    .pdf-viewer-header {
+      background: #fff; padding: 10px 15px; border-bottom: 1px solid #cbd5e1;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      flex-shrink: 0; z-index: 10; position: relative;
+    }
+    .pdf-header-left { display: flex; align-items: center; gap: 10px; overflow: hidden; }
+    .pdf-file-icon { width: 32px; height: 32px; background: #eff6ff; color: #2563eb; flex-shrink: 0; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .pdf-file-info { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pdf-file-info h3 { margin: 0; font-size: 0.9rem; color: #0f172a; overflow: hidden; text-overflow: ellipsis; }
+    .pdf-file-info p { margin: 0; font-size: 0.75rem; color: #64748b; }
+    .pdf-top-actions { display: flex; gap: 8px; align-items: center; }
+
+    .btn-pdf-action { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 0 12px; height: 36px; border-radius: 8px; background: #fff; border: 1px solid #cbd5e1; color: #334155; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .btn-pdf-action:hover { border-color: #2563eb; color: #2563eb; }
+    .pdf-read-progress { height: 3px; width: 0%; background: #10b981; transition: width 0.2s; position: absolute; bottom: 0; left: 0; z-index: 15; }
+
+    .pdf-canvas-wrapper {
+      flex-grow: 1; overflow: auto; display: flex;
+      justify-content: flex-start; align-items: flex-start;
+      padding: 20px; padding-bottom: 100px;
+      background: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px;
+      touch-action: pan-x pan-y pinch-zoom;
+      -webkit-overflow-scrolling: touch;
+      position: relative; cursor: grab;
+    }
+    .pdf-canvas-wrapper.grabbing { cursor: grabbing; }
+
+    #the-canvas {
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      background: #fff; transform-origin: top left; margin: auto; display: block;
+      transition: transform 0.1s ease-out, box-shadow 0.3s;
+    }
+    #the-canvas.zoomed { box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+
+    .pdf-toolbar {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 8px 12px; border-radius: 50px; display: flex; align-items: center; gap: 12px;
+      color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 50; white-space: nowrap; max-width: 95%;
+    }
+    .tool-btn { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
+    .tool-btn-icon { width: 30px; height: 30px; border-radius: 50%; background: transparent; border: none; color: #cbd5e1; cursor: pointer; font-size: 1.2rem; }
+    .divider-v { width: 1px; height: 16px; background: rgba(255,255,255,0.2); }
+
+    .page-input-group { display: flex; align-items: center; gap: 5px; font-family: monospace; font-size: 0.9rem; }
+    #page_num_input { width: 40px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; text-align: center; border-radius: 4px; padding: 2px; -moz-appearance: textfield; }
+    #page_num_input:focus { border-color: #10b981; outline: none; background: rgba(255,255,255,0.1); }
+
+    .pdf-loader { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #f1f5f9; z-index: 60; color: #64748b; font-weight: 600; }
+    .spinner { width: 40px; height: 40px; border: 4px solid #cbd5e1; border-top-color: #2563eb; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 10px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .gesture-hint { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: #fff; padding: 12px 20px; border-radius: 12px; text-align: center; pointer-events: none; opacity: 0; transition: opacity 0.5s; z-index: 70; }
+    .show-hint { opacity: 1; }
+
+    .btn-text { display: inline; } .btn-icon { display: none; }
+    @media (max-width: 600px) {
+      .btn-text { display: none; } .btn-icon { display: inline; font-size: 1.2rem; }
+      .custom-pdf-viewer { height: 500px; }
+      .pdf-toolbar { padding: 8px 10px; gap: 8px; }
+      .material-badge { width: 100%; text-align: center; }
+    }
+
     /* Кнопка "Наверх" */
     .to-top {
       position: fixed;
-      right: 14px;
-      bottom: 14px;
-      z-index: 50;
+      right: 20px;
+      bottom: 20px;
+      z-index: 90;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 44px;
-      height: 44px;
-      border-radius: 999px;
-      border: 1px solid rgba(17,24,39,0.12);
-      background: rgba(255,255,255,0.92);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.10);
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.10);
       color: #0f172a;
       cursor: pointer;
       opacity: 0;
@@ -161,284 +388,518 @@
   </style>
 </head>
 
-<body class="gochs-theme">
+<body class="masterpiece-theme theme-gochs gochs-theme">
+<div class="progress-container"><div class="progress-bar" id="readingProgress"></div></div>
+
 <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
 
-<header class="site-header">
-  <div class="container header-inner">
-    <div class="header-brand">
-      <p class="site-label">Дистанционный учебный портал</p>
-      <h1 class="site-title">Охрана труда, пожарная безопасность, первая помощь, ГО/ЧС</h1>
-      <p class="site-subtitle">
-        Дистанционное обучение работников и проверка знаний требований охраны труда и безопасности.
-      </p>
+<div class="glass-wrapper">
+
+  <header class="site-header transparent-header">
+    <div class="container header-inner">
+      <div class="header-brand">
+        <div class="brand-logo">
+          <img src="assets/Филин от.png" alt="Логотип СДО" width="42" height="42" style="width: 100%; height: 100%; object-fit: contain;" />
+        </div>
+        <div>
+          <!-- Бренд в шапке: div вместо h1, чтобы главный заголовок страницы был один -->
+          <div class="site-title-mini">СДО</div>
+          <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
+        </div>
+      </div>
+
+      <div class="header-meta">
+        <span id="current-date">Загрузка...</span>
+        <span style="display:flex; align-items:center;"><span class="system-status-pulse" aria-hidden="true"></span> Online</span>
+      </div>
+
+      <nav class="main-nav" aria-label="Основная навигация">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
+          <li class="nav-item"><a href="programs.html" class="nav-link nav-link-active active">Каталог программ</a></li>
+          <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции</a></li>
+          <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Ответственным</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
-    <nav class="main-nav" aria-label="Основная навигация">
-      <ul class="nav-list">
-        <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
-        <li class="nav-item"><a href="programs.html" class="nav-link nav-link-active">Программы обучения</a></li>
-        <li class="nav-item"><a href="instructions.html" class="nav-link">Инструкции для сотрудников</a></li>
-        <li class="nav-item"><a href="for-responsibles.html" class="nav-link">Информация для ответственных за обучение</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+  <main id="main-content" class="site-main">
+    <div class="container" id="page-top">
 
-<main id="main-content" class="site-main">
-  <div class="container" id="page-top">
-
-    <!-- Назад к курсу ГО/ЧС -->
-    <nav class="back-nav">
-      <a href="course-gochs.html#gochs-course" class="back-link">
-        <span class="back-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" class="back-svg">
-            <path d="M15 6l-6 6 6 6"
-                  stroke="white" stroke-width="2" fill="none"
-                  stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </span>
-        <span class="back-text">Вернуться к курсу вводного инструктажа по ГО и ЧС</span>
-      </a>
-    </nav>
-
-    <!-- HERO -->
-    <section class="section section-card g-hero">
-      <h1>🛡️ Вводный инструктаж по ГО и ЧС</h1>
-
-      <p>
-        Этот раздел помогает сотрудникам ориентироваться в базовых правилах гражданской обороны и действиях при
-        чрезвычайных ситуациях: что означают сигналы оповещения, как действовать при угрозах и ЧС, как сохранять
-        безопасность и не создавать паники.
-      </p>
-
-      <div class="g-callout" role="note" aria-label="Почему это важно">
-        <h3>Почему это важно</h3>
-        <p>
-          Правильные действия в первые минуты ЧС снижают риски для жизни и здоровья, помогают организовать эвакуацию и
-          взаимодействие с ответственными лицами и службами. Это знание — практическое, не “формальность”.
-        </p>
-      </div>
-
-      <div class="g-ui-row" aria-label="Рекомендуемый порядок прохождения">
-        <span class="g-chip">📘 Сначала: изучить PDF</span>
-        <span class="g-chip">✅ Затем: самопроверка</span>
-        <span class="g-chip">📝 После: итоговый тест</span>
-      </div>
-
-      <nav class="g-nav" aria-label="Быстрая навигация по странице">
-        <a href="#materials">К материалам (PDF)</a>
-        <a href="#outcome">К самопроверке</a>
-        <a href="#test">К итоговому тесту</a>
+      <!-- Назад к курсу ГО/ЧС -->
+      <nav class="back-nav" aria-label="Возврат к курсу">
+        <a href="course-gochs.html" class="back-link">
+          <span class="back-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="back-svg">
+              <path d="M15 6l-6 6 6 6"
+                    stroke="currentColor" stroke-width="2" fill="none"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          <span class="back-text">Вернуться к курсу вводного инструктажа по ГО и ЧС</span>
+        </a>
       </nav>
 
-      <div class="g-badges" aria-label="Сводка по разделу">
-        <span class="g-badge">⏱ PDF: ориентировочно 10–20 минут</span>
-        <span class="g-badge">📝 Итог: тест + фиксация результата</span>
-        <span class="g-badge">📌 Фокус: сигналы, эвакуация, порядок действий</span>
-      </div>
+      <!-- HERO -->
+      <section class="section section-card g-hero">
+        <h1>🛡️ Вводный инструктаж по ГО и ЧС</h1>
 
-      <div class="g-callout" role="note" aria-label="Что важно запомнить">
-        <h3>Что важно запомнить по итогам изучения</h3>
-        <ul>
-          <li>как действовать при получении сигналов оповещения и указаний ответственных лиц;</li>
-          <li>что делать при эвакуации и как помогать другим без паники;</li>
-          <li>какие действия запрещены (самовольные решения, распространение слухов, игнорирование распоряжений);</li>
-          <li>куда обращаться при угрозе/происшествии согласно установленному порядку.</li>
-        </ul>
-      </div>
-    </section>
-
-    <div class="g-divider" aria-hidden="true"></div>
-
-    <!-- MATERIALS (PDF) -->
-    <section class="section section-card" id="materials">
-      <h2 class="g-title-row"><span class="emoji" aria-hidden="true">📘</span><span>Учебное пособие (PDF)</span></h2>
-
-      <p>
-        Ниже доступен полный текст учебного пособия в формате PDF. Рекомендуем изучить документ целиком, затем пройти
-        самопроверку и перейти к итоговому тесту.
-      </p>
-
-      <!-- Одна главная CTA (без дублей) -->
-      <a class="material-download-card" href="assets/Вводный инструктаж по ГО и ЧС.pdf" target="_blank" rel="noopener">
-        <span class="material-icon-wrap">
-          <span class="material-icon">📘</span>
-        </span>
-
-        <span class="material-text">
-          <span class="material-label">Учебный материал</span>
-          <span class="material-title">«Вводный инструктаж по ГО и ЧС»</span>
-          <span class="material-meta">Полная версия • PDF</span>
-        </span>
-
-        <span class="material-badge">ОТКРЫТЬ / СКАЧАТЬ</span>
-      </a>
-
-      <div class="g-callout" role="note" aria-label="Подсказка для телефонов">
-        <h3>Подсказка для телефонов</h3>
         <p>
-          На мобильных устройствах удобнее открыть PDF в новой вкладке через кнопку «ОТКРЫТЬ / СКАЧАТЬ» выше и использовать
-          поиск по документу (по ключевым словам).
+          Этот раздел помогает сотрудникам ориентироваться в базовых правилах гражданской обороны и действиях при
+          чрезвычайных ситуациях: что означают сигналы оповещения, как действовать при угрозах и ЧС, как сохранять
+          безопасность и не создавать паники.
         </p>
-      </div>
 
-      <!-- Встроенное чтение PDF (единый паттерн) -->
-      <div class="pdf-viewer-large" aria-label="Просмотр PDF на странице">
-        <iframe
-          class="pdf-viewer-frame"
-          src="assets/Вводный инструктаж по ГО и ЧС.pdf#view=FitH"
-          title="Учебное пособие «Вводный инструктаж по ГО и ЧС»"
-          loading="lazy"></iframe>
-      </div>
-
-      <div class="g-callout" role="note" aria-label="Как читать эффективно">
-        <h3>Как читать материал эффективно</h3>
-        <ul class="g-mini-list">
-          <li>посмотрите оглавление и выделите ключевые разделы (сигналы, эвакуация, действия при угрозах);</li>
-          <li>прочитайте разделы про порядок действий и запреты — это часто встречается в тесте;</li>
-          <li>после чтения ответьте на вопросы самопроверки ниже.</li>
-        </ul>
-      </div>
-    </section>
-
-    <div class="g-divider" aria-hidden="true"></div>
-
-    <!-- OUTCOME / SELF-CHECK -->
-    <section class="section section-card" id="outcome">
-      <h2 class="g-title-row"><span class="emoji" aria-hidden="true">✅</span><span>Самопроверка и типичные ошибки</span></h2>
-
-      <p>
-        Перед итоговым тестом проверьте себя: если на вопросы ниже вы отвечаете уверенно — вы готовы.
-      </p>
-
-      <div class="g-grid-2" aria-label="Самопроверка и типичные ошибки">
-        <!-- A: Самопроверка -->
-        <div class="g-callout" role="note" aria-label="Самопроверка: контрольные вопросы">
-          <h3>Самопроверка: контрольные вопросы</h3>
-          <ul class="g-mini-list">
-            <li>Что вы сделаете при получении сигнала оповещения и указаний ответственного лица?</li>
-            <li>Каковы ваши действия при начале эвакуации (по шагам)?</li>
-            <li>Какие вещи/действия при эвакуации запрещены и почему?</li>
-            <li>Кому сообщить о происшествии/угрозе согласно установленному порядку?</li>
-            <li>Что важно сделать в первые минуты, чтобы не создавать паники?</li>
-          </ul>
+        <div class="g-callout" role="note" aria-label="Почему это важно">
+          <h3>Почему это важно</h3>
+          <p>
+            Правильные действия в первые минуты ЧС снижают риски для жизни и здоровья, помогают организовать эвакуацию и
+            взаимодействие с ответственными лицами и службами. Это знание — практическое, не «формальность».
+          </p>
         </div>
 
-        <!-- B: Типичные ошибки -->
-        <div class="g-callout" role="note" aria-label="Типичные ошибки (не делайте так)">
-          <h3>Типичные ошибки (не делайте так)</h3>
-          <ul class="g-mini-list">
-            <li>игнорировать сигнал/указания ответственных лиц или “действовать по-своему”;</li>
-            <li>возвращаться за вещами, задерживаться и мешать движению потока;</li>
-            <li>создавать давку/паническое поведение и распространять слухи;</li>
-            <li>пытаться “проверить” информацию на месте вместо выполнения алгоритма;</li>
-            <li>не сообщать о происшествии, надеясь “само пройдёт”.</li>
+        <div class="g-ui-row" aria-label="Рекомендуемый порядок прохождения">
+          <span class="g-chip">📘 Сначала: изучить PDF</span>
+          <span class="g-chip">✅ Затем: самопроверка</span>
+          <span class="g-chip">📝 После: итоговый тест</span>
+        </div>
+
+        <nav class="g-nav" aria-label="Быстрая навигация по странице">
+          <a href="#materials">К материалам (PDF)</a>
+          <a href="#outcome">К самопроверке</a>
+          <a href="#test">К итоговому тесту</a>
+        </nav>
+
+        <div class="g-badges" aria-label="Сводка по разделу">
+          <span class="g-badge">⏱ PDF: ориентировочно 10–20 минут</span>
+          <span class="g-badge">📝 Итог: тест + фиксация результата</span>
+          <span class="g-badge">📌 Фокус: сигналы, эвакуация, порядок действий</span>
+        </div>
+
+        <div class="g-callout" role="note" aria-label="Что важно запомнить">
+          <h3>Что важно запомнить по итогам изучения</h3>
+          <ul>
+            <li>как действовать при получении сигналов оповещения и указаний ответственных лиц;</li>
+            <li>что делать при эвакуации и как помогать другим без паники;</li>
+            <li>какие действия запрещены (самовольные решения, распространение слухов, игнорирование распоряжений);</li>
+            <li>куда обращаться при угрозе/происшествии согласно установленному порядку.</li>
           </ul>
         </div>
-      </div>
+      </section>
 
-      <div class="g-callout" role="note" aria-label="Результат изучения">
-        <h3>Результат изучения</h3>
-        <ul class="g-mini-list">
-          <li>вы понимаете базовые сигналы/порядок оповещения и действия по ним;</li>
-          <li>умеете описать алгоритм эвакуации и ключевые запреты;</li>
-          <li>знаете порядок уведомления ответственных лиц/служб;</li>
-          <li>понимаете, как действовать без паники и помогать другим.</li>
-        </ul>
-      </div>
-    </section>
+      <div class="g-divider" aria-hidden="true"></div>
 
-    <div class="g-divider" aria-hidden="true"></div>
+      <!-- MATERIALS (PDF) -->
+      <section class="section section-card" id="materials">
+        <h2 class="g-title-row"><span class="emoji" aria-hidden="true">📘</span><span>Учебное пособие (PDF)</span></h2>
 
-    <!-- TEST -->
-    <section class="section section-card" id="test">
-      <h2 class="g-title-row"><span class="emoji" aria-hidden="true">📝</span><span>Итоговый тест по ГО и ЧС</span></h2>
+        <p>
+          Ниже доступен полный текст учебного пособия в формате PDF. Рекомендуем изучить документ целиком, затем пройти
+          самопроверку и перейти к итоговому тесту.
+        </p>
 
-      <p>
-        После изучения PDF и самопроверки пройдите итоговый тест. Результаты используются ответственными за обучение
-        для фиксации прохождения вводного инструктажа.
-      </p>
+        <!-- Карточка быстрого скачивания / открытия в новой вкладке -->
+        <a class="material-download-card" href="assets/Вводный инструктаж по ГО и ЧС.pdf" target="_blank" rel="noopener noreferrer">
+          <span class="material-icon-wrap" aria-hidden="true">
+            <span class="material-icon">📘</span>
+          </span>
 
-      <div class="g-callout" role="note" aria-label="Перед началом теста">
-        <h3>Перед началом теста проверьте</h3>
-        <ul class="g-mini-list">
-          <li>вы ознакомились с PDF и понимаете основные алгоритмы действий;</li>
-          <li>у вас есть 10–15 минут без отвлечений и стабильный интернет;</li>
-          <li>в тесте вы укажете корректные персональные/организационные данные.</li>
-        </ul>
-      </div>
+          <span class="material-text">
+            <span class="material-label">Учебный материал</span>
+            <span class="material-title">«Вводный инструктаж по ГО и ЧС»</span>
+            <span class="material-meta">Полная версия • PDF</span>
+          </span>
 
-      <div class="test-actions">
-        <a href="gochs-final-test.html" class="btn btn-primary btn-test-link">
-          Перейти к итоговому тесту по ГО и ЧС
+          <span class="material-badge">ОТКРЫТЬ / СКАЧАТЬ</span>
         </a>
-      </div>
 
-      <p class="test-hint">
-        Если результат неудовлетворительный — вернитесь к материалу и повторите темы, где были ошибки.
-      </p>
+        <div class="g-callout" role="note" aria-label="Подсказка для телефонов">
+          <h3>Подсказка для телефонов</h3>
+          <p>
+            Вы можете листать страницы прямо во встроенной интерактивной читалке ниже (свайпами влево/вправо или двойным нажатием для приближения), либо открыть файл в новой вкладке через кнопку «ОТКРЫТЬ / СКАЧАТЬ» выше.
+          </p>
+        </div>
 
-      <!-- C: если не открылось -->
-      <div class="g-callout" role="note" aria-label="Если материал не открывается">
-        <h3>Если PDF не открывается</h3>
-        <ul class="g-mini-list">
-          <li>нажмите «ОТКРЫТЬ / СКАЧАТЬ» выше и откройте PDF в новой вкладке;</li>
-          <li>обновите страницу и проверьте подключение к интернету;</li>
-          <li>попробуйте другой браузер или устройство (иногда ограничивает корпоративная сеть);</li>
-          <li>если проблема сохраняется — обратитесь к ответственному за обучение.</li>
-        </ul>
-      </div>
+        <!--
+          БЛОК: Единая интерактивная PDF-читалка V8.0 (заменила старый iframe).
+          ЗА ЧТО ОТВЕЧАЕТ: Отрисовка пособия «Вводный инструктаж по ГО и ЧС.pdf» на <canvas> с поддержкой зума,
+          ночного режима, полноэкранного просмотра и сохранения страницы в localStorage (gochs_pdf_page).
+          ПОЧЕМУ БЕЗОПАСНО: Обеспечивает стабильное чтение на мобильных браузерах и синхронизируется с главной страницей.
+        -->
+        <div class="custom-pdf-viewer" id="mainPdfContainer" aria-label="Интерактивный просмотр PDF на странице">
+          <div class="pdf-viewer-header">
+            <div class="pdf-header-left">
+              <div class="pdf-file-icon" aria-hidden="true">📄</div>
+              <div class="pdf-file-info">
+                <h3>Учебное пособие: ГО и ЧС</h3>
+                <p>Вводный инструктаж</p>
+              </div>
+            </div>
+            <div class="pdf-top-actions">
+              <button type="button" class="btn-pdf-action" id="themeBtn" title="Ночной режим" aria-label="Переключить ночной режим">🌙</button>
+              <a href="assets/Вводный инструктаж по ГО и ЧС.pdf" download class="btn-pdf-action icon-only-mobile" aria-label="Скачать PDF">
+                <span class="btn-text">Скачать</span>
+                <span class="btn-icon" aria-hidden="true">📥</span>
+              </a>
+              <button type="button" class="btn-pdf-action btn-fullscreen" id="fullscreenBtn" title="На весь экран" aria-label="Развернуть на весь экран">⛶</button>
+            </div>
+            <div class="pdf-read-progress" id="pdfInnerProgress"></div>
+          </div>
 
-      <!-- E + D: завершение + микро-юридическая подложка -->
-      <div class="g-finish" role="note" aria-label="Завершение раздела">
-        <p><strong>Вы дошли до конца материалов по ГО и ЧС.</strong> После прохождения теста вы можете закрыть страницу или вернуться к курсу.</p>
-        <p class="muted">
-          Материал используется в рамках обучения работников и может применяться при оформлении документов о прохождении
-          вводного инструктажа в соответствии с установленным порядком и локальными нормативными актами работодателя.
+          <div class="pdf-canvas-wrapper" id="pdfWrapper">
+            <canvas id="the-canvas"></canvas>
+            <div class="pdf-loader" id="pdfLoader"><div class="spinner" aria-hidden="true"></div><span>Загрузка...</span></div>
+            <div class="gesture-hint" id="gestureHint">👆 2 клика — зум <br> 🖐️ Тяни — листать</div>
+          </div>
+
+          <div class="pdf-toolbar">
+            <button type="button" class="tool-btn" id="prev" title="Назад" aria-label="Предыдущая страница">←</button>
+            <div class="page-input-group">
+              <input type="number" id="page_num_input" value="1" min="1" aria-label="Номер страницы" />
+              <span>/ <span id="page_count">--</span></span>
+            </div>
+            <button type="button" class="tool-btn" id="next" title="Вперед" aria-label="Следующая страница">→</button>
+            <div class="divider-v" aria-hidden="true"></div>
+            <button type="button" class="tool-btn-icon" id="zoomOut" title="Уменьшить" aria-label="Уменьшить масштаб">-</button>
+            <button type="button" class="tool-btn-icon" id="zoomIn" title="Увеличить" aria-label="Увеличить масштаб">+</button>
+          </div>
+        </div>
+
+        <div class="g-callout" role="note" aria-label="Как читать эффективно">
+          <h3>Как читать материал эффективно</h3>
+          <ul class="g-mini-list">
+            <li>посмотрите оглавление и выделите ключевые разделы (сигналы, эвакуация, действия при угрозах);</li>
+            <li>прочитайте разделы про порядок действий и запреты — это часто встречается в тесте;</li>
+            <li>после чтения ответьте на вопросы самопроверки ниже.</li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="g-divider" aria-hidden="true"></div>
+
+      <!-- OUTCOME / SELF-CHECK -->
+      <section class="section section-card" id="outcome">
+        <h2 class="g-title-row"><span class="emoji" aria-hidden="true">✅</span><span>Самопроверка и типичные ошибки</span></h2>
+
+        <p>
+          Перед итоговым тестом проверьте себя: если на вопросы ниже вы отвечаете уверенно — вы готовы.
         </p>
-      </div>
-    </section>
 
-  </div>
-</main>
+        <div class="g-grid-2" aria-label="Самопроверка и типичные ошибки">
+          <!-- A: Самопроверка -->
+          <div class="g-callout" role="note" aria-label="Самопроверка: контрольные вопросы">
+            <h3>Самопроверка: контрольные вопросы</h3>
+            <ul class="g-mini-list">
+              <li>Что вы сделаете при получении сигнала оповещения и указаний ответственного лица?</li>
+              <li>Каковы ваши действия при начале эвакуации (по шагам)?</li>
+              <li>Какие вещи/действия при эвакуации запрещены и почему?</li>
+              <li>Кому сообщить о происшествии/угрозе согласно установленному порядку?</li>
+              <li>Что важно сделать в первые минуты, чтобы не создавать паники?</li>
+            </ul>
+          </div>
 
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <p class="footer-text">
-      Учебный портал дистанционного обучения по охране труда, пожарной безопасности,
-      первой помощи и ГО/ЧС.
-    </p>
-    <p class="footer-text footer-text-muted">
-      Конкретный порядок обучения определяется работодателем.
-    </p>
-  </div>
-</footer>
+          <!-- B: Типичные ошибки -->
+          <div class="g-callout" role="note" aria-label="Типичные ошибки (не делайте так)">
+            <h3>Типичные ошибки (не делайте так)</h3>
+            <ul class="g-mini-list">
+              <li>игнорировать сигнал/указания ответственных лиц или «действовать по-своему»;</li>
+              <li>возвращаться за вещами, задерживаться и мешать движению потока;</li>
+              <li>создавать давку/паническое поведение и распространять слухи;</li>
+              <li>пытаться «проверить» информацию на месте вместо выполнения алгоритма;</li>
+              <li>не сообщать о происшествии, надеясь «само пройдёт».</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="g-callout" role="note" aria-label="Результат изучения">
+          <h3>Результат изучения</h3>
+          <ul class="g-mini-list">
+            <li>вы понимаете базовые сигналы/порядок оповещения и действия по ним;</li>
+            <li>умеете описать алгоритм эвакуации и ключевые запреты;</li>
+            <li>знаете порядок уведомления ответственных лиц/служб;</li>
+            <li>понимаете, как действовать без паники и помогать другим.</li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="g-divider" aria-hidden="true"></div>
+
+      <!-- TEST -->
+      <section class="section section-card" id="test">
+        <h2 class="g-title-row"><span class="emoji" aria-hidden="true">📝</span><span>Итоговый тест по ГО и ЧС</span></h2>
+
+        <p>
+          После изучения PDF и самопроверки пройдите итоговый тест. Результаты используются ответственными за обучение
+          для фиксации прохождения вводного инструктажа.
+        </p>
+
+        <div class="g-callout" role="note" aria-label="Перед началом теста">
+          <h3>Перед началом теста проверьте</h3>
+          <ul class="g-mini-list">
+            <li>вы ознакомились с PDF и понимаете основные алгоритмы действий;</li>
+            <li>у вас есть 10–15 минут без отвлечений и стабильный интернет;</li>
+            <li>в тесте вы укажете корректные персональные/организационные данные.</li>
+          </ul>
+        </div>
+
+        <!--
+          БЛОК: Кнопка перехода к итоговому тестированию по ГО и ЧС.
+          ЗА ЧТО ОТВЕЧАЕТ: Открытие внешнего тренажера/теста по курсу ГО и ЧС.
+          ПОЧЕМУ БЕЗОПАСНО: Заменяет несуществующий локальный файл gochs-final-test.html на действующий URL
+          теста портала https://demoonstars.github.io/GO_ChS_Test/ (как в index.html и course-gochs.html).
+        -->
+        <div class="test-actions">
+          <a href="https://demoonstars.github.io/GO_ChS_Test/"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="btn btn-magic btn-test-link">
+            <span>Перейти к итоговому тесту по ГО и ЧС ➔</span>
+          </a>
+        </div>
+
+        <p class="test-hint">
+          Если результат неудовлетворительный — вернитесь к материалу и повторите темы, где были ошибки.
+        </p>
+
+        <!-- C: если не открылось -->
+        <div class="g-callout" role="note" aria-label="Если материал не открывается">
+          <h3>Если PDF не открывается</h3>
+          <ul class="g-mini-list">
+            <li>нажмите «ОТКРЫТЬ / СКАЧАТЬ» выше и откройте PDF в новой вкладке;</li>
+            <li>обновите страницу и проверьте подключение к интернету;</li>
+            <li>попробуйте другой браузер или устройство (иногда ограничивает корпоративная сеть);</li>
+            <li>если проблема сохраняется — обратитесь к ответственному за обучение.</li>
+          </ul>
+        </div>
+
+        <!-- E + D: завершение + микро-юридическая подложка -->
+        <div class="g-finish" role="note" aria-label="Завершение раздела">
+          <p><strong>Вы дошли до конца материалов по ГО и ЧС.</strong> После прохождения теста вы можете закрыть страницу или вернуться к курсу.</p>
+          <p class="muted">
+            Материал используется в рамках обучения работников и может применяться при оформлении документов о прохождении
+            вводного инструктажа в соответствии с установленным порядком и локальными нормативными актами работодателя.
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="glass-footer site-footer">
+    <div class="container footer-inner">
+      <p class="footer-text">
+        © 2026 Служба Охраны Труда. Учебный портал дистанционного обучения по охране труда, пожарной безопасности,
+        первой помощи и ГО/ЧС.
+      </p>
+    </div>
+  </footer>
+
+</div>
 
 <!-- Кнопка "Наверх" -->
 <button type="button" class="to-top" id="toTopBtn" aria-label="Наверх" title="Наверх">↑</button>
 
 <script>
-  (function () {
-    const btn = document.getElementById('toTopBtn');
-    if (!btn) return;
-
+  document.addEventListener("DOMContentLoaded", function () {
     const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 1. Дата в шапке
+    const now = new Date();
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateStr = now.toLocaleDateString('ru-RU', dateOptions);
+    const dateEl = document.getElementById('current-date');
+    if (dateEl) {
+      dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+    }
+
+    // 2. Прогресс-бар чтения и кнопка "Наверх"
+    const btn = document.getElementById('toTopBtn');
+    const progressBar = document.getElementById('readingProgress');
 
     function onScroll() {
       const y = window.scrollY || document.documentElement.scrollTop || 0;
-      if (y > 600) btn.classList.add('is-visible');
-      else btn.classList.remove('is-visible');
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (scrollHeight > 0 && progressBar) {
+        progressBar.style.width = (y / scrollHeight) * 100 + "%";
+      }
+      if (btn) {
+        if (y > 600) btn.classList.add('is-visible');
+        else btn.classList.remove('is-visible');
+      }
     }
 
-    btn.addEventListener('click', function () {
-      if (prefersReducedMotion) window.scrollTo(0, 0);
-      else window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    if (btn) {
+      btn.addEventListener('click', function () {
+        if (prefersReducedMotion) window.scrollTo(0, 0);
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
 
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
-  })();
+
+    // 3. Интерактивная PDF-читалка V8.0 (с очередью рендера и защитой localStorage)
+    const url = 'assets/Вводный инструктаж по ГО и ЧС.pdf';
+    const storageKey = 'gochs_pdf_page';
+    let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.0;
+    const canvas = document.getElementById('the-canvas'), ctx = canvas.getContext('2d');
+    const container = document.getElementById('mainPdfContainer');
+    const wrapper = document.getElementById('pdfWrapper');
+    const fsBtn = document.getElementById('fullscreenBtn');
+    const innerProgress = document.getElementById('pdfInnerProgress');
+    const themeBtn = document.getElementById('themeBtn');
+    const pageInput = document.getElementById('page_num_input');
+    const placeholder = document.createElement('div'); placeholder.style.display = 'none';
+
+    try {
+      const savedPage = parseInt(localStorage.getItem(storageKey), 10);
+      if (Number.isFinite(savedPage) && savedPage >= 1) pageNum = savedPage;
+    } catch (e) {}
+
+    themeBtn.addEventListener('click', () => {
+      container.classList.toggle('dark-theme');
+      themeBtn.textContent = container.classList.contains('dark-theme') ? '☀️' : '🌙';
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!pdfDoc) return;
+      const rect = container.getBoundingClientRect();
+      const isVisible = (rect.top < window.innerHeight && rect.bottom > 0) || container.classList.contains('fullscreen-mode');
+      if (isVisible && document.activeElement !== pageInput) {
+        if (e.key === "ArrowLeft") document.getElementById('prev').click();
+        if (e.key === "ArrowRight") document.getElementById('next').click();
+        if (e.key === "+" || e.key === "=") document.getElementById('zoomIn').click();
+        if (e.key === "-" || e.key === "_") document.getElementById('zoomOut').click();
+      }
+      if (e.key === "Escape" && container.classList.contains('fullscreen-mode')) fsBtn.click();
+    });
+
+    pageInput.addEventListener('change', () => {
+      if (!pdfDoc) return;
+      let val = parseInt(pageInput.value, 10);
+      if (Number.isFinite(val) && val >= 1 && val <= pdfDoc.numPages) {
+        pageNum = val;
+        queueRenderPage(pageNum);
+      } else {
+        pageInput.value = pageNum;
+      }
+    });
+
+    fsBtn.addEventListener('click', () => {
+      const isFullscreen = container.classList.contains('fullscreen-mode');
+      if (!isFullscreen) {
+        container.parentNode.insertBefore(placeholder, container);
+        document.body.appendChild(container);
+        container.classList.add('fullscreen-mode');
+        document.body.classList.add('pdf-fullscreen-active');
+        fsBtn.textContent = '✕';
+        showGestureHint();
+      } else {
+        placeholder.parentNode.insertBefore(container, placeholder);
+        container.classList.remove('fullscreen-mode');
+        document.body.classList.remove('pdf-fullscreen-active');
+        fsBtn.textContent = '⛶';
+      }
+      if (pdfDoc) setTimeout(() => queueRenderPage(pageNum), 50);
+    });
+
+    function renderPage(num) {
+      if (!pdfDoc) return;
+      pageRendering = true;
+      pdfDoc.getPage(num).then(function(page) {
+        const viewportOriginal = page.getViewport({scale: 1});
+        const availableWidth = wrapper.clientWidth - 30;
+        let desiredScale = availableWidth / viewportOriginal.width;
+        if (scale !== 1.0) desiredScale = scale;
+        else scale = parseFloat(desiredScale.toFixed(2));
+
+        const viewport = page.getViewport({scale: desiredScale});
+        canvas.height = viewport.height; canvas.width = viewport.width;
+
+        const renderContext = { canvasContext: ctx, viewport: viewport };
+        const renderTask = page.render(renderContext);
+
+        renderTask.promise.then(function() {
+          pageRendering = false;
+          document.getElementById('pdfLoader').style.display = 'none';
+          if (pageNumPending !== null) { renderPage(pageNumPending); pageNumPending = null; }
+        }).catch(function() {
+          pageRendering = false;
+        });
+      });
+      pageInput.value = num;
+      try { localStorage.setItem(storageKey, num); } catch (e) {}
+      if (pdfDoc) innerProgress.style.width = (num / pdfDoc.numPages) * 100 + '%';
+      if (scale > 1.0) canvas.classList.add('zoomed'); else canvas.classList.remove('zoomed');
+    }
+
+    function queueRenderPage(num) { if (pageRendering) pageNumPending = num; else renderPage(num); }
+
+    document.getElementById('prev').addEventListener('click', () => { if (!pdfDoc || pageNum <= 1) return; pageNum--; queueRenderPage(pageNum); });
+    document.getElementById('next').addEventListener('click', () => { if (!pdfDoc || pageNum >= pdfDoc.numPages) return; pageNum++; queueRenderPage(pageNum); });
+    document.getElementById('zoomIn').addEventListener('click', () => { if (!pdfDoc) return; scale += 0.25; queueRenderPage(pageNum); });
+    document.getElementById('zoomOut').addEventListener('click', () => { if (!pdfDoc) return; if (scale > 0.5) { scale -= 0.25; queueRenderPage(pageNum); } });
+
+    let isDragging = false, startX, startY, scrollLeft, scrollTop;
+    wrapper.addEventListener('mousedown', (e) => {
+      isDragging = true; wrapper.classList.add('grabbing');
+      startX = e.pageX - wrapper.offsetLeft; startY = e.pageY - wrapper.offsetTop;
+      scrollLeft = wrapper.scrollLeft; scrollTop = wrapper.scrollTop;
+    });
+    wrapper.addEventListener('mouseleave', () => { isDragging = false; wrapper.classList.remove('grabbing'); });
+    wrapper.addEventListener('mouseup', () => { isDragging = false; wrapper.classList.remove('grabbing'); });
+    wrapper.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - wrapper.offsetLeft; const y = e.pageY - wrapper.offsetTop;
+      const walkX = (x - startX) * 1.5; const walkY = (y - startY) * 1.5;
+      wrapper.scrollLeft = scrollLeft - walkX; wrapper.scrollTop = scrollTop - walkY;
+    });
+
+    let touchStartX = 0, touchEndX = 0, lastTap = 0;
+    wrapper.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+    wrapper.addEventListener('touchend', e => {
+      if (!pdfDoc) return;
+      touchEndX = e.changedTouches[0].screenX;
+      const currentTime = new Date().getTime();
+      if (currentTime - lastTap < 300) {
+        scale = (scale > 1.2) ? 1.0 : 2.0;
+        queueRenderPage(pageNum);
+      }
+      lastTap = currentTime;
+      if (scale <= 1.1) {
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 80) {
+          if (diff > 0 && pageNum < pdfDoc.numPages) { pageNum++; queueRenderPage(pageNum); }
+          if (diff < 0 && pageNum > 1) { pageNum--; queueRenderPage(pageNum); }
+        }
+      }
+    }, {passive: true});
+
+    function showGestureHint() {
+      const hint = document.getElementById('gestureHint');
+      hint.classList.add('show-hint');
+      setTimeout(() => hint.classList.remove('show-hint'), 3000);
+    }
+
+    pdfjsLib.getDocument(encodeURI(url)).promise.then(function(pdfDoc_) {
+      pdfDoc = pdfDoc_;
+      document.getElementById('page_count').textContent = pdfDoc.numPages;
+      if (pageNum > pdfDoc.numPages || pageNum < 1) pageNum = 1;
+      queueRenderPage(pageNum);
+    }).catch(err => {
+      console.error(err);
+      document.getElementById('pdfLoader').innerHTML = `<p style="text-align:center; padding:20px; color:red">Файл PDF не найден.<br>Проверьте путь: ${url}</p>`;
+    });
+
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      if (!pdfDoc) return;
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => queueRenderPage(pageNum), 100);
+    }, { passive: true });
+  });
 </script>
 
 </body>
