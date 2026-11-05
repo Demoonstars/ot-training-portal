@@ -1,5 +1,6 @@
 /* =========================================
-   style.css — ОБНОВЛЕННАЯ ВЕРСИЯ (С АУДИТОМ И ЗАЩИТОЙ СОВМЕСТИМОСТИ)
+   style.css — ВЕРСИЯ QUANTUM V2.0
+   (Полная дизайн-система СДО + Инновационная шапка Quantum Command Bar v2.0)
    ========================================= */
 
 /* =========================================
@@ -141,24 +142,25 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* =========================================
-   4. HEADER (Responsive Glass)
+   4. HEADER (Responsive Glass — Базовый слой)
    Липкая шапка сайта, логотип, статус системы и адаптивная навигация.
    ========================================= */
 .site-header {
-  position: sticky; top: 0; z-index: 100;
+  position: sticky; top: 0; z-index: 1000;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.6);
   padding: 12px 0;
-  transition: all 0.3s;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .header-inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .header-brand {
@@ -172,6 +174,10 @@ img { max-width: 100%; height: auto; display: block; }
   width: 42px;
   height: 42px;
   object-fit: contain;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.header-brand:hover .brand-logo {
+  transform: scale(1.06) rotate(-3deg);
 }
 
 .site-title-mini {
@@ -187,14 +193,10 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--text-muted);
   margin: 0;
   white-space: nowrap;
+  transition: opacity 0.25s ease, max-height 0.25s ease;
 }
 
-/*
- * БЛОК: Пульсирующий индикатор статуса «Online» и мета-блок даты в шапке.
- * ЗА ЧТО ОТВЕЧАЕТ: Отображение зеленого кружка и текущей даты во всех шапках портала.
- * ПОЧЕМУ БЕЗОПАСНО: Вынесено в глобальный CSS как страховка для страниц (например, course-gochs.html),
- * где локальное правило .system-status-pulse было пропущено.
- */
+/* Пульсирующий индикатор статуса «Online» и мета-блок даты в шапке */
 .system-status-pulse {
   display: inline-block;
   width: 8px;
@@ -218,40 +220,51 @@ img { max-width: 100%; height: auto; display: block; }
   font-weight: 500;
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 14px;
   margin-left: auto;
 }
 
 /* Навигация (Desktop) */
-.main-nav { flex-grow: 1; display: flex; justify-content: flex-end; }
+.main-nav {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+}
+
 .nav-list {
   display: flex;
-  gap: 10px;
+  gap: 6px;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 4px;
+  position: relative;
+  border-radius: 14px;
 }
 
 .nav-link {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: var(--text-muted);
   padding: 8px 14px;
   border-radius: 10px;
-  transition: all 0.2s ease;
+  transition: color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
   white-space: nowrap;
+  position: relative;
+  z-index: 2;
 }
 
 .nav-link:hover,
 .nav-link.active,
 .nav-link-active {
   color: var(--primary);
-  background: rgba(255,255,255,0.6);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  background: rgba(255,255,255,0.65);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 /* Мобильная навигация (Scrollable Strip) */
-@media (max-width: 900px) {
+@media (max-width: 960px) {
   .site-subtitle-mini { display: none; }
   .header-meta { display: none; }
   .header-inner {
@@ -259,15 +272,15 @@ img { max-width: 100%; height: auto; display: block; }
     align-items: stretch;
     gap: 10px;
   }
-  .header-brand { justify-content: center; }
+  .header-brand { justify-content: space-between; width: 100%; }
   .main-nav {
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 5px;
+    padding-bottom: 4px;
     justify-content: flex-start;
   }
-  .nav-list { padding: 0 5px; }
+  .nav-list { padding: 0 4px; }
   .main-nav::-webkit-scrollbar { height: 0; width: 0; display: none; }
 }
 
@@ -312,11 +325,7 @@ img { max-width: 100%; height: auto; display: block; }
   }
 }
 
-/*
- * БЛОК: Доступность 3D-карточек «Миф / Реальность» (.flip-card) с клавиатуры.
- * ЗА ЧТО ОТВЕЧАЕТ: Переворот карточки не только при наведении мыши (:hover), но и при фокусе (:focus, :focus-within).
- * ПОЧЕМУ БЕЗОПАСНО: Не меняет поведение для мыши, но делает обратную сторону карточки доступной по клавише Tab.
- */
+/* Доступность 3D-карточек «Миф / Реальность» (.flip-card) с клавиатуры */
 .flip-card:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 4px;
@@ -430,12 +439,6 @@ li { margin-bottom: 8px; }
 
 @keyframes rotate { 100% { transform: translate(-50%,-50%) rotate(1turn); } }
 
-/*
- * БЛОК: Глобальный кейфрейм rotate-border.
- * ЗА ЧТО ОТВЕЧАЕТ: Вращение градиентной рамки в локальных переопределениях .btn-magic::before.
- * ПОЧЕМУ БЕЗОПАСНО: Страхует страницы (например, ot-intro.html), где вызывается animation: rotate-border,
- * но сам @keyframes rotate-border был пропущен в локальном теге <style>.
- */
 @keyframes rotate-border {
   0% { transform: translate(-50%, -50%) rotate(0deg); }
   100% { transform: translate(-50%, -50%) rotate(360deg); }
@@ -466,7 +469,7 @@ li { margin-bottom: 8px; }
 .legal-box {
   background: rgba(255, 255, 255, 0.5);
   border: 1px solid #fff;
-  border-radius: var(--radius-md);
+  border-radius: (--radius-md);
   padding: 20px;
   margin: 20px 0;
   display: flex; flex-direction: column; gap: 15px;
@@ -554,7 +557,584 @@ li { margin-bottom: 8px; }
 .delay-300 { transition-delay: 0.3s; }
 
 /* =========================================
-   12. REDUCED MOTION (Доступность)
+   12. QUANTUM COMMAND BAR V2.0 ( СУПЕР-ШАПКА ПОРТАЛА )
+   Парящий стеклянный остров, матричный переключатель экосистемы,
+   магнитная капсула навигации, радар контекста и Цифровой Паспорт СДО.
+   ========================================= */
+
+/* --- 12.1. Морфинг шапки в «Парящий стеклянный остров» при скролле (Desktop) --- */
+@media (min-width: 961px) {
+  .site-header.quantum-header {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(18px) saturate(180%);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+  }
+
+  .site-header.quantum-header.is-scrolled {
+    background: transparent;
+    border-bottom-color: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: 8px 0 0;
+    pointer-events: none;
+  }
+
+  .site-header.quantum-header.is-scrolled .header-inner {
+    pointer-events: auto;
+    max-width: 1180px;
+    background: rgba(255, 255, 255, 0.90);
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    border-radius: 999px;
+    padding: 8px 18px;
+    box-shadow:
+      0 18px 40px -10px rgba(15, 23, 42, 0.12),
+      0 4px 12px -2px rgba(37, 99, 235, 0.08),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
+  }
+
+  .site-header.quantum-header.is-scrolled .site-subtitle-mini {
+    display: none;
+  }
+
+  .site-header.quantum-header.is-scrolled .brand-logo {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* --- 12.2. Матричный лаунчер экосистемы «:::» (.q-app-switcher) --- */
+.q-app-switcher {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.q-app-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid rgba(203, 213, 225, 0.75);
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.q-app-btn:hover,
+.q-app-btn[aria-expanded="true"] {
+  color: var(--primary);
+  border-color: var(--primary);
+  background: #ffffff;
+  transform: scale(1.06);
+  box-shadow: 0 6px 16px -4px var(--primary-glow);
+}
+
+.q-app-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.q-app-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.q-app-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  width: 330px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 22px;
+  padding: 16px;
+  box-shadow:
+    0 25px 50px -12px rgba(15, 23, 42, 0.22),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px) scale(0.97);
+  transform-origin: top left;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2000;
+}
+
+.q-app-dropdown.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.q-dropdown-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #64748b;
+  margin: 0 0 10px 4px;
+  display: block;
+}
+
+.q-app-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.q-app-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  border-radius: 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  text-decoration: none;
+  color: var(--text-main);
+  transition: all 0.2s ease;
+}
+
+.q-app-tile:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  transform: translateY(-2px);
+  opacity: 1;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.1);
+}
+
+.q-app-tile-icon {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.q-app-tile-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.q-app-tile-sub {
+  font-size: 0.68rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.q-tests-Sublist {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 175px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.q-test-quick-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 10px;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #334155;
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.q-test-quick-link:hover {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+  opacity: 1;
+}
+
+/* --- 12.3. Магнитная неоновая капсула меню (.q-nav-glider) --- */
+.q-nav-glider {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  height: calc(100% - 8px);
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(124, 58, 237, 0.10));
+  border: 1px solid rgba(37, 99, 235, 0.22);
+  box-shadow: 0 4px 12px -2px var(--primary-glow);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), width 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+}
+
+/* --- 12.4. Контекстный радар чтения (.q-context-radar) --- */
+.q-context-radar {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 12px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.08), rgba(16, 185, 129, 0.08));
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+  animation: qFadeIn 0.25s ease;
+}
+
+@media (min-width: 1100px) {
+  .site-header.quantum-header.is-scrolled .q-context-radar.has-context {
+    display: inline-flex;
+  }
+}
+
+.q-radar-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary);
+}
+
+.q-radar-section {
+  color: var(--primary);
+  max-width: 190px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@keyframes qFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- 12.5. Быстрые командные кнопки и Кольцо «Цифрового паспорта СДО» --- */
+.q-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.q-cmd-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  background: rgba(255, 255, 255, 0.9);
+  color: #334155;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.q-cmd-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px -4px rgba(37, 99, 235, 0.18);
+}
+
+.q-cmd-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.q-cmd-kbd {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  padding: 2px 5px;
+  border-radius: 5px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+}
+
+.q-cmd-sos {
+  background: #fff1f2;
+  border-color: #fecdd3;
+  color: #be123c;
+}
+
+.q-cmd-sos:hover {
+  background: #e11d48;
+  border-color: #e11d48;
+  color: #ffffff;
+  box-shadow: 0 6px 16px -3px rgba(225, 29, 72, 0.35);
+}
+
+/* Кнопка и SVG-кольцо «Цифрового паспорта СДО» */
+.q-passport-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.q-passport-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 12px 0 8px;
+  border-radius: 99px;
+  border: 1px solid rgba(203, 213, 225, 0.85);
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  color: #0f172a;
+  font-size: 0.78rem;
+  font-weight: 800;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.q-passport-btn:hover,
+.q-passport-btn[aria-expanded="true"] {
+  border-color: #10b981;
+  box-shadow: 0 6px 18px -4px rgba(16, 185, 129, 0.28);
+  transform: translateY(-1px);
+}
+
+.q-passport-btn:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+}
+
+.q-ring-svg {
+  width: 26px;
+  height: 26px;
+  transform: rotate(-90deg);
+  flex-shrink: 0;
+}
+
+.q-ring-bg {
+  fill: none;
+  stroke: #e2e8f0;
+  stroke-width: 3.2;
+}
+
+.q-ring-fill {
+  fill: none;
+  stroke: #10b981;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-dasharray: 62.83;
+  stroke-dashoffset: 62.83;
+  transition: stroke-dashoffset 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Выпадающее окно «Цифровой Паспорт СДО» */
+.q-passport-popover {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 360px;
+  max-width: calc(100vw - 24px);
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 24px;
+  padding: 18px;
+  box-shadow:
+    0 25px 55px -12px rgba(15, 23, 42, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px) scale(0.97);
+  transform-origin: top right;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2000;
+}
+
+.q-passport-popover.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.q-pass-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 12px;
+}
+
+.q-pass-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.q-pass-rank {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 99px;
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.q-pass-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 240px;
+  overflow-y: auto;
+  padding-right: 4px;
+  margin-bottom: 14px;
+}
+
+.q-pass-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  text-decoration: none;
+  color: #1e293b;
+  transition: all 0.18s ease;
+}
+
+.q-pass-item:hover {
+  border-color: #93c5fd;
+  background: #eff6ff;
+  transform: translateX(2px);
+  opacity: 1;
+}
+
+.q-pass-item-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.q-pass-item-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.q-pass-item-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.q-pass-item-status.in-progress {
+  background: #ecfdf5;
+  color: #047857;
+  border-color: #a7f3d0;
+}
+
+.q-pass-footer {
+  display: flex;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.q-pass-action-btn {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+  transition: all 0.2s;
+}
+
+.q-pass-action-btn:hover {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+@media (max-width: 960px) {
+  .q-cmd-kbd { display: none; }
+  .q-cmd-label-desktop { display: none; }
+  .q-app-dropdown {
+    left: 0;
+    width: calc(100vw - 32px);
+    max-width: 340px;
+  }
+}
+
+/* Поддержка тёмной темы для Quantum Command Bar */
+[data-theme="dark"] .site-header.quantum-header,
+[data-theme="dark"] .site-header.quantum-header.is-scrolled .header-inner {
+  background: rgba(15, 23, 42, 0.88);
+  border-color: rgba(148, 163, 184, 0.25);
+}
+[data-theme="dark"] .q-app-btn,
+[data-theme="dark"] .q-cmd-btn,
+[data-theme="dark"] .q-passport-btn {
+  background: #1e293b;
+  border-color: rgba(148, 163, 184, 0.3);
+  color: #f1f5f9;
+}
+[data-theme="dark"] .q-app-dropdown,
+[data-theme="dark"] .q-passport-popover {
+  background: #1e293b;
+  border-color: rgba(148, 163, 184, 0.3);
+  color: #f1f5f9;
+}
+[data-theme="dark"] .q-app-tile,
+[data-theme="dark"] .q-pass-item {
+  background: #0f172a;
+  border-color: rgba(148, 163, 184, 0.2);
+  color: #f1f5f9;
+}
+[data-theme="dark"] .q-app-tile-title,
+[data-theme="dark"] .q-pass-title {
+  color: #f1f5f9;
+}
+
+/* =========================================
+   13. REDUCED MOTION (Доступность)
    Отключение тяжелых анимаций и 3D-вращений при системной настройке уменьшения движения.
    ========================================= */
 @media (prefers-reduced-motion: reduce) {
@@ -574,14 +1154,12 @@ li { margin-bottom: 8px; }
     opacity: 1 !important;
     transform: none !important;
   }
-  /* Отключаем 3D-переворот для тех, у кого укачивание от анимаций */
   .flip-card:hover .flip-inner,
   .flip-card:focus .flip-inner,
   .flip-card:focus-within .flip-inner {
     transform: none !important;
   }
   .flip-front, .flip-back {
-    /* Просто показываем текст без переворота */
     position: relative;
     backface-visibility: visible;
     transform: none !important;
