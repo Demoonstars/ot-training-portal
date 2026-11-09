@@ -110,14 +110,21 @@
       overflow: hidden;
     }
     #stars-container { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; }
+    
+    /* Более живые звезды */
     .star {
       position: absolute; background: #fff; border-radius: 50%;
-      animation: twinkle var(--duration) infinite ease-in-out;
+      animation: twinkle var(--duration) infinite ease-in-out, breathe var(--breathe-duration) infinite alternate;
       opacity: var(--opacity);
+      box-shadow: 0 0 8px rgba(255,255,255,0.8);
     }
     @keyframes twinkle {
-      0%, 100% { opacity: 0.3; transform: scale(0.8); filter: drop-shadow(0 0 2px rgba(255,255,255,0.2)); }
-      50% { opacity: 1; transform: scale(1.2); filter: drop-shadow(0 0 10px rgba(255,255,255,0.8)); }
+      0%, 100% { opacity: 0.2; transform: scale(0.6); }
+      50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 15px #00FFCC; }
+    }
+    @keyframes breathe {
+      0% { transform: scale(0.8); }
+      100% { transform: scale(1.5); }
     }
 
     /* Метеориты (Звездопад) */
@@ -125,29 +132,31 @@
       position: absolute;
       top: -10%;
       right: 50%;
-      width: 120px;
+      width: 150px;
       height: 2px;
       background: linear-gradient(to left, rgba(255,255,255,0), #00FFCC, #fff);
-      animation: shoot 5s linear infinite;
+      animation: shoot 4s linear infinite;
       opacity: 0;
       transform: rotate(-45deg);
       transform-origin: right center;
-      box-shadow: 0 0 10px #00FFCC;
+      box-shadow: 0 0 12px #00FFCC;
     }
     @keyframes shoot {
       0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 0; }
       10% { opacity: 1; }
-      30% { transform: translateX(-100vw) translateY(100vw) rotate(-45deg); opacity: 0; }
+      40% { transform: translateX(-120vw) translateY(120vw) rotate(-45deg); opacity: 0; }
       100% { opacity: 0; }
     }
 
     .solar-system { position: relative; width: 240px; height: 240px; display: flex; justify-content: center; align-items: center; z-index: 10; }
+    
+    /* Увеличенный логотип прелоадера */
     .planet-logo { 
-      width: 160px; 
+      width: 170px; 
       height: auto; 
       z-index: 10; 
       object-fit: contain; 
-      filter: drop-shadow(0 0 35px rgba(0, 255, 204, 0.6)); 
+      filter: drop-shadow(0 0 40px rgba(0, 255, 204, 0.7)); 
       animation: floatPlanet 4s infinite ease-in-out; 
     }
 
@@ -162,12 +171,13 @@
     .orb-3 { width: 240px; height: 240px; animation: orbitSpin 15s linear infinite; border-color: rgba(245, 158, 11, 0.2); }
     .orb-3::before { content: ""; position: absolute; bottom: -4px; width: 5px; height: 5px; background: #F59E0B; border-radius: 50%; box-shadow: 0 0 12px #F59E0B, 5px 0 8px rgba(245, 158, 11, 0.4); }
 
-    .loading-status { margin-top: 50px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; z-index: 10; color: rgba(0, 255, 204, 0.8); letter-spacing: 4px; text-transform: uppercase; text-shadow: 0 0 10px rgba(0,255,204,0.5); }
+    .loading-status { margin-top: 50px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; z-index: 10; color: rgba(0, 255, 204, 0.9); letter-spacing: 5px; text-transform: uppercase; text-shadow: 0 0 15px rgba(0,255,204,0.7); animation: pulseText 2s infinite; }
 
+    @keyframes pulseText { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
     @keyframes orbitSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     @keyframes floatPlanet {
-      0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 25px rgba(0,255,204,0.5)); }
-      50% { transform: translateY(-8px) scale(1.05); filter: drop-shadow(0 0 50px rgba(0,255,204,0.9)); }
+      0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 30px rgba(0,255,204,0.6)); }
+      50% { transform: translateY(-10px) scale(1.05); filter: drop-shadow(0 0 60px rgba(0,255,204,1)); }
     }
 
     /* === 3. ШАПКА === */
@@ -175,68 +185,125 @@
     .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
     .nav { display: flex; justify-content: space-between; align-items: center; }
 
-    .brand { display: flex; align-items: center; gap: 14px; }
+    .brand { display: flex; align-items: center; gap: 16px; }
     
-    /* Обертка для логотипа с эффектом бриллиантового блеска */
+    /* Огромный логотип в шапке */
     .logo-wrap {
       position: relative;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
       overflow: hidden;
-      border-radius: 8px;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+      border-radius: 12px;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.15));
       flex-shrink: 0;
     }
     .logo-wrap img { 
-      height: 80px; 
+      height: 120px; /* Увеличен в 2 раза */
       width: auto; 
+      max-width: 250px;
       display: block;
       object-fit: contain;
+      object-position: left center;
     }
     /* Эффект блеска (пробегающий луч) */
     .logo-wrap::after {
       content: "";
       position: absolute;
       top: 0; left: -150%;
-      width: 50%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+      width: 40%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent);
       transform: skewX(-25deg);
-      animation: logoShine 12s infinite; /* Раз в 12 секунд */
+      animation: logoShine 8s infinite; 
       pointer-events: none;
     }
     @keyframes logoShine {
-      0%, 85% { left: -150%; }
+      0%, 80% { left: -150%; }
       100% { left: 150%; }
     }
 
-    .brand-txt h1 { font-size: 1.2rem; font-weight: 800; line-height: 1.1; margin: 0; color: var(--c-dark); }
-    .brand-meta { display: flex; align-items: center; gap: 10px; margin-top: 4px; font-size: 0.7rem; font-weight: 600; color: #64748B; }
+    .brand-txt h1 { font-size: 1.4rem; font-weight: 900; line-height: 1.1; margin: 0; color: var(--c-dark); letter-spacing: -0.5px; }
+    .brand-meta { display: flex; align-items: center; gap: 10px; margin-top: 6px; font-size: 0.75rem; font-weight: 600; color: #64748B; }
 
-    .hud-inline { display: flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; background: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: 4px; color: #059669; }
+    .hud-inline { display: flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; background: rgba(16, 185, 129, 0.1); padding: 3px 8px; border-radius: 6px; color: #059669; }
     .hud-dot { width: 6px; height: 6px; background: #10B981; border-radius: 50%; box-shadow: 0 0 6px #10B981; animation: blink 1s infinite; }
     @keyframes blink { 50% { opacity: 0.4; } }
 
-    .actions { display: flex; gap: 12px; align-items: center; }
-    .btn-portal { position: relative; display: flex; align-items: center; gap: 12px; padding: 0 20px; height: 44px; border-radius: 12px; background: #1e293b; color: #fff; text-decoration: none; overflow: hidden; box-shadow: 0 10px 20px rgba(15, 23, 42, 0.25); border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s, box-shadow 0.3s; }
-    .btn-portal::after { content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transform: skewX(-20deg); transition: left 0.5s; pointer-events: none; }
+    /* Инновационные кнопки */
+    .actions { display: flex; gap: 16px; align-items: center; }
+    
+    .btn-neon {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 24px;
+      height: 48px;
+      border-radius: 14px;
+      background: #0f172a;
+      color: #fff;
+      text-decoration: none;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(15, 23, 42, 0.3), inset 0 0 0 1px rgba(255,255,255,0.1);
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 1;
+    }
+    
+    .btn-neon::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(45deg, #00d2ff, #7C3AED, #00d2ff);
+      background-size: 200% 200%;
+      z-index: -2;
+      animation: gradientFlow 4s linear infinite;
+      border-radius: 16px;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    
+    .btn-neon::after {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      background: #0f172a;
+      border-radius: 13px;
+      z-index: -1;
+      transition: background 0.4s;
+    }
 
-    .btn-site-wrap { padding: 2px; border-radius: 14px; background: linear-gradient(90deg, #00d2ff, #3a7bd5, #ff0080); background-size: 200% 200%; animation: gradientFlow 3s ease infinite; box-shadow: 0 5px 20px rgba(58, 123, 213, 0.25); transition: transform 0.3s, box-shadow 0.3s; }
-    .btn-site { display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 20px; background: #fff; border-radius: 12px; text-decoration: none; color: var(--c-dark); position: relative; z-index: 2; }
-    @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    .btn-neon:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(0, 210, 255, 0.4);
+    }
+    .btn-neon:hover::before { opacity: 1; }
+    .btn-neon:hover::after { background: #1e293b; }
 
-    .btn-col { display: flex; flex-direction: column; line-height: 1.1; }
-    .btn-t1 { font-size: 0.85rem; font-weight: 700; }
-    .btn-t2 { font-size: 0.65rem; opacity: 0.7; text-transform: uppercase; }
+    .btn-neon .btn-ico { font-size: 1.4rem; transition: transform 0.3s; }
+    .btn-neon:hover .btn-ico { transform: scale(1.2) rotate(5deg); }
+
+    .btn-site-neon {
+      background: #fff;
+      color: #0f172a;
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.15), inset 0 0 0 1px rgba(37, 99, 235, 0.1);
+    }
+    .btn-site-neon::after { background: #fff; }
+    .btn-site-neon:hover { box-shadow: 0 15px 35px rgba(255, 0, 128, 0.3); }
+    .btn-site-neon:hover::after { background: #f8fafc; }
+    
+    .btn-col { display: flex; flex-direction: column; line-height: 1.2; text-align: left; }
+    .btn-t1 { font-size: 0.9rem; font-weight: 800; }
+    .btn-t2 { font-size: 0.65rem; opacity: 0.7; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
 
     @media (max-width: 768px) {
-      .logo-wrap img { height: 64px; }
-      .brand-txt h1 { font-size: 1.1rem; }
-      .btn-portal, .btn-site { padding: 0; width: 44px; justify-content: center; }
+      .logo-wrap img { height: 90px; max-width: 180px; }
+      .brand-txt h1 { font-size: 1.2rem; }
+      .btn-neon { padding: 0; width: 48px; justify-content: center; }
       .btn-col { display: none; }
-      .actions { gap: 8px; }
+      .actions { gap: 10px; }
       .brand-meta span:first-child { display: none; }
     }
 
-    /* === 4. ГЕРОЙ === */
+    /* === 4. ГЕРОЙ И ПОИСК === */
     .hero { text-align: center; padding: 70px 0 40px; position: relative; }
     .greeting-box { font-family: 'Inter', sans-serif; font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 800; color: #1e293b; margin-bottom: 10px; display: inline-flex; align-items: center; line-height: 1.2; }
     .cursor {
@@ -273,10 +340,13 @@
       50%      { background-position: 0% center; }
     }
 
-    .search-wrap { max-width: 600px; margin: 0 auto; position: relative; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 8px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 10px 40px -5px rgba(0,0,0,0.05); transition: background 0.3s, box-shadow 0.3s, border-color 0.3s; display: flex; align-items: center; }
+    .search-form { max-width: 600px; margin: 0 auto; }
+    .search-wrap { position: relative; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 8px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 10px 40px -5px rgba(0,0,0,0.05); transition: background 0.3s, box-shadow 0.3s, border-color 0.3s; display: flex; align-items: center; }
     .search-wrap:focus-within { background: #fff; box-shadow: 0 20px 50px -10px rgba(0, 150, 136, 0.15); border-color: var(--c-green); }
     .search-icon { font-size: 1.5rem; color: #94A3B8; padding: 0 15px; }
-    .search-input { flex-grow: 1; border: none; background: transparent; font-size: 1.1rem; padding: 10px 0; color: var(--c-dark); font-family: 'Inter', sans-serif; }
+    .search-input { flex-grow: 1; border: none; background: transparent; font-size: 1.1rem; padding: 10px 0; color: var(--c-dark); font-family: 'Inter', sans-serif; outline: none; }
+    .search-submit { background: var(--c-green); border: none; color: #fff; width: 44px; height: 44px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: background 0.2s, transform 0.2s; }
+    .search-submit:hover { background: #00796b; transform: scale(1.05); }
 
     .chips-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 25px; }
     .chip { padding: 8px 16px; border-radius: 50px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8); color: var(--c-text); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.02); user-select: none; }
@@ -295,6 +365,7 @@
       transition: transform 0.3s ease-out, box-shadow 0.3s ease, opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .folder.reveal { opacity: 1; transform: translateY(0); }
+    .folder.highlight { box-shadow: 0 0 0 3px var(--c-green); }
 
     .f-head { padding: 24px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s; }
     .f-main { display: flex; align-items: center; gap: 20px; }
@@ -397,7 +468,20 @@
       color: #7C3AED;
     }
 
-    .max-fab.is-expanded,
+    .max-fab.is-expanded {
+      width: 230px;
+      border-radius: 30px;
+      justify-content: flex-start;
+      padding-left: 12px;
+      box-shadow: 0 12px 32px rgba(124,58,237,0.35), 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .max-fab.is-expanded .max-fab__text {
+      max-width: 170px;
+      opacity: 1;
+      margin-left: 10px;
+    }
+
     @media (hover: hover) {
       .max-fab:hover {
         width: 230px;
@@ -406,10 +490,6 @@
         padding-left: 12px;
         box-shadow: 0 12px 32px rgba(124,58,237,0.35), 0 4px 12px rgba(0,0,0,0.1);
       }
-    }
-
-    .max-fab.is-expanded .max-fab__text,
-    @media (hover: hover) {
       .max-fab:hover .max-fab__text {
         max-width: 170px;
         opacity: 1;
@@ -499,9 +579,7 @@
 
     /* Hover-эффекты только для мыши */
     @media (hover: hover) {
-      .btn-portal:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(15, 23, 42, 0.4); }
-      .btn-portal:hover::after { left: 150%; }
-      .btn-site-wrap:hover { box-shadow: 0 10px 30px rgba(255, 0, 128, 0.35); transform: scale(1.02); }
+      .btn-neon:hover { transform: translateY(-3px) scale(1.02); }
       .chip:hover { background: #fff; color: var(--c-green); box-shadow: 0 5px 15px rgba(0, 150, 136, 0.15); border-color: var(--c-green); }
       .folder:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); border-color: #fff; }
       .f-head:hover { background: rgba(255,255,255,0.4); }
@@ -519,8 +597,7 @@
       .file:active { background: #fff; border-left-color: var(--c-green); }
       .chip:active { background: #fff; color: var(--c-green); border-color: var(--c-green); }
       .folder:active { box-shadow: 0 15px 30px -10px rgba(0,0,0,0.1); }
-      .btn-portal:active { transform: scale(0.98); }
-      .btn-site-wrap:active { transform: scale(0.98); }
+      .btn-neon:active { transform: scale(0.98); }
       .tool-btn:active { background: rgba(255,255,255,0.35); }
       .f-head:active, .sub-head:active { background: rgba(0,0,0,0.03); }
     }
@@ -551,6 +628,7 @@
       .max-fab { transition: none; }
       .logo-wrap::after { display: none; }
       .shooting-star { display: none; }
+      .star { animation: none; opacity: 0.8; box-shadow: none; }
     }
   </style>
 </head>
@@ -574,7 +652,6 @@
   <header class="header">
     <div class="container nav">
       <div class="brand">
-        <!-- Обертка для эффекта бриллиантового блеска -->
         <div class="logo-wrap">
           <img src="assets/Logo_Sofrino.png" alt="Логотип Софрино Парк">
         </div>
@@ -589,10 +666,16 @@
         </div>
       </div>
       <div class="actions">
-        <a href="index.html" class="btn-portal" title="Перейти в Учебный Портал СДО"><span class="btn-ico" aria-hidden="true">🎓</span><div class="btn-col"><span class="btn-t1">Учебный Портал</span><span class="btn-t2">СДО</span></div></a>
-        <div class="btn-site-wrap">
-          <a href="https://sofrino-park.com/" target="_blank" rel="noopener noreferrer" class="btn-site" title="Официальный сайт Софрино Парк"><span class="btn-ico" aria-hidden="true">🌐</span><div class="btn-col"><span class="btn-t1">Софрино Парк</span><span class="btn-t2">Официальный Веб-сайт</span></div></a>
-        </div>
+        <!-- Инновационная кнопка СДО -->
+        <a href="index.html" class="btn-neon" title="Перейти в Учебный Портал СДО">
+          <span class="btn-ico" aria-hidden="true">🎓</span>
+          <div class="btn-col"><span class="btn-t1">Учебный Портал</span><span class="btn-t2">СДО</span></div>
+        </a>
+        <!-- Инновационная кнопка Сайта -->
+        <a href="https://sofrino-park.com/" target="_blank" rel="noopener noreferrer" class="btn-neon btn-site-neon" title="Официальный сайт Софрино Парк">
+          <span class="btn-ico" aria-hidden="true">🌐</span>
+          <div class="btn-col"><span class="btn-t1">Софрино Парк</span><span class="btn-t2">Официальный Сайт</span></div>
+        </a>
       </div>
     </div>
   </header>
@@ -602,10 +685,16 @@
       <div class="greeting-box"><span id="typewriter" aria-live="polite" aria-atomic="true"></span><span class="cursor" aria-hidden="true"></span></div>
       <h2>Документационный центр</h2>
       <p>Все документы по охране труда в одном месте: приказы, положения, СОУТ. Быстрый поиск и просмотр онлайн.</p>
-      <div class="search-wrap">
-        <div class="search-icon" aria-hidden="true">🔍</div>
-        <input type="text" id="searchInput" class="search-input" placeholder="Поиск (например: СИЗ, Приказ, СОУТ)..." aria-label="Поиск по документам">
-      </div>
+      
+      <!-- Поиск обернут в форму для поддержки Enter -->
+      <form class="search-form" onsubmit="event.preventDefault(); triggerSearch();">
+        <div class="search-wrap">
+          <div class="search-icon" aria-hidden="true">🔍</div>
+          <input type="text" id="searchInput" class="search-input" placeholder="Поиск (например: СИЗ, Приказ, СОУТ)..." aria-label="Поиск по документам">
+          <button type="submit" class="search-submit" aria-label="Найти">→</button>
+        </div>
+      </form>
+
       <div class="search-empty" id="searchEmpty">По вашему запросу ничего не найдено. Попробуйте изменить формулировку или выберите категорию.</div>
       <div class="chips-row" role="group" aria-label="Фильтр документов">
         <div class="chip active" role="button" tabindex="0" aria-pressed="true" onclick="filterDocs('all', this)">Все</div>
@@ -901,44 +990,50 @@
         preloader.style.visibility = 'hidden';
       }
       startTypewriter();
+      
+      // Запуск логики кнопки MAX после прелоадера
+      setTimeout(initMaxFab, 1000);
     }
 
     window.addEventListener('load', function() {
       const sc = document.getElementById('stars-container');
       if (sc && sc.children.length === 0) {
-        const starCount = window.innerWidth < 768 ? 50 : 120;
+        const starCount = window.innerWidth < 768 ? 60 : 150;
         for(let i=0; i<starCount; i++) {
           const star = document.createElement('div');
           star.className = 'star';
           star.style.left = Math.random() * 100 + '%';
           star.style.top = Math.random() * 100 + '%';
-          const size = Math.random() * 2 + 'px';
+          const size = Math.random() * 2.5 + 1 + 'px';
           star.style.width = size; star.style.height = size;
           star.style.setProperty('--duration', (Math.random() * 3 + 1) + 's');
-          star.style.setProperty('--opacity', (Math.random() * 0.5 + 0.3));
+          star.style.setProperty('--breathe-duration', (Math.random() * 4 + 2) + 's');
+          star.style.setProperty('--opacity', (Math.random() * 0.6 + 0.2));
           star.style.animationDelay = Math.random() * 5 + 's';
           sc.appendChild(star);
         }
 
-        // Добавляем 4 метеорита в прелоадер
-        for (let i = 0; i < 4; i++) {
+        // Добавляем метеориты в прелоадер
+        for (let i = 0; i < 6; i++) {
           const meteor = document.createElement('div');
           meteor.className = 'shooting-star';
-          meteor.style.top = (Math.random() * 40) + '%';
-          meteor.style.right = (Math.random() * 60) + '%';
+          meteor.style.top = (Math.random() * 50) + '%';
+          meteor.style.right = (Math.random() * 70) + '%';
           meteor.style.animationDelay = (Math.random() * 4) + 's';
           meteor.style.animationDuration = (Math.random() * 2 + 3) + 's';
           sc.appendChild(meteor);
         }
       }
-      setTimeout(finishPreloader, prefersReducedMotion ? 300 : 2500);
+      // Увеличенное время прелоадера (4 секунды)
+      setTimeout(finishPreloader, prefersReducedMotion ? 300 : 4000);
     });
 
-    setTimeout(finishPreloader, 3500);
+    // Страховка на случай долгой загрузки
+    setTimeout(finishPreloader, 5000);
 
     setTimeout(() => {
       document.querySelectorAll('.folder:not(.reveal)').forEach(f => f.classList.add('reveal'));
-    }, 5000);
+    }, 5500);
 
     const updateSystemClock = () => {
       const el = document.getElementById('systemTime');
@@ -995,12 +1090,18 @@
       head.setAttribute('aria-expanded', isOpen);
     }
 
+    // === ЛОГИКА ПОИСКА ===
     const searchInput = document.getElementById('searchInput');
     const searchEmpty = document.getElementById('searchEmpty');
-    const debouncedSearch = debounce(function() {
-      const query = this.value.toLowerCase().trim();
+
+    function performSearch() {
+      const query = searchInput.value.toLowerCase().trim();
       const files = document.querySelectorAll('.file');
       let visibleCount = 0;
+      let firstMatch = null;
+
+      // Сброс подсветки
+      document.querySelectorAll('.folder').forEach(f => f.classList.remove('highlight'));
 
       files.forEach(file => {
         const fileName = file.querySelector('.file-name').textContent.toLowerCase();
@@ -1012,6 +1113,8 @@
         } else if (fileName.includes(query) || fileMeta.includes(query)) {
           file.style.display = "flex";
           visibleCount++;
+          if (!firstMatch) firstMatch = file;
+          
           let parentFolder = file.closest('.folder');
           let parentSub = file.closest('.sub-item');
           if (parentFolder) {
@@ -1043,8 +1146,24 @@
       } else {
         searchEmpty.classList.remove('visible');
       }
-    }, 200);
-    searchInput.addEventListener('input', debouncedSearch);
+
+      // Если нашли совпадение, скроллим к нему
+      if (query !== "" && firstMatch) {
+        setTimeout(() => {
+          firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          const folder = firstMatch.closest('.folder');
+          if (folder) folder.classList.add('highlight');
+        }, 300);
+      }
+    }
+
+    // Обработка ввода (с задержкой)
+    searchInput.addEventListener('input', debounce(performSearch, 200));
+    
+    // Обработка нажатия Enter (мгновенно)
+    window.triggerSearch = function() {
+      performSearch();
+    };
 
     function filterDocs(type, btn) {
       document.querySelectorAll('.chip').forEach(c => {
@@ -1093,14 +1212,26 @@
       });
     }
 
-    // === ЛОГИКА MAX FAB (Мобильные устройства) ===
+    // === ЛОГИКА MAX FAB ===
     const maxFab = document.getElementById('maxFab');
     let maxFabUserClosed = false;
-    let maxFabInitialShowEndTime = Date.now() + 120000; // 2 минуты
+    let maxFabInitialShowEndTime = 0;
 
-    if (window.innerWidth <= 768) {
-        // Показываем при загрузке
-        maxFab.classList.add('is-expanded');
+    function initMaxFab() {
+        if (window.innerWidth > 768) return;
+        
+        // Показываем на 30 секунд при загрузке
+        if (!maxFabUserClosed) {
+            maxFab.classList.add('is-expanded');
+            maxFabInitialShowEndTime = Date.now() + 30000; // 30 секунд
+            
+            setTimeout(() => {
+                if (!maxFabUserClosed && Date.now() >= maxFabInitialShowEndTime) {
+                    const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50;
+                    if (!isAtBottom) maxFab.classList.remove('is-expanded');
+                }
+            }, 30000);
+        }
 
         // Закрываем по клику навсегда
         maxFab.addEventListener('click', () => {
@@ -1108,31 +1239,20 @@
             maxFab.classList.remove('is-expanded');
         });
 
-        // Отслеживаем скролл до низа
+        // Отслеживаем скролл
         window.addEventListener('scroll', () => {
             if (maxFabUserClosed) return;
-
             const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50;
             
             if (isAtBottom) {
                 maxFab.classList.add('is-expanded');
             } else {
-                // Если 2 минуты уже прошли и мы не внизу - прячем
+                // Если 30 секунд уже прошли и мы не внизу - прячем
                 if (Date.now() > maxFabInitialShowEndTime) {
                     maxFab.classList.remove('is-expanded');
                 }
             }
         }, { passive: true });
-
-        // Таймер на закрытие через 2 минуты, если не внизу
-        setTimeout(() => {
-            if (!maxFabUserClosed) {
-                const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50;
-                if (!isAtBottom) {
-                    maxFab.classList.remove('is-expanded');
-                }
-            }
-        }, 120000);
     }
 
     // === PDF VIEWER LOGIC ===
