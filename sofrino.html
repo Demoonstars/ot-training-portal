@@ -26,7 +26,6 @@
     SRI-хеш для pdf.min.js рекомендуется добавить перед публикацией.
     Взять актуальный sha384 на https://cdnjs.com/libraries/pdf.js/3.11.174
     Формат: integrity="sha384-..." crossorigin="anonymous"
-    Ниже — без integrity, чтобы не сломать загрузку при неверном хеше.
   -->
   <script defer
           src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"
@@ -71,17 +70,30 @@
 
     body {
       margin: 0; padding: 0; font-family: 'Inter', sans-serif;
-      color: var(--c-dark); background: #F1F5F9; overflow-x: hidden;
+      color: var(--c-dark); background: #F1F5F9;
+      /* FIX (2.10): clip не ломает position: sticky на iOS Safari */
+      overflow-x: hidden;
       cursor: auto;
       padding-left: env(safe-area-inset-left);
       padding-right: env(safe-area-inset-right);
       padding-bottom: env(safe-area-inset-bottom);
     }
+    @supports (overflow-x: clip) {
+      body { overflow-x: clip; }
+    }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     :focus-visible { outline: 2px solid var(--c-green); outline-offset: 2px; }
     :focus:not(:focus-visible) { outline: none; }
 
-    /* No-JS fallback: показываем папки и скрываем прелоадер */
+    /* FIX (2.2): убираем 300ms задержку и double-tap zoom на интерактивных */
+    .file, .chip, .f-head, .sub-head,
+    .btn-portal, .btn-site, .tg-float,
+    .tool-btn, .tool-btn-icon, .btn-pdf-action,
+    #page_num_input, .pdf-file-info, .gesture-hint {
+      touch-action: manipulation;
+    }
+
+    /* No-JS fallback */
     .no-js #preloader { display: none !important; }
     .no-js .folder { opacity: 1 !important; transform: none !important; }
 
@@ -97,37 +109,35 @@
     .o2 { bottom: -10%; right: -10%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent 70%); }
 
     /* === 2. ПРЕЛОАДЕР === */
-    #preloader { 
-      position: fixed; inset: 0; z-index: 99999; 
-      background: #000000; 
-      display: flex; flex-direction: column; justify-content: center; align-items: center; 
-      transition: opacity 1s ease, visibility 1s; 
+    #preloader {
+      position: fixed; inset: 0; z-index: 99999;
+      background: #000000;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      transition: opacity 1s ease, visibility 1s;
       overflow: hidden;
     }
-    
     #stars-container { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-    
     .star {
       position: absolute; background: #fff; border-radius: 50%;
       animation: twinkle var(--duration) infinite ease-in-out;
       opacity: var(--opacity);
     }
-    @keyframes twinkle { 
-      0%, 100% { opacity: 0.3; transform: scale(0.8); filter: drop-shadow(0 0 2px rgba(255,255,255,0.2)); } 
-      50% { opacity: 1; transform: scale(1.2); filter: drop-shadow(0 0 10px rgba(255,255,255,0.8)); } 
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(0.8); filter: drop-shadow(0 0 2px rgba(255,255,255,0.2)); }
+      50% { opacity: 1; transform: scale(1.2); filter: drop-shadow(0 0 10px rgba(255,255,255,0.8)); }
     }
 
     .solar-system { position: relative; width: 220px; height: 220px; display: flex; justify-content: center; align-items: center; z-index: 10; }
     .planet-logo { width: 100px; height: auto; z-index: 10; object-fit: contain; filter: drop-shadow(0 0 25px rgba(0, 255, 204, 0.5)); animation: pulsePlanet 3s infinite ease-in-out; }
-    
+
     .orbit { position: absolute; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.08); display: flex; justify-content: center; align-items: center; pointer-events: none; box-shadow: inset 0 0 10px rgba(255,255,255,0.02); }
 
     .orb-1 { width: 140px; height: 140px; animation: orbitSpin 5s linear infinite; border-color: rgba(0, 150, 136, 0.3); }
     .orb-1::before { content: ""; position: absolute; top: -3px; width: 6px; height: 6px; background: #00FFCC; border-radius: 50%; box-shadow: 0 0 15px #00FFCC, -5px 0 10px rgba(0, 255, 204, 0.4); }
-    
+
     .orb-2 { width: 180px; height: 180px; animation: orbitSpin 8s linear infinite reverse; border-color: rgba(37, 99, 235, 0.3); }
     .orb-2::before { content: ""; position: absolute; top: 15px; right: 15px; width: 8px; height: 8px; background: #2563EB; border-radius: 50%; box-shadow: 0 0 18px #2563EB, 6px -6px 12px rgba(37, 99, 235, 0.4); }
-    
+
     .orb-3 { width: 240px; height: 240px; animation: orbitSpin 15s linear infinite; border-color: rgba(245, 158, 11, 0.2); }
     .orb-3::before { content: ""; position: absolute; bottom: -4px; width: 5px; height: 5px; background: #F59E0B; border-radius: 50%; box-shadow: 0 0 12px #F59E0B, 5px 0 8px rgba(245, 158, 11, 0.4); }
 
@@ -140,51 +150,47 @@
     .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.75); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-bottom: 1px solid rgba(255,255,255,0.5); padding: 12px 0; box-shadow: 0 4px 30px rgba(0,0,0,0.03); }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
     .nav { display: flex; justify-content: space-between; align-items: center; }
-    
+
     .brand { display: flex; align-items: center; gap: 14px; }
     .brand img { height: 48px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
     .brand-txt h1 { font-size: 1.1rem; font-weight: 800; line-height: 1.1; margin: 0; color: var(--c-dark); }
     .brand-meta { display: flex; align-items: center; gap: 10px; margin-top: 4px; font-size: 0.7rem; font-weight: 600; color: #64748B; }
-    
+
     .hud-inline { display: flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; background: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: 4px; color: #059669; }
     .hud-dot { width: 6px; height: 6px; background: #10B981; border-radius: 50%; box-shadow: 0 0 6px #10B981; animation: blink 1s infinite; }
     @keyframes blink { 50% { opacity: 0.4; } }
 
     .actions { display: flex; gap: 12px; align-items: center; }
-    .btn-portal { position: relative; display: flex; align-items: center; gap: 12px; padding: 0 20px; height: 44px; border-radius: 12px; background: #1e293b; color: #fff; text-decoration: none; overflow: hidden; box-shadow: 0 10px 20px rgba(15, 23, 42, 0.25); border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
-    .btn-portal:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(15, 23, 42, 0.4); }
-    .btn-portal::after { content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transform: skewX(-20deg); transition: 0.5s; }
-    .btn-portal:hover::after { left: 150%; }
+    .btn-portal { position: relative; display: flex; align-items: center; gap: 12px; padding: 0 20px; height: 44px; border-radius: 12px; background: #1e293b; color: #fff; text-decoration: none; overflow: hidden; box-shadow: 0 10px 20px rgba(15, 23, 42, 0.25); border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s, box-shadow 0.3s; }
+    .btn-portal::after { content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transform: skewX(-20deg); transition: left 0.5s; pointer-events: none; }
 
-    .btn-site-wrap { padding: 2px; border-radius: 14px; background: linear-gradient(90deg, #00d2ff, #3a7bd5, #ff0080); background-size: 200% 200%; animation: gradientFlow 3s ease infinite; box-shadow: 0 5px 20px rgba(58, 123, 213, 0.25); transition: 0.3s; }
-    .btn-site-wrap:hover { box-shadow: 0 10px 30px rgba(255, 0, 128, 0.35); transform: scale(1.02); }
+    .btn-site-wrap { padding: 2px; border-radius: 14px; background: linear-gradient(90deg, #00d2ff, #3a7bd5, #ff0080); background-size: 200% 200%; animation: gradientFlow 3s ease infinite; box-shadow: 0 5px 20px rgba(58, 123, 213, 0.25); transition: transform 0.3s, box-shadow 0.3s; }
     .btn-site { display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 20px; background: #fff; border-radius: 12px; text-decoration: none; color: var(--c-dark); position: relative; z-index: 2; }
     @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
     .btn-col { display: flex; flex-direction: column; line-height: 1.1; }
     .btn-t1 { font-size: 0.85rem; font-weight: 700; }
     .btn-t2 { font-size: 0.65rem; opacity: 0.7; text-transform: uppercase; }
-    
+
     @media (max-width: 768px) {
       .brand img { height: 40px; }
       .brand-txt h1 { font-size: 1rem; }
       .btn-portal, .btn-site { padding: 0; width: 44px; justify-content: center; }
       .btn-col { display: none; }
       .actions { gap: 8px; }
-      .brand-meta span:first-child { display: none; } 
+      .brand-meta span:first-child { display: none; }
     }
 
     /* === 4. ГЕРОЙ === */
     .hero { text-align: center; padding: 70px 0 40px; position: relative; }
     .greeting-box { font-family: 'Inter', sans-serif; font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 800; color: #1e293b; margin-bottom: 10px; display: inline-flex; align-items: center; line-height: 1.2; }
-    .cursor { 
-      display: inline-block; 
-      width: 4px; 
+    .cursor {
+      display: inline-block;
+      width: 4px;
       height: 1.1em;
       background: rgba(0, 0, 0, 0.4);
-      margin-left: 5px; 
-      box-shadow: none;
-      animation: blinkCursor 1s infinite; 
+      margin-left: 5px;
+      animation: blinkCursor 1s infinite;
       vertical-align: middle;
     }
     @keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
@@ -192,38 +198,38 @@
     .hero h2 { font-size: clamp(2rem, 6vw, 3.8rem); font-weight: 900; margin-bottom: 20px; letter-spacing: -1.5px; background: linear-gradient(to right, #1e293b 20%, #009688 30%, #2563eb 70%, #1e293b 80%); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shineText 6s linear infinite; padding: 0 10px; line-height: 1.1; }
     @keyframes shineText { to { background-position: 200% center; } }
 
-    .search-wrap { max-width: 600px; margin: 0 auto; position: relative; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 8px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 10px 40px -5px rgba(0,0,0,0.05); transition: 0.3s; display: flex; align-items: center; }
-    .search-wrap:focus-within { background: #fff; box-shadow: 0 20px 50px -10px rgba(0, 150, 136, 0.15); border-color: var(--c-green); transform: translateY(-2px); }
+    .search-wrap { max-width: 600px; margin: 0 auto; position: relative; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 8px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 10px 40px -5px rgba(0,0,0,0.05); transition: background 0.3s, box-shadow 0.3s, border-color 0.3s; display: flex; align-items: center; }
+    .search-wrap:focus-within { background: #fff; box-shadow: 0 20px 50px -10px rgba(0, 150, 136, 0.15); border-color: var(--c-green); }
     .search-icon { font-size: 1.5rem; color: #94A3B8; padding: 0 15px; }
     .search-input { flex-grow: 1; border: none; background: transparent; font-size: 1.1rem; padding: 10px 0; color: var(--c-dark); font-family: 'Inter', sans-serif; }
 
     .chips-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 25px; }
-    .chip { padding: 8px 16px; border-radius: 50px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8); color: var(--c-text); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.02); user-select: none; }
-    .chip:hover, .chip.active { background: #fff; color: var(--c-green); box-shadow: 0 5px 15px rgba(0, 150, 136, 0.15); transform: translateY(-2px); border-color: var(--c-green); }
+    .chip { padding: 8px 16px; border-radius: 50px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8); color: var(--c-text); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.02); user-select: none; }
+    .chip.active { background: #fff; color: var(--c-green); box-shadow: 0 5px 15px rgba(0, 150, 136, 0.15); border-color: var(--c-green); }
 
     .search-empty { display: none; text-align: center; color: #94A3B8; font-size: 0.95rem; padding: 20px; }
     .search-empty.visible { display: block; }
 
     /* === 5. ПАПКИ === */
     .stack { display: flex; flex-direction: column; gap: 24px; padding-bottom: 120px; perspective: 1000px; }
-    .folder { 
-      background: var(--glass); border: var(--border); border-radius: var(--radius); 
+    .folder {
+      background: var(--glass); border: var(--border); border-radius: var(--radius);
       box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); overflow: hidden; position: relative;
-      opacity: 0; transform: translateY(30px); 
-      transition: transform 0.3s ease-out, box-shadow 0.3s ease, opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1); 
+      opacity: 0; transform: translateY(30px);
+      /* FIX (2.6): will-change возвращён для оптимизации transition на мобильных */
+      will-change: transform, opacity;
+      transition: transform 0.3s ease-out, box-shadow 0.3s ease, opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .folder.reveal { opacity: 1; transform: translateY(0); }
-    .folder:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); border-color: #fff; }
-    
-    .f-head { padding: 24px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
-    .f-head:hover { background: rgba(255,255,255,0.4); }
+
+    .f-head { padding: 24px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s; }
     .f-main { display: flex; align-items: center; gap: 20px; }
-    
+
     .f-icon { width: 60px; height: 60px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6), 0 10px 20px rgba(0,0,0,0.05); transition: all 0.3s ease; }
-    
+
     @keyframes iconPulse { 0% { box-shadow: 0 0 0 0 var(--pulse-color, rgba(0, 150, 136, 0.4)); } 70% { box-shadow: 0 0 0 15px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
     @keyframes iconShake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(3deg); } 75% { transform: rotate(-3deg); } }
-    
+
     .folder.active.green .f-icon { animation: iconPulse 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(0, 150, 136, 0.5); --pulse-color: rgba(0, 150, 136, 0.4); }
     .folder.active.orange .f-icon { animation: iconPulse 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(245, 158, 11, 0.5); --pulse-color: rgba(245, 158, 11, 0.4); }
     .folder.active.blue .f-icon { animation: iconPulse 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(37, 99, 235, 0.5); --pulse-color: rgba(37, 99, 235, 0.4); }
@@ -231,7 +237,7 @@
 
     .f-txt h3 { margin: 0; font-size: 1.3rem; font-weight: 800; color: var(--c-dark); }
     .f-txt p { margin: 4px 0 0; font-size: 0.9rem; color: #64748B; }
-    .chevron { font-size: 1.2rem; color: #94A3B8; transition: 0.4s; }
+    .chevron { font-size: 1.2rem; color: #94A3B8; transition: transform 0.4s, color 0.4s; }
     .folder.active .chevron { transform: rotate(180deg); color: var(--c-dark); }
 
     .green .f-icon { background: linear-gradient(135deg, #E0F2F1, #99F6E4); color: #0F766E; }
@@ -243,16 +249,13 @@
     .folder.active .f-body { max-height: 10000px; border-top: 1px solid rgba(255,255,255,0.5); }
 
     .sub-item { margin: 20px 30px; background: #fff; border-radius: 18px; border: 1px solid #E2E8F0; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
-    .sub-head { padding: 18px 24px; font-weight: 700; color: #475569; display: flex; justify-content: space-between; cursor: pointer; transition: 0.2s; }
-    .sub-head:hover { background: #F8FAFC; color: var(--c-dark); }
-    .sub-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: #F8FAFC; opacity: 0; }
+    .sub-head { padding: 18px 24px; font-weight: 700; color: #475569; display: flex; justify-content: space-between; cursor: pointer; transition: background 0.2s, color 0.2s; }
+    .sub-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; background: #F8FAFC; opacity: 0; }
     .sub-item.open .sub-body { max-height: 6000px; padding: 15px 0; border-top: 1px solid #E2E8F0; opacity: 1; }
     .sub-item.open .sub-head { background: #F0FDF4; color: var(--c-green); }
 
-    .file { display: flex; align-items: center; gap: 16px; padding: 14px 24px; cursor: pointer; transition: 0.2s; border-left: 3px solid transparent; position: relative; overflow: hidden; }
-    .file:hover { background: #fff; border-left-color: var(--c-green); transform: translateX(5px); }
-    .file::after { content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent); transition: 0.5s; pointer-events: none; }
-    .file:hover::after { left: 100%; }
+    .file { display: flex; align-items: center; gap: 16px; padding: 14px 24px; cursor: pointer; transition: background 0.2s, border-left-color 0.2s; border-left: 3px solid transparent; position: relative; overflow: hidden; }
+    .file::after { content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent); transition: left 0.5s; pointer-events: none; opacity: 0; }
 
     .file-ico { font-size: 1.4rem; min-width: 30px; text-align: center; }
     .file-data { display: flex; flex-direction: column; gap: 4px; }
@@ -263,43 +266,38 @@
     .badge.imp { background: #FEF3C7; color: #B45309; }
 
     .empty-block { padding: 40px; text-align: center; color: #94A3B8; font-size: 0.9rem; }
-    .empty-icon { font-size: 2rem; margin-bottom: 10px; display: block; animation: pulse 2s infinite; opacity: 0.5; }
+    .empty-icon { font-size: 2rem; margin-bottom: 10px; display: block; opacity: 0.5; }
 
     /* === 6. TELEGRAM === */
-    .tg-float { 
-      position: fixed; 
-      bottom: calc(30px + env(safe-area-inset-bottom)); 
-      left: 50%; 
-      transform: translateX(-50%); 
-      background: rgba(255,255,255,0.95); 
-      backdrop-filter: blur(15px); 
+    .tg-float {
+      position: fixed;
+      bottom: calc(30px + env(safe-area-inset-bottom));
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(15px);
       -webkit-backdrop-filter: blur(15px);
-      padding: 10px 24px 10px 14px; 
-      border-radius: 50px; 
-      display: flex; 
-      align-items: center; 
-      gap: 14px; 
-      box-shadow: 0 20px 60px rgba(0,0,0,0.25); 
-      border: 1px solid #fff; 
+      padding: 10px 24px 10px 14px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      border: 1px solid #fff;
       z-index: 1000;
-      text-decoration: none; 
-      transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+      text-decoration: none;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
     }
 
-    .tg-float:hover { 
-      transform: translateX(-50%) scale(1.05) translateY(-5px); 
-      box-shadow: 0 25px 70px rgba(37, 99, 235, 0.4); 
-    }
-
-    .tg-logo { 
-      width: 42px; 
-      height: 42px; 
-      background: #229ED9; 
-      border-radius: 50%; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      box-shadow: 0 5px 15px rgba(34, 158, 217, 0.3); 
+    .tg-logo {
+      width: 42px;
+      height: 42px;
+      background: #229ED9;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 15px rgba(34, 158, 217, 0.3);
     }
 
     .tg-txt h4 { margin: 0; font-size: 0.95rem; color: #020617; font-weight: 800; }
@@ -323,10 +321,8 @@
     .pdf-file-info h3 { margin: 0; font-size: 1rem; color: #0f172a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 250px; }
     .pdf-file-info p { margin: 0; font-size: 0.8rem; color: #64748b; }
     .pdf-top-actions { display: flex; gap: 10px; align-items: center; }
-    .btn-pdf-action { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 0 14px; height: 40px; border-radius: 10px; background: #fff; border: 1px solid #cbd5e1; color: #334155; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
-    .btn-pdf-action:hover { border-color: #009688; color: #009688; }
+    .btn-pdf-action { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 0 14px; height: 40px; border-radius: 10px; background: #fff; border: 1px solid #cbd5e1; color: #334155; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: border-color 0.2s, color 0.2s, background 0.2s; }
     .btn-pdf-close { background: #fee2e2; border-color: #fca5a5; color: #b91c1c; }
-    .btn-pdf-close:hover { background: #fecaca; border-color: #f87171; color: #991b1b; }
 
     .pdf-read-progress { height: 3px; width: 0%; background: #009688; transition: width 0.2s; position: absolute; bottom: 0; left: 0; z-index: 15; }
     .pdf-canvas-wrapper { flex-grow: 1; overflow: auto; display: flex; justify-content: flex-start; align-items: flex-start; padding: 20px; padding-bottom: calc(100px + env(safe-area-inset-bottom)); background: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px; touch-action: pan-x pan-y; -webkit-overflow-scrolling: touch; position: relative; cursor: grab; }
@@ -334,10 +330,8 @@
     #the-canvas { box-shadow: 0 4px 15px rgba(0,0,0,0.15); background: #fff; margin: auto; display: block; transition: box-shadow 0.3s; will-change: width, height; contain: layout paint style; }
 
     .pdf-toolbar { position: absolute; bottom: calc(30px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 10px 16px; border-radius: 50px; display: flex; align-items: center; gap: 15px; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 50; white-space: nowrap; max-width: 95%; }
-    .tool-btn { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
-    .tool-btn:hover { background: rgba(255,255,255,0.25); }
-    .tool-btn-icon { width: 34px; height: 34px; border-radius: 50%; background: transparent; border: none; color: #cbd5e1; cursor: pointer; font-size: 1.4rem; transition: 0.2s; }
-    .tool-btn-icon:hover { color: #fff; }
+    .tool-btn { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .tool-btn-icon { width: 34px; height: 34px; border-radius: 50%; background: transparent; border: none; color: #cbd5e1; cursor: pointer; font-size: 1.4rem; transition: color 0.2s; }
     .divider-v { width: 1px; height: 20px; background: rgba(255,255,255,0.2); }
     .page-input-group { display: flex; align-items: center; gap: 6px; font-family: monospace; font-size: 1rem; }
     #page_num_input { width: 45px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; text-align: center; border-radius: 6px; padding: 4px; -moz-appearance: textfield; font-size: 1rem; }
@@ -359,6 +353,69 @@
         .pdf-file-info h3 { max-width: 150px; }
         .sub-item { margin: 15px; }
         .f-head { padding: 18px 20px; }
+    }
+
+    /* =========================================================
+       FIX (2.1): hover-эффекты ТОЛЬКО для устройств с мышью.
+       На тач-устройствах hover залипает после тапа — это и есть
+       «поломанная анимация».
+       ========================================================= */
+    @media (hover: hover) {
+      .btn-portal:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(15, 23, 42, 0.4); }
+      .btn-portal:hover::after { left: 150%; }
+      .btn-site-wrap:hover { box-shadow: 0 10px 30px rgba(255, 0, 128, 0.35); transform: scale(1.02); }
+      .chip:hover { background: #fff; color: var(--c-green); box-shadow: 0 5px 15px rgba(0, 150, 136, 0.15); border-color: var(--c-green); }
+      .folder:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); border-color: #fff; }
+      .f-head:hover { background: rgba(255,255,255,0.4); }
+      .sub-head:hover { background: #F8FAFC; color: var(--c-dark); }
+      .file:hover { background: #fff; border-left-color: var(--c-green); }
+      .file:hover::after { left: 100%; opacity: 1; }
+      .tg-float:hover { transform: translateX(-50%) scale(1.05) translateY(-5px); box-shadow: 0 25px 70px rgba(37, 99, 235, 0.4); }
+      .tool-btn:hover { background: rgba(255,255,255,0.25); }
+      .tool-btn-icon:hover { color: #fff; }
+      .btn-pdf-action:hover { border-color: #009688; color: #009688; }
+      .btn-pdf-close:hover { background: #fecaca; border-color: #f87171; color: #991b1b; }
+    }
+
+    /* FIX (2.1): на тач — короткие :active вместо hover */
+    @media (hover: none) {
+      .file:active { background: #fff; border-left-color: var(--c-green); }
+      .chip:active { background: #fff; color: var(--c-green); border-color: var(--c-green); }
+      .folder:active { box-shadow: 0 15px 30px -10px rgba(0,0,0,0.1); }
+      .btn-portal:active { transform: scale(0.98); }
+      .btn-site-wrap:active { transform: scale(0.98); }
+      .tg-float:active { transform: translateX(-50%) scale(0.98); }
+      .tool-btn:active { background: rgba(255,255,255,0.35); }
+      .f-head:active, .sub-head:active { background: rgba(0,0,0,0.03); }
+    }
+
+    /* =========================================================
+       FIX (2.3, 2.5, 2.8, 2.9, 2.11, 2.12): оптимизация под мобильные.
+       ========================================================= */
+    @media (max-width: 768px) {
+      /* Тяжёлые blur-орбы: уменьшаем радиус и прозрачность */
+      .orb { filter: blur(40px); opacity: 0.2; }
+      /* Шапка: менее дорогой backdrop-filter */
+      .header { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+      /* Поиск: убираем backdrop-filter вообще (на мобильных он почти не виден) */
+      .search-wrap { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(255,255,255,0.9); }
+      /* Telegram: менее дорогой */
+      .tg-float { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+      /* Заголовок: отключаем shineText (анимация background-position на большом тексте дорогая) */
+      .hero h2 { animation: none; }
+      /* 3D-контекст на .stack отключаем — на iOS/Android с translateY даёт глюки */
+      .stack { perspective: none; }
+      /* Иконки папок: убираем iconShake, оставляем только iconPulse */
+      .folder.active.green .f-icon { animation: iconPulse 2s infinite; }
+      .folder.active.orange .f-icon { animation: iconPulse 2s infinite; }
+      .folder.active.blue .f-icon { animation: iconPulse 2s infinite; }
+      .folder.active.purple .f-icon { animation: iconPulse 2s infinite; }
+      /* Планета в прелоадере: статичный drop-shadow без пульсации */
+      .planet-logo { animation: none; }
+      /* Курсор приветствия не нужен на мобильных */
+      .cursor { display: none; }
+      /* PDF-toolbar: менее дорогой backdrop-filter */
+      .pdf-toolbar { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -545,8 +602,17 @@
   </div>
 
   <script>
-    // No-JS fallback: если JS отключён, показываем контент
+    // No-JS fallback
     document.documentElement.classList.remove('no-js');
+
+    // FIX (2.4): если пользователь включил «Уменьшение движения» в ОС —
+    // сообщаем в консоль, чтобы разработчик/пользователь понимал,
+    // почему анимаций нет. Для продакшена можно заменить на тост.
+    const prefersReducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let prefersReducedMotion = prefersReducedMotionQuery.matches;
+    if (prefersReducedMotion) {
+      console.info('[a11y] Анимации отключены настройкой ОС «Уменьшение движения».');
+    }
 
     // Утилита debounce
     function debounce(func, wait) {
@@ -560,9 +626,6 @@
         timeout = setTimeout(later, wait);
       };
     }
-
-    const prefersReducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let prefersReducedMotion = prefersReducedMotionQuery.matches;
 
     prefersReducedMotionQuery.addEventListener('change', (e) => {
       prefersReducedMotion = e.matches;
@@ -578,14 +641,16 @@
     const ctxCanvas = canvasEl.getContext('2d');
     let particles = [];
     let meteors = [];
-    let particleCount = window.innerWidth < 768 ? 40 : 90;
+    // FIX (2.9): меньше частиц на мобильных
+    let particleCount = window.innerWidth < 768 ? 20 : 90;
     let mouse = { x: null, y: null, targetX: 0, targetY: 0 };
     let animationFrameId = null;
 
     function resizeCanvas() {
       canvasEl.width = window.innerWidth;
       canvasEl.height = window.innerHeight;
-      const newCount = window.innerWidth < 768 ? 40 : 90;
+      // FIX (2.9): пересоздаём при смене breakpoint
+      const newCount = window.innerWidth < 768 ? 20 : 90;
       if (newCount !== particleCount) {
         particleCount = newCount;
         particles = [];
@@ -687,7 +752,6 @@
     }
     if (!prefersReducedMotion) animateParticles();
 
-    // Возобновление анимации при возврате на вкладку
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden && !prefersReducedMotion && !animationFrameId) {
         animateParticles();
@@ -710,7 +774,9 @@
     window.addEventListener('load', function() {
       const sc = document.getElementById('stars-container');
       if (sc && sc.children.length === 0) {
-        for(let i=0; i<120; i++) {
+        // FIX (2.8): меньше звёзд на мобильных
+        const starCount = window.innerWidth < 768 ? 50 : 120;
+        for(let i=0; i<starCount; i++) {
           const star = document.createElement('div');
           star.className = 'star';
           star.style.left = Math.random() * 100 + '%';
@@ -728,6 +794,11 @@
 
     setTimeout(finishPreloader, 3500);
 
+    // FIX (2.7): страховка — если reveal не сработал за 5 секунд, принудительно показываем папки
+    setTimeout(() => {
+      document.querySelectorAll('.folder:not(.reveal)').forEach(f => f.classList.add('reveal'));
+    }, 5000);
+
     const updateSystemClock = () => {
       const el = document.getElementById('systemTime');
       if (el) el.textContent = new Date().toLocaleTimeString('ru-RU');
@@ -740,7 +811,6 @@
       let text = (hour >= 5 && hour < 12) ? "Доброе утро, коллега." : (hour >= 18 || hour < 5) ? "Добрый вечер, коллега." : "Добрый день, коллега.";
       const el = document.getElementById('typewriter');
       if (!el) return;
-      // При reduced motion — мгновенный вывод
       if (prefersReducedMotion) {
         el.textContent = text;
         document.querySelectorAll('.folder').forEach(f => f.classList.add('reveal'));
@@ -885,10 +955,10 @@
 
     // === PDF VIEWER LOGIC ===
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.0;
-    let fitScale = 1.0;      // «вписать в ширину» — пересчитывается на resize
-    let userZoom = 1.0;      // множитель поверх fit (1.0 = fit-width)
-    let closeTimerId = null; // защита от race при close→open
-    let loadGeneration = 0;  // инвалидирует устаревшие getDocument/renderPage
+    let fitScale = 1.0;
+    let userZoom = 1.0;
+    let closeTimerId = null;
+    let loadGeneration = 0;
     let currentRenderTask = null;
     let loaderShowTimer = null;
 
@@ -903,7 +973,6 @@
 
     let lastFocusedElement = null;
 
-    // A11Y fallback для inert (старые браузеры / WebView)
     function setMainInert(on) {
       if ('inert' in HTMLElement.prototype) {
         mainContent.inert = on;
@@ -982,17 +1051,14 @@
             return;
         }
 
-        // Инвалидируем возможный старый таймер закрытия и предыдущую загрузку
         if (closeTimerId) { clearTimeout(closeTimerId); closeTimerId = null; }
         const gen = ++loadGeneration;
 
-        // Отменяем предыдущий рендер
         if (currentRenderTask && typeof currentRenderTask.cancel === 'function') {
             try { currentRenderTask.cancel(); } catch (_) {}
             currentRenderTask = null;
         }
         if (loaderShowTimer) { clearTimeout(loaderShowTimer); loaderShowTimer = null; }
-        // Уничтожаем предыдущий документ (если остался)
         if (pdfDoc) { try { pdfDoc.destroy(); } catch (_) {} pdfDoc = null; }
 
         lastFocusedElement = document.activeElement;
@@ -1000,7 +1066,6 @@
         document.getElementById('downloadBtn').href = encodeURI(url);
 
         container.style.display = 'flex';
-        // double-rAF вместо setTimeout(10)
         requestAnimationFrame(() => requestAnimationFrame(() => {
             if (gen === loadGeneration) container.classList.add('active');
         }));
@@ -1015,11 +1080,9 @@
         pageRendering = false;
         pageNumPending = null;
 
-        // Фокус в модал сразу (не только при успешной загрузке)
         const closeBtn = container.querySelector('.btn-pdf-close');
         if (closeBtn) closeBtn.focus();
 
-        // cMaps / standard fonts: обязательны для CJK и нестандартных шрифтов
         const CMAP_URL = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/';
         const FONT_URL = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/standard_fonts/';
 
@@ -1029,7 +1092,7 @@
             cMapPacked: true,
             standardFontDataUrl: FONT_URL
         }).promise.then(pdf => {
-            if (gen !== loadGeneration) { // stale
+            if (gen !== loadGeneration) {
                 try { pdf.destroy(); } catch (_) {}
                 return;
             }
@@ -1040,16 +1103,15 @@
             queueRenderPage(pageNum);
             showGestureHint();
         }).catch(err => {
-            if (gen !== loadGeneration) return; // stale — не трогаем UI новой сессии
+            if (gen !== loadGeneration) return;
             console.error(err);
             showViewerError(err, url);
         });
     }
 
     function closeViewer() {
-        const gen = ++loadGeneration; // инвалидируем in-flight загрузку/рендер
+        const gen = ++loadGeneration;
 
-        // Отменяем текущий рендер
         if (currentRenderTask && typeof currentRenderTask.cancel === 'function') {
             try { currentRenderTask.cancel(); } catch (_) {}
             currentRenderTask = null;
@@ -1060,13 +1122,11 @@
         if (closeTimerId) clearTimeout(closeTimerId);
         closeTimerId = setTimeout(() => {
             closeTimerId = null;
-            // GUARD: если за это время модалку открыли снова — не гасим
             if (container.classList.contains('active')) return;
             if (gen !== loadGeneration) return;
             container.style.display = 'none';
             resetLoader();
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            // освобождаем буфер
             canvas.width = 0;
             canvas.height = 0;
             if (pdfDoc) {
@@ -1138,7 +1198,6 @@
     function renderPage(num) {
       if (!pdfDoc) return;
 
-      // Отменяем предыдущий рендер, если он ещё жив
       if (currentRenderTask && typeof currentRenderTask.cancel === 'function') {
         try { currentRenderTask.cancel(); } catch (_) {}
         currentRenderTask = null;
@@ -1146,7 +1205,6 @@
 
       pageRendering = true;
 
-      // Лоадер только если рендер затянулся > 200 мс
       if (loaderShowTimer) clearTimeout(loaderShowTimer);
       loaderShowTimer = setTimeout(() => {
         loaderShowTimer = null;
@@ -1160,13 +1218,11 @@
         const availableWidth = Math.max(1, wrapper.clientWidth - 48);
         fitScale = availableWidth / viewportOriginal.width;
 
-        // userZoom = 1 → fit-width; иначе относительный зум пользователя
         const desiredScale = fitScale * userZoom;
         scale = desiredScale;
 
         const viewport = page.getViewport({ scale: desiredScale });
 
-        // Ограничение на размер canvas (защита от краха на огромных PDF × DPR × zoom)
         const MAX_CANVAS_DIM = 16384;
         let outputScale = window.devicePixelRatio || 1;
         const rawW = viewport.width * outputScale;
@@ -1199,7 +1255,7 @@
           currentRenderTask = null;
           pageRendering = false;
           if (loaderShowTimer) { clearTimeout(loaderShowTimer); loaderShowTimer = null; }
-          if (err && err.name === 'RenderingCancelledException') return; // отмена — не ошибка
+          if (err && err.name === 'RenderingCancelledException') return;
           console.error('Render error:', err);
           pdfLoader.innerHTML = '';
           const msg = document.createElement('p');
@@ -1223,7 +1279,6 @@
       pageInput.value = num;
       if (pdfDoc) innerProgress.style.width = (num / pdfDoc.numPages) * 100 + '%';
 
-      // Тень: усиленная только при реальном зуме пользователя (не на fit)
       canvas.style.boxShadow = userZoom > 1.0
         ? "0 10px 30px rgba(0,0,0,0.3)"
         : "0 4px 15px rgba(0,0,0,0.15)";
@@ -1303,7 +1358,6 @@
         touchEndX = e.changedTouches[0].screenX;
         const currentTime = new Date().getTime();
         if (currentTime - lastTap < 300) {
-            // double-tap: fit ↔ 2.5×fit
             userZoom = (userZoom > 1.2) ? 1.0 : 2.5;
             queueRenderPage(pageNum);
             lastTap = 0;
@@ -1328,9 +1382,7 @@
                 hint.classList.remove('show-hint');
                 try { localStorage.setItem('gestureHintShown', '1'); } catch (_) {}
             }, 3000);
-        } catch (_) {
-            // localStorage недоступен (private mode) — просто не показываем
-        }
+        } catch (_) {}
     }
 
     let resizeTimer = null;
@@ -1338,15 +1390,17 @@
       if (pdfDoc && container.classList.contains('active')) {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-          // fitScale пересчитается в renderPage; userZoom сохраняется
           queueRenderPage(pageNum);
         }, 100);
       }
     }, { passive: true });
 
-    // Tilt Effect с реакцией на изменение размера
+    // FIX (1.2, 3): флаг против дублей обработчиков tilt при resize через 768px
     const desktopQuery = window.matchMedia("(min-width: 768px)");
+    let tiltInitialized = false;
     function initTilt() {
+      if (tiltInitialized) return;
+      tiltInitialized = true;
       document.querySelectorAll('.folder').forEach(folder => {
         folder.addEventListener('mousemove', handleTilt);
         folder.addEventListener('mouseleave', resetTilt);
