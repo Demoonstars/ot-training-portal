@@ -41,23 +41,15 @@
     "description": "Документационный центр и база знаний Парк-отеля «Софрино»: локальные нормативные акты, приказы, положения по охране труда и материалы СОУТ.",
     "url": "https://demoonstars.github.io/ot-training-portal/sofrino.html",
     "hasPart": [
-      {
-        "@type": "CreativeWork",
-        "name": "Приказ № 1012 ОТ1-25",
-        "description": "Об утверждении СУОТ"
-      },
-      {
-        "@type": "CreativeWork",
-        "name": "Приказ № 1112 ОТ3-25",
-        "description": "Об утверждении норм выдачи СИЗ"
-      }
+      { "@type": "CreativeWork", "name": "Приказ № 1012 ОТ1-25", "description": "Об утверждении СУОТ" },
+      { "@type": "CreativeWork", "name": "Приказ № 1112 ОТ3-25", "description": "Об утверждении норм выдачи СИЗ" }
     ]
   }
   </script>
 
   <style>
     :root {
-      --c-green: #009688; --c-neon: #00FFCC; --c-orange: #F59E0B; --c-blue: #2563EB; --c-purple: #7C3AED;
+      --c-green: #009688; --c-orange: #F59E0B; --c-blue: #2563EB; --c-purple: #7C3AED;
       --c-dark: #020617; --c-text: #334155;
       --glass: rgba(255, 255, 255, 0.75);
       --border: 1px solid rgba(255, 255, 255, 0.6);
@@ -78,15 +70,12 @@
       padding-bottom: env(safe-area-inset-bottom);
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    /* Убираем глобальный outline: none, оставляем фокус для доступности */
-    :focus-visible {
-      outline: 2px solid var(--c-green);
-      outline-offset: 2px;
-    }
-    /* Для мыши фокус не показываем */
-    :focus:not(:focus-visible) {
-      outline: none;
-    }
+    :focus-visible { outline: 2px solid var(--c-green); outline-offset: 2px; }
+    :focus:not(:focus-visible) { outline: none; }
+
+    /* No-JS fallback: показываем папки и скрываем прелоадер */
+    .no-js #preloader { display: none !important; }
+    .no-js .folder { opacity: 1 !important; transform: none !important; }
 
     /* === 1. ФОН САЙТА === */
     #canvas-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #F8FAFC; }
@@ -204,7 +193,10 @@
     .chip { padding: 8px 16px; border-radius: 50px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8); color: var(--c-text); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.02); user-select: none; }
     .chip:hover, .chip.active { background: #fff; color: var(--c-green); box-shadow: 0 5px 15px rgba(0, 150, 136, 0.15); transform: translateY(-2px); border-color: var(--c-green); }
 
-    /* === 5. ПАПКИ (FLAT & CLEAN) + ЖИВЫЕ ИКОНКИ === */
+    .search-empty { display: none; text-align: center; color: #94A3B8; font-size: 0.95rem; padding: 20px; }
+    .search-empty.visible { display: block; }
+
+    /* === 5. ПАПКИ === */
     .stack { display: flex; flex-direction: column; gap: 24px; padding-bottom: 120px; perspective: 1000px; }
     .folder { 
       background: var(--glass); border: var(--border); border-radius: var(--radius); 
@@ -221,17 +213,13 @@
     
     .f-icon { width: 60px; height: 60px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6), 0 10px 20px rgba(0,0,0,0.05); transition: all 0.3s ease; }
     
-    @keyframes iconPulse { 0% { box-shadow: 0 0 0 0 rgba(0, 150, 136, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(0, 150, 136, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 150, 136, 0); } }
+    @keyframes iconPulse { 0% { box-shadow: 0 0 0 0 var(--pulse-color, rgba(0, 150, 136, 0.4)); } 70% { box-shadow: 0 0 0 15px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
     @keyframes iconShake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(3deg); } 75% { transform: rotate(-3deg); } }
     
-    .folder.active.green .f-icon { animation: iconPulse 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(0, 150, 136, 0.5); }
-    .folder.active.orange .f-icon { animation: iconPulseOrange 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(245, 158, 11, 0.5); }
-    .folder.active.blue .f-icon { animation: iconPulseBlue 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(37, 99, 235, 0.5); }
-    .folder.active.purple .f-icon { animation: iconPulsePurple 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(124, 58, 237, 0.5); }
-
-    @keyframes iconPulseOrange { 0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(245, 158, 11, 0); } 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); } }
-    @keyframes iconPulseBlue { 0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(37, 99, 235, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); } }
-    @keyframes iconPulsePurple { 0% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(124, 58, 237, 0); } 100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); } }
+    .folder.active.green .f-icon { animation: iconPulse 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(0, 150, 136, 0.5); --pulse-color: rgba(0, 150, 136, 0.4); }
+    .folder.active.orange .f-icon { animation: iconPulse 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(245, 158, 11, 0.5); --pulse-color: rgba(245, 158, 11, 0.4); }
+    .folder.active.blue .f-icon { animation: iconPulse 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(37, 99, 235, 0.5); --pulse-color: rgba(37, 99, 235, 0.4); }
+    .folder.active.purple .f-icon { animation: iconPulse 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(124, 58, 237, 0.5); --pulse-color: rgba(124, 58, 237, 0.4); }
 
     .f-txt h3 { margin: 0; font-size: 1.3rem; font-weight: 800; color: var(--c-dark); }
     .f-txt p { margin: 4px 0 0; font-size: 0.9rem; color: #64748B; }
@@ -263,14 +251,13 @@
     .file-name { font-size: 0.95rem; font-weight: 600; color: var(--c-dark); line-height: 1.3; }
     .file-meta-row { display: flex; align-items: center; gap: 8px; }
     .meta-size { font-size: 0.65rem; color: #94A3B8; font-weight: 500; background: #F1F5F9; padding: 2px 6px; border-radius: 4px; }
-    mark { background: rgba(250, 204, 21, 0.3); color: inherit; padding: 0 2px; border-radius: 2px; }
     .badge { display: inline-flex; padding: 3px 8px; border-radius: 6px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; background: #E2E8F0; color: #64748B; width: fit-content; }
     .badge.imp { background: #FEF3C7; color: #B45309; }
 
     .empty-block { padding: 40px; text-align: center; color: #94A3B8; font-size: 0.9rem; }
     .empty-icon { font-size: 2rem; margin-bottom: 10px; display: block; animation: pulse 2s infinite; opacity: 0.5; }
 
-    /* СТИЛИ КНОПКИ ТЕЛЕГРАМ */
+    /* === 6. TELEGRAM === */
     .tg-float { 
       position: fixed; 
       bottom: calc(30px + env(safe-area-inset-bottom)); 
@@ -307,23 +294,10 @@
       box-shadow: 0 5px 15px rgba(34, 158, 217, 0.3); 
     }
 
-    .tg-txt h4 { 
-      margin: 0; 
-      font-size: 0.95rem; 
-      color: #020617; 
-      font-weight: 800; 
-    }
+    .tg-txt h4 { margin: 0; font-size: 0.95rem; color: #020617; font-weight: 800; }
+    .tg-txt p { margin: 0; font-size: 0.75rem; color: #229ED9; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 
-    .tg-txt p { 
-      margin: 0; 
-      font-size: 0.75rem; 
-      color: #229ED9; 
-      font-weight: 700; 
-      text-transform: uppercase; 
-      letter-spacing: 0.5px; 
-    }
-
-    /* === 6. PDF VIEWER V8.0 (MODAL) === */
+    /* === 7. PDF VIEWER === */
     .pdf-modal { position: fixed; inset: 0; z-index: 5000; background: #f1f5f9; display: none; flex-direction: column; opacity: 0; transition: opacity 0.3s; }
     .pdf-modal.active { display: flex; opacity: 1; }
     .pdf-modal.dark-theme { background: #1e293b; }
@@ -379,7 +353,6 @@
         .f-head { padding: 18px 20px; }
     }
 
-    /* Отключение анимаций для пользователей с prefers-reduced-motion */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -431,15 +404,16 @@
     </div>
   </header>
 
-  <main class="container">
+  <main class="container" id="mainContent">
     <div class="hero">
-      <div class="greeting-box" aria-live="polite"><span id="typewriter"></span><span class="cursor" aria-hidden="true"></span></div>
+      <div class="greeting-box"><span id="typewriter" aria-live="polite" aria-atomic="true"></span><span class="cursor" aria-hidden="true"></span></div>
       <h2>Документационный центр</h2>
-      <p>Локальные нормативные акты, инструкции и стандарты</p>
+      <p>Все документы по охране труда в одном месте: приказы, положения, СОУТ. Быстрый поиск и просмотр онлайн.</p>
       <div class="search-wrap">
         <div class="search-icon" aria-hidden="true">🔍</div>
         <input type="text" id="searchInput" class="search-input" placeholder="Поиск (например: СИЗ, Приказ, СОУТ)..." aria-label="Поиск по документам">
       </div>
+      <div class="search-empty" id="searchEmpty">По вашему запросу ничего не найдено. Попробуйте изменить формулировку или выберите категорию.</div>
       <div class="chips-row" role="group" aria-label="Фильтр документов">
         <div class="chip active" role="button" tabindex="0" aria-pressed="true" onclick="filterDocs('all', this)">Все</div>
         <div class="chip" role="button" tabindex="0" aria-pressed="false" onclick="filterDocs('ВАЖНО', this)">⚡ Важное</div>
@@ -497,11 +471,11 @@
 
       <div class="folder orange" id="f2">
         <div class="f-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleFolder('f2', this)"><div class="f-main"><div class="f-icon" aria-hidden="true">🔥</div><div class="f-txt"><h3>Пожарная безопасность</h3><p>Инструкции, Планы</p></div></div><div class="chevron" aria-hidden="true">▼</div></div>
-        <div class="f-body"><div class="empty-block"><span class="empty-icon" aria-hidden="true">🚧</span>Раздел наполняется. Документы появятся в ближайшее время.</div></div>
+        <div class="f-body"><div class="empty-block"><span class="empty-icon" aria-hidden="true">🚧</span>Раздел в разработке. Документы появятся в ближайшее время. Следите за обновлениями в Telegram.</div></div>
       </div>
       <div class="folder blue" id="f3">
         <div class="f-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleFolder('f3', this)"><div class="f-main"><div class="f-icon" aria-hidden="true">📢</div><div class="f-txt"><h3>ГО и ЧС</h3><p>Гражданская оборона</p></div></div><div class="chevron" aria-hidden="true">▼</div></div>
-        <div class="f-body"><div class="empty-block"><span class="empty-icon" aria-hidden="true">🛡️</span>Раздел наполняется. Следите за обновлениями в Telegram.</div></div>
+        <div class="f-body"><div class="empty-block"><span class="empty-icon" aria-hidden="true">🛡️</span>Раздел в разработке. Следите за обновлениями в Telegram.</div></div>
       </div>
       <div class="folder purple" id="f4">
         <div class="f-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleFolder('f4', this)"><div class="f-main"><div class="f-icon" aria-hidden="true">💼</div><div class="f-txt"><h3>Отдел кадров</h3><p>ПВТР, Договоры</p></div></div><div class="chevron" aria-hidden="true">▼</div></div>
@@ -535,7 +509,7 @@
       </div>
       <div class="pdf-top-actions">
           <button type="button" class="btn-pdf-action" id="themeBtn" title="Ночной режим" aria-label="Переключить ночной режим" aria-pressed="false">🌙</button>
-          <a href="#" id="downloadBtn" download class="btn-pdf-action icon-only-mobile" aria-label="Скачать документ">
+          <a href="#" id="downloadBtn" download class="btn-pdf-action" aria-label="Скачать документ">
               <span class="btn-text">Скачать</span><span class="btn-icon" aria-hidden="true">📥</span>
           </a>
           <button type="button" class="btn-pdf-action btn-pdf-close" onclick="closeViewer()" title="Закрыть" aria-label="Закрыть просмотр документа">✕</button>
@@ -563,6 +537,9 @@
   </div>
 
   <script>
+    // No-JS fallback: если JS отключён, показываем контент
+    document.documentElement.classList.remove('no-js');
+
     // Утилита debounce
     function debounce(func, wait) {
       let timeout;
@@ -582,15 +559,9 @@
     prefersReducedMotionQuery.addEventListener('change', (e) => {
       prefersReducedMotion = e.matches;
       if (prefersReducedMotion) {
-        // Остановить анимацию частиц
-        if (animationFrameId) {
-          cancelAnimationFrame(animationFrameId);
-          animationFrameId = null;
-        }
-      } else {
-        if (!animationFrameId) {
-          animateParticles();
-        }
+        if (animationFrameId) { cancelAnimationFrame(animationFrameId); animationFrameId = null; }
+      } else if (!animationFrameId && !document.hidden) {
+        animateParticles();
       }
     });
 
@@ -606,7 +577,6 @@
     function resizeCanvas() {
       canvasEl.width = window.innerWidth;
       canvasEl.height = window.innerHeight;
-      // Пересоздать частицы при изменении размера
       const newCount = window.innerWidth < 768 ? 40 : 90;
       if (newCount !== particleCount) {
         particleCount = newCount;
@@ -617,7 +587,7 @@
     window.addEventListener('resize', debounce(resizeCanvas, 200), { passive: true });
     resizeCanvas();
 
-    window.addEventListener('mousemove', e => { 
+    window.addEventListener('mousemove', e => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
       mouse.targetX = (e.clientX - window.innerWidth / 2) * 0.05;
@@ -640,12 +610,12 @@
         if(this.x < 0 || this.x > canvasEl.width) this.vx *= -1;
         if(this.y < 0 || this.y > canvasEl.height) this.vy *= -1;
         if (mouse.x != null) {
-            let dx = mouse.x - px; let dy = mouse.y - py;
-            let dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 120 && dist > 0) {
-                const force = (120 - dist) / 120;
-                this.x -= (dx / dist) * force * 3; this.y -= (dy / dist) * force * 3;
-            }
+          let dx = mouse.x - px; let dy = mouse.y - py;
+          let dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120 && dist > 0) {
+            const force = (120 - dist) / 120;
+            this.x -= (dx / dist) * force * 3; this.y -= (dy / dist) * force * 3;
+          }
         }
       }
       draw() {
@@ -707,9 +677,14 @@
       });
       animationFrameId = requestAnimationFrame(animateParticles);
     }
-    if (!prefersReducedMotion) {
-      animateParticles();
-    }
+    if (!prefersReducedMotion) animateParticles();
+
+    // Возобновление анимации при возврате на вкладку
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && !prefersReducedMotion && !animationFrameId) {
+        animateParticles();
+      }
+    });
 
     // 2. PRELOADER & TYPEWRITER
     let preloaderFinished = false;
@@ -757,6 +732,12 @@
       let text = (hour >= 5 && hour < 12) ? "Доброе утро, коллега." : (hour >= 18 || hour < 5) ? "Добрый вечер, коллега." : "Добрый день, коллега.";
       const el = document.getElementById('typewriter');
       if (!el) return;
+      // При reduced motion — мгновенный вывод
+      if (prefersReducedMotion) {
+        el.textContent = text;
+        document.querySelectorAll('.folder').forEach(f => f.classList.add('reveal'));
+        return;
+      }
       el.textContent = '';
       let i = 0;
       function type() {
@@ -773,7 +754,6 @@
       type();
     }
 
-    // Поддержка клавиш Enter и Space для интерактивных карточек, папок и чипов
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Enter' || e.key === ' ') {
         const target = e.target.closest('[role="button"]');
@@ -785,31 +765,35 @@
     });
 
     // === TOGGLES & SEARCH ENGINE ===
-    function toggleFolder(id, head) { 
+    function toggleFolder(id, head) {
       const folder = document.getElementById(id);
       const isActive = folder.classList.toggle('active');
       if (head) head.setAttribute('aria-expanded', isActive);
     }
-    
-    function toggleSub(head) { 
+
+    function toggleSub(head) {
       const subItem = head.parentElement;
       const isOpen = subItem.classList.toggle('open');
       head.setAttribute('aria-expanded', isOpen);
     }
 
     const searchInput = document.getElementById('searchInput');
+    const searchEmpty = document.getElementById('searchEmpty');
     const debouncedSearch = debounce(function() {
       const query = this.value.toLowerCase().trim();
       const files = document.querySelectorAll('.file');
-      
+      let visibleCount = 0;
+
       files.forEach(file => {
-        const fileName = file.querySelector('.file-name').innerText.toLowerCase();
-        const fileMeta = file.innerText.toLowerCase(); 
-        
+        const fileName = file.querySelector('.file-name').textContent.toLowerCase();
+        const fileMeta = file.textContent.toLowerCase();
+
         if (query === "") {
           file.style.display = "flex";
+          visibleCount++;
         } else if (fileName.includes(query) || fileMeta.includes(query)) {
           file.style.display = "flex";
+          visibleCount++;
           let parentFolder = file.closest('.folder');
           let parentSub = file.closest('.sub-item');
           if (parentFolder) {
@@ -826,7 +810,7 @@
           file.style.display = "none";
         }
       });
-      
+
       document.querySelectorAll('.sub-item').forEach(sub => {
         const visibleFiles = Array.from(sub.querySelectorAll('.file')).filter(f => f.style.display !== 'none').length;
         if (query !== "" && visibleFiles === 0) {
@@ -835,6 +819,12 @@
           sub.style.display = "block";
         }
       });
+
+      if (query !== "" && visibleCount === 0) {
+        searchEmpty.classList.add('visible');
+      } else {
+        searchEmpty.classList.remove('visible');
+      }
     }, 200);
     searchInput.addEventListener('input', debouncedSearch);
 
@@ -846,10 +836,11 @@
       btn.classList.add('active');
       btn.setAttribute('aria-pressed', 'true');
       searchInput.value = '';
-      
+      searchEmpty.classList.remove('visible');
+
       const files = document.querySelectorAll('.file');
       files.forEach(file => {
-        const text = file.innerText;
+        const text = file.textContent;
         const isImportantMatch = (type === 'ВАЖНО') && (file.querySelector('.badge.imp') !== null || file.dataset.important === 'true' || text.toUpperCase().includes('ВАЖНО'));
         const isTextMatch = text.toLowerCase().includes(type.toLowerCase());
 
@@ -893,48 +884,57 @@
     const themeBtn = document.getElementById('themeBtn');
     const pageInput = document.getElementById('page_num_input');
     const pdfLoader = document.getElementById('pdfLoader');
-    
-    let currentPdfUrl = ''; 
+    const mainContent = document.getElementById('mainContent');
+
     let lastFocusedElement = null;
+
+    function resetLoader() {
+      pdfLoader.innerHTML = '';
+      const spinner = document.createElement('div');
+      spinner.className = 'spinner';
+      spinner.setAttribute('aria-hidden', 'true');
+      const loadingText = document.createElement('span');
+      loadingText.textContent = 'Загрузка...';
+      pdfLoader.appendChild(spinner);
+      pdfLoader.appendChild(loadingText);
+      pdfLoader.style.display = 'flex';
+    }
 
     function openViewer(url, title) {
         if (typeof pdfjsLib === 'undefined') {
-            alert('Просмотр PDF временно недоступен. Попробуйте позже.');
+            // Без alert: показываем в лоадере
+            pdfLoader.innerHTML = '';
+            const msg = document.createElement('p');
+            msg.style.cssText = 'text-align:center; padding:20px; color:#ef4444;';
+            msg.textContent = 'Просмотр PDF временно недоступен. Попробуйте позже.';
+            pdfLoader.appendChild(msg);
+            pdfLoader.style.display = 'flex';
             return;
         }
         lastFocusedElement = document.activeElement;
         document.getElementById('pdfDocTitle').innerText = title;
-        document.getElementById('downloadBtn').href = url;
-        currentPdfUrl = url;
-        
+        document.getElementById('downloadBtn').href = encodeURI(url);
+
         container.style.display = 'flex';
         setTimeout(() => container.classList.add('active'), 10);
         document.body.style.overflow = 'hidden';
-        
-        // Сброс лоадера
-        pdfLoader.innerHTML = '';
-        const spinner = document.createElement('div');
-        spinner.className = 'spinner';
-        spinner.setAttribute('aria-hidden', 'true');
-        const loadingText = document.createElement('span');
-        loadingText.textContent = 'Загрузка...';
-        pdfLoader.appendChild(spinner);
-        pdfLoader.appendChild(loadingText);
-        pdfLoader.style.display = 'flex';
+        mainContent.inert = true;
 
+        resetLoader();
         pageNum = 1;
         scale = 1.0;
         pageRendering = false;
         pageNumPending = null;
-        
+
+        // Фокус в модал сразу (не только при успешной загрузке)
+        const closeBtn = container.querySelector('.btn-pdf-close');
+        if (closeBtn) closeBtn.focus();
+
         pdfjsLib.getDocument(encodeURI(url)).promise.then(pdf => {
             pdfDoc = pdf;
             document.getElementById('page_count').textContent = pdf.numPages;
             queueRenderPage(pageNum);
             showGestureHint();
-            // Фокус на кнопку закрытия для доступности
-            const closeBtn = container.querySelector('.btn-pdf-close');
-            if (closeBtn) closeBtn.focus();
         }).catch(err => {
             console.error(err);
             pdfLoader.innerHTML = '';
@@ -947,6 +947,7 @@
             errorP.appendChild(document.createElement('br'));
             errorP.appendChild(small);
             pdfLoader.appendChild(errorP);
+            pdfLoader.style.display = 'flex';
         });
     }
 
@@ -954,15 +955,7 @@
         container.classList.remove('active');
         setTimeout(() => {
             container.style.display = 'none';
-            pdfLoader.innerHTML = '';
-            const spinner = document.createElement('div');
-            spinner.className = 'spinner';
-            spinner.setAttribute('aria-hidden', 'true');
-            const loadingText = document.createElement('span');
-            loadingText.textContent = 'Загрузка...';
-            pdfLoader.appendChild(spinner);
-            pdfLoader.appendChild(loadingText);
-            pdfLoader.style.display = 'flex';
+            resetLoader();
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             if (pdfDoc) {
                 pdfDoc.destroy();
@@ -970,10 +963,8 @@
             }
         }, 300);
         document.body.style.overflow = '';
-        // Возврат фокуса
-        if (lastFocusedElement) {
-            lastFocusedElement.focus();
-        }
+        mainContent.inert = false;
+        if (lastFocusedElement) lastFocusedElement.focus();
     }
 
     themeBtn.addEventListener('click', () => {
@@ -982,23 +973,16 @@
         themeBtn.setAttribute('aria-pressed', isDark);
     });
 
-    // Focus trap для PDF модала
     container.addEventListener('keydown', (e) => {
         if (e.key === 'Tab') {
             const focusableElements = container.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            if (focusableElements.length === 0) return;
             const firstElement = focusableElements[0];
             const lastElement = focusableElements[focusableElements.length - 1];
-
             if (e.shiftKey) {
-                if (document.activeElement === firstElement) {
-                    e.preventDefault();
-                    lastElement.focus();
-                }
+                if (document.activeElement === firstElement) { e.preventDefault(); lastElement.focus(); }
             } else {
-                if (document.activeElement === lastElement) {
-                    e.preventDefault();
-                    firstElement.focus();
-                }
+                if (document.activeElement === lastElement) { e.preventDefault(); firstElement.focus(); }
             }
         }
     });
@@ -1016,7 +1000,7 @@
     pageInput.addEventListener('change', () => {
         if (!pdfDoc) return;
         let val = parseInt(pageInput.value, 10);
-        if (Number.isFinite(val) && val >= 1 && val <= pdfDoc.numPages) { pageNum = val; queueRenderPage(pageNum); } 
+        if (Number.isFinite(val) && val >= 1 && val <= pdfDoc.numPages) { pageNum = val; queueRenderPage(pageNum); }
         else { pageInput.value = pageNum; }
     });
 
@@ -1025,12 +1009,12 @@
       pageRendering = true;
       pdfDoc.getPage(num).then(function(page) {
         const viewportOriginal = page.getViewport({scale: 1});
-        const availableWidth = wrapper.clientWidth - 30; 
+        const availableWidth = wrapper.clientWidth - 30;
         let desiredScale = availableWidth / viewportOriginal.width;
         if (scale !== 1.0) desiredScale = scale; else scale = parseFloat(desiredScale.toFixed(2));
 
         const viewport = page.getViewport({scale: desiredScale});
-        
+
         const outputScale = window.devicePixelRatio || 1;
         canvas.width = Math.floor(viewport.width * outputScale);
         canvas.height = Math.floor(viewport.height * outputScale);
@@ -1046,14 +1030,30 @@
           pageRendering = false;
           pdfLoader.style.display = 'none';
           if (pageNumPending !== null) { renderPage(pageNumPending); pageNumPending = null; }
-        }).catch(function() {
+        }).catch(function(err) {
+          console.error('Render error:', err);
           pageRendering = false;
+          pdfLoader.innerHTML = '';
+          const msg = document.createElement('p');
+          msg.style.cssText = 'text-align:center; padding:20px; color:#ef4444;';
+          msg.textContent = 'Ошибка отображения страницы.';
+          pdfLoader.appendChild(msg);
+          pdfLoader.style.display = 'flex';
         });
+      }).catch(function(err) {
+        console.error('Get page error:', err);
+        pageRendering = false;
+        pdfLoader.innerHTML = '';
+        const msg = document.createElement('p');
+        msg.style.cssText = 'text-align:center; padding:20px; color:#ef4444;';
+        msg.textContent = 'Не удалось загрузить страницу.';
+        pdfLoader.appendChild(msg);
+        pdfLoader.style.display = 'flex';
       });
       pageInput.value = num;
       if(pdfDoc) innerProgress.style.width = (num / pdfDoc.numPages) * 100 + '%';
-      
-      if (scale > 1.0) canvas.style.boxShadow = "0 10px 30px rgba(0,0,0,0.3)"; 
+
+      if (scale > 1.0) canvas.style.boxShadow = "0 10px 30px rgba(0,0,0,0.3)";
       else canvas.style.boxShadow = "0 4px 15px rgba(0,0,0,0.15)";
     }
 
@@ -1091,7 +1091,7 @@
         lastTap = currentTime;
         if (scale <= 1.1) {
             const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 100) { 
+            if (Math.abs(diff) > 100) {
                 if (diff > 0 && pageNum < pdfDoc.numPages) { pageNum++; queueRenderPage(pageNum); }
                 if (diff < 0 && pageNum > 1) { pageNum--; queueRenderPage(pageNum); }
             }
@@ -1100,9 +1100,11 @@
 
     function showGestureHint() {
         const hint = document.getElementById('gestureHint');
-        hint.classList.add('show-hint'); setTimeout(() => hint.classList.remove('show-hint'), 3000);
+        if (localStorage.getItem('gestureHintShown') === '1') return;
+        hint.classList.add('show-hint');
+        setTimeout(() => { hint.classList.remove('show-hint'); localStorage.setItem('gestureHintShown', '1'); }, 3000);
     }
-    
+
     let resizeTimer = null;
     window.addEventListener('resize', () => {
       if(pdfDoc && container.classList.contains('active')) {
@@ -1114,18 +1116,34 @@
       }
     }, { passive: true });
 
-    // Tilt Effect
-    if (!prefersReducedMotion && window.matchMedia("(min-width: 768px)").matches) {
+    // Tilt Effect с реакцией на изменение размера
+    const desktopQuery = window.matchMedia("(min-width: 768px)");
+    function initTilt() {
       document.querySelectorAll('.folder').forEach(folder => {
-        folder.addEventListener('mousemove', e => {
-          const rect = folder.getBoundingClientRect();
-          const rotateX = ((e.clientY - rect.top - rect.height) / rect.height) * -0.5;
-          const rotateY = ((e.clientX - rect.left - rect.width) / rect.width) * 0.5;
-          folder.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-        folder.addEventListener('mouseleave', () => { folder.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`; });
+        folder.addEventListener('mousemove', handleTilt);
+        folder.addEventListener('mouseleave', resetTilt);
       });
     }
+    function handleTilt(e) {
+      if (prefersReducedMotion || !desktopQuery.matches) return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const rotateX = ((e.clientY - rect.top - rect.height) / rect.height) * -0.5;
+      const rotateY = ((e.clientX - rect.left - rect.width) / rect.width) * 0.5;
+      e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    }
+    function resetTilt(e) {
+      e.currentTarget.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+    }
+    if (!prefersReducedMotion && desktopQuery.matches) initTilt();
+    desktopQuery.addEventListener('change', (e) => {
+      if (e.matches && !prefersReducedMotion) initTilt();
+    });
   </script>
+  <noscript>
+    <style>
+      #preloader { display: none !important; }
+      .folder { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
 </body>
 </html>
