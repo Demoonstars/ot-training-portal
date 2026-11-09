@@ -109,7 +109,7 @@
       transition: opacity 1s ease, visibility 1s;
       overflow: hidden;
     }
-    #stars-container { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    #stars-container { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; }
     .star {
       position: absolute; background: #fff; border-radius: 50%;
       animation: twinkle var(--duration) infinite ease-in-out;
@@ -120,9 +120,28 @@
       50% { opacity: 1; transform: scale(1.2); filter: drop-shadow(0 0 10px rgba(255,255,255,0.8)); }
     }
 
+    /* Метеориты (Звездопад) */
+    .shooting-star {
+      position: absolute;
+      top: -10%;
+      right: 50%;
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(to left, rgba(255,255,255,0), #00FFCC, #fff);
+      animation: shoot 5s linear infinite;
+      opacity: 0;
+      transform: rotate(-45deg);
+      transform-origin: right center;
+      box-shadow: 0 0 10px #00FFCC;
+    }
+    @keyframes shoot {
+      0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 0; }
+      10% { opacity: 1; }
+      30% { transform: translateX(-100vw) translateY(100vw) rotate(-45deg); opacity: 0; }
+      100% { opacity: 0; }
+    }
+
     .solar-system { position: relative; width: 240px; height: 240px; display: flex; justify-content: center; align-items: center; z-index: 10; }
-    
-    /* Улучшенный логотип в прелоадере */
     .planet-logo { 
       width: 160px; 
       height: auto; 
@@ -146,8 +165,6 @@
     .loading-status { margin-top: 50px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; z-index: 10; color: rgba(0, 255, 204, 0.8); letter-spacing: 4px; text-transform: uppercase; text-shadow: 0 0 10px rgba(0,255,204,0.5); }
 
     @keyframes orbitSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    
-    /* Новая анимация парения логотипа */
     @keyframes floatPlanet {
       0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 25px rgba(0,255,204,0.5)); }
       50% { transform: translateY(-8px) scale(1.05); filter: drop-shadow(0 0 50px rgba(0,255,204,0.9)); }
@@ -160,17 +177,37 @@
 
     .brand { display: flex; align-items: center; gap: 14px; }
     
-    /* Исправлен размер логотипа в шапке */
-    .brand img { 
-      height: 64px; 
-      width: auto; 
-      min-width: 64px; 
-      object-fit: contain; 
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); 
+    /* Обертка для логотипа с эффектом бриллиантового блеска */
+    .logo-wrap {
+      position: relative;
+      display: inline-block;
+      overflow: hidden;
+      border-radius: 8px;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
       flex-shrink: 0;
-      margin-right: 6px;
     }
-    
+    .logo-wrap img { 
+      height: 80px; 
+      width: auto; 
+      display: block;
+      object-fit: contain;
+    }
+    /* Эффект блеска (пробегающий луч) */
+    .logo-wrap::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -150%;
+      width: 50%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+      transform: skewX(-25deg);
+      animation: logoShine 12s infinite; /* Раз в 12 секунд */
+      pointer-events: none;
+    }
+    @keyframes logoShine {
+      0%, 85% { left: -150%; }
+      100% { left: 150%; }
+    }
+
     .brand-txt h1 { font-size: 1.2rem; font-weight: 800; line-height: 1.1; margin: 0; color: var(--c-dark); }
     .brand-meta { display: flex; align-items: center; gap: 10px; margin-top: 4px; font-size: 0.7rem; font-weight: 600; color: #64748B; }
 
@@ -191,7 +228,7 @@
     .btn-t2 { font-size: 0.65rem; opacity: 0.7; text-transform: uppercase; }
 
     @media (max-width: 768px) {
-      .brand img { height: 52px; min-width: 52px; margin-right: 0; }
+      .logo-wrap img { height: 64px; }
       .brand-txt h1 { font-size: 1.1rem; }
       .btn-portal, .btn-site { padding: 0; width: 44px; justify-content: center; }
       .btn-col { display: none; }
@@ -360,7 +397,6 @@
       color: #7C3AED;
     }
 
-    /* Раскрытое состояние (для hover и для JS на мобильных) */
     .max-fab.is-expanded,
     @media (hover: hover) {
       .max-fab:hover {
@@ -513,6 +549,8 @@
       }
       .folder { opacity: 1; transform: none; }
       .max-fab { transition: none; }
+      .logo-wrap::after { display: none; }
+      .shooting-star { display: none; }
     }
   </style>
 </head>
@@ -536,8 +574,10 @@
   <header class="header">
     <div class="container nav">
       <div class="brand">
-        <!-- Логотип в шапке увеличен и не сжимается -->
-        <img src="assets/Logo_Sofrino.png" alt="Логотип Софрино Парк">
+        <!-- Обертка для эффекта бриллиантового блеска -->
+        <div class="logo-wrap">
+          <img src="assets/Logo_Sofrino.png" alt="Логотип Софрино Парк">
+        </div>
         <div class="brand-info">
           <div class="brand-txt"><h1>СОФРИНО ПАРК</h1></div>
           <div class="brand-meta">
@@ -785,7 +825,6 @@
     class Meteor {
       constructor() { this.init(); }
       init() {
-        // Метеорит может появляться за левым краем экрана, чтобы красиво пролетать
         this.x = Math.random() * (canvasEl.width + 200) - 100; 
         this.y = -100;
         this.speed = Math.random() * 12 + 8;
@@ -820,7 +859,6 @@
       }
       ctxCanvas.clearRect(0, 0, canvasEl.width, canvasEl.height);
       
-      // Увеличена вероятность появления метеоритов (было 0.005)
       if (Math.random() < 0.03 && meteors.length < 3) meteors.push(new Meteor());
       
       meteors = meteors.filter(m => m.active);
@@ -880,6 +918,17 @@
           star.style.setProperty('--opacity', (Math.random() * 0.5 + 0.3));
           star.style.animationDelay = Math.random() * 5 + 's';
           sc.appendChild(star);
+        }
+
+        // Добавляем 4 метеорита в прелоадер
+        for (let i = 0; i < 4; i++) {
+          const meteor = document.createElement('div');
+          meteor.className = 'shooting-star';
+          meteor.style.top = (Math.random() * 40) + '%';
+          meteor.style.right = (Math.random() * 60) + '%';
+          meteor.style.animationDelay = (Math.random() * 4) + 's';
+          meteor.style.animationDuration = (Math.random() * 2 + 3) + 's';
+          sc.appendChild(meteor);
         }
       }
       setTimeout(finishPreloader, prefersReducedMotion ? 300 : 2500);
@@ -1044,37 +1093,47 @@
       });
     }
 
-    // === МОБИЛЬНЫЙ MAX FAB (Автоматическое раскрытие) ===
-    let fabInterval;
-    let fabTimeout;
-    function initMobileFab() {
-        if (window.innerWidth > 768) return;
-        const maxFab = document.getElementById('maxFab');
-        let userInteracted = false;
+    // === ЛОГИКА MAX FAB (Мобильные устройства) ===
+    const maxFab = document.getElementById('maxFab');
+    let maxFabUserClosed = false;
+    let maxFabInitialShowEndTime = Date.now() + 120000; // 2 минуты
 
-        maxFab.addEventListener('click', () => { 
-            userInteracted = true; 
-            clearInterval(fabInterval); 
+    if (window.innerWidth <= 768) {
+        // Показываем при загрузке
+        maxFab.classList.add('is-expanded');
+
+        // Закрываем по клику навсегда
+        maxFab.addEventListener('click', () => {
+            maxFabUserClosed = true;
             maxFab.classList.remove('is-expanded');
         });
 
-        // Первое появление через 6 секунд
-        setTimeout(() => {
-            if (userInteracted) return;
-            maxFab.classList.add('is-expanded');
-            fabTimeout = setTimeout(() => maxFab.classList.remove('is-expanded'), 5000);
-        }, 6000);
+        // Отслеживаем скролл до низа
+        window.addEventListener('scroll', () => {
+            if (maxFabUserClosed) return;
 
-        // Повторять каждые 20 секунд
-        fabInterval = setInterval(() => {
-            if (userInteracted) return;
-            maxFab.classList.add('is-expanded');
-            fabTimeout = setTimeout(() => {
-                if (!userInteracted) maxFab.classList.remove('is-expanded');
-            }, 5000);
-        }, 20000);
+            const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50;
+            
+            if (isAtBottom) {
+                maxFab.classList.add('is-expanded');
+            } else {
+                // Если 2 минуты уже прошли и мы не внизу - прячем
+                if (Date.now() > maxFabInitialShowEndTime) {
+                    maxFab.classList.remove('is-expanded');
+                }
+            }
+        }, { passive: true });
+
+        // Таймер на закрытие через 2 минуты, если не внизу
+        setTimeout(() => {
+            if (!maxFabUserClosed) {
+                const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50;
+                if (!isAtBottom) {
+                    maxFab.classList.remove('is-expanded');
+                }
+            }
+        }, 120000);
     }
-    initMobileFab();
 
     // === PDF VIEWER LOGIC ===
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.0;
