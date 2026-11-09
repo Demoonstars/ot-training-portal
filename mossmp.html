@@ -2,29 +2,38 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="robots" content="noindex, nofollow">
   <title>ГБУЗ МО "МОССМП" | Информационный Документационный Центр</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="description" content="Официальный нормативно-правовой и гигиенический реестр ГБУЗ МО МОССМП. Охрана труда, СОУТ, регламенты СМП.">
   <link rel="icon" type="image/png" href="assets/logomossmp.png">
-  
+  <link rel="apple-touch-icon" href="assets/logomossmp.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" crossorigin="anonymous"></script>
+
+  <noscript>
+    <style>
+      #preloader { display: none !important; }
+      .folder { opacity: 1 !important; translate: 0 0 !important; }
+      #canvas-bg, .microscope-hud, .noise-overlay, .orb-layer { display: none !important; }
+      .f-body { grid-template-rows: 1fr !important; }
+      .sub-body { grid-template-rows: 1fr !important; }
+    </style>
+  </noscript>
 
   <style>
-    /* ==========================================================================
-       THEME: QUANTUM X MEDICAL - PROFESSIONAL INFRASTRUCTURE STYLES
-       ========================================================================== */
     :root {
-      --c-medical: #ef4444; /* Медицинский красный */
-      --c-green: #009688;   /* Санитарный бирюзовый */
-      --c-neon: #00FFCC;    /* Квантовый неон */
-      --c-blue: #3b82f6;    /* Навигационный синий */
-      --c-dark: #020617;    /* Глубокий полночный */
-      --c-text: #334155;    /* Текст */
+      --c-medical: #ef4444;
+      --c-green: #009688;
+      --c-neon: #00FFCC;
+      --c-blue: #3b82f6;
+      --c-dark: #020617;
+      --c-text: #334155;
       --glass: rgba(255, 255, 255, 0.82);
       --border: 1px solid rgba(255, 255, 255, 0.7);
       --radius: 24px;
@@ -37,36 +46,66 @@
 
     body {
       margin: 0; padding: 0; font-family: 'Inter', sans-serif;
-      color: var(--c-dark); background: #F1F5F9; overflow-x: hidden;
-      cursor: auto; -webkit-font-smoothing: antialiased;
+      color: var(--c-dark); background: #F1F5F9;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
     }
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+    @supports (overflow-x: clip) {
+      body { overflow-x: clip; }
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    a, button, [role="button"], .chip, .file, .f-head, .sub-head,
+    .tool-btn, .tool-btn-icon, .btn-pdf-action {
+      touch-action: manipulation;
+    }
+    :focus { outline: none; }
+    :focus-visible {
+      outline: 2px solid #2563eb;
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+    .pdf-modal :focus-visible { outline-color: #60a5fa; }
+    .skip-link {
+      position: absolute; left: -9999px; top: 0; z-index: 100000;
+      background: #0f172a; color: #fff; padding: 10px 16px; border-radius: 0 0 8px 0;
+      font-weight: 700; text-decoration: none;
+    }
+    .skip-link:focus { left: 0; }
 
-    /* === 1. ЖИВАЯ АНИМАЦИЯ ФОНА (CANVAS NODES + ФОКУС МИКРОСКОПА) === */
+    /* === 1. ФОН === */
     @keyframes focusCalibration {
       0%, 65%, 100% { filter: blur(0px); }
-      72% { filter: blur(6px); } /* Долгий и сильный расфокус */
-      82% { filter: blur(2px); } /* Попытка поймать фокус */
-      88% { filter: blur(5px); } /* Снова сбился */
-      95% { filter: blur(0px); } /* Фокус найден */
+      72% { filter: blur(6px); }
+      82% { filter: blur(2px); }
+      88% { filter: blur(5px); }
+      95% { filter: blur(0px); }
     }
-    
-    #canvas-bg { 
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-      z-index: -1; background: #F8FAFC; 
-      animation: focusCalibration 18s infinite ease-in-out; 
+    @keyframes focusCalibrationSoft {
+      0%, 65%, 100% { filter: blur(0px); }
+      72% { filter: blur(3px); }
+      82% { filter: blur(1px); }
+      88% { filter: blur(2.5px); }
+      95% { filter: blur(0px); }
     }
-    
+    #canvas-bg {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      z-index: -1; background: #F8FAFC;
+      animation: focusCalibration 18s infinite ease-in-out;
+      will-change: filter;
+    }
+    @media (max-width: 768px) {
+      #canvas-bg { animation: focusCalibrationSoft 22s infinite ease-in-out; }
+    }
     .microscope-hud {
       position: fixed; inset: 0; z-index: -1; pointer-events: none;
-      background: 
-        radial-gradient(circle at center, transparent 40%, rgba(15, 23, 42, 0.15) 100%), /* Виньетка (оптическое затенение) */
-        linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px), /* Горизонтальная измерительная сетка */
-        linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px); /* Вертикальная сетка */
+      background:
+        radial-gradient(circle at center, transparent 40%, rgba(15, 23, 42, 0.15) 100%),
+        linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
       background-size: 100% 100%, 40px 40px, 40px 40px;
       background-position: center center;
     }
-
     .noise-overlay {
       position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.025;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
@@ -75,133 +114,161 @@
     .orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.35; }
     .o1 { top: -15%; left: -15%; width: 65vw; height: 65vw; background: radial-gradient(circle, rgba(239, 68, 68, 0.15), transparent 70%); }
     .o2 { bottom: -15%; right: -15%; width: 75vw; height: 75vw; background: radial-gradient(circle, rgba(0, 150, 136, 0.15), transparent 70%); }
-
-    /* === 2. МЕДИЦИНСКИЙ ПРЕЛОАДЕР (МИГАЛКИ СМП) === */
-    #preloader { 
-      position: fixed; inset: 0; z-index: 99999; background: #020617; 
-      display: flex; flex-direction: column; justify-content: center; align-items: center; 
-      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s; overflow: hidden;
+    @media (max-width: 768px) {
+      .orb { filter: blur(60px); opacity: 0.3; }
     }
+
+    /* === 2. ПРЕЛОАДЕР === */
+    #preloader {
+      position: fixed; inset: 0; z-index: 99999; background: #020617;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+      overflow: hidden;
+    }
+    #preloader.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
     #stars-container { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
     .star {
       position: absolute; background: #fff; border-radius: 50%;
       animation: twinkle var(--duration) infinite ease-in-out; opacity: var(--opacity);
     }
-    @keyframes twinkle { 
-      0%, 100% { opacity: 0.1; transform: scale(0.8); } 
-      50% { opacity: 0.8; transform: scale(1.5); filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.8)); } 
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.1; transform: scale(0.8); }
+      50% { opacity: 0.8; transform: scale(1.5); box-shadow: 0 0 6px rgba(59, 130, 246, 0.8); }
     }
-
     .beacon-system { position: relative; width: 280px; height: 280px; display: flex; justify-content: center; align-items: center; z-index: 10; }
-    
-    .medical-logo { 
-      width: 120px; height: auto; z-index: 10; object-fit: contain; 
-      filter: drop-shadow(0 0 25px rgba(37, 99, 235, 0.5)); 
-      animation: pulseMedical 2s infinite ease-in-out; 
+    .medical-logo {
+      width: 120px; height: auto; z-index: 10; object-fit: contain;
+      filter: drop-shadow(0 0 25px rgba(37, 99, 235, 0.5));
+      animation: pulseMedical 2s infinite ease-in-out;
     }
-    
-    .beacon-ring { 
-      position: absolute; border-radius: 50%; border: 3px solid transparent; 
-      display: flex; justify-content: center; align-items: center; pointer-events: none; box-sizing: border-box; 
+    .beacon-ring {
+      position: absolute; border-radius: 50%; border: 3px solid transparent;
+      display: flex; justify-content: center; align-items: center; pointer-events: none; box-sizing: border-box;
     }
-    
-    .ring-1 { 
-      width: 180px; height: 180px; 
-      border-top-color: rgba(239, 68, 68, 0.9); 
-      border-bottom-color: rgba(59, 130, 246, 0.9); 
-      animation: sirenSpin 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; 
-      box-shadow: 0 0 25px rgba(239, 68, 68, 0.3), inset 0 0 25px rgba(59, 130, 246, 0.3); 
+    .ring-1 {
+      width: 180px; height: 180px;
+      border-top-color: rgba(239, 68, 68, 0.9);
+      border-bottom-color: rgba(59, 130, 246, 0.9);
+      animation: sirenSpin 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+      box-shadow: 0 0 25px rgba(239, 68, 68, 0.3), inset 0 0 25px rgba(59, 130, 246, 0.3);
     }
-    
-    .ring-2 { 
-      width: 240px; height: 240px; 
-      border-left-color: rgba(59, 130, 246, 0.7); 
-      border-right-color: rgba(239, 68, 68, 0.7); 
-      animation: sirenSpin 1.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite reverse; 
-      opacity: 0.8; 
+    .ring-2 {
+      width: 240px; height: 240px;
+      border-left-color: rgba(59, 130, 246, 0.7);
+      border-right-color: rgba(239, 68, 68, 0.7);
+      animation: sirenSpin 1.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite reverse;
+      opacity: 0.8;
     }
-    
     .siren-flare { position: absolute; width: 100%; height: 100%; border-radius: 50%; animation: sirenSweep 1.5s linear infinite; }
-    .red-flare::after { 
-      content: ''; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); 
-      width: 20px; height: 20px; background: #ef4444; border-radius: 50%; 
-      box-shadow: 0 0 40px 20px rgba(239, 68, 68, 0.7); 
+    .red-flare::after {
+      content: ''; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      width: 20px; height: 20px; background: #ef4444; border-radius: 50%;
+      box-shadow: 0 0 40px 20px rgba(239, 68, 68, 0.7);
     }
     .blue-flare { animation: sirenSweep 1.5s linear infinite reverse; animation-delay: -0.75s; }
-    .blue-flare::after { 
-      content: ''; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); 
-      width: 20px; height: 20px; background: #3b82f6; border-radius: 50%; 
-      box-shadow: 0 0 40px 20px rgba(59, 130, 246, 0.7); 
+    .blue-flare::after {
+      content: ''; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%);
+      width: 20px; height: 20px; background: #3b82f6; border-radius: 50%;
+      box-shadow: 0 0 40px 20px rgba(59, 130, 246, 0.7);
     }
-
-    .loading-status { 
+    .loading-status {
       margin-top: 50px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; font-weight: 700;
-      z-index: 10; letter-spacing: 4px; text-transform: uppercase; 
-      animation: textPulse 1.2s infinite alternate; 
+      z-index: 10; letter-spacing: 4px; text-transform: uppercase;
+      animation: textPulse 1.2s infinite alternate;
     }
-
     @keyframes sirenSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     @keyframes sirenSweep { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    @keyframes pulseMedical { 
-      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.5)); } 
-      50% { transform: scale(1.05); filter: drop-shadow(0 0 40px rgba(239, 68, 68, 0.8)); } 
+    @keyframes pulseMedical {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.5)); }
+      50% { transform: scale(1.05); filter: drop-shadow(0 0 40px rgba(239, 68, 68, 0.8)); }
     }
-    @keyframes textPulse { 
-      0% { opacity: 0.7; text-shadow: 0 0 10px rgba(239,68,68,0.6); color: #fca5a5; } 
-      100% { opacity: 1; text-shadow: 0 0 20px rgba(59,130,246,0.9); color: #bfdbfe; } 
+    @keyframes textPulse {
+      0% { opacity: 0.7; text-shadow: 0 0 10px rgba(239,68,68,0.6); color: #fca5a5; }
+      100% { opacity: 1; text-shadow: 0 0 20px rgba(59,130,246,0.9); color: #bfdbfe; }
     }
 
-    /* === 3. ВЫСОКОТЕХНОЛОГИЧНАЯ ШАПКА И HUD ИНДИКАТОРЫ === */
-    .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(226,232,240,0.8); padding: 14px 0; box-shadow: 0 4px 30px rgba(0,0,0,0.02); }
+    /* === 3. ШАПКА === */
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.8);
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(226,232,240,0.8);
+      padding: 14px 0;
+      padding-top: calc(14px + env(safe-area-inset-top, 0px));
+      box-shadow: 0 4px 30px rgba(0,0,0,0.02);
+    }
+    @media (max-width: 768px) {
+      .header { -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+    }
     .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
     .nav { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2; }
     .brand { display: flex; align-items: center; gap: 16px; }
-    
-    /* Анимированный логотип в шапке (Сирена) */
-    .brand img { 
-      height: 52px; 
-      animation: logoSirenHeaderPulse 2.5s infinite ease-in-out; 
+    .brand img {
+      height: 52px;
+      animation: logoSirenHeaderPulse 2.5s infinite ease-in-out;
+      will-change: transform;
     }
     @keyframes logoSirenHeaderPulse {
       0% { filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.8)); transform: scale(1); }
       50% { filter: drop-shadow(0 0 18px rgba(59, 130, 246, 0.9)); transform: scale(1.06); }
       100% { filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.8)); transform: scale(1); }
     }
-
     .brand-txt h1 { font-size: 1.2rem; font-weight: 900; line-height: 1.1; margin: 0; color: #0f172a; letter-spacing: -0.5px; }
-    
-    /* HUD Dashboard (Виджет оперативной обстановки: Москва Погода + Осадки) */
-    .hud-dashboard { 
-      display: flex; align-items: center; gap: 10px; margin-top: 6px; 
-      font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; 
-      background: rgba(15, 23, 42, 0.03); padding: 4px 10px; border-radius: 8px; 
+    .hud-dashboard {
+      display: flex; align-items: center; gap: 10px; margin-top: 6px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+      background: rgba(15, 23, 42, 0.03); padding: 4px 10px; border-radius: 8px;
       border: 1px solid rgba(15, 23, 42, 0.05); color: #475569; font-weight: 600;
       white-space: nowrap; overflow-x: auto;
     }
     .hud-dashboard::-webkit-scrollbar { display: none; }
     .hud-item { display: flex; align-items: center; gap: 6px; }
     .hud-separator { width: 3px; height: 3px; background: rgba(148, 163, 184, 0.5); border-radius: 50%; }
-    
     .hud-dot { width: 6px; height: 6px; background: #ef4444; border-radius: 50%; box-shadow: 0 0 8px #ef4444; animation: blink 1.2s infinite; }
     @keyframes blink { 50% { opacity: 0.4; } }
-
     .actions { display: flex; gap: 14px; align-items: center; }
-    .btn-portal { position: relative; display: flex; align-items: center; gap: 12px; padding: 0 22px; height: 46px; border-radius: 14px; background: #0f172a; color: #fff; text-decoration: none; overflow: hidden; box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15); border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-    .btn-portal:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(15, 23, 42, 0.3); border-color: rgba(255,255,255,0.2); }
-    .btn-portal::after { content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent); transform: skewX(-20deg); transition: 0.6s; }
-    .btn-portal:hover::after { left: 160%; }
-
-    .btn-site-wrap { padding: 2px; border-radius: 16px; background: linear-gradient(90deg, #ef4444, #3b82f6, #00FFCC); background-size: 300% 300%; animation: gradientFlow 4s ease infinite; box-shadow: 0 6px 18px rgba(59, 130, 246, 0.18); transition: all 0.3s; }
-    .btn-site-wrap:hover { box-shadow: 0 12px 32px rgba(239, 68, 68, 0.3); transform: scale(1.02); }
-    .btn-site { display: flex; align-items: center; gap: 12px; height: 42px; padding: 0 22px; background: #fff; border-radius: 14px; text-decoration: none; color: #0f172a; position: relative; z-index: 2; font-weight: 700; font-size: 0.85rem; }
+    .btn-portal {
+      position: relative; display: flex; align-items: center; gap: 12px;
+      padding: 0 22px; height: 46px; border-radius: 14px;
+      background: #0f172a; color: #fff; text-decoration: none; overflow: hidden;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s, border-color 0.3s;
+    }
+    .btn-portal::after {
+      content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transform: skewX(-20deg); transition: left 0.6s;
+    }
+    @media (hover: hover) {
+      .btn-portal:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(15, 23, 42, 0.3); border-color: rgba(255,255,255,0.2); }
+      .btn-portal:hover::after { left: 160%; }
+    }
+    .btn-site-wrap {
+      padding: 2px; border-radius: 16px;
+      background: linear-gradient(90deg, #ef4444, #3b82f6, #00FFCC);
+      background-size: 300% 300%;
+      animation: gradientFlow 4s ease infinite;
+      box-shadow: 0 6px 18px rgba(59, 130, 246, 0.18);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    @media (hover: hover) {
+      .btn-site-wrap:hover { box-shadow: 0 12px 32px rgba(239, 68, 68, 0.3); transform: scale(1.02); }
+    }
+    .btn-site {
+      display: flex; align-items: center; gap: 12px;
+      height: 42px; padding: 0 22px; background: #fff; border-radius: 14px;
+      text-decoration: none; color: #0f172a; position: relative; z-index: 2;
+      font-weight: 700; font-size: 0.85rem;
+    }
     @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-
     .btn-col { display: flex; flex-direction: column; line-height: 1.1; }
-    .btn-t1 { font-size: 0.85rem; font-weight: 800; tracking: -0.2px; }
+    .btn-t1 { font-size: 0.85rem; font-weight: 800; }
     .btn-t2 { font-size: 0.65rem; opacity: 0.7; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-top: 1px; }
-    
+
     @media (max-width: 768px) {
-      .brand img { height: 42px; }
+      .brand img { height: 42px; animation-duration: 3.5s; }
       .brand-txt h1 { font-size: 1rem; }
       .btn-portal, .btn-site { padding: 0; width: 46px; justify-content: center; }
       .btn-col { display: none; }
@@ -209,111 +276,230 @@
       .hud-dashboard { display: none; }
     }
 
-    /* === 4. HERO И КВАНТОВЫЙ ИНТЕЛЛЕКТУАЛЬНЫЙ ПОИСК === */
+    /* === 4. HERO === */
     .hero { text-align: center; padding: 60px 0 35px; position: relative; }
-    .greeting-box { font-size: clamp(1.6rem, 4.5vw, 2.3rem); font-weight: 800; color: #1e293b; margin-bottom: 8px; display: inline-flex; align-items: center; line-height: 1.2; letter-spacing: -0.5px; }
+    .greeting-box {
+      font-size: clamp(1.6rem, 4.5vw, 2.3rem); font-weight: 800; color: #1e293b;
+      margin-bottom: 8px; display: inline-flex; align-items: center; line-height: 1.2; letter-spacing: -0.5px;
+    }
     .cursor { display: inline-block; width: 4px; height: 1.1em; background: rgba(15,23,42,0.6); margin-left: 6px; animation: blinkCursor 1.1s infinite; vertical-align: middle; }
     @keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-    .hero h2 { font-size: clamp(2rem, 5.5vw, 3.4rem); font-weight: 900; margin-bottom: 15px; letter-spacing: -1.5px; background: linear-gradient(to right, #0f172a 20%, #dc2626 40%, #2563eb 60%, #0f172a 80%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shineText 7s linear infinite; line-height: 1.1; }
+    .hero h2 {
+      font-size: clamp(2rem, 5.5vw, 3.4rem); font-weight: 900; margin-bottom: 15px;
+      letter-spacing: -1.5px;
+      background: linear-gradient(to right, #0f172a 20%, #dc2626 40%, #2563eb 60%, #0f172a 80%);
+      background-size: 200% auto;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shineText 7s linear infinite; line-height: 1.1;
+    }
     @keyframes shineText { to { background-position: 200% center; } }
     .hero p { color: #475569; font-size: 1.05rem; font-weight: 500; margin-bottom: 30px; margin-top: 0; }
-
-    .search-wrap { max-width: 640px; margin: 0 auto; position: relative; background: rgba(255,255,255,0.7); backdrop-filter: blur(15px); padding: 6px; border-radius: 22px; border: 1px solid rgba(226,232,240,0.9); box-shadow: 0 12px 40px -10px rgba(0,0,0,0.04); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; align-items: center; }
-    .search-wrap:focus-within { background: #fff; box-shadow: 0 20px 50px -10px rgba(239, 68, 68, 0.12); border-color: #ef4444; transform: translateY(-1px); }
-    .search-icon { font-size: 1.4rem; color: #94A3B8; padding: 0 16px; display: flex; align-items: center; }
-    .search-input { flex-grow: 1; border: none; background: transparent; font-size: 1.1rem; padding: 12px 0; color: #0f172a; font-family: 'Inter', sans-serif; font-weight: 500; }
-    .search-input::placeholder { color: #94a3b8; font-weight: 400; }
-
-    .chips-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
-    .chip { padding: 9px 18px; border-radius: 50px; background: rgba(255,255,255,0.6); border: 1px solid rgba(226,232,240,0.9); color: #475569; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 2px 6px rgba(0,0,0,0.01); }
-    .chip:hover, .chip.active { background: #fff; color: #ef4444; box-shadow: 0 6px 18px rgba(239, 68, 68, 0.12); transform: translateY(-2px); border-color: #fca5a5; }
-    .chip.active { background: #0f172a; color: #fff; border-color: #0f172a; box-shadow: 0 6px 18px rgba(15,23,42,0.15); }
-
-    /* === 5. ИНТЕРАКТИВНЫЕ ПАПКИ КЛАССА "MASTERPIECE" === */
-    .stack { display: flex; flex-direction: column; gap: 26px; padding-bottom: 140px; }
-    
-    .folder { 
-      background: var(--glass); border: var(--border); border-radius: var(--radius); 
-      box-shadow: 0 12px 35px -12px rgba(0,0,0,0.04); overflow: hidden; position: relative;
-      opacity: 0; transform: translateY(25px); 
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s, opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: transform, opacity;
+    .search-wrap {
+      max-width: 640px; margin: 0 auto; position: relative;
+      background: rgba(255,255,255,0.7);
+      -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px);
+      padding: 6px; border-radius: 22px; border: 1px solid rgba(226,232,240,0.9);
+      box-shadow: 0 12px 40px -10px rgba(0,0,0,0.04);
+      transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+      display: flex; align-items: center;
     }
-    .folder.reveal { opacity: 1; transform: translateY(0); }
-    .folder:hover { transform: translateY(-2px); box-shadow: 0 24px 45px -12px rgba(0,0,0,0.08); border-color: #fff; }
+    .search-wrap:focus-within {
+      background: #fff;
+      box-shadow: 0 20px 50px -10px rgba(239, 68, 68, 0.12);
+      border-color: #ef4444; transform: translateY(-1px);
+    }
+    @media (max-width: 768px) {
+      .search-wrap { -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+    }
+    .search-icon { font-size: 1.4rem; color: #94A3B8; padding: 0 16px; display: flex; align-items: center; }
+    .search-input {
+      flex-grow: 1; border: none; background: transparent; font-size: 1.1rem; padding: 12px 0;
+      color: #0f172a; font-family: 'Inter', sans-serif; font-weight: 500;
+    }
+    .search-input::placeholder { color: #94a3b8; font-weight: 400; }
+    .search-input:focus { outline: none; }
+    .chips-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .chip {
+      padding: 9px 18px; border-radius: 50px;
+      background: rgba(255,255,255,0.6); border: 1px solid rgba(226,232,240,0.9);
+      color: #475569; font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      transition: background 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s, box-shadow 0.25s, transform 0.25s, border-color 0.25s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+    }
+    .chip.active { background: #0f172a; color: #fff; border-color: #0f172a; box-shadow: 0 6px 18px rgba(15,23,42,0.15); }
+    @media (hover: hover) {
+      .chip:hover { background: #fff; color: #ef4444; box-shadow: 0 6px 18px rgba(239, 68, 68, 0.12); transform: translateY(-2px); border-color: #fca5a5; }
+      .chip.active:hover { background: #0f172a; color: #fff; border-color: #0f172a; }
+    }
+    @media (hover: none) {
+      .chip:active { transform: scale(0.97); }
+    }
+    @media (max-width: 768px) {
+      .chip { min-height: 44px; display: inline-flex; align-items: center; padding: 12px 18px; }
+    }
 
-    .f-head { padding: 26px 32px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.25s; }
-    .f-head:hover { background: rgba(255,255,255,0.45); }
+    /* === 5. ПАПКИ === */
+    .stack { display: flex; flex-direction: column; gap: 26px; padding-bottom: 140px; }
+    .folder {
+      background: var(--glass); border: var(--border); border-radius: var(--radius);
+      box-shadow: 0 12px 35px -12px rgba(0,0,0,0.04);
+      overflow: hidden; position: relative;
+      opacity: 0; translate: 0 25px;
+      transition: translate 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.4s, opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.3s;
+      will-change: translate, transform, opacity;
+    }
+    .folder.reveal { opacity: 1; translate: 0 0; }
+    @media (hover: hover) {
+      .folder:hover { box-shadow: 0 24px 45px -12px rgba(0,0,0,0.08); border-color: #fff; }
+    }
+    .f-head {
+      padding: 26px 32px; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: background 0.25s; min-height: 44px;
+    }
+    @media (hover: hover) {
+      .f-head:hover { background: rgba(255,255,255,0.45); }
+    }
     .f-main { display: flex; align-items: center; gap: 22px; }
-    
-    .f-icon { width: 62px; height: 62px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2.1rem; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.7), 0 12px 24px rgba(0,0,0,0.04); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-    
-    @keyframes iconPulse { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.35); } 70% { box-shadow: 0 0 0 14px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
-    @keyframes iconShake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(2.5deg); } 75% { transform: rotate(-2.5deg); } }
-    
+    .f-icon {
+      width: 62px; height: 62px; border-radius: 20px;
+      display: flex; align-items: center; justify-content: center; font-size: 2.1rem;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.7), 0 12px 24px rgba(0,0,0,0.04);
+      transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes iconPulse {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.35); }
+      70% { box-shadow: 0 0 0 14px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+    @keyframes iconShake {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(2.5deg); }
+      75% { transform: rotate(-2.5deg); }
+    }
     .folder.active.red .f-icon { animation: iconPulse 2.2s infinite, iconShake 4.5s infinite ease-in-out; border: 1px solid rgba(239, 68, 68, 0.4); }
-
-    .f-txt h3 { margin: 0; font-size: 1.35rem; font-weight: 800; color: #0f172a; tracking: -0.3px; }
+    .f-txt h3 { margin: 0; font-size: 1.35rem; font-weight: 800; color: #0f172a; letter-spacing: -0.3px; }
     .f-txt p { margin: 5px 0 0; font-size: 0.9rem; color: #64748B; font-weight: 500; }
     .chevron { font-size: 1.1rem; color: #94A3B8; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
     .folder.active .chevron { transform: rotate(180deg); color: #0f172a; }
-
     .red .f-icon { background: linear-gradient(135deg, #fee2e2, #fca5a5); color: #b91c1c; }
 
-    .f-body { max-height: 0; overflow: hidden; transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1); background: rgba(255,255,255,0.25); }
-    .folder.active .f-body { max-height: 6000px; border-top: 1px solid rgba(226,232,240,0.7); }
+    /* Grid-trick для раскрытия */
+    .f-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      background: rgba(255,255,255,0.25);
+    }
+    .f-body-inner { overflow: hidden; min-height: 0; }
+    .folder.active .f-body { grid-template-rows: 1fr; border-top: 1px solid rgba(226,232,240,0.7); }
 
-    .sub-item { margin: 22px 32px; background: #fff; border-radius: 20px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.01); }
-    .sub-head { padding: 20px 26px; font-weight: 700; color: #475569; display: flex; justify-content: space-between; cursor: pointer; transition: all 0.2s; font-size: 1rem; }
-    .sub-head:hover { background: #f8fafc; color: #0f172a; }
-    .sub-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1); background: #f8fafc; opacity: 0; }
-    .sub-item.open .sub-body { max-height: 3500px; padding: 12px 0; border-top: 1px solid #e2e8f0; opacity: 1; }
+    .sub-item {
+      margin: 22px 32px; background: #fff; border-radius: 20px;
+      border: 1px solid #e2e8f0; overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+    }
+    .sub-head {
+      padding: 20px 26px; font-weight: 700; color: #475569;
+      display: flex; justify-content: space-between; cursor: pointer;
+      transition: background 0.2s, color 0.2s; font-size: 1rem;
+      min-height: 44px;
+    }
+    @media (hover: hover) {
+      .sub-head:hover { background: #f8fafc; color: #0f172a; }
+    }
+    .sub-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      background: #f8fafc;
+    }
+    .sub-body-inner {
+      overflow: hidden; min-height: 0;
+      padding: 0;
+      transition: padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .sub-item.open .sub-body { grid-template-rows: 1fr; border-top: 1px solid #e2e8f0; }
+    .sub-item.open .sub-body-inner { padding: 8px 0; }
     .sub-item.open .sub-head { background: rgba(239, 68, 68, 0.03); color: #dc2626; }
 
-    /* === СТИЛИ ФАЙЛОВЫХ СТРОК И БЕЙДЖЕЙ === */
-    .file { display: flex; align-items: center; gap: 18px; padding: 15px 26px; cursor: pointer; transition: all 0.25s; border-left: 4px solid transparent; position: relative; overflow: hidden; }
-    .file:hover { background: #fff; border-left-color: #ef4444; transform: translateX(6px); }
-    .file::after { content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent); transition: 0.5s; pointer-events: none; }
-    .file:hover::after { left: 100%; }
-
+    /* === СТРОКИ ФАЙЛОВ === */
+    .file {
+      display: flex; align-items: center; gap: 18px; padding: 15px 26px;
+      cursor: pointer; transition: background 0.25s, border-left-color 0.25s, transform 0.25s;
+      border-left: 4px solid transparent; position: relative; overflow: hidden;
+    }
+    .file::after {
+      content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
+      transition: left 0.5s; pointer-events: none;
+    }
+    @media (hover: hover) {
+      .file:hover { background: #fff; border-left-color: #ef4444; transform: translateX(6px); }
+      .file:hover::after { left: 100%; }
+    }
+    @media (hover: none) {
+      .file:active { background: #f8fafc; }
+    }
     .file-ico { font-size: 1.5rem; min-width: 32px; text-align: center; display: flex; align-items: center; justify-content: center; }
     .file-data { display: flex; flex-direction: column; gap: 4px; flex-grow: 1; }
     .file-name { font-size: 0.98rem; font-weight: 600; color: #0f172a; line-height: 1.35; }
     .file-meta-row { display: flex; align-items: center; gap: 10px; }
-    .meta-size { font-size: 0.65rem; color: #94A3B8; font-weight: 600; background: #F1F5F9; padding: 2px 7px; border-radius: 5px; font-family: 'JetBrains Mono', monospace; }
-    mark { background: rgba(250, 204, 21, 0.25); color: inherit; padding: 0 3px; border-radius: 3px; font-weight: inherit; }
-    .badge { display: inline-flex; padding: 3px 9px; border-radius: 6px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; background: #E2E8F0; color: #475569; }
+    .meta-size {
+      font-size: 0.65rem; color: #94A3B8; font-weight: 600;
+      background: #F1F5F9; padding: 2px 7px; border-radius: 5px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .badge {
+      display: inline-flex; padding: 3px 9px; border-radius: 6px;
+      font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.5px; background: #E2E8F0; color: #475569;
+    }
     .badge.imp { background: #fee2e2; color: #991b1b; }
     .badge.sout-tag { background: #e0f2fe; color: #0369a1; }
 
-    /* === 6. КНОПКА МЕССЕНДЖЕРА MAX (УКОРОЧЕННАЯ С ЛОГОТИПОМ) === */
-    .tg-float { 
-      position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); 
-      background: rgba(255,255,255,0.96); backdrop-filter: blur(15px); 
-      padding: 10px 20px 10px 12px; border-radius: 50px; display: flex; align-items: center; gap: 12px; 
-      box-shadow: 0 20px 50px rgba(15,23,42,0.15); border: 1px solid #fff; z-index: 1000; text-decoration: none; 
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); isolation: isolate; 
+    /* === 6. MAX CTA === */
+    .tg-float {
+      position: fixed;
+      bottom: calc(30px + env(safe-area-inset-bottom, 0px));
+      left: 50%; transform: translateX(-50%);
+      background: rgba(255,255,255,0.96);
+      -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px);
+      padding: 10px 20px 10px 12px; border-radius: 50px;
+      display: flex; align-items: center; gap: 12px;
+      box-shadow: 0 20px 50px rgba(15,23,42,0.15);
+      border: 1px solid #fff; z-index: 1000; text-decoration: none;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s, border-color 0.4s;
+      isolation: isolate;
     }
-    .tg-float:hover { transform: translateX(-50%) scale(1.04) translateY(-4px); box-shadow: 0 25px 60px rgba(59, 130, 246, 0.35); border-color: rgba(59, 130, 246, 0.3); }
-    .tg-logo { 
-      width: 36px; height: 36px; background: transparent; border-radius: 50%; 
-      display: flex; align-items: center; justify-content: center; 
+    @media (hover: hover) {
+      .tg-float:hover { transform: translateX(-50%) scale(1.04) translateY(-4px); box-shadow: 0 25px 60px rgba(59, 130, 246, 0.35); border-color: rgba(59, 130, 246, 0.3); }
+    }
+    .tg-logo {
+      width: 36px; height: 36px; background: transparent; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
       box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); flex-shrink: 0; overflow: hidden;
     }
     .tg-logo img { width: 100%; height: 100%; object-fit: cover; }
-    .tg-txt h4 { margin: 0; font-size: 0.9rem; color: #0f172a; font-weight: 800; tracking: -0.1px; white-space: nowrap; }
+    .tg-txt h4 { margin: 0; font-size: 0.9rem; color: #0f172a; font-weight: 800; letter-spacing: -0.1px; white-space: nowrap; }
     .tg-txt p { margin: 0; font-size: 0.65rem; color: #2563EB; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-
     @media (max-width: 600px) {
-        .tg-float { bottom: 20px; padding: 8px 16px 8px 10px; gap: 10px; }
-        .tg-logo { width: 32px; height: 32px; }
-        .tg-txt h4 { font-size: 0.85rem; }
-        .tg-txt p { font-size: 0.6rem; }
+      .tg-float { bottom: calc(20px + env(safe-area-inset-bottom, 0px)); padding: 8px 16px 8px 10px; gap: 10px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+      .tg-logo { width: 32px; height: 32px; }
+      .tg-txt h4 { font-size: 0.85rem; }
+      .tg-txt p { font-size: 0.6rem; }
     }
 
-    /* === 7. PDF VIEWER ENGINE СИСТЕМЫ СДО ВЕРСИИ 8.0 === */
-    .pdf-modal { position: fixed; inset: 0; z-index: 5000; background: #f1f5f9; display: none; flex-direction: column; opacity: 0; transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+    /* === 7. PDF VIEWER === */
+    .pdf-modal {
+      position: fixed; inset: 0; z-index: 5000; background: #f1f5f9;
+      display: none; flex-direction: column;
+      opacity: 0;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
     .pdf-modal.active { display: flex; opacity: 1; }
     .pdf-modal.dark-theme { background: #0f172a; }
     .pdf-modal.dark-theme .pdf-viewer-header { background: #020617; border-bottom-color: #1e293b; color: #f8fafc; }
@@ -323,60 +509,184 @@
     .pdf-modal.dark-theme .btn-pdf-close { background: #7f1d1d; border-color: #991b1b; color: #fecaca; }
     .pdf-modal.dark-theme .pdf-canvas-wrapper { background: radial-gradient(#334155 1px, transparent 1px); background-size: 20px 20px; }
     .pdf-modal.dark-theme #the-canvas { filter: brightness(0.92) contrast(0.98); }
+    .pdf-modal.dark-theme .pdf-loader { background: rgba(15, 23, 42, 0.92); color: #cbd5e1; }
+    .pdf-modal.dark-theme .pdf-loader.error { color: #fecaca; }
+    .pdf-modal.dark-theme .spinner { border-color: rgba(239, 68, 68, 0.3); border-top-color: #ef4444; }
 
-    .pdf-viewer-header { background: #fff; padding: 12px 24px; border-bottom: 1px solid #cbd5e1; display: flex; align-items: center; justify-content: space-between; gap: 15px; flex-shrink: 0; z-index: 10; }
+    .pdf-viewer-header {
+      background: #fff; padding: 12px 24px;
+      border-bottom: 1px solid #cbd5e1;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 15px; flex-shrink: 0;
+      position: relative; z-index: 10;
+    }
     .pdf-header-left { display: flex; align-items: center; gap: 14px; overflow: hidden; }
-    .pdf-file-icon { width: 38px; height: 38px; background: #fee2e2; color: #dc2626; flex-shrink: 0; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
-    .pdf-file-info h3 { margin: 0; font-size: 1rem; font-weight: 800; color: #0f172a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 320px; }
+    .pdf-file-icon {
+      width: 38px; height: 38px; background: #fee2e2; color: #dc2626;
+      flex-shrink: 0; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .pdf-file-info h3 {
+      margin: 0; font-size: 1rem; font-weight: 800; color: #0f172a;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 320px;
+    }
     .pdf-file-info p { margin: 0; font-size: 0.8rem; color: #64748b; font-weight: 500; }
     .pdf-top-actions { display: flex; gap: 10px; align-items: center; }
-    .btn-pdf-action { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 0 16px; height: 40px; border-radius: 10px; background: #fff; border: 1px solid #cbd5e1; color: #334155; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-    .btn-pdf-action:hover { border-color: #ef4444; color: #ef4444; }
+    .btn-pdf-action {
+      display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
+      padding: 0 16px; height: 40px; border-radius: 10px;
+      background: #fff; border: 1px solid #cbd5e1; color: #334155;
+      font-size: 0.88rem; font-weight: 600; cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    @media (hover: hover) {
+      .btn-pdf-action:hover { border-color: #ef4444; color: #ef4444; }
+    }
     .btn-pdf-close { background: #fee2e2; border-color: #fca5a5; color: #b91c1c; }
-    .btn-pdf-close:hover { background: #fecaca; border-color: #f87171; color: #991b1b; }
-
-    .pdf-read-progress { height: 3px; width: 0%; background: linear-gradient(90deg, #ef4444, #3b82f6); transition: width 0.2s ease; position: absolute; bottom: 0; left: 0; z-index: 15; }
-    .pdf-canvas-wrapper { flex-grow: 1; overflow: auto; display: flex; justify-content: flex-start; align-items: flex-start; padding: 25px; padding-bottom: 120px; background: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px; touch-action: pan-x pan-y pinch-zoom; -webkit-overflow-scrolling: touch; position: relative; cursor: grab; }
+    @media (hover: hover) {
+      .btn-pdf-close:hover { background: #fecaca; border-color: #f87171; color: #991b1b; }
+    }
+    .pdf-read-progress {
+      height: 3px; width: 0%;
+      background: linear-gradient(90deg, #ef4444, #3b82f6);
+      transition: width 0.2s ease;
+      position: absolute; bottom: 0; left: 0; z-index: 15;
+    }
+    .pdf-canvas-wrapper {
+      flex-grow: 1; overflow: auto;
+      display: flex; justify-content: flex-start; align-items: flex-start;
+      padding: 25px; padding-bottom: 120px;
+      background: radial-gradient(#cbd5e1 1px, transparent 1px);
+      background-size: 20px 20px;
+      touch-action: pan-x pan-y pinch-zoom;
+      -webkit-overflow-scrolling: touch;
+      position: relative; cursor: grab;
+    }
     .pdf-canvas-wrapper.grabbing { cursor: grabbing; }
-    #the-canvas { box-shadow: 0 15px 40px rgba(0,0,0,0.12); background: #fff; transform-origin: top left; margin: auto; display: block; transition: transform 0.1s ease-out; }
-
-    .pdf-toolbar { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(15, 23, 42, 0.94); backdrop-filter: blur(12px); padding: 10px 18px; border-radius: 50px; display: flex; align-items: center; gap: 14px; color: #fff; box-shadow: 0 12px 35px rgba(0,0,0,0.35); z-index: 50; white-space: nowrap; max-width: 95%; border: 1px solid rgba(255,255,255,0.08); }
-    .tool-btn { background: rgba(255,255,255,0.14); border: none; color: #fff; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
-    .tool-btn:hover { background: rgba(255,255,255,0.25); transform: scale(1.05); }
-    .tool-btn-icon { width: 32px; height: 32px; border-radius: 50%; background: transparent; border: none; color: #cbd5e1; cursor: pointer; font-size: 1.4rem; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
-    .tool-btn-icon:hover { color: #fff; transform: scale(1.1); }
+    #the-canvas {
+      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+      background: #fff;
+      transform-origin: top left;
+      margin: auto; display: block;
+    }
+    .pdf-toolbar {
+      position: absolute;
+      bottom: calc(30px + env(safe-area-inset-bottom, 0px));
+      left: 50%; transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.94);
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+      padding: 10px 18px; border-radius: 50px;
+      display: flex; align-items: center; gap: 14px; color: #fff;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+      z-index: 50; white-space: nowrap; max-width: 95%;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .tool-btn {
+      background: rgba(255,255,255,0.14); border: none; color: #fff;
+      width: 38px; height: 38px; border-radius: 50%;
+      cursor: pointer; font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, transform 0.2s;
+    }
+    @media (hover: hover) {
+      .tool-btn:hover { background: rgba(255,255,255,0.25); transform: scale(1.05); }
+    }
+    .tool-btn-icon {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: transparent; border: none; color: #cbd5e1;
+      cursor: pointer; font-size: 1.4rem;
+      transition: color 0.2s, transform 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    @media (hover: hover) {
+      .tool-btn-icon:hover { color: #fff; transform: scale(1.1); }
+    }
     .divider-v { width: 1px; height: 18px; background: rgba(255,255,255,0.2); }
     .page-input-group { display: flex; align-items: center; gap: 6px; font-family: monospace; font-size: 0.95rem; }
-    #page_num_input { width: 44px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; text-align: center; border-radius: 6px; padding: 3px; font-size: 0.95rem; font-family: inherit; }
+    #page_num_input {
+      width: 52px; height: 38px;
+      background: transparent; border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; text-align: center; border-radius: 6px; padding: 3px;
+      font-size: 0.95rem; font-family: inherit;
+    }
     #page_num_input:focus { border-color: #ef4444; outline: none; background: rgba(255,255,255,0.1); }
 
-    .gesture-hint { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(2,6,23,0.85); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 14px 24px; border-radius: 14px; text-align: center; pointer-events: none; opacity: 0; transition: opacity 0.5s; z-index: 70; font-size: 0.9rem; font-weight: 500; }
+    .pdf-loader {
+      position: absolute; inset: 0; z-index: 5;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 16px; padding: 20px;
+      background: rgba(241, 245, 249, 0.92);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem; font-weight: 700;
+      color: #334155; letter-spacing: 2px; text-transform: uppercase;
+      text-align: center;
+    }
+    .pdf-loader.error {
+      color: #b91c1c; letter-spacing: 0; text-transform: none; font-weight: 600;
+    }
+    .spinner {
+      width: 42px; height: 42px; border-radius: 50%;
+      border: 3px solid rgba(239, 68, 68, 0.2);
+      border-top-color: #ef4444;
+      animation: spinnerSpin 0.9s linear infinite;
+    }
+    @keyframes spinnerSpin { to { transform: rotate(360deg); } }
+
+    .gesture-hint {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(2,6,23,0.85); border: 1px solid rgba(255,255,255,0.1);
+      color: #fff; padding: 14px 24px; border-radius: 14px;
+      text-align: center; pointer-events: none;
+      opacity: 0; transition: opacity 0.5s; z-index: 70;
+      font-size: 0.9rem; font-weight: 500;
+    }
     .gesture-hint.show-hint { opacity: 1; }
-    .btn-text { display: inline; } .btn-icon { display: none; }
+    .btn-text { display: inline; }
+    .btn-icon { display: none; }
 
     @media (max-width: 600px) {
-        .btn-text { display: none; } .btn-icon { display: inline; font-size: 1.1rem; }
-        .pdf-toolbar { padding: 8px 12px; gap: 10px; bottom: 20px; }
-        .tool-btn { width: 34px; height: 34px; }
-        .pdf-file-info h3 { max-width: 160px; }
+      .btn-text { display: none; }
+      .btn-icon { display: inline; font-size: 1.1rem; }
+      .pdf-toolbar { padding: 8px 12px; gap: 10px; }
+      .tool-btn { width: 44px; height: 44px; }
+      .tool-btn-icon { width: 44px; height: 44px; }
+      .btn-pdf-action { height: 44px; min-width: 44px; }
+      #page_num_input { height: 44px; }
+      .pdf-file-info h3 { max-width: 160px; }
+      .pdf-toolbar { -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+    }
+
+    /* === 8. PRELOADER === */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .folder { opacity: 1 !important; translate: 0 0 !important; }
+      .pdf-read-progress { transition: none !important; }
     }
   </style>
 </head>
-<body class="masterpiece-theme">
+<body>
+  <a href="#main-content" class="skip-link">Перейти к содержимому</a>
 
-  <div class="noise-overlay"></div>
-  <canvas id="canvas-bg"></canvas>
-  <div class="microscope-hud"></div>
-  <div class="orb-layer"><div class="orb o1"></div><div class="orb o2"></div></div>
+  <div class="noise-overlay" aria-hidden="true"></div>
+  <canvas id="canvas-bg" aria-hidden="true"></canvas>
+  <div class="microscope-hud" aria-hidden="true"></div>
+  <div class="orb-layer" aria-hidden="true"><div class="orb o1"></div><div class="orb o2"></div></div>
 
-  <div id="preloader">
+  <div id="preloader" aria-hidden="true">
     <div id="stars-container"></div>
     <div class="beacon-system">
       <div class="beacon-ring ring-1"></div>
       <div class="beacon-ring ring-2"></div>
       <div class="siren-flare red-flare"></div>
       <div class="siren-flare blue-flare"></div>
-      <img src="assets/logomossmp.png" class="medical-logo" alt="Logo MOSSMP">
+      <img src="assets/logomossmp.png" class="medical-logo" alt="" aria-hidden="true">
     </div>
     <div class="loading-status">СИНХРОНИЗАЦИЯ БИОМЕТРИИ И РЕГЛАМЕНТОВ...</div>
   </div>
@@ -384,29 +694,29 @@
   <header class="header">
     <div class="container nav">
       <div class="brand">
-        <img src="assets/logomossmp.png" alt="Logo">
+        <img src="assets/logomossmp.png" alt="" aria-hidden="true">
         <div class="brand-info">
           <div class="brand-txt"><h1>ГБУЗ МО "МОССМП"</h1></div>
-          
-          <div class="hud-dashboard">
-            <div class="hud-item"><span class="hud-dot"></span> <span id="systemTime">00:00:00</span></div>
-            <div class="hud-separator"></div>
-            <div class="hud-item"><span class="hud-icon">🌡️</span> <span id="hud-temp">Синхронизация...</span></div>
-            <div class="hud-separator"></div>
-            <div class="hud-item"><span class="hud-icon">💨</span> <span id="hud-wind">Синхронизация...</span></div>
-            <div class="hud-separator"></div>
-            <div class="hud-item"><span class="hud-icon">☔</span> <span id="hud-precip">Синхронизация...</span></div>
+
+          <div class="hud-dashboard" aria-label="Оперативная обстановка">
+            <div class="hud-item"><span class="hud-dot" aria-hidden="true"></span> <span id="systemTime">00:00:00</span></div>
+            <div class="hud-separator" aria-hidden="true"></div>
+            <div class="hud-item"><span class="hud-icon" aria-hidden="true">🌡️</span> <span id="hud-temp">Синхронизация...</span></div>
+            <div class="hud-separator" aria-hidden="true"></div>
+            <div class="hud-item"><span class="hud-icon" aria-hidden="true">💨</span> <span id="hud-wind">Синхронизация...</span></div>
+            <div class="hud-separator" aria-hidden="true"></div>
+            <div class="hud-item"><span class="hud-icon" aria-hidden="true">☔</span> <span id="hud-precip">Синхронизация...</span></div>
           </div>
         </div>
       </div>
       <div class="actions">
         <a href="index.html" class="btn-portal">
-          <span class="btn-ico">🎓</span>
+          <span class="btn-ico" aria-hidden="true">🎓</span>
           <div class="btn-col"><span class="btn-t1">Учебный Портал</span><span class="btn-t2">Система СДО</span></div>
         </a>
         <div class="btn-site-wrap">
-          <a href="https://mo03.ru/" target="_blank" class="btn-site">
-            <span class="btn-ico">🚨</span>
+          <a href="https://mo03.ru/" target="_blank" rel="noopener noreferrer" class="btn-site">
+            <span class="btn-ico" aria-hidden="true">🚨</span>
             <div class="btn-col"><span class="btn-t1">Портал МОССМП</span><span class="btn-t2">Официальный сайт</span></div>
           </a>
         </div>
@@ -414,190 +724,192 @@
     </div>
   </header>
 
-  <main class="container">
+  <main class="container" id="main-content">
     <div class="hero">
-      <div class="greeting-box"><span id="typewriter"></span><span class="cursor"></span></div>
+      <div class="greeting-box"><span id="typewriter"></span><span class="cursor" aria-hidden="true"></span></div>
       <h2>Нормативно-правовой центр безопасности</h2>
       <p>Локальные акты, регламенты выездных бригад, стандарты СУОТ и карты СОУТ</p>
-      
+
       <div class="search-wrap">
-        <div class="search-icon">🔍</div>
-        <input type="text" id="searchInput" class="search-input" placeholder="Поиск документов (СИЗ, Приказ, СОУТ, Инструкция)...">
+        <div class="search-icon" aria-hidden="true">🔍</div>
+        <input type="text" id="searchInput" class="search-input" placeholder="Поиск документов (СИЗ, Приказ, СОУТ, Инструкция)..." aria-label="Поиск документов">
       </div>
-      
-      <div class="chips-row">
-        <div class="chip active" onclick="filterDocs('all', this)">Все базы</div>
-        <div class="chip" onclick="filterDocs('ВАЖНО', this)">🔥 Срочно</div>
-        <div class="chip" onclick="filterDocs('Приказ', this)">📜 Приказы</div>
-        <div class="chip" onclick="filterDocs('Положение', this)">📂 Положения</div>
-        <div class="chip" onclick="filterDocs('СОУТ', this)">🔬 Карты СОУТ</div>
+
+      <div class="chips-row" role="group" aria-label="Фильтры документов">
+        <div class="chip active" role="button" tabindex="0" aria-pressed="true" onclick="filterDocs('all', this)">Все базы</div>
+        <div class="chip" role="button" tabindex="0" aria-pressed="false" onclick="filterDocs('ВАЖНО', this)">🔥 Срочно</div>
+        <div class="chip" role="button" tabindex="0" aria-pressed="false" onclick="filterDocs('Приказ', this)">📜 Приказы</div>
+        <div class="chip" role="button" tabindex="0" aria-pressed="false" onclick="filterDocs('Положение', this)">📂 Положения</div>
+        <div class="chip" role="button" tabindex="0" aria-pressed="false" onclick="filterDocs('СОУТ', this)">🔬 Карты СОУТ</div>
       </div>
     </div>
 
     <div class="stack">
-      
+
       <div class="folder red" id="f1">
-        <div class="f-head" onclick="toggleFolder('f1')">
+        <div class="f-head" role="button" tabindex="0" aria-expanded="false" aria-controls="f1-body" onclick="toggleFolder('f1')">
           <div class="f-main">
-            <div class="f-icon">🛡️</div>
+            <div class="f-icon" aria-hidden="true">🛡️</div>
             <div class="f-txt"><h3>Охрана труда и Управление Рисками</h3><p>Реестр приказов, положений и инструкций по ТБ</p></div>
           </div>
-          <div class="chevron">▼</div>
+          <div class="chevron" aria-hidden="true">▼</div>
         </div>
-        
-        <div class="f-body">
-          
-          <div class="sub-item">
-            <div class="sub-head" onclick="toggleSub(this)"><span>📜 Реестр Приказов ГБУЗ МО "МОССМП"</span> <span>▼</span></div>
-            <div class="sub-body">
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №101/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge imp">Приказ №101/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Об утверждении Положения о Системе управления охраной труда (СУОТ) в ГБУЗ МО "МОССМП"</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №104/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Приказ №104/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Об организации обучения, стажировок и проверки знаний требований охраны труда персонала</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №108/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge imp">Приказ №108/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Об утверждении Норм бесплатной выдачи специальной одежды, обуви и СИЗ выездным бригадам</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №112/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Приказ №112/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">О назначении ответственных лиц за пожарную безопасность на подстанциях и в филиалах</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №115/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Приказ №115/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">О порядке проведения обязательных предсменных и послесменных медицинских осмотров водителей АСМП</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №119/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Приказ №119/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Об утверждении Перечня должностей, подлежащих обязательному психиатрическому освидетельствованию</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №122/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Приказ №122/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">О создании постоянно действующей комиссии по расследованию несчастных случаев на производстве</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №126/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge imp">Приказ №126/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">О проведении внепланового инструктажа по безопасности движения выездных бригад на сельских дорогах без разметки</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №130/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Приказ №130/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Об утверждении Положения о порядке учета и микроповреждений (микротравм) сотрудников СМП</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Приказ №135/ОТ-26')">
-                <div class="file-ico">✒️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Приказ №135/ОТ-26</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Об утверждении Карт оценки и управления профессиональными рисками на рабочих местах станций скорой помощи</span>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="sub-item">
-            <div class="sub-head" onclick="toggleSub(this)"><span>📂 Положения и Регламенты Безопасности</span> <span>▼</span></div>
-            <div class="sub-body">
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Положение СУОТ')">
-                <div class="file-ico">📋</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Положение</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Положение о функционировании СУОТ в медицинском учреждении скорой помощи</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Регламент Эвакуации')">
-                <div class="file-ico">🚨</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge imp">Регламент</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Регламент безопасной транспортировки и эвакуации экстренных пациентов бригадами СМП</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Инструкция ОТ Баллоны')">
-                <div class="file-ico">🦺</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge">Инструкция ОТ</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Инструкция по охране труда при работе со сжатыми газами и медицинскими кислородными баллонами в АСМП</span>
-                </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Протокол Безопасности Бригад')">
-                <div class="file-ico">⚠️</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge imp">Протокол</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Протокол действий выездного персонала при возникновении угрозы физического нападения на вызове</span>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="f-body" id="f1-body">
+          <div class="f-body-inner">
 
-          <div class="sub-item">
-            <div class="sub-head" onclick="toggleSub(this)"><span>🔬 Реестр Карт СОУТ (Спецоценка условий труда)</span> <span>▼</span></div>
-            <div class="sub-body">
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Сводная ведомость СОУТ')">
-                <div class="file-ico">📊</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge sout-tag">Сводная ведомость</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Сводная ведомость результатов проведения СОУТ — Центральный аппарат (Красногорск)</span>
+            <div class="sub-item">
+              <div class="sub-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)"><span>📜 Реестр Приказов ГБУЗ МО "МОССМП"</span> <span aria-hidden="true">▼</span></div>
+              <div class="sub-body"><div class="sub-body-inner">
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Приказ №101/ОТ-26" onclick="openViewer('assets/mock.pdf', 'Приказ №101/ОТ-26')">
+                  <div class="file-ico" aria-hidden="true">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge imp">Приказ №101/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Об утверждении Положения о Системе управления охраной труда (СУОТ) в ГБУЗ МО "МОССМП"</span>
+                  </div>
                 </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Карты СОУТ - Реанимация')">
-                <div class="file-ico">📑</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge sout-tag">Карты СОУТ</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Карты СОУТ рабочих мест: Выездная бригада анестезиологии-реанимации</span>
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Приказ №104/ОТ-26" onclick="openViewer('assets/mock.pdf', 'Приказ №104/ОТ-26')">
+                  <div class="file-ico" aria-hidden="true">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge">Приказ №104/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Об организации обучения, стажировок и проверки знаний требований охраны труда персонала</span>
+                  </div>
                 </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Карты СОУТ - Фельдшеры')">
-                <div class="file-ico">📑</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge sout-tag">Карты СОУТ</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Карты СОУТ рабочих мест: Общепрофильная фельдшерская выездная бригада</span>
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Приказ №108/ОТ-26" onclick="openViewer('assets/mock.pdf', 'Приказ №108/ОТ-26')">
+                  <div class="file-ico" aria-hidden="true">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge imp">Приказ №108/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Об утверждении Норм бесплатной выдачи специальной одежды, обуви и СИЗ выездным бригадам</span>
+                  </div>
                 </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Карты СОУТ - Сергиев Посад')">
-                <div class="file-ico">📑</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge sout-tag">Сергиев Посад</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Карты СОУТ рабочих мест: Персонал Сергиево-Посадской подстанции скорой медицинской помощи</span>
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Приказ №112/ОТ-26" onclick="openViewer('assets/mock.pdf', 'Приказ №112/ОТ-26')">
+                  <div class="file-ico" aria-hidden="true">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge">Приказ №112/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">О назначении ответственных лиц за пожарную безопасность на подстанциях и в филиалах</span>
+                  </div>
                 </div>
-              </div>
-              <div class="file" onclick="openViewer('assets/mock.pdf', 'Мероприятия СОУТ')">
-                <div class="file-ico">📈</div>
-                <div class="file-data">
-                  <div class="file-meta-row"><span class="badge sout-tag">План</span><span class="meta-size">PDF</span></div>
-                  <span class="file-name">Перечень рекомендуемых мероприятий по улучшению условий труда водителей и врачей АСМП</span>
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Приказ №115/ОТ-26" onclick="openViewer('assets/mock.pdf', 'Приказ №115/ОТ-26')">
+                  <div class="file-ico" aria-hidden="true">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge">Приказ №115/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">О порядке проведения обязательных предсменных и послесменных медицинских осмотров водителей АСМП</span>
+                  </div>
                 </div>
-              </div>
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Приказ №119/ОТ-26" onclick="openViewer('assets/mock.pdf', 'Приказ №119/ОТ-26')">
+                  <div class="file-ico" aria-hidden="true">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge">Приказ №119/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Об утверждении Перечня должностей, подлежащих обязательному психиатрическому освидетельствованию</span>
+                  </div>
+                </div>
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Приказ №122/ОТ-26" onclick="openViewer('assets/mock.pdf', 'Приказ №122/ОТ-26')">
+                  <div class="file-ico" aria-hidden="true">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge">Приказ №122/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">О создании постоянно действующей комиссии по расследованию несчастных случаев на производстве</span>
+                  </div>
+                </div>
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Приказ №126/ОТ-26" onclick="openViewer('assets/mock.pdf', 'Приказ №126/ОТ-26')">
+                  <div class="file-ico" aria-hidden="true">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge imp">Приказ №126/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">О проведении внепланового инструктажа по безопасности движения выездных бригад на сельских дорогах без разметки</span>
+                  </div>
+                </div>
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Приказ №130/ОТ-26" onclick="openViewer('assets/mock.pdf', 'Приказ №130/ОТ-26')">
+                  <div class="file-ico" aria-hidden="true">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge">Приказ №130/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Об утверждении Положения о порядке учета и микроповреждений (микротравм) сотрудников СМП</span>
+                  </div>
+                </div>
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Приказ №135/ОТ-26" onclick="openViewer('assets/mock.pdf', 'Приказ №135/ОТ-26')">
+                  <div class="file-ico" aria-hidden="true">✒️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge">Приказ №135/ОТ-26</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Об утверждении Карт оценки и управления профессиональными рисками на рабочих местах станций скорой помощи</span>
+                  </div>
+                </div>
+              </div></div>
             </div>
-          </div>
 
+            <div class="sub-item">
+              <div class="sub-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)"><span>📂 Положения и Регламенты Безопасности</span> <span aria-hidden="true">▼</span></div>
+              <div class="sub-body"><div class="sub-body-inner">
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Положение СУОТ" onclick="openViewer('assets/mock.pdf', 'Положение СУОТ')">
+                  <div class="file-ico" aria-hidden="true">📋</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge">Положение</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Положение о функционировании СУОТ в медицинском учреждении скорой помощи</span>
+                  </div>
+                </div>
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Регламент Эвакуации" onclick="openViewer('assets/mock.pdf', 'Регламент Эвакуации')">
+                  <div class="file-ico" aria-hidden="true">🚨</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge imp">Регламент</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Регламент безопасной транспортировки и эвакуации экстренных пациентов бригадами СМП</span>
+                  </div>
+                </div>
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Инструкция ОТ Баллоны" onclick="openViewer('assets/mock.pdf', 'Инструкция ОТ Баллоны')">
+                  <div class="file-ico" aria-hidden="true">🦺</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge">Инструкция ОТ</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Инструкция по охране труда при работе со сжатыми газами и медицинскими кислородными баллонами в АСМП</span>
+                  </div>
+                </div>
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Протокол Безопасности Бригад" onclick="openViewer('assets/mock.pdf', 'Протокол Безопасности Бригад')">
+                  <div class="file-ico" aria-hidden="true">⚠️</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge imp">Протокол</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Протокол действий выездного персонала при возникновении угрозы физического нападения на вызове</span>
+                  </div>
+                </div>
+              </div></div>
+            </div>
+
+            <div class="sub-item">
+              <div class="sub-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)"><span>🔬 Реестр Карт СОУТ (Спецоценка условий труда)</span> <span aria-hidden="true">▼</span></div>
+              <div class="sub-body"><div class="sub-body-inner">
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Сводная ведомость СОУТ" onclick="openViewer('assets/mock.pdf', 'Сводная ведомость СОУТ')">
+                  <div class="file-ico" aria-hidden="true">📊</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge sout-tag">Сводная ведомость</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Сводная ведомость результатов проведения СОУТ — Центральный аппарат (Красногорск)</span>
+                  </div>
+                </div>
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Карты СОУТ - Реанимация" onclick="openViewer('assets/mock.pdf', 'Карты СОУТ - Реанимация')">
+                  <div class="file-ico" aria-hidden="true">📑</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge sout-tag">Карты СОУТ</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Карты СОУТ рабочих мест: Выездная бригада анестезиологии-реанимации</span>
+                  </div>
+                </div>
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Карты СОУТ - Фельдшеры" onclick="openViewer('assets/mock.pdf', 'Карты СОУТ - Фельдшеры')">
+                  <div class="file-ico" aria-hidden="true">📑</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge sout-tag">Карты СОУТ</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Карты СОУТ рабочих мест: Общепрофильная фельдшерская выездная бригада</span>
+                  </div>
+                </div>
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Карты СОУТ - Сергиев Посад" onclick="openViewer('assets/mock.pdf', 'Карты СОУТ - Сергиев Посад')">
+                  <div class="file-ico" aria-hidden="true">📑</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge sout-tag">Сергиев Посад</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Карты СОУТ рабочих мест: Персонал Сергиево-Посадской подстанции скорой медицинской помощи</span>
+                  </div>
+                </div>
+                <div class="file" role="button" tabindex="0" aria-label="Открыть: Мероприятия СОУТ" onclick="openViewer('assets/mock.pdf', 'Мероприятия СОУТ')">
+                  <div class="file-ico" aria-hidden="true">📈</div>
+                  <div class="file-data">
+                    <div class="file-meta-row"><span class="badge sout-tag">План</span><span class="meta-size">PDF</span></div>
+                    <span class="file-name">Перечень рекомендуемых мероприятий по улучшению условий труда водителей и врачей АСМП</span>
+                  </div>
+                </div>
+              </div></div>
+            </div>
+
+          </div>
         </div>
       </div>
 
@@ -608,7 +920,7 @@
     © 2026 ГБУЗ МО "МОССМП". Официальный внутренний реестр документации.
   </footer>
 
-  <a href="https://max.ru/join/nE-hEr7PmCD8hAAPufWsW4p8ygTkFLGRMhwzNU9TNnw" target="_blank" class="tg-float">
+  <a href="https://max.ru/join/nE-hEr7PmCD8hAAPufWsW4p8ygTkFLGRMhwzNU9TNnw" target="_blank" rel="noopener noreferrer" class="tg-float" aria-label="Канал ГБУЗ МО МОССМП в MAX">
     <div class="tg-logo">
       <img src="assets/MAX.svg.png" alt="MAX">
     </div>
@@ -618,541 +930,856 @@
     </div>
   </a>
 
-  <div class="pdf-modal" id="pdfModal">
+  <div class="pdf-modal" id="pdfModal" role="dialog" aria-modal="true" aria-labelledby="pdfDocTitle" tabindex="-1">
     <div class="pdf-viewer-header">
       <div class="pdf-header-left">
-        <div class="pdf-file-icon">📄</div>
+        <div class="pdf-file-icon" aria-hidden="true">📄</div>
         <div class="pdf-file-info">
           <h3 id="pdfDocTitle">Документ загружается</h3>
           <p>Информационная сеть ГБУЗ МО "МОССМП"</p>
         </div>
       </div>
       <div class="pdf-top-actions">
-          <button class="btn-pdf-action" id="themeBtn" title="Ночной режим">🌙</button>
-          <a href="#" id="downloadBtn" download class="btn-pdf-action icon-only-mobile">
-              <span class="btn-text">Скачать файл</span><span class="btn-icon">📥</span>
+          <button class="btn-pdf-action" id="themeBtn" type="button" title="Ночной режим" aria-label="Переключить ночной режим">🌙</button>
+          <a href="#" id="downloadBtn" download class="btn-pdf-action icon-only-mobile" aria-label="Скачать PDF файл">
+              <span class="btn-text">Скачать файл</span><span class="btn-icon" aria-hidden="true">📥</span>
           </a>
-          <button class="btn-pdf-action btn-pdf-close" onclick="closeViewer()" title="Закрыть">✕</button>
+          <button class="btn-pdf-action btn-pdf-close" type="button" id="closePdfBtn" onclick="closeViewer()" title="Закрыть" aria-label="Закрыть просмотр документа">✕</button>
       </div>
-      <div class="pdf-read-progress" id="pdfInnerProgress"></div>
+      <div class="pdf-read-progress" id="pdfInnerProgress" aria-hidden="true"></div>
     </div>
 
-    <div class="pdf-canvas-wrapper" id="pdfWrapper">
-      <canvas id="the-canvas"></canvas>
-      <div class="pdf-loader" id="pdfLoader"><div class="spinner"></div><span>Синхронизация документа...</span></div>
+    <div class="pdf-canvas-wrapper" id="pdfWrapper" aria-label="Просмотр PDF документа">
+      <canvas id="the-canvas" role="img" aria-label="Страница PDF документа"></canvas>
+      <div class="pdf-loader" id="pdfLoader" role="status" aria-live="polite"><div class="spinner" aria-hidden="true"></div><span>Синхронизация документа...</span></div>
       <div class="gesture-hint" id="gestureHint">👆 Двойной клик — масштаб <br> 🖐️ Тяните — навигация по документу</div>
     </div>
 
-    <div class="pdf-toolbar">
-      <button class="tool-btn" id="prev" title="Предыдущая страница">←</button>
+    <div class="pdf-toolbar" role="toolbar" aria-label="Инструменты PDF">
+      <button class="tool-btn" id="prev" type="button" title="Предыдущая страница" aria-label="Предыдущая страница">←</button>
       <div class="page-input-group">
-          <input type="number" id="page_num_input" value="1" min="1">
+          <input type="number" id="page_num_input" value="1" min="1" aria-label="Номер страницы">
           <span>/ <span id="page_count">--</span></span>
       </div>
-      <button class="tool-btn" id="next" title="Следующая страница">→</button>
-      <div class="divider-v"></div>
-      <button class="tool-btn-icon" id="zoomOut" title="Уменьшить">-</button>
-      <button class="tool-btn-icon" id="zoomIn" title="Увеличить">+</button>
+      <button class="tool-btn" id="next" type="button" title="Следующая страница" aria-label="Следующая страница">→</button>
+      <div class="divider-v" aria-hidden="true"></div>
+      <button class="tool-btn-icon" id="zoomOut" type="button" title="Уменьшить" aria-label="Уменьшить масштаб">-</button>
+      <button class="tool-btn-icon" id="zoomIn" type="button" title="Увеличить" aria-label="Увеличить масштаб">+</button>
     </div>
   </div>
 
-  <script>
-    // === 1. ГЕНЕРАТОР МИКРОБИОЛОГИЧЕСКОЙ СРЕДЫ И МИКРОПЫЛИ НА CANVAS ===
-    const canvasEl = document.getElementById('canvas-bg');
-    const ctxCanvas = canvasEl.getContext('2d');
-    
-    let bacteria = [];
-    let dust = [];    
-    
-    const bacteriaCount = window.innerWidth < 768 ? 35 : 70;
-    const dustCount = window.innerWidth < 768 ? 50 : 150;
-    const MAX_BACTERIA_SIZE = 24; 
-    let mouse = { x: null, y: null, targetX: 0, targetY: 0 };
-
-    function resizeCanvas() { canvasEl.width = window.innerWidth; canvasEl.height = window.innerHeight; }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    window.addEventListener('mousemove', e => { 
-      mouse.x = e.clientX; mouse.y = e.clientY;
-      mouse.targetX = (e.clientX - window.innerWidth / 2) * 0.04;
-      mouse.targetY = (e.clientY - window.innerHeight / 2) * 0.04;
-    });
-
-    const colors = ['239, 68, 68', '59, 130, 246', '16, 185, 129'];
-
-    for(let i=0; i<dustCount; i++) {
-        dust.push({
-            x: Math.random() * canvasEl.width,
-            y: Math.random() * canvasEl.height,
-            vx: (Math.random() - 0.5) * 0.3,
-            vy: (Math.random() - 0.5) * 0.3,
-            size: Math.random() * 1.2,
-            alpha: Math.random() * 0.4
-        });
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "ГБУЗ МО МОССМП — Информационный документационный центр",
+    "description": "Официальный нормативно-правовой и гигиенический реестр ГБУЗ МО МОССМП. Охрана труда, СОУТ, регламенты СМП.",
+    "inLanguage": "ru-RU",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "ГБУЗ МО МОССМП",
+      "url": "https://mo03.ru/"
     }
+  }
+  </script>
 
-    class Bacterium {
-      constructor() { this.reset(true); }
-      
-      reset(initial = false) {
-        this.x = initial ? Math.random() * canvasEl.width : (Math.random() > 0.5 ? -50 : canvasEl.width + 50);
-        this.y = initial ? Math.random() * canvasEl.height : Math.random() * canvasEl.height;
-        this.z = Math.random() * 1.5 + 0.5; 
-        this.vx = (Math.random() - 0.5) * 0.4 * this.z;
-        this.vy = (Math.random() - 0.5) * 0.4 * this.z;
-        
-        this.targetSize = Math.min((Math.random() * 5 + 2) * this.z, MAX_BACTERIA_SIZE); 
-        this.baseSize = initial ? this.targetSize : 1; 
-        
-        this.angle = Math.random() * Math.PI * 2;
-        this.vAngle = (Math.random() - 0.5) * 0.02;
-        this.type = Math.random() > 0.6 ? 'rod' : 'round'; 
-        this.length = this.type === 'rod' ? this.targetSize * (Math.random() * 2 + 1.5) : 0;
-        
-        this.colorRGB = colors[Math.floor(Math.random() * colors.length)];
-        this.opacity = Math.random() * 0.05 + 0.01; 
-        
-        this.wiggle = Math.random() * Math.PI * 2;
-        this.wiggleSpeed = Math.random() * 0.03 + 0.01;
-        this.tumbleTimer = Math.random() * 100;
+  <script>
+    (function () {
+      'use strict';
 
-        // Новые свойства для эффекта фагоцитоза (поедания)
-        this.isEaten = false;
-        this.predator = null;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // PDF.js worker (если библиотека не загрузилась — не падаем)
+      if (typeof pdfjsLib !== 'undefined' && pdfjsLib.GlobalWorkerOptions) {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
       }
-      
-      update() {
-        // Логика фагоцитоза: если клетку съели, она втягивается в хищника
-        if (this.isEaten && this.predator) {
+
+      // === 1. CANVAS-ФОН ===
+      const canvasEl = document.getElementById('canvas-bg');
+      const ctxCanvas = canvasEl.getContext('2d');
+
+      const bacteria = [];
+      const dust = [];
+
+      const mobile = window.innerWidth < 768;
+      const bacteriaCount = mobile ? 35 : 70;
+      const dustCount = mobile ? 50 : 150;
+      const MAX_BACTERIA_SIZE = 24;
+      let mouse = { x: null, y: null, targetX: 0, targetY: 0 };
+
+      function resizeCanvas() {
+        canvasEl.width = window.innerWidth;
+        canvasEl.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      window.addEventListener('mousemove', e => {
+        mouse.x = e.clientX; mouse.y = e.clientY;
+        mouse.targetX = (e.clientX - window.innerWidth / 2) * 0.04;
+        mouse.targetY = (e.clientY - window.innerHeight / 2) * 0.04;
+      });
+
+      const colors = ['239, 68, 68', '59, 130, 246', '16, 185, 129'];
+
+      for (let i = 0; i < dustCount; i++) {
+        dust.push({
+          x: Math.random() * canvasEl.width,
+          y: Math.random() * canvasEl.height,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+          size: Math.random() * 1.2,
+          alpha: Math.random() * 0.4
+        });
+      }
+
+      class Bacterium {
+        constructor() { this.reset(true); }
+
+        reset(initial = false) {
+          this.x = initial ? Math.random() * canvasEl.width : (Math.random() > 0.5 ? -50 : canvasEl.width + 50);
+          this.y = initial ? Math.random() * canvasEl.height : Math.random() * canvasEl.height;
+          this.z = Math.random() * 1.5 + 0.5;
+          this.vx = (Math.random() - 0.5) * 0.4 * this.z;
+          this.vy = (Math.random() - 0.5) * 0.4 * this.z;
+          this.targetSize = Math.min((Math.random() * 5 + 2) * this.z, MAX_BACTERIA_SIZE);
+          this.baseSize = initial ? this.targetSize : 1;
+          this.angle = Math.random() * Math.PI * 2;
+          this.vAngle = (Math.random() - 0.5) * 0.02;
+          this.type = Math.random() > 0.6 ? 'rod' : 'round';
+          this.length = this.type === 'rod' ? this.targetSize * (Math.random() * 2 + 1.5) : 0;
+          this.colorRGB = colors[Math.floor(Math.random() * colors.length)];
+          this.opacity = Math.random() * 0.05 + 0.01;
+          this.wiggle = Math.random() * Math.PI * 2;
+          this.wiggleSpeed = Math.random() * 0.03 + 0.01;
+          this.tumbleTimer = Math.random() * 100;
+          this.isEaten = false;
+          this.predator = null;
+        }
+
+        update() {
+          if (this.isEaten && this.predator) {
             this.x += (this.predator.x - this.x) * 0.15;
             this.y += (this.predator.y - this.y) * 0.15;
-            this.baseSize *= 0.85; // Клетка быстро сжимается/переваривается
+            this.baseSize *= 0.85;
             if (this.type === 'rod') this.length = this.baseSize * 2.5;
-            
             if (this.baseSize <= 0.5) {
-                this.predator.targetSize = Math.min(this.predator.targetSize + 0.4, MAX_BACTERIA_SIZE);
-                this.reset(false); // Перерождается за краем экрана
+              this.predator.targetSize = Math.min(this.predator.targetSize + 0.4, MAX_BACTERIA_SIZE);
+              this.reset(false);
             }
-            return; // Прерываем обычное движение
-        }
+            return;
+          }
 
-        if (this.baseSize < this.targetSize) {
+          if (this.baseSize < this.targetSize) {
             this.baseSize += 0.05;
             if (this.type === 'rod') this.length = this.baseSize * 2.5;
-        }
+          }
 
-        this.tumbleTimer--;
-        if (this.tumbleTimer <= 0) {
+          this.tumbleTimer--;
+          if (this.tumbleTimer <= 0) {
             this.vx = (Math.random() - 0.5) * 0.6 * this.z;
             this.vy = (Math.random() - 0.5) * 0.6 * this.z;
             this.tumbleTimer = Math.random() * 150 + 50;
-        }
+          }
 
-        this.wiggle += this.wiggleSpeed;
-        let wx = Math.cos(this.wiggle) * 0.3;
-        let wy = Math.sin(this.wiggle) * 0.3;
+          this.wiggle += this.wiggleSpeed;
+          const wx = Math.cos(this.wiggle) * 0.3;
+          const wy = Math.sin(this.wiggle) * 0.3;
 
-        this.x += this.vx + wx; 
-        this.y += this.vy + wy;
-        this.angle += this.vAngle;
+          this.x += this.vx + wx;
+          this.y += this.vy + wy;
+          this.angle += this.vAngle;
 
-        if(this.x < -100) this.x = canvasEl.width + 100;
-        if(this.x > canvasEl.width + 100) this.x = -100;
-        if(this.y < -100) this.y = canvasEl.height + 100;
-        if(this.y > canvasEl.height + 100) this.y = -100;
+          if (this.x < -100) this.x = canvasEl.width + 100;
+          if (this.x > canvasEl.width + 100) this.x = -100;
+          if (this.y < -100) this.y = canvasEl.height + 100;
+          if (this.y > canvasEl.height + 100) this.y = -100;
 
-        let px = this.x + mouse.targetX * this.z;
-        let py = this.y + mouse.targetY * this.z;
-
-        if (mouse.x != null) {
-            let dx = mouse.x - px; let dy = mouse.y - py;
-            let dist = Math.sqrt(dx * dx + dy * dy);
+          const px = this.x + mouse.targetX * this.z;
+          const py = this.y + mouse.targetY * this.z;
+          if (mouse.x != null) {
+            const dx = mouse.x - px;
+            const dy = mouse.y - py;
+            const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < 150) {
-                const force = (150 - dist) / 150;
-                this.x -= (dx / dist) * force * 1.5; 
-                this.y -= (dy / dist) * force * 1.5;
+              const force = (150 - dist) / 150;
+              this.x -= (dx / dist) * force * 1.5;
+              this.y -= (dy / dist) * force * 1.5;
             }
+          }
         }
-      }
-      
-      draw() {
-        let px = this.x + mouse.targetX * this.z;
-        let py = this.y + mouse.targetY * this.z;
-        
-        ctxCanvas.save();
-        ctxCanvas.translate(px, py);
-        ctxCanvas.rotate(this.angle);
-        
-        ctxCanvas.fillStyle = `rgba(${this.colorRGB}, ${this.opacity * 0.5})`;
-        ctxCanvas.beginPath();
-        if (this.type === 'round') {
+
+        draw() {
+          const px = this.x + mouse.targetX * this.z;
+          const py = this.y + mouse.targetY * this.z;
+          ctxCanvas.save();
+          ctxCanvas.translate(px, py);
+          ctxCanvas.rotate(this.angle);
+
+          ctxCanvas.fillStyle = 'rgba(' + this.colorRGB + ', ' + (this.opacity * 0.5) + ')';
+          ctxCanvas.beginPath();
+          if (this.type === 'round') {
             ctxCanvas.arc(0, 0, this.baseSize * 1.5, 0, Math.PI * 2);
-        } else {
-            ctxCanvas.arc(-this.length/2, 0, this.baseSize * 1.5, Math.PI/2, Math.PI*1.5);
-            ctxCanvas.arc(this.length/2, 0, this.baseSize * 1.5, Math.PI*1.5, Math.PI/2);
+          } else {
+            ctxCanvas.arc(-this.length / 2, 0, this.baseSize * 1.5, Math.PI / 2, Math.PI * 1.5);
+            ctxCanvas.arc(this.length / 2, 0, this.baseSize * 1.5, Math.PI * 1.5, Math.PI / 2);
             ctxCanvas.closePath();
-        }
-        ctxCanvas.fill();
+          }
+          ctxCanvas.fill();
 
-        ctxCanvas.fillStyle = `rgba(${this.colorRGB}, ${this.opacity})`;
-        ctxCanvas.beginPath();
-        if (this.type === 'round') {
+          ctxCanvas.fillStyle = 'rgba(' + this.colorRGB + ', ' + this.opacity + ')';
+          ctxCanvas.beginPath();
+          if (this.type === 'round') {
             ctxCanvas.arc(0, 0, this.baseSize, 0, Math.PI * 2);
-        } else {
-            ctxCanvas.arc(-this.length/2, 0, this.baseSize, Math.PI/2, Math.PI*1.5);
-            ctxCanvas.arc(this.length/2, 0, this.baseSize, Math.PI*1.5, Math.PI/2);
+          } else {
+            ctxCanvas.arc(-this.length / 2, 0, this.baseSize, Math.PI / 2, Math.PI * 1.5);
+            ctxCanvas.arc(this.length / 2, 0, this.baseSize, Math.PI * 1.5, Math.PI / 2);
             ctxCanvas.closePath();
-        }
-        ctxCanvas.fill();
+          }
+          ctxCanvas.fill();
 
-        ctxCanvas.fillStyle = `rgba(${this.colorRGB}, ${this.opacity + 0.15})`;
-        ctxCanvas.beginPath();
-        if (this.type === 'round') {
+          ctxCanvas.fillStyle = 'rgba(' + this.colorRGB + ', ' + (this.opacity + 0.15) + ')';
+          ctxCanvas.beginPath();
+          if (this.type === 'round') {
             ctxCanvas.arc(0, 0, this.baseSize * 0.4, 0, Math.PI * 2);
-        } else {
-            ctxCanvas.arc(-this.length/3, 0, this.baseSize * 0.4, 0, Math.PI * 2);
-            ctxCanvas.arc(this.length/3, 0, this.baseSize * 0.4, 0, Math.PI * 2);
+          } else {
+            ctxCanvas.arc(-this.length / 3, 0, this.baseSize * 0.4, 0, Math.PI * 2);
+            ctxCanvas.arc(this.length / 3, 0, this.baseSize * 0.4, 0, Math.PI * 2);
+          }
+          ctxCanvas.fill();
+          ctxCanvas.restore();
         }
-        ctxCanvas.fill();
-
-        ctxCanvas.restore();
       }
-    }
 
-    for(let i=0; i<bacteriaCount; i++) bacteria.push(new Bacterium());
+      for (let i = 0; i < bacteriaCount; i++) bacteria.push(new Bacterium());
 
-    function animateEnvironment() {
-      ctxCanvas.clearRect(0, 0, canvasEl.width, canvasEl.height);
-      
-      ctxCanvas.fillStyle = 'rgba(100, 116, 139, 1)';
-      dust.forEach(d => {
+      let rafId = null;
+
+      function drawFrame() {
+        ctxCanvas.clearRect(0, 0, canvasEl.width, canvasEl.height);
+
+        ctxCanvas.fillStyle = 'rgba(100, 116, 139, 1)';
+        dust.forEach(d => {
           d.x += d.vx; d.y += d.vy;
-          if(d.x < 0) d.x = canvasEl.width;
-          if(d.x > canvasEl.width) d.x = 0;
-          if(d.y < 0) d.y = canvasEl.height;
-          if(d.y > canvasEl.height) d.y = 0;
-          
+          if (d.x < 0) d.x = canvasEl.width;
+          if (d.x > canvasEl.width) d.x = 0;
+          if (d.y < 0) d.y = canvasEl.height;
+          if (d.y > canvasEl.height) d.y = 0;
           ctxCanvas.globalAlpha = d.alpha;
           ctxCanvas.beginPath();
-          ctxCanvas.arc(d.x, d.y, d.size, 0, Math.PI*2);
+          ctxCanvas.arc(d.x, d.y, d.size, 0, Math.PI * 2);
           ctxCanvas.fill();
-      });
-      ctxCanvas.globalAlpha = 1.0;
-
-      for(let i=0; i<bacteria.length; i++) {
-        let b1 = bacteria[i];
-        b1.update();
-        b1.draw();
-        
-        for(let j=i+1; j<bacteria.length; j++) {
-            let b2 = bacteria[j];
-            let dx = b1.x - b2.x;
-            let dy = b1.y - b2.y;
-            let dist = Math.sqrt(dx*dx + dy*dy);
-            
-            if (dist < b1.baseSize + b2.baseSize) {
-                // Если b1 хищник, а b2 - живая жертва
-                if (b1.targetSize > b2.targetSize * 1.6 && !b2.isEaten && !b1.isEaten) {
-                    b2.isEaten = true;
-                    b2.predator = b1;
-                } 
-                // Если b2 хищник, а b1 - живая жертва
-                else if (b2.targetSize > b1.targetSize * 1.6 && !b1.isEaten && !b2.isEaten) {
-                    b1.isEaten = true;
-                    b1.predator = b2;
-                } 
-                // Обычное мягкое отталкивание равных клеток
-                else if (!b1.isEaten && !b2.isEaten) {
-                    b1.vx += dx * 0.001; b1.vy += dy * 0.001;
-                    b2.vx -= dx * 0.001; b2.vy -= dy * 0.001;
-                }
-            }
-        }
-      }
-
-      requestAnimationFrame(animateEnvironment);
-    }
-    animateEnvironment();
-
-    // === 2. ЗАПУСК ПРЕЛОАДЕРА, КВАНТОВОЙ ПЕЧАТНОЙ МАШИНКИ И ПОГОДЫ ===
-    window.onload = function() {
-      const sc = document.getElementById('stars-container');
-      for(let i=0; i<130; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        star.style.left = Math.random() * 100 + '%';
-        star.style.top = Math.random() * 100 + '%';
-        const size = Math.random() * 2 + 'px';
-        star.style.width = size; star.style.height = size;
-        star.style.setProperty('--duration', (Math.random() * 3 + 1.5) + 's');
-        star.style.setProperty('--opacity', (Math.random() * 0.6 + 0.2));
-        star.style.animationDelay = Math.random() * 4 + 's';
-        sc.appendChild(star);
-      }
-      setTimeout(() => {
-        document.getElementById('preloader').style.opacity = '0';
-        document.getElementById('preloader').style.visibility = 'hidden';
-        startTypewriter();
-        initWeatherSync(); // Запуск синхронизации погоды OpenWeatherMap
-      }, 2000);
-      setInterval(() => { document.getElementById('systemTime').textContent = new Date().toLocaleTimeString('ru-RU'); }, 1000);
-    };
-
-    function startTypewriter() {
-      const hour = new Date().getHours();
-      let text = (hour >= 5 && hour < 12) ? "Доброе утро, коллега." : (hour >= 17 && hour < 23) ? "Добрый вечер, коллега." : (hour >= 23 || hour < 5) ? "Оперативная ночная смена." : "Добрый день, коллега.";
-      const el = document.getElementById('typewriter');
-      let i = 0;
-      function type() {
-        if (i < text.length) { el.innerHTML += text.charAt(i); i++; setTimeout(type, 55); }
-        else {
-          document.querySelectorAll('.folder').forEach((f, idx) => { setTimeout(() => f.classList.add('reveal'), idx * 120); });
-        }
-      }
-      type();
-    }
-
-    // === 3. МОДУЛЬ НАВИГАЦИИ И УМНОЙ ФИЛЬТРАЦИИ ДЕРЕВА ДОКУМЕНТОВ ===
-    function toggleFolder(id) { document.getElementById(id).classList.toggle('active'); }
-    function toggleSub(head) { head.parentElement.classList.toggle('open'); }
-
-    const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('input', function() {
-      const query = this.value.toLowerCase().trim();
-      const files = document.querySelectorAll('.file');
-      
-      files.forEach(file => {
-        const fileName = file.querySelector('.file-name').innerText.toLowerCase();
-        const fileMeta = file.innerText.toLowerCase(); 
-        
-        if (query === "") {
-          file.style.display = "flex";
-        } else if (fileName.includes(query) || fileMeta.includes(query)) {
-          file.style.display = "flex";
-          let parentFolder = file.closest('.folder');
-          let parentSub = file.closest('.sub-item');
-          if (parentFolder) parentFolder.classList.add('active');
-          if (parentSub) parentSub.classList.add('open');
-        } else {
-          file.style.display = "none";
-        }
-      });
-      
-      document.querySelectorAll('.sub-item').forEach(sub => {
-        const visibleFiles = sub.querySelectorAll('.file[style="display: flex;"]').length;
-        if (query !== "" && visibleFiles === 0) sub.style.display = "none";
-        else sub.style.display = "block";
-      });
-    });
-
-    function filterDocs(type, btn) {
-      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-      btn.classList.add('active');
-      searchInput.value = '';
-      
-      const files = document.querySelectorAll('.file');
-      files.forEach(file => {
-        const text = file.innerText;
-        if (type === 'all' || text.includes(type)) {
-          file.style.display = "flex";
-          if (type !== 'all') {
-            file.closest('.folder').classList.add('active');
-            let sub = file.closest('.sub-item');
-            if (sub) sub.classList.add('open');
-          }
-        } else {
-          file.style.display = "none";
-        }
-      });
-    }
-
-    // === 4. АРХИТЕКТУРА PDF КВАНТОВОГО РИДЕРА ВЕРСИИ 8.0 ===
-    let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.0;
-    const canvas = document.getElementById('the-canvas'), ctx = canvas.getContext('2d');
-    const container = document.getElementById('pdfModal');
-    const wrapper = document.getElementById('pdfWrapper');
-    const innerProgress = document.getElementById('pdfInnerProgress');
-    const themeBtn = document.getElementById('themeBtn');
-    const pageInput = document.getElementById('page_num_input');
-    let currentPdfUrl = ''; 
-
-    function openViewer(url, title) {
-        document.getElementById('pdfDocTitle').innerText = title;
-        document.getElementById('downloadBtn').href = url;
-        currentPdfUrl = url;
-        
-        container.style.display = 'flex';
-        setTimeout(() => container.classList.add('active'), 10);
-        document.body.style.overflow = 'hidden';
-        document.getElementById('pdfLoader').style.display = 'flex';
-        pageNum = 1; scale = 1.0;
-        
-        pdfjsLib.getDocument(url).promise.then(pdf => {
-            pdfDoc = pdf;
-            document.getElementById('page_count').textContent = pdf.numPages;
-            renderPage(pageNum);
-            showGestureHint();
-        }).catch(err => {
-            console.error(err);
-            document.getElementById('pdfLoader').innerHTML = `<p style="text-align:center; padding:20px; color:red">Файл PDF не найден на сервере МОССМП.</p>`;
         });
-    }
+        ctxCanvas.globalAlpha = 1.0;
 
-    function closeViewer() {
+        for (let i = 0; i < bacteria.length; i++) {
+          const b1 = bacteria[i];
+          b1.update();
+          b1.draw();
+
+          for (let j = i + 1; j < bacteria.length; j++) {
+            const b2 = bacteria[j];
+            const dx = b1.x - b2.x;
+            const dy = b1.y - b2.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < b1.baseSize + b2.baseSize) {
+              if (b1.targetSize > b2.targetSize * 1.6 && !b2.isEaten && !b1.isEaten) {
+                b2.isEaten = true;
+                b2.predator = b1;
+              } else if (b2.targetSize > b1.targetSize * 1.6 && !b1.isEaten && !b2.isEaten) {
+                b1.isEaten = true;
+                b1.predator = b2;
+              } else if (!b1.isEaten && !b2.isEaten) {
+                b1.vx += dx * 0.001; b1.vy += dy * 0.001;
+                b2.vx -= dx * 0.001; b2.vy -= dy * 0.001;
+              }
+            }
+          }
+        }
+      }
+
+      function animateEnvironment() {
+        if (document.hidden) { rafId = null; return; }
+        drawFrame();
+        rafId = requestAnimationFrame(animateEnvironment);
+      }
+
+      if (reduceMotion) {
+        drawFrame();
+      } else {
+        animateEnvironment();
+        document.addEventListener('visibilitychange', () => {
+          if (!document.hidden && rafId === null) animateEnvironment();
+        });
+      }
+
+      // === 2. ПРЕЛОАДЕР + TYPEWRITER ===
+      const preloader = document.getElementById('preloader');
+
+      function buildStars() {
+        const sc = document.getElementById('stars-container');
+        if (!sc) return;
+        const starCount = window.innerWidth < 768 ? 50 : 130;
+        for (let i = 0; i < starCount; i++) {
+          const star = document.createElement('div');
+          star.className = 'star';
+          star.style.left = Math.random() * 100 + '%';
+          star.style.top = Math.random() * 100 + '%';
+          const size = Math.random() * 2 + 'px';
+          star.style.width = size;
+          star.style.height = size;
+          star.style.setProperty('--duration', (Math.random() * 3 + 1.5) + 's');
+          star.style.setProperty('--opacity', (Math.random() * 0.6 + 0.2));
+          star.style.animationDelay = Math.random() * 4 + 's';
+          sc.appendChild(star);
+        }
+      }
+
+      function revealFolders() {
+        document.querySelectorAll('.folder').forEach((f, idx) => {
+          setTimeout(() => f.classList.add('reveal'), idx * 120);
+        });
+      }
+
+      function startTypewriter() {
+        const hour = new Date().getHours();
+        const text = (hour >= 5 && hour < 12) ? 'Доброе утро, коллега.'
+          : (hour >= 17 && hour < 23) ? 'Добрый вечер, коллега.'
+          : (hour >= 23 || hour < 5) ? 'Оперативная ночная смена.'
+          : 'Добрый день, коллега.';
+
+        const el = document.getElementById('typewriter');
+        if (!el) return;
+
+        if (reduceMotion) {
+          el.textContent = text;
+          revealFolders();
+          return;
+        }
+
+        let i = 0;
+        function type() {
+          if (i < text.length) {
+            el.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, 55);
+          } else {
+            revealFolders();
+          }
+        }
+        type();
+      }
+
+      function bootPage() {
+        buildStars();
+        setTimeout(() => {
+          preloader.classList.add('is-hidden');
+          setTimeout(() => { preloader.style.display = 'none'; }, 900);
+          startTypewriter();
+          initWeatherSync();
+          setInterval(() => {
+            const t = document.getElementById('systemTime');
+            if (t) t.textContent = new Date().toLocaleTimeString('ru-RU');
+          }, 1000);
+          // Safety net
+          setTimeout(() => {
+            document.querySelectorAll('.folder').forEach((f, idx) => {
+              if (!f.classList.contains('reveal')) {
+                setTimeout(() => f.classList.add('reveal'), idx * 120);
+              }
+            });
+          }, 4000);
+        }, 2000);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bootPage);
+      } else {
+        bootPage();
+      }
+
+      // === 3. ПАПКИ / ФИЛЬТРЫ / ПОИСК ===
+      function setFolderOpen(folder, open) {
+        if (!folder) return;
+        folder.classList.toggle('active', open);
+        const head = folder.querySelector('.f-head');
+        if (head) head.setAttribute('aria-expanded', String(open));
+      }
+      function setSubOpen(sub, open) {
+        if (!sub) return;
+        sub.classList.toggle('open', open);
+        const head = sub.querySelector('.sub-head');
+        if (head) head.setAttribute('aria-expanded', String(open));
+      }
+
+      window.toggleFolder = function (id) {
+        const folder = document.getElementById(id);
+        if (!folder) return;
+        setFolderOpen(folder, !folder.classList.contains('active'));
+      };
+      window.toggleSub = function (head) {
+        if (!head) return;
+        const sub = head.parentElement;
+        if (!sub) return;
+        setSubOpen(sub, !sub.classList.contains('open'));
+      };
+
+      // Клавиатурный клик для role="button"
+      document.querySelectorAll('[role="button"][onclick]').forEach(el => {
+        el.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            el.click();
+          }
+        });
+      });
+
+      const searchInput = document.getElementById('searchInput');
+
+      function hideEmptySubs() {
+        document.querySelectorAll('.sub-item').forEach(sub => {
+          const hasVisible = Array.from(sub.querySelectorAll('.file'))
+            .some(f => f.style.display !== 'none');
+          sub.style.display = hasVisible ? '' : 'none';
+        });
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener('input', function () {
+          const query = this.value.toLowerCase().trim();
+          const files = document.querySelectorAll('.file');
+
+          files.forEach(file => {
+            const nameEl = file.querySelector('.file-name');
+            const fileName = nameEl ? nameEl.textContent.toLowerCase() : '';
+            const fileMeta = file.textContent.toLowerCase();
+
+            if (query === '') {
+              file.style.display = 'flex';
+            } else if (fileName.includes(query) || fileMeta.includes(query)) {
+              file.style.display = 'flex';
+              const parentFolder = file.closest('.folder');
+              const parentSub = file.closest('.sub-item');
+              if (parentFolder) setFolderOpen(parentFolder, true);
+              if (parentSub) setSubOpen(parentSub, true);
+            } else {
+              file.style.display = 'none';
+            }
+          });
+
+          hideEmptySubs();
+        });
+      }
+
+      window.filterDocs = function (type, btn) {
+        document.querySelectorAll('.chip').forEach(c => {
+          c.classList.remove('active');
+          c.setAttribute('aria-pressed', 'false');
+        });
+        if (btn) {
+          btn.classList.add('active');
+          btn.setAttribute('aria-pressed', 'true');
+        }
+        if (searchInput) searchInput.value = '';
+
+        document.querySelectorAll('.file').forEach(file => {
+          let match;
+          if (type === 'all') match = true;
+          else if (type === 'ВАЖНО') match = !!file.querySelector('.badge.imp');
+          else match = file.textContent.includes(type);
+
+          file.style.display = match ? 'flex' : 'none';
+
+          if (match && type !== 'all') {
+            const folder = file.closest('.folder');
+            const sub = file.closest('.sub-item');
+            if (folder) setFolderOpen(folder, true);
+            if (sub) setSubOpen(sub, true);
+          }
+        });
+
+        hideEmptySubs();
+      };
+
+      // === 4. PDF VIEWER ===
+      let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.0;
+      let loadGeneration = 0;
+      let lastFocusedElement = null;
+
+      const canvas = document.getElementById('the-canvas');
+      const ctx = canvas.getContext('2d');
+      const container = document.getElementById('pdfModal');
+      const wrapper = document.getElementById('pdfWrapper');
+      const innerProgress = document.getElementById('pdfInnerProgress');
+      const themeBtn = document.getElementById('themeBtn');
+      const pageInput = document.getElementById('page_num_input');
+      const pdfLoader = document.getElementById('pdfLoader');
+      const closeBtn = document.getElementById('closePdfBtn');
+
+      function setBackgroundInert(on) {
+        const bg = [
+          document.querySelector('.header'),
+          document.querySelector('main'),
+          document.querySelector('footer'),
+          document.querySelector('.tg-float')
+        ];
+        bg.forEach(el => { if (el) el.inert = on; });
+      }
+
+      function lockScroll() {
+        const y = window.scrollY;
+        document.body.dataset.scrollY = String(y);
+        document.body.style.position = 'fixed';
+        document.body.style.top = -y + 'px';
+        document.body.style.width = '100%';
+      }
+      function unlockScroll() {
+        const y = parseInt(document.body.dataset.scrollY || '0', 10);
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        delete document.body.dataset.scrollY;
+        window.scrollTo(0, y);
+      }
+
+      window.openViewer = function (url, title) {
+        if (typeof pdfjsLib === 'undefined') {
+          alert('Просмотр PDF временно недоступен. Попробуйте позже.');
+          return;
+        }
+
+        const gen = ++loadGeneration;
+        lastFocusedElement = document.activeElement;
+
+        document.getElementById('pdfDocTitle').textContent = title;
+        const dlBtn = document.getElementById('downloadBtn');
+        dlBtn.href = encodeURI(url);
+        dlBtn.setAttribute('download', '');
+
+        pdfLoader.classList.remove('error');
+        pdfLoader.innerHTML = '<div class="spinner" aria-hidden="true"></div><span>Синхронизация документа...</span>';
+        pdfLoader.style.display = 'flex';
+
+        container.style.display = 'flex';
+        requestAnimationFrame(() => container.classList.add('active'));
+        lockScroll();
+        setBackgroundInert(true);
+
+        pageNum = 1;
+        scale = 1.0;
+        if (pageInput) pageInput.value = '1';
+        if (innerProgress) innerProgress.style.width = '0%';
+
+        pdfjsLib.getDocument(url).promise.then(pdf => {
+          if (gen !== loadGeneration) return;
+          pdfDoc = pdf;
+          document.getElementById('page_count').textContent = pdf.numPages;
+          renderPage(pageNum);
+          showGestureHint();
+          if (container) container.focus();
+          else if (closeBtn) closeBtn.focus();
+        }).catch(err => {
+          if (gen !== loadGeneration) return;
+          console.error('PDF load error:', err);
+          pdfLoader.classList.add('error');
+          pdfLoader.innerHTML = '<span>Файл PDF не найден на сервере МОССМП.</span>';
+          pdfLoader.style.display = 'flex';
+          if (container) container.focus();
+          else if (closeBtn) closeBtn.focus();
+        });
+      };
+
+      window.closeViewer = function () {
+        loadGeneration++;
         container.classList.remove('active');
         setTimeout(() => {
-            container.style.display = 'none';
-            document.getElementById('pdfLoader').style.display = 'flex';
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            pdfDoc = null;
-        }, 300);
-        document.body.style.overflow = '';
-    }
-
-    themeBtn.addEventListener('click', () => {
-        container.classList.toggle('dark-theme');
-        themeBtn.textContent = container.classList.contains('dark-theme') ? '☀️' : '🌙';
-    });
-
-    document.addEventListener('keydown', (e) => {
-        if (container.classList.contains('active') && document.activeElement !== pageInput) {
-            if (e.key === "ArrowLeft") document.getElementById('prev').click();
-            if (e.key === "ArrowRight") document.getElementById('next').click();
-            if (e.key === "+" || e.key === "=") document.getElementById('zoomIn').click();
-            if (e.key === "-" || e.key === "_") document.getElementById('zoomOut').click();
-            if (e.key === "Escape") closeViewer();
-        }
-    });
-
-    pageInput.addEventListener('change', () => {
-        let val = parseInt(pageInput.value);
-        if (val >= 1 && val <= pdfDoc.numPages) { pageNum = val; queueRenderPage(pageNum); } 
-        else { pageInput.value = pageNum; }
-    });
-
-    function renderPage(num) {
-      pageRendering = true;
-      pdfDoc.getPage(num).then(function(page) {
-        const viewportOriginal = page.getViewport({scale: 1});
-        const availableWidth = wrapper.clientWidth - 35; 
-        let desiredScale = availableWidth / viewportOriginal.width;
-        if (scale !== 1.0) desiredScale = scale; else scale = parseFloat(desiredScale.toFixed(2));
-
-        const viewport = page.getViewport({scale: desiredScale});
-        const outputScale = window.devicePixelRatio || 1;
-        
-        canvas.width = Math.floor(viewport.width * outputScale);
-        canvas.height = Math.floor(viewport.height * outputScale);
-        canvas.style.width = Math.floor(viewport.width) + "px";
-        canvas.style.height = Math.floor(viewport.height) + "px";
-
-        const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
-        const renderContext = { canvasContext: ctx, viewport: viewport, transform: transform };
-        
-        page.render(renderContext).promise.then(function() {
+          container.style.display = 'none';
+          if (pdfLoader) {
+            pdfLoader.classList.remove('error');
+            pdfLoader.innerHTML = '<div class="spinner" aria-hidden="true"></div><span>Синхронизация документа...</span>';
+            pdfLoader.style.display = 'flex';
+          }
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          if (pdfDoc && typeof pdfDoc.destroy === 'function') {
+            try { pdfDoc.destroy(); } catch (e) { /* noop */ }
+          }
+          pdfDoc = null;
           pageRendering = false;
-          document.getElementById('pdfLoader').style.display = 'none';
-          if (pageNumPending !== null) { renderPage(pageNumPending); pageNumPending = null; }
+          pageNumPending = null;
+          if (innerProgress) innerProgress.style.width = '0%';
+        }, 300);
+        unlockScroll();
+        setBackgroundInert(false);
+        if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+          setTimeout(() => lastFocusedElement.focus(), 50);
+        }
+      };
+
+      if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+          container.classList.toggle('dark-theme');
+          const isDark = container.classList.contains('dark-theme');
+          themeBtn.textContent = isDark ? '☀️' : '🌙';
+          themeBtn.setAttribute('aria-label', isDark ? 'Включить дневной режим' : 'Включить ночной режим');
         });
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (!container.classList.contains('active')) return;
+
+        if (e.key === 'Escape') { closeViewer(); return; }
+
+        if (e.key === 'Tab') {
+          const focusable = container.querySelectorAll(
+            'button:not([disabled]), [href]:not([disabled]), input:not([disabled]):not([type="hidden"]), [tabindex]:not([tabindex="-1"])'
+          );
+          if (!focusable.length) return;
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault(); last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault(); first.focus();
+          }
+          return;
+        }
+
+        if (document.activeElement !== pageInput) {
+          if (e.key === 'ArrowLeft') document.getElementById('prev').click();
+          if (e.key === 'ArrowRight') document.getElementById('next').click();
+          if (e.key === '+' || e.key === '=') document.getElementById('zoomIn').click();
+          if (e.key === '-' || e.key === '_') document.getElementById('zoomOut').click();
+        }
       });
-      pageInput.value = num;
-      if(pdfDoc) innerProgress.style.width = (num / pdfDoc.numPages) * 100 + '%';
-      if (scale > 1.0) canvas.style.boxShadow = "0 12px 35px rgba(0,0,0,0.3)"; 
-      else canvas.style.boxShadow = "0 4px 15px rgba(0,0,0,0.12)";
-    }
 
-    function queueRenderPage(num) { if (pageRendering) pageNumPending = num; else renderPage(num); }
+      if (pageInput) {
+        pageInput.addEventListener('change', () => {
+          if (!pdfDoc) { pageInput.value = '1'; return; }
+          const val = parseInt(pageInput.value, 10);
+          if (Number.isFinite(val) && val >= 1 && val <= pdfDoc.numPages) {
+            pageNum = val;
+            queueRenderPage(pageNum);
+          } else {
+            pageInput.value = pageNum;
+          }
+        });
+      }
 
-    document.getElementById('prev').addEventListener('click', () => { if (pageNum <= 1) return; pageNum--; queueRenderPage(pageNum); });
-    document.getElementById('next').addEventListener('click', () => { if (pageNum >= pdfDoc.numPages) return; pageNum++; queueRenderPage(pageNum); });
-    document.getElementById('zoomIn').addEventListener('click', () => { scale += 0.25; renderPage(pageNum); });
-    document.getElementById('zoomOut').addEventListener('click', () => { if(scale > 0.5) scale -= 0.25; renderPage(pageNum); });
+      function renderPage(num) {
+        if (!pdfDoc) return;
+        pageRendering = true;
 
-    // Инерционный Драггинг
-    let isDragging = false, startX, startY, scrollLeft, scrollTop;
-    wrapper.addEventListener('mousedown', (e) => {
-        isDragging = true; wrapper.classList.add('grabbing');
-        startX = e.pageX - wrapper.offsetLeft; startY = e.pageY - wrapper.offsetTop;
-        scrollLeft = wrapper.scrollLeft; scrollTop = wrapper.scrollTop;
-    });
-    wrapper.addEventListener('mouseleave', () => { isDragging = false; wrapper.classList.remove('grabbing'); });
-    wrapper.addEventListener('mouseup', () => { isDragging = false; wrapper.classList.remove('grabbing'); });
-    wrapper.addEventListener('mousemove', (e) => {
+        pdfDoc.getPage(num).then(page => {
+          const viewportOriginal = page.getViewport({ scale: 1 });
+          const availableWidth = wrapper.clientWidth - 35;
+          let desiredScale = availableWidth / viewportOriginal.width;
+          if (scale !== 1.0) desiredScale = scale;
+          else scale = parseFloat(desiredScale.toFixed(2));
+
+          const viewport = page.getViewport({ scale: desiredScale });
+          const outputScale = window.devicePixelRatio || 1;
+
+          canvas.width = Math.floor(viewport.width * outputScale);
+          canvas.height = Math.floor(viewport.height * outputScale);
+          canvas.style.width = Math.floor(viewport.width) + 'px';
+          canvas.style.height = Math.floor(viewport.height) + 'px';
+
+          const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
+          const renderContext = { canvasContext: ctx, viewport, transform };
+
+          return page.render(renderContext).promise;
+        }).then(() => {
+          pageRendering = false;
+          if (pdfLoader) pdfLoader.style.display = 'none';
+          if (pageNumPending !== null) {
+            renderPage(pageNumPending);
+            pageNumPending = null;
+          }
+        }).catch(err => {
+          console.error('PDF render error:', err);
+          pageRendering = false;
+          if (pdfLoader) {
+            pdfLoader.classList.add('error');
+            pdfLoader.innerHTML = '<span>Не удалось отобразить страницу.</span>';
+            pdfLoader.style.display = 'flex';
+          }
+        });
+
+        if (pageInput) pageInput.value = num;
+        if (pdfDoc && innerProgress) {
+          innerProgress.style.width = (num / pdfDoc.numPages) * 100 + '%';
+        }
+        if (scale > 1.0) canvas.style.boxShadow = '0 12px 35px rgba(0,0,0,0.3)';
+        else canvas.style.boxShadow = '0 4px 15px rgba(0,0,0,0.12)';
+      }
+
+      function queueRenderPage(num) {
+        if (pageRendering) pageNumPending = num;
+        else renderPage(num);
+      }
+
+      document.getElementById('prev').addEventListener('click', () => {
+        if (!pdfDoc || pageNum <= 1) return;
+        pageNum--; queueRenderPage(pageNum);
+      });
+      document.getElementById('next').addEventListener('click', () => {
+        if (!pdfDoc || pageNum >= pdfDoc.numPages) return;
+        pageNum++; queueRenderPage(pageNum);
+      });
+      document.getElementById('zoomIn').addEventListener('click', () => {
+        if (!pdfDoc) return;
+        scale = Math.min(scale + 0.25, 5);
+        renderPage(pageNum);
+      });
+      document.getElementById('zoomOut').addEventListener('click', () => {
+        if (!pdfDoc) return;
+        if (scale > 0.5) scale -= 0.25;
+        renderPage(pageNum);
+      });
+
+      // Drag
+      let isDragging = false, startX, startY, scrollLeft, scrollTop;
+      wrapper.addEventListener('mousedown', e => {
+        isDragging = true;
+        wrapper.classList.add('grabbing');
+        startX = e.pageX - wrapper.offsetLeft;
+        startY = e.pageY - wrapper.offsetTop;
+        scrollLeft = wrapper.scrollLeft;
+        scrollTop = wrapper.scrollTop;
+      });
+      wrapper.addEventListener('mouseleave', () => { isDragging = false; wrapper.classList.remove('grabbing'); });
+      wrapper.addEventListener('mouseup', () => { isDragging = false; wrapper.classList.remove('grabbing'); });
+      wrapper.addEventListener('mousemove', e => {
         if (!isDragging) return;
         e.preventDefault();
-        const x = e.pageX - wrapper.offsetLeft; const y = e.pageY - wrapper.offsetTop;
-        const walkX = (x - startX) * 1.4; const walkY = (y - startY) * 1.4;
-        wrapper.scrollLeft = scrollLeft - walkX; wrapper.scrollTop = scrollTop - walkY;
-    });
-
-    // Умные Жесты
-    let touchStartX = 0, touchEndX = 0, lastTap = 0;
-    wrapper.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
-    wrapper.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        const currentTime = new Date().getTime();
-        if (currentTime - lastTap < 300) { scale = (scale > 1.2) ? 1.0 : 2.2; renderPage(pageNum); }
-        lastTap = currentTime;
-        if (scale <= 1.1) {
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 110) { 
-                if (diff > 0 && pageNum < pdfDoc.numPages) { pageNum++; queueRenderPage(pageNum); }
-                if (diff < 0 && pageNum > 1) { pageNum--; queueRenderPage(pageNum); }
-            }
-        }
-    }, {passive: true});
-
-    function showGestureHint() {
-        const hint = document.getElementById('gestureHint');
-        hint.classList.add('show-hint'); setTimeout(() => hint.classList.remove('show-hint'), 3000);
-    }
-    
-    window.addEventListener('resize', () => { if(pdfDoc && container.classList.contains('active')) renderPage(pageNum); });
-
-    // Эффект 3D Наклона Папок (Tilt)
-    document.querySelectorAll('.folder').forEach(folder => {
-      folder.addEventListener('mousemove', e => {
-        const rect = folder.getBoundingClientRect();
-        const rotateX = ((e.clientY - rect.top - rect.height/2) / (rect.height/2)) * -0.6;
-        const rotateY = ((e.clientX - rect.left - rect.width/2) / (rect.width/2)) * 0.6;
-        folder.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        const x = e.pageX - wrapper.offsetLeft;
+        const y = e.pageY - wrapper.offsetTop;
+        wrapper.scrollLeft = scrollLeft - (x - startX) * 1.4;
+        wrapper.scrollTop = scrollTop - (y - startY) * 1.4;
       });
-      folder.addEventListener('mouseleave', () => { folder.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`; });
-    });
 
-    // === 5. ИНТЕГРАЦИЯ ДИНАМИЧЕСКОЙ ПОГОДЫ (OPENWEATHERMAP API) ===
-    function initWeatherSync() {
-      const apiKey = "e38f7928d64f8745b977195362b626be";
-      const city = "Moscow";
-      // Запрос к серверу OpenWeatherMap (Метрическая система, Русский язык)
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=ru`;
-      
-      fetch(url)
-        .then(res => res.json())
-        .then(data => {
-           if(data.main && data.wind) {
-               const temp = Math.round(data.main.temp);
-               const wind = Math.round(data.wind.speed * 10) / 10; 
-               
-               // Парсинг осадков/описания погоды
-               let precip = data.weather && data.weather.length > 0 ? data.weather[0].description : "Нет данных";
-               precip = precip.charAt(0).toUpperCase() + precip.slice(1);
-               
-               document.getElementById('hud-temp').textContent = (temp > 0 ? "+" : "") + temp + "°C Москва";
-               document.getElementById('hud-wind').textContent = "Ветер: " + wind + " м/с";
-               document.getElementById('hud-precip').textContent = precip;
-           }
-        }).catch(err => {
-           console.error("Ошибка синхронизации погоды:", err);
-           document.getElementById('hud-temp').textContent = "Офлайн";
-           document.getElementById('hud-wind').textContent = "Нет сети";
-           document.getElementById('hud-precip').textContent = "Нет данных";
+      // Desktop double-click zoom
+      wrapper.addEventListener('dblclick', () => {
+        if (!pdfDoc) return;
+        scale = (scale > 1.2) ? 1.0 : 2.2;
+        renderPage(pageNum);
+      });
+
+      // Touch gestures
+      let touchStartX = 0, lastTap = 0;
+      wrapper.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      wrapper.addEventListener('touchend', e => {
+        if (!pdfDoc) return;
+        const touchEndX = e.changedTouches[0].screenX;
+        const now = Date.now();
+        if (now - lastTap < 300) {
+          scale = (scale > 1.2) ? 1.0 : 2.2;
+          renderPage(pageNum);
+        }
+        lastTap = now;
+        if (scale <= 1.1) {
+          const diff = touchStartX - touchEndX;
+          if (Math.abs(diff) > 110) {
+            if (diff > 0 && pageNum < pdfDoc.numPages) { pageNum++; queueRenderPage(pageNum); }
+            if (diff < 0 && pageNum > 1) { pageNum--; queueRenderPage(pageNum); }
+          }
+        }
+      }, { passive: true });
+
+      function showGestureHint() {
+        const hint = document.getElementById('gestureHint');
+        if (!hint) return;
+        hint.classList.add('show-hint');
+        setTimeout(() => hint.classList.remove('show-hint'), 3000);
+      }
+
+      window.addEventListener('resize', () => {
+        if (pdfDoc && container.classList.contains('active')) renderPage(pageNum);
+      });
+
+      // === 5. 3D TILT (только desktop) ===
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        document.querySelectorAll('.folder').forEach(folder => {
+          let raf = null;
+          folder.addEventListener('mousemove', e => {
+            if (raf) cancelAnimationFrame(raf);
+            raf = requestAnimationFrame(() => {
+              const rect = folder.getBoundingClientRect();
+              const rotateX = ((e.clientY - rect.top - rect.height / 2) / (rect.height / 2)) * -0.6;
+              const rotateY = ((e.clientX - rect.left - rect.width / 2) / (rect.width / 2)) * 0.6;
+              folder.style.transform = 'perspective(1000px) translateY(-2px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+            });
+          });
+          folder.addEventListener('mouseleave', () => {
+            if (raf) cancelAnimationFrame(raf);
+            folder.style.transform = '';
+          });
         });
-        
-        // Автообновление каждые 15 минут
-        setTimeout(initWeatherSync, 900000);
-    }
+      }
+
+      // === 6. ПОГОДА (Open-Meteo, без API-ключа) ===
+      const WMO_CODES = {
+        0: 'Ясно', 1: 'Преимущественно ясно', 2: 'Переменная облачность', 3: 'Пасмурно',
+        45: 'Туман', 48: 'Изморозь',
+        51: 'Слабая морось', 53: 'Морось', 55: 'Сильная морось',
+        56: 'Ледяная морось', 57: 'Сильная ледяная морось',
+        61: 'Слабый дождь', 63: 'Дождь', 65: 'Сильный дождь',
+        66: 'Ледяной дождь', 67: 'Сильный ледяной дождь',
+        71: 'Слабый снег', 73: 'Снег', 75: 'Сильный снег',
+        77: 'Снежная крупа',
+        80: 'Слабый ливень', 81: 'Ливень', 82: 'Сильный ливень',
+        85: 'Снегопад', 86: 'Сильный снегопад',
+        95: 'Гроза', 96: 'Гроза с градом', 99: 'Сильная гроза с градом'
+      };
+
+      let weatherInFlight = false;
+
+      function initWeatherSync() {
+        if (weatherInFlight) return;
+        weatherInFlight = true;
+
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=55.7558&longitude=37.6173'
+          + '&current=temperature_2m,wind_speed_10m,weather_code'
+          + '&timezone=Europe%2FMoscow&wind_speed_unit=ms';
+
+        fetch(url)
+          .then(res => {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            return res.json();
+          })
+          .then(data => {
+            if (!data || !data.current) throw new Error('Нет данных');
+            const { temperature_2m, wind_speed_10m, weather_code } = data.current;
+            const temp = Math.round(temperature_2m);
+            const wind = Math.round(wind_speed_10m * 10) / 10;
+            const desc = WMO_CODES[weather_code] || 'Нет данных';
+
+            const tEl = document.getElementById('hud-temp');
+            const wEl = document.getElementById('hud-wind');
+            const pEl = document.getElementById('hud-precip');
+            if (tEl) tEl.textContent = (temp > 0 ? '+' : '') + temp + '°C Москва';
+            if (wEl) wEl.textContent = 'Ветер: ' + wind + ' м/с';
+            if (pEl) pEl.textContent = desc;
+          })
+          .catch(err => {
+            console.error('Ошибка синхронизации погоды:', err);
+            const tEl = document.getElementById('hud-temp');
+            const wEl = document.getElementById('hud-wind');
+            const pEl = document.getElementById('hud-precip');
+            if (tEl) tEl.textContent = 'Офлайн';
+            if (wEl) wEl.textContent = 'Нет сети';
+            if (pEl) pEl.textContent = 'Нет данных';
+          })
+          .finally(() => {
+            weatherInFlight = false;
+          });
+      }
+
+      setInterval(initWeatherSync, 900000);
+    })();
   </script>
 </body>
 </html>
