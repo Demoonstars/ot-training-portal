@@ -1167,3 +1167,20 @@ li { margin-bottom: 8px; }
   .flip-front { display: none; }
   .flip-back { display: flex; }
 }
+/* Быстрая замена для конца файла assets/style.css (раздел 12.1) */
+@media (min-width: 961px) {
+  .site-header.quantum-header.is-scrolled .header-meta,
+  .site-header.quantum-header.is-scrolled .site-subtitle-mini {
+    display: none !important;
+  }
+  .site-header.quantum-header .main-nav {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
+@media (max-width: 1260px) {
+  .site-header.quantum-header .header-meta,
+  .site-header.quantum-header .site-subtitle-mini {
+    display: none !important;
+  }
+}
