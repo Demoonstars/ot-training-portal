@@ -2,895 +2,1380 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Регламент обучения в СДО — пошаговая инструкция | Охрана труда</title>
+  <title>СДО | Инструкции и порядок обучения</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Пошаговая инструкция для сотрудников по прохождению дистанционного обучения, изучению материалов и сдаче итогового тестирования в СДО.">
 
-  <!-- ===== SEO ===== -->
-  <!--
-    БЛОК: SEO-метатеги, Canonical и Open Graph.
-    ЗА ЧТО ОТВЕЧАЕТ: Корректная индексация страницы и превью в мессенджерах.
-    ПОЧЕМУ БЕЗОПАСНО: Заглушки https://example.com заменены на фактический адрес портала на GitHub Pages
-    и реальный файл обложки assets/hero-training.jpg.
-  -->
-  <meta name="description" content="Пошаговый регламент обучения в СДО: 4 шага дистанционного обучения, критерии допуска, требования к идентификации и ответы на частые вопросы. Проходной балл — 85%.">
-  <meta name="keywords" content="СДО, дистанционное обучение, охрана труда, проверка знаний, тестирование, регламент обучения, инструкция, проходной балл">
-  <meta name="author" content="Служба Охраны Труда">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-  <meta name="theme-color" content="#2563eb">
+  <!-- Канонический URL и Open Graph -->
   <link rel="canonical" href="https://demoonstars.github.io/ot-training-portal/instructions.html">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="Регламент обучения в СДО — пошаговая инструкция">
-  <meta property="og:description" content="Как пройти обучение и проверку знаний в СДО: 4 шага, критерии допуска, FAQ.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="СДО | Инструкции и порядок обучения">
+  <meta property="og:description" content="Пошаговый алгоритм прохождения инструктажей, интерактивный чек-лист аттестации и подбор курса по должности.">
   <meta property="og:url" content="https://demoonstars.github.io/ot-training-portal/instructions.html">
-  <meta property="og:site_name" content="СДО — Система дистанционного обучения">
   <meta property="og:locale" content="ru_RU">
-  <meta property="og:image" content="https://demoonstars.github.io/ot-training-portal/assets/hero-training.jpg">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Регламент обучения в СДО">
-  <meta name="twitter:description" content="Пошаговая инструкция по дистанционному обучению и тестированию.">
-  <meta name="twitter:image" content="https://demoonstars.github.io/ot-training-portal/assets/hero-training.jpg">
 
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="assets/Филин от.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Merriweather:ital,wght@1,700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <!-- ===== СТИЛИ СТРАНИЦЫ ===== -->
   <style>
-    /* ---------- ЦВЕТОВЫЕ ПЕРЕМЕННЫЕ (светлая/тёмная тема) ---------- */
     :root {
-      --c-card: rgba(255,255,255,0.72);
-      --c-card-solid: #ffffff;
-      --c-text: #0f172a;
-      --c-text-2: #475569;
-      --c-text-3: #64748b;
-      --c-border: #ffffff;
-      --c-accent: #2563eb;
-      --c-accent-2: #3b82f6;
-      --c-success: #10b981;
-      --c-line: #bfdbfe;
-      --c-faq-bg: rgba(255,255,255,0.8);
-      --c-faq-border: rgba(148,163,184,0.2);
-      --c-dot-1: #2563eb;
-      --c-dot-2: #1d4ed8;
-      --c-dot-1-done: #10b981;
-      --c-dot-2-done: #059669;
-      --c-shadow: rgba(0,0,0,0.05);
-    }
-    [data-theme="dark"] {
-      color-scheme: dark;
-      --c-card: rgba(30,41,59,0.65);
-      --c-card-solid: #1e293b;
-      --c-text: #f1f5f9;
-      --c-text-2: #cbd5e1;
-      --c-text-3: #94a3b8;
-      --c-border: rgba(148,163,184,0.2);
-      --c-accent: #60a5fa;
-      --c-accent-2: #93c5fd;
-      --c-success: #34d399;
-      --c-line: rgba(96,165,250,0.3);
-      --c-faq-bg: rgba(30,41,59,0.65);
-      --c-faq-border: rgba(148,163,184,0.25);
-      --c-dot-1: #60a5fa;
-      --c-dot-2: #3b82f6;
-      --c-dot-1-done: #34d399;
-      --c-dot-2-done: #10b981;
-      --c-shadow: rgba(0,0,0,0.4);
-    }
-    [data-theme="dark"] body.masterpiece-theme {
-      background-color: #0f172a;
-      background-image:
-        radial-gradient(1200px 600px at 10% 0%, rgba(59,130,246,0.15), transparent 60%),
-        radial-gradient(800px 400px at 90% 100%, rgba(139,92,246,0.10), transparent 60%);
-    }
-    /*
-     * БЛОК: Поддержка темной темы для шапки и навигации.
-     * ЗА ЧТО ОТВЕЧАЕТ: Корректный темный фон и контрастный текст в .site-header при включении [data-theme="dark"].
-     * ПОЧЕМУ БЕЗОПАСНО: Переопределяет светлый фон шапки только при активном атрибуте data-theme="dark".
-     */
-    [data-theme="dark"] .site-header {
-      background: rgba(15, 23, 42, 0.85);
-      border-bottom-color: rgba(148, 163, 184, 0.2);
-    }
-    [data-theme="dark"] .site-title-mini {
-      color: var(--c-text);
-    }
-    [data-theme="dark"] .site-subtitle-mini,
-    [data-theme="dark"] .nav-link {
-      color: var(--c-text-2);
-    }
-    [data-theme="dark"] .nav-link:hover,
-    [data-theme="dark"] .nav-link.active,
-    [data-theme="dark"] .nav-link-active {
-      color: var(--c-accent);
-      background: rgba(30, 41, 59, 0.8);
+      --primary: #2563eb;
+      --primary-glow: rgba(37, 99, 235, 0.35);
+      --emerald: #10b981;
+      --violet: #7c3aed;
+      --rose: #e11d48;
+      --amber: #f59e0b;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-600: #475569;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
-    /* ---------- READING PROGRESS ---------- */
-    .reading-progress {
-      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
-      background: linear-gradient(90deg, #3b82f6, #2563eb);
-      z-index: 9999; transition: width 0.1s linear;
+    /* === 1. ЖИВОЙ ФОН И ПОЛОСА ПРОКРУТКИ === */
+    body.masterpiece-theme {
+      background: linear-gradient(-45deg, #f1f5f9, #e0f2fe, #f0fdf4, #faf5ff);
+      background-size: 400% 400%;
+      animation: gradientBG 16s ease infinite;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+      color: var(--slate-800);
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .scroll-progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3.5px; width: 0%;
+      background: linear-gradient(90deg, #2563eb, #8b5cf6, #10b981);
+      z-index: 9999;
+      transition: width 0.1s ease-out;
+      box-shadow: 0 0 12px rgba(37, 99, 235, 0.6);
+    }
+
+    .reveal-up {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .js-loaded .reveal-up {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    .js-loaded .reveal-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ======================================================================
+       2. ШАПКА QUANTUM COMMAND BAR V2.0 (БЕЗ ВЫЛЕТА ЗА КАПСУЛУ НА ПК И БЕЗ ДУБЛЕЙ НА МОБИЛЬНЫХ)
+       ====================================================================== */
+    .site-header.quantum-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+      padding: 10px 0;
+      transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .site-header.quantum-header .header-inner {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 10px !important;
+      box-sizing: border-box !important;
+      transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .site-header.quantum-header .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      min-width: 0;
+    }
+
+    .site-header.quantum-header .brand-logo {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .site-header.quantum-header .site-title-mini {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin: 0;
+      line-height: 1.1;
+      color: #0f172a;
+      white-space: nowrap;
+    }
+
+    .site-header.quantum-header .site-subtitle-mini {
+      font-size: 0.7rem;
+      color: #64748b;
+      margin: 2px 0 0;
+      white-space: nowrap;
+      max-width: 185px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .site-header.quantum-header .header-meta {
+      font-size: 0.72rem;
+      color: #64748b;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 0 !important;
+      white-space: nowrap;
+      flex-shrink: 1;
+      min-width: 0;
+    }
+
+    @media (max-width: 1260px) {
+      .site-header.quantum-header .header-meta,
+      .site-header.quantum-header .site-subtitle-mini {
+        display: none !important;
+      }
+    }
+
+    .site-header.quantum-header .main-nav {
+      flex: 1 1 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 0;
+      position: relative;
+    }
+
+    .site-header.quantum-header .nav-list {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+      margin: 0;
+      padding: 4px;
+      position: relative;
+      border-radius: 14px;
+      background: rgba(241, 245, 249, 0.7);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .site-header.quantum-header .nav-link {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #475569;
+      padding: 7px 12px;
+      border-radius: 10px;
+      white-space: nowrap;
+      position: relative;
+      z-index: 2;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+
+    .site-header.quantum-header .nav-link:hover,
+    .site-header.quantum-header .nav-link.active,
+    .site-header.quantum-header .nav-link-active {
+      color: #2563eb;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+    }
+
+    .q-nav-glider {
+      position: absolute;
+      top: 4px;
+      left: 0;
+      height: calc(100% - 8px);
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(124, 58, 237, 0.10));
+      border: 1px solid rgba(37, 99, 235, 0.22);
       pointer-events: none;
+      z-index: 1;
+      opacity: 0;
+      transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), width 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
     }
 
-    /* ---------- BREADCRUMBS ---------- */
-    .breadcrumbs {
-      font-size: 0.85rem; color: var(--c-text-3);
-      padding: 20px 0 0; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    .q-context-radar {
+      display: none;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 11px;
+      border-radius: 99px;
+      background: linear-gradient(90deg, rgba(37, 99, 235, 0.09), rgba(16, 185, 129, 0.09));
+      border: 1px solid rgba(37, 99, 235, 0.22);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0f172a;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
-    .breadcrumbs a { color: var(--c-text-3); text-decoration: none; transition: color 0.2s; }
-    .breadcrumbs a:hover { color: var(--c-accent); }
-    .breadcrumbs .sep { opacity: 0.5; }
-    .breadcrumbs [aria-current="page"] { color: var(--c-text); font-weight: 600; }
+    .q-radar-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #2563eb;
+      box-shadow: 0 0 8px #2563eb;
+      flex-shrink: 0;
+    }
+    .q-radar-section {
+      color: #2563eb;
+      max-width: 170px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-    /* ---------- HERO ---------- */
-    .instr-hero {
-      text-align: center; padding: 30px 20px 20px; margin-bottom: 20px;
+    .q-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      position: relative;
     }
-    .instr-eyebrow {
-      display: inline-block; font-size: 0.75rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.08em;
-      color: var(--c-accent); background: rgba(37,99,235,0.10);
-      padding: 6px 14px; border-radius: 999px; margin-bottom: 18px;
-    }
-    .instr-title {
-      font-size: clamp(1.7rem, 4vw, 2.6rem); font-weight: 800;
-      color: var(--c-text); margin: 0 0 15px; line-height: 1.15;
-    }
-    .instr-lead {
-      font-size: 1.08rem; color: var(--c-text-2); max-width: 780px;
-      margin: 0 auto 22px; line-height: 1.65;
-    }
-    .instr-meta {
-      display: flex; flex-wrap: wrap; justify-content: center;
-      gap: 10px 22px; font-size: 0.88rem; color: var(--c-text-3);
-      margin-bottom: 22px;
-    }
-    .instr-meta-item { display: inline-flex; align-items: center; gap: 6px; }
-    .instr-actions {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
-    }
-    .btn-ghost {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 18px; border-radius: 12px; font-size: 0.92rem; font-weight: 600;
-      background: var(--c-card); color: var(--c-text);
-      border: 1px solid var(--c-border); cursor: pointer;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+
+    .q-cmd-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      height: 36px;
+      padding: 0 10px;
+      border-radius: 99px;
+      border: 1px solid rgba(203, 213, 225, 0.85);
+      background: rgba(255, 255, 255, 0.95);
+      color: #334155;
+      font-size: 0.78rem;
+      font-weight: 700;
       font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
-    .btn-ghost:hover { transform: translateY(-2px); box-shadow: 0 8px 20px -6px var(--c-shadow); background: var(--c-card-solid); }
-    .btn-ghost:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
-    .btn-ghost svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .q-cmd-btn:hover {
+      border-color: #2563eb;
+      color: #2563eb;
+      background: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+    }
+    .q-cmd-kbd {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      padding: 2px 5px;
+      border-radius: 5px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      color: #64748b;
+    }
+    .q-cmd-sos {
+      background: #fff1f2;
+      border-color: #fecdd3;
+      color: #be123c;
+    }
+    .q-cmd-sos:hover {
+      background: #e11d48;
+      border-color: #e11d48;
+      color: #ffffff;
+      box-shadow: 0 6px 16px -3px rgba(225, 29, 72, 0.35);
+    }
 
-    /* ---------- PROGRESS PANEL ---------- */
-    .instr-progress {
-      max-width: 900px; margin: 0 auto 50px;
-      background: var(--c-card); border: 1px solid var(--c-border);
-      border-radius: 20px; padding: 22px 26px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 10px 30px -12px var(--c-shadow);
+    .q-passport-wrap {
+      position: relative;
+      display: inline-flex;
+      flex-shrink: 0;
     }
-    .instr-progress-top {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px;
-      justify-content: space-between; margin-bottom: 14px;
-    }
-    .instr-progress-label {
-      font-size: 0.95rem; font-weight: 600; color: var(--c-text);
-      display: inline-flex; align-items: center; gap: 10px;
-    }
-    .instr-progress-label strong { color: var(--c-accent); font-weight: 800; }
-    .instr-progress-reset {
-      background: none; border: none; font-size: 0.85rem; font-weight: 600;
-      color: var(--c-text-3); cursor: pointer; padding: 6px 12px;
-      border-radius: 8px; transition: color 0.2s, background 0.2s;
+    .q-passport-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 36px;
+      padding: 0 11px 0 7px;
+      border-radius: 99px;
+      border: 1px solid rgba(203, 213, 225, 0.85);
+      background: linear-gradient(135deg, #ffffff, #f8fafc);
+      color: #0f172a;
+      font-size: 0.76rem;
+      font-weight: 800;
       font-family: inherit;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      white-space: nowrap;
     }
-    .instr-progress-reset:hover { color: var(--c-text); background: rgba(148,163,184,0.12); }
-    .instr-progress-bar {
-      height: 10px; background: rgba(148,163,184,0.18);
-      border-radius: 999px; overflow: hidden;
+    .q-passport-btn:hover,
+    .q-passport-btn[aria-expanded="true"] {
+      border-color: #10b981;
+      box-shadow: 0 6px 16px -4px rgba(16, 185, 129, 0.28);
+      transform: translateY(-1px);
     }
-    .instr-progress-fill {
-      height: 100%; width: 0%;
-      background: linear-gradient(90deg, var(--c-accent), var(--c-success));
-      border-radius: 999px; transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    .q-ring-svg {
+      width: 24px;
+      height: 24px;
+      transform: rotate(-90deg);
+      flex-shrink: 0;
     }
-    .instr-progress-hint {
-      margin-top: 10px; font-size: 0.82rem; color: var(--c-text-3);
+    .q-ring-bg { fill: none; stroke: #e2e8f0; stroke-width: 3.2; }
+    .q-ring-fill {
+      fill: none;
+      stroke: #10b981;
+      stroke-width: 3.2;
+      stroke-linecap: round;
+      stroke-dasharray: 62.83;
+      stroke-dashoffset: 62.83;
+      transition: stroke-dashoffset 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* ---------- TIMELINE ---------- */
-    .timeline-container {
-      position: relative; max-width: 900px; margin: 40px auto; padding: 20px 0;
-    }
-    .timeline-container::before {
-      content: ''; position: absolute; top: 20px; bottom: 0; left: 24px;
-      width: 3px; border-radius: 4px;
-      background: linear-gradient(to bottom, var(--c-accent-2), var(--c-line) 80%, transparent);
-    }
-    @media (min-width: 768px) {
-      .timeline-container::before { left: 50%; transform: translateX(-50%); }
-    }
-    .timeline-item {
-      position: relative; margin-bottom: 50px; width: 100%;
-      display: flex; justify-content: flex-end; padding-left: 70px;
-    }
-    @media (min-width: 768px) {
-      .timeline-item:nth-child(odd)  { justify-content: flex-start; padding-left: 0; padding-right: 50%; }
-      .timeline-item:nth-child(even) { justify-content: flex-end;   padding-left: 50%; padding-right: 0; }
-      .timeline-content { width: 90%; }
-      .timeline-item:nth-child(odd)  .timeline-content { margin-right: 50px; text-align: right; }
-      .timeline-item:nth-child(even) .timeline-content { margin-left: 50px;  text-align: left;  }
-      .timeline-item:nth-child(odd)::after {
-        content: ''; position: absolute; top: 25px; right: 50%; width: 50px; height: 2px;
-        background: var(--c-line); z-index: 0;
+    /* Морфинг в «Парящую капсулу» при прокрутке на ПК */
+    @media (min-width: 769px) {
+      .site-header.quantum-header.is-scrolled {
+        background: transparent;
+        border-bottom-color: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        padding: 8px 16px 0;
+        pointer-events: none;
       }
-      .timeline-item:nth-child(even)::after {
-        content: ''; position: absolute; top: 25px; left: 50%; width: 50px; height: 2px;
-        background: var(--c-line); z-index: 0;
+
+      .site-header.quantum-header.is-scrolled .header-inner {
+        pointer-events: auto;
+        max-width: 1160px;
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(24px) saturate(200%);
+        -webkit-backdrop-filter: blur(24px) saturate(200%);
+        border: 1px solid rgba(226, 232, 240, 0.95);
+        border-radius: 999px;
+        padding: 7px 14px !important;
+        box-shadow:
+          0 18px 40px -10px rgba(15, 23, 42, 0.14),
+          0 4px 12px -2px rgba(37, 99, 235, 0.08),
+          inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
       }
-      .timeline-item:nth-child(odd) .step-header { flex-direction: row-reverse; }
+
+      .site-header.quantum-header.is-scrolled .site-subtitle-mini,
+      .site-header.quantum-header.is-scrolled .header-meta {
+        display: none !important;
+      }
+
+      .site-header.quantum-header.is-scrolled .brand-logo {
+        width: 34px;
+        height: 34px;
+      }
+
+      @media (min-width: 1080px) {
+        .site-header.quantum-header.is-scrolled .q-context-radar.has-context {
+          display: inline-flex;
+        }
+      }
     }
 
-    /* Точка шага */
-    .timeline-dot {
-      position: absolute; left: 0; top: 0;
-      width: 50px; height: 50px;
-      background: linear-gradient(135deg, var(--c-dot-1), var(--c-dot-2));
-      color: #ffffff; border-radius: 50%;
-      box-shadow: 0 0 0 6px rgba(255,255,255,0.8), 0 8px 20px rgba(37,99,235,0.4);
-      z-index: 2; border: 2px solid var(--c-card-solid);
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 1.05rem;
-      transition: background 0.4s, transform 0.3s;
-    }
-    .timeline-dot .dot-check { display: none; width: 24px; height: 24px; stroke: #fff; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-    .timeline-dot::before {
-      content: ''; position: absolute; inset: -4px; border-radius: 50%;
-      border: 2px solid rgba(37,99,235,0.3); animation: ripple 2s infinite;
-    }
-    @keyframes ripple {
-      0%   { transform: scale(1);   opacity: 1; }
-      100% { transform: scale(1.6); opacity: 0; }
-    }
-    @media (min-width: 768px) {
-      .timeline-dot { left: 50%; transform: translateX(-50%); }
-    }
-    /* Отметка «выполнено» */
-    .timeline-item.is-done .timeline-dot {
-      background: linear-gradient(135deg, var(--c-dot-1-done), var(--c-dot-2-done));
-      box-shadow: 0 0 0 6px rgba(255,255,255,0.8), 0 8px 20px rgba(16,185,129,0.4);
-    }
-    .timeline-item.is-done .timeline-dot .dot-num  { display: none; }
-    .timeline-item.is-done .timeline-dot .dot-check{ display: block; }
-    .timeline-item.is-done .timeline-dot::before   { border-color: rgba(16,185,129,0.3); }
-
-    /* Подсветка следующего шага */
-    .timeline-item.is-next .timeline-content {
-      box-shadow: 0 10px 30px -5px rgba(37,99,235,0.25), 0 0 0 2px rgba(37,99,235,0.18);
+    @media (min-width: 769px) and (max-width: 1020px) {
+      .site-header.quantum-header .nav-link {
+        padding: 6px 8px;
+        font-size: 0.8rem;
+      }
+      .q-cmd-kbd { display: none; }
     }
 
-    /* Контент шага */
-    .timeline-content {
-      background: var(--c-card); border: 1px solid var(--c-border);
-      border-radius: 20px; padding: 22px 24px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 10px 30px -5px var(--c-shadow);
-      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-      position: relative; z-index: 1;
+    /* === 3. HERO БЛОК С ПЕЧАТНОЙ МАШИНКОЙ И ТРЕКЕРОМ ГОТОВНОСТИ === */
+    .inst-hero {
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 28px;
+      padding: clamp(24px, 4vw, 42px);
+      margin: 28px 0 32px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 20px 45px -12px rgba(15, 23, 42, 0.07);
     }
-    .timeline-content:hover {
+
+    .inst-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 14px;
+    }
+
+    .inst-title {
+      font-size: clamp(1.8rem, 4vw, 2.55rem);
+      font-weight: 900;
+      color: #0f172a;
+      margin: 0 0 14px;
+      line-height: 1.15;
+      min-height: 1.3em;
+    }
+
+    .cursor-blink {
+      display: inline-block;
+      width: 4px;
+      height: 1em;
+      background: #2563eb;
+      margin-left: 5px;
+      animation: blinkCursor 0.9s steps(2, start) infinite !important;
+      vertical-align: middle;
+      border-radius: 2px;
+    }
+    @keyframes blinkCursor {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .inst-lead {
+      font-size: 1.04rem;
+      color: #475569;
+      max-width: 780px;
+      line-height: 1.65;
+      margin: 0 0 24px;
+    }
+
+    /* Панель прогресса чек-листа из 4 шагов */
+    .checklist-status-bar {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .csb-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 240px;
+    }
+    .csb-progress-wrap {
+      flex: 1;
+    }
+    .csb-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 6px;
+    }
+    .csb-track {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .csb-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #10b981);
+      border-radius: 99px;
+      transition: width 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .csb-reset-btn {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #475569;
+      font-size: 0.78rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .csb-reset-btn:hover {
+      border-color: #ef4444;
+      color: #ef4444;
+      background: #fef2f2;
+    }
+
+    /* === 4. ИНТЕРАКТИВНЫЕ КАРТОЧКИ 4 ШАГОВ ОБУЧЕНИЯ === */
+    .steps-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+      gap: 20px;
+      margin-bottom: 42px;
+    }
+
+    .step-card {
+      background: rgba(255, 255, 255, 0.92);
+      border: 2px solid #e2e8f0;
+      border-radius: 22px;
+      padding: 24px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 10px 25px -8px rgba(15, 23, 42, 0.05);
+    }
+    .step-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 20px 40px -10px rgba(37,99,235,0.15);
-      background: var(--c-card-solid);
+      border-color: #93c5fd;
+      box-shadow: 0 18px 35px -10px rgba(37, 99, 235, 0.12);
     }
-    .timeline-item.is-done .timeline-content { opacity: 0.85; }
-
-    .step-header {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 12px; margin-bottom: 14px;
-    }
-    .step-time {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.78rem; font-weight: 600; color: var(--c-text-3);
-      background: rgba(148,163,184,0.12); padding: 4px 10px; border-radius: 999px;
-    }
-    .step-actions { display: inline-flex; gap: 6px; align-items: center; }
-
-    .step-check, .step-copy {
-      width: 34px; height: 34px; border-radius: 50%;
-      display: inline-flex; align-items: center; justify-content: center;
-      border: 2px solid rgba(148,163,184,0.35); background: transparent;
-      cursor: pointer; transition: all 0.25s; padding: 0; flex-shrink: 0;
-    }
-    .step-check svg, .step-copy svg {
-      width: 16px; height: 16px; stroke: var(--c-text-3); fill: none; stroke-width: 3;
-      stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.25s;
-    }
-    .step-copy svg { stroke-width: 2; }
-    .step-check:hover { border-color: var(--c-accent); }
-    .step-check:hover svg { stroke: var(--c-accent); }
-    .step-copy:hover { border-color: var(--c-accent); }
-    .step-copy:hover svg { stroke: var(--c-accent); }
-    .step-check[aria-pressed="true"] {
-      background: var(--c-success); border-color: var(--c-success);
-    }
-    .step-check[aria-pressed="true"] svg { stroke: #ffffff; }
-    .step-check:focus-visible, .step-copy:focus-visible {
-      outline: 2px solid var(--c-accent); outline-offset: 2px;
+    .step-card.is-completed {
+      border-color: #10b981;
+      background: linear-gradient(180deg, rgba(236, 253, 245, 0.65) 0%, #ffffff 100%);
     }
 
-    .step-title {
-      font-size: 1.18rem; font-weight: 800; color: var(--c-text);
-      margin: 0 0 10px; line-height: 1.3;
+    .step-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
     }
-    .step-desc { font-size: 0.95rem; color: var(--c-text-2); margin: 0; line-height: 1.65; }
-    .step-desc a {
-      color: var(--c-accent); font-weight: 600; text-decoration: none;
-      border-bottom: 1px dashed; transition: color 0.2s;
+    .step-num-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: #0f172a;
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.25s;
     }
-    .step-desc a:hover { color: var(--c-accent-2); }
-    .step-desc strong { color: var(--c-text); }
+    .step-card.is-completed .step-num-badge {
+      background: #10b981;
+    }
 
-    /* ---------- REQUIREMENTS ---------- */
-    .requirements-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px; margin-top: 40px;
+    .step-check-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 99px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #475569;
+      font-size: 0.76rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
     }
-    .tilt-card {
-      background: var(--c-card-solid); border-radius: 24px; padding: 30px;
-      border: 1px solid var(--c-faq-border);
-      box-shadow: 0 10px 30px -5px var(--c-shadow);
-      transition: transform 0.1s;
-      position: relative; overflow: hidden;
+    .step-check-btn:hover {
+      border-color: #10b981;
+      color: #047857;
     }
-    .tilt-card::before {
-      content: ""; position: absolute; inset: 0;
-      background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                  rgba(37,99,235,0.06), transparent 40%);
-      opacity: 0; transition: opacity 0.5s; pointer-events: none;
+    .step-card.is-completed .step-check-btn {
+      background: #10b981;
+      border-color: #10b981;
+      color: #ffffff;
     }
-    .tilt-card:hover::before { opacity: 1; }
-    .req-icon {
-      font-size: 2.4rem; margin-bottom: 18px; display: inline-block;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.12));
-    }
-    .req-title { font-size: 1.18rem; font-weight: 700; margin: 0 0 15px; color: var(--c-text); }
-    .req-list { list-style: none; padding: 0; margin: 0; }
-    .req-list li {
-      position: relative; padding-left: 28px; margin-bottom: 12px;
-      font-size: 0.94rem; color: var(--c-text-2); line-height: 1.55;
-    }
-    .req-list li::before {
-      content: "✔"; position: absolute; left: 0; top: 0;
-      color: var(--c-success); font-weight: 800; font-size: 1rem;
-      opacity: 0; transform: scale(0);
-      transition: opacity 0.35s, transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .tilt-card:hover li::before { opacity: 1; transform: scale(1); }
-    .tilt-card:hover li:nth-child(1)::before { transition-delay: 0.05s; }
-    .tilt-card:hover li:nth-child(2)::before { transition-delay: 0.15s; }
-    .tilt-card:hover li:nth-child(3)::before { transition-delay: 0.25s; }
 
-    /* ---------- FAQ ---------- */
-    .faq-accordion { max-width: 800px; margin: 40px auto; }
-    .faq-search-wrap {
-      position: relative; margin-bottom: 18px;
+    .step-card h3 {
+      font-size: 1.18rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 10px;
     }
-    .faq-search-wrap svg {
-      position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
-      width: 18px; height: 18px; stroke: var(--c-text-3); fill: none; stroke-width: 2;
+    .step-card p {
+      font-size: 0.92rem;
+      color: #475569;
+      line-height: 1.6;
+      margin: 0 0 16px;
+      flex-grow: 1;
+    }
+    .step-tip {
+      font-size: 0.8rem;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border-left: 3px solid #2563eb;
+      color: #334155;
+      font-weight: 500;
+    }
+
+    /* === 5. ИНТЕРАКТИВНЫЙ МАРШРУТИЗАТОР ПО ПРОФИЛЮ СОТРУДНИКА === */
+    .route-selector-section {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 26px;
+      padding: clamp(22px, 3.5vw, 34px);
+      margin-bottom: 42px;
+      box-shadow: 0 20px 45px -12px rgba(15, 23, 42, 0.06);
+    }
+    .route-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 18px 0 22px;
+      padding: 6px;
+      background: #f1f5f9;
+      border-radius: 16px;
+    }
+    .route-tab-btn {
+      flex: 1 1 auto;
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: none;
+      background: transparent;
+      color: #475569;
+      font-size: 0.86rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .route-tab-btn.active {
+      background: #ffffff;
+      color: #2563eb;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    }
+    .route-result-panel {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+    }
+    .route-course-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .route-course-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #0f172a;
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .route-course-link:hover {
+      border-color: #2563eb;
+      color: #2563eb;
+      background: #eff6ff;
+      transform: translateY(-2px);
+      opacity: 1;
+    }
+    .route-deadline-card {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #ffffff;
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    /* ======================================================================
+       6. КАРТОЧКИ «МИФ / РЕАЛЬНОСТЬ» (ИСПРАВЛЕН БАГ ПЕРЕВОРОТА НА СМАРТФОНАХ!)
+       ЗА ЧТО ОТВЕЧАЕТ: Переворот карточек при наведении мыши на ПК и по нажатию пальцем на телефонах (.is-flipped).
+       ПОЧЕМУ НЕ ЗАЛИПАЕТ НА «РЕАЛЬНОСТИ»: Убрано правило .flip-front { display: none },
+       которое раньше срабатывало на смартфонах в режиме энергосбережения.
+       ====================================================================== */
+    .flip-section-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 8px;
+      text-align: center;
+    }
+    .flip-section-sub {
+      text-align: center;
+      color: #64748b;
+      font-size: 0.9rem;
+      margin: 0 0 22px;
+    }
+    .flip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 42px;
+    }
+    .flip-card {
+      background-color: transparent;
+      height: 250px;
+      perspective: 1000px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .flip-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+      transform-style: preserve-3d !important;
+      box-shadow: 0 10px 25px -8px rgba(15, 23, 42, 0.08);
+      border-radius: 22px;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .flip-card:hover .flip-inner,
+      .flip-card:focus-visible .flip-inner {
+        transform: rotateY(180deg) !important;
+      }
+    }
+    .flip-card.is-flipped .flip-inner {
+      transform: rotateY(180deg) !important;
+    }
+
+    .flip-front,
+    .flip-back {
+      position: absolute !important;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden !important;
+      backface-visibility: hidden !important;
+      border-radius: 22px;
+      padding: 22px;
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #e2e8f0;
+    }
+    .flip-front {
+      background-color: #ffffff;
+      color: #1e293b;
+      transform: rotateY(0deg) !important;
+    }
+    .flip-back {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      color: #ffffff;
+      transform: rotateY(180deg) !important;
+    }
+    .flip-icon { font-size: 2.6rem; margin-bottom: 10px; }
+    .flip-label {
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      padding: 3px 10px;
+      border-radius: 99px;
+      background: rgba(37, 99, 235, 0.1);
+      color: #2563eb;
+    }
+    .flip-back .flip-label {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+    }
+    .flip-text { font-size: 0.96rem; font-weight: 600; line-height: 1.45; }
+    .flip-tap-hint {
+      margin-top: 10px;
+      font-size: 0.7rem;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    /* === 7. FAQ АККОРДЕОН И КНОПКА .BTN-MAGIC С БЕГУЩЕЙ ЗМЕЙКОЙ === */
+    .faq-section { margin-bottom: 42px; }
+    .faq-item {
+      background: #ffffff;
+      border-radius: 16px;
+      margin-bottom: 10px;
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      transition: 0.25s;
+    }
+    .faq-item:hover { border-color: #cbd5e1; }
+    .faq-summary {
+      padding: 18px 22px;
+      cursor: pointer;
+      font-weight: 700;
+      color: #1e293b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      list-style: none;
+    }
+    .faq-summary::-webkit-details-marker { display: none; }
+    .faq-summary::after { content: "+"; font-size: 1.4rem; color: #94a3b8; transition: 0.25s; }
+    details[open] .faq-summary::after { transform: rotate(45deg); color: #2563eb; }
+    .faq-content { padding: 0 22px 20px; color: #475569; font-size: 0.94rem; line-height: 1.6; }
+
+    .cta-zone {
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid #ffffff;
+      border-radius: 28px;
+      padding: 42px 24px;
+      text-align: center;
+      box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.08);
+      margin-bottom: 40px;
+    }
+
+    /* Квадратное GPU-ядро для .btn-magic — бегущая змейка работает на всех телефонах */
+    .btn-magic {
+      position: relative;
+      isolation: isolate;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 34px;
+      min-height: 54px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: #0f172a;
+      border-radius: 99px;
+      text-decoration: none;
+      overflow: hidden;
+      z-index: 1;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.28);
+    }
+    .btn-magic::before {
+      content: "";
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 800px; height: 800px;
+      background: conic-gradient(transparent 0deg, transparent 220deg, #3b82f6 260deg, #a855f7 310deg, #10b981 360deg);
+      transform: translate3d(-50%, -50%, 0) rotate(0deg);
+      animation: rotate-border-gpu 3.5s linear infinite !important;
+      will-change: transform;
+      z-index: 0;
       pointer-events: none;
     }
-    .faq-search {
-      width: 100%; padding: 14px 16px 14px 46px; font-size: 0.95rem; font-family: inherit;
-      border-radius: 14px; border: 1px solid var(--c-faq-border);
-      background: var(--c-faq-bg); color: var(--c-text);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      transition: border-color 0.2s, box-shadow 0.2s;
+    .btn-magic::after {
+      content: "";
+      position: absolute;
+      inset: 2.5px;
+      background: #0f172a;
+      border-radius: 99px;
+      z-index: 1;
+      pointer-events: none;
     }
-    .faq-search:focus {
-      outline: none; border-color: var(--c-accent);
-      box-shadow: 0 0 0 4px rgba(37,99,235,0.12);
+    .btn-magic > span { position: relative; z-index: 2; }
+    .btn-magic:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 16px 32px -6px rgba(37, 99, 235, 0.35);
+      opacity: 1;
     }
-    .faq-item {
-      background: var(--c-faq-bg);
-      border: 1px solid var(--c-faq-border);
-      border-radius: 16px; margin-bottom: 12px; overflow: hidden;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      transition: box-shadow 0.3s, border-color 0.3s;
+    @keyframes rotate-border-gpu {
+      0% { transform: translate3d(-50%, -50%, 0) rotate(0deg); }
+      100% { transform: translate3d(-50%, -50%, 0) rotate(360deg); }
     }
-    .faq-item:hover {
-      box-shadow: 0 8px 20px -5px var(--c-shadow);
-      border-color: rgba(37,99,235,0.35);
-    }
-    .faq-trigger {
-      width: 100%; text-align: left; padding: 18px 22px;
-      background: none; border: none; font-weight: 700; color: var(--c-text);
-      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
-      gap: 16px; font-size: 1rem; font-family: inherit;
-    }
-    .faq-trigger:focus-visible { outline: 2px solid var(--c-accent); outline-offset: -4px; border-radius: 16px; }
-    .faq-icon {
-      width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
-      background: rgba(37,99,235,0.10); color: var(--c-accent);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.75rem; transition: transform 0.3s, background 0.3s, color 0.3s;
-    }
-    .faq-trigger[aria-expanded="true"] .faq-icon {
-      transform: rotate(180deg); background: var(--c-accent); color: #fff;
-    }
-    .faq-content {
-      max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;
-      padding: 0 22px; color: var(--c-text-2); line-height: 1.7; font-size: 0.95rem;
-    }
-    .faq-trigger[aria-expanded="true"] + .faq-content { padding-bottom: 20px; }
-    .faq-no-results {
-      display: none; text-align: center; padding: 30px;
-      color: var(--c-text-3); font-size: 0.95rem;
-    }
-    .faq-no-results.is-visible { display: block; }
 
-    /* ---------- FLOATING ACTIONS ---------- */
-    .float-stack {
-      position: fixed; right: 20px; bottom: 20px; z-index: 999;
-      display: flex; flex-direction: column; gap: 10px; align-items: center;
+    /* === 8. МОДАЛЬНЫЕ ОКНА И НИЖНИЙ МОБИЛЬНЫЙ БАР === */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      z-index: 10000; display: flex; align-items: flex-start; justify-content: center;
+      padding: 8vh 16px 24px; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; overflow-y: auto;
     }
-    .float-btn {
-      width: 46px; height: 46px; border-radius: 50%;
-      background: var(--c-card-solid); border: 1px solid var(--c-faq-border);
-      box-shadow: 0 8px 24px -8px var(--c-shadow);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
-      padding: 0;
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-box {
+      width: 100%; max-width: 600px; background: #ffffff; border-radius: 24px;
+      border: 1px solid #e2e8f0; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      overflow: hidden; transform: scale(0.96) translateY(-10px); transition: transform 0.2s ease;
     }
-    .float-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 28px -8px var(--c-shadow); }
-    .float-btn svg { width: 20px; height: 20px; stroke: var(--c-text); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .float-btn:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
-    #back-to-top { opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.2s; }
-    #back-to-top.is-visible { opacity: 1; pointer-events: auto; }
-    #theme-toggle .icon-sun { display: none; }
-    [data-theme="dark"] #theme-toggle .icon-sun  { display: block; }
-    [data-theme="dark"] #theme-toggle .icon-moon { display: none; }
+    .modal-overlay.open .modal-box { transform: scale(1) translateY(0); }
+    .search-modal-header { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-bottom: 1px solid #e2e8f0; }
+    .search-modal-input { flex: 1; border: none; outline: none; font-size: 1rem; font-weight: 600; color: #0f172a; background: transparent; min-width: 0; font-family: inherit; }
+    .voice-mic-btn { width: 38px; height: 38px; border-radius: 10px; border: 1px solid #e2e8f0; background: #f8fafc; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; flex-shrink: 0; }
+    .modal-close { background: #f1f5f9; border: none; padding: 8px 12px; border-radius: 10px; font-size: 0.78rem; font-weight: 800; color: #475569; cursor: pointer; }
+    .search-results-list { max-height: 60vh; overflow-y: auto; padding: 10px; }
+    .search-result-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 12px; text-decoration: none; color: #1e293b; }
+    .search-result-item:hover { background: #eff6ff; color: #2563eb; opacity: 1; }
+    .sri-left { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 0.92rem; }
+    .sri-tag { font-size: 0.72rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; background: #f1f5f9; color: #475569; white-space: nowrap; }
 
-    /* ---------- TOAST ---------- */
-    .toast {
-      position: fixed; left: 50%; bottom: 30px; transform: translate(-50%, 20px);
-      background: var(--c-text); color: var(--c-card-solid);
-      padding: 12px 22px; border-radius: 12px; font-size: 0.9rem; font-weight: 600;
-      box-shadow: 0 10px 30px -8px rgba(0,0,0,0.35);
-      opacity: 0; pointer-events: none; transition: opacity 0.25s, transform 0.25s;
-      z-index: 10000;
-    }
-    .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+    .sos-modal-top { background: linear-gradient(135deg, #be123c, #0f172a); color: #ffffff; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .sos-modal-body { padding: 20px 24px 24px; display: grid; gap: 12px; max-height: 75vh; overflow-y: auto; }
+    .sos-card { padding: 14px 16px; border-radius: 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #e11d48; }
+    .sos-card h4 { margin: 0 0 5px; font-size: 0.95rem; color: #0f172a; font-weight: 800; }
+    .sos-card p { margin: 0; font-size: 0.85rem; color: #475569; line-height: 1.5; }
+    .call-112-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 14px; border-radius: 14px; background: #e11d48; color: #ffffff; font-weight: 800; font-size: 1rem; text-decoration: none; }
 
-    /* ---------- СТАТУС «ONLINE» ---------- */
-    .system-status-pulse {
-      display: inline-block; width: 8px; height: 8px;
-      background-color: #10b981; border-radius: 50%;
-      box-shadow: 0 0 0 rgba(16, 185, 129, 0.7);
-      animation: pulse-green 2s infinite; margin-right: 6px;
+    .mobile-bottom-nav {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0;
+      background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(203, 213, 225, 0.85); padding: 6px 8px calc(6px + var(--safe-bottom));
+      z-index: 9000; box-shadow: 0 -8px 25px rgba(15, 23, 42, 0.08); justify-content: space-around; align-items: center;
     }
-    @keyframes pulse-green {
-      0%   { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-      70%  { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    .mob-nav-item {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 3px; padding: 6px 10px; min-width: 56px; min-height: 44px; border-radius: 12px;
+      text-decoration: none; color: #475569; font-size: 0.68rem; font-weight: 700;
+      border: none; background: transparent; cursor: pointer; font-family: inherit;
     }
-    .header-meta {
-      font-size: 0.75rem; color: var(--c-text-3); font-weight: 500;
-      display: flex; align-items: center; gap: 15px; margin-left: auto;
-    }
-    @media (max-width: 900px) { .header-meta { display: none; } }
+    .mob-nav-item span.mob-icon { font-size: 1.2rem; line-height: 1; }
+    .mob-nav-item.active { color: #2563eb; background: #eff6ff; }
+    .mob-nav-item.sos-mob { color: #be123c; }
 
-    /* ---------- REDUCED MOTION ---------- */
+    .to-top-btn {
+      position: fixed; right: 20px; bottom: 24px; width: 44px; height: 44px;
+      border-radius: 50%; background: #ffffff; border: 1px solid #cbd5e1; color: #1e293b;
+      font-weight: 800; font-size: 1.1rem; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      cursor: pointer; opacity: 0; pointer-events: none; transition: all 0.25s ease;
+      z-index: 8500; display: flex; align-items: center; justify-content: center;
+    }
+    .to-top-btn.visible { opacity: 1; pointer-events: auto; }
+
+    /* === 9. МОБИЛЬНАЯ АДАПТАЦИЯ (<= 768px) === */
+    @media (max-width: 768px) {
+      body.masterpiece-theme { padding-bottom: calc(74px + var(--safe-bottom)); }
+      .mobile-bottom-nav { display: flex; }
+      .to-top-btn { bottom: calc(84px + var(--safe-bottom)); right: 16px; }
+      .route-result-panel { grid-template-columns: 1fr; }
+      .btn-magic { width: 100%; }
+
+      .site-header.quantum-header { padding: 8px 0 !important; }
+      .site-header.quantum-header .header-inner {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 8px !important;
+      }
+      .site-header.quantum-header .header-brand { width: auto !important; gap: 8px !important; }
+      .site-header.quantum-header .brand-logo { width: 34px !important; height: 34px !important; }
+      .site-header.quantum-header .site-title-mini { font-size: 1rem !important; }
+      .site-header.quantum-header .main-nav,
+      .site-header.quantum-header .header-meta,
+      .site-header.quantum-header .site-subtitle-mini,
+      #qHeaderSearchBtn,
+      #qHeaderSosBtn {
+        display: none !important;
+      }
+      .q-passport-popover {
+        position: fixed !important;
+        top: 62px !important;
+        left: 12px !important;
+        right: 12px !important;
+        width: auto !important;
+        max-width: none !important;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-      .tilt-card li::before {
-        opacity: 1 !important;
-        transform: scale(1) !important;
-      }
-    }
-
-    /* ---------- PRINT ---------- */
-    @media print {
-      .site-header, .glass-footer, .float-stack, .reading-progress,
-      .breadcrumbs, .instr-actions, .instr-progress, .step-actions,
-      .faq-search-wrap, .toast { display: none !important; }
-      body { background: #fff !important; color: #000 !important; }
-      .timeline-content, .tilt-card, .faq-item {
-        background: #fff !important; border: 1px solid #ccc !important;
-        box-shadow: none !important; backdrop-filter: none !important;
-      }
-      .timeline-container::before,
-      .timeline-item::after { background: #999 !important; }
-      .timeline-dot { background: #333 !important; box-shadow: none !important; }
-      .timeline-dot::before { display: none !important; }
-      .faq-content { max-height: none !important; padding: 0 22px 20px !important; }
-      .faq-icon { display: none !important; }
-      .instr-title { color: #000 !important; }
-      .instr-lead, .step-desc, .req-list li, .faq-content { color: #333 !important; }
-      .step-title, .req-title, .faq-trigger { color: #000 !important; }
+      body.masterpiece-theme { animation: none !important; background-size: 100% 100% !important; }
+      .system-status-pulse { animation: none !important; }
+      .cursor-blink { animation: blinkCursor 0.9s steps(2, start) infinite !important; }
+      .btn-magic::before { animation: rotate-border-gpu 3.5s linear infinite !important; }
+      /* Важно: сохраняем 3D-переворот карточек Миф/Реальность даже при включенном энергосбережении на телефоне */
+      .flip-front { display: flex !important; position: absolute !important; transform: rotateY(0deg) !important; -webkit-backface-visibility: hidden !important; backface-visibility: hidden !important; }
+      .flip-back { display: flex !important; position: absolute !important; transform: rotateY(180deg) !important; -webkit-backface-visibility: hidden !important; backface-visibility: hidden !important; }
+      .flip-card.is-flipped .flip-inner { transform: rotateY(180deg) !important; }
     }
   </style>
-
-  <!-- ===== СТРУКТУРИРОВАННЫЕ ДАННЫЕ (SEO) ===== -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": "https://demoonstars.github.io/ot-training-portal/instructions.html#webpage",
-        "url": "https://demoonstars.github.io/ot-training-portal/instructions.html",
-        "name": "Регламент обучения в СДО — пошаговая инструкция",
-        "description": "Пошаговый алгоритм дистанционного обучения и проверки знаний в СДО.",
-        "inLanguage": "ru-RU",
-        "isPartOf": { "@id": "https://demoonstars.github.io/ot-training-portal/#website" }
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://demoonstars.github.io/ot-training-portal/instructions.html#breadcrumb",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://demoonstars.github.io/ot-training-portal/index.html" },
-          { "@type": "ListItem", "position": 2, "name": "Инструкции", "item": "https://demoonstars.github.io/ot-training-portal/instructions.html" }
-        ]
-      },
-      {
-        "@type": "HowTo",
-        "name": "Регламент обучения в СДО",
-        "description": "Как пройти дистанционное обучение и проверку знаний: 4 шага.",
-        "totalTime": "PT55M",
-        "step": [
-          { "@type": "HowToStep", "position": 1, "name": "Назначение обучения", "text": "Получите от руководителя уведомление. Уточните вид программы (ОТ, ПБ или Первая помощь) и сроки.", "url": "https://demoonstars.github.io/ot-training-portal/instructions.html#step-1" },
-          { "@type": "HowToStep", "position": 2, "name": "Изучение материалов", "text": "Перейдите в Каталог программ, выберите нужный курс и изучите видеолекции.", "url": "https://demoonstars.github.io/ot-training-portal/instructions.html#step-2" },
-          { "@type": "HowToStep", "position": 3, "name": "Идентификация", "text": "Перед тестом заполните форму: ФИО, должность, подразделение — строго как в паспорте и трудовом договоре.", "url": "https://demoonstars.github.io/ot-training-portal/instructions.html#step-3" },
-          { "@type": "HowToStep", "position": 4, "name": "Проверка знаний", "text": "Пройдите итоговое тестирование. Проходной балл — 85%.", "url": "https://demoonstars.github.io/ot-training-portal/instructions.html#step-4" }
-        ]
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Сбой во время теста. Что делать?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Обновите страницу (F5). Если тест прервался — зайдите заново. При повторной ошибке сделайте скриншот и отправьте в службу техподдержки." }
-          },
-          {
-            "@type": "Question",
-            "name": "Сколько попыток дается на сдачу?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Количество попыток технически не ограничено, если иное не установлено вашим руководителем. Рекомендуем повторить материал перед пересдачей." }
-          },
-          {
-            "@type": "Question",
-            "name": "Где посмотреть мой результат?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Результат (балл и статус «Сдано/Не сдано») отображается на экране сразу после отправки формы. Копия протокола уходит ответственному." }
-          }
-        ]
-      }
-    ]
-  }
-  </script>
 </head>
-
 <body class="masterpiece-theme">
 
-<!-- Индикатор прокрутки -->
-<div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+<div class="scroll-progress-bar" id="scrollProgress" aria-hidden="true"></div>
 
 <a class="skip-link" href="#main-content">Перейти к контенту</a>
 
 <div class="glass-wrapper">
 
-  <!-- ===== ШАПКА ===== -->
-  <header class="site-header transparent-header">
+  <!-- СУПЕР-ШАПКА «QUANTUM COMMAND BAR V2.0» (Без ссылки на Софрино) -->
+  <header class="site-header transparent-header quantum-header" id="quantumHeader">
     <div class="container header-inner">
+
       <div class="header-brand">
-        <div class="brand-logo">
-          <img src="assets/Филин от.png" alt="Логотип СДО" width="42" height="42" style="width:100%;height:100%;object-fit:contain;">
+        <div class="q-app-switcher">
+          <button type="button" class="q-app-btn" id="qAppBtn" aria-expanded="false" aria-haspopup="true" title="Быстрый навигатор разделов и тестов СДО" aria-label="Открыть быстрый навигатор СДО">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="5" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="5" r="2"/>
+              <circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/>
+              <circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="19" r="2"/>
+            </svg>
+          </button>
+
+          <div class="q-app-dropdown" id="qAppDropdown" role="menu" aria-label="Экосистема СДО">
+            <span class="q-dropdown-label">Разделы портала СДО</span>
+            <div class="q-app-grid">
+              <a href="index.html" class="q-app-tile" role="menuitem">
+                <span class="q-app-tile-icon" aria-hidden="true">🏠</span>
+                <span class="q-app-tile-title">Главная СДО</span>
+                <span class="q-app-tile-sub">Дашборд и календарь</span>
+              </a>
+              <a href="programs.html" class="q-app-tile" role="menuitem">
+                <span class="q-app-tile-icon" aria-hidden="true">📚</span>
+                <span class="q-app-tile-title">Реестр (9)</span>
+                <span class="q-app-tile-sub">Все курсы и тренажеры</span>
+              </a>
+              <a href="instructions.html" class="q-app-tile" role="menuitem">
+                <span class="q-app-tile-icon" aria-hidden="true">📋</span>
+                <span class="q-app-tile-title">Инструкции</span>
+                <span class="q-app-tile-sub">4 шага аттестации</span>
+              </a>
+              <a href="for-responsibles.html" class="q-app-tile" role="menuitem">
+                <span class="q-app-tile-icon" aria-hidden="true">👔</span>
+                <span class="q-app-tile-title">Ответственным</span>
+                <span class="q-app-tile-sub">Калькулятор и шаблоны</span>
+              </a>
+            </div>
+
+            <span class="q-dropdown-label">Прямой переход к итоговым тестам</span>
+            <div class="q-tests-Sublist">
+              <a href="https://demoonstars.github.io/Test_OT_b/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🛡️ Тест: Охрана труда (Вводный)</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/Test_OT_Programm_A/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>⚖️ Тест: ОТ Программа А</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/Test_-_-_b/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🔥 Тест: Пожарная безопасность</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/First_aid/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🩹 Тест: Первая помощь</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/UAV_Threat_Test/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🚁 Тест: Угроза атаки БПЛА</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/GO_ChS_Test/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>📢 Тест: ГО и ЧС</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/Electrical_Safety_Test/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>⚡ Тест: Электробезопасность</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/hygiene-training/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🧼 Тест: Санминимум</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/mentoring-quiz/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🛎️ Тест: Наставничество</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/conflict-management/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🧠 Тест: Управление конфликтами</span><span>➔</span></a>
+            </div>
+          </div>
         </div>
+
+        <a href="index.html" class="brand-logo" title="На главную СДО">
+          <img src="assets/Филин от.png" alt="Логотип СДО" width="42" height="42" style="width: 100%; height: 100%; object-fit: contain;">
+        </a>
         <div>
-          <!-- Бренд в шапке: div вместо h1, чтобы главный заголовок страницы был один -->
           <div class="site-title-mini">СДО</div>
-          <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
+          <p class="site-subtitle-mini">Портал обучения и ОТ</p>
+        </div>
+
+        <div class="q-context-radar has-context" id="qContextRadar" aria-live="polite">
+          <span class="q-radar-dot" aria-hidden="true"></span>
+          <span class="q-radar-section" id="qRadarText">📋 Регламент СДО</span>
         </div>
       </div>
 
       <div class="header-meta">
         <span id="current-date">Загрузка...</span>
-        <span style="display:flex;align-items:center;">
+        <span style="display:flex; align-items:center;">
           <span class="system-status-pulse" aria-hidden="true"></span> Online
         </span>
       </div>
 
       <nav class="main-nav" aria-label="Основная навигация">
-        <ul class="nav-list">
+        <ul class="nav-list" id="qNavList">
+          <span class="q-nav-glider" id="qNavGlider" aria-hidden="true"></span>
           <li><a href="index.html" class="nav-link">Главная</a></li>
           <li><a href="programs.html" class="nav-link">Каталог программ</a></li>
           <li><a href="instructions.html" class="nav-link nav-link-active active" aria-current="page">Инструкции</a></li>
           <li><a href="for-responsibles.html" class="nav-link">Ответственным</a></li>
         </ul>
       </nav>
+
+      <div class="q-header-actions">
+        <button type="button" class="q-cmd-btn" id="qHeaderSearchBtn" title="Быстрый поиск курса или теста (Ctrl + K)" aria-label="Открыть быстрый поиск">
+          <span aria-hidden="true">🔍</span>
+          <span class="q-cmd-kbd" aria-hidden="true">Ctrl+K</span>
+        </button>
+
+        <div class="q-passport-wrap">
+          <button type="button" class="q-passport-btn" id="qPassportBtn" aria-expanded="false" aria-haspopup="true" title="Цифровой паспорт обучения сотрудника" aria-label="Открыть цифровой паспорт обучения">
+            <svg class="q-ring-svg" viewBox="0 0 24 24" aria-hidden="true">
+              <circle class="q-ring-bg" cx="12" cy="12" r="10"></circle>
+              <circle class="q-ring-fill" id="qRingFill" cx="12" cy="12" r="10"></circle>
+            </svg>
+            <span id="qPassportPct">0%</span>
+          </button>
+
+          <div class="q-passport-popover" id="qPassportPopover" role="region" aria-label="Цифровой паспорт обучения">
+            <div class="q-pass-header">
+              <h4 class="q-pass-title"><span aria-hidden="true">🎓</span> Цифровой паспорт СДО</h4>
+              <span class="q-pass-rank" id="qPassportRank">Старт обучения</span>
+            </div>
+            <div style="font-size: 0.76rem; color: #64748b; margin-bottom: 10px;">
+              Автоматическая сводка изученных материалов в вашем браузере:
+            </div>
+            <div class="q-pass-list" id="qPassportList"></div>
+            <div class="q-pass-footer">
+              <button type="button" class="q-pass-action-btn" id="qPrintPassportBtn">🖨️ Печать сводки</button>
+              <a href="programs.html" class="q-pass-action-btn" style="text-align:center; text-decoration:none;">Все курсы ➔</a>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="q-cmd-btn q-cmd-sos" id="qHeaderSosBtn" title="Экстренная памятка ЧС и БПЛА (112)" aria-label="Открыть экстренную памятку ЧС">
+          <span aria-hidden="true">🚨</span>
+          <span class="q-cmd-label-desktop">112</span>
+        </button>
+      </div>
+
     </div>
   </header>
 
-  <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
   <main id="main-content" class="site-main">
     <div class="container">
 
-      <!-- Хлебные крошки -->
-      <nav class="breadcrumbs" aria-label="Хлебные крошки">
-        <a href="index.html">Главная</a>
-        <span class="sep" aria-hidden="true">›</span>
-        <span aria-current="page">Инструкции</span>
-      </nav>
-
-      <!-- HERO -->
-      <section class="instr-hero">
-        <span class="instr-eyebrow">Пошаговая инструкция</span>
-        <!-- Единственный h1 на странице -->
-        <h1 class="instr-title">Регламент обучения</h1>
-        <p class="instr-lead">
-          Пошаговый алгоритм действий сотрудника при дистанционном обучении и проверке знаний.
-          Отмечайте выполненные шаги — прогресс сохранится в браузере.
+      <!-- HERO БЛОК С ПЕЧАТНОЙ МАШИНКОЙ И ТРЕКЕРОМ ЧЕК-ЛИСТА -->
+      <section class="inst-hero reveal-up" data-radar-title="📋 Регламент обучения">
+        <span class="inst-badge">📋 Постановление Правительства РФ № 2464</span>
+        <h1 class="inst-title" aria-label="Инструкция по прохождению обучения">
+          <span id="typing-text" data-text="Инструкция по прохождению обучения" aria-hidden="true"></span><span class="cursor-blink" aria-hidden="true"></span>
+        </h1>
+        <p class="inst-lead">
+          Следуйте четырём последовательным шагам ниже, чтобы своевременно изучить учебные материалы, отработать практические навыки на интерактивных тренажёрах и успешно пройти итоговую проверку знаний. Отмечайте выполненные этапы прямо в чек-листе — ваш прогресс сохраняется автоматически.
         </p>
-        <div class="instr-meta">
-          <span class="instr-meta-item">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            ~5 мин чтения
-          </span>
-          <span class="instr-meta-item">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            Обновлено: <time datetime="2026-01-15">15 января 2026</time>
-          </span>
-        </div>
-        <div class="instr-actions">
-          <button type="button" class="btn-ghost" id="share-btn">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-            Поделиться
-          </button>
-          <button type="button" class="btn-ghost" id="print-btn">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-            Печать
-          </button>
+
+        <div class="checklist-status-bar">
+          <div class="csb-left">
+            <span style="font-size: 1.6rem;" aria-hidden="true">✅</span>
+            <div class="csb-progress-wrap">
+              <div class="csb-label-row">
+                <span>Ваш личный чек-лист готовности к аттестации</span>
+                <span id="checklistProgressText">Выполнено: 0 из 4 (0%)</span>
+              </div>
+              <div class="csb-track">
+                <div class="csb-fill" id="checklistProgressFill"></div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="csb-reset-btn" id="resetChecklistBtn">Сбросить отметки</button>
         </div>
       </section>
 
-      <!-- ПАНЕЛЬ ПРОГРЕССА -->
-      <div class="instr-progress" id="instr-progress">
-        <div class="instr-progress-top">
-          <span class="instr-progress-label">
-            Ваш прогресс: <strong id="progress-count" aria-live="polite">0</strong> из <span id="progress-total">4</span>
-          </span>
-          <button type="button" class="instr-progress-reset" id="progress-reset">Сбросить</button>
+      <!-- 1. ИНТЕРАКТИВНЫЕ 4 ШАГА ПРОХОЖДЕНИЯ ОБУЧЕНИЯ -->
+      <section class="steps-grid-4 reveal-up" data-radar-title="✅ 4 шага аттестации" aria-label="Пошаговый алгоритм обучения">
+
+        <article class="step-card" data-step-id="step1">
+          <div class="step-top-row">
+            <div class="step-num-badge">01</div>
+            <button type="button" class="step-check-btn" data-toggle-step="step1" aria-pressed="false">
+              <span class="check-icon" aria-hidden="true">○</span>
+              <span class="check-text">Отметить шаг</span>
+            </button>
+          </div>
+          <h3>Выбор своей программы</h3>
+          <p>
+            Перейдите в <strong>Каталог программ</strong> или воспользуйтесь маршрутизатором должностей ниже, чтобы открыть курс, назначенный вам руководителем или специалистом по охране труда.
+          </p>
+          <div class="step-tip">
+            💡 Новым сотрудникам в первую очередь необходимы: <strong>Вводный инструктаж по ОТ</strong>, <strong>Пожарная безопасность</strong>, <strong>ГО и ЧС</strong> и <strong>Первая помощь</strong>.
+          </div>
+        </article>
+
+        <article class="step-card" data-step-id="step2">
+          <div class="step-top-row">
+            <div class="step-num-badge">02</div>
+            <button type="button" class="step-check-btn" data-toggle-step="step2" aria-pressed="false">
+              <span class="check-icon" aria-hidden="true">○</span>
+              <span class="check-text">Отметить шаг</span>
+            </button>
+          </div>
+          <h3>Изучение лекции и практика</h3>
+          <p>
+            Ознакомьтесь с официальным учебным пособием во встроенной интерактивной PDF-читалке, посмотрите видеоролики и отработайте алгоритмы на встроенных симуляторах.
+          </p>
+          <div class="step-tip">
+            📖 Система автоматически запоминает страницу PDF, на которой вы остановились, и отображает прогресс в вашем <strong>Цифровом паспорте СДО</strong> в шапке сайта.
+          </div>
+        </article>
+
+        <article class="step-card" data-step-id="step3">
+          <div class="step-top-row">
+            <div class="step-num-badge">03</div>
+            <button type="button" class="step-check-btn" data-toggle-step="step3" aria-pressed="false">
+              <span class="check-icon" aria-hidden="true">○</span>
+              <span class="check-text">Отметить шаг</span>
+            </button>
+          </div>
+          <h3>Сдача итогового теста</h3>
+          <p>
+            В нижней части страницы курса нажмите кнопку <strong>«Перейти к тесту»</strong>. Перед стартом внимательно укажите свои полные <strong>ФИО</strong> и <strong>должность</strong> без сокращений.
+          </p>
+          <div class="step-tip">
+            🎯 Если с первого раза набрать проходной балл не удалось — вы можете повторить ключевые разделы конспекта и пройти тестирование повторно.
+          </div>
+        </article>
+
+        <article class="step-card" data-step-id="step4">
+          <div class="step-top-row">
+            <div class="step-num-badge">04</div>
+            <button type="button" class="step-check-btn" data-toggle-step="step4" aria-pressed="false">
+              <span class="check-icon" aria-hidden="true">○</span>
+              <span class="check-text">Отметить шаг</span>
+            </button>
+          </div>
+          <h3>Фиксация и допуск к работе</h3>
+          <p>
+            Электронный результат теста автоматически поступает в базу данных Службы охраны труда. После успешной сдачи распишитесь в журнале регистрации инструктажа или протоколе проверки знаний.
+          </p>
+          <div class="step-tip">
+            ⚖️ В соответствии со <strong>ст. 76 ТК РФ</strong> и <strong>ПП РФ № 2464</strong> допуск к самостоятельной работе возможен только после успешной проверки знаний.
+          </div>
+        </article>
+
+      </section>
+
+      <!-- 2. ИНТЕРАКТИВНЫЙ МАРШРУТИЗАТОР ПО ПРОФИЛЮ ДОЛЖНОСТИ -->
+      <section class="route-selector-section reveal-up" data-radar-title="🧭 Маршрутизатор должности" aria-label="Подбор программы по категории сотрудника">
+        <div style="text-align: center; max-width: 680px; margin: 0 auto;">
+          <span class="inst-badge" style="background: #f0fdf4; color: #15803d; border-color: #bbf7d0;">🧭 Персональный навигатор</span>
+          <h2 style="font-size: 1.65rem; font-weight: 800; color: #0f172a; margin: 0 0 8px;">Какие программы нужно пройти именно вам?</h2>
+          <p style="color: #64748b; font-size: 0.95rem; margin: 0;">Выберите свой профиль работы, чтобы увидеть обязательный комплект курсов и нормативные сроки аттестации</p>
         </div>
-        <div class="instr-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Прогресс прохождения инструкции">
-          <div class="instr-progress-fill" id="progress-fill"></div>
+
+        <div class="route-tabs" id="routeTabs" role="group" aria-label="Категории персонала">
+          <button type="button" class="route-tab-btn active" data-route="base" aria-pressed="true">👋 Новый сотрудник (Базовый набор)</button>
+          <button type="button" class="route-tab-btn" data-route="itr" aria-pressed="false">👔 Руководители и ИТР</button>
+          <button type="button" class="route-tab-btn" data-route="service" aria-pressed="false">🛎️ Гостиничный сервис и служба приёма</button>
+          <button type="button" class="route-tab-btn" data-route="tech" aria-pressed="false">⚡ Технический и эксплуатационный персонал</button>
         </div>
-        <p class="instr-progress-hint">Нажмите на кружок «✓» у шага, чтобы отметить его выполненным. Прогресс сохраняется только в этом браузере.</p>
+
+        <div class="route-result-panel" id="routeResultPanel" aria-live="polite">
+          <div>
+            <div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #2563eb; letter-spacing: 0.5px; margin-bottom: 6px;" id="routeRoleBadge">Базовый маршрут при приёме на работу</div>
+            <h3 style="font-size: 1.3rem; font-weight: 800; color: #0f172a; margin: 0 0 10px;" id="routeRoleTitle">Обязательный минимум для каждого сотрудника</h3>
+            <p style="font-size: 0.92rem; color: #475569; line-height: 1.6; margin: 0;" id="routeRoleDesc">
+              Проводится для всех вновь принятых работников независимо от стажа и образования. Включает изучение правил поведения на территории, алгоритмов эвакуации, первой помощи и защиты при угрозе БПЛА.
+            </p>
+            <div class="route-course-tags" id="routeCourseLinks">
+              <a href="ot-intro.html" class="route-course-link">🛡️ Вводный по ОТ ➔</a>
+              <a href="fire-intro-materials.html" class="route-course-link">🔥 Вводный по ПБ ➔</a>
+              <a href="course-gochs.html" class="route-course-link">📢 ГО и ЧС ➔</a>
+              <a href="course-first-aid.html" class="route-course-link">🩹 Первая помощь ➔</a>
+              <a href="course-bpla.html" class="route-course-link">🚁 Защита от БПЛА ➔</a>
+            </div>
+          </div>
+
+          <div class="route-deadline-card">
+            <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.8px; color: #93c5fd; font-weight: 800; margin-bottom: 6px;">Нормативный регламент</div>
+            <div style="font-size: 1.15rem; font-weight: 800; margin-bottom: 10px;" id="routeDeadlineTitle">До начала самостоятельной работы</div>
+            <p style="font-size: 0.84rem; color: #cbd5e1; line-height: 1.55; margin: 0;" id="routeDeadlineDesc">
+              Вводные инструктажи проводятся в день фактического приёма. Обучение требованиям охраны труда и первой помощи — не позднее 60 календарных дней со дня трудоустройства (п. 62 ПП РФ № 2464).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. МИФ ИЛИ РЕАЛЬНОСТЬ (ИСПРАВЛЕН ПЕРЕВОРОТ ПО ТАПУ НА ТЕЛЕФОНАХ!) -->
+      <section class="reveal-up" data-radar-title="🤔 Мифы об аттестации" style="margin-bottom: 42px;">
+        <h2 class="flip-section-title">🤔 Мифы о дистанционной проверке знаний</h2>
+        <p class="flip-section-sub">Наведите курсор мыши или нажмите пальцем на карточку, чтобы перевернуть её</p>
+
+        <div class="flip-grid">
+
+          <div class="flip-card" tabindex="0" role="button" aria-label="Миф 1: Нажмите, чтобы узнать реальность">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="flip-icon" aria-hidden="true">⚡</div>
+                <div class="flip-label">Миф № 1</div>
+                <div class="flip-text">«Я работаю за компьютером в офисе, мне не нужна I группа по электробезопасности».</div>
+                <span class="flip-tap-hint">👆 Нажмите для переворота</span>
+              </div>
+              <div class="flip-back">
+                <div class="flip-icon" aria-hidden="true">🔌</div>
+                <div class="flip-label">Реальность</div>
+                <div class="flip-text">Любой сотрудник, использующий ПЭВМ, принтеры и бытовые электроприборы, относится к неэлектротехническому персоналу и проходит инструктаж на I группу ежегодно.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" tabindex="0" role="button" aria-label="Миф 2: Нажмите, чтобы узнать реальность">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="flip-icon" aria-hidden="true">📱</div>
+                <div class="flip-label">Миф № 2</div>
+                <div class="flip-text">«Если случайно закрыть вкладку с лекцией на телефоне, придётся искать страницу заново».</div>
+                <span class="flip-tap-hint">👆 Нажмите для переворота</span>
+              </div>
+              <div class="flip-back">
+                <div class="flip-icon" aria-hidden="true">💾</div>
+                <div class="flip-label">Реальность</div>
+                <div class="flip-text">Встроенная читалка СДО автоматически сохраняет номер текущей страницы в памяти вашего браузера и синхронизирует его с Цифровым паспортом в шапке.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" tabindex="0" role="button" aria-label="Миф 3: Нажмите, чтобы узнать реальность">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="flip-icon" aria-hidden="true">✍️</div>
+                <div class="flip-label">Миф № 3</div>
+                <div class="flip-text">«Достаточно просто сдать электронный тест на сайте — расписываться нигде не нужно».</div>
+                <span class="flip-tap-hint">👆 Нажмите для переворота</span>
+              </div>
+              <div class="flip-back">
+                <div class="flip-icon" aria-hidden="true">📜</div>
+                <div class="flip-label">Реальность</div>
+                <div class="flip-text">По закону (ПП РФ № 2464 и Приказ МЧС № 1120) после успешного тестирования проведение инструктажа завершается обязательной живой подписью в журнале или протоколе.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 4. ЧАСТЫЕ ВОПРОСЫ СОТРУДНИКОВ (FAQ) -->
+      <section class="faq-section reveal-up" data-radar-title="❓ Частые вопросы">
+        <h2 style="text-align: center; font-size: 1.65rem; font-weight: 800; color: #0f172a; margin-bottom: 22px;">Частые вопросы по работе с порталом</h2>
+
+        <details class="faq-item">
+          <summary class="faq-summary">Нужно ли устанавливать специальные приложения для прохождения курсов с телефона?</summary>
+          <div class="faq-content">
+            Нет. Все учебные пособия, интерактивные тренажёры и тесты работают прямо в мобильном браузере (Safari, Chrome, Яндекс Браузер). Во встроенной PDF-читалке поддерживаются жесты смахивания (свайпы) для перелистывания и двойное касание для увеличения текста.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-summary">Как правильно заполнять данные перед началом итогового тестирования?</summary>
+          <div class="faq-content">
+            Указывайте <strong>Фамилию, Имя и Отчество полностью</strong> в именительном падеже, а также точную должность и подразделение согласно трудовому договору. Эти данные автоматически попадают в итоговую ведомость проверки знаний.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-summary">Сколько попыток даётся на прохождение теста?</summary>
+          <div class="faq-content">
+            Количество тренировочных попыток на портале не ограничено. Если вы допустили ошибки, система покажет ваш результат — вернитесь к конспекту лекции, повторите сложные вопросы в блоке самопроверки и пройдите тест заново.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-summary">Как быстро найти нужный тест, не заходя внутрь длинной лекции?</summary>
+          <div class="faq-content">
+            Вы можете нажать на иконку матрицы <strong>«:::»</strong> слева от логотипа СДО в верхней шапке (там собраны прямые ссылки на все 10 тестов) либо воспользоваться быстрым поиском по клавишам <strong>Ctrl + K</strong> (или кнопкой «Поиск» в нижнем меню на телефоне).
+          </div>
+        </details>
+      </section>
+
+      <!-- 5. ФИНАЛЬНЫЙ БЛОК ПЕРЕХОДА В КАТАЛОГ -->
+      <div class="cta-zone reveal-up" data-radar-title="🚀 Старт обучения">
+        <h2 style="font-size: 1.85rem; font-weight: 900; color: #0f172a; margin: 0 0 12px;">Готовы приступить к обучению?</h2>
+        <p style="color: #64748b; max-width: 600px; margin: 0 auto 26px; font-size: 1.02rem; line-height: 1.6;">
+          Переходите в единый реестр программ, выбирайте свой курс или продолжайте чтение с сохранённой страницы.
+        </p>
+        <a href="programs.html" class="btn-magic">
+          <span>Открыть каталог программ (9)</span>
+          <span aria-hidden="true">➔</span>
+        </a>
       </div>
-
-      <!-- ТАЙМЛАЙН -->
-      <section class="section" aria-label="Шаги обучения">
-        <div class="timeline-container">
-
-          <!-- ШАГ 1 -->
-          <div class="timeline-item" data-step="1" id="step-1">
-            <div class="timeline-dot" aria-hidden="true">
-              <span class="dot-num">01</span>
-              <svg class="dot-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <div class="timeline-content">
-              <div class="step-header">
-                <span class="step-time">
-                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                  5 мин
-                </span>
-                <div class="step-actions">
-                  <button type="button" class="step-copy" data-copy-step="1" aria-label="Скопировать ссылку на шаг 1" title="Скопировать ссылку">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                  </button>
-                  <button type="button" class="step-check" aria-pressed="false" aria-label="Отметить шаг 1 как выполненный">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  </button>
-                </div>
-              </div>
-              <h3 class="step-title">Назначение обучения</h3>
-              <p class="step-desc">
-                Получите от руководителя уведомление. Уточните вид программы (ОТ, ПБ или Первая помощь) и сроки.
-              </p>
-            </div>
-          </div>
-
-          <!-- ШАГ 2 -->
-          <div class="timeline-item" data-step="2" id="step-2">
-            <div class="timeline-dot" aria-hidden="true">
-              <span class="dot-num">02</span>
-              <svg class="dot-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <div class="timeline-content">
-              <div class="step-header">
-                <span class="step-time">
-                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                  30 мин
-                </span>
-                <div class="step-actions">
-                  <button type="button" class="step-copy" data-copy-step="2" aria-label="Скопировать ссылку на шаг 2" title="Скопировать ссылку">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                  </button>
-                  <button type="button" class="step-check" aria-pressed="false" aria-label="Отметить шаг 2 как выполненный">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  </button>
-                </div>
-              </div>
-              <h3 class="step-title">Изучение материалов</h3>
-              <p class="step-desc">
-                Перейдите в <a href="programs.html">Каталог программ</a>. Выберите нужный курс и изучите видеолекции.
-              </p>
-            </div>
-          </div>
-
-          <!-- ШАГ 3 -->
-          <div class="timeline-item" data-step="3" id="step-3">
-            <div class="timeline-dot" aria-hidden="true">
-              <span class="dot-num">03</span>
-              <svg class="dot-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <div class="timeline-content">
-              <div class="step-header">
-                <span class="step-time">
-                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                  5 мин
-                </span>
-                <div class="step-actions">
-                  <button type="button" class="step-copy" data-copy-step="3" aria-label="Скопировать ссылку на шаг 3" title="Скопировать ссылку">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                  </button>
-                  <button type="button" class="step-check" aria-pressed="false" aria-label="Отметить шаг 3 как выполненный">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  </button>
-                </div>
-              </div>
-              <h3 class="step-title">Идентификация</h3>
-              <p class="step-desc">
-                Перед началом теста заполните форму: ФИО, должность, подразделение.
-                <strong>Данные строго как в паспорте и трудовом договоре.</strong>
-              </p>
-            </div>
-          </div>
-
-          <!-- ШАГ 4 -->
-          <div class="timeline-item" data-step="4" id="step-4">
-            <div class="timeline-dot" aria-hidden="true">
-              <span class="dot-num">04</span>
-              <svg class="dot-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <div class="timeline-content">
-              <div class="step-header">
-                <span class="step-time">
-                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                  15 мин
-                </span>
-                <div class="step-actions">
-                  <button type="button" class="step-copy" data-copy-step="4" aria-label="Скопировать ссылку на шаг 4" title="Скопировать ссылку">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                  </button>
-                  <button type="button" class="step-check" aria-pressed="false" aria-label="Отметить шаг 4 как выполненный">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  </button>
-                </div>
-              </div>
-              <h3 class="step-title">Проверка знаний</h3>
-              <p class="step-desc">
-                Пройдите итоговое тестирование. Проходной балл — <strong>85%</strong>.
-              </p>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- КРИТЕРИИ ДОПУСКА -->
-      <section class="section" aria-labelledby="criteria-heading">
-        <h2 id="criteria-heading" style="text-align:center;margin-bottom:30px;color:var(--c-text);">Критерии допуска</h2>
-        <div class="requirements-grid">
-
-          <div class="tilt-card">
-            <div class="req-icon" aria-hidden="true">🆔</div>
-            <h3 class="req-title">Персональные данные</h3>
-            <ul class="req-list">
-              <li>ФИО вводится полностью.</li>
-              <li>Должность по штатному расписанию.</li>
-              <li>Подразделение (Цех/Отдел).</li>
-            </ul>
-          </div>
-
-          <div class="tilt-card">
-            <div class="req-icon" aria-hidden="true">💻</div>
-            <h3 class="req-title">Технические условия</h3>
-            <ul class="req-list">
-              <li>Стабильный интернет.</li>
-              <li>Не закрывайте вкладку при тесте.</li>
-              <li>Включите звук для видеолекций.</li>
-            </ul>
-          </div>
-
-          <div class="tilt-card">
-            <div class="req-icon" aria-hidden="true">⚖️</div>
-            <h3 class="req-title">Ответственность</h3>
-            <ul class="req-list">
-              <li>Запрещено участие третьих лиц.</li>
-              <li>Подлог данных аннулирует тест.</li>
-              <li>Соблюдайте сроки сдачи.</li>
-            </ul>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- FAQ -->
-      <section class="section" aria-labelledby="faq-heading" style="margin-top:60px;">
-        <h2 id="faq-heading" style="text-align:center;margin-bottom:30px;color:var(--c-text);">Частые вопросы</h2>
-
-        <div class="faq-accordion">
-          <div class="faq-search-wrap">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="search" class="faq-search" id="faq-search" placeholder="Поиск по вопросам…" aria-label="Поиск по часто задаваемым вопросам">
-          </div>
-
-          <div class="faq-item">
-            <button type="button" class="faq-trigger" aria-expanded="false">
-              Сбой во время теста. Что делать?
-              <span class="faq-icon" aria-hidden="true">▼</span>
-            </button>
-            <div class="faq-content">
-              <p>Обновите страницу (F5). Если тест прервался — зайдите заново. При повторной ошибке сделайте скриншот и отправьте в службу техподдержки.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button type="button" class="faq-trigger" aria-expanded="false">
-              Сколько попыток дается на сдачу?
-              <span class="faq-icon" aria-hidden="true">▼</span>
-            </button>
-            <div class="faq-content">
-              <p>Количество попыток технически не ограничено, если иное не установлено вашим руководителем. Рекомендуем повторить материал перед пересдачей.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button type="button" class="faq-trigger" aria-expanded="false">
-              Где посмотреть мой результат?
-              <span class="faq-icon" aria-hidden="true">▼</span>
-            </button>
-            <div class="faq-content">
-              <p>Результат (балл и статус «Сдано/Не сдано») отображается на экране сразу после отправки формы. Копия протокола уходит ответственному.</p>
-            </div>
-          </div>
-
-          <div class="faq-no-results" id="faq-no-results">Ничего не найдено. Попробуйте другой запрос.</div>
-        </div>
-      </section>
 
     </div>
   </main>
 
-  <!-- ===== ПОДВАЛ ===== -->
   <footer class="glass-footer">
     <div class="container">
       <p>© 2026 Служба Охраны Труда. Внутренний ресурс.</p>
@@ -899,303 +1384,651 @@
 
 </div>
 
-<!-- Плавающие кнопки -->
-<div class="float-stack">
-  <button type="button" class="float-btn" id="theme-toggle" aria-label="Переключить тёмную/светлую тему" title="Сменить тему">
-    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+<button type="button" class="to-top-btn" id="toTopBtn" aria-label="Наверх" title="Наверх">↑</button>
+
+<nav class="mobile-bottom-nav" aria-label="Мобильная навигация">
+  <a href="index.html" class="mob-nav-item">
+    <span class="mob-icon" aria-hidden="true">🏠</span>
+    <span>Главная</span>
+  </a>
+  <a href="programs.html" class="mob-nav-item">
+    <span class="mob-icon" aria-hidden="true">📚</span>
+    <span>Курсы</span>
+  </a>
+  <button type="button" class="mob-nav-item" id="mobSearchBtn" aria-label="Открыть поиск">
+    <span class="mob-icon" aria-hidden="true">🔍</span>
+    <span>Поиск</span>
   </button>
-  <button type="button" class="float-btn" id="back-to-top" aria-label="Наверх" title="Наверх">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+  <a href="instructions.html" class="mob-nav-item active" aria-current="page">
+    <span class="mob-icon" aria-hidden="true">📋</span>
+    <span>Инструкции</span>
+  </a>
+  <button type="button" class="mob-nav-item sos-mob" id="mobSosBtn" aria-label="Открыть экстренную памятку ЧС и 112">
+    <span class="mob-icon" aria-hidden="true">🚨</span>
+    <span>ЧС / 112</span>
   </button>
+</nav>
+
+<div class="modal-overlay" id="searchModal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-label="Быстрый поиск по порталу">
+    <div class="search-modal-header">
+      <span style="font-size: 1.2rem;" aria-hidden="true">🔍</span>
+      <input type="text" class="search-modal-input" id="searchModalInput"
+             placeholder="Поиск курса или теста (например: БПЛА, Первая помощь)..."
+             aria-label="Поиск курса или теста">
+      <button type="button" class="voice-mic-btn" id="voiceSearchBtn" title="Голосовой поиск" aria-label="Голосовой поиск">🎤</button>
+      <button type="button" class="modal-close" id="closeSearchModal" aria-label="Закрыть поиск">Закрыть</button>
+    </div>
+    <div class="search-results-list" id="searchResultsList"></div>
+  </div>
 </div>
 
-<!-- Тост-уведомление -->
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="modal-overlay" id="sosModal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-label="Экстренная памятка ЧС">
+    <div class="sos-modal-top">
+      <div>
+        <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.85; font-weight: 700;">Оперативная памятка безопасности</div>
+        <h3 style="margin: 4px 0 0; font-size: 1.2rem; font-weight: 900; color: #fff;">🚨 Алгоритмы экстренных действий</h3>
+      </div>
+      <button type="button" class="modal-close" id="closeSosModal" style="background: rgba(255,255,255,0.2); color: #fff;" aria-label="Закрыть памятку">✕</button>
+    </div>
+    <div class="sos-modal-body">
+      <a href="tel:112" class="call-112-btn">📞 Экстренный вызов 112 (С мобильного)</a>
+      <div class="sos-card">
+        <h4>🧱 В здании при угрозе БПЛА: Правило «Двух стен»</h4>
+        <p>Отойдите от окон! Переместитесь в коридор, лестничный пролет или санузел. Сядьте на пол у несущей стены, пригните голову, приоткройте рот. Лифтом пользоваться запрещено.</p>
+      </div>
+      <div class="sos-card">
+        <h4>🚗 На улице или в транспорте</h4>
+        <p>Остановите автомобиль, заглушите мотор и отбегите на 15–30 метров. Укройтесь в канаве, кювете или за бетонным блоком. Лягте лицом вниз, скрестите ноги, закройте голову руками.</p>
+      </div>
+      <div class="sos-card">
+        <h4>📵 При обнаружении обломков БПЛА</h4>
+        <p>НЕ подходить, НЕ трогать, НЕ снимать и НЕ звонить рядом с местом падения! Отойдите назад по своим следам минимум на 100 метров за укрытие и сообщите по номеру 112.</p>
+      </div>
+      <div class="sos-card" style="border-left-color: #10b981;">
+        <h4>🩹 Первая помощь (СЛР)</h4>
+        <p>Оцените безопасность → Проверьте сознание и дыхание (метод «Вижу-Слышу-Ощущаю» 10 сек) → Вызовите 112 → Начните компрессии грудной клетки: <strong>30 нажатий / 2 вдоха</strong>.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-<script>
-(function () {
-  'use strict';
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.body.classList.add('js-loaded');
 
-  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ===== Безопасный доступ к localStorage ===== */
-  const storage = {
-    get(key, fallback) {
-      try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
-      catch (e) { return fallback; }
-    },
-    set(key, value) {
-      try { localStorage.setItem(key, JSON.stringify(value)); return true; }
-      catch (e) { return false; }
-    }
-  };
-
-  const PROGRESS_KEY = 'sdo_instructions_progress_v1';
-  const THEME_KEY = 'sdo_theme';
-
-  /* ===== Элементы ===== */
-  const $ = (sel, ctx = document) => ctx.querySelector(sel);
-  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
-
-  /* ===== 1. Дата в шапке ===== */
-  const dateEl = $('#current-date');
-  if (dateEl) {
-    const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const s = new Date().toLocaleDateString('ru-RU', opts);
-    dateEl.textContent = s.charAt(0).toUpperCase() + s.slice(1);
-  }
-
-  /* ===== 2. Тема (светлая/тёмная) ===== */
-  const themeToggle = $('#theme-toggle');
-  function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    document.body.setAttribute('data-theme', theme);
-  }
-  const savedTheme = storage.get(THEME_KEY, null);
-  if (savedTheme === 'dark' || savedTheme === 'light') {
-    applyTheme(savedTheme);
-  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    applyTheme('dark');
-  }
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-      const next = current === 'dark' ? 'light' : 'dark';
-      applyTheme(next);
-      storage.set(THEME_KEY, next);
-    });
-  }
-
-  /* ===== 3. Чек-лист прогресса ===== */
-  const timelineItems = $$('.timeline-item[data-step]');
-  const progressFill = $('#progress-fill');
-  const progressCount = $('#progress-count');
-  const progressTotal = $('#progress-total');
-  const progressBar = document.querySelector('.instr-progress-bar');
-  const progressReset = $('#progress-reset');
-
-  let state = storage.get(PROGRESS_KEY, {});
-
-  function updateProgress() {
-    const total = timelineItems.length;
-    let done = 0;
-    timelineItems.forEach(item => {
-      const step = item.dataset.step;
-      const isDone = !!state[step];
-      item.classList.toggle('is-done', isDone);
-      const check = item.querySelector('.step-check');
-      if (check) check.setAttribute('aria-pressed', isDone ? 'true' : 'false');
-      if (isDone) done++;
-    });
-
-    if (progressCount) progressCount.textContent = done;
-    if (progressTotal) progressTotal.textContent = total;
-    const pct = total ? Math.round((done / total) * 100) : 0;
-    if (progressFill) progressFill.style.width = pct + '%';
-    if (progressBar) {
-      progressBar.setAttribute('aria-valuenow', pct);
+    // === 1. ДАТА В ШАПКЕ, ПРОГРЕСС-БАР СКРОЛЛА И МОРФИНГ ШАПКИ ===
+    const now = new Date();
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateStr = now.toLocaleDateString('ru-RU', dateOptions);
+    const dateEl = document.getElementById('current-date');
+    if (dateEl) {
+      dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
     }
 
-    // Подсветка «следующего» шага
-    timelineItems.forEach(i => i.classList.remove('is-next'));
-    if (done < total) {
-      const next = timelineItems.find(i => !state[i.dataset.step]);
-      if (next) next.classList.add('is-next');
-    }
-  }
-
-  timelineItems.forEach(item => {
-    const btn = item.querySelector('.step-check');
-    if (!btn) return;
-    btn.addEventListener('click', () => {
-      const step = item.dataset.step;
-      state[step] = !state[step];
-      storage.set(PROGRESS_KEY, state);
-      updateProgress();
-    });
-  });
-
-  if (progressReset) {
-    progressReset.addEventListener('click', () => {
-      state = {};
-      storage.set(PROGRESS_KEY, state);
-      updateProgress();
-      showToast('Прогресс сброшен');
-    });
-  }
-
-  updateProgress();
-
-  /* ===== 4. Ссылки на шаги ===== */
-  function copyToClipboard(text) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      return navigator.clipboard.writeText(text);
-    }
-    return new Promise((resolve, reject) => {
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      try { document.execCommand('copy'); resolve(); }
-      catch (e) { reject(e); }
-      document.body.removeChild(ta);
-    });
-  }
-
-  $$('.step-copy').forEach(btn => {
-    btn.addEventListener('click', async () => {
-      const step = btn.dataset.copyStep;
-      const url = location.origin + location.pathname + '#step-' + step;
-      try {
-        await copyToClipboard(url);
-        showToast('Ссылка на шаг скопирована');
-      } catch (e) {
-        showToast('Не удалось скопировать');
-      }
-    });
-  });
-
-  /* ===== 5. Тосты ===== */
-  const toastEl = $('#toast');
-  let toastTimer;
-  function showToast(msg) {
-    if (!toastEl) return;
-    toastEl.textContent = msg;
-    toastEl.classList.add('is-visible');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toastEl.classList.remove('is-visible'), 2200);
-  }
-
-  /* ===== 6. Кнопка «Поделиться» ===== */
-  const shareBtn = $('#share-btn');
-  if (shareBtn) {
-    shareBtn.addEventListener('click', async () => {
-      const data = {
-        title: document.title,
-        text: 'Регламент обучения в СДО — пошаговая инструкция',
-        url: location.href
-      };
-      if (navigator.share) {
-        try { await navigator.share(data); }
-        catch (e) { /* пользователь отменил — не ошибка */ }
-      } else {
-        try {
-          await copyToClipboard(data.url);
-          showToast('Ссылка скопирована');
-        } catch (e) {
-          showToast('Не удалось поделиться');
-        }
-      }
-    });
-  }
-
-  /* ===== 7. Кнопка «Печать» ===== */
-  const printBtn = $('#print-btn');
-  if (printBtn) {
-    printBtn.addEventListener('click', () => window.print());
-  }
-
-  /* ===== 8. Аккордеон FAQ ===== */
-  const faqTriggers = $$('.faq-trigger');
-  faqTriggers.forEach(trigger => {
-    trigger.addEventListener('click', () => {
-      const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
-      const content = trigger.nextElementSibling;
-      trigger.setAttribute('aria-expanded', !isExpanded);
-      if (!isExpanded) {
-        content.style.maxHeight = content.scrollHeight + 'px';
-      } else {
-        content.style.maxHeight = null;
-      }
-    });
-  });
-
-  // Пересчет высоты открытых пунктов FAQ при изменении ширины экрана
-  window.addEventListener('resize', () => {
-    faqTriggers.forEach(trigger => {
-      if (trigger.getAttribute('aria-expanded') === 'true') {
-        const content = trigger.nextElementSibling;
-        if (content) content.style.maxHeight = content.scrollHeight + 'px';
-      }
-    });
-  }, { passive: true });
-
-  /* ===== 9. Поиск по FAQ ===== */
-  const faqSearch = $('#faq-search');
-  const faqItems = $$('.faq-item');
-  const noResults = $('#faq-no-results');
-  if (faqSearch) {
-    faqSearch.addEventListener('input', () => {
-      const q = faqSearch.value.trim().toLowerCase();
-      let visible = 0;
-      faqItems.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        const match = !q || text.includes(q);
-        item.style.display = match ? '' : 'none';
-        if (match) visible++;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
-      if (noResults) noResults.classList.toggle('is-visible', visible === 0 && q.length > 0);
-    });
-  }
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
 
-  /* ===== 10. Индикатор прокрутки + кнопка «наверх» ===== */
-  const readingProgress = $('#reading-progress');
-  const backToTop = $('#back-to-top');
+    const scrollProgress = document.getElementById('scrollProgress');
+    const toTopBtn = document.getElementById('toTopBtn');
+    const quantumHeader = document.getElementById('quantumHeader');
 
-  function onScroll() {
-    const doc = document.documentElement;
-    const scrolled = doc.scrollTop || document.body.scrollTop;
-    const total = doc.scrollHeight - doc.clientHeight;
-    const pct = total > 0 ? (scrolled / total) * 100 : 0;
-    if (readingProgress) readingProgress.style.width = pct + '%';
-    if (backToTop) backToTop.classList.toggle('is-visible', scrolled > 400);
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (scrollHeight > 0 && scrollProgress) {
+        scrollProgress.style.width = (scrollTop / scrollHeight) * 100 + "%";
+      }
+      if (toTopBtn) {
+        toTopBtn.classList.toggle('visible', scrollTop > 400);
+      }
+      if (quantumHeader) {
+        quantumHeader.classList.toggle('is-scrolled', scrollTop > 60);
+      }
+    }, { passive: true });
 
-  if (backToTop) {
-    backToTop.addEventListener('click', () => {
+    toTopBtn?.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
     });
-  }
 
-  /* ===== 11. 3D-эффект карточек (только desktop и без reduced motion) ===== */
-  if (!prefersReducedMotion && window.matchMedia('(min-width: 768px)').matches) {
-    $$('.tilt-card').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        card.style.setProperty('--mouse-x', x + 'px');
-        card.style.setProperty('--mouse-y', y + 'px');
-        const cx = rect.width / 2;
-        const cy = rect.height / 2;
-        const rx = ((y - cy) / cy) * -3;
-        const ry = ((x - cx) / cx) * 3;
-        card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+    // === 2. ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ В HERO (РАБОТАЕТ НА ВСЕХ СМАРТФОНАХ И ПК) ===
+    const typingEl = document.getElementById('typing-text');
+    if (typingEl) {
+      const heroText = typingEl.getAttribute('data-text') || "Инструкция по прохождению обучения";
+      typingEl.textContent = "";
+      let charIdx = 0;
+      const typeStep = () => {
+        if (charIdx < heroText.length) {
+          typingEl.textContent += heroText.charAt(charIdx);
+          charIdx++;
+          setTimeout(typeStep, 45);
+        }
+      };
+      setTimeout(typeStep, 160);
+    }
+
+    // === 3. ШАПКА QUANTUM COMMAND BAR V2.0 (Магнитная капсула, Радар, Лаунчер, Паспорт СДО) ===
+    const qNavList = document.getElementById('qNavList');
+    const qNavGlider = document.getElementById('qNavGlider');
+    const qNavLinks = qNavList ? Array.from(qNavList.querySelectorAll('.nav-link')) : [];
+
+    function moveNavGlider(targetLink) {
+      if (!qNavGlider || !targetLink || window.innerWidth <= 768) {
+        if (qNavGlider) qNavGlider.style.opacity = '0';
+        return;
+      }
+      const listRect = qNavList.getBoundingClientRect();
+      const linkRect = targetLink.getBoundingClientRect();
+      const offsetLeft = linkRect.left - listRect.left;
+      qNavGlider.style.width = `${linkRect.width}px`;
+      qNavGlider.style.transform = `translateX(${offsetLeft}px)`;
+      qNavGlider.style.opacity = '1';
+    }
+
+    const activeNavLink = qNavList?.querySelector('.nav-link.active') || qNavLinks[2] || qNavLinks[0];
+    if (activeNavLink) {
+      setTimeout(() => moveNavGlider(activeNavLink), 100);
+    }
+
+    qNavLinks.forEach(link => {
+      link.addEventListener('mouseenter', () => moveNavGlider(link));
+      link.addEventListener('focus', () => moveNavGlider(link));
+    });
+    qNavList?.addEventListener('mouseleave', () => moveNavGlider(activeNavLink));
+    window.addEventListener('resize', () => moveNavGlider(activeNavLink), { passive: true });
+
+    // Контекстный радар секций при скролле
+    const radarText = document.getElementById('qRadarText');
+    const radarSections = document.querySelectorAll('[data-radar-title]');
+    if (radarText && radarSections.length > 0) {
+      const radarObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const title = entry.target.getAttribute('data-radar-title');
+            if (title) radarText.textContent = title;
+          }
+        });
+      }, { rootMargin: '-25% 0px -55% 0px', threshold: 0.05 });
+      radarSections.forEach(sec => radarObserver.observe(sec));
+    }
+
+    const qAppBtn = document.getElementById('qAppBtn');
+    const qAppDropdown = document.getElementById('qAppDropdown');
+    const qPassportBtn = document.getElementById('qPassportBtn');
+    const qPassportPopover = document.getElementById('qPassportPopover');
+
+    function closeHeaderPopovers() {
+      if (qAppDropdown) {
+        qAppDropdown.classList.remove('open');
+        qAppBtn?.setAttribute('aria-expanded', 'false');
+      }
+      if (qPassportPopover) {
+        qPassportPopover.classList.remove('open');
+        qPassportBtn?.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    qAppBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = !qAppDropdown.classList.contains('open');
+      closeHeaderPopovers();
+      if (willOpen) {
+        qAppDropdown.classList.add('open');
+        qAppBtn.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    qPassportBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = !qPassportPopover.classList.contains('open');
+      closeHeaderPopovers();
+      if (willOpen) {
+        qPassportPopover.classList.add('open');
+        qPassportBtn.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    qAppDropdown?.addEventListener('click', (e) => e.stopPropagation());
+    qPassportPopover?.addEventListener('click', (e) => e.stopPropagation());
+    document.addEventListener('click', closeHeaderPopovers);
+
+    // Заполнение Цифрового паспорта СДО из localStorage
+    function readStorageKey(key) {
+      try {
+        const val = parseInt(localStorage.getItem(key), 10);
+        return Number.isFinite(val) && val >= 1 ? val : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    const passportCourses = [
+      { title: 'Охрана труда (Комплекс)', icon: '🛡️', url: 'course-ot.html', page: readStorageKey('program_a_pdf_page') || readStorageKey('ot_intro_pdf_page') },
+      { title: 'Пожарная безопасность', icon: '🔥', url: 'course-fire-safety.html', page: readStorageKey('fire_intro_pdf_page') },
+      { title: 'Первая помощь', icon: '🩹', url: 'course-first-aid.html', page: readStorageKey('firstaid_pdf_page') },
+      { title: 'Действия при угрозе БПЛА', icon: '🚁', url: 'course-bpla.html', page: readStorageKey('bpla_pdf_page') },
+      { title: 'ГО и защита от ЧС', icon: '📢', url: 'course-gochs.html', page: readStorageKey('gochs_pdf_page') },
+      { title: 'Электробезопасность', icon: '⚡', url: 'course-electrical-safety.html', page: readStorageKey('el_group1_pdf_page') },
+      { title: 'Гигиеническое обучение', icon: '🧼', url: 'course-hygiene.html', page: readStorageKey('hygiene_pdf_page') },
+      { title: 'Наставничество', icon: '🛎️', url: 'course-mentorship.html', page: readStorageKey('mentor_pdf_page') },
+      { title: 'Управление конфликтами', icon: '🧠', url: 'course-conflict.html', page: readStorageKey('conflict_pdf_page') }
+    ];
+
+    const qRingFill = document.getElementById('qRingFill');
+    const qPassportPct = document.getElementById('qPassportPct');
+    const qPassportRank = document.getElementById('qPassportRank');
+    const qPassportList = document.getElementById('qPassportList');
+    const qPrintPassportBtn = document.getElementById('qPrintPassportBtn');
+
+    function renderDigitalPassport() {
+      let activeCount = 0;
+      passportCourses.forEach(c => {
+        if (c.page !== null && c.page >= 1) activeCount++;
       });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+
+      const pct = Math.round((activeCount / passportCourses.length) * 100);
+      if (qPassportPct) qPassportPct.textContent = `${pct}%`;
+
+      if (qRingFill) {
+        const circumference = 62.83;
+        const offset = circumference - (pct / 100) * circumference;
+        qRingFill.style.strokeDashoffset = `${offset}`;
+      }
+
+      if (qPassportRank) {
+        if (pct === 0) qPassportRank.textContent = 'Готов к старту';
+        else if (pct < 40) qPassportRank.textContent = `В процессе (${activeCount}/9)`;
+        else if (pct < 80) qPassportRank.textContent = `Активный (${activeCount}/9)`;
+        else qPassportRank.textContent = `Профи ОТ (${activeCount}/9)`;
+      }
+
+      if (qPassportList) {
+        qPassportList.innerHTML = passportCourses.map(c => `
+          <a href="${c.url}" class="q-pass-item">
+            <div class="q-pass-item-left">
+              <span aria-hidden="true">${c.icon}</span>
+              <span class="q-pass-item-title">${c.title}</span>
+            </div>
+            <span class="q-pass-item-status ${c.page ? 'in-progress' : ''}">
+              ${c.page ? `Стр. ${c.page}` : 'Не начат'}
+            </span>
+          </a>
+        `).join('');
+      }
+    }
+    renderDigitalPassport();
+
+    qPrintPassportBtn?.addEventListener('click', () => {
+      closeHeaderPopovers();
+      window.print();
+    });
+
+    // === 4. ИНТЕРАКТИВНЫЙ ЧЕК-ЛИСТ 4 ШАГОВ (С СОХРАНЕНИЕМ В LOCALSTORAGE) ===
+    const CHECKLIST_KEY = 'sdo_instructions_progress_v1';
+    const stepCards = Array.from(document.querySelectorAll('.step-card[data-step-id]'));
+    const checklistProgressText = document.getElementById('checklistProgressText');
+    const checklistProgressFill = document.getElementById('checklistProgressFill');
+    const resetChecklistBtn = document.getElementById('resetChecklistBtn');
+
+    let completedSteps = {};
+    try {
+      const raw = localStorage.getItem(CHECKLIST_KEY);
+      if (raw) completedSteps = JSON.parse(raw) || {};
+    } catch (e) {
+      completedSteps = {};
+    }
+
+    function saveChecklistState() {
+      try {
+        localStorage.setItem(CHECKLIST_KEY, JSON.stringify(completedSteps));
+      } catch (e) {}
+    }
+
+    function updateChecklistUI() {
+      let doneCount = 0;
+      const totalSteps = stepCards.length || 4;
+
+      stepCards.forEach(card => {
+        const stepId = card.getAttribute('data-step-id');
+        const btn = card.querySelector('.step-check-btn');
+        const iconEl = btn?.querySelector('.check-icon');
+        const textEl = btn?.querySelector('.check-text');
+        const isDone = Boolean(completedSteps[stepId]);
+
+        if (isDone) {
+          doneCount++;
+          card.classList.add('is-completed');
+          btn?.setAttribute('aria-pressed', 'true');
+          if (iconEl) iconEl.textContent = '✓';
+          if (textEl) textEl.textContent = 'Выполнено';
+        } else {
+          card.classList.remove('is-completed');
+          btn?.setAttribute('aria-pressed', 'false');
+          if (iconEl) iconEl.textContent = '○';
+          if (textEl) textEl.textContent = 'Отметить шаг';
+        }
+      });
+
+      const pct = Math.round((doneCount / totalSteps) * 100);
+      if (checklistProgressText) {
+        checklistProgressText.textContent = `Выполнено: ${doneCount} из ${totalSteps} (${pct}%)`;
+      }
+      if (checklistProgressFill) {
+        checklistProgressFill.style.width = `${pct}%`;
+      }
+    }
+
+    document.querySelectorAll('[data-toggle-step]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const stepId = btn.getAttribute('data-toggle-step');
+        if (!stepId) return;
+        completedSteps[stepId] = !completedSteps[stepId];
+        saveChecklistState();
+        updateChecklistUI();
       });
     });
-  }
 
-  /* ===== 12. Плавный скролл для якорных ссылок ===== */
-  document.addEventListener('click', (e) => {
-    const link = e.target.closest('a[href^="#"]');
-    if (!link) return;
-    const id = link.getAttribute('href').slice(1);
-    if (!id) return;
-    const target = document.getElementById(id);
-    if (!target) return;
-    e.preventDefault();
-    target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
-    history.replaceState(null, '', '#' + id);
+    resetChecklistBtn?.addEventListener('click', () => {
+      completedSteps = {};
+      saveChecklistState();
+      updateChecklistUI();
+    });
+
+    updateChecklistUI();
+
+    // === 5. ИНТЕРАКТИВНЫЙ МАРШРУТИЗАТОР ПО ПРОФИЛЮ ДОЛЖНОСТИ ===
+    const routeData = {
+      base: {
+        badge: 'Базовый маршрут при приёме на работу',
+        title: 'Обязательный минимум для каждого сотрудника',
+        desc: 'Проводится для всех вновь принятых работников независимо от стажа и образования. Включает изучение правил поведения на территории, алгоритмов эвакуации, первой помощи и защиты при угрозе БПЛА.',
+        links: [
+          { label: '🛡️ Вводный по ОТ ➔', url: 'ot-intro.html' },
+          { label: '🔥 Вводный по ПБ ➔', url: 'fire-intro-materials.html' },
+          { label: '📢 ГО и ЧС ➔', url: 'course-gochs.html' },
+          { label: '🩹 Первая помощь ➔', url: 'course-first-aid.html' },
+          { label: '🚁 Защита от БПЛА ➔', url: 'course-bpla.html' }
+        ],
+        deadlineTitle: 'До начала самостоятельной работы',
+        deadlineDesc: 'Вводные инструктажи проводятся в день фактического приёма. Обучение требованиям охраны труда и первой помощи — не позднее 60 календарных дней со дня трудоустройства (п. 62 ПП РФ № 2464).'
+      },
+      itr: {
+        badge: 'Профиль: Руководители, специалисты и ИТР',
+        title: 'Управление безопасностью и организация работы смены',
+        desc: 'Программа для руководителей структурных подразделений, главных специалистов и лиц, ответственных за проведение инструктажей на рабочих местах и эвакуацию персонала.',
+        links: [
+          { label: '⚖️ ОТ: Программа А ➔', url: 'ot-program-a.html' },
+          { label: '🔥 Пожарная безопасность ➔', url: 'course-fire-safety.html' },
+          { label: '🚁 Действия ИТР при БПЛА ➔', url: 'course-bpla.html' },
+          { label: '🛎️ Наставничество (TWI) ➔', url: 'course-mentorship.html' },
+          { label: '🧠 Управление конфликтами ➔', url: 'course-conflict.html' },
+          { label: '👔 Памятка ответственным ➔', url: 'for-responsibles.html' }
+        ],
+        deadlineTitle: 'Проверка знаний — 1 раз в 3 года',
+        deadlineDesc: 'Плановое обучение по Программе А проводится раз в 3 года. Первичная проверка знаний после назначения на должность — в течение 60 календарных дней.'
+      },
+      service: {
+        badge: 'Профиль: Служба приёма, размещения, горничные и сервис',
+        title: 'Санитарные стандарты, безопасность гостей и деэскалация',
+        desc: 'Специализированный трек для сотрудников номерного фонда, ресепшен и службы питания: санитарный минимум по СанПиН, психологическая устойчивость в конфликтах и стандарты наставничества.',
+        links: [
+          { label: '🧼 Санминимум (Гигиена) ➔', url: 'course-hygiene.html' },
+          { label: '🧠 Управление конфликтами ➔', url: 'course-conflict.html' },
+          { label: '🛎️ Наставничество ➔', url: 'course-mentorship.html' },
+          { label: '🩹 Первая помощь гостям ➔', url: 'course-first-aid.html' },
+          { label: '⚡ I группа по ЭБ ➔', url: 'el-group-1.html' }
+        ],
+        deadlineTitle: 'Ежегодное обновление навыков',
+        deadlineDesc: 'Инструктаж на I группу по электробезопасности и повторные противопожарные инструктажи для объектов с массовым пребыванием людей проводятся не реже 1 раза в полгода / год.'
+      },
+      tech: {
+        badge: 'Профиль: Инженерно-техническая служба и эксплуатация',
+        title: 'Безопасные методы работ и электробезопасность',
+        desc: 'Программы для электротехнического и ремонтного персонала: правила работы в электроустановках (ПОТЭУ Приказ № 903н), применение СИЗ, пожарная безопасность при проведении работ и первая помощь при электротравмах.',
+        links: [
+          { label: '⚡ Электробезопасность (I–V гр.) ➔', url: 'course-electrical-safety.html' },
+          { label: '🛡️ Комплекс по Охране труда ➔', url: 'course-ot.html' },
+          { label: '🔥 Первичный по ПБ на РМ ➔', url: 'fire-workplace-materials.html' },
+          { label: '🩹 Первая помощь ➔', url: 'course-first-aid.html' },
+          { label: '🚁 Защита от БПЛА ➔', url: 'course-bpla.html' }
+        ],
+        deadlineTitle: 'Строгий допуск и проверка раз в 12 мес.',
+        deadlineDesc: 'Очередная проверка знаний для электротехнического персонала, непосредственно организующего и проводящего работы в электроустановках, проводится 1 раз в год.'
+      }
+    };
+
+    const routeTabs = Array.from(document.querySelectorAll('#routeTabs .route-tab-btn'));
+    const routeRoleBadge = document.getElementById('routeRoleBadge');
+    const routeRoleTitle = document.getElementById('routeRoleTitle');
+    const routeRoleDesc = document.getElementById('routeRoleDesc');
+    const routeCourseLinks = document.getElementById('routeCourseLinks');
+    const routeDeadlineTitle = document.getElementById('routeDeadlineTitle');
+    const routeDeadlineDesc = document.getElementById('routeDeadlineDesc');
+
+    routeTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        routeTabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-pressed', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-pressed', 'true');
+
+        const key = tab.getAttribute('data-route') || 'base';
+        const info = routeData[key];
+        if (!info) return;
+
+        if (routeRoleBadge) routeRoleBadge.textContent = info.badge;
+        if (routeRoleTitle) routeRoleTitle.textContent = info.title;
+        if (routeRoleDesc) routeRoleDesc.textContent = info.desc;
+        if (routeDeadlineTitle) routeDeadlineTitle.textContent = info.deadlineTitle;
+        if (routeDeadlineDesc) routeDeadlineDesc.textContent = info.deadlineDesc;
+        if (routeCourseLinks) {
+          routeCourseLinks.innerHTML = info.links.map(l => `
+            <a href="${l.url}" class="route-course-link">${l.label}</a>
+          `).join('');
+        }
+      });
+    });
+
+    /*
+     * ======================================================================
+     * 6. КАРТОЧКИ «МИФ / РЕАЛЬНОСТЬ» — ПЕРЕВОРОТ ПО ТАПУ НА СМАРТФОНАХ И КЛАВИАТУРЕ
+     * ЗА ЧТО ОТВЕЧАЕТ: Переключение класса .is-flipped при клике/тапе или нажатии Enter/Space.
+     * ПОЧЕМУ РАБОТАЕТ БЕЗ ЗАЛИПАНИЙ: На смартфонах каждое касание переворачивает карточку
+     * с «Мифа» на «Реальность» и обратно.
+     * ======================================================================
+     */
+    document.querySelectorAll('.flip-card').forEach(card => {
+      card.addEventListener('click', () => {
+        card.classList.toggle('is-flipped');
+      });
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.classList.toggle('is-flipped');
+        }
+      });
+    });
+
+    // === 7. МОДАЛЬНЫЕ ОКНА (Глобальный поиск Ctrl+K и Памятка ЧС 112) ===
+    const searchItems = [
+      { title: 'Главная страница СДО', tag: 'Дашборд', icon: '🏠', url: 'index.html' },
+      { title: 'Каталог всех программ обучения (9)', tag: 'Реестр', icon: '📚', url: 'programs.html' },
+      { title: 'Охрана труда (Комплексная программа)', tag: 'ПП № 2464', icon: '🛡️', url: 'course-ot.html' },
+      { title: 'Итоговый тест: Охрана труда (Вводный)', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/Test_OT_b/' },
+      { title: 'Итоговый тест: ОТ Программа А', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/Test_OT_Programm_A/' },
+      { title: 'Пожарная безопасность', tag: 'МЧС № 1120', icon: '🔥', url: 'course-fire-safety.html' },
+      { title: 'Итоговый тест: Пожарная безопасность', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/Test_-_-_b/' },
+      { title: 'Оказание первой помощи пострадавшим', tag: 'Минздрав 220н', icon: '🩹', url: 'course-first-aid.html' },
+      { title: 'Итоговый тест: Первая помощь', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/First_aid/' },
+      { title: 'Действия при угрозе атаки БПЛА', tag: 'ФЗ-35 / 68-ФЗ', icon: '🚁', url: 'course-bpla.html' },
+      { title: 'Итоговый тест: Действия при угрозе БПЛА', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/UAV_Threat_Test/' },
+      { title: 'ГО и защита от чрезвычайных ситуаций', tag: 'ФЗ № 28', icon: '📢', url: 'course-gochs.html' },
+      { title: 'Итоговый тест: ГО и ЧС', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/GO_ChS_Test/' },
+      { title: 'Электробезопасность (I–V группы)', tag: 'Приказ № 903н', icon: '⚡', url: 'course-electrical-safety.html' },
+      { title: 'Итоговый тест: Электробезопасность', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/Electrical_Safety_Test/' },
+      { title: 'Гигиеническое обучение (Санминимум)', tag: 'СанПиН', icon: '🧼', url: 'course-hygiene.html' },
+      { title: 'Итоговый тест: Гигиеническое обучение', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/hygiene-training/' },
+      { title: 'Наставничество и адаптация', tag: 'Сервис', icon: '🛎️', url: 'course-mentorship.html' },
+      { title: 'Итоговый тест: Наставничество', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/mentoring-quiz/' },
+      { title: 'Управление конфликтами', tag: 'Психология', icon: '🧠', url: 'course-conflict.html' },
+      { title: 'Итоговый тест: Управление конфликтами', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/conflict-management/' },
+      { title: 'Раздел «Ответственным»', tag: 'ИТР', icon: '👔', url: 'for-responsibles.html' }
+    ];
+
+    const searchModal = document.getElementById('searchModal');
+    const modalSearchInput = document.getElementById('searchModalInput');
+    const searchResultsList = document.getElementById('searchResultsList');
+    const sosModal = document.getElementById('sosModal');
+
+    let previousFocus = null;
+    let activeModal = null;
+
+    function getFocusable(modal) {
+      return Array.from(modal.querySelectorAll(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      ));
+    }
+
+    function trapFocusHandler(e) {
+      if (e.key !== 'Tab' || !activeModal) return;
+      const focusable = getFocusable(activeModal);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    }
+
+    function openModal(modal, focusTarget) {
+      closeHeaderPopovers();
+      previousFocus = document.activeElement;
+      activeModal = modal;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.addEventListener('keydown', trapFocusHandler, true);
+      setTimeout(() => {
+        const target = focusTarget || getFocusable(modal)[0];
+        if (target) target.focus();
+      }, 60);
+    }
+
+    function closeModal(modal) {
+      if (!modal.classList.contains('open')) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.removeEventListener('keydown', trapFocusHandler, true);
+      if (activeModal === modal) activeModal = null;
+      if (previousFocus && typeof previousFocus.focus === 'function') {
+        previousFocus.focus();
+        previousFocus = null;
+      }
+    }
+
+    function renderSearchModalList(query = '') {
+      if (!searchResultsList) return;
+      const q = query.toLowerCase().trim();
+      const filtered = searchItems.filter(i => i.title.toLowerCase().includes(q) || i.tag.toLowerCase().includes(q));
+      if (filtered.length === 0) {
+        searchResultsList.innerHTML = '';
+        const msg = document.createElement('div');
+        msg.style.cssText = 'padding: 24px; text-align: center; color: #64748b;';
+        msg.textContent = `Ничего не найдено по запросу «${query}»`;
+        searchResultsList.appendChild(msg);
+        return;
+      }
+      searchResultsList.innerHTML = filtered.map(i => {
+        const isExternal = i.url.startsWith('http');
+        const extAttr = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
+        return `
+          <a href="${i.url}" class="search-result-item" ${extAttr}>
+            <div class="sri-left">
+              <span style="font-size: 1.25rem;" aria-hidden="true">${i.icon}</span>
+              <span>${i.title}</span>
+            </div>
+            <span class="sri-tag">${i.tag}</span>
+          </a>
+        `;
+      }).join('');
+    }
+
+    function openSearchModal(initialText = '') {
+      openModal(searchModal, modalSearchInput);
+      modalSearchInput.value = initialText;
+      renderSearchModalList(initialText);
+    }
+
+    function closeSearchModalFn() {
+      closeModal(searchModal);
+    }
+
+    function openSosModal() {
+      openModal(sosModal, document.getElementById('closeSosModal'));
+    }
+
+    function closeSosModalFn() {
+      closeModal(sosModal);
+    }
+
+    document.getElementById('qHeaderSearchBtn')?.addEventListener('click', () => openSearchModal(''));
+    document.getElementById('mobSearchBtn')?.addEventListener('click', () => openSearchModal(''));
+    document.getElementById('closeSearchModal')?.addEventListener('click', closeSearchModalFn);
+    searchModal?.addEventListener('click', (e) => { if (e.target === searchModal) closeSearchModalFn(); });
+    modalSearchInput?.addEventListener('input', (e) => renderSearchModalList(e.target.value));
+
+    document.getElementById('qHeaderSosBtn')?.addEventListener('click', openSosModal);
+    document.getElementById('mobSosBtn')?.addEventListener('click', openSosModal);
+    document.getElementById('closeSosModal')?.addEventListener('click', closeSosModalFn);
+    sosModal?.addEventListener('click', (e) => { if (e.target === sosModal) closeSosModalFn(); });
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (searchModal.classList.contains('open')) closeSearchModalFn();
+        else openSearchModal('');
+      }
+      if (e.key === 'Escape') {
+        closeHeaderPopovers();
+        if (searchModal.classList.contains('open')) closeSearchModalFn();
+        if (sosModal.classList.contains('open')) closeSosModalFn();
+      }
+    });
+
+    const voiceBtn = document.getElementById('voiceSearchBtn');
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition && voiceBtn) {
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'ru-RU';
+      recognition.interimResults = false;
+      voiceBtn.addEventListener('click', () => {
+        try {
+          recognition.start();
+          voiceBtn.classList.add('listening');
+        } catch (err) {}
+      });
+      recognition.onresult = (e) => {
+        const text = e.results[0][0].transcript;
+        voiceBtn.classList.remove('listening');
+        modalSearchInput.value = text;
+        renderSearchModalList(text);
+      };
+      recognition.onerror = () => voiceBtn.classList.remove('listening');
+      recognition.onend = () => voiceBtn.classList.remove('listening');
+    } else if (voiceBtn) {
+      voiceBtn.style.display = 'none';
+    }
   });
-})();
 </script>
 
 </body>
