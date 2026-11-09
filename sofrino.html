@@ -81,7 +81,7 @@
     :focus:not(:focus-visible) { outline: none; }
 
     .file, .chip, .f-head, .sub-head,
-    .btn-portal, .btn-site, .max-float,
+    .btn-portal, .btn-site, .max-fab,
     .tool-btn, .tool-btn-icon, .btn-pdf-action,
     #page_num_input, .pdf-file-info, .gesture-hint {
       touch-action: manipulation;
@@ -120,15 +120,16 @@
       50% { opacity: 1; transform: scale(1.2); filter: drop-shadow(0 0 10px rgba(255,255,255,0.8)); }
     }
 
-    .solar-system { position: relative; width: 220px; height: 220px; display: flex; justify-content: center; align-items: center; z-index: 10; }
-    .planet-logo { width: 100px; height: auto; z-index: 10; object-fit: contain; filter: drop-shadow(0 0 25px rgba(0, 255, 204, 0.5)); animation: pulsePlanet 3s infinite ease-in-out; }
+    .solar-system { position: relative; width: 240px; height: 240px; display: flex; justify-content: center; align-items: center; z-index: 10; }
+    /* Увеличен размер логотипа для прелоадера */
+    .planet-logo { width: 140px; height: auto; z-index: 10; object-fit: contain; filter: drop-shadow(0 0 35px rgba(0, 255, 204, 0.6)); animation: pulsePlanet 3s infinite ease-in-out; }
 
     .orbit { position: absolute; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.08); display: flex; justify-content: center; align-items: center; pointer-events: none; box-shadow: inset 0 0 10px rgba(255,255,255,0.02); }
 
     .orb-1 { width: 140px; height: 140px; animation: orbitSpin 5s linear infinite; border-color: rgba(0, 150, 136, 0.3); }
     .orb-1::before { content: ""; position: absolute; top: -3px; width: 6px; height: 6px; background: #00FFCC; border-radius: 50%; box-shadow: 0 0 15px #00FFCC, -5px 0 10px rgba(0, 255, 204, 0.4); }
 
-    .orb-2 { width: 180px; height: 180px; animation: orbitSpin 8s linear infinite reverse; border-color: rgba(37, 99, 235, 0.3); }
+    .orb-2 { width: 190px; height: 190px; animation: orbitSpin 8s linear infinite reverse; border-color: rgba(37, 99, 235, 0.3); }
     .orb-2::before { content: ""; position: absolute; top: 15px; right: 15px; width: 8px; height: 8px; background: #2563EB; border-radius: 50%; box-shadow: 0 0 18px #2563EB, 6px -6px 12px rgba(37, 99, 235, 0.4); }
 
     .orb-3 { width: 240px; height: 240px; animation: orbitSpin 15s linear infinite; border-color: rgba(245, 158, 11, 0.2); }
@@ -137,7 +138,7 @@
     .loading-status { margin-top: 50px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; z-index: 10; color: rgba(0, 255, 204, 0.8); letter-spacing: 4px; text-transform: uppercase; text-shadow: 0 0 10px rgba(0,255,204,0.5); }
 
     @keyframes orbitSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    @keyframes pulsePlanet { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(0,255,204,0.4)); } 50% { transform: scale(1.05); filter: drop-shadow(0 0 40px rgba(0,255,204,0.7)); } }
+    @keyframes pulsePlanet { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 25px rgba(0,255,204,0.5)); } 50% { transform: scale(1.05); filter: drop-shadow(0 0 50px rgba(0,255,204,0.8)); } }
 
     /* === 3. ШАПКА === */
     .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.75); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-bottom: 1px solid rgba(255,255,255,0.5); padding: 12px 0; box-shadow: 0 4px 30px rgba(0,0,0,0.03); }
@@ -145,7 +146,9 @@
     .nav { display: flex; justify-content: space-between; align-items: center; }
 
     .brand { display: flex; align-items: center; gap: 14px; }
-    .brand img { height: 48px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
+    /* Улучшенное отображение логотипа в шапке */
+    .brand img { height: 52px; width: auto; min-width: 52px; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); flex-shrink: 0; }
+    
     .brand-txt h1 { font-size: 1.1rem; font-weight: 800; line-height: 1.1; margin: 0; color: var(--c-dark); }
     .brand-meta { display: flex; align-items: center; gap: 10px; margin-top: 4px; font-size: 0.7rem; font-weight: 600; color: #64748B; }
 
@@ -166,7 +169,7 @@
     .btn-t2 { font-size: 0.65rem; opacity: 0.7; text-transform: uppercase; }
 
     @media (max-width: 768px) {
-      .brand img { height: 40px; }
+      .brand img { height: 44px; min-width: 44px; }
       .brand-txt h1 { font-size: 1rem; }
       .btn-portal, .btn-site { padding: 0; width: 44px; justify-content: center; }
       .btn-col { display: none; }
@@ -188,7 +191,7 @@
     }
     @keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-    /* FIX: «Маяк» — переписано на плавный back-and-forth sweep, работает и на мобильных */
+    /* Эффект «Маяк» */
     .hero h2 {
       font-size: clamp(2rem, 6vw, 3.8rem);
       font-weight: 900;
@@ -280,166 +283,94 @@
     .empty-block { padding: 40px; text-align: center; color: #94A3B8; font-size: 0.9rem; }
     .empty-icon { font-size: 2rem; margin-bottom: 10px; display: block; opacity: 0.5; }
 
-    /* === 6. MAX MESSENGER (замена Telegram) === */
-    .max-float {
+    /* === 6. MAX MESSENGER (FAB) === */
+    .max-fab {
       position: fixed;
-      bottom: calc(28px + env(safe-area-inset-bottom));
-      left: 50%;
-      transform: translateX(-50%);
+      bottom: calc(24px + env(safe-area-inset-bottom));
+      right: 24px;
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 10px 20px 10px 10px;
-      background: linear-gradient(135deg, #ffffff 0%, #faf8ff 100%);
-      border-radius: 999px;
+      width: 60px;
+      height: 60px;
+      background: #ffffff;
+      border-radius: 50%;
       text-decoration: none;
       color: #0f172a;
       z-index: 1000;
-      box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,0.9),
-        0 0 0 1px rgba(124,58,237,0.15),
-        0 20px 40px -12px rgba(124,58,237,0.4),
-        0 8px 20px -8px rgba(37,99,235,0.3);
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s;
-      will-change: transform;
-      animation: maxFloatGlow 5s ease-in-out infinite;
+      box-shadow: 0 8px 24px rgba(124,58,237,0.25), 0 2px 8px rgba(0,0,0,0.05);
+      transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-radius 0.4s, box-shadow 0.4s;
+      will-change: width, border-radius;
+      overflow: hidden;
+      justify-content: center;
     }
 
-    @keyframes maxFloatGlow {
-      0%, 100% {
-        box-shadow:
-          inset 0 0 0 1px rgba(255,255,255,0.9),
-          0 0 0 1px rgba(124,58,237,0.15),
-          0 20px 40px -12px rgba(124,58,237,0.4),
-          0 8px 20px -8px rgba(37,99,235,0.3);
-      }
-      50% {
-        box-shadow:
-          inset 0 0 0 1px rgba(255,255,255,0.9),
-          0 0 0 1px rgba(37,99,235,0.25),
-          0 24px 48px -12px rgba(37,99,235,0.5),
-          0 10px 24px -8px rgba(124,58,237,0.4);
-      }
-    }
-
-    .max-float__icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #f5f3ff, #eff6ff);
+    .max-fab__icon {
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
-      box-shadow: inset 0 0 0 1px rgba(124,58,237,0.1);
-      overflow: hidden;
     }
 
-    .max-float__icon img {
-      width: 28px;
-      height: 28px;
+    .max-fab__icon img {
+      width: 100%;
+      height: 100%;
       object-fit: contain;
       display: block;
     }
 
-    .max-float__text {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
+    .max-fab__text {
+      max-width: 0;
+      opacity: 0;
+      white-space: nowrap;
+      font-weight: 800;
+      font-size: 0.9rem;
       line-height: 1.15;
-    }
-
-    .max-float__title {
-      font-size: 0.92rem;
-      font-weight: 800;
+      margin-left: 0;
+      transition: max-width 0.3s, opacity 0.3s, margin-left 0.3s;
       color: #0f172a;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
 
-    .max-float__live {
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #10B981;
-      box-shadow: 0 0 0 0 rgba(16,185,129,0.6);
-      animation: maxLivePulse 2s infinite;
-      flex-shrink: 0;
-    }
-
-    @keyframes maxLivePulse {
-      0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.6); }
-      70% { box-shadow: 0 0 0 6px rgba(16,185,129,0); }
-      100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
-    }
-
-    .max-float__subtitle {
-      font-size: 0.7rem;
+    .max-fab__text small {
+      font-size: 0.75rem;
       font-weight: 800;
-      background: var(--max-gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
       color: #7C3AED;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-    }
-
-    .max-float__cta {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--max-gradient);
-      color: #fff;
-      font-size: 1rem;
-      font-weight: 700;
-      flex-shrink: 0;
-      transition: transform 0.3s ease;
-      box-shadow: 0 4px 12px rgba(124,58,237,0.35);
     }
 
     @media (hover: hover) {
-      .max-float:hover {
-        transform: translateX(-50%) translateY(-4px) scale(1.03);
-        animation-play-state: paused;
-        box-shadow:
-          inset 0 0 0 1px rgba(255,255,255,0.9),
-          0 0 0 1px rgba(124,58,237,0.3),
-          0 30px 60px -12px rgba(124,58,237,0.55),
-          0 14px 30px -8px rgba(37,99,235,0.45);
+      .max-fab:hover {
+        width: 230px;
+        border-radius: 30px;
+        justify-content: flex-start;
+        padding-left: 12px;
+        box-shadow: 0 12px 32px rgba(124,58,237,0.35), 0 4px 12px rgba(0,0,0,0.1);
       }
-      .max-float:hover .max-float__cta {
-        transform: translateX(4px) scale(1.1);
+      .max-fab:hover .max-fab__text {
+        max-width: 170px;
+        opacity: 1;
+        margin-left: 10px;
       }
     }
 
     @media (hover: none) {
-      .max-float:active {
-        transform: translateX(-50%) scale(0.97);
-        animation-play-state: paused;
+      .max-fab:active {
+        transform: scale(0.95);
       }
     }
 
     @media (max-width: 600px) {
-      .max-float {
-        padding: 8px 16px 8px 8px;
-        gap: 10px;
+      .max-fab {
+        width: 54px;
+        height: 54px;
+        right: 16px;
+        bottom: calc(16px + env(safe-area-inset-bottom));
       }
-      .max-float__icon { width: 38px; height: 38px; }
-      .max-float__icon img { width: 26px; height: 26px; }
-      .max-float__title { font-size: 0.85rem; }
-      .max-float__subtitle { font-size: 0.65rem; }
-      .max-float__cta { width: 28px; height: 28px; font-size: 0.85rem; }
+      .max-fab__icon { width: 30px; height: 30px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .max-float { animation: none; }
-      .max-float__live { animation: none; }
+      .max-fab { transition: none; }
     }
 
     /* === 7. PDF VIEWER === */
@@ -494,10 +425,7 @@
         .f-head { padding: 18px 20px; }
     }
 
-    /* =========================================================
-       FIX: hover только для устройств с мышью.
-       На тач-устройствах hover залипает после тапа.
-       ========================================================= */
+    /* Hover-эффекты только для мыши */
     @media (hover: hover) {
       .btn-portal:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(15, 23, 42, 0.4); }
       .btn-portal:hover::after { left: 150%; }
@@ -514,6 +442,7 @@
       .btn-pdf-close:hover { background: #fecaca; border-color: #f87171; color: #991b1b; }
     }
 
+    /* Тач-состояния */
     @media (hover: none) {
       .file:active { background: #fff; border-left-color: var(--c-green); }
       .chip:active { background: #fff; color: var(--c-green); border-color: var(--c-green); }
@@ -524,9 +453,7 @@
       .f-head:active, .sub-head:active { background: rgba(0,0,0,0.03); }
     }
 
-    /* =========================================================
-       Мобильная оптимизация тяжёлых эффектов
-       ========================================================= */
+    /* Мобильная оптимизация */
     @media (max-width: 768px) {
       .orb { filter: blur(40px); opacity: 0.2; }
       .header { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
@@ -539,7 +466,6 @@
       .planet-logo { animation: none; }
       .cursor { display: none; }
       .pdf-toolbar { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-      /* FIX: h2 animation НЕ отключаем — «маяк» должен играть и на мобильных */
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -565,7 +491,7 @@
       <div class="orbit orb-1"></div>
       <div class="orbit orb-2"></div>
       <div class="orbit orb-3"></div>
-      <!-- FIX: новый логотип -->
+      <!-- Увеличенный логотип -->
       <img src="assets/Logo_Sofrino.png" class="planet-logo" alt="Логотип Софрино Парк">
     </div>
     <div class="loading-status">ESTABLISHING CONNECTION</div>
@@ -574,7 +500,7 @@
   <header class="header">
     <div class="container nav">
       <div class="brand">
-        <!-- FIX: новый логотип в шапке -->
+        <!-- Логотип в шапке: улучшенная видимость -->
         <img src="assets/Logo_Sofrino.png" alt="Логотип Софрино Парк">
         <div class="brand-info">
           <div class="brand-txt"><h1>СОФРИНО ПАРК</h1></div>
@@ -677,20 +603,19 @@
 
   <footer style="text-align:center; padding-bottom:100px; color:#94A3B8; font-size:0.85rem;">© 2026 СОФРИНО ПАРК.</footer>
 
-  <!-- FIX: Telegram → MAX. Новая ссылка, новый логотип, обновлённый дизайн -->
+  <!-- MAX FAB (Floating Action Button) -->
   <a href="https://max.ru/join/Mhu0gYyDMtnj4UrogfgTnQ3L_pS2BVB2LPqo8bnJQG8"
      target="_blank"
      rel="noopener noreferrer"
-     class="max-float"
-     aria-label="Подписаться на канал Известия Софрино в MAX">
-    <span class="max-float__icon" aria-hidden="true">
+     class="max-fab"
+     aria-label="Известия Софрино в MAX. Присоединяйся!">
+    <span class="max-fab__icon" aria-hidden="true">
       <img src="assets/Max_logo_2025.png" alt="" loading="lazy">
     </span>
-    <span class="max-float__text">
-      <span class="max-float__title">Известия Софрино<span class="max-float__live" aria-hidden="true"></span></span>
-      <span class="max-float__subtitle">MAX • обновления</span>
+    <span class="max-fab__text">
+      Известия Софрино<br>
+      <small>Присоединяйся!</small>
     </span>
-    <span class="max-float__cta" aria-hidden="true">→</span>
   </a>
 
   <div class="pdf-modal" id="pdfModal" role="dialog" aria-modal="true" aria-labelledby="pdfDocTitle">
@@ -737,7 +662,7 @@
     const prefersReducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     let prefersReducedMotion = prefersReducedMotionQuery.matches;
     if (prefersReducedMotion) {
-      console.info('[a11y] Анимации отключены настройкой ОС «Уменьшение движения». Если хотите видеть «маяк» и другие анимации — отключите эту настройку.');
+      console.info('[a11y] Анимации отключены настройкой ОС «Уменьшение движения».');
     }
 
     function debounce(func, wait) {
@@ -837,7 +762,7 @@
         const grad = ctxCanvas.createLinearGradient(this.x, this.y, this.x - this.len, this.y - this.len);
         grad.addColorStop(0, 'rgba(0, 255, 204, 0.8)'); grad.addColorStop(1, 'transparent');
         ctxCanvas.strokeStyle = grad; ctxCanvas.lineWidth = 1;
-        ctxCanvas.beginPath(); ctxCanvas.moveTo(this.x, this.y); ctxCanvas.lineTo(this.x - this.len, this.y - this.len); ctxCanvas.stroke();
+        ctxCanvas.beginPath(); ctxCanvas.moveTo(this.x, this.y); ctx.lineTo(this.x - this.len, this.y - this.len); ctxCanvas.stroke();
       }
     }
 
