@@ -3,12 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Софрино Парк | База Знаний</title>
-  <!--
-    БЛОК: Мета-тег viewport и SEO/Open Graph разметка.
-    ЗА ЧТО ОТВЕЧАЕТ: Адаптивность на смартфонах без блокировки пользовательского зума и корректное превью ссылки.
-    ПОЧЕМУ БЕЗОПАСНО: Удаление maximum-scale=1, user-scalable=no возвращает доступность масштабирования по WCAG 2.1,
-    сохраняя нативную работу жестов внутри модального окна PDF-читалки.
-  -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Документационный центр и база знаний Парк-отеля «Софрино»: локальные нормативные акты, приказы, положения по охране труда и материалы СОУТ.">
   <link rel="canonical" href="https://demoonstars.github.io/ot-training-portal/sofrino.html">
@@ -17,18 +11,51 @@
   <meta property="og:description" content="Локальные нормативные акты, приказы, положения и результаты СОУТ.">
   <meta property="og:url" content="https://demoonstars.github.io/ot-training-portal/sofrino.html">
   <meta property="og:locale" content="ru_RU">
-  
+  <meta property="og:image" content="https://demoonstars.github.io/ot-training-portal/assets/mnogocvet_logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Софрино Парк | База Знаний">
+  <meta name="twitter:description" content="Локальные нормативные акты, приказы, положения и результаты СОУТ.">
+  <meta name="twitter:image" content="https://demoonstars.github.io/ot-training-portal/assets/mnogocvet_logo.png">
+  <meta name="theme-color" content="#009688">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof pdfjsLib !== 'undefined') {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      } else {
+        console.warn('pdf.js не загружен. Просмотр PDF будет недоступен.');
+      }
+    });
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Софрино Парк | База Знаний",
+    "description": "Документационный центр и база знаний Парк-отеля «Софрино»: локальные нормативные акты, приказы, положения по охране труда и материалы СОУТ.",
+    "url": "https://demoonstars.github.io/ot-training-portal/sofrino.html",
+    "hasPart": [
+      {
+        "@type": "CreativeWork",
+        "name": "Приказ № 1012 ОТ1-25",
+        "description": "Об утверждении СУОТ"
+      },
+      {
+        "@type": "CreativeWork",
+        "name": "Приказ № 1112 ОТ3-25",
+        "description": "Об утверждении норм выдачи СИЗ"
+      }
+    ]
+  }
+  </script>
 
   <style>
-    /* =========================================
-       THEME: QUANTUM X (Final Polish)
-       ========================================= */
     :root {
       --c-green: #009688; --c-neon: #00FFCC; --c-orange: #F59E0B; --c-blue: #2563EB; --c-purple: #7C3AED;
       --c-dark: #020617; --c-text: #334155;
@@ -46,19 +73,19 @@
       margin: 0; padding: 0; font-family: 'Inter', sans-serif;
       color: var(--c-dark); background: #F1F5F9; overflow-x: hidden;
       cursor: auto;
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
     }
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
-
-    /* Доступность фокуса с клавиатуры */
-    .chip:focus-visible,
-    .f-head:focus-visible,
-    .sub-head:focus-visible,
-    .file:focus-visible,
-    .btn-pdf-action:focus-visible,
-    .tool-btn:focus-visible,
-    .tool-btn-icon:focus-visible {
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    /* Убираем глобальный outline: none, оставляем фокус для доступности */
+    :focus-visible {
       outline: 2px solid var(--c-green);
       outline-offset: 2px;
+    }
+    /* Для мыши фокус не показываем */
+    :focus:not(:focus-visible) {
+      outline: none;
     }
 
     /* === 1. ФОН САЙТА === */
@@ -184,7 +211,6 @@
       box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); overflow: hidden; position: relative;
       opacity: 0; transform: translateY(30px); 
       transition: transform 0.3s ease-out, box-shadow 0.3s ease, opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1); 
-      will-change: transform, opacity;
     }
     .folder.reveal { opacity: 1; transform: translateY(0); }
     .folder:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); border-color: #fff; }
@@ -193,22 +219,15 @@
     .f-head:hover { background: rgba(255,255,255,0.4); }
     .f-main { display: flex; align-items: center; gap: 20px; }
     
-    /* Иконка и анимации */
     .f-icon { width: 60px; height: 60px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6), 0 10px 20px rgba(0,0,0,0.05); transition: all 0.3s ease; }
     
     @keyframes iconPulse { 0% { box-shadow: 0 0 0 0 rgba(0, 150, 136, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(0, 150, 136, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 150, 136, 0); } }
     @keyframes iconShake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(3deg); } 75% { transform: rotate(-3deg); } }
     
-    /* Состояния активных иконок для каждой папки */
     .folder.active.green .f-icon { animation: iconPulse 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(0, 150, 136, 0.5); }
-    .folder.active.orange .f-icon { animation: iconPulse 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(245, 158, 11, 0.5); --c-pulse: rgba(245, 158, 11, 0.4); }
-    .folder.active.blue .f-icon { animation: iconPulse 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(37, 99, 235, 0.5); --c-pulse: rgba(37, 99, 235, 0.4); }
-    .folder.active.purple .f-icon { animation: iconPulse 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(124, 58, 237, 0.5); --c-pulse: rgba(124, 58, 237, 0.4); }
-
-    /* Переопределение цвета пульсации для разных папок */
-    .folder.active.orange .f-icon { animation-name: iconPulseOrange, iconShake; }
-    .folder.active.blue .f-icon { animation-name: iconPulseBlue, iconShake; }
-    .folder.active.purple .f-icon { animation-name: iconPulsePurple, iconShake; }
+    .folder.active.orange .f-icon { animation: iconPulseOrange 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(245, 158, 11, 0.5); }
+    .folder.active.blue .f-icon { animation: iconPulseBlue 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(37, 99, 235, 0.5); }
+    .folder.active.purple .f-icon { animation: iconPulsePurple 2s infinite, iconShake 4s infinite ease-in-out; border: 1px solid rgba(124, 58, 237, 0.5); }
 
     @keyframes iconPulseOrange { 0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(245, 158, 11, 0); } 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); } }
     @keyframes iconPulseBlue { 0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(37, 99, 235, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); } }
@@ -225,13 +244,13 @@
     .purple .f-icon { background: linear-gradient(135deg, #FAF5FF, #E9D5FF); color: #7E22CE; }
 
     .f-body { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1); background: rgba(255,255,255,0.3); }
-    .folder.active .f-body { max-height: 5000px; border-top: 1px solid rgba(255,255,255,0.5); }
+    .folder.active .f-body { max-height: 10000px; border-top: 1px solid rgba(255,255,255,0.5); }
 
     .sub-item { margin: 20px 30px; background: #fff; border-radius: 18px; border: 1px solid #E2E8F0; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
     .sub-head { padding: 18px 24px; font-weight: 700; color: #475569; display: flex; justify-content: space-between; cursor: pointer; transition: 0.2s; }
     .sub-head:hover { background: #F8FAFC; color: var(--c-dark); }
     .sub-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: #F8FAFC; opacity: 0; }
-    .sub-item.open .sub-body { max-height: 3000px; padding: 15px 0; border-top: 1px solid #E2E8F0; opacity: 1; }
+    .sub-item.open .sub-body { max-height: 6000px; padding: 15px 0; border-top: 1px solid #E2E8F0; opacity: 1; }
     .sub-item.open .sub-head { background: #F0FDF4; color: var(--c-green); }
 
     .file { display: flex; align-items: center; gap: 16px; padding: 14px 24px; cursor: pointer; transition: 0.2s; border-left: 3px solid transparent; position: relative; overflow: hidden; }
@@ -254,7 +273,7 @@
     /* СТИЛИ КНОПКИ ТЕЛЕГРАМ */
     .tg-float { 
       position: fixed; 
-      bottom: 30px; 
+      bottom: calc(30px + env(safe-area-inset-bottom)); 
       left: 50%; 
       transform: translateX(-50%); 
       background: rgba(255,255,255,0.95); 
@@ -359,6 +378,17 @@
         .sub-item { margin: 15px; }
         .f-head { padding: 18px 20px; }
     }
+
+    /* Отключение анимаций для пользователей с prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .folder { opacity: 1; transform: none; }
+    }
   </style>
 </head>
 <body>
@@ -395,7 +425,6 @@
       <div class="actions">
         <a href="index.html" class="btn-portal" title="Перейти в Учебный Портал СДО"><span class="btn-ico" aria-hidden="true">🎓</span><div class="btn-col"><span class="btn-t1">Учебный Портал</span><span class="btn-t2">СДО</span></div></a>
         <div class="btn-site-wrap">
-          <!-- Добавлен rel="noopener noreferrer" для безопасности при открытии внешней вкладки -->
           <a href="https://sofrino-park.com/" target="_blank" rel="noopener noreferrer" class="btn-site" title="Официальный сайт Софрино Парк"><span class="btn-ico" aria-hidden="true">🌐</span><div class="btn-col"><span class="btn-t1">Софрино Парк</span><span class="btn-t2">Официальный Веб-сайт</span></div></a>
         </div>
       </div>
@@ -412,22 +441,22 @@
         <input type="text" id="searchInput" class="search-input" placeholder="Поиск (например: СИЗ, Приказ, СОУТ)..." aria-label="Поиск по документам">
       </div>
       <div class="chips-row" role="group" aria-label="Фильтр документов">
-        <div class="chip active" role="button" tabindex="0" onclick="filterDocs('all', this)">Все</div>
-        <div class="chip" role="button" tabindex="0" onclick="filterDocs('ВАЖНО', this)">⚡ Важное</div>
-        <div class="chip" role="button" tabindex="0" onclick="filterDocs('Приказ', this)">📜 Приказы</div>
-        <div class="chip" role="button" tabindex="0" onclick="filterDocs('Положение', this)">📂 Положения</div>
-        <div class="chip" role="button" tabindex="0" onclick="filterDocs('СОУТ', this)">🔬 СОУТ</div>
+        <div class="chip active" role="button" tabindex="0" aria-pressed="true" onclick="filterDocs('all', this)">Все</div>
+        <div class="chip" role="button" tabindex="0" aria-pressed="false" onclick="filterDocs('ВАЖНО', this)">⚡ Важное</div>
+        <div class="chip" role="button" tabindex="0" aria-pressed="false" onclick="filterDocs('Приказ', this)">📜 Приказы</div>
+        <div class="chip" role="button" tabindex="0" aria-pressed="false" onclick="filterDocs('Положение', this)">📂 Положения</div>
+        <div class="chip" role="button" tabindex="0" aria-pressed="false" onclick="filterDocs('СОУТ', this)">🔬 СОУТ</div>
       </div>
     </div>
 
     <div class="stack">
       <div class="folder green" id="f1">
-        <div class="f-head" role="button" tabindex="0" onclick="toggleFolder('f1')">
+        <div class="f-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleFolder('f1', this)">
           <div class="f-main"><div class="f-icon" aria-hidden="true">🛡️</div><div class="f-txt"><h3>Охрана труда</h3><p>СУОТ, Риски, СИЗ, СОУТ</p></div></div><div class="chevron" aria-hidden="true">▼</div>
         </div>
         <div class="f-body">
           <div class="sub-item">
-            <div class="sub-head" role="button" tabindex="0" onclick="toggleSub(this)"><span>📜 Реестр Приказов</span> <span aria-hidden="true">▼</span></div>
+            <div class="sub-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)"><span>📜 Реестр Приказов</span> <span aria-hidden="true">▼</span></div>
             <div class="sub-body">
               <div class="file" role="button" tabindex="0" onclick="openViewer('assets/Приказ №1012 ОТ1-25.PDF', 'Приказ № 1012 ОТ1-25')"><div class="file-ico" aria-hidden="true">✒️</div><div class="file-data"><div class="file-meta-row"><span class="badge">Приказ №1012/ОТ1-25</span><span class="meta-size">PDF</span></div><span class="file-name">Об утверждении СУОТ</span></div></div>
               <div class="file" role="button" tabindex="0" data-important="true" style="background:#FFFBEB" onclick="openViewer('assets/Приказ №1112 ОТ3-25.PDF', 'Приказ № 1112 ОТ3-25')"><div class="file-ico" style="color:#D97706" aria-hidden="true">⚠️</div><div class="file-data"><div class="file-meta-row"><span class="badge imp">Приказ №1112/ОТ3-25 • ВАЖНО</span><span class="meta-size">PDF</span></div><span class="file-name"><strong>Об утверждении норм выдачи СИЗ</strong></span></div></div>
@@ -442,25 +471,19 @@
           </div>
 
           <div class="sub-item">
-            <div class="sub-head" role="button" tabindex="0" onclick="toggleSub(this)"><span>📂 Положения</span> <span aria-hidden="true">▼</span></div>
+            <div class="sub-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)"><span>📂 Положения</span> <span aria-hidden="true">▼</span></div>
             <div class="sub-body">
               <div class="file" role="button" tabindex="0" onclick="openViewer('assets/Положение СУОТ.PDF', 'Положение о СУОТ')"><div class="file-ico" aria-hidden="true">🛡️</div><div class="file-data"><div class="file-meta-row"><span class="badge">Положение</span><span class="meta-size">PDF</span></div><span class="file-name">О системе управления охраной труда (СУОТ)</span></div></div>
               <div class="file" role="button" tabindex="0" onclick="openViewer('assets/Положение профриски.PDF', 'Положение о рисках')"><div class="file-ico" aria-hidden="true">📊</div><div class="file-data"><div class="file-meta-row"><span class="badge">Положение</span><span class="meta-size">PDF</span></div><span class="file-name">О системе управления рисками</span></div></div>
               <div class="file" role="button" tabindex="0" onclick="openViewer('assets/Положение СИЗ.PDF', 'Положение о СИЗ')"><div class="file-ico" aria-hidden="true">🦺</div><div class="file-data"><div class="file-meta-row"><span class="badge">Положение</span><span class="meta-size">PDF</span></div><span class="file-name">О порядке обеспечения работников СИЗ</span></div></div>
               <div class="file" role="button" tabindex="0" onclick="openViewer('assets/Положение нс.PDF', 'Расследование НС')"><div class="file-ico" aria-hidden="true">🚑</div><div class="file-data"><div class="file-meta-row"><span class="badge">Положение</span><span class="meta-size">PDF</span></div><span class="file-name">О расследовании несчастных случаев</span></div></div>
               <div class="file" role="button" tabindex="0" onclick="openViewer('assets/Положение о Медосмотрах.PDF', 'Медосмотры')"><div class="file-ico" aria-hidden="true">🩺</div><div class="file-data"><div class="file-meta-row"><span class="badge">Положение</span><span class="meta-size">PDF</span></div><span class="file-name">О проведении медицинских осмотров</span></div></div>
-              <!--
-                БЛОК: Карточка документа «Положение о СОУТ.PDF».
-                ЗА ЧТО ОТВЕЧАЕТ: Открытие PDF-файла Положения о проведении спецоценки.
-                ПОЧЕМУ БЕЗОПАСНО: Удален ошибочный неразрывный пробел (\u00A0) перед «о СОУТ.PDF»;
-                теперь имя файла в точности совпадает с файлом в папке assets/ репозитория.
-              -->
               <div class="file" role="button" tabindex="0" onclick="openViewer('assets/Положение о СОУТ.PDF', 'Проведение СОУТ')"><div class="file-ico" aria-hidden="true">🔬</div><div class="file-data"><div class="file-meta-row"><span class="badge">Положение</span><span class="meta-size">PDF</span></div><span class="file-name">О проведении спецоценки (СОУТ)</span></div></div>
             </div>
           </div>
 
           <div class="sub-item">
-            <div class="sub-head" role="button" tabindex="0" onclick="toggleSub(this)"><span>🔬 СОУТ (Спецоценка)</span> <span aria-hidden="true">▼</span></div>
+            <div class="sub-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)"><span>🔬 СОУТ (Спецоценка)</span> <span aria-hidden="true">▼</span></div>
             <div class="sub-body">
               <div class="file" role="button" tabindex="0" onclick="openViewer('assets/СОУТ_Карты_1-10.pdf', 'Карты СОУТ 1-10')"><div class="file-ico" aria-hidden="true">📑</div><div class="file-data"><div class="file-meta-row"><span class="badge">Отчет • СОУТ</span><span class="meta-size">PDF</span></div><span class="file-name">Карты рабочих мест (1-10)</span></div></div>
               <div class="file" role="button" tabindex="0" onclick="openViewer('assets/СОУТ_Карты_11-19.pdf', 'Карты СОУТ 11-19')"><div class="file-ico" aria-hidden="true">📑</div><div class="file-data"><div class="file-meta-row"><span class="badge">Отчет • СОУТ</span><span class="meta-size">PDF</span></div><span class="file-name">Карты рабочих мест (11-19)</span></div></div>
@@ -473,23 +496,22 @@
       </div>
 
       <div class="folder orange" id="f2">
-        <div class="f-head" role="button" tabindex="0" onclick="toggleFolder('f2')"><div class="f-main"><div class="f-icon" aria-hidden="true">🔥</div><div class="f-txt"><h3>Пожарная безопасность</h3><p>Инструкции, Планы</p></div></div><div class="chevron" aria-hidden="true">▼</div></div>
-        <div class="f-body"><div class="empty-block"><span class="empty-icon" aria-hidden="true">🚧</span>Раздел наполняется</div></div>
+        <div class="f-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleFolder('f2', this)"><div class="f-main"><div class="f-icon" aria-hidden="true">🔥</div><div class="f-txt"><h3>Пожарная безопасность</h3><p>Инструкции, Планы</p></div></div><div class="chevron" aria-hidden="true">▼</div></div>
+        <div class="f-body"><div class="empty-block"><span class="empty-icon" aria-hidden="true">🚧</span>Раздел наполняется. Документы появятся в ближайшее время.</div></div>
       </div>
       <div class="folder blue" id="f3">
-        <div class="f-head" role="button" tabindex="0" onclick="toggleFolder('f3')"><div class="f-main"><div class="f-icon" aria-hidden="true">📢</div><div class="f-txt"><h3>ГО и ЧС</h3><p>Гражданская оборона</p></div></div><div class="chevron" aria-hidden="true">▼</div></div>
-        <div class="f-body"><div class="empty-block"><span class="empty-icon" aria-hidden="true">🛡️</span>Раздел наполняется</div></div>
+        <div class="f-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleFolder('f3', this)"><div class="f-main"><div class="f-icon" aria-hidden="true">📢</div><div class="f-txt"><h3>ГО и ЧС</h3><p>Гражданская оборона</p></div></div><div class="chevron" aria-hidden="true">▼</div></div>
+        <div class="f-body"><div class="empty-block"><span class="empty-icon" aria-hidden="true">🛡️</span>Раздел наполняется. Следите за обновлениями в Telegram.</div></div>
       </div>
       <div class="folder purple" id="f4">
-        <div class="f-head" role="button" tabindex="0" onclick="toggleFolder('f4')"><div class="f-main"><div class="f-icon" aria-hidden="true">💼</div><div class="f-txt"><h3>Отдел кадров</h3><p>ПВТР, Договоры</p></div></div><div class="chevron" aria-hidden="true">▼</div></div>
-        <div class="f-body"><div class="empty-block"><span class="empty-icon" aria-hidden="true">📁</span>Документы на согласовании.</div></div>
+        <div class="f-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleFolder('f4', this)"><div class="f-main"><div class="f-icon" aria-hidden="true">💼</div><div class="f-txt"><h3>Отдел кадров</h3><p>ПВТР, Договоры</p></div></div><div class="chevron" aria-hidden="true">▼</div></div>
+        <div class="f-body"><div class="empty-block"><span class="empty-icon" aria-hidden="true">📁</span>Документы на согласовании. Появятся после утверждения.</div></div>
       </div>
     </div>
   </main>
 
   <footer style="text-align:center; padding-bottom:100px; color:#94A3B8; font-size:0.85rem;">© 2026 СОФРИНО ПАРК.</footer>
 
-  <!-- Добавлен rel="noopener noreferrer" для безопасности -->
   <a href="https://t.me/+5mfcl7IppD00YzAy" target="_blank" rel="noopener noreferrer" class="tg-float">
     <div class="tg-logo" aria-hidden="true">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff">
@@ -498,7 +520,7 @@
     </div>
     <div class="tg-txt">
       <h4>Известия Софрино</h4>
-      <p>Подписаться</p>
+      <p>Важные обновления</p>
     </div>
   </a>
 
@@ -512,7 +534,7 @@
         </div>
       </div>
       <div class="pdf-top-actions">
-          <button type="button" class="btn-pdf-action" id="themeBtn" title="Ночной режим" aria-label="Переключить ночной режим">🌙</button>
+          <button type="button" class="btn-pdf-action" id="themeBtn" title="Ночной режим" aria-label="Переключить ночной режим" aria-pressed="false">🌙</button>
           <a href="#" id="downloadBtn" download class="btn-pdf-action icon-only-mobile" aria-label="Скачать документ">
               <span class="btn-text">Скачать</span><span class="btn-icon" aria-hidden="true">📥</span>
           </a>
@@ -523,7 +545,7 @@
 
     <div class="pdf-canvas-wrapper" id="pdfWrapper">
       <canvas id="the-canvas"></canvas>
-      <div class="pdf-loader" id="pdfLoader"><div class="spinner" aria-hidden="true"></div><span>Загрузка...</span></div>
+      <div class="pdf-loader" id="pdfLoader" role="status" aria-live="polite"><div class="spinner" aria-hidden="true"></div><span>Загрузка...</span></div>
       <div class="gesture-hint" id="gestureHint">👆 2 клика — зум <br> 🖐️ Тяни — листать</div>
     </div>
 
@@ -541,24 +563,65 @@
   </div>
 
   <script>
-    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Утилита debounce
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+
+    const prefersReducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let prefersReducedMotion = prefersReducedMotionQuery.matches;
+
+    prefersReducedMotionQuery.addEventListener('change', (e) => {
+      prefersReducedMotion = e.matches;
+      if (prefersReducedMotion) {
+        // Остановить анимацию частиц
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = null;
+        }
+      } else {
+        if (!animationFrameId) {
+          animateParticles();
+        }
+      }
+    });
 
     // 1. PHYSICS CANVAS
     const canvasEl = document.getElementById('canvas-bg');
     const ctxCanvas = canvasEl.getContext('2d');
     let particles = [];
     let meteors = [];
-    const particleCount = window.innerWidth < 768 ? 40 : 90;
+    let particleCount = window.innerWidth < 768 ? 40 : 90;
     let mouse = { x: null, y: null, targetX: 0, targetY: 0 };
+    let animationFrameId = null;
 
-    function resizeCanvas() { canvasEl.width = window.innerWidth; canvasEl.height = window.innerHeight; }
-    window.addEventListener('resize', resizeCanvas, { passive: true });
+    function resizeCanvas() {
+      canvasEl.width = window.innerWidth;
+      canvasEl.height = window.innerHeight;
+      // Пересоздать частицы при изменении размера
+      const newCount = window.innerWidth < 768 ? 40 : 90;
+      if (newCount !== particleCount) {
+        particleCount = newCount;
+        particles = [];
+        for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+      }
+    }
+    window.addEventListener('resize', debounce(resizeCanvas, 200), { passive: true });
     resizeCanvas();
 
     window.addEventListener('mousemove', e => { 
-      mouse.x = e.x; mouse.y = e.y;
-      mouse.targetX = (e.x - window.innerWidth / 2) * 0.05;
-      mouse.targetY = (e.y - window.innerHeight / 2) * 0.05;
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      mouse.targetX = (e.clientX - window.innerWidth / 2) * 0.05;
+      mouse.targetY = (e.clientY - window.innerHeight / 2) * 0.05;
     }, { passive: true });
 
     class Particle {
@@ -616,33 +679,37 @@
     for(let i=0; i<particleCount; i++) particles.push(new Particle());
 
     function animateParticles() {
-      if (!document.hidden && !prefersReducedMotion) {
-        ctxCanvas.clearRect(0, 0, canvasEl.width, canvasEl.height);
-        if (Math.random() < 0.005 && meteors.length < 2) meteors.push(new Meteor());
-        meteors = meteors.filter(m => m.active);
-        meteors.forEach(m => { m.update(); m.draw(); });
-        particles.forEach((p, i) => {
-          p.update(); p.draw();
-          for (let j = i + 1; j < particles.length; j++) {
-            const p2 = particles[j];
-            let px1 = p.x + mouse.targetX * (p.size * 0.5);
-            let py1 = p.y + mouse.targetY * (p.size * 0.5);
-            let px2 = p2.x + mouse.targetX * (p2.size * 0.5);
-            let py2 = p2.y + mouse.targetY * (p2.size * 0.5);
-            const dx = px1 - px2; const dy = py1 - py2;
-            const dist = Math.sqrt(dx*dx + dy*dy);
-            if(dist < 110) {
-              const opacity = (110 - dist) / 1100;
-              ctxCanvas.strokeStyle = `hsla(170, 100%, 50%, ${opacity})`;
-              ctxCanvas.lineWidth = 0.3;
-              ctxCanvas.beginPath(); ctxCanvas.moveTo(px1, py1); ctxCanvas.lineTo(px2, py2); ctxCanvas.stroke();
-            }
-          }
-        });
+      if (prefersReducedMotion || document.hidden) {
+        animationFrameId = null;
+        return;
       }
-      requestAnimationFrame(animateParticles);
+      ctxCanvas.clearRect(0, 0, canvasEl.width, canvasEl.height);
+      if (Math.random() < 0.005 && meteors.length < 2) meteors.push(new Meteor());
+      meteors = meteors.filter(m => m.active);
+      meteors.forEach(m => { m.update(); m.draw(); });
+      particles.forEach((p, i) => {
+        p.update(); p.draw();
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          let px1 = p.x + mouse.targetX * (p.size * 0.5);
+          let py1 = p.y + mouse.targetY * (p.size * 0.5);
+          let px2 = p2.x + mouse.targetX * (p2.size * 0.5);
+          let py2 = p2.y + mouse.targetY * (p2.size * 0.5);
+          const dx = px1 - px2; const dy = py1 - py2;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if(dist < 110) {
+            const opacity = (110 - dist) / 1100;
+            ctxCanvas.strokeStyle = `hsla(170, 100%, 50%, ${opacity})`;
+            ctxCanvas.lineWidth = 0.3;
+            ctxCanvas.beginPath(); ctxCanvas.moveTo(px1, py1); ctxCanvas.lineTo(px2, py2); ctxCanvas.stroke();
+          }
+        }
+      });
+      animationFrameId = requestAnimationFrame(animateParticles);
     }
-    animateParticles();
+    if (!prefersReducedMotion) {
+      animateParticles();
+    }
 
     // 2. PRELOADER & TYPEWRITER
     let preloaderFinished = false;
@@ -676,7 +743,6 @@
       setTimeout(finishPreloader, prefersReducedMotion ? 300 : 2500);
     });
 
-    // Страховочный таймер на случай долгой загрузки внешних шрифтов/ресурсов
     setTimeout(finishPreloader, 3500);
 
     const updateSystemClock = () => {
@@ -719,24 +785,20 @@
     });
 
     // === TOGGLES & SEARCH ENGINE ===
-    function toggleFolder(id) { 
-      document.getElementById(id).classList.toggle('active'); 
+    function toggleFolder(id, head) { 
+      const folder = document.getElementById(id);
+      const isActive = folder.classList.toggle('active');
+      if (head) head.setAttribute('aria-expanded', isActive);
     }
     
     function toggleSub(head) { 
-      head.parentElement.classList.toggle('open'); 
+      const subItem = head.parentElement;
+      const isOpen = subItem.classList.toggle('open');
+      head.setAttribute('aria-expanded', isOpen);
     }
 
-    /*
-     * БЛОК: Поисковый движок и фильтрация по категориям (filterDocs).
-     * ЗА ЧТО ОТВЕЧАЕТ: Живой поиск по названию/шифру документа и фильтрация чипами («Все», «⚡ Важное», «Приказы», «Положения», «СОУТ»).
-     * ПОЧЕМУ БЕЗОПАСНО:
-     * 1. Вместо хрупкого селектора .file[style="display: flex;"] проверяется реальное свойство f.style.display !== 'none',
-     *    благодаря чему карточка СИЗ с фоном style="background:#FFFBEB" корректно учитывается в поиске.
-     * 2. Фильтр «⚡ Важное» проверяет наличие класса .badge.imp или атрибута data-important="true".
-     */
     const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('input', function() {
+    const debouncedSearch = debounce(function() {
       const query = this.value.toLowerCase().trim();
       const files = document.querySelectorAll('.file');
       
@@ -750,8 +812,16 @@
           file.style.display = "flex";
           let parentFolder = file.closest('.folder');
           let parentSub = file.closest('.sub-item');
-          if (parentFolder) parentFolder.classList.add('active');
-          if (parentSub) parentSub.classList.add('open');
+          if (parentFolder) {
+            parentFolder.classList.add('active');
+            const fHead = parentFolder.querySelector('.f-head');
+            if (fHead) fHead.setAttribute('aria-expanded', 'true');
+          }
+          if (parentSub) {
+            parentSub.classList.add('open');
+            const subHead = parentSub.querySelector('.sub-head');
+            if (subHead) subHead.setAttribute('aria-expanded', 'true');
+          }
         } else {
           file.style.display = "none";
         }
@@ -765,11 +835,16 @@
           sub.style.display = "block";
         }
       });
-    });
+    }, 200);
+    searchInput.addEventListener('input', debouncedSearch);
 
     function filterDocs(type, btn) {
-      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.chip').forEach(c => {
+        c.classList.remove('active');
+        c.setAttribute('aria-pressed', 'false');
+      });
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
       searchInput.value = '';
       
       const files = document.querySelectorAll('.file');
@@ -782,9 +857,17 @@
           file.style.display = "flex";
           if (type !== 'all') {
             const folder = file.closest('.folder');
-            if (folder) folder.classList.add('active');
+            if (folder) {
+              folder.classList.add('active');
+              const fHead = folder.querySelector('.f-head');
+              if (fHead) fHead.setAttribute('aria-expanded', 'true');
+            }
             const sub = file.closest('.sub-item');
-            if (sub) sub.classList.add('open');
+            if (sub) {
+              sub.classList.add('open');
+              const subHead = sub.querySelector('.sub-head');
+              if (subHead) subHead.setAttribute('aria-expanded', 'true');
+            }
           }
         } else {
           file.style.display = "none";
@@ -801,7 +884,7 @@
       });
     }
 
-    // === PDF VIEWER LOGIC (V8.0 — с восстановлением спиннера и очередью рендера) ===
+    // === PDF VIEWER LOGIC ===
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.0;
     const canvas = document.getElementById('the-canvas'), ctx = canvas.getContext('2d');
     const container = document.getElementById('pdfModal');
@@ -812,8 +895,14 @@
     const pdfLoader = document.getElementById('pdfLoader');
     
     let currentPdfUrl = ''; 
+    let lastFocusedElement = null;
 
     function openViewer(url, title) {
+        if (typeof pdfjsLib === 'undefined') {
+            alert('Просмотр PDF временно недоступен. Попробуйте позже.');
+            return;
+        }
+        lastFocusedElement = document.activeElement;
         document.getElementById('pdfDocTitle').innerText = title;
         document.getElementById('downloadBtn').href = url;
         currentPdfUrl = url;
@@ -822,9 +911,17 @@
         setTimeout(() => container.classList.add('active'), 10);
         document.body.style.overflow = 'hidden';
         
-        // Всегда восстанавливаем HTML спиннера перед новой загрузкой
-        pdfLoader.innerHTML = '<div class="spinner" aria-hidden="true"></div><span>Загрузка...</span>';
+        // Сброс лоадера
+        pdfLoader.innerHTML = '';
+        const spinner = document.createElement('div');
+        spinner.className = 'spinner';
+        spinner.setAttribute('aria-hidden', 'true');
+        const loadingText = document.createElement('span');
+        loadingText.textContent = 'Загрузка...';
+        pdfLoader.appendChild(spinner);
+        pdfLoader.appendChild(loadingText);
         pdfLoader.style.display = 'flex';
+
         pageNum = 1;
         scale = 1.0;
         pageRendering = false;
@@ -835,9 +932,21 @@
             document.getElementById('page_count').textContent = pdf.numPages;
             queueRenderPage(pageNum);
             showGestureHint();
+            // Фокус на кнопку закрытия для доступности
+            const closeBtn = container.querySelector('.btn-pdf-close');
+            if (closeBtn) closeBtn.focus();
         }).catch(err => {
             console.error(err);
-            pdfLoader.innerHTML = `<p style="text-align:center; padding:20px; color:#ef4444;">Файл PDF не найден.<br><small style="opacity:0.8;">${url}</small></p>`;
+            pdfLoader.innerHTML = '';
+            const errorP = document.createElement('p');
+            errorP.style.cssText = 'text-align:center; padding:20px; color:#ef4444;';
+            errorP.textContent = 'Файл PDF не найден.';
+            const small = document.createElement('small');
+            small.style.cssText = 'opacity:0.8;';
+            small.textContent = url;
+            errorP.appendChild(document.createElement('br'));
+            errorP.appendChild(small);
+            pdfLoader.appendChild(errorP);
         });
     }
 
@@ -845,17 +954,53 @@
         container.classList.remove('active');
         setTimeout(() => {
             container.style.display = 'none';
-            pdfLoader.innerHTML = '<div class="spinner" aria-hidden="true"></div><span>Загрузка...</span>';
+            pdfLoader.innerHTML = '';
+            const spinner = document.createElement('div');
+            spinner.className = 'spinner';
+            spinner.setAttribute('aria-hidden', 'true');
+            const loadingText = document.createElement('span');
+            loadingText.textContent = 'Загрузка...';
+            pdfLoader.appendChild(spinner);
+            pdfLoader.appendChild(loadingText);
             pdfLoader.style.display = 'flex';
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            pdfDoc = null;
+            if (pdfDoc) {
+                pdfDoc.destroy();
+                pdfDoc = null;
+            }
         }, 300);
         document.body.style.overflow = '';
+        // Возврат фокуса
+        if (lastFocusedElement) {
+            lastFocusedElement.focus();
+        }
     }
 
     themeBtn.addEventListener('click', () => {
-        container.classList.toggle('dark-theme');
-        themeBtn.textContent = container.classList.contains('dark-theme') ? '☀️' : '🌙';
+        const isDark = container.classList.toggle('dark-theme');
+        themeBtn.textContent = isDark ? '☀️' : '🌙';
+        themeBtn.setAttribute('aria-pressed', isDark);
+    });
+
+    // Focus trap для PDF модала
+    container.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+            const focusableElements = container.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (e.shiftKey) {
+                if (document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                }
+            } else {
+                if (document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            }
+        }
     });
 
     document.addEventListener('keydown', (e) => {
@@ -916,11 +1061,12 @@
 
     document.getElementById('prev').addEventListener('click', () => { if (!pdfDoc || pageNum <= 1) return; pageNum--; queueRenderPage(pageNum); });
     document.getElementById('next').addEventListener('click', () => { if (!pdfDoc || pageNum >= pdfDoc.numPages) return; pageNum++; queueRenderPage(pageNum); });
-    document.getElementById('zoomIn').addEventListener('click', () => { if (!pdfDoc) return; scale += 0.25; queueRenderPage(pageNum); });
+    document.getElementById('zoomIn').addEventListener('click', () => { if (!pdfDoc) return; if (scale < 3.0) { scale += 0.25; queueRenderPage(pageNum); } });
     document.getElementById('zoomOut').addEventListener('click', () => { if (!pdfDoc) return; if(scale > 0.5) { scale -= 0.25; queueRenderPage(pageNum); } });
 
     let isDragging = false, startX, startY, scrollLeft, scrollTop;
     wrapper.addEventListener('mousedown', (e) => {
+        if (e.target !== canvas) return;
         isDragging = true; wrapper.classList.add('grabbing');
         startX = e.pageX - wrapper.offsetLeft; startY = e.pageY - wrapper.offsetTop;
         scrollLeft = wrapper.scrollLeft; scrollTop = wrapper.scrollTop;
@@ -961,7 +1107,10 @@
     window.addEventListener('resize', () => {
       if(pdfDoc && container.classList.contains('active')) {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => queueRenderPage(pageNum), 100);
+        resizeTimer = setTimeout(() => {
+          scale = 1.0;
+          queueRenderPage(pageNum);
+        }, 100);
       }
     }, { passive: true });
 
