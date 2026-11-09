@@ -22,11 +22,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 
-  <!--
-    SRI-хеш для pdf.min.js рекомендуется добавить перед публикацией.
-    Взять актуальный sha384 на https://cdnjs.com/libraries/pdf.js/3.11.174
-    Формат: integrity="sha384-..." crossorigin="anonymous"
-  -->
   <script defer
           src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"
           crossorigin="anonymous"></script>
@@ -61,6 +56,7 @@
       --glass: rgba(255, 255, 255, 0.75);
       --border: 1px solid rgba(255, 255, 255, 0.6);
       --radius: 24px;
+      --max-gradient: linear-gradient(135deg, #7C3AED, #2563EB);
     }
 
     ::-webkit-scrollbar { width: 6px; }
@@ -71,7 +67,6 @@
     body {
       margin: 0; padding: 0; font-family: 'Inter', sans-serif;
       color: var(--c-dark); background: #F1F5F9;
-      /* FIX (2.10): clip не ломает position: sticky на iOS Safari */
       overflow-x: hidden;
       cursor: auto;
       padding-left: env(safe-area-inset-left);
@@ -85,15 +80,13 @@
     :focus-visible { outline: 2px solid var(--c-green); outline-offset: 2px; }
     :focus:not(:focus-visible) { outline: none; }
 
-    /* FIX (2.2): убираем 300ms задержку и double-tap zoom на интерактивных */
     .file, .chip, .f-head, .sub-head,
-    .btn-portal, .btn-site, .tg-float,
+    .btn-portal, .btn-site, .max-float,
     .tool-btn, .tool-btn-icon, .btn-pdf-action,
     #page_num_input, .pdf-file-info, .gesture-hint {
       touch-action: manipulation;
     }
 
-    /* No-JS fallback */
     .no-js #preloader { display: none !important; }
     .no-js .folder { opacity: 1 !important; transform: none !important; }
 
@@ -195,8 +188,28 @@
     }
     @keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-    .hero h2 { font-size: clamp(2rem, 6vw, 3.8rem); font-weight: 900; margin-bottom: 20px; letter-spacing: -1.5px; background: linear-gradient(to right, #1e293b 20%, #009688 30%, #2563eb 70%, #1e293b 80%); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shineText 6s linear infinite; padding: 0 10px; line-height: 1.1; }
-    @keyframes shineText { to { background-position: 200% center; } }
+    /* FIX: «Маяк» — переписано на плавный back-and-forth sweep, работает и на мобильных */
+    .hero h2 {
+      font-size: clamp(2rem, 6vw, 3.8rem);
+      font-weight: 900;
+      margin-bottom: 20px;
+      letter-spacing: -1.5px;
+      padding: 0 10px;
+      line-height: 1.1;
+      background: linear-gradient(to right, #1e293b 20%, #009688 30%, #2563eb 70%, #1e293b 80%);
+      background-size: 200% auto;
+      background-position: 100% center;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: #1e293b;
+      animation: lighthouseBeam 7s ease-in-out infinite;
+      will-change: background-position;
+    }
+    @keyframes lighthouseBeam {
+      0%, 100% { background-position: 100% center; }
+      50%      { background-position: 0% center; }
+    }
 
     .search-wrap { max-width: 600px; margin: 0 auto; position: relative; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 8px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 10px 40px -5px rgba(0,0,0,0.05); transition: background 0.3s, box-shadow 0.3s, border-color 0.3s; display: flex; align-items: center; }
     .search-wrap:focus-within { background: #fff; box-shadow: 0 20px 50px -10px rgba(0, 150, 136, 0.15); border-color: var(--c-green); }
@@ -216,7 +229,6 @@
       background: var(--glass); border: var(--border); border-radius: var(--radius);
       box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); overflow: hidden; position: relative;
       opacity: 0; transform: translateY(30px);
-      /* FIX (2.6): will-change возвращён для оптимизации transition на мобильных */
       will-change: transform, opacity;
       transition: transform 0.3s ease-out, box-shadow 0.3s ease, opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
@@ -268,40 +280,167 @@
     .empty-block { padding: 40px; text-align: center; color: #94A3B8; font-size: 0.9rem; }
     .empty-icon { font-size: 2rem; margin-bottom: 10px; display: block; opacity: 0.5; }
 
-    /* === 6. TELEGRAM === */
-    .tg-float {
+    /* === 6. MAX MESSENGER (замена Telegram) === */
+    .max-float {
       position: fixed;
-      bottom: calc(30px + env(safe-area-inset-bottom));
+      bottom: calc(28px + env(safe-area-inset-bottom));
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      padding: 10px 24px 10px 14px;
-      border-radius: 50px;
       display: flex;
       align-items: center;
       gap: 14px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-      border: 1px solid #fff;
-      z-index: 1000;
+      padding: 10px 20px 10px 10px;
+      background: linear-gradient(135deg, #ffffff 0%, #faf8ff 100%);
+      border-radius: 999px;
       text-decoration: none;
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
+      color: #0f172a;
+      z-index: 1000;
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.9),
+        0 0 0 1px rgba(124,58,237,0.15),
+        0 20px 40px -12px rgba(124,58,237,0.4),
+        0 8px 20px -8px rgba(37,99,235,0.3);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s;
+      will-change: transform;
+      animation: maxFloatGlow 5s ease-in-out infinite;
     }
 
-    .tg-logo {
+    @keyframes maxFloatGlow {
+      0%, 100% {
+        box-shadow:
+          inset 0 0 0 1px rgba(255,255,255,0.9),
+          0 0 0 1px rgba(124,58,237,0.15),
+          0 20px 40px -12px rgba(124,58,237,0.4),
+          0 8px 20px -8px rgba(37,99,235,0.3);
+      }
+      50% {
+        box-shadow:
+          inset 0 0 0 1px rgba(255,255,255,0.9),
+          0 0 0 1px rgba(37,99,235,0.25),
+          0 24px 48px -12px rgba(37,99,235,0.5),
+          0 10px 24px -8px rgba(124,58,237,0.4);
+      }
+    }
+
+    .max-float__icon {
       width: 42px;
       height: 42px;
-      background: #229ED9;
       border-radius: 50%;
+      background: linear-gradient(135deg, #f5f3ff, #eff6ff);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 5px 15px rgba(34, 158, 217, 0.3);
+      flex-shrink: 0;
+      box-shadow: inset 0 0 0 1px rgba(124,58,237,0.1);
+      overflow: hidden;
     }
 
-    .tg-txt h4 { margin: 0; font-size: 0.95rem; color: #020617; font-weight: 800; }
-    .tg-txt p { margin: 0; font-size: 0.75rem; color: #229ED9; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .max-float__icon img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .max-float__text {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      line-height: 1.15;
+    }
+
+    .max-float__title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .max-float__live {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 0 0 rgba(16,185,129,0.6);
+      animation: maxLivePulse 2s infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes maxLivePulse {
+      0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.6); }
+      70% { box-shadow: 0 0 0 6px rgba(16,185,129,0); }
+      100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+    }
+
+    .max-float__subtitle {
+      font-size: 0.7rem;
+      font-weight: 800;
+      background: var(--max-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: #7C3AED;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .max-float__cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--max-gradient);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+      box-shadow: 0 4px 12px rgba(124,58,237,0.35);
+    }
+
+    @media (hover: hover) {
+      .max-float:hover {
+        transform: translateX(-50%) translateY(-4px) scale(1.03);
+        animation-play-state: paused;
+        box-shadow:
+          inset 0 0 0 1px rgba(255,255,255,0.9),
+          0 0 0 1px rgba(124,58,237,0.3),
+          0 30px 60px -12px rgba(124,58,237,0.55),
+          0 14px 30px -8px rgba(37,99,235,0.45);
+      }
+      .max-float:hover .max-float__cta {
+        transform: translateX(4px) scale(1.1);
+      }
+    }
+
+    @media (hover: none) {
+      .max-float:active {
+        transform: translateX(-50%) scale(0.97);
+        animation-play-state: paused;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .max-float {
+        padding: 8px 16px 8px 8px;
+        gap: 10px;
+      }
+      .max-float__icon { width: 38px; height: 38px; }
+      .max-float__icon img { width: 26px; height: 26px; }
+      .max-float__title { font-size: 0.85rem; }
+      .max-float__subtitle { font-size: 0.65rem; }
+      .max-float__cta { width: 28px; height: 28px; font-size: 0.85rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .max-float { animation: none; }
+      .max-float__live { animation: none; }
+    }
 
     /* === 7. PDF VIEWER === */
     .pdf-modal { position: fixed; inset: 0; z-index: 5000; background: #f1f5f9; display: none; flex-direction: column; opacity: 0; transition: opacity 0.3s; }
@@ -356,9 +495,8 @@
     }
 
     /* =========================================================
-       FIX (2.1): hover-эффекты ТОЛЬКО для устройств с мышью.
-       На тач-устройствах hover залипает после тапа — это и есть
-       «поломанная анимация».
+       FIX: hover только для устройств с мышью.
+       На тач-устройствах hover залипает после тапа.
        ========================================================= */
     @media (hover: hover) {
       .btn-portal:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(15, 23, 42, 0.4); }
@@ -370,52 +508,38 @@
       .sub-head:hover { background: #F8FAFC; color: var(--c-dark); }
       .file:hover { background: #fff; border-left-color: var(--c-green); }
       .file:hover::after { left: 100%; opacity: 1; }
-      .tg-float:hover { transform: translateX(-50%) scale(1.05) translateY(-5px); box-shadow: 0 25px 70px rgba(37, 99, 235, 0.4); }
       .tool-btn:hover { background: rgba(255,255,255,0.25); }
       .tool-btn-icon:hover { color: #fff; }
       .btn-pdf-action:hover { border-color: #009688; color: #009688; }
       .btn-pdf-close:hover { background: #fecaca; border-color: #f87171; color: #991b1b; }
     }
 
-    /* FIX (2.1): на тач — короткие :active вместо hover */
     @media (hover: none) {
       .file:active { background: #fff; border-left-color: var(--c-green); }
       .chip:active { background: #fff; color: var(--c-green); border-color: var(--c-green); }
       .folder:active { box-shadow: 0 15px 30px -10px rgba(0,0,0,0.1); }
       .btn-portal:active { transform: scale(0.98); }
       .btn-site-wrap:active { transform: scale(0.98); }
-      .tg-float:active { transform: translateX(-50%) scale(0.98); }
       .tool-btn:active { background: rgba(255,255,255,0.35); }
       .f-head:active, .sub-head:active { background: rgba(0,0,0,0.03); }
     }
 
     /* =========================================================
-       FIX (2.3, 2.5, 2.8, 2.9, 2.11, 2.12): оптимизация под мобильные.
+       Мобильная оптимизация тяжёлых эффектов
        ========================================================= */
     @media (max-width: 768px) {
-      /* Тяжёлые blur-орбы: уменьшаем радиус и прозрачность */
       .orb { filter: blur(40px); opacity: 0.2; }
-      /* Шапка: менее дорогой backdrop-filter */
       .header { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-      /* Поиск: убираем backdrop-filter вообще (на мобильных он почти не виден) */
       .search-wrap { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(255,255,255,0.9); }
-      /* Telegram: менее дорогой */
-      .tg-float { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-      /* Заголовок: отключаем shineText (анимация background-position на большом тексте дорогая) */
-      .hero h2 { animation: none; }
-      /* 3D-контекст на .stack отключаем — на iOS/Android с translateY даёт глюки */
       .stack { perspective: none; }
-      /* Иконки папок: убираем iconShake, оставляем только iconPulse */
       .folder.active.green .f-icon { animation: iconPulse 2s infinite; }
       .folder.active.orange .f-icon { animation: iconPulse 2s infinite; }
       .folder.active.blue .f-icon { animation: iconPulse 2s infinite; }
       .folder.active.purple .f-icon { animation: iconPulse 2s infinite; }
-      /* Планета в прелоадере: статичный drop-shadow без пульсации */
       .planet-logo { animation: none; }
-      /* Курсор приветствия не нужен на мобильных */
       .cursor { display: none; }
-      /* PDF-toolbar: менее дорогой backdrop-filter */
       .pdf-toolbar { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+      /* FIX: h2 animation НЕ отключаем — «маяк» должен играть и на мобильных */
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -441,7 +565,8 @@
       <div class="orbit orb-1"></div>
       <div class="orbit orb-2"></div>
       <div class="orbit orb-3"></div>
-      <img src="assets/mnogocvet_logo.png" class="planet-logo" alt="Логотип Софрино Парк">
+      <!-- FIX: новый логотип -->
+      <img src="assets/Logo_Sofrino.png" class="planet-logo" alt="Логотип Софрино Парк">
     </div>
     <div class="loading-status">ESTABLISHING CONNECTION</div>
   </div>
@@ -449,7 +574,8 @@
   <header class="header">
     <div class="container nav">
       <div class="brand">
-        <img src="assets/mnogocvet_logo.png" alt="Логотип Софрино Парк">
+        <!-- FIX: новый логотип в шапке -->
+        <img src="assets/Logo_Sofrino.png" alt="Логотип Софрино Парк">
         <div class="brand-info">
           <div class="brand-txt"><h1>СОФРИНО ПАРК</h1></div>
           <div class="brand-meta">
@@ -536,11 +662,11 @@
 
       <div class="folder orange" id="f2">
         <div class="f-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleFolder('f2', this)"><div class="f-main"><div class="f-icon" aria-hidden="true">🔥</div><div class="f-txt"><h3>Пожарная безопасность</h3><p>Инструкции, Планы</p></div></div><div class="chevron" aria-hidden="true">▼</div></div>
-        <div class="f-body"><div class="empty-block"><span class="empty-icon" aria-hidden="true">🚧</span>Раздел в разработке. Документы появятся в ближайшее время. Следите за обновлениями в Telegram.</div></div>
+        <div class="f-body"><div class="empty-block"><span class="empty-icon" aria-hidden="true">🚧</span>Раздел в разработке. Документы появятся в ближайшее время. Следите за обновлениями в MAX.</div></div>
       </div>
       <div class="folder blue" id="f3">
         <div class="f-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleFolder('f3', this)"><div class="f-main"><div class="f-icon" aria-hidden="true">📢</div><div class="f-txt"><h3>ГО и ЧС</h3><p>Гражданская оборона</p></div></div><div class="chevron" aria-hidden="true">▼</div></div>
-        <div class="f-body"><div class="empty-block"><span class="empty-icon" aria-hidden="true">🛡️</span>Раздел в разработке. Следите за обновлениями в Telegram.</div></div>
+        <div class="f-body"><div class="empty-block"><span class="empty-icon" aria-hidden="true">🛡️</span>Раздел в разработке. Следите за обновлениями в MAX.</div></div>
       </div>
       <div class="folder purple" id="f4">
         <div class="f-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleFolder('f4', this)"><div class="f-main"><div class="f-icon" aria-hidden="true">💼</div><div class="f-txt"><h3>Отдел кадров</h3><p>ПВТР, Договоры</p></div></div><div class="chevron" aria-hidden="true">▼</div></div>
@@ -551,16 +677,20 @@
 
   <footer style="text-align:center; padding-bottom:100px; color:#94A3B8; font-size:0.85rem;">© 2026 СОФРИНО ПАРК.</footer>
 
-  <a href="https://t.me/+5mfcl7IppD00YzAy" target="_blank" rel="noopener noreferrer" class="tg-float">
-    <div class="tg-logo" aria-hidden="true">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff">
-        <path d="M21.92,2.62a1.67,1.67,0,0,0-1.68-.4l-18,6.8a1.68,1.68,0,0,0,.1,3.13l4.63,1.68L17.7,6.72a.46.46,0,0,1,.63.66l-9.13,7.93v3.9a1.27,1.27,0,0,0,2.15.9l2.77-2.61,5.55,4.21a1.27,1.27,0,0,0,2.2-.7L23.61,4.11A1.67,1.67,0,0,0,21.92,2.62Z"/>
-      </svg>
-    </div>
-    <div class="tg-txt">
-      <h4>Известия Софрино</h4>
-      <p>Важные обновления</p>
-    </div>
+  <!-- FIX: Telegram → MAX. Новая ссылка, новый логотип, обновлённый дизайн -->
+  <a href="https://max.ru/join/Mhu0gYyDMtnj4UrogfgTnQ3L_pS2BVB2LPqo8bnJQG8"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="max-float"
+     aria-label="Подписаться на канал Известия Софрино в MAX">
+    <span class="max-float__icon" aria-hidden="true">
+      <img src="assets/Max_logo_2025.png" alt="" loading="lazy">
+    </span>
+    <span class="max-float__text">
+      <span class="max-float__title">Известия Софрино<span class="max-float__live" aria-hidden="true"></span></span>
+      <span class="max-float__subtitle">MAX • обновления</span>
+    </span>
+    <span class="max-float__cta" aria-hidden="true">→</span>
   </a>
 
   <div class="pdf-modal" id="pdfModal" role="dialog" aria-modal="true" aria-labelledby="pdfDocTitle">
@@ -602,19 +732,14 @@
   </div>
 
   <script>
-    // No-JS fallback
     document.documentElement.classList.remove('no-js');
 
-    // FIX (2.4): если пользователь включил «Уменьшение движения» в ОС —
-    // сообщаем в консоль, чтобы разработчик/пользователь понимал,
-    // почему анимаций нет. Для продакшена можно заменить на тост.
     const prefersReducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     let prefersReducedMotion = prefersReducedMotionQuery.matches;
     if (prefersReducedMotion) {
-      console.info('[a11y] Анимации отключены настройкой ОС «Уменьшение движения».');
+      console.info('[a11y] Анимации отключены настройкой ОС «Уменьшение движения». Если хотите видеть «маяк» и другие анимации — отключите эту настройку.');
     }
 
-    // Утилита debounce
     function debounce(func, wait) {
       let timeout;
       return function executedFunction(...args) {
@@ -636,12 +761,10 @@
       }
     });
 
-    // 1. PHYSICS CANVAS
     const canvasEl = document.getElementById('canvas-bg');
     const ctxCanvas = canvasEl.getContext('2d');
     let particles = [];
     let meteors = [];
-    // FIX (2.9): меньше частиц на мобильных
     let particleCount = window.innerWidth < 768 ? 20 : 90;
     let mouse = { x: null, y: null, targetX: 0, targetY: 0 };
     let animationFrameId = null;
@@ -649,7 +772,6 @@
     function resizeCanvas() {
       canvasEl.width = window.innerWidth;
       canvasEl.height = window.innerHeight;
-      // FIX (2.9): пересоздаём при смене breakpoint
       const newCount = window.innerWidth < 768 ? 20 : 90;
       if (newCount !== particleCount) {
         particleCount = newCount;
@@ -758,7 +880,6 @@
       }
     });
 
-    // 2. PRELOADER & TYPEWRITER
     let preloaderFinished = false;
     function finishPreloader() {
       if (preloaderFinished) return;
@@ -774,7 +895,6 @@
     window.addEventListener('load', function() {
       const sc = document.getElementById('stars-container');
       if (sc && sc.children.length === 0) {
-        // FIX (2.8): меньше звёзд на мобильных
         const starCount = window.innerWidth < 768 ? 50 : 120;
         for(let i=0; i<starCount; i++) {
           const star = document.createElement('div');
@@ -794,7 +914,6 @@
 
     setTimeout(finishPreloader, 3500);
 
-    // FIX (2.7): страховка — если reveal не сработал за 5 секунд, принудительно показываем папки
     setTimeout(() => {
       document.querySelectorAll('.folder:not(.reveal)').forEach(f => f.classList.add('reveal'));
     }, 5000);
@@ -842,7 +961,6 @@
       }
     });
 
-    // === TOGGLES & SEARCH ENGINE ===
     function toggleFolder(id, head) {
       const folder = document.getElementById(id);
       const isActive = folder.classList.toggle('active');
@@ -1316,7 +1434,6 @@
         wrapper.scrollLeft = scrollLeft - walkX; wrapper.scrollTop = scrollTop - walkY;
     });
 
-    // === TOUCH: swipe-навигация + pinch-to-zoom + double-tap ===
     let touchStartX = 0, touchEndX = 0, lastTap = 0;
     let pinchStartDist = 0;
     let pinchStartZoom = 1;
@@ -1395,7 +1512,6 @@
       }
     }, { passive: true });
 
-    // FIX (1.2, 3): флаг против дублей обработчиков tilt при resize через 768px
     const desktopQuery = window.matchMedia("(min-width: 768px)");
     let tiltInitialized = false;
     function initTilt() {
