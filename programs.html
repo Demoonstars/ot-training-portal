@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>СДО | Реестр программ</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Реестр программ дистанционного обучения по охране труда и безопасности.">
 
   <!-- Open Graph: корректный шаринг в соцсетях -->
@@ -19,10 +19,13 @@
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Оставлены только реально используемые начертания Inter для ускорения загрузки -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
     /* Вспомогательный класс для доступности (виден только скринридерам) */
     .sr-only {
       position: absolute;
@@ -36,12 +39,15 @@
       border: 0;
     }
 
-    /* === 1. ЖИВОЙ ФОН === */
+    /* === 1. ЖИВОЙ ФОН И ПРОГРЕСС-БАР СКРОЛЛА === */
     body.masterpiece-theme {
       background: linear-gradient(-45deg, #f1f5f9, #e0f2fe, #f0fdf4, #fff7ed);
       background-size: 400% 400%;
       animation: gradientBG 15s ease infinite;
       min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
     }
 
     @keyframes gradientBG {
@@ -50,19 +56,29 @@
       100% { background-position: 0% 50%; }
     }
 
+    .scroll-progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3.5px; width: 0%;
+      background: linear-gradient(90deg, #2563eb, #8b5cf6, #10b981);
+      z-index: 9999;
+      transition: width 0.1s ease-out;
+      box-shadow: 0 0 12px rgba(37, 99, 235, 0.6);
+    }
+
     /* === 2. HERO СЕКЦИЯ === */
     .programs-hero {
       text-align: center;
-      padding: 60px 20px 40px;
+      padding: 45px 20px 32px;
       position: relative;
       z-index: 10;
     }
 
     .hero-title {
-      font-size: 3rem;
+      font-size: clamp(1.9rem, 4.5vw, 3rem);
       font-weight: 800;
       color: #0f172a;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       line-height: 1.2;
       min-height: 3.6rem;
       display: flex;
@@ -72,16 +88,17 @@
 
     .hero-lead {
       color: #475569;
-      max-width: 700px;
+      max-width: 720px;
       margin: 0 auto;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       line-height: 1.6;
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
+      background: rgba(255,255,255,0.68);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       padding: 15px 25px;
       border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.5);
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: 0 10px 25px -8px rgba(15, 23, 42, 0.04);
     }
 
     .cursor-blink {
@@ -90,18 +107,7 @@
     }
     @keyframes blink { 50% { opacity: 0; } }
 
-    @media (max-width: 768px) {
-      .hero-title { font-size: 2rem; min-height: 4.8rem; align-items: flex-start; }
-      .hero-lead { font-size: 1rem; padding: 15px; }
-    }
-
     /* === 3. ПАНЕЛЬ УПРАВЛЕНИЯ === */
-    /*
-     * БЛОК: Панель поиска и фильтров (.control-panel).
-     * ЗА ЧТО ОТВЕЧАЕТ: Ввод поискового запроса и фильтрация по категориям.
-     * ПОЧЕМУ БЕЗОПАСНО: По умолчанию панель видима (opacity: 1), а стартовая анимация
-     * включается через body.js-loaded, что защищает интерфейс при сбое JS.
-     */
     .control-panel {
       background: rgba(255, 255, 255, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.9);
@@ -110,44 +116,71 @@
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
-      margin-bottom: 40px;
+      margin-bottom: 36px;
     }
     body.js-loaded .control-panel {
       transform: translateY(20px);
       opacity: 0;
-      animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
+      animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.15s;
     }
 
     .search-input-wrap {
       position: relative; margin-bottom: 20px; transition: transform 0.2s;
     }
-    .search-input-wrap:focus-within { transform: scale(1.01); }
+    .search-input-wrap:focus-within { transform: scale(1.005); }
 
     .search-icon {
       position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
-      color: #64748b; transition: 0.3s; z-index: 2;
+      color: #64748b; transition: 0.3s; z-index: 2; pointer-events: none;
     }
     .search-input {
       width: 100%;
-      padding: 16px 20px 16px 50px;
+      padding: 16px 48px 16px 50px;
       border-radius: 16px;
       border: 1px solid #cbd5e1;
       background: #fff;
       font-size: 1rem; font-weight: 500; color: #0f172a;
       box-shadow: 0 4px 10px rgba(0,0,0,0.03);
       outline: none; transition: all 0.3s;
+      font-family: inherit;
     }
     .search-input:focus {
       border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
     }
 
+    .search-clear-btn {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: none;
+      background: #f1f5f9;
+      color: #64748b;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+    }
+    .search-clear-btn.visible { display: inline-flex; }
+    .search-clear-btn:hover { background: #e2e8f0; color: #0f172a; }
+
     .filters-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
     .filter-chip {
-      padding: 8px 20px; border-radius: 99px;
+      padding: 8px 18px; border-radius: 99px;
       border: 1px solid #e2e8f0;
       background: #fff;
-      font-weight: 600; color: #64748b; font-size: 0.9rem;
-      cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      font-weight: 600; color: #64748b; font-size: 0.88rem;
+      font-family: inherit;
+      cursor: pointer; transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
     .filter-chip:hover {
       transform: translateY(-2px); color: #1e293b; border-color: #cbd5e1;
@@ -158,25 +191,42 @@
     }
     .filter-chip[aria-pressed="true"] {
       background: #0f172a; color: #fff; border-color: #0f172a;
-      box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2); transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2); transform: scale(1.04);
+    }
+    .filter-chip.chip-in-progress {
+      border-color: #a7f3d0;
+      background: #f0fdf4;
+      color: #047857;
+    }
+    .filter-chip.chip-in-progress[aria-pressed="true"] {
+      background: #059669;
+      border-color: #059669;
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+    .chip-count-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      padding: 1px 6px;
+      border-radius: 99px;
+      background: rgba(16, 185, 129, 0.18);
+      color: inherit;
+      font-weight: 800;
     }
 
-    /* === 4. КАРТОЧКИ === */
+    /* === 4. КАРТОЧКИ КУРСОВ С ЖИВОЙ ТЕЛЕМЕТРИЕЙ === */
     .programs-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
+      margin-bottom: 50px;
     }
 
-    /*
-     * БЛОК: Карточка программы обучения (.program-card).
-     * ЗА ЧТО ОТВЕЧАЕТ: Отображение курса, иконки, прогресс-бара и кнопки перехода.
-     * ПОЧЕМУ БЕЗОПАСНО: По умолчанию карточка видима (если JS отключен), а при активном JS
-     * плавно всплывает через анимацию slideUpFade.
-     */
     .program-card {
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.92);
       border-radius: 24px;
-      padding: 30px;
-      border: 1px solid rgba(226, 232, 240, 0.8);
+      padding: 28px;
+      border: 1px solid rgba(226, 232, 240, 0.85);
       position: relative;
       overflow: hidden;
       display: flex; flex-direction: column;
@@ -186,6 +236,9 @@
       opacity: 0;
       transform: translateY(30px);
     }
+    .program-card.is-started {
+      border-color: rgba(16, 185, 129, 0.45);
+    }
 
     .program-card::before {
       content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
@@ -194,7 +247,7 @@
     }
     .program-card:hover::before { opacity: 1; }
     .program-card:hover {
-      border-color: rgba(59, 130, 246, 0.4);
+      border-color: rgba(59, 130, 246, 0.45);
       box-shadow: 0 20px 50px -10px rgba(0,0,0,0.1);
       transform: translateY(-5px);
     }
@@ -202,7 +255,7 @@
     .card-content { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; }
 
     .card-top {
-      display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 18px;
     }
     .card-icon {
       width: 52px; height: 52px; border-radius: 14px;
@@ -210,11 +263,34 @@
       font-size: 1.8rem;
       box-shadow: 0 4px 15px -3px rgba(0,0,0,0.05);
       border: 1px solid rgba(0,0,0,0.05);
+      flex-shrink: 0;
+    }
+    .card-tags-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
     }
     .status-tag {
       font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
       padding: 6px 10px; border-radius: 8px;
       background: #fff; color: #475569; border: 1px solid #e2e8f0;
+    }
+    .telemetry-pill {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+    }
+    .program-card.is-started .telemetry-pill {
+      display: inline-flex;
     }
 
     .card-title {
@@ -223,46 +299,239 @@
     }
 
     .visual-progress {
-      height: 4px; width: 100%; background: #e2e8f0; border-radius: 2px; margin-bottom: 15px; overflow: hidden;
+      height: 5px; width: 100%; background: #e2e8f0; border-radius: 99px; margin-bottom: 15px; overflow: hidden;
     }
     .visual-progress-bar {
-      height: 100%; background: #10b981; width: 0%; border-radius: 2px; transition: width 0.5s ease;
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #2563eb);
+      width: 0%;
+      border-radius: 99px;
+      transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .card-desc {
       font-size: 0.95rem; color: #64748b;
-      margin-bottom: 25px; flex-grow: 1; line-height: 1.6;
+      margin-bottom: 24px; flex-grow: 1; line-height: 1.6;
+    }
+
+    .card-actions-row {
+      margin-top: auto;
+      display: flex;
+      gap: 8px;
+      align-items: center;
     }
 
     .card-btn {
-      margin-top: auto;
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      padding: 12px; width: 100%;
+      flex: 1;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 16px;
       border-radius: 12px;
       background: #0f172a; color: #fff;
-      font-weight: 600; text-decoration: none; font-size: 0.95rem;
-      transition: 0.3s;
+      font-weight: 600; text-decoration: none; font-size: 0.92rem;
+      transition: 0.25s;
       box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
     }
-    .card-btn:hover { background: #1e293b; box-shadow: 0 10px 25px rgba(15,23,42,0.25); transform: translateY(-2px); }
+    .card-btn:hover { background: #2563eb; box-shadow: 0 10px 25px rgba(37, 99, 235, 0.28); transform: translateY(-2px); opacity: 1; }
+
+    .card-test-quick {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #e2e8f0;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: all 0.22s ease;
+      white-space: nowrap;
+    }
+    .card-test-quick:hover {
+      background: #ecfdf5;
+      color: #047857;
+      border-color: #a7f3d0;
+      transform: translateY(-2px);
+      opacity: 1;
+    }
 
     @keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
 
-    .system-status-pulse {
-      display: inline-block; width: 8px; height: 8px;
-      background-color: #10b981; border-radius: 50%;
-      box-shadow: 0 0 0 rgba(16, 185, 129, 0.7);
-      animation: pulse-green 2s infinite; margin-right: 6px;
+    /* === 5. МОДАЛЬНЫЕ ОКНА (Поиск Ctrl+K и ЧС 112) + МОБИЛЬНЫЙ ТАБ-БАР === */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 10000;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 8vh 16px 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      overflow-y: auto;
     }
-    @keyframes pulse-green {
-      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-box {
+      width: 100%;
+      max-width: 600px;
+      background: #ffffff;
+      border-radius: 24px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      transform: scale(0.96) translateY(-10px);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
-    @media (max-width: 900px) { .header-meta { display: none; } }
+    .modal-overlay.open .modal-box { transform: scale(1) translateY(0); }
 
-    /* === 5. ДОСТУПНОСТЬ: уважаем prefers-reduced-motion === */
+    .search-modal-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 18px; border-bottom: 1px solid #e2e8f0;
+    }
+    .search-modal-input {
+      flex: 1; border: none; outline: none; font-size: 1rem; font-weight: 600;
+      color: #0f172a; background: transparent; min-width: 0; font-family: inherit;
+    }
+    .voice-mic-btn {
+      width: 38px; height: 38px; border-radius: 10px; border: 1px solid #e2e8f0;
+      background: #f8fafc; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; font-size: 1.05rem; flex-shrink: 0; transition: 0.2s;
+    }
+    .voice-mic-btn.listening {
+      background: #fef2f2; border-color: #e11d48; animation: pulse-red 1.2s infinite;
+    }
+    @keyframes pulse-red {
+      0% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.4); }
+      70% { box-shadow: 0 0 0 8px rgba(225, 29, 72, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+    }
+    .modal-close {
+      background: #f1f5f9; border: none; padding: 8px 12px; border-radius: 10px;
+      font-size: 0.78rem; font-weight: 800; color: #475569; cursor: pointer; flex-shrink: 0;
+    }
+    .search-results-list { max-height: 60vh; overflow-y: auto; padding: 10px; }
+    .search-result-item {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 12px 14px; border-radius: 12px; text-decoration: none; color: #1e293b; transition: background 0.15s;
+    }
+    .search-result-item:hover { background: #eff6ff; color: #2563eb; opacity: 1; }
+    .sri-left { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 0.92rem; }
+    .sri-tag {
+      font-size: 0.72rem; font-weight: 700; padding: 4px 8px; border-radius: 6px;
+      background: #f1f5f9; color: #475569; white-space: nowrap;
+    }
+
+    .sos-modal-top {
+      background: linear-gradient(135deg, #be123c, #0f172a); color: #ffffff;
+      padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .sos-modal-body { padding: 20px 24px 24px; display: grid; gap: 12px; max-height: 75vh; overflow-y: auto; }
+    .sos-card {
+      padding: 14px 16px; border-radius: 14px; background: #f8fafc;
+      border: 1px solid #e2e8f0; border-left: 4px solid #e11d48;
+    }
+    .sos-card h4 { margin: 0 0 5px; font-size: 0.95rem; color: #0f172a; font-weight: 800; }
+    .sos-card p { margin: 0; font-size: 0.85rem; color: #475569; line-height: 1.5; }
+    .call-112-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 14px; border-radius: 14px; background: #e11d48; color: #ffffff;
+      font-weight: 800; font-size: 1rem; text-decoration: none;
+      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.3); transition: 0.2s;
+    }
+    .call-112-btn:hover { background: #be123c; opacity: 1; }
+
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(203, 213, 225, 0.85);
+      padding: 6px 8px calc(6px + var(--safe-bottom));
+      z-index: 9000;
+      box-shadow: 0 -8px 25px rgba(15, 23, 42, 0.08);
+      justify-content: space-around;
+      align-items: center;
+    }
+    .mob-nav-item {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 3px; padding: 6px 10px; min-width: 56px; min-height: 44px; border-radius: 12px;
+      text-decoration: none; color: #475569; font-size: 0.68rem; font-weight: 700;
+      border: none; background: transparent; cursor: pointer; transition: 0.2s; font-family: inherit;
+    }
+    .mob-nav-item span.mob-icon { font-size: 1.2rem; line-height: 1; }
+    .mob-nav-item.active { color: #2563eb; background: #eff6ff; }
+    .mob-nav-item.sos-mob { color: #be123c; }
+
+    .to-top-btn {
+      position: fixed; right: 20px; bottom: 24px; width: 44px; height: 44px;
+      border-radius: 50%; background: #ffffff; border: 1px solid #cbd5e1; color: #1e293b;
+      font-weight: 800; font-size: 1.1rem; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      cursor: pointer; opacity: 0; pointer-events: none; transition: all 0.25s ease;
+      z-index: 8500; display: flex; align-items: center; justify-content: center;
+    }
+    .to-top-btn.visible { opacity: 1; pointer-events: auto; }
+    .to-top-btn:hover { background: #2563eb; color: #ffffff; border-color: #2563eb; transform: translateY(-3px); }
+
+    /* =========================================
+       ИДЕАЛЬНАЯ МОБИЛЬНАЯ АДАПТАЦИЯ (БЕЗ ДУБЛЕЙ И РАЗДУТОЙ ШАПКИ)
+       ========================================= */
+    @media (max-width: 768px) {
+      body.masterpiece-theme { padding-bottom: calc(74px + var(--safe-bottom)); }
+      .mobile-bottom-nav { display: flex; }
+      .to-top-btn { bottom: calc(84px + var(--safe-bottom)); right: 16px; }
+      .programs-grid { grid-template-columns: 1fr; gap: 20px; }
+      .hero-title { font-size: 1.85rem; min-height: 4.2rem; align-items: flex-start; }
+      .hero-lead { font-size: 0.96rem; padding: 14px 16px; }
+      .control-panel { padding: 16px; border-radius: 20px; }
+
+      /* Компактная однострочная шапка на смартфонах (~54px) */
+      .site-header.quantum-header {
+        padding: 8px 0 !important;
+      }
+      .site-header.quantum-header .header-inner {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 8px !important;
+      }
+      .site-header.quantum-header .header-brand {
+        width: auto !important;
+        justify-content: flex-start !important;
+        gap: 8px !important;
+      }
+      .site-header.quantum-header .brand-logo {
+        width: 34px !important;
+        height: 34px !important;
+      }
+      .site-header.quantum-header .site-title-mini {
+        font-size: 1rem !important;
+      }
+      /* Скрываем верхнее меню и дублирующие кнопки Поиска/112 в шапке на мобильных */
+      .site-header.quantum-header .main-nav,
+      #qHeaderSearchBtn,
+      #qHeaderSosBtn {
+        display: none !important;
+      }
+      /* Поповер Цифрового паспорта ровно по центру экрана телефона */
+      .q-passport-popover {
+        position: fixed !important;
+        top: 62px !important;
+        left: 12px !important;
+        right: 12px !important;
+        width: auto !important;
+        max-width: none !important;
+      }
+    }
+
+    /* === 6. ДОСТУПНОСТЬ: уважаем prefers-reduced-motion === */
     @media (prefers-reduced-motion: reduce) {
       body.masterpiece-theme { animation: none !important; background-size: 100% 100% !important; }
       .system-status-pulse { animation: none !important; }
@@ -276,38 +545,138 @@
 </head>
 <body class="masterpiece-theme">
 
+<div class="scroll-progress-bar" id="scrollProgress" aria-hidden="true"></div>
+
 <a class="skip-link" href="#main-content">Перейти к контенту</a>
 
 <div class="glass-wrapper">
 
-  <header class="site-header transparent-header">
+  <!-- СУПЕР-ШАПКА «QUANTUM COMMAND BAR V2.0» (Без ссылки на Софрино) -->
+  <header class="site-header transparent-header quantum-header" id="quantumHeader">
     <div class="container header-inner">
+
       <div class="header-brand">
-        <div class="brand-logo">
-          <img src="assets/Филин от.png" alt="Логотип СДО" width="42" height="42" style="width: 100%; height: 100%; object-fit: contain;">
+        <!-- Лаунчер разделов СДО (:::) -->
+        <div class="q-app-switcher">
+          <button type="button" class="q-app-btn" id="qAppBtn" aria-expanded="false" aria-haspopup="true" title="Быстрый навигатор разделов и тестов СДО" aria-label="Открыть быстрый навигатор СДО">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="5" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="5" r="2"/>
+              <circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/>
+              <circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="19" r="2"/>
+            </svg>
+          </button>
+
+          <div class="q-app-dropdown" id="qAppDropdown" role="menu" aria-label="Экосистема СДО">
+            <span class="q-dropdown-label">Разделы портала СДО</span>
+            <div class="q-app-grid">
+              <a href="index.html" class="q-app-tile" role="menuitem">
+                <span class="q-app-tile-icon" aria-hidden="true">🏠</span>
+                <span class="q-app-tile-title">Главная СДО</span>
+                <span class="q-app-tile-sub">Дашборд и календарь</span>
+              </a>
+              <a href="programs.html" class="q-app-tile" role="menuitem">
+                <span class="q-app-tile-icon" aria-hidden="true">📚</span>
+                <span class="q-app-tile-title">Реестр (9)</span>
+                <span class="q-app-tile-sub">Все курсы и тренажеры</span>
+              </a>
+              <a href="instructions.html" class="q-app-tile" role="menuitem">
+                <span class="q-app-tile-icon" aria-hidden="true">📋</span>
+                <span class="q-app-tile-title">Инструкции</span>
+                <span class="q-app-tile-sub">4 шага аттестации</span>
+              </a>
+              <a href="for-responsibles.html" class="q-app-tile" role="menuitem">
+                <span class="q-app-tile-icon" aria-hidden="true">👔</span>
+                <span class="q-app-tile-title">Ответственным</span>
+                <span class="q-app-tile-sub">Калькулятор и шаблоны</span>
+              </a>
+            </div>
+
+            <span class="q-dropdown-label">Прямой переход к итоговым тестам</span>
+            <div class="q-tests-Sublist">
+              <a href="https://demoonstars.github.io/Test_OT_b/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🛡️ Тест: Охрана труда (Вводный)</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/Test_OT_Programm_A/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>⚖️ Тест: ОТ Программа А</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/Test_-_-_b/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🔥 Тест: Пожарная безопасность</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/First_aid/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🩹 Тест: Первая помощь</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/UAV_Threat_Test/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🚁 Тест: Угроза атаки БПЛА</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/GO_ChS_Test/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>📢 Тест: ГО и ЧС</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/Electrical_Safety_Test/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>⚡ Тест: Электробезопасность</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/hygiene-training/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🧼 Тест: Санминимум</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/mentoring-quiz/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🛎️ Тест: Наставничество</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/conflict-management/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🧠 Тест: Управление конфликтами</span><span>➔</span></a>
+            </div>
+          </div>
         </div>
+
+        <a href="index.html" class="brand-logo" title="На главную СДО">
+          <img src="assets/Филин от.png" alt="Логотип СДО" width="42" height="42" style="width: 100%; height: 100%; object-fit: contain;">
+        </a>
         <div>
-          <!-- Бренд в шапке: не h1, чтобы главный заголовок страницы был один (в hero ниже) -->
           <div class="site-title-mini">СДО</div>
           <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
+        </div>
+
+        <!-- Контекстный радар фильтрации каталога при скролле -->
+        <div class="q-context-radar has-context" id="qContextRadar" aria-live="polite">
+          <span class="q-radar-dot" aria-hidden="true"></span>
+          <span class="q-radar-section" id="qRadarText">📚 Все программы (9)</span>
         </div>
       </div>
 
       <div class="header-meta">
         <span id="current-date">Загрузка...</span>
         <span style="display:flex; align-items:center;">
-            <span class="system-status-pulse" aria-hidden="true"></span> Online
+          <span class="system-status-pulse" aria-hidden="true"></span> Online
         </span>
       </div>
 
       <nav class="main-nav" aria-label="Основная навигация">
-        <ul class="nav-list">
+        <ul class="nav-list" id="qNavList">
+          <span class="q-nav-glider" id="qNavGlider" aria-hidden="true"></span>
           <li><a href="index.html" class="nav-link">Главная</a></li>
           <li><a href="programs.html" class="nav-link nav-link-active active" aria-current="page">Каталог программ</a></li>
           <li><a href="instructions.html" class="nav-link">Инструкции</a></li>
           <li><a href="for-responsibles.html" class="nav-link">Ответственным</a></li>
         </ul>
       </nav>
+
+      <!-- Командные кнопки шапки: на мобильных остается только уникальный Цифровой Паспорт -->
+      <div class="q-header-actions">
+        <button type="button" class="q-cmd-btn" id="qHeaderSearchBtn" title="Быстрый поиск курса или теста (Ctrl + K)" aria-label="Открыть быстрый поиск">
+          <span aria-hidden="true">🔍</span>
+          <span class="q-cmd-kbd" aria-hidden="true">Ctrl+K</span>
+        </button>
+
+        <div class="q-passport-wrap">
+          <button type="button" class="q-passport-btn" id="qPassportBtn" aria-expanded="false" aria-haspopup="true" title="Цифровой паспорт обучения сотрудника" aria-label="Открыть цифровой паспорт обучения">
+            <svg class="q-ring-svg" viewBox="0 0 24 24" aria-hidden="true">
+              <circle class="q-ring-bg" cx="12" cy="12" r="10"></circle>
+              <circle class="q-ring-fill" id="qRingFill" cx="12" cy="12" r="10"></circle>
+            </svg>
+            <span id="qPassportPct">0%</span>
+          </button>
+
+          <div class="q-passport-popover" id="qPassportPopover" role="region" aria-label="Цифровой паспорт обучения">
+            <div class="q-pass-header">
+              <h4 class="q-pass-title"><span aria-hidden="true">🎓</span> Цифровой паспорт СДО</h4>
+              <span class="q-pass-rank" id="qPassportRank">Старт обучения</span>
+            </div>
+            <div style="font-size: 0.76rem; color: #64748b; margin-bottom: 10px;">
+              Автоматическая сводка изученных материалов в вашем браузере:
+            </div>
+            <div class="q-pass-list" id="qPassportList"></div>
+            <div class="q-pass-footer">
+              <button type="button" class="q-pass-action-btn" id="qPrintPassportBtn">🖨️ Печать сводки</button>
+              <a href="instructions.html" class="q-pass-action-btn" style="text-align:center; text-decoration:none;">Регламент ➔</a>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="q-cmd-btn q-cmd-sos" id="qHeaderSosBtn" title="Экстренная памятка ЧС и БПЛА (112)" aria-label="Открыть экстренную памятку ЧС">
+          <span aria-hidden="true">🚨</span>
+          <span class="q-cmd-label-desktop">112</span>
+        </button>
+      </div>
+
     </div>
   </header>
 
@@ -315,28 +684,27 @@
     <div class="container">
 
       <div class="programs-hero">
-        <!--
-          Единственный h1 на странице.
-          Добавлен aria-label, чтобы скринридер сразу озвучивал заголовок целиком,
-          не спотыкаясь о посимвольную анимацию печатной машинки в #typing-text.
-        -->
         <h1 class="hero-title" aria-label="Реестр программ обучения">
           <span id="typing-text" aria-hidden="true">Реестр программ обучения</span><span class="cursor-blink" aria-hidden="true"></span>
         </h1>
         <p class="hero-lead">
-          Реестр актуальных программ обучения. Выберите направление, соответствующее вашим должностным обязанностям.
+          Реестр актуальных программ обучения. Выберите направление, соответствующее вашим должностным обязанностям, или продолжите чтение с сохраненной страницы.
         </p>
       </div>
 
       <div class="control-panel">
         <div class="search-input-wrap">
           <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" id="searchInput" class="search-input" placeholder="Поиск по названию или ключевым словам..." aria-label="Поиск по названию или ключевым словам">
+          <input type="text" id="searchInput" class="search-input" placeholder="Поиск по названию, номеру приказа или ключевым словам..." aria-label="Поиск по названию или ключевым словам">
+          <button type="button" class="search-clear-btn" id="searchClearBtn" title="Очистить поиск" aria-label="Очистить поисковый запрос">✕</button>
         </div>
 
-        <!-- Фильтры: role="group" + aria-label для скринридеров -->
+        <!-- Фильтры: добавлен умный фильтр «📖 В работе» с живым счетчиком -->
         <div class="filters-row" role="group" aria-label="Фильтры по категориям">
           <button type="button" class="filter-chip" aria-pressed="true" data-filter="all">Все программы</button>
+          <button type="button" class="filter-chip chip-in-progress" aria-pressed="false" data-filter="in-progress" id="inProgressChip">
+            <span aria-hidden="true">📖</span> В работе <span class="chip-count-badge" id="inProgressCount">0</span>
+          </button>
           <button type="button" class="filter-chip" aria-pressed="false" data-filter="ot">Охрана труда</button>
           <button type="button" class="filter-chip" aria-pressed="false" data-filter="fire">Пожарная безопасность</button>
           <button type="button" class="filter-chip" aria-pressed="false" data-filter="med">Первая помощь</button>
@@ -348,398 +716,7 @@
           <button type="button" class="filter-chip" aria-pressed="false" data-filter="bpla">Антитеррор / БПЛА</button>
         </div>
 
-        <!-- aria-live: скринридер объявит изменение количества доступных курсов -->
         <div id="resultsCount" style="text-align: center; margin-top: 15px; font-size: 0.85rem; color: #64748b; font-weight: 600;" aria-live="polite" aria-atomic="true">
           Доступно курсов: 9
         </div>
       </div>
-
-      <!-- Скрытый заголовок h2 для правильной семантической иерархии h1 -> h2 -> h3 -->
-      <h2 class="sr-only">Список программ обучения</h2>
-
-      <div class="programs-grid" id="programsGrid">
-
-        <!-- Карточки: декоративные иконки скрыты от скринридера через aria-hidden -->
-        <article class="program-card" data-cat="ot" data-storage-key="program_a_pdf_page" data-keywords="вводный инструктаж сиз 2464 охрана труда">
-          <div class="card-content">
-              <div class="card-top">
-                <div class="card-icon" style="background: #ecfdf5; color: #047857;" aria-hidden="true">🛡️</div>
-                <span class="status-tag">ПП № 2464</span>
-              </div>
-              <h3 class="card-title">Охрана труда (Комплекс)</h3>
-              <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
-              <p class="card-desc">
-                Комплексная программа: Вводный инструктаж, программы А, Б и применение СИЗ.
-              </p>
-              <a href="course-ot.html" class="card-btn">
-                Перейти к обучению <span aria-hidden="true">➔</span>
-              </a>
-          </div>
-        </article>
-
-        <article class="program-card" data-cat="fire" data-storage-key="fire_intro_pdf_page" data-keywords="пожар мчс 1120 огнетушитель эвакуация">
-          <div class="card-content">
-              <div class="card-top">
-                <div class="card-icon" style="background: #fff7ed; color: #c2410c;" aria-hidden="true">🔥</div>
-                <span class="status-tag">МЧС №1120</span>
-              </div>
-              <h3 class="card-title">Пожарная безопасность</h3>
-              <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
-              <p class="card-desc">
-                Противопожарные инструктажи. Действия при пожаре, эвакуация и огнетушители.
-              </p>
-              <a href="course-fire-safety.html" class="card-btn">
-                Перейти к обучению <span aria-hidden="true">➔</span>
-              </a>
-          </div>
-        </article>
-
-        <article class="program-card" data-cat="med" data-storage-key="firstaid_pdf_page" data-keywords="помощь медицина 220н травма кровь">
-          <div class="card-content">
-              <div class="card-top">
-                <div class="card-icon" style="background: #fef2f2; color: #b91c1c;" aria-hidden="true">🩹</div>
-                <span class="status-tag">Минздрав 220н</span>
-              </div>
-              <h3 class="card-title">Первая помощь</h3>
-              <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
-              <p class="card-desc">
-                Алгоритм оказания помощи. СЛР, остановка кровотечений, помощь при травмах.
-              </p>
-              <a href="course-first-aid.html" class="card-btn">
-                Перейти к обучению <span aria-hidden="true">➔</span>
-              </a>
-          </div>
-        </article>
-
-        <article class="program-card" data-cat="gochs" data-storage-key="gochs_pdf_page" data-keywords="го чс гражданская оборона сирена">
-          <div class="card-content">
-              <div class="card-top">
-                <div class="card-icon" style="background: #eff6ff; color: #1d4ed8;" aria-hidden="true">📢</div>
-                <span class="status-tag">ФЗ №28 / №68</span>
-              </div>
-              <h3 class="card-title">ГО и защита от ЧС</h3>
-              <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
-              <p class="card-desc">
-                Вводный инструктаж по ГО. Сигналы оповещения и действия при угрозах.
-              </p>
-              <a href="course-gochs.html" class="card-btn">
-                Перейти к обучению <span aria-hidden="true">➔</span>
-              </a>
-          </div>
-        </article>
-
-        <article class="program-card" data-cat="el" data-storage-key="el_group1_pdf_page" data-keywords="ток напряжение электробезопасность группа допуска 903н">
-          <div class="card-content">
-              <div class="card-top">
-                <div class="card-icon" style="background: #fefce8; color: #ca8a04;" aria-hidden="true">⚡</div>
-                <span class="status-tag">Приказ № 903н</span>
-              </div>
-              <h3 class="card-title">Электробезопасность</h3>
-              <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
-              <p class="card-desc">
-                Подготовка к проверке знаний для присвоения I, II, III, IV и V групп допуска. ПОТЭУ.
-              </p>
-              <a href="course-electrical-safety.html" class="card-btn">
-                Перейти к обучению <span aria-hidden="true">➔</span>
-              </a>
-          </div>
-        </article>
-
-        <article class="program-card" data-cat="san" data-storage-key="hygiene_pdf_page" data-keywords="гигиена санминимум гостиница медкнижка санпин обучение бактерии">
-          <div class="card-content">
-              <div class="card-top">
-                <div class="card-icon" style="background: #f0fdf4; color: #15803d;" aria-hidden="true">🧼</div>
-                <span class="status-tag">СанПиН 2.1.3678-20</span>
-              </div>
-              <h3 class="card-title">Гигиеническое обучение</h3>
-              <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
-              <p class="card-desc">
-                Профессиональная гигиеническая подготовка работников гостиниц. Требования к содержанию помещений и личной гигиене. Обратите внимание: официальная аттестация (внесение в медицинскую книжку) проводится исключительно в аккредитованных центрах гигиены и эпидемиологии.
-              </p>
-              <a href="course-hygiene.html" class="card-btn">
-                Перейти к обучению <span aria-hidden="true">➔</span>
-              </a>
-          </div>
-        </article>
-
-        <article class="program-card" data-cat="hotel" data-storage-key="mentor_pdf_page" data-keywords="наставник наставничество гостиница отель сервис адаптация стажировка обучение">
-          <div class="card-content">
-              <div class="card-top">
-                <div class="card-icon" style="background: #faf5ff; color: #9333ea;" aria-hidden="true">🛎️</div>
-                <span class="status-tag">Профстандарт</span>
-              </div>
-              <h3 class="card-title">Наставничество</h3>
-              <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
-              <p class="card-desc">
-                Обучение и адаптация новых сотрудников. Эффективная передача опыта, стандарты сервиса и психология наставника.
-              </p>
-              <a href="course-mentorship.html" class="card-btn">
-                Перейти к обучению <span aria-hidden="true">➔</span>
-              </a>
-          </div>
-        </article>
-
-        <article class="program-card" data-cat="conflict" data-storage-key="conflict_pdf_page" data-keywords="конфликт агрессия стресс декомпрессия айсберг психология выгорание">
-          <div class="card-content">
-              <div class="card-top">
-                <div class="card-icon" style="background: #fdf2f8; color: #db2777;" aria-hidden="true">🧠</div>
-                <span class="status-tag">Soft Skills</span>
-              </div>
-              <h3 class="card-title">Управление конфликтами</h3>
-              <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
-              <p class="card-desc">
-                Психология агрессии, принцип «Айсберга» и алгоритм декомпрессии. Как сохранить себя и команду в стрессе.
-              </p>
-              <a href="course-conflict.html" class="card-btn">
-                Перейти к обучению <span aria-hidden="true">➔</span>
-              </a>
-          </div>
-        </article>
-
-        <!-- Новый блок: Действия при угрозе БПЛА -->
-        <article class="program-card" data-cat="bpla" data-storage-key="bpla_pdf_page" data-keywords="бпла дрон беспилотник антитеррор взрыв завал мчс эвакуация">
-          <div class="card-content">
-              <div class="card-top">
-                <div class="card-icon" style="background: #ffe4e6; color: #e11d48;" aria-hidden="true">🚁</div>
-                <span class="status-tag">ФЗ-35 / 68-ФЗ</span>
-              </div>
-              <h3 class="card-title">Действия при угрозе БПЛА</h3>
-              <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
-              <p class="card-desc">
-                Алгоритмы выживания при атаке беспилотников. Правила укрытия, действия при взрыве, завалах и протоколы для ИТР.
-              </p>
-              <a href="course-bpla.html" class="card-btn">
-                Перейти к обучению <span aria-hidden="true">➔</span>
-              </a>
-          </div>
-        </article>
-
-      </div>
-
-      <!-- Сообщение "Ничего не найдено" скрыто по умолчанию -->
-      <div id="noResults" style="display:none; text-align:center; padding: 60px 20px; color: #64748b;" role="status">
-        <div style="font-size: 3rem; margin-bottom: 20px; opacity: 0.7;" aria-hidden="true">🔍</div>
-        <h3 style="margin: 0 0 10px; color: #1e293b; font-size: 1.5rem;">Ничего не найдено</h3>
-        <p style="color: #475569;">Попробуйте изменить запрос или сбросить фильтры.</p>
-        <button type="button" onclick="resetFilters()" style="margin-top:20px; padding:12px 24px; border-radius:12px; background:#fff; border:1px solid #cbd5e1; cursor:pointer; font-weight:600; color: #334155; box-shadow:0 4px 10px rgba(0,0,0,0.05); transition: 0.2s;">
-          Сбросить все фильтры
-        </button>
-      </div>
-
-    </div>
-  </main>
-
-  <footer class="glass-footer">
-    <div class="container">
-      <p>© 2026 Служба Охраны Труда. Внутренний ресурс.</p>
-    </div>
-  </footer>
-
-</div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    document.body.classList.add('js-loaded');
-
-    // Уважение системной настройки "уменьшить движение"
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // 1. ДАТА В ШАПКЕ
-    const now = new Date();
-    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const dateStr = now.toLocaleDateString('ru-RU', dateOptions);
-    const dateEl = document.getElementById('current-date');
-    if (dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
-
-    // 2. ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ
-    // Если включён prefers-reduced-motion — просто показываем первый слоган без анимации.
-    const textElement = document.getElementById('typing-text');
-    const texts = ["Реестр программ обучения", "Актуальные знания", "Безопасность труда", "Санитарные нормы", "Защита от БПЛА", "Управление конфликтами"];
-    let textIndex = 0, charIndex = 0, isDeleting = false;
-
-    function typeEffect() {
-      if (!textElement) return;
-      const currentText = texts[textIndex];
-      if (isDeleting) {
-        textElement.textContent = currentText.substring(0, charIndex - 1);
-        charIndex--;
-      } else {
-        textElement.textContent = currentText.substring(0, charIndex + 1);
-        charIndex++;
-      }
-      let typeSpeed = isDeleting ? 50 : 100;
-      if (!isDeleting && charIndex === currentText.length) {
-        isDeleting = true;
-        typeSpeed = 2000;
-      } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        textIndex = (textIndex + 1) % texts.length;
-        typeSpeed = 500;
-      }
-      setTimeout(typeEffect, typeSpeed);
-    }
-
-    if (prefersReducedMotion) {
-      if (textElement) textElement.textContent = texts[0];
-    } else {
-      typeEffect();
-    }
-
-    /*
-     * БЛОК: Анимация появления карточек и синхронизация визуальных полос прогресса.
-     * ЗА ЧТО ОТВЕЧАЕТ: Плавное каскадное появление карточек при старте/фильтрации и освобождение
-     * свойства transform после завершения animationend, чтобы работал 3D-наклон за курсором.
-     * ПОЧЕМУ БЕЗОПАСНО: Не меняет верстку и устраняет блокировку инлайн-трансформаций свойством animation-fill-mode: forwards.
-     */
-    const cards = document.querySelectorAll('.program-card');
-
-    // Подсветка прогресс-баров начатых курсов из localStorage
-    try {
-      cards.forEach(card => {
-        const key = card.dataset.storageKey;
-        const bar = card.querySelector('.visual-progress-bar');
-        if (key && bar) {
-          const savedPage = parseInt(localStorage.getItem(key), 10);
-          if (Number.isFinite(savedPage) && savedPage > 1) {
-            const pct = Math.min(100, Math.max(15, savedPage * 10));
-            bar.style.width = `${pct}%`;
-          }
-        }
-      });
-    } catch (e) {}
-
-    cards.forEach(card => {
-      card.addEventListener('animationend', () => {
-        card.style.opacity = '1';
-        card.style.transform = 'translateY(0)';
-        card.style.animation = 'none';
-      });
-    });
-
-    function animateCards() {
-      cards.forEach((card, index) => {
-        if (getComputedStyle(card).display !== 'none') {
-          if (prefersReducedMotion) {
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-            return;
-          }
-          card.style.animation = `slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards ${index * 0.1}s`;
-        }
-      });
-    }
-    animateCards();
-
-    // 4. ПОИСК И ФИЛЬТРЫ
-    const searchInput = document.getElementById('searchInput');
-    const filterBtns = document.querySelectorAll('.filter-chip');
-    const noResults = document.getElementById('noResults');
-    const resultsCount = document.getElementById('resultsCount');
-
-    function filterPrograms() {
-      const searchText = searchInput.value.toLowerCase().trim();
-      const activeBtn = document.querySelector('.filter-chip[aria-pressed="true"]');
-      const category = activeBtn ? activeBtn.dataset.filter : 'all';
-      let visibleCount = 0;
-
-      // Сначала сбрасываем анимацию у всех карточек
-      cards.forEach(card => {
-        card.style.animation = 'none';
-        card.style.opacity = '0';
-      });
-
-      let delayCounter = 0;
-      cards.forEach(card => {
-        const title = card.querySelector('.card-title').textContent.toLowerCase();
-        const desc = card.querySelector('.card-desc').textContent.toLowerCase();
-        const keywords = card.dataset.keywords ? card.dataset.keywords.toLowerCase() : '';
-        const type = card.dataset.cat;
-
-        const matchesText = title.includes(searchText) || desc.includes(searchText) || keywords.includes(searchText);
-        const matchesCategory = category === 'all' || type === category;
-
-        if (matchesText && matchesCategory) {
-          card.style.display = "flex";
-          if (prefersReducedMotion) {
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-          } else {
-            card.style.animation = `slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards ${delayCounter * 0.1}s`;
-          }
-          visibleCount++;
-          delayCounter++;
-        } else {
-          card.style.display = "none";
-        }
-      });
-
-      // aria-live="polite" на resultsCount автоматически озвучит изменение
-      resultsCount.textContent = `Доступно курсов: ${visibleCount}`;
-      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
-
-      if (visibleCount === 0 && !prefersReducedMotion) {
-        noResults.style.opacity = '0';
-        noResults.style.transform = 'translateY(10px)';
-        setTimeout(() => {
-          noResults.style.transition = 'all 0.5s ease';
-          noResults.style.opacity = '1';
-          noResults.style.transform = 'translateY(0)';
-        }, 50);
-      } else if (visibleCount === 0) {
-        noResults.style.opacity = '1';
-        noResults.style.transform = 'translateY(0)';
-      }
-    }
-
-    searchInput.addEventListener('input', filterPrograms);
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.setAttribute('aria-pressed', 'false'));
-        btn.setAttribute('aria-pressed', 'true');
-        filterPrograms();
-      });
-    });
-
-    // Глобальная функция сброса (используется в кнопке "Сбросить все фильтры")
-    window.resetFilters = function() {
-      searchInput.value = '';
-      filterBtns.forEach(b => b.setAttribute('aria-pressed', 'false'));
-      const allBtn = document.querySelector('.filter-chip[data-filter="all"]');
-      if (allBtn) allBtn.setAttribute('aria-pressed', 'true');
-      filterPrograms();
-    };
-
-    // 5. 3D TILT + SPOTLIGHT (только ПК и без reduced motion)
-    if (!prefersReducedMotion && window.matchMedia("(min-width: 768px)").matches) {
-      cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-
-          // Передаём координаты курсора в CSS-переменные для прожектора
-          card.style.setProperty('--mouse-x', `${x}px`);
-          card.style.setProperty('--mouse-y', `${y}px`);
-
-          // Наклон карточки вслед за мышью
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          const rotateX = ((y - centerY) / centerY) * -3;
-          const rotateY = ((x - centerX) / centerX) * 3;
-
-          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
-        });
-
-        card.addEventListener('mouseleave', () => {
-          // Плавный возврат в исходное положение
-          card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
-        });
-      });
-    }
-
-  });
-</script>
-
-</body>
-</html>
