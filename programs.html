@@ -69,16 +69,16 @@
     /* === 2. HERO СЕКЦИЯ === */
     .programs-hero {
       text-align: center;
-      padding: 50px 20px 35px;
+      padding: 45px 20px 32px;
       position: relative;
       z-index: 10;
     }
 
     .hero-title {
-      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-size: clamp(1.9rem, 4.5vw, 3rem);
       font-weight: 800;
       color: #0f172a;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       line-height: 1.2;
       min-height: 3.6rem;
       display: flex;
@@ -90,7 +90,7 @@
       color: #475569;
       max-width: 720px;
       margin: 0 auto;
-      font-size: 1.08rem;
+      font-size: 1.05rem;
       line-height: 1.6;
       background: rgba(255,255,255,0.68);
       backdrop-filter: blur(8px);
@@ -107,11 +107,6 @@
     }
     @keyframes blink { 50% { opacity: 0; } }
 
-    @media (max-width: 768px) {
-      .hero-title { font-size: 1.95rem; min-height: 4.5rem; align-items: flex-start; }
-      .hero-lead { font-size: 0.98rem; padding: 14px 16px; }
-    }
-
     /* === 3. ПАНЕЛЬ УПРАВЛЕНИЯ === */
     .control-panel {
       background: rgba(255, 255, 255, 0.85);
@@ -121,7 +116,7 @@
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
-      margin-bottom: 40px;
+      margin-bottom: 36px;
     }
     body.js-loaded .control-panel {
       transform: translateY(20px);
@@ -455,10 +450,10 @@
       display: none;
       position: fixed;
       bottom: 0; left: 0; right: 0;
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(203, 213, 225, 0.8);
+      border-top: 1px solid rgba(203, 213, 225, 0.85);
       padding: 6px 8px calc(6px + var(--safe-bottom));
       z-index: 9000;
       box-shadow: 0 -8px 25px rgba(15, 23, 42, 0.08);
@@ -485,11 +480,55 @@
     .to-top-btn.visible { opacity: 1; pointer-events: auto; }
     .to-top-btn:hover { background: #2563eb; color: #ffffff; border-color: #2563eb; transform: translateY(-3px); }
 
+    /* =========================================
+       ИДЕАЛЬНАЯ МОБИЛЬНАЯ АДАПТАЦИЯ (БЕЗ ДУБЛЕЙ И РАЗДУТОЙ ШАПКИ)
+       ========================================= */
     @media (max-width: 768px) {
       body.masterpiece-theme { padding-bottom: calc(74px + var(--safe-bottom)); }
       .mobile-bottom-nav { display: flex; }
       .to-top-btn { bottom: calc(84px + var(--safe-bottom)); right: 16px; }
       .programs-grid { grid-template-columns: 1fr; gap: 20px; }
+      .hero-title { font-size: 1.85rem; min-height: 4.2rem; align-items: flex-start; }
+      .hero-lead { font-size: 0.96rem; padding: 14px 16px; }
+      .control-panel { padding: 16px; border-radius: 20px; }
+
+      /* Компактная однострочная шапка на смартфонах (~54px) */
+      .site-header.quantum-header {
+        padding: 8px 0 !important;
+      }
+      .site-header.quantum-header .header-inner {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 8px !important;
+      }
+      .site-header.quantum-header .header-brand {
+        width: auto !important;
+        justify-content: flex-start !important;
+        gap: 8px !important;
+      }
+      .site-header.quantum-header .brand-logo {
+        width: 34px !important;
+        height: 34px !important;
+      }
+      .site-header.quantum-header .site-title-mini {
+        font-size: 1rem !important;
+      }
+      /* Скрываем верхнее меню и дублирующие кнопки Поиска/112 в шапке на мобильных */
+      .site-header.quantum-header .main-nav,
+      #qHeaderSearchBtn,
+      #qHeaderSosBtn {
+        display: none !important;
+      }
+      /* Поповер Цифрового паспорта ровно по центру экрана телефона */
+      .q-passport-popover {
+        position: fixed !important;
+        top: 62px !important;
+        left: 12px !important;
+        right: 12px !important;
+        width: auto !important;
+        max-width: none !important;
+      }
     }
 
     /* === 6. ДОСТУПНОСТЬ: уважаем prefers-reduced-motion === */
@@ -512,12 +551,7 @@
 
 <div class="glass-wrapper">
 
-  <!--
-    ======================================================================
-    БЛОК: СУПЕР-ШАПКА «QUANTUM COMMAND BAR V2.0»
-    (Без ссылки на закрытую страницу Софрино в переключателе :::)
-    ======================================================================
-  -->
+  <!-- СУПЕР-ШАПКА «QUANTUM COMMAND BAR V2.0» (Без ссылки на Софрино) -->
   <header class="site-header transparent-header quantum-header" id="quantumHeader">
     <div class="container header-inner">
 
@@ -605,7 +639,7 @@
         </ul>
       </nav>
 
-      <!-- Командные кнопки шапки: Поиск, Паспорт СДО и ЧС -->
+      <!-- Командные кнопки шапки: на мобильных остается только уникальный Цифровой Паспорт -->
       <div class="q-header-actions">
         <button type="button" class="q-cmd-btn" id="qHeaderSearchBtn" title="Быстрый поиск курса или теста (Ctrl + K)" aria-label="Открыть быстрый поиск">
           <span aria-hidden="true">🔍</span>
@@ -686,8 +720,7 @@
           Доступно курсов: 9
         </div>
       </div>
-
-      <h2 class="sr-only">Список программ обучения</h2>
+<h2 class="sr-only">Список программ обучения</h2>
 
       <div class="programs-grid" id="programsGrid">
 
@@ -818,7 +851,7 @@
             <h3 class="card-title">Гигиеническое обучение</h3>
             <div class="visual-progress"><div class="visual-progress-bar" style="width: 0%"></div></div>
             <p class="card-desc">
-              Профессиональная гигиеническая подготовка работников гостиниц. Требования к содержанию помещений и личной гигиене. Обратите внимание: официальная аттестация (внесение в медицинскую книжку) проводится исключительно в аккредитованных центрах гигиены и эпидемиологии.
+              Профессиональная гигиеническая подготовка работников гостиниц. Требования к содержанию помещений и личной гигиене. Официальная аттестация (внесение в медицинскую книжку) проводится в аккредитованных центрах гигиены и эпидемиологии.
             </p>
             <div class="card-actions-row">
               <a href="course-hygiene.html" class="card-btn">
@@ -990,3 +1023,534 @@
     </div>
   </div>
 </div>
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.body.classList.add('js-loaded');
+
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // === 1. ДАТА В ШАПКЕ И ПРОГРЕСС-БАР СКРОЛЛА ===
+    const now = new Date();
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateStr = now.toLocaleDateString('ru-RU', dateOptions);
+    const dateEl = document.getElementById('current-date');
+    if (dateEl) {
+      dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+    }
+
+    const scrollProgress = document.getElementById('scrollProgress');
+    const toTopBtn = document.getElementById('toTopBtn');
+    const quantumHeader = document.getElementById('quantumHeader');
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (scrollHeight > 0 && scrollProgress) {
+        scrollProgress.style.width = (scrollTop / scrollHeight) * 100 + "%";
+      }
+      if (toTopBtn) {
+        toTopBtn.classList.toggle('visible', scrollTop > 400);
+      }
+      if (quantumHeader) {
+        quantumHeader.classList.toggle('is-scrolled', scrollTop > 60);
+      }
+    }, { passive: true });
+
+    toTopBtn?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    });
+
+    // === 2. ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ В HERO ===
+    const typingEl = document.getElementById('typing-text');
+    const heroText = "Реестр программ обучения";
+    if (typingEl && !prefersReducedMotion) {
+      typingEl.textContent = "";
+      let charIdx = 0;
+      const typeStep = () => {
+        if (charIdx < heroText.length) {
+          typingEl.textContent += heroText.charAt(charIdx);
+          charIdx++;
+          setTimeout(typeStep, 45);
+        }
+      };
+      setTimeout(typeStep, 150);
+    }
+
+    // === 3. ШАПКА QUANTUM COMMAND BAR V2.0 (Магнитная капсула, Лаунчер, Паспорт СДО) ===
+    const qNavList = document.getElementById('qNavList');
+    const qNavGlider = document.getElementById('qNavGlider');
+    const qNavLinks = qNavList ? Array.from(qNavList.querySelectorAll('.nav-link')) : [];
+
+    function moveNavGlider(targetLink) {
+      if (!qNavGlider || !targetLink || window.innerWidth <= 960) {
+        if (qNavGlider) qNavGlider.style.opacity = '0';
+        return;
+      }
+      const listRect = qNavList.getBoundingClientRect();
+      const linkRect = targetLink.getBoundingClientRect();
+      const offsetLeft = linkRect.left - listRect.left;
+      qNavGlider.style.width = `${linkRect.width}px`;
+      qNavGlider.style.transform = `translateX(${offsetLeft}px)`;
+      qNavGlider.style.opacity = '1';
+    }
+
+    const activeNavLink = qNavList?.querySelector('.nav-link.active') || qNavLinks[1] || qNavLinks[0];
+    if (activeNavLink) {
+      setTimeout(() => moveNavGlider(activeNavLink), 100);
+    }
+
+    qNavLinks.forEach(link => {
+      link.addEventListener('mouseenter', () => moveNavGlider(link));
+      link.addEventListener('focus', () => moveNavGlider(link));
+    });
+    qNavList?.addEventListener('mouseleave', () => moveNavGlider(activeNavLink));
+    window.addEventListener('resize', () => moveNavGlider(activeNavLink), { passive: true });
+
+    const qAppBtn = document.getElementById('qAppBtn');
+    const qAppDropdown = document.getElementById('qAppDropdown');
+    const qPassportBtn = document.getElementById('qPassportBtn');
+    const qPassportPopover = document.getElementById('qPassportPopover');
+
+    function closeHeaderPopovers() {
+      if (qAppDropdown) {
+        qAppDropdown.classList.remove('open');
+        qAppBtn?.setAttribute('aria-expanded', 'false');
+      }
+      if (qPassportPopover) {
+        qPassportPopover.classList.remove('open');
+        qPassportBtn?.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    qAppBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = !qAppDropdown.classList.contains('open');
+      closeHeaderPopovers();
+      if (willOpen) {
+        qAppDropdown.classList.add('open');
+        qAppBtn.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    qPassportBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = !qPassportPopover.classList.contains('open');
+      closeHeaderPopovers();
+      if (willOpen) {
+        qPassportPopover.classList.add('open');
+        qPassportBtn.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    qAppDropdown?.addEventListener('click', (e) => e.stopPropagation());
+    qPassportPopover?.addEventListener('click', (e) => e.stopPropagation());
+    document.addEventListener('click', closeHeaderPopovers);
+
+    // === 4. ЖИВАЯ ТЕЛЕМЕТРИЯ КАРТОЧЕК И ЦИФРОВОЙ ПАСПОРТ СДО ===
+    const programCards = Array.from(document.querySelectorAll('.program-card'));
+    const inProgressCountEl = document.getElementById('inProgressCount');
+    const qRingFill = document.getElementById('qRingFill');
+    const qPassportPct = document.getElementById('qPassportPct');
+    const qPassportRank = document.getElementById('qPassportRank');
+    const qPassportList = document.getElementById('qPassportList');
+    const qPrintPassportBtn = document.getElementById('qPrintPassportBtn');
+
+    function readSavedPage(key, altKey) {
+      try {
+        const primaryVal = key ? parseInt(localStorage.getItem(key), 10) : NaN;
+        if (Number.isFinite(primaryVal) && primaryVal >= 1) return primaryVal;
+        const altVal = altKey ? parseInt(localStorage.getItem(altKey), 10) : NaN;
+        if (Number.isFinite(altVal) && altVal >= 1) return altVal;
+      } catch (e) {}
+      return null;
+    }
+
+    function syncTelemetryAndPassport() {
+      let startedCoursesCount = 0;
+      const passportRowsHTML = [];
+
+      programCards.forEach((card, index) => {
+        const key = card.getAttribute('data-storage-key');
+        const altKey = card.getAttribute('data-alt-key');
+        const savedPage = readSavedPage(key, altKey);
+
+        const titleText = card.querySelector('.card-title')?.textContent.trim() || 'Курс';
+        const iconText = card.querySelector('.card-icon')?.textContent.trim() || '📘';
+        const courseHref = card.querySelector('.card-btn')?.getAttribute('href') || '#';
+        const pillEl = card.querySelector('.telemetry-pill');
+        const barEl = card.querySelector('.visual-progress-bar');
+        const btnLabelEl = card.querySelector('.card-btn-label');
+
+        if (savedPage !== null && savedPage >= 1) {
+          startedCoursesCount++;
+          card.classList.add('is-started');
+          if (pillEl) pillEl.textContent = `📖 Стр. ${savedPage}`;
+          if (barEl) {
+            const estimatedPct = savedPage === 1 ? 18 : Math.min(95, 15 + savedPage * 7);
+            barEl.style.width = `${estimatedPct}%`;
+          }
+          if (btnLabelEl && savedPage > 1) {
+            btnLabelEl.textContent = `Продолжить (Стр. ${savedPage})`;
+          }
+        } else {
+          card.classList.remove('is-started');
+          if (barEl) barEl.style.width = '12%';
+        }
+
+        passportRowsHTML.push(`
+          <a href="${courseHref}" class="q-pass-item">
+            <div class="q-pass-item-left">
+              <span aria-hidden="true">${iconText}</span>
+              <span class="q-pass-item-title">${titleText}</span>
+            </div>
+            <span class="q-pass-item-status ${savedPage ? 'in-progress' : ''}">
+              ${savedPage ? `Стр. ${savedPage}` : 'Не начат'}
+            </span>
+          </a>
+        `);
+
+        // Плавное каскадное появление карточек при загрузке
+        if (!prefersReducedMotion) {
+          setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, 80 + index * 55);
+        } else {
+          card.style.opacity = '1';
+          card.style.transform = 'none';
+        }
+      });
+
+      if (inProgressCountEl) {
+        inProgressCountEl.textContent = String(startedCoursesCount);
+      }
+
+      const totalCourses = programCards.length || 9;
+      const pct = Math.round((startedCoursesCount / totalCourses) * 100);
+      if (qPassportPct) qPassportPct.textContent = `${pct}%`;
+
+      if (qRingFill) {
+        const circumference = 62.83;
+        const offset = circumference - (pct / 100) * circumference;
+        qRingFill.style.strokeDashoffset = `${offset}`;
+      }
+
+      if (qPassportRank) {
+        if (pct === 0) qPassportRank.textContent = 'Готов к старту';
+        else if (pct < 40) qPassportRank.textContent = `В процессе (${startedCoursesCount}/${totalCourses})`;
+        else if (pct < 80) qPassportRank.textContent = `Активный (${startedCoursesCount}/${totalCourses})`;
+        else qPassportRank.textContent = `Профи ОТ (${startedCoursesCount}/${totalCourses})`;
+      }
+
+      if (qPassportList) {
+        qPassportList.innerHTML = passportRowsHTML.join('');
+      }
+    }
+
+    syncTelemetryAndPassport();
+
+    qPrintPassportBtn?.addEventListener('click', () => {
+      closeHeaderPopovers();
+      window.print();
+    });
+
+    // === 5. SPOTLIGHT ЭФФЕКТ НА КАРТОЧКАХ (Desktop) ===
+    if (!prefersReducedMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      programCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+          card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        });
+      });
+    }
+
+    // === 6. ФИЛЬТРАЦИЯ КАТЕГОРИЙ, ЖИВОЙ ПОИСК И VIEW TRANSITIONS ===
+    const searchInputEl = document.getElementById('searchInput');
+    const searchClearBtn = document.getElementById('searchClearBtn');
+    const filterChips = Array.from(document.querySelectorAll('.filter-chip'));
+    const resultsCountEl = document.getElementById('resultsCount');
+    const noResultsEl = document.getElementById('noResults');
+    const noResultsSubtext = document.getElementById('noResultsSubtext');
+    const qRadarText = document.getElementById('qRadarText');
+
+    let currentFilter = 'all';
+    let currentFilterLabel = 'Все программы';
+
+    function applyFilterState() {
+      const query = (searchInputEl?.value || '').toLowerCase().trim();
+      if (searchClearBtn) {
+        searchClearBtn.classList.toggle('visible', query.length > 0);
+      }
+
+      let visibleCount = 0;
+
+      programCards.forEach(card => {
+        const cat = card.getAttribute('data-cat') || '';
+        const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+        const title = (card.querySelector('.card-title')?.textContent || '').toLowerCase();
+        const desc = (card.querySelector('.card-desc')?.textContent || '').toLowerCase();
+        const tag = (card.querySelector('.status-tag')?.textContent || '').toLowerCase();
+
+        const matchesCategory =
+          currentFilter === 'all' ||
+          (currentFilter === 'in-progress' && card.classList.contains('is-started')) ||
+          cat === currentFilter;
+
+        const matchesSearch =
+          query === '' ||
+          title.includes(query) ||
+          desc.includes(query) ||
+          tag.includes(query) ||
+          keywords.includes(query);
+
+        if (matchesCategory && matchesSearch) {
+          card.style.display = 'flex';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (resultsCountEl) {
+        resultsCountEl.textContent = `Найдено программ: ${visibleCount} из ${programCards.length}`;
+      }
+
+      if (qRadarText) {
+        if (query.length > 0) {
+          qRadarText.textContent = `🔍 Найдено: ${visibleCount}`;
+        } else {
+          qRadarText.textContent = `📚 ${currentFilterLabel} (${visibleCount})`;
+        }
+      }
+
+      if (noResultsEl) {
+        if (visibleCount === 0) {
+          noResultsEl.style.display = 'block';
+          if (noResultsSubtext) {
+            noResultsSubtext.textContent = currentFilter === 'in-progress' && query === ''
+              ? 'У вас пока нет начатых лекций. Откройте любой курс и пролистайте PDF, чтобы он появился в этом списке.'
+              : 'Попробуйте изменить поисковый запрос или сбросить активный фильтр категории.';
+          }
+        } else {
+          noResultsEl.style.display = 'none';
+        }
+      }
+    }
+
+    function runFilterWithTransition() {
+      if (document.startViewTransition && !prefersReducedMotion) {
+        document.startViewTransition(() => applyFilterState());
+      } else {
+        applyFilterState();
+      }
+    }
+
+    filterChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        filterChips.forEach(c => c.setAttribute('aria-pressed', 'false'));
+        chip.setAttribute('aria-pressed', 'true');
+        currentFilter = chip.getAttribute('data-filter') || 'all';
+        currentFilterLabel = chip.textContent.replace(/\s+\d+$/, '').trim();
+        runFilterWithTransition();
+      });
+    });
+
+    searchInputEl?.addEventListener('input', () => {
+      applyFilterState();
+    });
+
+    searchClearBtn?.addEventListener('click', () => {
+      if (!searchInputEl) return;
+      searchInputEl.value = '';
+      searchInputEl.focus();
+      applyFilterState();
+    });
+
+    window.resetFilters = function() {
+      if (searchInputEl) searchInputEl.value = '';
+      currentFilter = 'all';
+      currentFilterLabel = 'Все программы';
+      filterChips.forEach(c => {
+        c.setAttribute('aria-pressed', c.getAttribute('data-filter') === 'all' ? 'true' : 'false');
+      });
+      runFilterWithTransition();
+    };
+
+    // === 7. МОДАЛЬНЫЕ ОКНА (Глобальный поиск Ctrl+K и Памятка ЧС 112) ===
+    const searchItems = [
+      { title: 'Главная страница СДО', tag: 'Дашборд', icon: '🏠', url: 'index.html' },
+      { title: 'Охрана труда (Комплексная программа)', tag: 'ПП № 2464', icon: '🛡️', url: 'course-ot.html' },
+      { title: 'Итоговый тест: Охрана труда (Вводный)', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/Test_OT_b/' },
+      { title: 'Итоговый тест: ОТ Программа А', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/Test_OT_Programm_A/' },
+      { title: 'Пожарная безопасность', tag: 'МЧС № 1120', icon: '🔥', url: 'course-fire-safety.html' },
+      { title: 'Итоговый тест: Пожарная безопасность', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/Test_-_-_b/' },
+      { title: 'Оказание первой помощи пострадавшим', tag: 'Минздрав 220н', icon: '🩹', url: 'course-first-aid.html' },
+      { title: 'Итоговый тест: Первая помощь', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/First_aid/' },
+      { title: 'Действия при угрозе атаки БПЛА', tag: 'ФЗ-35 / 68-ФЗ', icon: '🚁', url: 'course-bpla.html' },
+      { title: 'Итоговый тест: Действия при угрозе БПЛА', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/UAV_Threat_Test/' },
+      { title: 'ГО и защита от чрезвычайных ситуаций', tag: 'ФЗ № 28', icon: '📢', url: 'course-gochs.html' },
+      { title: 'Итоговый тест: ГО и ЧС', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/GO_ChS_Test/' },
+      { title: 'Электробезопасность (I–V группы)', tag: 'Приказ № 903н', icon: '⚡', url: 'course-electrical-safety.html' },
+      { title: 'Итоговый тест: Электробезопасность', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/Electrical_Safety_Test/' },
+      { title: 'Гигиеническое обучение (Санминимум)', tag: 'СанПиН', icon: '🧼', url: 'course-hygiene.html' },
+      { title: 'Итоговый тест: Гигиеническое обучение', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/hygiene-training/' },
+      { title: 'Наставничество и адаптация', tag: 'Сервис', icon: '🛎️', url: 'course-mentorship.html' },
+      { title: 'Итоговый тест: Наставничество', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/mentoring-quiz/' },
+      { title: 'Управление конфликтами', tag: 'Психология', icon: '🧠', url: 'course-conflict.html' },
+      { title: 'Итоговый тест: Управление конфликтами', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/conflict-management/' },
+      { title: 'Инструкции по охране труда', tag: 'Документы', icon: '📋', url: 'instructions.html' },
+      { title: 'Раздел «Ответственным»', tag: 'ИТР', icon: '👔', url: 'for-responsibles.html' }
+    ];
+
+    const searchModal = document.getElementById('searchModal');
+    const modalSearchInput = document.getElementById('searchModalInput');
+    const searchResultsList = document.getElementById('searchResultsList');
+    const sosModal = document.getElementById('sosModal');
+
+    let previousFocus = null;
+    let activeModal = null;
+
+    function getFocusable(modal) {
+      return Array.from(modal.querySelectorAll(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      ));
+    }
+
+    function trapFocusHandler(e) {
+      if (e.key !== 'Tab' || !activeModal) return;
+      const focusable = getFocusable(activeModal);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    }
+
+    function openModal(modal, focusTarget) {
+      closeHeaderPopovers();
+      previousFocus = document.activeElement;
+      activeModal = modal;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.addEventListener('keydown', trapFocusHandler, true);
+      setTimeout(() => {
+        const target = focusTarget || getFocusable(modal)[0];
+        if (target) target.focus();
+      }, 60);
+    }
+
+    function closeModal(modal) {
+      if (!modal.classList.contains('open')) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.removeEventListener('keydown', trapFocusHandler, true);
+      if (activeModal === modal) activeModal = null;
+      if (previousFocus && typeof previousFocus.focus === 'function') {
+        previousFocus.focus();
+        previousFocus = null;
+      }
+    }
+
+    function renderSearchModalList(query = '') {
+      if (!searchResultsList) return;
+      const q = query.toLowerCase().trim();
+      const filtered = searchItems.filter(i => i.title.toLowerCase().includes(q) || i.tag.toLowerCase().includes(q));
+      if (filtered.length === 0) {
+        searchResultsList.innerHTML = '';
+        const msg = document.createElement('div');
+        msg.style.cssText = 'padding: 24px; text-align: center; color: #64748b;';
+        msg.textContent = `Ничего не найдено по запросу «${query}»`;
+        searchResultsList.appendChild(msg);
+        return;
+      }
+      searchResultsList.innerHTML = filtered.map(i => {
+        const isExternal = i.url.startsWith('http');
+        const extAttr = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
+        return `
+          <a href="${i.url}" class="search-result-item" ${extAttr}>
+            <div class="sri-left">
+              <span style="font-size: 1.25rem;" aria-hidden="true">${i.icon}</span>
+              <span>${i.title}</span>
+            </div>
+            <span class="sri-tag">${i.tag}</span>
+          </a>
+        `;
+      }).join('');
+    }
+
+    function openSearchModal(initialText = '') {
+      openModal(searchModal, modalSearchInput);
+      modalSearchInput.value = initialText;
+      renderSearchModalList(initialText);
+    }
+
+    function closeSearchModalFn() {
+      closeModal(searchModal);
+    }
+
+    function openSosModal() {
+      openModal(sosModal, document.getElementById('closeSosModal'));
+    }
+
+    function closeSosModalFn() {
+      closeModal(sosModal);
+    }
+
+    document.getElementById('qHeaderSearchBtn')?.addEventListener('click', () => openSearchModal(''));
+    document.getElementById('mobSearchBtn')?.addEventListener('click', () => openSearchModal(''));
+    document.getElementById('closeSearchModal')?.addEventListener('click', closeSearchModalFn);
+    searchModal?.addEventListener('click', (e) => { if (e.target === searchModal) closeSearchModalFn(); });
+    modalSearchInput?.addEventListener('input', (e) => renderSearchModalList(e.target.value));
+
+    document.getElementById('qHeaderSosBtn')?.addEventListener('click', openSosModal);
+    document.getElementById('mobSosBtn')?.addEventListener('click', openSosModal);
+    document.getElementById('closeSosModal')?.addEventListener('click', closeSosModalFn);
+    sosModal?.addEventListener('click', (e) => { if (e.target === sosModal) closeSosModalFn(); });
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (searchModal.classList.contains('open')) closeSearchModalFn();
+        else openSearchModal('');
+      }
+      if (e.key === 'Escape') {
+        closeHeaderPopovers();
+        if (searchModal.classList.contains('open')) closeSearchModalFn();
+        if (sosModal.classList.contains('open')) closeSosModalFn();
+      }
+    });
+
+    const voiceBtn = document.getElementById('voiceSearchBtn');
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition && voiceBtn) {
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'ru-RU';
+      recognition.interimResults = false;
+      voiceBtn.addEventListener('click', () => {
+        try {
+          recognition.start();
+          voiceBtn.classList.add('listening');
+        } catch (err) {}
+      });
+      recognition.onresult = (e) => {
+        const text = e.results[0][0].transcript;
+        voiceBtn.classList.remove('listening');
+        modalSearchInput.value = text;
+        renderSearchModalList(text);
+      };
+      recognition.onerror = () => voiceBtn.classList.remove('listening');
+      recognition.onend = () => voiceBtn.classList.remove('listening');
+    } else if (voiceBtn) {
+      voiceBtn.style.display = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>
