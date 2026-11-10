@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>СДО | Действия при угрозе атаки БПЛА (ФЗ-35 / 68-ФЗ)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Дистанционный курс по алгоритмам выживания и действиям персонала при угрозе атаки беспилотных летательных аппаратов (БПЛА). Правило двух стен, протоколы ИТР, PDF-конспект и тест.">
+  <meta name="description" content="Дистанционный курс по алгоритмам выживания и действиям персонала при угрозе атаки беспилотных летательных аппаратов (БПЛА). Интерактивный телефон 112, правило двух стен, PDF-конспект и тест.">
   <meta name="theme-color" content="#e11d48">
 
   <!-- Favicon (SVG data URI) -->
@@ -29,7 +29,7 @@
   <link rel="canonical" href="https://demoonstars.github.io/ot-training-portal/course-bpla.html">
   <meta property="og:type" content="article">
   <meta property="og:title" content="СДО | Действия при угрозе атаки БПЛА">
-  <meta property="og:description" content="Интерактивный курс, акустический тренажёр укрытия, алгоритмы при обнаружении обломков, PDF-конспект и итоговое тестирование.">
+  <meta property="og:description" content="Интерактивный курс, симулятор смартфона при атаке БПЛА (112 / Радиомолчание), правило двух стен, PDF-конспект и итоговое тестирование.">
   <meta property="og:url" content="https://demoonstars.github.io/ot-training-portal/course-bpla.html">
   <meta property="og:locale" content="ru_RU">
   <meta property="og:image" content="https://demoonstars.github.io/ot-training-portal/assets/og-bpla.jpg">
@@ -38,7 +38,7 @@
   <meta property="og:image:alt" content="Курс «Действия при угрозе атаки БПЛА» — СДО">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="СДО | Действия при угрозе атаки БПЛА">
-  <meta name="twitter:description" content="Правило двух стен, тактический симулятор, протоколы ИТР и итоговый тест.">
+  <meta name="twitter:description" content="Правило двух стен, интерактивный смартфон 112, протоколы ИТР и итоговый тест.">
   <meta name="twitter:image" content="https://demoonstars.github.io/ot-training-portal/assets/og-bpla.jpg">
 
   <!-- Schema.org -->
@@ -61,7 +61,7 @@
       "courseWorkload": "PT2H"
     },
     "educationalLevel": "Basic",
-    "teaches": "Правило двух стен, действия при подлёте БПЛА, безопасная дистанция от обломков, радиомолчание, протоколы эвакуации для ИТР"
+    "teaches": "Правило двух стен, цифровая безопасность и вызов 112 при атаке БПЛА, безопасная дистанция от обломков, протоколы эвакуации для ИТР"
   }
   </script>
 
@@ -173,8 +173,9 @@
     /* === 2. ГЛОБАЛЬНЫЕ УТИЛИТЫ === */
     button, a, [role="button"], .flip-card, .consent-check-item,
     .q-cmd-btn, .q-passport-btn, .q-app-btn, .alg-tab-btn, .r-btn,
-    .cpr-btn-start, .cpr-btn-mute, .hero-pill-link, .to-top-btn,
-    .modal-close, .voice-mic-btn, .btn-magic, .mob-nav-item, .call-112-btn {
+    .phone-app-btn, .phone-scenario-btn, .phone-choice-btn, .phone-back-btn,
+    .hero-pill-link, .to-top-btn, .modal-close, .voice-mic-btn,
+    .btn-magic, .mob-nav-item, .call-112-btn {
       touch-action: manipulation;
     }
 
@@ -358,7 +359,6 @@
       transition: stroke-dashoffset 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* Safe fallback для поповеров шапки */
     .q-app-dropdown, .q-passport-popover {
       position: absolute;
       top: calc(100% + 8px);
@@ -510,89 +510,246 @@
       font-size: 0.88rem; color: #475569; margin: 0; line-height: 1.55;
     }
 
-    /* === 6. АКУСТИЧЕСКИЙ СИМУЛЯТОР И ТАЙМЕР УКРЫТИЯ (15 СЕК) === */
-    .cpr-sim-card {
+    /* ======================================================================
+       6. ИНТЕРАКТИВКА С ТЕЛЕФОНОМ (ТРЕНАЖЁР СМАРТФОНА ПРИ УГРОЗЕ БПЛА И 112)
+       ====================================================================== */
+    .phone-trainer-section {
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      color: #ffffff; border-radius: 28px;
-      padding: clamp(22px, 3.5vw, 36px);
+      color: #ffffff;
+      border-radius: 28px;
+      padding: clamp(22px, 3.5vw, 38px);
       margin-bottom: 36px;
-      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.28);
-      position: relative; overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.32);
+      position: relative;
+      overflow: hidden;
     }
-    .cpr-layout {
-      display: grid; grid-template-columns: 1.15fr 0.85fr;
-      gap: 28px; align-items: center;
+    .phone-trainer-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 32px;
+      align-items: center;
     }
-    .cpr-visual-box {
-      background: rgba(255, 255, 255, 0.06);
+    .phone-scenario-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .phone-scenario-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 14px;
       border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 22px; padding: 24px;
-      text-align: center;
-      display: flex; flex-direction: column;
-      align-items: center; gap: 14px;
-    }
-    .cpr-heart-circle {
-      width: 112px; height: 112px; border-radius: 50%;
-      background: radial-gradient(circle, #f43f5e 0%, #be123c 100%);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      font-size: 2.3rem;
-      box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.65);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.3s ease;
-      user-select: none; will-change: transform;
-    }
-    .cpr-heart-circle.beat-active {
-      transform: scale(0.88);
-      box-shadow: 0 0 0 24px rgba(244, 63, 94, 0);
-    }
-    .cpr-heart-circle.safe-mode {
-      background: radial-gradient(circle, #10b981 0%, #047857 100%);
-      box-shadow: 0 0 25px rgba(16, 185, 129, 0.55);
-    }
-    .cpr-counter-big {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.9rem; font-weight: 800;
-      color: #ffffff; line-height: 1;
-    }
-    .cpr-phase-badge {
-      display: inline-block; padding: 6px 14px;
-      border-radius: 99px; font-size: 0.78rem; font-weight: 800;
-      text-transform: uppercase;
-      background: rgba(16, 185, 129, 0.2); color: #34d399;
-      border: 1px solid rgba(52, 211, 153, 0.35);
-    }
-    .cpr-phase-badge.breaths-mode {
-      background: rgba(244, 63, 94, 0.25); color: #fda4af;
-      border-color: rgba(253, 164, 175, 0.45);
-    }
-    .cpr-controls-row {
-      display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px;
-    }
-    .cpr-btn-start {
-      padding: 13px 22px; border-radius: 14px; border: none;
-      background: #e11d48; color: #ffffff; font-size: 0.92rem;
-      font-weight: 800; font-family: inherit; cursor: pointer;
-      display: inline-flex; align-items: center; gap: 8px;
-      transition: all 0.2s;
-      box-shadow: 0 10px 22px -5px rgba(225, 29, 72, 0.45);
+      background: rgba(255, 255, 255, 0.06);
+      color: #e2e8f0;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
     @media (hover: hover) and (pointer: fine) {
-      .cpr-btn-start:hover { background: #be123c; transform: translateY(-1px); }
+      .phone-scenario-btn:hover {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(244, 63, 94, 0.5);
+        transform: translateX(3px);
+      }
     }
-    .cpr-btn-start:active { transform: translateY(0) scale(0.98); }
-    .cpr-btn-start.running { background: #f59e0b; color: #0f172a; }
+    .phone-scenario-btn.active {
+      background: linear-gradient(90deg, rgba(225, 29, 72, 0.28), rgba(244, 63, 94, 0.12));
+      border-color: #f43f5e;
+      color: #ffffff;
+      box-shadow: 0 8px 20px -6px rgba(225, 29, 72, 0.4);
+    }
 
-    .cpr-btn-mute {
-      padding: 13px 18px; border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      background: rgba(255, 255, 255, 0.08);
-      color: #f8fafc; font-size: 0.86rem; font-weight: 700;
-      font-family: inherit; cursor: pointer; transition: all 0.2s;
+    /* Корпус интерактивного смартфона */
+    .phone-mockup-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .phone-chassis {
+      width: 100%;
+      max-width: 330px;
+      min-height: 540px;
+      background: #020617;
+      border: 8px solid #334155;
+      border-radius: 42px;
+      box-shadow:
+        0 25px 50px -12px rgba(0, 0, 0, 0.65),
+        inset 0 0 0 2px #0f172a;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .phone-chassis.alert-mode {
+      border-color: #e11d48;
+      box-shadow: 0 0 35px rgba(225, 29, 72, 0.55);
+    }
+    .phone-chassis.safe-mode {
+      border-color: #10b981;
+      box-shadow: 0 0 35px rgba(16, 185, 129, 0.45);
+    }
+
+    .phone-statusbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #cbd5e1;
+      background: rgba(15, 23, 42, 0.9);
+      position: relative;
+    }
+    .phone-notch {
+      width: 82px;
+      height: 18px;
+      background: #000000;
+      border-radius: 99px;
+      margin: 0 auto;
+    }
+
+    .phone-screen {
+      flex: 1;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: radial-gradient(circle at 50% 0%, #1e293b 0%, #090d16 100%);
+      position: relative;
+    }
+
+    .phone-alert-banner {
+      background: rgba(225, 29, 72, 0.2);
+      border: 1px solid rgba(244, 63, 94, 0.45);
+      border-radius: 14px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.76rem;
+      line-height: 1.35;
+      color: #fecdd3;
+    }
+    .phone-alert-banner.banner-safe {
+      background: rgba(16, 185, 129, 0.18);
+      border-color: rgba(52, 211, 153, 0.45);
+      color: #a7f3d0;
+    }
+
+    .phone-apps-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 8px 0;
+    }
+    .phone-app-btn {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.24);
+      border-radius: 18px;
+      padding: 14px 10px;
+      color: #f8fafc;
+      font-family: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
     }
     @media (hover: hover) and (pointer: fine) {
-      .cpr-btn-mute:hover { background: rgba(255, 255, 255, 0.16); }
+      .phone-app-btn:hover {
+        transform: translateY(-2px);
+        border-color: #38bdf8;
+        background: rgba(51, 65, 85, 0.9);
+      }
     }
-    .cpr-btn-mute:active { background: rgba(255, 255, 255, 0.2); }
+    .phone-app-btn.app-danger {
+      border-color: rgba(244, 63, 94, 0.4);
+    }
+    .phone-app-btn.app-sos {
+      background: linear-gradient(135deg, #e11d48, #be123c);
+      border-color: #fda4af;
+    }
+    .phone-app-icon {
+      font-size: 1.65rem;
+      line-height: 1;
+    }
+    .phone-app-label {
+      font-size: 0.76rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    .phone-app-sub {
+      font-size: 0.65rem;
+      color: #94a3b8;
+    }
+    .phone-app-btn.app-sos .phone-app-sub {
+      color: #ffe4e6;
+    }
+
+    .phone-dialog-box {
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 16px;
+      padding: 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      color: #e2e8f0;
+      margin-top: 8px;
+    }
+    .phone-choice-btn {
+      width: 100%;
+      padding: 9px 11px;
+      margin-top: 7px;
+      border-radius: 10px;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      background: rgba(2, 132, 199, 0.18);
+      color: #f0f9ff;
+      font-family: inherit;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .phone-choice-btn:hover {
+        background: rgba(2, 132, 199, 0.38);
+        border-color: #38bdf8;
+      }
+    }
+    .phone-back-btn {
+      margin-top: 10px;
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      font-family: inherit;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .phone-homebar {
+      width: 110px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.35);
+      border-radius: 99px;
+      margin: 12px auto 4px;
+    }
 
     /* === 7. АЛГОРИТМЫ === */
     .alg-section {
@@ -983,11 +1140,10 @@
       body.masterpiece-theme { padding-bottom: calc(74px + var(--safe-bottom)); }
       .mobile-bottom-nav { display: flex; }
       .to-top-btn { bottom: calc(84px + var(--safe-bottom)); right: 16px; }
-      .cpr-layout, .alg-panel { grid-template-columns: 1fr; }
+      .phone-trainer-grid, .alg-panel { grid-template-columns: 1fr; }
       .btn-magic { width: 100%; }
       .reader-viewport { min-height: 380px; padding: 10px; }
 
-      /* Ослабление дорогих эффектов */
       .site-header.quantum-header {
         backdrop-filter: blur(10px) saturate(160%);
         -webkit-backdrop-filter: blur(10px) saturate(160%);
@@ -1232,13 +1388,13 @@
           <span id="typing-text" data-text="Действия при угрозе атаки БПЛА" aria-hidden="true"></span><span class="cursor-blink" aria-hidden="true"></span>
         </h1>
         <p class="course-lead">
-          Специализированный модуль антитеррористической защищённости и гражданской обороны. Изучите акустические признаки подлёта беспилотных летательных аппаратов, правило <strong>«Двух стен»</strong>, зоны безопасности при обнаружении неразорвавшихся фрагментов и регламент действий руководителей (ИТР) при эвакуации персонала и гостей.
+          Специализированный модуль антитеррористической защищённости и гражданской обороны. Изучите правила поведения при подлёте беспилотных летательных аппаратов, правило <strong>«Двух стен»</strong>, отработайте действия на интерактивном смартфоне (вызов 112, запрет съёмки и радиомолчание у обломков) и ознакомьтесь с конспектом <code>course-bpla.pdf</code>.
         </p>
         <div class="hero-nav-pills">
-          <a href="#uav-radar-sim" class="hero-pill-link">📡 Тренажёр укрытия (15 сек)</a>
+          <a href="#phone-interactive" class="hero-pill-link">📱 Интерактивный телефон (112 / БПЛА)</a>
           <a href="#emergency-algorithms" class="hero-pill-link">🧱 Алгоритмы защиты</a>
           <a href="#materials" class="hero-pill-link">📖 Читать конспект PDF</a>
-          <a href="#ar-simulator" class="hero-pill-link" style="border-color: #0ea5e9; color: #0284c7;">🛡️ Тактический симулятор (20 этапов)</a>
+          <a href="#ar-simulator" class="hero-pill-link" style="border-color: #0ea5e9; color: #0284c7;">🛡️ Тактический симулятор</a>
           <a href="#test-gate" class="hero-pill-link primary-pill">🎯 Перейти к тесту ➔</a>
         </div>
       </section>
@@ -1266,34 +1422,93 @@
         </article>
       </section>
 
-      <section class="cpr-sim-card reveal-up" id="uav-radar-sim" data-radar-title="📡 Таймер укрытия (15с)" aria-label="Акустический тренажёр и таймер укрытия">
-        <div class="cpr-layout">
+      <!-- ИНТЕРАКТИВКА С ТЕЛЕФОНОМ (ТРЕНАЖЁР СМАРТФОНА ПРИ АТАКЕ БПЛА) -->
+      <section class="phone-trainer-section reveal-up" id="phone-interactive" data-radar-title="📱 Смартфон при атаке БПЛА" aria-label="Интерактивный тренажёр смартфона при угрозе БПЛА">
+        <div class="phone-trainer-grid">
           <div>
-            <span class="course-badge" style="background: rgba(225,29,72,0.22); color: #fda4af; border-color: rgba(253,164,175,0.35); margin-bottom: 10px;">📡 Акустический пеленг и норматив реакции</span>
-            <h2 style="font-size: 1.6rem; font-weight: 900; color: #ffffff; margin: 0 0 10px;">Тренажёр «15 секунд до укрытия»</h2>
+            <span class="course-badge" style="background: rgba(225,29,72,0.22); color: #fda4af; border-color: rgba(253,164,175,0.35); margin-bottom: 10px;">📱 Интерактивный тренажёр смартфона</span>
+            <h2 style="font-size: 1.65rem; font-weight: 900; color: #ffffff; margin: 0 0 10px;">Ваш телефон во время атаки БПЛА: Помощник или Угроза?</h2>
             <p style="font-size: 0.94rem; color: #cbd5e1; line-height: 1.6; margin: 0 0 14px;">
-              С момента обнаружения характерного звука низколетящего БПЛА (низкочастотный «мопедный» гул двигателя внутреннего сгорания или высокий визг электромоторов) у человека есть в среднем <strong>от 10 до 15 секунд</strong>, чтобы покинуть опасную зону у окон и занять безопасную позу.
+              Неправильное использование смартфона при налёте беспилотников может стоить жизни: съёмка у окна ведёт к поражению осколками, публикация видео в чатах раскрывает позиции ПВО, а активный радиомодуль телефона рядом с упавшим дроном способен замкнуть цепь взрывателя.
             </p>
-            <ul style="font-size: 0.86rem; color: #94a3b8; padding-left: 18px; margin: 0;">
-              <li><strong>01–05 сек:</strong> Отойти от панорамных окон и дверных проёмов со стеклом.</li>
-              <li><strong>06–10 сек:</strong> Переместиться во внутренний коридор, санузел или за бетонный выступ («Две стены»).</li>
-              <li><strong>11–15 сек:</strong> Сесть или лечь на пол, закрыть голову руками и <strong>приоткрыть рот</strong> (для защиты барабанных перепонок от баротравмы).</li>
-            </ul>
-            <div class="cpr-controls-row">
-              <button type="button" class="cpr-btn-start" id="cprToggleBtn">
-                <span id="cprBtnIcon" aria-hidden="true">▶</span>
-                <span id="cprBtnText">Запустить тренировку укрытия (15 сек)</span>
+            <p style="font-size: 0.85rem; color: #94a3b8; margin: 0;">
+              <strong>Выберите ситуацию слева или нажимайте на иконки прямо на экране смартфона справа:</strong>
+            </p>
+
+            <div class="phone-scenario-list" role="group" aria-label="Режимы интерактивного телефона">
+              <button type="button" class="phone-scenario-btn active" data-phone-mode="home">
+                <span>📱 Главный экран: выбор действия при тревоге</span>
+                <span>➔</span>
               </button>
-              <button type="button" class="cpr-btn-mute" id="cprSoundToggleBtn" aria-pressed="true">
-                🔊 Звук радара: Вкл
+              <button type="button" class="phone-scenario-btn" data-phone-mode="call112">
+                <span>📞 Тренажёр доклада оператору 112 (Пошаговый диалог)</span>
+                <span>➔</span>
+              </button>
+              <button type="button" class="phone-scenario-btn" data-phone-mode="camera">
+                <span>📷 Попытка снять видео ПВО и выложить в соцсети</span>
+                <span>➔</span>
+              </button>
+              <button type="button" class="phone-scenario-btn" data-phone-mode="debris">
+                <span>📵 Режим «Обнаружены обломки» (Радиомолчание 100 м)</span>
+                <span>➔</span>
               </button>
             </div>
           </div>
-          <div class="cpr-visual-box" aria-live="polite">
-            <span class="cpr-phase-badge" id="cprPhaseBadge">Ожидание запуска норматива (15 сек)</span>
-            <div class="cpr-heart-circle" id="cprHeartCircle" aria-hidden="true">🚁</div>
-            <div class="cpr-counter-big" id="cprStepCounter">15.0 сек</div>
-            <div style="font-size: 0.8rem; color: #cbd5e1;" id="cprCycleInfo">Отработано успешных укрытий: <strong>0</strong></div>
+
+          <div class="phone-mockup-wrap">
+            <div class="phone-chassis" id="phoneChassis" aria-live="polite">
+              <div class="phone-statusbar">
+                <span id="phoneClock">11:20</span>
+                <div class="phone-notch" aria-hidden="true"></div>
+                <span id="phoneNetStatus">LTE • 94%</span>
+              </div>
+
+              <div class="phone-screen" id="phoneScreen">
+                <div>
+                  <div class="phone-alert-banner" id="phoneBanner">
+                    <span style="font-size: 1.3rem;" aria-hidden="true">🚨</span>
+                    <div id="phoneBannerText">
+                      <strong>РСЧС: Внимание!</strong> Угроза атаки БПЛА. Немедленно укройтесь в помещении без окон («Две стены»).
+                    </div>
+                  </div>
+
+                  <div id="phoneDynamicContent">
+                    <div style="font-size: 0.74rem; color: #94a3b8; text-align: center; margin-bottom: 8px;">
+                      Нажмите на приложение на экране смартфона:
+                    </div>
+                    <div class="phone-apps-grid">
+                      <button type="button" class="phone-app-btn app-sos" data-phone-action="call112">
+                        <span class="phone-app-icon" aria-hidden="true">📞</span>
+                        <span class="phone-app-label">Вызов 112</span>
+                        <span class="phone-app-sub">Тренажёр доклада</span>
+                      </button>
+                      <button type="button" class="phone-app-btn app-danger" data-phone-action="camera">
+                        <span class="phone-app-icon" aria-hidden="true">📷</span>
+                        <span class="phone-app-label">Камера / Чат</span>
+                        <span class="phone-app-sub">Снять пролёт БПЛА</span>
+                      </button>
+                      <button type="button" class="phone-app-btn" data-phone-action="debris">
+                        <span class="phone-app-icon" aria-hidden="true">✈️</span>
+                        <span class="phone-app-label">Авиарежим</span>
+                        <span class="phone-app-sub">У места падения</span>
+                      </button>
+                      <button type="button" class="phone-app-btn" data-phone-action="radar">
+                        <span class="phone-app-icon" aria-hidden="true">🧭</span>
+                        <span class="phone-app-label">Радар.НФ</span>
+                        <span class="phone-app-sub">Памятка пеленга</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="phone-dialog-box" id="phoneStatusFooter">
+                    💡 <strong>Совет:</strong> Нажмите <strong>«Вызов 112»</strong>, чтобы потренироваться правильно передавать сводку диспетчеру экстренной службы.
+                  </div>
+                  <div class="phone-homebar" aria-hidden="true"></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1330,7 +1545,6 @@
           </div>
         </div>
       </section>
-
       <section class="reader-section reveal-up" id="materials" data-radar-title="📖 Учебный конспект PDF" aria-label="Учебные материалы курса">
         <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;">
           <div>
@@ -1357,7 +1571,7 @@
             <button type="button" class="r-btn" id="pdfZoomInBtn" title="Увеличить масштаб" aria-label="Увеличить масштаб">+</button>
             <button type="button" class="r-btn" id="pdfFilterBtn" title="Переключить фильтр чтения (Обычный / Сепия / Ночной)">👁️ Режим: Обычный</button>
             <button type="button" class="r-btn" id="pdfFullscreenBtn" title="Полноэкранный режим чтения">⛶ Полный экран</button>
-            <a href="assets/bpla.pdf" download class="r-btn" style="text-decoration: none;" title="Скачать PDF-файл">⬇ PDF</a>
+            <a href="assets/course-bpla.pdf" download class="r-btn" style="text-decoration: none;" title="Скачать PDF-файл">⬇ PDF</a>
           </div>
         </div>
         <div class="reader-viewport" id="pdfViewport">
@@ -1724,111 +1938,238 @@
     }
     renderDigitalPassport();
 
-    /* === ТРЕНАЖЁР УКРЫТИЯ ЗА 15 СЕКУНД (АКУСТИЧЕСКИЙ РАДАР) === */
-    const cprToggleBtn = document.getElementById('cprToggleBtn');
-    const cprBtnIcon = document.getElementById('cprBtnIcon');
-    const cprBtnText = document.getElementById('cprBtnText');
-    const cprSoundToggleBtn = document.getElementById('cprSoundToggleBtn');
-    const cprHeartCircle = document.getElementById('cprHeartCircle');
-    const cprStepCounter = document.getElementById('cprStepCounter');
-    const cprPhaseBadge = document.getElementById('cprPhaseBadge');
-    const cprCycleInfo = document.getElementById('cprCycleInfo');
-    let shelterTimer = null, shelterRunning = false, radarSoundOn = true, elapsedSec = 0, completedDrills = 0, audioCtx = null;
+    /* ======================================================================
+       ИНТЕРАКТИВКА С ТЕЛЕФОНОМ (ТРЕНАЖЁР СМАРТФОНА ПРИ АТАКЕ БПЛА)
+       ====================================================================== */
+    const phoneChassis = document.getElementById('phoneChassis');
+    const phoneClock = document.getElementById('phoneClock');
+    const phoneNetStatus = document.getElementById('phoneNetStatus');
+    const phoneBanner = document.getElementById('phoneBanner');
+    const phoneBannerText = document.getElementById('phoneBannerText');
+    const phoneDynamicContent = document.getElementById('phoneDynamicContent');
+    const phoneStatusFooter = document.getElementById('phoneStatusFooter');
+    const phoneScenarioBtns = Array.from(document.querySelectorAll('.phone-scenario-btn[data-phone-mode]'));
 
-    function playRadarPing(freq = 740, duration = 0.11, wave = 'sawtooth') {
-      if (!radarSoundOn) return;
+    let phoneAudioCtx = null;
+    function playPhoneTone(type = 'tap') {
       try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = wave;
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.11, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-        osc.connect(gain); gain.connect(audioCtx.destination);
-        osc.start(); osc.stop(audioCtx.currentTime + duration);
+        if (!phoneAudioCtx) phoneAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (phoneAudioCtx.state === 'suspended') phoneAudioCtx.resume();
+        const osc = phoneAudioCtx.createOscillator();
+        const gain = phoneAudioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(phoneAudioCtx.destination);
+
+        if (type === 'dial') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(425, phoneAudioCtx.currentTime);
+          gain.gain.setValueAtTime(0.1, phoneAudioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, phoneAudioCtx.currentTime + 0.25);
+          osc.start(); osc.stop(phoneAudioCtx.currentTime + 0.25);
+        } else if (type === 'warn') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, phoneAudioCtx.currentTime);
+          gain.gain.setValueAtTime(0.14, phoneAudioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, phoneAudioCtx.currentTime + 0.3);
+          osc.start(); osc.stop(phoneAudioCtx.currentTime + 0.3);
+        } else if (type === 'ok') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(660, phoneAudioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(990, phoneAudioCtx.currentTime + 0.12);
+          gain.gain.setValueAtTime(0.12, phoneAudioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, phoneAudioCtx.currentTime + 0.25);
+          osc.start(); osc.stop(phoneAudioCtx.currentTime + 0.25);
+        } else {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(800, phoneAudioCtx.currentTime);
+          gain.gain.setValueAtTime(0.05, phoneAudioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, phoneAudioCtx.currentTime + 0.05);
+          osc.start(); osc.stop(phoneAudioCtx.currentTime + 0.05);
+        }
       } catch (e) { /* audio optional */ }
     }
 
-    function stepShelterDrill() {
-      elapsedSec++;
-      const remaining = Math.max(0, 15 - elapsedSec);
-      if (cprStepCounter) cprStepCounter.textContent = `${remaining}.0 сек`;
+    function updatePhoneClock() {
+      if (!phoneClock) return;
+      const d = new Date();
+      const hh = String(d.getHours()).padStart(2, '0');
+      const mm = String(d.getMinutes()).padStart(2, '0');
+      phoneClock.textContent = `${hh}:${mm}`;
+    }
+    updatePhoneClock();
+    setInterval(updatePhoneClock, 30000);
 
-      if (elapsedSec <= 5) {
-        if (cprPhaseBadge) {
-          cprPhaseBadge.textContent = '01–05 сек: Покиньте зону окон и витрин!';
-          cprPhaseBadge.classList.add('breaths-mode');
-        }
-        if (cprHeartCircle) {
-          cprHeartCircle.textContent = '🚁';
-          cprHeartCircle.classList.remove('safe-mode');
-        }
-        playRadarPing(680, 0.1, 'sawtooth');
-      } else if (elapsedSec <= 10) {
-        if (cprPhaseBadge) {
-          cprPhaseBadge.textContent = '06–10 сек: Переход за «Две стены» (коридор / санузел)';
-          cprPhaseBadge.classList.add('breaths-mode');
-        }
-        if (cprHeartCircle) cprHeartCircle.textContent = '🧱';
-        playRadarPing(860, 0.12, 'square');
-      } else if (elapsedSec < 15) {
-        if (cprPhaseBadge) {
-          cprPhaseBadge.textContent = '11–15 сек: На пол! Закрыть голову, приоткрыть рот!';
-          cprPhaseBadge.classList.add('breaths-mode');
-        }
-        if (cprHeartCircle) cprHeartCircle.textContent = '🛡️';
-        playRadarPing(1040, 0.14, 'square');
-      } else {
-        completedDrills++;
-        elapsedSec = 0;
-        if (cprPhaseBadge) {
-          cprPhaseBadge.textContent = '✅ Норматив выполнен: Вы в безопасном укрытии!';
-          cprPhaseBadge.classList.remove('breaths-mode');
-        }
-        if (cprHeartCircle) {
-          cprHeartCircle.textContent = '✅';
-          cprHeartCircle.classList.add('safe-mode');
-        }
-        if (cprCycleInfo) {
-          cprCycleInfo.innerHTML = `Отработано успешных укрытий: <strong>${completedDrills}</strong>`;
-        }
-        playRadarPing(580, 0.35, 'sine');
-      }
+    function syncLeftButtons(mode) {
+      phoneScenarioBtns.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-phone-mode') === mode);
+      });
+    }
 
-      if (cprHeartCircle) {
-        cprHeartCircle.classList.add('beat-active');
-        setTimeout(() => cprHeartCircle.classList.remove('beat-active'), 160);
+    function renderPhoneMode(mode) {
+      if (!phoneDynamicContent) return;
+      syncLeftButtons(mode);
+      phoneChassis?.classList.remove('alert-mode', 'safe-mode');
+      phoneBanner?.classList.remove('banner-safe');
+      if (phoneNetStatus) phoneNetStatus.textContent = 'LTE • 94%';
+
+      if (mode === 'home') {
+        playPhoneTone('tap');
+        if (phoneBannerText) {
+          phoneBannerText.innerHTML = '<strong>РСЧС: Внимание!</strong> Угроза атаки БПЛА. Немедленно укройтесь в помещении без окон («Две стены»).';
+        }
+        phoneDynamicContent.innerHTML = `
+          <div style="font-size: 0.74rem; color: #94a3b8; text-align: center; margin-bottom: 8px;">
+            Нажмите на приложение на экране смартфона:
+          </div>
+          <div class="phone-apps-grid">
+            <button type="button" class="phone-app-btn app-sos" data-phone-action="call112">
+              <span class="phone-app-icon" aria-hidden="true">📞</span>
+              <span class="phone-app-label">Вызов 112</span>
+              <span class="phone-app-sub">Тренажёр доклада</span>
+            </button>
+            <button type="button" class="phone-app-btn app-danger" data-phone-action="camera">
+              <span class="phone-app-icon" aria-hidden="true">📷</span>
+              <span class="phone-app-label">Камера / Чат</span>
+              <span class="phone-app-sub">Снять пролёт БПЛА</span>
+            </button>
+            <button type="button" class="phone-app-btn" data-phone-action="debris">
+              <span class="phone-app-icon" aria-hidden="true">✈️</span>
+              <span class="phone-app-label">Авиарежим</span>
+              <span class="phone-app-sub">У места падения</span>
+            </button>
+            <button type="button" class="phone-app-btn" data-phone-action="radar">
+              <span class="phone-app-icon" aria-hidden="true">🧭</span>
+              <span class="phone-app-label">Радар.НФ</span>
+              <span class="phone-app-sub">Памятка пеленга</span>
+            </button>
+          </div>
+        `;
+        if (phoneStatusFooter) {
+          phoneStatusFooter.innerHTML = '💡 <strong>Совет:</strong> Нажмите <strong>«Вызов 112»</strong>, чтобы потренироваться правильно передавать сводку диспетчеру экстренной службы.';
+        }
+      } else if (mode === 'call112') {
+        playPhoneTone('dial');
+        phoneChassis?.classList.add('safe-mode');
+        if (phoneBannerText) {
+          phoneBannerText.innerHTML = '<strong>📞 Линия 112 активна.</strong> Вы находитесь в укрытии за двумя стенами. Что сообщите оператору?';
+        }
+        phoneDynamicContent.innerHTML = `
+          <div style="background: rgba(16, 185, 129, 0.14); border: 1px solid rgba(52, 211, 153, 0.35); border-radius: 14px; padding: 11px; font-size: 0.78rem; color: #ecfdf5;">
+            <strong>🎧 Оператор 112:</strong> «Служба спасения 112. Назовите адрес и что произошло?»
+          </div>
+          <div style="margin-top: 6px;">
+            <button type="button" class="phone-choice-btn" data-call-reply="wrong">
+              1. «Тут летит какой-то беспилотник и громко жужжит! Приезжайте скорее!» (Бросить трубку)
+            </button>
+            <button type="button" class="phone-choice-btn" data-call-reply="right">
+              2. «ФИО, точный адрес/ориентир, время, направление полёта (на северо-запад), звук мопеда, тип — самолётный. Нахожусь в укрытии».
+            </button>
+          </div>
+          <button type="button" class="phone-back-btn" data-phone-action="home">← На главный экран телефона</button>
+        `;
+        if (phoneStatusFooter) {
+          phoneStatusFooter.innerHTML = '🎯 <strong>Задача:</strong> Выберите правильную формулировку доклада оператору 112 на экране телефона.';
+        }
+      } else if (mode === 'camera') {
+        playPhoneTone('warn');
+        phoneChassis?.classList.add('alert-mode');
+        if (phoneBannerText) {
+          phoneBannerText.innerHTML = '<strong>⛔ КРИТИЧЕСКАЯ ОШИБКА!</strong> Вы открыли камеру у окна во время воздушной тревоги!';
+        }
+        phoneDynamicContent.innerHTML = `
+          <div style="background: rgba(225, 29, 72, 0.22); border: 1px solid #f43f5e; border-radius: 14px; padding: 12px; font-size: 0.78rem; color: #ffe4e6;">
+            <div style="font-size: 1.4rem; margin-bottom: 4px;">🪟💥</div>
+            <strong>Почему съёмка смертельно опасна:</strong><br>
+            1. Стоя у окна со смартфоном, человек попадает в зону прямого поражения вторичными осколками стекла.<br>
+            2. Публикация видео пролёта и работы ПВО в чатах позволяет противнику скорректировать повторный удар по ориентирам.
+          </div>
+          <button type="button" class="phone-choice-btn" style="border-color: #34d399; background: rgba(16, 185, 129, 0.22);" data-phone-action="call112">
+            ✅ Закрыть камеру, уйти за «Две стены» и позвонить 112
+          </button>
+          <button type="button" class="phone-back-btn" data-phone-action="home">← На главный экран телефона</button>
+        `;
+        if (phoneStatusFooter) {
+          phoneStatusFooter.innerHTML = '⚠️ <strong>Запомните:</strong> Никаких фото и видео в соцсети! Передавайте данные только дежурным службам.';
+        }
+      } else if (mode === 'debris') {
+        playPhoneTone('ok');
+        phoneChassis?.classList.add('safe-mode');
+        phoneBanner?.classList.add('banner-safe');
+        if (phoneNetStatus) phoneNetStatus.textContent = '✈️ АВИА • 94%';
+        if (phoneBannerText) {
+          phoneBannerText.innerHTML = '<strong>📵 Режим радиомолчания включён!</strong> Радиомодули GSM / Wi-Fi / Bluetooth обесточены.';
+        }
+        phoneDynamicContent.innerHTML = `
+          <div style="background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 14px; padding: 12px; font-size: 0.78rem; color: #e0f2fe;">
+            <div style="font-size: 1.35rem; margin-bottom: 4px;">💣📏 100+ метров</div>
+            <strong>Протокол при обнаружении обломков БПЛА:</strong><br>
+            • Не подходите и не трогайте фрагменты.<br>
+            • Не звоните рядом с местом падения (радиосигнал может вызвать подрыв).<br>
+            • Отойдите назад по своим следам <strong>минимум на 100 метров за капитальное укрытие</strong> и только оттуда вызывайте <strong>112</strong>.
+          </div>
+          <button type="button" class="phone-back-btn" data-phone-action="home">← На главный экран телефона</button>
+        `;
+        if (phoneStatusFooter) {
+          phoneStatusFooter.innerHTML = '✅ <strong>Верно!</strong> Безопасная дистанция от упавшего БПЛА — не менее 100 метров за укрытием.';
+        }
+      } else if (mode === 'radar') {
+        playPhoneTone('tap');
+        phoneChassis?.classList.add('safe-mode');
+        if (phoneBannerText) {
+          phoneBannerText.innerHTML = '<strong>🧭 Пеленг и передача данных.</strong> Официальный канал сообщения о пролёте БПЛА.';
+        }
+        phoneDynamicContent.innerHTML = `
+          <div style="background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(52, 211, 153, 0.4); border-radius: 14px; padding: 12px; font-size: 0.78rem; color: #d1fae5;">
+            <strong>Алгоритм фиксации курса БПЛА:</strong><br>
+            1. Сначала займите безопасное место (в укрытии или за капитальной преградой).<br>
+            2. Зафиксируйте время, направление полёта и тип звука («мопедный» гул ДВС или жужжание электромотора).<br>
+            3. Передайте сводку по номеру <strong>112</strong> или через официальное приложение <strong>«Радар.НФ»</strong>.
+          </div>
+          <button type="button" class="phone-choice-btn" data-phone-action="call112">
+            📞 Перейти к тренажёру доклада 112
+          </button>
+          <button type="button" class="phone-back-btn" data-phone-action="home">← На главный экран телефона</button>
+        `;
+        if (phoneStatusFooter) {
+          phoneStatusFooter.innerHTML = '📡 <strong>Важно:</strong> Любое наблюдение передаётся только после того, как вы сами оказались в безопасности.';
+        }
       }
     }
 
-    cprToggleBtn?.addEventListener('click', () => {
-      shelterRunning = !shelterRunning;
-      if (shelterRunning) {
-        elapsedSec = 0;
-        cprToggleBtn.classList.add('running');
-        if (cprBtnIcon) cprBtnIcon.textContent = '❚❚';
-        if (cprBtnText) cprBtnText.textContent = 'Остановить тренировку';
-        if (cprStepCounter) cprStepCounter.textContent = '15.0 сек';
-        stepShelterDrill();
-        shelterTimer = setInterval(stepShelterDrill, 1000);
-      } else {
-        cprToggleBtn.classList.remove('running');
-        if (cprBtnIcon) cprBtnIcon.textContent = '▶';
-        if (cprBtnText) cprBtnText.textContent = 'Запустить тренировку укрытия (15 сек)';
-        clearInterval(shelterTimer); shelterTimer = null;
-        if (cprPhaseBadge) {
-          cprPhaseBadge.textContent = 'Тренировка на паузе';
-          cprPhaseBadge.classList.remove('breaths-mode');
-        }
-      }
+    phoneScenarioBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const mode = btn.getAttribute('data-phone-mode') || 'home';
+        renderPhoneMode(mode);
+      });
     });
 
-    cprSoundToggleBtn?.addEventListener('click', () => {
-      radarSoundOn = !radarSoundOn;
-      cprSoundToggleBtn.setAttribute('aria-pressed', radarSoundOn ? 'true' : 'false');
-      cprSoundToggleBtn.textContent = radarSoundOn ? '🔊 Звук радара: Вкл' : '🔇 Звук радара: Выкл';
+    phoneDynamicContent?.addEventListener('click', (e) => {
+      const actionBtn = e.target.closest('[data-phone-action]');
+      if (actionBtn) {
+        const mode = actionBtn.getAttribute('data-phone-action') || 'home';
+        renderPhoneMode(mode);
+        return;
+      }
+
+      const replyBtn = e.target.closest('[data-call-reply]');
+      if (replyBtn) {
+        const replyType = replyBtn.getAttribute('data-call-reply');
+        if (replyType === 'right') {
+          playPhoneTone('ok');
+          phoneChassis?.classList.remove('alert-mode');
+          phoneChassis?.classList.add('safe-mode');
+          if (phoneStatusFooter) {
+            phoneStatusFooter.innerHTML = '✅ <strong>Блестяще!</strong> Вы передали полный комплект данных (ФИО, адрес, время, курс и тип БПЛА) и дождались подтверждения оператора 112.';
+          }
+        } else {
+          playPhoneTone('warn');
+          phoneChassis?.classList.remove('safe-mode');
+          phoneChassis?.classList.add('alert-mode');
+          if (phoneStatusFooter) {
+            phoneStatusFooter.innerHTML = '❌ <strong>Ошибка!</strong> Без точного адреса, ориентира и направления полёта оперативные службы не смогут перехватить цель. Попробуйте вариант № 2.';
+          }
+        }
+      }
     });
 
     /* === АЛГОРИТМЫ === */
@@ -1906,7 +2247,7 @@
       });
     });
 
-    /* === PDF === */
+    /* === PDF (ТОЧНЫЙ ПУТЬ assets/course-bpla.pdf) === */
     const PDF_STORAGE_KEY = 'bpla_pdf_page';
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.25, currentFilterMode = 0;
     const canvas = document.getElementById('pdf-render-canvas');
@@ -2007,7 +2348,7 @@
     if (window.pdfjsLib) {
       window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
       window.pdfjsLib.getDocument({
-        url: 'assets/bpla.pdf',
+        url: 'assets/course-bpla.pdf',
         cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/',
         cMapPacked: true,
         standardFontDataUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/standard_fonts/'
@@ -2019,7 +2360,7 @@
       }).catch((err) => {
         console.error('КРИТИЧЕСКАЯ ОШИБКА PDF:', err);
         if (pdfStatusTitle) pdfStatusTitle.textContent = 'Не удалось загрузить PDF-файл конспекта';
-        if (pdfStatusSub) pdfStatusSub.textContent = `Причина: ${err.message || err.name || 'Файл не найден'}. Проверьте наличие файла assets/bpla.pdf.`;
+        if (pdfStatusSub) pdfStatusSub.textContent = `Причина: ${err.message || err.name || 'Файл не найден'}. Проверьте наличие файла assets/course-bpla.pdf.`;
         if (pdfStatusBox) pdfStatusBox.style.display = 'block';
       });
     }
@@ -2219,8 +2560,7 @@
     });
   });
 </script>
-
-  <script type="text/babel" data-type="module">
+<script type="text/babel" data-type="module">
   import React, { useState, useEffect } from 'react';
   import { createRoot } from 'react-dom/client';
   import {
