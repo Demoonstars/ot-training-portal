@@ -2003,7 +2003,7 @@
       });
     });
 
-    // === 6. НЕЙРО-ЧИТАЛКА PDF V9.0 (NEURO-READER) ===
+    // === 6. НЕЙРО-ЧИТАЛКА PDF V9.0 (NEURO-READER) — ИСПРАВЛЕННАЯ ВЕРСИЯ ===
     const PDF_STORAGE_KEY = 'firstaid_pdf_page';
     let pdfDoc = null;
     let pageNum = 1;
@@ -2072,10 +2072,17 @@
               readerSavedStatus.textContent = `💾 Стр. ${num} сохранена`;
             }
           } catch (e) {}
+        }).catch((renderErr) => {
+          console.error('Ошибка рендеринга страницы PDF:', renderErr);
+          pageRendering = false;
+          if (pdfStatusTitle) pdfStatusTitle.textContent = 'Ошибка отображения страницы';
+          if (pdfStatusBox) pdfStatusBox.style.display = 'block';
         });
-      }).catch(() => {
+      }).catch((pageErr) => {
+        console.error('Ошибка загрузки страницы PDF:', pageErr);
         pageRendering = false;
-        if (pdfStatusTitle) pdfStatusTitle.textContent = 'Ошибка рендеринга страницы PDF';
+        if (pdfStatusTitle) pdfStatusTitle.textContent = 'Не удалось загрузить страницу PDF';
+        if (pdfStatusBox) pdfStatusBox.style.display = 'block';
       });
 
       if (prevBtn) prevBtn.disabled = (num <= 1);
@@ -2154,16 +2161,25 @@
       fullscreenBtn.textContent = isFull ? '✕ Свернуть' : '⛶ Полный экран';
     });
 
-    // Загрузка PDF-файла через pdf.js
+    // ИСПРАВЛЕННАЯ ЗАГРУЗКА PDF-ФАЙЛА (Добавлены cMaps, логирование ошибок и объект конфигурации)
     if (window.pdfjsLib) {
-      window.pdfjsLib.getDocument('assets/first-aid.pdf').promise.then((pdfDoc_, err) => {
+      window.pdfjsLib.getDocument({
+        url: 'assets/first-aid.pdf',
+        cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/',
+        cMapPacked: true,
+        standardFontDataUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/standard_fonts/'
+      }).promise.then((pdfDoc_) => {
         pdfDoc = pdfDoc_;
         if (pageCountEl) pageCountEl.textContent = String(pdfDoc.numPages);
         if (pageNum > pdfDoc.numPages) pageNum = pdfDoc.numPages;
         renderPage(pageNum);
       }).catch((err) => {
+        console.error('КРИТИЧЕСКАЯ ОШИБКА загрузки PDF (PDF.js getDocument):', err);
         if (pdfStatusTitle) pdfStatusTitle.textContent = 'Не удалось загрузить PDF-файл конспекта';
-        if (pdfStatusSub) pdfStatusSub.textContent = 'Проверьте наличие файла assets/first-aid.pdf или используйте кнопку «Скачать PDF» в панели управления.';
+        if (pdfStatusSub) {
+          pdfStatusSub.textContent = `Причина: ${err.message || err.name || 'Файл не найден или повреждён'}. Проверьте наличие файла assets/first-aid.pdf.`;
+        }
+        if (pdfStatusBox) pdfStatusBox.style.display = 'block';
       });
     }
 
