@@ -15,7 +15,9 @@
       const originalWarn = console.warn;
       console.warn = function(...args) {
         if (args[0] && typeof args[0] === 'string') {
-          if (args[0].includes('cdn.tailwindcss.com') || args[0].includes('babel.min.js')) return;
+          if (args[0].includes('cdn.tailwindcss.com') || 
+              args[0].includes('babel.min.js') || 
+              args[0].includes('in-browser Babel transformer')) return;
         }
         originalWarn.apply(console, args);
       };
@@ -47,7 +49,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      corePlugins: { preflight: false } // Отключаем глобальный сброс Tailwind
+      corePlugins: { preflight: false }
     }
   </script>
   <script type="importmap">
@@ -115,7 +117,7 @@
       transform: translateY(0);
     }
 
-    /* === 2. ШАПКА (ИСПРАВЛЕНА ГЕОМЕТРИЯ) === */
+    /* === 2. ШАПКА (ИСПРАВЛЕН НАЕЗД) === */
     .site-header.quantum-header {
       position: sticky;
       top: 0;
@@ -139,7 +141,7 @@
       flex-wrap: nowrap !important;
       align-items: center !important;
       justify-content: space-between !important;
-      gap: 15px !important; /* Отступы между блоками */
+      gap: 15px !important;
       box-sizing: border-box !important;
       transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -185,10 +187,10 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-left: auto; /* Прижимаем вправо, но перед навигацией */
-      margin-right: 15px;
+      margin-left: auto;
+      margin-right: 10px;
       white-space: nowrap;
-      flex-shrink: 1;
+      flex-shrink: 1; /* Позволяем сжиматься при нехватке места */
       min-width: 0;
     }
 
@@ -205,7 +207,7 @@
       align-items: center;
       min-width: 0;
       position: relative;
-      flex-shrink: 0;
+      flex-shrink: 0; /* Запрещаем навигации сжиматься и наезжать */
     }
 
     .site-header.quantum-header .nav-list {
@@ -766,7 +768,7 @@
       line-height: 1.55;
     }
 
-    /* === 7. НЕЙРО-ЧИТАЛКА PDF (ИСПРАВЛЕНА) === */
+    /* === 7. НЕЙРО-ЧИТАЛКА PDF (ИСПРАВЛЕНО УВЕЛИЧЕНИЕ И СЕПИЯ) === */
     .reader-section {
       background: rgba(255, 255, 255, 0.94);
       border: 1px solid #e2e8f0;
@@ -809,7 +811,7 @@
       align-items: center;
       gap: 8px;
       flex-wrap: wrap;
-      pointer-events: auto; /* Гарантируем кликабельность */
+      pointer-events: auto; 
     }
 
     .r-btn {
@@ -828,7 +830,7 @@
       justify-content: center;
       gap: 6px;
       transition: all 0.2s;
-      pointer-events: auto; /* Гарантируем кликабельность на мобилках */
+      pointer-events: auto; 
       -webkit-tap-highlight-color: transparent;
     }
     .r-btn:hover:not(:disabled) {
@@ -858,25 +860,31 @@
       border-radius: 18px;
       min-height: 540px;
       display: flex;
-      align-items: center;
+      align-items: flex-start; /* Изменено для правильного позиционирования при зуме */
       justify-content: center;
       position: relative;
-      overflow: auto;
+      overflow: auto; /* Позволяет скроллить при увеличении */
       padding: 16px;
-      touch-action: pan-x pan-y; /* Убираем конфликт с pinch-zoom */
+      touch-action: pan-x pan-y; 
     }
 
     #pdf-render-canvas {
-      max-width: 100%;
+      /* Убрано max-width: 100% для работы зума на мобильных */
+      max-width: none; 
       height: auto;
       border-radius: 10px;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
       background: #ffffff;
       transition: filter 0.25s ease;
     }
-    /* Жесткое применение фильтров */
-    #pdf-render-canvas.filter-sepia { filter: sepia(0.38) contrast(0.95) !important; }
-    #pdf-render-canvas.filter-invert { filter: invert(0.9) hue-rotate(180deg) !important; }
+    
+    /* Жесткое и явное применение фильтров */
+    #pdf-render-canvas.filter-sepia { 
+      filter: sepia(100%) contrast(90%) !important; 
+    }
+    #pdf-render-canvas.filter-invert { 
+      filter: invert(100%) hue-rotate(180deg) !important; 
+    }
 
     /* === 8. КАРТОЧКИ «МИФ / РЕАЛЬНОСТЬ» === */
     .flip-section-title {
@@ -1687,20 +1695,54 @@
 
     if (toTopBtn) toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }));
 
-    // ПЕЧАТНАЯ МАШИНКА
+    // ИСПРАВЛЕННАЯ ПЕЧАТНАЯ МАШИНКА (ЦИКЛ)
     const typingEl = document.getElementById('typing-text');
     if (typingEl) {
-      const heroText = typingEl.getAttribute('data-text') || "Оказание первой помощи пострадавшим";
-      typingEl.textContent = "";
-      let charIdx = 0;
-      const typeStep = () => {
-        if (charIdx < heroText.length) {
-          typingEl.textContent += heroText.charAt(charIdx);
-          charIdx++;
-          setTimeout(typeStep, 45);
+      const mskTime = new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"}));
+      const hour = mskTime.getHours();
+      let greeting = "Добрый день, коллега!";
+      if (hour >= 5 && hour < 12) greeting = "Доброе утро, коллега!";
+      else if (hour >= 12 && hour < 18) greeting = "Добрый день, коллега!";
+      else if (hour >= 18 && hour < 23) greeting = "Добрый вечер, коллега!";
+      else greeting = "Доброй ночи, коллега!";
+
+      const messages = [
+        greeting, 
+        "Вы находитесь на курсе...", 
+        "Оказание первой помощи пострадавшим"
+      ];
+      
+      let msgIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      let typeTimer;
+
+      function type() {
+        const currentMsg = messages[msgIndex];
+        if (isDeleting) {
+          typingEl.textContent = currentMsg.substring(0, charIndex - 1);
+          charIndex--;
+        } else {
+          typingEl.textContent = currentMsg.substring(0, charIndex + 1);
+          charIndex++;
         }
-      };
-      setTimeout(typeStep, 160);
+
+        let typeSpeed = isDeleting ? 30 : 70;
+
+        if (!isDeleting && charIndex === currentMsg.length) {
+          // Пауза 10 секунд в конце печати (ждем, пока пользователь прочитает)
+          typeSpeed = 10000; 
+          isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          msgIndex = (msgIndex + 1) % messages.length;
+          typeSpeed = 1000; // Пауза 1 секунда перед началом новой фразы
+        }
+
+        typeTimer = setTimeout(type, typeSpeed);
+      }
+      
+      setTimeout(type, 500);
     }
 
     // ШАПКА (NAV GLIDER)
@@ -1915,7 +1957,6 @@
           if (pdfStatusBox) pdfStatusBox.style.display = 'none';
           if (pageInput) pageInput.value = num;
           
-          // Обновляем текст на кнопке сброса масштаба
           if (zoomResetBtn) {
             zoomResetBtn.textContent = `${Math.round(scale * 100)}%`;
           }
@@ -2085,7 +2126,7 @@
 </script>
 
 <!-- =======================================================================
-     REACT AR-СИМУЛЯТОР (30 СЦЕНАРИЕВ, 30 КОМПРЕССИЙ)
+     REACT AR-СИМУЛЯТОР (30 СЦЕНАРИЕВ, 30 КОМПРЕССИЙ, РЕАЛИСТИЧНАЯ ЭКГ)
      ======================================================================= -->
 <script type="text/babel" data-type="module">
   import React, { useState, useEffect } from 'react';
@@ -2276,12 +2317,15 @@
     ]}
   ];
 
+  // КОМПОНЕНТ РЕАЛИСТИЧНОЙ ЭКГ
   const ECGLine = ({ health, status }) => {
     const isDead = health <= 0 || status === 'gameover' || status === 'cpr';
     const isDanger = health < 70 && !isDead;
-    const normalPoints = "0,32 10,32 15,25 20,32 30,32 33,40 36,10 40,55 43,32 55,32 65,22 75,32 100,32 110,32 115,25 120,32 130,32 133,40 136,10 140,55 143,32 155,32 165,22 175,32 200,32";
-    const dangerPoints = "0,32 5,15 10,45 15,32 25,10 30,55 35,20 40,40 50,32 60,10 65,50 70,25 80,55 85,15 95,45 100,32 105,15 110,45 115,32 125,10 130,55 135,20 140,40 150,32 160,10 165,50 170,25 180,55 185,15 195,45 200,32";
-    const flatPoints = "0,32 200,32";
+    
+    // Пути для SVG
+    const normalPath = "M0,32 L10,32 L15,28 L20,32 L30,32 L33,40 L36,10 L40,55 L43,32 L55,32 L60,28 L65,32 L75,32 L78,40 L81,10 L85,55 L88,32 L100,32";
+    const dangerPath = "M0,32 L5,15 L10,45 L15,32 L25,10 L30,55 L35,20 L40,40 L50,32 L55,10 L60,50 L65,25 L75,55 L80,15 L90,45 L95,32 L100,32";
+    const flatPath = "M0,32 L200,32";
 
     useEffect(() => {
       if (!isDead && status === 'playing') {
@@ -2292,14 +2336,22 @@
     
     return (
       <div className="w-full h-12 md:h-16 bg-[#030712]/80 border border-green-500/20 rounded-lg relative overflow-hidden flex items-center shadow-inner">
+        {/* Сетка */}
         <div className="absolute inset-0 flex justify-between opacity-10">
           {[...Array(20)].map((_, i) => <div key={i} className="border-r border-green-500 h-full w-[5%]" />)}
         </div>
         <div className="absolute inset-0 flex flex-col justify-between opacity-10">
           {[...Array(4)].map((_, i) => <div key={i} className="border-b border-green-500 w-full h-[25%]" />)}
         </div>
+        
+        {/* Сама линия */}
         <svg className={`absolute w-[200%] h-full z-10 ${!isDead ? 'ecg-animate' : ''} ${isDanger ? 'ecg-fast' : ''}`} viewBox="0 0 200 64" preserveAspectRatio="none" style={{ left: 0 }}>
-          <polyline className={`fill-none stroke-[2px] transition-all duration-500 stroke-linecap-round stroke-linejoin-round ${isDead ? 'stroke-red-600 opacity-80' : isDanger ? 'stroke-orange-500 drop-shadow-[0_0_6px_rgba(249,115,22,0.8)]' : 'stroke-green-400 drop-shadow-[0_0_6px_rgba(74,222,128,0.8)]'}`} points={isDead ? flatPoints : isDanger ? dangerPoints : normalPoints} />
+          <polyline 
+            className={`fill-none stroke-[2px] transition-all duration-500 stroke-linecap-round stroke-linejoin-round ${
+              isDead ? 'stroke-red-600 opacity-80' : isDanger ? 'stroke-orange-500 drop-shadow-[0_0_6px_rgba(249,115,22,0.8)]' : 'stroke-green-400 drop-shadow-[0_0_6px_rgba(74,222,128,0.8)]'
+            }`} 
+            points={isDead ? flatPath : (isDanger ? `${dangerPath} ${dangerPath.replace(/M0,32/g, 'M100,32')}` : `${normalPath} ${normalPath.replace(/M0,32/g, 'M100,32')}`)} 
+          />
         </svg>
       </div>
     );
