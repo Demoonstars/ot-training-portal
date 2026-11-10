@@ -2,21 +2,22 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>СДО | Оказание первой помощи пострадавшим (Приказ Минздрава № 220н)</title>
+  <title>СДО | Оказание первой помощи (Приказ 220н)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Дистанционный курс обучения по оказанию первой помощи пострадавшим на производстве в соответствии с Приказом Минздрава РФ № 220н и Постановлением Правительства РФ № 2464.">
+  <meta name="description" content="Дистанционный курс по оказанию первой помощи на производстве по Приказу Минздрава № 220н и ПП РФ № 2464. Тренажёр СЛР 30:2, алгоритмы, PDF-конспект и итоговый тест.">
+  <meta name="theme-color" content="#e11d48">
 
-  <!-- ИСПРАВЛЕНИЕ ОШИБКИ 404 (Favicon) -->
+  <!-- Favicon (SVG data URI) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩹</text></svg>">
 
-  <!-- Фильтр предупреждений в консоли -->
+  <!-- Фильтр предупреждений CDN в консоли (только шум, не ошибки) -->
   <script>
     (function() {
       const originalWarn = console.warn;
       console.warn = function(...args) {
         if (args[0] && typeof args[0] === 'string') {
-          if (args[0].includes('cdn.tailwindcss.com') || 
-              args[0].includes('babel.min.js') || 
+          if (args[0].includes('cdn.tailwindcss.com') ||
+              args[0].includes('babel.min.js') ||
               args[0].includes('in-browser Babel transformer')) return;
         }
         originalWarn.apply(console, args);
@@ -24,33 +25,58 @@
     })();
   </script>
 
-  <!-- Канонический URL и Open Graph -->
+  <!-- Канонический URL, Open Graph, Twitter -->
   <link rel="canonical" href="https://demoonstars.github.io/ot-training-portal/course-first-aid.html">
   <meta property="og:type" content="article">
   <meta property="og:title" content="СДО | Оказание первой помощи пострадавшим">
-  <meta property="og:description" content="Интерактивный курс, тренажёр СЛР (30:2), алгоритмы остановки кровотечений, PDF-конспект и итоговое тестирование.">
+  <meta property="og:description" content="Интерактивный курс, тренажёр СЛР (30:2), алгоритмы остановки кровотечений, PDF-конспект и итоговое тестирование по Приказу Минздрава № 220н.">
   <meta property="og:url" content="https://demoonstars.github.io/ot-training-portal/course-first-aid.html">
   <meta property="og:locale" content="ru_RU">
+  <meta property="og:image" content="https://demoonstars.github.io/ot-training-portal/assets/og-first-aid.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Курс «Оказание первой помощи пострадавшим» — СДО">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="СДО | Оказание первой помощи пострадавшим">
+  <meta name="twitter:description" content="Тренажёр СЛР 30:2, алгоритмы и тест по Приказу Минздрава № 220н.">
+  <meta name="twitter:image" content="https://demoonstars.github.io/ot-training-portal/assets/og-first-aid.jpg">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Оказание первой помощи пострадавшим",
+    "description": "Дистанционный курс по оказанию первой помощи на производстве в соответствии с Приказом Минздрава РФ № 220н и Постановлением Правительства РФ № 2464.",
+    "inLanguage": "ru-RU",
+    "url": "https://demoonstars.github.io/ot-training-portal/course-first-aid.html",
+    "provider": {
+      "@type": "Organization",
+      "name": "Служба Охраны Труда",
+      "url": "https://demoonstars.github.io/ot-training-portal/"
+    },
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "courseMode": "online",
+      "courseWorkload": "PT2H"
+    },
+    "educationalLevel": "Basic",
+    "teaches": "Алгоритмы первой помощи, СЛР 30:2, остановка кровотечений, действия при ожогах и электротравме"
+  }
+  </script>
 
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Merriweather:ital,wght@1,700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- PDF.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script>
-    if (window.pdfjsLib) {
-      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-    }
-  </script>
 
-  <!-- Зависимости для React-тренажера -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- PDF.js: defer + crossorigin (SRI — требуется добавить перед прод-релизом) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- React-тренажёр: Tailwind CDN + importmap + Babel (требуется предкомпиляция в прод) -->
+  <script src="https://cdn.tailwindcss.com" crossorigin="anonymous"></script>
   <script>
-    tailwind.config = {
-      corePlugins: { preflight: false }
-    }
+    tailwind.config = { corePlugins: { preflight: false } };
   </script>
   <script type="importmap">
     {
@@ -61,7 +87,7 @@
       }
     }
   </script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin="anonymous"></script>
 
   <style>
     :root {
@@ -75,16 +101,43 @@
       --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
-    /* === 1. ЖИВОЙ ФОН И ПОЛОСА ПРОКРУТКИ === */
+    /* === 0. SKIP-LINK === */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 16px;
+      z-index: 10001;
+      padding: 12px 20px;
+      background: #0f172a;
+      color: #ffffff;
+      border-radius: 10px;
+      font-weight: 700;
+      font-family: inherit;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.35);
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus,
+    .skip-link:focus-visible {
+      top: 12px;
+      outline: 2px solid #f43f5e;
+      outline-offset: 2px;
+    }
+
+    /* === 1. ФОН И СКРОЛЛ === */
     body.masterpiece-theme.theme-aid {
       background: linear-gradient(-45deg, #fff1f2, #ffe4e6, #fef2f2, #f8fafc);
       background-size: 400% 400%;
       animation: gradientBG 16s ease infinite;
       min-height: 100vh;
+      min-height: 100dvh;
       position: relative;
       overflow-x: hidden;
       -webkit-tap-highlight-color: transparent;
       color: var(--slate-800);
+    }
+    @supports (overflow-x: clip) {
+      body.masterpiece-theme.theme-aid { overflow-x: clip; }
     }
 
     @keyframes gradientBG {
@@ -117,7 +170,15 @@
       transform: translateY(0);
     }
 
-    /* === 2. ШАПКА (ИСПРАВЛЕНА) === */
+    /* === 2. ГЛОБАЛЬНЫЕ УТИЛИТЫ === */
+    button, a, [role="button"], .flip-card, .consent-check-item,
+    .q-cmd-btn, .q-passport-btn, .q-app-btn, .alg-tab-btn, .r-btn,
+    .cpr-btn-start, .cpr-btn-mute, .hero-pill-link, .to-top-btn,
+    .modal-close, .voice-mic-btn, .btn-magic, .mob-nav-item, .call-112-btn {
+      touch-action: manipulation;
+    }
+
+    /* === 3. ШАПКА === */
     .site-header.quantum-header {
       position: sticky;
       top: 0;
@@ -130,7 +191,6 @@
       padding: 10px 0;
       transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
     .site-header.quantum-header .header-inner {
       width: 100%;
       max-width: 1200px;
@@ -145,247 +205,171 @@
       box-sizing: border-box !important;
       transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
     .site-header.quantum-header .header-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-shrink: 0;
-      min-width: 0;
+      display: flex; align-items: center; gap: 10px;
+      flex-shrink: 0; min-width: 0;
     }
-
     .site-header.quantum-header .brand-logo {
-      width: 38px;
-      height: 38px;
-      flex-shrink: 0;
+      width: 38px; height: 38px; flex-shrink: 0;
       transition: transform 0.3s ease;
     }
-
     .site-header.quantum-header .site-title-mini {
-      font-size: 1.05rem;
-      font-weight: 800;
-      margin: 0;
-      line-height: 1.1;
-      color: #0f172a;
-      white-space: nowrap;
+      font-size: 1.05rem; font-weight: 800; margin: 0;
+      line-height: 1.1; color: #0f172a; white-space: nowrap;
     }
-
     .site-header.quantum-header .site-subtitle-mini {
-      font-size: 0.7rem;
-      color: #64748b;
-      margin: 2px 0 0;
-      white-space: nowrap;
-      max-width: 185px;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size: 0.7rem; color: #64748b; margin: 2px 0 0;
+      white-space: nowrap; max-width: 185px;
+      overflow: hidden; text-overflow: ellipsis;
     }
-
     .site-header.quantum-header .header-meta {
-      font-size: 0.72rem;
-      color: #64748b;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-left: auto;
-      margin-right: 10px;
-      white-space: nowrap;
-      flex-shrink: 1;
-      min-width: 0;
+      font-size: 0.72rem; color: #64748b; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+      margin-left: auto; margin-right: 10px; white-space: nowrap;
+      flex-shrink: 1; min-width: 0;
     }
-
     @media (max-width: 1260px) {
       .site-header.quantum-header .header-meta,
-      .site-header.quantum-header .site-subtitle-mini {
-        display: none !important;
-      }
+      .site-header.quantum-header .site-subtitle-mini { display: none !important; }
     }
 
     .site-header.quantum-header .main-nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-width: 0;
-      position: relative;
-      flex-shrink: 0;
+      display: flex; justify-content: center; align-items: center;
+      min-width: 0; position: relative; flex-shrink: 0;
     }
-
     .site-header.quantum-header .nav-list {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      list-style: none;
-      margin: 0;
-      padding: 4px;
-      position: relative;
-      border-radius: 14px;
+      display: flex; align-items: center; gap: 4px; list-style: none;
+      margin: 0; padding: 4px; position: relative; border-radius: 14px;
       background: rgba(241, 245, 249, 0.7);
       border: 1px solid rgba(226, 232, 240, 0.8);
     }
-
     .site-header.quantum-header .nav-link {
-      font-size: 0.86rem;
-      font-weight: 600;
-      color: #475569;
-      padding: 7px 12px;
-      border-radius: 10px;
-      white-space: nowrap;
-      position: relative;
-      z-index: 2;
+      font-size: 0.86rem; font-weight: 600; color: #475569;
+      padding: 7px 12px; border-radius: 10px; white-space: nowrap;
+      position: relative; z-index: 2;
       transition: color 0.2s ease, background 0.2s ease;
     }
-
-    .site-header.quantum-header .nav-link:hover,
+    @media (hover: hover) and (pointer: fine) {
+      .site-header.quantum-header .nav-link:hover {
+        color: #e11d48; background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+      }
+    }
     .site-header.quantum-header .nav-link.active,
     .site-header.quantum-header .nav-link-active {
-      color: #e11d48;
-      background: rgba(255, 255, 255, 0.9);
+      color: #e11d48; background: rgba(255, 255, 255, 0.9);
       box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
     }
 
     .q-nav-glider {
-      position: absolute;
-      top: 4px;
-      left: 0;
-      height: calc(100% - 8px);
-      border-radius: 10px;
+      position: absolute; top: 4px; left: 0;
+      height: calc(100% - 8px); border-radius: 10px;
       background: linear-gradient(135deg, rgba(225, 29, 72, 0.12), rgba(244, 63, 94, 0.10));
       border: 1px solid rgba(225, 29, 72, 0.24);
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0;
+      pointer-events: none; z-index: 1; opacity: 0;
+      will-change: transform, width;
       transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), width 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
     }
 
     .q-context-radar {
-      display: none;
-      align-items: center;
-      gap: 7px;
-      padding: 5px 11px;
-      border-radius: 99px;
+      display: none; align-items: center; gap: 7px;
+      padding: 5px 11px; border-radius: 99px;
       background: linear-gradient(90deg, rgba(225, 29, 72, 0.09), rgba(16, 185, 129, 0.09));
       border: 1px solid rgba(225, 29, 72, 0.24);
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #0f172a;
-      white-space: nowrap;
-      flex-shrink: 0;
+      font-size: 0.75rem; font-weight: 700; color: #0f172a;
+      white-space: nowrap; flex-shrink: 0;
     }
     .q-radar-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #e11d48;
-      box-shadow: 0 0 8px #e11d48;
-      flex-shrink: 0;
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #e11d48; box-shadow: 0 0 8px #e11d48; flex-shrink: 0;
     }
     .q-radar-section {
-      color: #e11d48;
-      max-width: 170px;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      color: #e11d48; max-width: 170px;
+      overflow: hidden; text-overflow: ellipsis;
     }
 
     .q-header-actions {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-shrink: 0;
-      position: relative;
+      display: flex; align-items: center; gap: 6px;
+      flex-shrink: 0; position: relative;
     }
-
     .q-cmd-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      height: 36px;
-      padding: 0 10px;
-      border-radius: 99px;
+      display: inline-flex; align-items: center; gap: 5px;
+      height: 36px; padding: 0 10px; border-radius: 99px;
       border: 1px solid rgba(203, 213, 225, 0.85);
       background: rgba(255, 255, 255, 0.95);
-      color: #334155;
-      font-size: 0.78rem;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-      flex-shrink: 0;
+      color: #334155; font-size: 0.78rem; font-weight: 700;
+      font-family: inherit; cursor: pointer;
+      transition: all 0.2s ease; white-space: nowrap; flex-shrink: 0;
     }
-    .q-cmd-btn:hover {
-      border-color: #e11d48;
-      color: #e11d48;
-      background: #ffffff;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(225, 29, 72, 0.15);
+    @media (hover: hover) and (pointer: fine) {
+      .q-cmd-btn:hover {
+        border-color: #e11d48; color: #e11d48; background: #ffffff;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(225, 29, 72, 0.15);
+      }
     }
+    .q-cmd-btn:active { transform: translateY(0); }
+
     .q-cmd-kbd {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      padding: 2px 5px;
-      border-radius: 5px;
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
-      color: #64748b;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+      padding: 2px 5px; border-radius: 5px;
+      background: #f1f5f9; border: 1px solid #e2e8f0; color: #64748b;
     }
     .q-cmd-sos {
-      background: #fff1f2;
-      border-color: #fecdd3;
-      color: #be123c;
+      background: #fff1f2; border-color: #fecdd3; color: #be123c;
     }
-    .q-cmd-sos:hover {
-      background: #e11d48;
-      border-color: #e11d48;
-      color: #ffffff;
-      box-shadow: 0 6px 16px -3px rgba(225, 29, 72, 0.35);
+    @media (hover: hover) and (pointer: fine) {
+      .q-cmd-sos:hover {
+        background: #e11d48; border-color: #e11d48; color: #ffffff;
+        box-shadow: 0 6px 16px -3px rgba(225, 29, 72, 0.35);
+      }
     }
 
     .q-passport-wrap {
-      position: relative;
-      display: inline-flex;
-      flex-shrink: 0;
+      position: relative; display: inline-flex; flex-shrink: 0;
     }
     .q-passport-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      height: 36px;
-      padding: 0 11px 0 7px;
-      border-radius: 99px;
+      display: inline-flex; align-items: center; gap: 6px;
+      height: 36px; padding: 0 11px 0 7px; border-radius: 99px;
       border: 1px solid rgba(203, 213, 225, 0.85);
       background: linear-gradient(135deg, #ffffff, #f8fafc);
-      color: #0f172a;
-      font-size: 0.76rem;
-      font-weight: 800;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.22s ease;
-      white-space: nowrap;
+      color: #0f172a; font-size: 0.76rem; font-weight: 800;
+      font-family: inherit; cursor: pointer;
+      transition: all 0.22s ease; white-space: nowrap;
     }
-    .q-passport-btn:hover,
     .q-passport-btn[aria-expanded="true"] {
       border-color: #10b981;
       box-shadow: 0 6px 16px -4px rgba(16, 185, 129, 0.28);
-      transform: translateY(-1px);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .q-passport-btn:hover {
+        border-color: #10b981;
+        box-shadow: 0 6px 16px -4px rgba(16, 185, 129, 0.28);
+        transform: translateY(-1px);
+      }
     }
     .q-ring-svg {
-      width: 24px;
-      height: 24px;
-      transform: rotate(-90deg);
-      flex-shrink: 0;
+      width: 24px; height: 24px; transform: rotate(-90deg); flex-shrink: 0;
     }
     .q-ring-bg { fill: none; stroke: #e2e8f0; stroke-width: 3.2; }
     .q-ring-fill {
-      fill: none;
-      stroke: #10b981;
-      stroke-width: 3.2;
-      stroke-linecap: round;
-      stroke-dasharray: 62.83;
-      stroke-dashoffset: 62.83;
+      fill: none; stroke: #10b981; stroke-width: 3.2;
+      stroke-linecap: round; stroke-dasharray: 62.83; stroke-dashoffset: 62.83;
       transition: stroke-dashoffset 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* Морфинг в «Парящую капсулу» при прокрутке на ПК */
+    /* Safe fallback для поповеров шапки, если assets/style.css их не определяет.
+       Если внешний CSS уже содержит transition/opacity — данные правила не конфликтуют
+       (используют display вместо opacity). */
+    .q-app-dropdown, .q-passport-popover {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      z-index: 1200;
+      display: none;
+    }
+    .q-app-dropdown.open, .q-passport-popover.open { display: block; }
+
     @media (min-width: 769px) {
       .site-header.quantum-header.is-scrolled {
         background: transparent;
@@ -395,7 +379,6 @@
         padding: 8px 16px 0;
         pointer-events: none;
       }
-
       .site-header.quantum-header.is-scrolled .header-inner {
         pointer-events: auto;
         max-width: 1160px;
@@ -410,16 +393,11 @@
           0 4px 12px -2px rgba(225, 29, 72, 0.08),
           inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
       }
-
       .site-header.quantum-header.is-scrolled .site-subtitle-mini,
       .site-header.quantum-header.is-scrolled .header-meta {
         display: none !important;
       }
-
-      .site-header.quantum-header.is-scrolled .brand-logo {
-        width: 34px;
-        height: 34px;
-      }
+      .site-header.quantum-header.is-scrolled .brand-logo { width: 34px; height: 34px; }
 
       @media (min-width: 1080px) {
         .site-header.quantum-header.is-scrolled .q-context-radar.has-context {
@@ -429,14 +407,11 @@
     }
 
     @media (min-width: 769px) and (max-width: 1020px) {
-      .site-header.quantum-header .nav-link {
-        padding: 6px 8px;
-        font-size: 0.8rem;
-      }
+      .site-header.quantum-header .nav-link { padding: 6px 8px; font-size: 0.8rem; }
       .q-cmd-kbd { display: none; }
     }
 
-    /* === 3. HERO КУРСА === */
+    /* === 4. HERO КУРСА === */
     .course-hero {
       background: radial-gradient(circle at 100% 0%, rgba(225, 29, 72, 0.12) 0%, rgba(255, 255, 255, 0.92) 100%);
       border: 1px solid rgba(255, 255, 255, 0.95);
@@ -449,259 +424,175 @@
       -webkit-backdrop-filter: blur(20px);
       box-shadow: 0 20px 45px -12px rgba(225, 29, 72, 0.09);
     }
-
     .course-badge-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; flex-wrap: wrap; margin-bottom: 14px;
     }
-
     .course-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #fff1f2;
-      color: #be123c;
-      border: 1px solid #fecdd3;
-      padding: 6px 14px;
-      border-radius: 99px;
-      font-size: 0.76rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #fff1f2; color: #be123c; border: 1px solid #fecdd3;
+      padding: 6px 14px; border-radius: 99px;
+      font-size: 0.76rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.6px;
     }
-
     .course-title {
       font-size: clamp(1.75rem, 4vw, 2.5rem);
-      font-weight: 900;
-      color: #0f172a;
-      margin: 0 0 14px;
-      line-height: 1.15;
-      min-height: 1.3em;
+      font-weight: 900; color: #0f172a;
+      margin: 0 0 14px; line-height: 1.15; min-height: 1.3em;
     }
-
     .cursor-blink {
-      display: inline-block;
-      width: 4px;
-      height: 1em;
-      background: #e11d48;
-      margin-left: 5px;
-      animation: blinkCursor 0.9s steps(2, start) infinite !important;
-      vertical-align: middle;
-      border-radius: 2px;
+      display: inline-block; width: 4px; height: 1em;
+      background: #e11d48; margin-left: 5px;
+      animation: blinkCursor 0.9s steps(2, start) infinite;
+      vertical-align: middle; border-radius: 2px;
     }
     @keyframes blinkCursor {
       0%, 100% { opacity: 1; }
       50% { opacity: 0; }
     }
-
     .course-lead {
-      font-size: 1.02rem;
-      color: #475569;
-      max-width: 820px;
-      line-height: 1.65;
-      margin: 0 0 22px;
+      font-size: 1.02rem; color: #475569; max-width: 820px;
+      line-height: 1.65; margin: 0 0 22px;
     }
-
     .hero-nav-pills {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
+      display: flex; gap: 10px; flex-wrap: wrap;
     }
     .hero-pill-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 11px 18px;
-      border-radius: 14px;
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
-      color: #0f172a;
-      font-size: 0.86rem;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 18px; border-radius: 14px;
+      background: #ffffff; border: 1px solid #cbd5e1;
+      color: #0f172a; font-size: 0.86rem; font-weight: 700;
+      text-decoration: none; transition: all 0.2s;
       box-shadow: 0 4px 10px rgba(15, 23, 42, 0.03);
     }
-    .hero-pill-link:hover {
-      border-color: #e11d48;
-      color: #e11d48;
-      transform: translateY(-2px);
-      opacity: 1;
+    @media (hover: hover) and (pointer: fine) {
+      .hero-pill-link:hover {
+        border-color: #e11d48; color: #e11d48;
+        transform: translateY(-2px);
+      }
     }
     .hero-pill-link.primary-pill {
-      background: #e11d48;
-      border-color: #e11d48;
-      color: #ffffff;
+      background: #e11d48; border-color: #e11d48; color: #ffffff;
       box-shadow: 0 8px 20px -4px rgba(225, 29, 72, 0.35);
     }
-    .hero-pill-link.primary-pill:hover {
-      background: #be123c;
-      color: #ffffff;
+    @media (hover: hover) and (pointer: fine) {
+      .hero-pill-link.primary-pill:hover {
+        background: #be123c; color: #ffffff;
+      }
     }
+    .hero-pill-link:active { transform: translateY(0); }
 
-    /* === 4. КАРТОЧКИ КЛЮЧЕВЫХ ПРАВИЛ === */
+    /* === 5. КАРТОЧКИ ПРАВИЛ === */
     .rules-grid-4 {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 18px;
-      margin-bottom: 36px;
+      gap: 18px; margin-bottom: 36px;
     }
     .rule-card {
       background: rgba(255, 255, 255, 0.92);
-      border: 1px solid #e2e8f0;
-      border-radius: 22px;
+      border: 1px solid #e2e8f0; border-radius: 22px;
       padding: 22px;
       box-shadow: 0 10px 25px -8px rgba(15, 23, 42, 0.05);
       transition: transform 0.25s, border-color 0.25s;
     }
-    .rule-card:hover {
-      transform: translateY(-4px);
-      border-color: #fda4af;
+    @media (hover: hover) and (pointer: fine) {
+      .rule-card:hover { transform: translateY(-4px); border-color: #fda4af; }
     }
     .rule-icon {
-      width: 46px; height: 46px;
-      border-radius: 14px;
-      background: #fff1f2;
-      color: #e11d48;
-      font-size: 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 46px; height: 46px; border-radius: 14px;
+      background: #fff1f2; color: #e11d48; font-size: 1.5rem;
+      display: flex; align-items: center; justify-content: center;
       margin-bottom: 14px;
     }
     .rule-card h3 {
-      font-size: 1.08rem;
-      font-weight: 800;
-      color: #0f172a;
+      font-size: 1.08rem; font-weight: 800; color: #0f172a;
       margin: 0 0 8px;
     }
     .rule-card p {
-      font-size: 0.88rem;
-      color: #475569;
-      margin: 0;
-      line-height: 1.55;
+      font-size: 0.88rem; color: #475569; margin: 0; line-height: 1.55;
     }
 
-    /* === 5. ИНТЕРАКТИВНЫЙ СИМУЛЯТОР СЛР === */
+    /* === 6. СЛР === */
     .cpr-sim-card {
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      color: #ffffff;
-      border-radius: 28px;
+      color: #ffffff; border-radius: 28px;
       padding: clamp(22px, 3.5vw, 36px);
       margin-bottom: 36px;
       box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.28);
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
     }
-
     .cpr-layout {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 28px;
-      align-items: center;
+      display: grid; grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px; align-items: center;
     }
-
     .cpr-visual-box {
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 22px;
-      padding: 24px;
+      border-radius: 22px; padding: 24px;
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 14px;
     }
-
     .cpr-heart-circle {
-      width: 112px;
-      height: 112px;
-      border-radius: 50%;
+      width: 112px; height: 112px; border-radius: 50%;
       background: radial-gradient(circle, #f43f5e 0%, #be123c 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
       font-size: 2.3rem;
       box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.65);
       transition: transform 0.12s ease, box-shadow 0.12s ease;
-      user-select: none;
+      user-select: none; will-change: transform;
     }
     .cpr-heart-circle.beat-active {
       transform: scale(0.84);
       box-shadow: 0 0 0 22px rgba(244, 63, 94, 0);
     }
-
     .cpr-counter-big {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 2rem;
-      font-weight: 800;
-      color: #ffffff;
-      line-height: 1;
+      font-size: 2rem; font-weight: 800;
+      color: #ffffff; line-height: 1;
     }
-
     .cpr-phase-badge {
-      display: inline-block;
-      padding: 6px 14px;
-      border-radius: 99px;
-      font-size: 0.78rem;
-      font-weight: 800;
+      display: inline-block; padding: 6px 14px;
+      border-radius: 99px; font-size: 0.78rem; font-weight: 800;
       text-transform: uppercase;
-      background: rgba(16, 185, 129, 0.2);
-      color: #34d399;
+      background: rgba(16, 185, 129, 0.2); color: #34d399;
       border: 1px solid rgba(52, 211, 153, 0.35);
     }
     .cpr-phase-badge.breaths-mode {
-      background: rgba(59, 130, 246, 0.25);
-      color: #93c5fd;
+      background: rgba(59, 130, 246, 0.25); color: #93c5fd;
       border-color: rgba(147, 197, 253, 0.45);
     }
-
     .cpr-controls-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 16px;
+      display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px;
     }
-
     .cpr-btn-start {
-      padding: 13px 22px;
-      border-radius: 14px;
-      border: none;
-      background: #e11d48;
-      color: #ffffff;
-      font-size: 0.92rem;
-      font-weight: 800;
-      font-family: inherit;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      padding: 13px 22px; border-radius: 14px; border: none;
+      background: #e11d48; color: #ffffff; font-size: 0.92rem;
+      font-weight: 800; font-family: inherit; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px;
       transition: all 0.2s;
       box-shadow: 0 10px 22px -5px rgba(225, 29, 72, 0.45);
     }
-    .cpr-btn-start:hover { background: #be123c; transform: translateY(-1px); }
+    @media (hover: hover) and (pointer: fine) {
+      .cpr-btn-start:hover { background: #be123c; transform: translateY(-1px); }
+    }
+    .cpr-btn-start:active { transform: translateY(0) scale(0.98); }
     .cpr-btn-start.running { background: #f59e0b; color: #0f172a; }
 
     .cpr-btn-mute {
-      padding: 13px 18px;
-      border-radius: 14px;
+      padding: 13px 18px; border-radius: 14px;
       border: 1px solid rgba(255, 255, 255, 0.22);
       background: rgba(255, 255, 255, 0.08);
-      color: #f8fafc;
-      font-size: 0.86rem;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.2s;
+      color: #f8fafc; font-size: 0.86rem; font-weight: 700;
+      font-family: inherit; cursor: pointer; transition: all 0.2s;
     }
-    .cpr-btn-mute:hover { background: rgba(255, 255, 255, 0.16); }
+    @media (hover: hover) and (pointer: fine) {
+      .cpr-btn-mute:hover { background: rgba(255, 255, 255, 0.16); }
+    }
+    .cpr-btn-mute:active { background: rgba(255, 255, 255, 0.2); }
 
-    /* === 6. ИНТЕРАКТИВНЫЙ СПРАВОЧНИК АЛГОРИТМОВ === */
+    /* === 7. АЛГОРИТМЫ === */
     .alg-section {
       background: rgba(255, 255, 255, 0.9);
       border: 1px solid rgba(255, 255, 255, 0.95);
@@ -710,199 +601,119 @@
       margin-bottom: 36px;
       box-shadow: 0 20px 45px -12px rgba(15, 23, 42, 0.06);
     }
-
     .alg-tabs {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      padding: 6px;
-      background: #f1f5f9;
-      border-radius: 16px;
-      margin: 18px 0 22px;
+      display: flex; gap: 8px; flex-wrap: wrap;
+      padding: 6px; background: #f1f5f9;
+      border-radius: 16px; margin: 18px 0 22px;
     }
     .alg-tab-btn {
-      flex: 1 1 auto;
-      padding: 10px 14px;
-      border-radius: 12px;
-      border: none;
-      background: transparent;
-      color: #475569;
-      font-size: 0.84rem;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.2s;
+      flex: 1 1 auto; padding: 10px 14px; border-radius: 12px;
+      border: none; background: transparent; color: #475569;
+      font-size: 0.84rem; font-weight: 700;
+      font-family: inherit; cursor: pointer; transition: all 0.2s;
     }
     .alg-tab-btn.active {
-      background: #ffffff;
-      color: #e11d48;
+      background: #ffffff; color: #e11d48;
       box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
     }
-
+    .alg-tab-btn:active { background: rgba(255, 255, 255, 0.6); }
     .alg-panel {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 20px;
-      padding: 24px;
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 22px;
-      align-items: start;
+      background: #f8fafc; border: 1px solid #e2e8f0;
+      border-radius: 20px; padding: 24px;
+      display: grid; grid-template-columns: 1.2fr 0.8fr;
+      gap: 22px; align-items: start;
     }
     .alg-steps-list {
-      margin: 12px 0 0;
-      padding-left: 20px;
-      color: #334155;
-      font-size: 0.92rem;
-      line-height: 1.65;
+      margin: 12px 0 0; padding-left: 20px;
+      color: #334155; font-size: 0.92rem; line-height: 1.65;
     }
     .alg-steps-list li { margin-bottom: 8px; }
     .alg-warning-box {
-      background: #fff1f2;
-      border: 1px solid #fecdd3;
-      border-left: 4px solid #e11d48;
-      border-radius: 16px;
-      padding: 18px;
-      color: #881337;
-      font-size: 0.86rem;
-      line-height: 1.55;
+      background: #fff1f2; border: 1px solid #fecdd3;
+      border-left: 4px solid #e11d48; border-radius: 16px;
+      padding: 18px; color: #881337; font-size: 0.86rem; line-height: 1.55;
     }
 
-    /* === 7. НЕЙРО-ЧИТАЛКА PDF === */
+    /* === 8. PDF-ЧИТАЛКА === */
     .reader-section {
       background: rgba(255, 255, 255, 0.94);
-      border: 1px solid #e2e8f0;
-      border-radius: 26px;
+      border: 1px solid #e2e8f0; border-radius: 26px;
       padding: clamp(18px, 3vw, 28px);
       margin-bottom: 38px;
       box-shadow: 0 22px 48px -12px rgba(15, 23, 42, 0.08);
     }
     .reader-section.fullscreen-mode {
-      position: fixed;
-      inset: 0;
-      z-index: 9500;
-      margin: 0;
-      border-radius: 0;
-      overflow-y: auto;
-      background: #0f172a;
-      color: #f8fafc;
+      position: fixed; inset: 0; z-index: 9500;
+      margin: 0; border-radius: 0;
+      overflow-y: auto; background: #0f172a; color: #f8fafc;
     }
-
     .reader-toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      padding: 12px 16px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      margin-bottom: 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap; padding: 12px 16px;
+      background: #f8fafc; border: 1px solid #e2e8f0;
+      border-radius: 16px; margin-bottom: 16px;
     }
     .reader-section.fullscreen-mode .reader-toolbar {
-      background: #1e293b;
-      border-color: #334155;
+      background: #1e293b; border-color: #334155;
     }
-
-    .reader-nav-group,
-    .reader-tools-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      pointer-events: auto; 
+    .reader-nav-group, .reader-tools-group {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      pointer-events: auto;
     }
-
     .r-btn {
-      height: 38px;
-      padding: 0 13px;
-      border-radius: 10px;
-      border: 1px solid #cbd5e1;
-      background: #ffffff;
-      color: #1e293b;
-      font-size: 0.82rem;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: all 0.2s;
-      pointer-events: auto; 
+      height: 38px; padding: 0 13px; border-radius: 10px;
+      border: 1px solid #cbd5e1; background: #ffffff;
+      color: #1e293b; font-size: 0.82rem; font-weight: 700;
+      font-family: inherit; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 6px; transition: all 0.2s;
+      pointer-events: auto;
       -webkit-tap-highlight-color: transparent;
     }
-    .r-btn:hover:not(:disabled) {
-      border-color: #e11d48;
-      color: #e11d48;
-      background: #fff1f2;
+    @media (hover: hover) and (pointer: fine) {
+      .r-btn:hover:not(:disabled) {
+        border-color: #e11d48; color: #e11d48; background: #fff1f2;
+      }
     }
-    .r-btn:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-    }
-
+    .r-btn:active:not(:disabled) { background: #ffe4e6; }
+    .r-btn:disabled { opacity: 0.45; cursor: not-allowed; }
     .r-page-input {
-      width: 56px;
-      height: 38px;
-      border-radius: 10px;
-      border: 1px solid #cbd5e1;
-      text-align: center;
+      width: 56px; height: 38px; border-radius: 10px;
+      border: 1px solid #cbd5e1; text-align: center;
       font-family: 'JetBrains Mono', monospace;
-      font-weight: 700;
-      font-size: 0.88rem;
-      color: #0f172a;
+      font-weight: 700; font-size: 0.88rem; color: #0f172a;
     }
-
+    .r-page-input:focus-visible {
+      outline: 2px solid #e11d48; outline-offset: 2px;
+    }
     .reader-viewport {
-      background: #1e293b;
-      border-radius: 18px;
+      background: #1e293b; border-radius: 18px;
       min-height: 540px;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      position: relative;
-      overflow: auto;
-      padding: 16px;
-      touch-action: pan-x pan-y; 
+      display: flex; align-items: flex-start; justify-content: center;
+      position: relative; overflow: auto; padding: 16px;
+      touch-action: pan-x pan-y;
     }
-
     #pdf-render-canvas {
-      max-width: none; 
-      height: auto;
-      border-radius: 10px;
+      max-width: none; height: auto; border-radius: 10px;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
-      background: #ffffff;
-      transition: filter 0.25s ease;
+      background: #ffffff; transition: filter 0.25s ease;
     }
-    
-    #pdf-render-canvas.filter-sepia { 
-      filter: sepia(100%) contrast(90%) !important; 
-    }
-    #pdf-render-canvas.filter-invert { 
-      filter: invert(100%) hue-rotate(180deg) !important; 
-    }
+    #pdf-render-canvas.filter-sepia { filter: sepia(100%) contrast(90%) !important; }
+    #pdf-render-canvas.filter-invert { filter: invert(100%) hue-rotate(180deg) !important; }
 
-    /* === 8. КАРТОЧКИ «МИФ / РЕАЛЬНОСТЬ» === */
+    /* === 9. МИФЫ === */
     .flip-section-title {
-      font-size: 1.55rem;
-      font-weight: 800;
-      color: #0f172a;
-      margin: 0 0 8px;
-      text-align: center;
+      font-size: 1.55rem; font-weight: 800; color: #0f172a;
+      margin: 0 0 8px; text-align: center;
     }
     .flip-section-sub {
-      text-align: center;
-      color: #64748b;
-      font-size: 0.9rem;
-      margin: 0 0 22px;
+      text-align: center; color: #64748b;
+      font-size: 0.9rem; margin: 0 0 22px;
     }
     .flip-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 42px;
+      gap: 20px; margin-bottom: 42px;
     }
     .flip-card {
       background-color: transparent;
@@ -912,224 +723,260 @@
       user-select: none;
     }
     .flip-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
+      position: relative; width: 100%; height: 100%;
       text-align: center;
-      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
-      transform-style: preserve-3d !important;
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      transform-style: preserve-3d;
       box-shadow: 0 10px 25px -8px rgba(15, 23, 42, 0.08);
       border-radius: 22px;
+      will-change: transform;
     }
     @media (hover: hover) and (pointer: fine) {
       .flip-card:hover .flip-inner,
       .flip-card:focus-visible .flip-inner {
-        transform: rotateY(180deg) !important;
+        transform: rotateY(180deg);
       }
     }
-    .flip-card.is-flipped .flip-inner {
-      transform: rotateY(180deg) !important;
-    }
-
-    .flip-front,
-    .flip-back {
-      position: absolute !important;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      -webkit-backface-visibility: hidden !important;
-      backface-visibility: hidden !important;
-      border-radius: 22px;
-      padding: 22px;
-      display: flex !important;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+    .flip-card.is-flipped .flip-inner { transform: rotateY(180deg); }
+    .flip-front, .flip-back {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 22px; padding: 22px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
       border: 1px solid #e2e8f0;
     }
     .flip-front {
-      background-color: #ffffff;
-      color: #1e293b;
-      transform: rotateY(0deg) !important;
+      background-color: #ffffff; color: #1e293b;
+      transform: rotateY(0deg);
     }
     .flip-back {
       background: linear-gradient(135deg, #881337, #0f172a);
-      color: #ffffff;
-      transform: rotateY(180deg) !important;
+      color: #ffffff; transform: rotateY(180deg);
     }
     .flip-icon { font-size: 2.5rem; margin-bottom: 10px; }
     .flip-label {
-      text-transform: uppercase;
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
-      padding: 3px 10px;
+      text-transform: uppercase; font-size: 0.72rem;
+      font-weight: 800; letter-spacing: 1px;
+      margin-bottom: 8px; padding: 3px 10px;
       border-radius: 99px;
-      background: rgba(225, 29, 72, 0.1);
-      color: #e11d48;
+      background: rgba(225, 29, 72, 0.1); color: #e11d48;
     }
     .flip-back .flip-label {
-      background: rgba(16, 185, 129, 0.2);
-      color: #34d399;
+      background: rgba(16, 185, 129, 0.2); color: #34d399;
     }
     .flip-text { font-size: 0.95rem; font-weight: 600; line-height: 1.45; }
     .flip-tap-hint {
-      margin-top: 10px;
-      font-size: 0.7rem;
-      color: #94a3b8;
-      font-weight: 600;
+      margin-top: 10px; font-size: 0.7rem;
+      color: #94a3b8; font-weight: 600;
     }
 
-    /* === 9. ДОПУСК К ИТОГОВОМУ ТЕСТИРОВАНИЮ === */
+    /* === 10. ТЕСТ-ГЕЙТ === */
     .test-gate-card {
       background: rgba(255, 255, 255, 0.92);
-      border: 2px solid #fecdd3;
-      border-radius: 28px;
+      border: 2px solid #fecdd3; border-radius: 28px;
       padding: clamp(24px, 4vw, 38px);
       margin-bottom: 42px;
       box-shadow: 0 20px 50px -12px rgba(225, 29, 72, 0.1);
     }
-
     .consent-check-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 14px 16px;
-      border-radius: 14px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      margin-bottom: 12px;
-      cursor: pointer;
-      transition: all 0.2s;
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 14px 16px; border-radius: 14px;
+      background: #f8fafc; border: 1px solid #e2e8f0;
+      margin-bottom: 12px; cursor: pointer; transition: all 0.2s;
     }
-    .consent-check-item:hover {
-      border-color: #fda4af;
-      background: #fff1f2;
+    @media (hover: hover) and (pointer: fine) {
+      .consent-check-item:hover { border-color: #fda4af; background: #fff1f2; }
     }
+    .consent-check-item:active { background: #fff1f2; }
     .consent-check-item input[type="checkbox"] {
-      width: 22px;
-      height: 22px;
-      margin-top: 2px;
-      accent-color: #e11d48;
-      cursor: pointer;
-      flex-shrink: 0;
+      width: 22px; height: 22px; margin-top: 2px;
+      accent-color: #e11d48; cursor: pointer; flex-shrink: 0;
     }
-
     .btn-magic {
-      position: relative;
-      isolation: isolate;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      padding: 16px 34px;
-      min-height: 54px;
-      font-size: 1rem;
-      font-weight: 700;
-      color: #ffffff;
-      background: #0f172a;
-      border-radius: 99px;
-      text-decoration: none;
-      overflow: hidden;
-      z-index: 1;
+      position: relative; isolation: isolate;
+      display: inline-flex; justify-content: center; align-items: center;
+      gap: 10px; padding: 16px 34px; min-height: 54px;
+      font-size: 1rem; font-weight: 700; color: #ffffff;
+      background: #0f172a; border-radius: 99px;
+      text-decoration: none; overflow: hidden; z-index: 1;
       transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.25s ease;
       box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.28);
     }
     .btn-magic::before {
-      content: "";
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 800px; height: 800px;
+      content: ""; position: absolute;
+      top: 50%; left: 50%; width: 800px; height: 800px;
       background: conic-gradient(transparent 0deg, transparent 220deg, #e11d48 260deg, #f59e0b 310deg, #10b981 360deg);
       transform: translate3d(-50%, -50%, 0) rotate(0deg);
-      animation: rotate-border-gpu 3.5s linear infinite !important;
+      animation: rotate-border-gpu 3.5s linear infinite;
       will-change: transform;
-      z-index: 0;
-      pointer-events: none;
+      z-index: 0; pointer-events: none;
     }
     .btn-magic::after {
-      content: "";
-      position: absolute;
-      inset: 2.5px;
-      background: #0f172a;
-      border-radius: 99px;
-      z-index: 1;
-      pointer-events: none;
+      content: ""; position: absolute; inset: 2.5px;
+      background: #0f172a; border-radius: 99px;
+      z-index: 1; pointer-events: none;
     }
     .btn-magic > span { position: relative; z-index: 2; }
-    .btn-magic:hover:not(.is-locked) {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 16px 32px -6px rgba(225, 29, 72, 0.38);
-      opacity: 1;
+    @media (hover: hover) and (pointer: fine) {
+      .btn-magic:hover:not(.is-locked) {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 16px 32px -6px rgba(225, 29, 72, 0.38);
+      }
     }
     .btn-magic.is-locked {
-      opacity: 0.5;
-      pointer-events: none;
-      filter: grayscale(0.8);
+      opacity: 0.5; pointer-events: none; filter: grayscale(0.8);
     }
     @keyframes rotate-border-gpu {
-      0% { transform: translate3d(-50%, -50%, 0) rotate(0deg); }
+      0%   { transform: translate3d(-50%, -50%, 0) rotate(0deg); }
       100% { transform: translate3d(-50%, -50%, 0) rotate(360deg); }
     }
 
-    /* === 10. МОДАЛЬНЫЕ ОКНА И НИЖНИЙ МОБИЛЬНЫЙ БАР === */
+    /* === 11. МОДАЛКИ И НИЖНИЙ БАР === */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6);
       backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      z-index: 10000; display: flex; align-items: flex-start; justify-content: center;
-      padding: 8vh 16px 24px; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; overflow-y: auto;
+      z-index: 10000;
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: 8vh 16px 24px;
+      opacity: 0; pointer-events: none;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+      overflow-y: auto;
     }
-    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-overlay.open {
+      opacity: 1; pointer-events: auto; visibility: visible;
+      transition: opacity 0.2s ease, visibility 0s;
+    }
     .modal-box {
-      width: 100%; max-width: 600px; background: #ffffff; border-radius: 24px;
-      border: 1px solid #e2e8f0; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
-      overflow: hidden; transform: scale(0.96) translateY(-10px); transition: transform 0.2s ease;
+      width: 100%; max-width: 600px;
+      background: #ffffff; border-radius: 24px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      transform: scale(0.96) translateY(-10px);
+      transition: transform 0.2s ease;
     }
     .modal-overlay.open .modal-box { transform: scale(1) translateY(0); }
-    .search-modal-header { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-bottom: 1px solid #e2e8f0; }
-    .search-modal-input { flex: 1; border: none; outline: none; font-size: 1rem; font-weight: 600; color: #0f172a; background: transparent; min-width: 0; font-family: inherit; }
-    .voice-mic-btn { width: 38px; height: 38px; border-radius: 10px; border: 1px solid #e2e8f0; background: #f8fafc; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; flex-shrink: 0; }
-    .modal-close { background: #f1f5f9; border: none; padding: 8px 12px; border-radius: 10px; font-size: 0.78rem; font-weight: 800; color: #475569; cursor: pointer; }
-    .search-results-list { max-height: 60vh; overflow-y: auto; padding: 10px; }
-    .search-result-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 12px; text-decoration: none; color: #1e293b; }
-    .search-result-item:hover { background: #fff1f2; color: #e11d48; opacity: 1; }
-    .sri-left { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 0.92rem; }
-    .sri-tag { font-size: 0.72rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; background: #f1f5f9; color: #475569; white-space: nowrap; }
-
-    .sos-modal-top { background: linear-gradient(135deg, #be123c, #0f172a); color: #ffffff; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .sos-modal-body { padding: 20px 24px 24px; display: grid; gap: 12px; max-height: 75vh; overflow-y: auto; }
-    .sos-card { padding: 14px 16px; border-radius: 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #e11d48; }
-    .sos-card h4 { margin: 0 0 5px; font-size: 0.95rem; color: #0f172a; font-weight: 800; }
-    .sos-card p { margin: 0; font-size: 0.85rem; color: #475569; line-height: 1.5; }
-    .call-112-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 14px; border-radius: 14px; background: #e11d48; color: #ffffff; font-weight: 800; font-size: 1rem; text-decoration: none; }
+    .search-modal-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 18px; border-bottom: 1px solid #e2e8f0;
+    }
+    .search-modal-input {
+      flex: 1; border: none; outline: none;
+      font-size: 1rem; font-weight: 600; color: #0f172a;
+      background: transparent; min-width: 0; font-family: inherit;
+    }
+    .search-modal-input:focus-visible {
+      outline: 2px solid #e11d48; outline-offset: 2px;
+      border-radius: 6px;
+    }
+    .voice-mic-btn {
+      width: 38px; height: 38px; border-radius: 10px;
+      border: 1px solid #e2e8f0; background: #f8fafc;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: 1.05rem; flex-shrink: 0;
+    }
+    .voice-mic-btn:active { background: #e2e8f0; }
+    .modal-close {
+      background: #f1f5f9; border: none;
+      padding: 8px 12px; border-radius: 10px;
+      font-size: 0.78rem; font-weight: 800; color: #475569; cursor: pointer;
+    }
+    .search-results-list {
+      max-height: 60vh; overflow-y: auto; padding: 10px;
+    }
+    .search-result-item {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; padding: 12px 14px; border-radius: 12px;
+      text-decoration: none; color: #1e293b;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .search-result-item:hover { background: #fff1f2; color: #e11d48; }
+    }
+    .search-result-item:active { background: #fff1f2; }
+    .sri-left {
+      display: flex; align-items: center; gap: 12px;
+      font-weight: 600; font-size: 0.92rem;
+    }
+    .sri-tag {
+      font-size: 0.72rem; font-weight: 700;
+      padding: 4px 8px; border-radius: 6px;
+      background: #f1f5f9; color: #475569; white-space: nowrap;
+    }
+    .sos-modal-top {
+      background: linear-gradient(135deg, #be123c, #0f172a);
+      color: #ffffff; padding: 20px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
+    }
+    .sos-modal-body {
+      padding: 20px 24px 24px;
+      display: grid; gap: 12px;
+      max-height: 75vh; overflow-y: auto;
+    }
+    .sos-card {
+      padding: 14px 16px; border-radius: 14px;
+      background: #f8fafc; border: 1px solid #e2e8f0;
+      border-left: 4px solid #e11d48;
+    }
+    .sos-card h4 {
+      margin: 0 0 5px; font-size: 0.95rem;
+      color: #0f172a; font-weight: 800;
+    }
+    .sos-card p {
+      margin: 0; font-size: 0.85rem;
+      color: #475569; line-height: 1.5;
+    }
+    .call-112-btn {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; width: 100%; padding: 14px; border-radius: 14px;
+      background: #e11d48; color: #ffffff;
+      font-weight: 800; font-size: 1rem; text-decoration: none;
+    }
 
     .mobile-bottom-nav {
-      display: none; position: fixed; bottom: 0; left: 0; right: 0;
-      background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(203, 213, 225, 0.85); padding: 6px 8px calc(6px + var(--safe-bottom));
-      z-index: 9000; box-shadow: 0 -8px 25px rgba(15, 23, 42, 0.08); justify-content: space-around; align-items: center;
+      display: none; position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(203, 213, 225, 0.85);
+      padding: 6px 8px calc(6px + var(--safe-bottom));
+      z-index: 9000;
+      box-shadow: 0 -8px 25px rgba(15, 23, 42, 0.08);
+      justify-content: space-around; align-items: center;
     }
     .mob-nav-item {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 3px; padding: 6px 10px; min-width: 56px; min-height: 44px; border-radius: 12px;
-      text-decoration: none; color: #475569; font-size: 0.68rem; font-weight: 700;
-      border: none; background: transparent; cursor: pointer; font-family: inherit;
+      gap: 3px; padding: 6px 10px;
+      min-width: 56px; min-height: 44px;
+      border-radius: 12px; text-decoration: none;
+      color: #475569; font-size: 0.68rem; font-weight: 700;
+      border: none; background: transparent;
+      cursor: pointer; font-family: inherit;
     }
     .mob-nav-item span.mob-icon { font-size: 1.2rem; line-height: 1; }
     .mob-nav-item.active { color: #e11d48; background: #fff1f2; }
     .mob-nav-item.sos-mob { color: #be123c; }
+    .mob-nav-item:active { background: #fff1f2; }
 
     .to-top-btn {
-      position: fixed; right: 20px; bottom: 24px; width: 44px; height: 44px;
-      border-radius: 50%; background: #ffffff; border: 1px solid #cbd5e1; color: #1e293b;
-      font-weight: 800; font-size: 1.1rem; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-      cursor: pointer; opacity: 0; pointer-events: none; transition: all 0.25s ease;
-      z-index: 8500; display: flex; align-items: center; justify-content: center;
+      position: fixed; right: 20px; bottom: 24px;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: #ffffff; border: 1px solid #cbd5e1;
+      color: #1e293b; font-weight: 800; font-size: 1.1rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      cursor: pointer; opacity: 0; pointer-events: none;
+      transition: all 0.25s ease;
+      z-index: 8500;
+      display: flex; align-items: center; justify-content: center;
     }
     .to-top-btn.visible { opacity: 1; pointer-events: auto; }
+    .to-top-btn:active { transform: scale(0.94); }
 
-    /* === 11. МОБИЛЬНАЯ АДАПТАЦИЯ === */
+    /* === 12. МОБИЛЬНАЯ АДАПТАЦИЯ === */
     @media (max-width: 768px) {
       body.masterpiece-theme { padding-bottom: calc(74px + var(--safe-bottom)); }
       .mobile-bottom-nav { display: flex; }
@@ -1137,6 +984,21 @@
       .cpr-layout, .alg-panel { grid-template-columns: 1fr; }
       .btn-magic { width: 100%; }
       .reader-viewport { min-height: 380px; padding: 10px; }
+
+      /* Ослабление дорогих эффектов */
+      .site-header.quantum-header {
+        backdrop-filter: blur(10px) saturate(160%);
+        -webkit-backdrop-filter: blur(10px) saturate(160%);
+      }
+      .course-hero {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .modal-overlay {
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+      .btn-magic::before { animation-duration: 4.5s; }
 
       .site-header.quantum-header { padding: 8px 0 !important; }
       .site-header.quantum-header .header-inner {
@@ -1152,9 +1014,7 @@
       .site-header.quantum-header .header-meta,
       .site-header.quantum-header .site-subtitle-mini,
       #qHeaderSearchBtn,
-      #qHeaderSosBtn {
-        display: none !important;
-      }
+      #qHeaderSosBtn { display: none !important; }
       .q-passport-popover {
         position: fixed !important;
         top: 62px !important;
@@ -1165,17 +1025,36 @@
       }
     }
 
+    /* === 13. PREFERS-REDUCED-MOTION === */
     @media (prefers-reduced-motion: reduce) {
-      body.masterpiece-theme { animation: none !important; background-size: 100% 100% !important; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      body.masterpiece-theme {
+        animation: none !important;
+        background-size: 100% 100% !important;
+      }
+      .cursor-blink {
+        animation: none !important;
+        opacity: 1 !important;
+      }
+      .btn-magic::before { animation: none !important; }
       .system-status-pulse { animation: none !important; }
-      .cursor-blink { animation: blinkCursor 0.9s steps(2, start) infinite !important; }
-      .btn-magic::before { animation: rotate-border-gpu 3.5s linear infinite !important; }
-      .flip-front { display: flex !important; position: absolute !important; transform: rotateY(0deg) !important; -webkit-backface-visibility: hidden !important; backface-visibility: hidden !important; }
-      .flip-back { display: flex !important; position: absolute !important; transform: rotateY(180deg) !important; -webkit-backface-visibility: hidden !important; backface-visibility: hidden !important; }
-      .flip-card.is-flipped .flip-inner { transform: rotateY(180deg) !important; }
+      /* Контент reveal-up показан сразу */
+      .js-loaded .reveal-up {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      /* Флип сохраняет функциональность (доступ к обратной стороне) */
+      .flip-card.is-flipped .flip-inner,
+      .flip-card:focus-visible .flip-inner { transform: rotateY(180deg) !important; }
+      .flip-card:hover .flip-inner { transform: rotateY(0deg) !important; }
     }
 
-    /* === 12. СТИЛИ ДЛЯ REACT-СИМУЛЯТОРА === */
+    /* === 14. REACT-СИМУЛЯТОР === */
     #react-simulator-root {
       border-radius: 24px;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
@@ -1188,20 +1067,35 @@
       border-style: solid;
       border-color: #e5e7eb;
     }
-    #react-simulator-root button { background-color: transparent; background-image: none; padding: 0; line-height: inherit; color: inherit; cursor: pointer; }
+    #react-simulator-root button {
+      background-color: transparent; background-image: none;
+      padding: 0; line-height: inherit; color: inherit; cursor: pointer;
+    }
     #react-simulator-root svg { display: block; vertical-align: middle; }
-    #react-simulator-root h1, #react-simulator-root h2, #react-simulator-root h3, #react-simulator-root h4, #react-simulator-root p { margin: 0; }
+    #react-simulator-root h1, #react-simulator-root h2,
+    #react-simulator-root h3, #react-simulator-root h4,
+    #react-simulator-root p { margin: 0; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     @keyframes pulse-heavy { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
-    @keyframes fade-in { from { opacity: 0; transform: translateY(15px); filter: blur(4px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
-    @keyframes slide-up { from { opacity: 0; transform: translateY(30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(15px); filter: blur(4px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    @keyframes slide-up {
+      from { opacity: 0; transform: translateY(30px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
     @keyframes ecg { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     @keyframes scanner { 0%, 100% { top: 0%; opacity: 0; } 10% { opacity: 1; } 50% { top: 100%; opacity: 1; } 90% { opacity: 0; } }
     @keyframes spin-slow { 100% { transform: rotate(360deg); } }
     @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
     @keyframes shine { 100% { transform: translateX(100%); } }
-    @keyframes panic { 0% { opacity: 0; transform: scale(0.8) rotate(-10deg); } 50% { opacity: 1; transform: scale(1.2) rotate(10deg); } 100% { opacity: 0; transform: scale(1) rotate(0deg); } }
+    @keyframes panic {
+      0% { opacity: 0; transform: scale(0.8) rotate(-10deg); }
+      50% { opacity: 1; transform: scale(1.2) rotate(10deg); }
+      100% { opacity: 0; transform: scale(1) rotate(0deg); }
+    }
     .animate-fade-in { animation: fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     .animate-slide-up { animation: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     .animate-shine { animation: shine 1.5s ease-in-out infinite; }
@@ -1221,7 +1115,6 @@
 <a class="skip-link" href="#main-content">Перейти к контенту</a>
 
 <div class="glass-wrapper">
-  <!-- ШАПКА -->
   <header class="site-header transparent-header quantum-header" id="quantumHeader">
     <div class="container header-inner">
       <div class="header-brand">
@@ -1267,7 +1160,7 @@
           </div>
         </div>
         <a href="index.html" class="brand-logo" title="На главную СДО">
-          <img src="assets/Филин от.png" alt="Логотип СДО" width="42" height="42" style="width: 100%; height: 100%; object-fit: contain;">
+          <img src="assets/Филин от.png" alt="Логотип СДО" width="42" height="42" style="width: 100%; height: 100%; object-fit: contain;" decoding="async">
         </a>
         <div>
           <div class="site-title-mini">СДО</div>
@@ -1278,12 +1171,11 @@
           <span class="q-radar-section" id="qRadarText">🩹 Первая помощь</span>
         </div>
       </div>
-      
-      <!-- УБРАН "ONLINE" И ЗЕЛЕНАЯ ТОЧКА -->
+
       <div class="header-meta">
         <span id="current-date">Загрузка...</span>
       </div>
-      
+
       <nav class="main-nav" aria-label="Основная навигация">
         <ul class="nav-list" id="qNavList">
           <span class="q-nav-glider" id="qNavGlider" aria-hidden="true"></span>
@@ -1325,7 +1217,6 @@
 
   <main id="main-content" class="site-main">
     <div class="container">
-      <!-- HERO КУРСА -->
       <section class="course-hero reveal-up" data-radar-title="🩹 Обзор курса 220н">
         <div class="course-badge-row">
           <span class="course-badge">🩹 Приказ Минздрава РФ № 220н • ПП РФ № 2464</span>
@@ -1346,7 +1237,6 @@
         </div>
       </section>
 
-      <!-- 1. БАЗОВЫЕ ПРАВИЛА -->
       <section class="rules-grid-4 reveal-up" data-radar-title="🛡️ 4 базовых правила">
         <article class="rule-card">
           <div class="rule-icon" aria-hidden="true">🦺</div>
@@ -1370,7 +1260,6 @@
         </article>
       </section>
 
-      <!-- 2. ИНТЕРАКТИВНЫЙ ТРЕНАЖЁР СЛР -->
       <section class="cpr-sim-card reveal-up" id="cpr-simulator" data-radar-title="❤️ Метроном СЛР (30:2)" aria-label="Тренажёр сердечно-лёгочной реанимации">
         <div class="cpr-layout">
           <div>
@@ -1403,7 +1292,6 @@
         </div>
       </section>
 
-      <!-- 3. АЛГОРИТМЫ -->
       <section class="alg-section reveal-up" id="emergency-algorithms" data-radar-title="🩸 Алгоритмы помощи" aria-label="Алгоритмы оказания первой помощи">
         <div>
           <span class="course-badge" style="margin-bottom: 8px;">🩸 Интерактивный справочник алгоритмов</span>
@@ -1438,7 +1326,6 @@
         </div>
       </section>
 
-      <!-- 4. НЕЙРО-ЧИТАЛКА PDF -->
       <section class="reader-section reveal-up" id="materials" data-radar-title="📖 Учебный конспект PDF" aria-label="Учебные материалы курса">
         <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;">
           <div>
@@ -1461,7 +1348,7 @@
           </div>
           <div class="reader-tools-group">
             <button type="button" class="r-btn" id="pdfZoomOutBtn" title="Уменьшить масштаб" aria-label="Уменьшить масштаб">−</button>
-            <button type="button" class="r-btn" id="pdfZoomResetBtn" title="Сбросить масштаб" aria-label="Масштаб 100%">100%</button>
+            <button type="button" class="r-btn" id="pdfZoomResetBtn" title="Сбросить масштаб" aria-label="Масштаб 125%">125%</button>
             <button type="button" class="r-btn" id="pdfZoomInBtn" title="Увеличить масштаб" aria-label="Увеличить масштаб">+</button>
             <button type="button" class="r-btn" id="pdfFilterBtn" title="Переключить фильтр чтения (Обычный / Сепия / Ночной)">👁️ Режим: Обычный</button>
             <button type="button" class="r-btn" id="pdfFullscreenBtn" title="Полноэкранный режим чтения">⛶ Полный экран</button>
@@ -1478,7 +1365,6 @@
         </div>
       </section>
 
-      <!-- 5. REACT AR-СИМУЛЯТОР -->
       <section class="reveal-up" id="ar-simulator" data-radar-title="🚑 AR-Симулятор" aria-label="Интерактивный тренажер спасения">
         <div style="text-align: center; margin-bottom: 30px;">
           <span class="course-badge" style="background: #e0f2fe; color: #0284c7; border-color: #bae6fd; padding: 8px 16px; font-size: 0.9rem;">
@@ -1491,17 +1377,14 @@
             Закрепите алгоритмы на практике. 30 экстренных ситуаций, ограничение по времени и неотложная помощь. На каждый ответ у вас есть 20 секунд!
           </p>
         </div>
-        
-        <!-- Сюда монтируется React -->
         <div id="react-simulator-root"></div>
       </section>
 
-      <!-- 6. МИФЫ -->
       <section class="reveal-up" data-radar-title="🤔 Опасные мифы" style="margin-bottom: 42px;">
         <h2 class="flip-section-title">🤔 Опасные заблуждения при оказании первой помощи</h2>
         <p class="flip-section-sub">Наведите курсор мыши или нажмите пальцем на карточку, чтобы проверить себя перед тестом</p>
         <div class="flip-grid">
-          <div class="flip-card" tabindex="0" role="button" aria-label="Миф 1: Нажмите, чтобы узнать реальность">
+          <div class="flip-card" tabindex="0" role="button" aria-label="Миф 1: При носовом кровотечении запрокинуть голову назад. Нажмите, чтобы узнать реальность">
             <div class="flip-inner">
               <div class="flip-front">
                 <div class="flip-icon" aria-hidden="true">🩸</div>
@@ -1516,7 +1399,7 @@
               </div>
             </div>
           </div>
-          <div class="flip-card" tabindex="0" role="button" aria-label="Миф 2: Нажмите, чтобы узнать реальность">
+          <div class="flip-card" tabindex="0" role="button" aria-label="Миф 2: При судорогах разжать зубы ложкой. Нажмите, чтобы узнать реальность">
             <div class="flip-inner">
               <div class="flip-front">
                 <div class="flip-icon" aria-hidden="true">🥄</div>
@@ -1531,7 +1414,7 @@
               </div>
             </div>
           </div>
-          <div class="flip-card" tabindex="0" role="button" aria-label="Миф 3: Нажмите, чтобы узнать реальность">
+          <div class="flip-card" tabindex="0" role="button" aria-label="Миф 3: Смазать свежий ожог маслом или сметаной. Нажмите, чтобы узнать реальность">
             <div class="flip-inner">
               <div class="flip-front">
                 <div class="flip-icon" aria-hidden="true">🔥</div>
@@ -1549,7 +1432,6 @@
         </div>
       </section>
 
-      <!-- 7. ДОПУСК К ТЕСТУ -->
       <section class="test-gate-card reveal-up" id="test-gate" data-radar-title="🎯 Допуск к тесту" aria-label="Переход к итоговому тестированию">
         <div style="margin-bottom: 18px;">
           <span class="course-badge" style="margin-bottom: 8px;">🎯 Итоговая проверка знаний</span>
@@ -1594,28 +1476,23 @@
 
 <nav class="mobile-bottom-nav" aria-label="Мобильная навигация">
   <a href="index.html" class="mob-nav-item">
-    <span class="mob-icon" aria-hidden="true">🏠</span>
-    <span>Главная</span>
+    <span class="mob-icon" aria-hidden="true">🏠</span><span>Главная</span>
   </a>
   <a href="programs.html" class="mob-nav-item active">
-    <span class="mob-icon" aria-hidden="true">📚</span>
-    <span>Курсы</span>
+    <span class="mob-icon" aria-hidden="true">📚</span><span>Курсы</span>
   </a>
   <button type="button" class="mob-nav-item" id="mobSearchBtn" aria-label="Открыть поиск">
-    <span class="mob-icon" aria-hidden="true">🔍</span>
-    <span>Поиск</span>
+    <span class="mob-icon" aria-hidden="true">🔍</span><span>Поиск</span>
   </button>
   <a href="instructions.html" class="mob-nav-item">
-    <span class="mob-icon" aria-hidden="true">📋</span>
-    <span>Инструкции</span>
+    <span class="mob-icon" aria-hidden="true">📋</span><span>Инструкции</span>
   </a>
   <button type="button" class="mob-nav-item sos-mob" id="mobSosBtn" aria-label="Открыть экстренную памятку ЧС и 112">
-    <span class="mob-icon" aria-hidden="true">🚨</span>
-    <span>ЧС / 112</span>
+    <span class="mob-icon" aria-hidden="true">🚨</span><span>ЧС / 112</span>
   </button>
 </nav>
 
-<div class="modal-overlay" id="searchModal" aria-hidden="true">
+<div class="modal-overlay" id="searchModal" aria-hidden="true" inert>
   <div class="modal-box" role="dialog" aria-modal="true" aria-label="Быстрый поиск по порталу">
     <div class="search-modal-header">
       <span style="font-size: 1.2rem;" aria-hidden="true">🔍</span>
@@ -1627,7 +1504,7 @@
   </div>
 </div>
 
-<div class="modal-overlay" id="sosModal" aria-hidden="true">
+<div class="modal-overlay" id="sosModal" aria-hidden="true" inert>
   <div class="modal-box" role="dialog" aria-modal="true" aria-label="Экстренная памятка ЧС">
     <div class="sos-modal-top">
       <div>
@@ -1658,28 +1535,25 @@
   </div>
 </div>
 
-<!-- =======================================================================
-     ЛОГИКА ОСНОВНОГО САЙТА (VANILLA JS)
-     ======================================================================= -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     document.body.classList.add('js-loaded');
-    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
-    // ДАТА
+    /* === ДАТА === */
     const now = new Date();
     const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const dateStr = now.toLocaleDateString('ru-RU', dateOptions);
     const dateEl = document.getElementById('current-date');
     if (dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
 
-    // АНИМАЦИИ
+    /* === REVEAL === */
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
     }, { threshold: 0.08 });
     document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
 
-    // ПРОКРУТКА
+    /* === СКРОЛЛ === */
     const scrollProgress = document.getElementById('scrollProgress');
     const toTopBtn = document.getElementById('toTopBtn');
     const quantumHeader = document.getElementById('quantumHeader');
@@ -1693,56 +1567,43 @@
 
     if (toTopBtn) toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }));
 
-    // ИСПРАВЛЕННАЯ ПЕЧАТНАЯ МАШИНКА (ЦИКЛ)
+    /* === TYPING === */
     const typingEl = document.getElementById('typing-text');
     if (typingEl) {
-      const mskTime = new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"}));
-      const hour = mskTime.getHours();
-      let greeting = "Добрый день, коллега!";
-      if (hour >= 5 && hour < 12) greeting = "Доброе утро, коллега!";
-      else if (hour >= 12 && hour < 18) greeting = "Добрый день, коллега!";
-      else if (hour >= 18 && hour < 23) greeting = "Добрый вечер, коллега!";
-      else greeting = "Доброй ночи, коллега!";
+      const FINAL_TEXT = "Оказание первой помощи пострадавшим";
+      if (prefersReducedMotion) {
+        typingEl.textContent = FINAL_TEXT;
+      } else {
+        const mskTime = new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"}));
+        const hour = mskTime.getHours();
+        let greeting = "Добрый день, коллега!";
+        if (hour >= 5 && hour < 12) greeting = "Доброе утро, коллега!";
+        else if (hour >= 18 && hour < 23) greeting = "Добрый вечер, коллега!";
+        else if (hour >= 23 || hour < 5) greeting = "Доброй ночи, коллега!";
 
-      const messages = [
-        greeting, 
-        "Вы находитесь на курсе...", 
-        "Оказание первой помощи пострадавшим"
-      ];
-      
-      let msgIndex = 0;
-      let charIndex = 0;
-      let isDeleting = false;
-      let typeTimer;
+        const messages = [greeting, "Вы находитесь на курсе...", FINAL_TEXT];
+        let msgIndex = 0, charIndex = 0, isDeleting = false, typeTimer;
 
-      function type() {
-        const currentMsg = messages[msgIndex];
-        if (isDeleting) {
-          typingEl.textContent = currentMsg.substring(0, charIndex - 1);
-          charIndex--;
-        } else {
-          typingEl.textContent = currentMsg.substring(0, charIndex + 1);
-          charIndex++;
+        function type() {
+          const currentMsg = messages[msgIndex];
+          if (isDeleting) {
+            typingEl.textContent = currentMsg.substring(0, charIndex - 1); charIndex--;
+          } else {
+            typingEl.textContent = currentMsg.substring(0, charIndex + 1); charIndex++;
+          }
+          let typeSpeed = isDeleting ? 30 : 70;
+          if (!isDeleting && charIndex === currentMsg.length) {
+            typeSpeed = 10000; isDeleting = true;
+          } else if (isDeleting && charIndex === 0) {
+            isDeleting = false; msgIndex = (msgIndex + 1) % messages.length; typeSpeed = 1000;
+          }
+          typeTimer = setTimeout(type, typeSpeed);
         }
-
-        let typeSpeed = isDeleting ? 30 : 70;
-
-        if (!isDeleting && charIndex === currentMsg.length) {
-          typeSpeed = 10000; 
-          isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-          isDeleting = false;
-          msgIndex = (msgIndex + 1) % messages.length;
-          typeSpeed = 1000; 
-        }
-
-        typeTimer = setTimeout(type, typeSpeed);
+        setTimeout(type, 500);
       }
-      
-      setTimeout(type, 500);
     }
 
-    // ШАПКА (NAV GLIDER)
+    /* === NAV GLIDER === */
     const qNavList = document.getElementById('qNavList');
     const qNavGlider = document.getElementById('qNavGlider');
     const qNavLinks = qNavList ? Array.from(qNavList.querySelectorAll('.nav-link')) : [];
@@ -1767,7 +1628,7 @@
     qNavList?.addEventListener('mouseleave', () => moveNavGlider(activeNavLink));
     window.addEventListener('resize', () => moveNavGlider(activeNavLink), { passive: true });
 
-    // РАДАР
+    /* === RADAR === */
     const radarText = document.getElementById('qRadarText');
     const radarSections = document.querySelectorAll('[data-radar-title]');
     if (radarText && radarSections.length > 0) {
@@ -1782,7 +1643,7 @@
       radarSections.forEach(sec => radarObserver.observe(sec));
     }
 
-    // ПОПОВЕРЫ ШАПКИ
+    /* === HEADER POPOVERS === */
     const qAppBtn = document.getElementById('qAppBtn');
     const qAppDropdown = document.getElementById('qAppDropdown');
     const qPassportBtn = document.getElementById('qPassportBtn');
@@ -1792,14 +1653,29 @@
       if (qAppDropdown) { qAppDropdown.classList.remove('open'); qAppBtn?.setAttribute('aria-expanded', 'false'); }
       if (qPassportPopover) { qPassportPopover.classList.remove('open'); qPassportBtn?.setAttribute('aria-expanded', 'false'); }
     }
-    qAppBtn?.addEventListener('click', (e) => { e.stopPropagation(); const willOpen = !qAppDropdown.classList.contains('open'); closeHeaderPopovers(); if (willOpen) { qAppDropdown.classList.add('open'); qAppBtn.setAttribute('aria-expanded', 'true'); }});
-    qPassportBtn?.addEventListener('click', (e) => { e.stopPropagation(); const willOpen = !qPassportPopover.classList.contains('open'); closeHeaderPopovers(); if (willOpen) { qPassportPopover.classList.add('open'); qPassportBtn.setAttribute('aria-expanded', 'true'); }});
+    qAppBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = !qAppDropdown.classList.contains('open');
+      closeHeaderPopovers();
+      if (willOpen) { qAppDropdown.classList.add('open'); qAppBtn.setAttribute('aria-expanded', 'true'); }
+    });
+    qPassportBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = !qPassportPopover.classList.contains('open');
+      closeHeaderPopovers();
+      if (willOpen) { qPassportPopover.classList.add('open'); qPassportBtn.setAttribute('aria-expanded', 'true'); }
+    });
     qAppDropdown?.addEventListener('click', (e) => e.stopPropagation());
     qPassportPopover?.addEventListener('click', (e) => e.stopPropagation());
     document.addEventListener('click', closeHeaderPopovers);
 
-    // ЦИФРОВОЙ ПАСПОРТ
-    function readStorageKey(key) { try { const val = parseInt(localStorage.getItem(key), 10); return Number.isFinite(val) && val >= 1 ? val : null; } catch (e) { return null; } }
+    /* === ПАСПОРТ === */
+    function readStorageKey(key) {
+      try {
+        const val = parseInt(localStorage.getItem(key), 10);
+        return Number.isFinite(val) && val >= 1 ? val : null;
+      } catch (e) { return null; }
+    }
     const passportCourses = [
       { title: 'Охрана труда (Комплекс)', icon: '🛡️', url: 'course-ot.html', page: readStorageKey('program_a_pdf_page') || readStorageKey('ot_intro_pdf_page') },
       { title: 'Пожарная безопасность', icon: '🔥', url: 'course-fire-safety.html', page: readStorageKey('fire_intro_pdf_page') },
@@ -1822,7 +1698,8 @@
       const pct = Math.round((activeCount / passportCourses.length) * 100);
       if (qPassportPct) qPassportPct.textContent = `${pct}%`;
       if (qRingFill) {
-        const circumference = 62.83; const offset = circumference - (pct / 100) * circumference;
+        const circumference = 62.83;
+        const offset = circumference - (pct / 100) * circumference;
         qRingFill.style.strokeDashoffset = `${offset}`;
       }
       if (qPassportRank) {
@@ -1842,7 +1719,7 @@
     }
     renderDigitalPassport();
 
-    // СЛР МЕТРОНОМ
+    /* === CPR МЕТРОНОМ === */
     const cprToggleBtn = document.getElementById('cprToggleBtn');
     const cprBtnIcon = document.getElementById('cprBtnIcon');
     const cprBtnText = document.getElementById('cprBtnText');
@@ -1858,14 +1735,15 @@
       try {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         if (audioCtx.state === 'suspended') audioCtx.resume();
-        const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
         osc.type = isBreathTone ? 'sine' : 'triangle';
         osc.frequency.setValueAtTime(isBreathTone ? 520 : 880, audioCtx.currentTime);
         gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + (isBreathTone ? 0.35 : 0.08));
         osc.connect(gain); gain.connect(audioCtx.destination);
         osc.start(); osc.stop(audioCtx.currentTime + (isBreathTone ? 0.35 : 0.08));
-      } catch (e) {}
+      } catch (e) { /* audio optional */ }
     }
 
     function stepCprSimulation() {
@@ -1879,23 +1757,39 @@
         if (cprStepCounter) cprStepCounter.textContent = `Вдох ${cprCount - 30} / 2`;
         if (cprCount === 31 || cprCount === 33) playCprBeep(true);
       }
-      if (cprHeartCircle) { cprHeartCircle.classList.add('beat-active'); setTimeout(() => cprHeartCircle.classList.remove('beat-active'), 140); }
-      if (cprCount >= 34) { cprCycles++; cprCount = 0; if (cprCycleInfo) cprCycleInfo.innerHTML = `Выполнено полных циклов (30:2): <strong>${cprCycles}</strong>`; }
+      if (cprHeartCircle) {
+        cprHeartCircle.classList.add('beat-active');
+        setTimeout(() => cprHeartCircle.classList.remove('beat-active'), 140);
+      }
+      if (cprCount >= 34) {
+        cprCycles++; cprCount = 0;
+        if (cprCycleInfo) cprCycleInfo.innerHTML = `Выполнено полных циклов (30:2): <strong>${cprCycles}</strong>`;
+      }
     }
 
     cprToggleBtn?.addEventListener('click', () => {
       cprRunning = !cprRunning;
       if (cprRunning) {
-        cprToggleBtn.classList.add('running'); if (cprBtnIcon) cprBtnIcon.textContent = '❚❚'; if (cprBtnText) cprBtnText.textContent = 'Остановить метроном';
-        cprTimer = setInterval(stepCprSimulation, 545); stepCprSimulation();
+        cprToggleBtn.classList.add('running');
+        if (cprBtnIcon) cprBtnIcon.textContent = '❚❚';
+        if (cprBtnText) cprBtnText.textContent = 'Остановить метроном';
+        cprTimer = setInterval(stepCprSimulation, 545);
+        stepCprSimulation();
       } else {
-        cprToggleBtn.classList.remove('running'); if (cprBtnIcon) cprBtnIcon.textContent = '▶'; if (cprBtnText) cprBtnText.textContent = 'Запустить метроном 110 уд/мин';
-        clearInterval(cprTimer); cprTimer = null; if (cprPhaseBadge) cprPhaseBadge.textContent = 'Пауза в тренировке СЛР';
+        cprToggleBtn.classList.remove('running');
+        if (cprBtnIcon) cprBtnIcon.textContent = '▶';
+        if (cprBtnText) cprBtnText.textContent = 'Запустить метроном 110 уд/мин';
+        clearInterval(cprTimer); cprTimer = null;
+        if (cprPhaseBadge) cprPhaseBadge.textContent = 'Пауза в тренировке СЛР';
       }
     });
-    cprSoundToggleBtn?.addEventListener('click', () => { cprSoundOn = !cprSoundOn; cprSoundToggleBtn.setAttribute('aria-pressed', cprSoundOn ? 'true' : 'false'); cprSoundToggleBtn.textContent = cprSoundOn ? '🔊 Звук: Вкл' : '🔇 Звук: Выкл'; });
+    cprSoundToggleBtn?.addEventListener('click', () => {
+      cprSoundOn = !cprSoundOn;
+      cprSoundToggleBtn.setAttribute('aria-pressed', cprSoundOn ? 'true' : 'false');
+      cprSoundToggleBtn.textContent = cprSoundOn ? '🔊 Звук: Вкл' : '🔇 Звук: Выкл';
+    });
 
-    // ВКЛАДКИ АЛГОРИТМОВ
+    /* === АЛГОРИТМЫ === */
     const algData = {
       bleed: { title: 'Остановка артериального и венозного кровотечения', steps: ['Наденьте медицинские перчатки.', 'Выполните прямое давление на рану.', 'При артериальном кровотечении наложите жгут на 5–7 см выше раны.', 'Вложите записку со временем наложения.', 'При венозном — давящая повязка.'], warning: '<strong>⚠️ Контроль времени:</strong><br>Летом — не более 60 минут.<br>Зимой — не более 30 минут.' },
       choke: { title: 'Приём Геймлиха', steps: ['Оцените признаки (не может говорить).', 'Обхватите сзади вокруг талии.', 'Кулак чуть выше пупка.', 'Резкие толчки внутрь и вверх.'], warning: '<strong>⚠️ Ограничения:</strong><br>Не применяйте при беременности на поздних сроках.' },
@@ -1919,7 +1813,7 @@
       });
     });
 
-    // PDF ЧИТАЛКА
+    /* === PDF === */
     const PDF_STORAGE_KEY = 'firstaid_pdf_page';
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 1.25, currentFilterMode = 0;
     const canvas = document.getElementById('pdf-render-canvas');
@@ -1939,27 +1833,33 @@
     const pdfStatusSub = document.getElementById('pdfStatusSub');
     const readerSavedStatus = document.getElementById('readerSavedStatus');
 
-    try { const saved = localStorage.getItem(PDF_STORAGE_KEY); if (saved) { const p = parseInt(saved, 10); if (Number.isFinite(p) && p >= 1) pageNum = p; } } catch (e) {}
+    try {
+      const saved = localStorage.getItem(PDF_STORAGE_KEY);
+      if (saved) {
+        const p = parseInt(saved, 10);
+        if (Number.isFinite(p) && p >= 1) pageNum = p;
+      }
+    } catch (e) { /* ignore */ }
 
     function renderPage(num) {
       if (!pdfDoc) return;
       pageRendering = true;
       pdfDoc.getPage(num).then((page) => {
         const viewport = page.getViewport({ scale });
-        canvas.height = viewport.height; canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
         const renderTask = page.render({ canvasContext: ctx, viewport: viewport });
         renderTask.promise.then(() => {
           pageRendering = false;
           canvas.style.display = 'block';
           if (pdfStatusBox) pdfStatusBox.style.display = 'none';
           if (pageInput) pageInput.value = num;
-          
-          if (zoomResetBtn) {
-            zoomResetBtn.textContent = `${Math.round(scale * 100)}%`;
-          }
-
+          if (zoomResetBtn) zoomResetBtn.textContent = `${Math.round(scale * 100)}%`;
           if (pageNumPending !== null) { renderPage(pageNumPending); pageNumPending = null; }
-          try { localStorage.setItem(PDF_STORAGE_KEY, String(num)); if (readerSavedStatus) readerSavedStatus.textContent = `💾 Стр. ${num} сохранена`; } catch (e) {}
+          try {
+            localStorage.setItem(PDF_STORAGE_KEY, String(num));
+            if (readerSavedStatus) readerSavedStatus.textContent = `💾 Стр. ${num} сохранена`;
+          } catch (e) { /* ignore */ }
         }).catch((err) => {
           console.error('Ошибка рендеринга:', err);
           pageRendering = false;
@@ -1976,21 +1876,27 @@
       if (nextBtn) nextBtn.disabled = (num >= (pdfDoc ? pdfDoc.numPages : 1));
     }
 
-    function queueRenderPage(num) { if (pageRendering) pageNumPending = num; else renderPage(num); }
+    function queueRenderPage(num) {
+      if (pageRendering) pageNumPending = num;
+      else renderPage(num);
+    }
 
     prevBtn?.addEventListener('click', () => { if (pageNum > 1) { pageNum--; queueRenderPage(pageNum); } });
     nextBtn?.addEventListener('click', () => { if (pdfDoc && pageNum < pdfDoc.numPages) { pageNum++; queueRenderPage(pageNum); } });
     pageInput?.addEventListener('change', () => {
       if (!pdfDoc) return;
       let val = parseInt(pageInput.value, 10);
-      if (isNaN(val)) val = 1; if (val < 1) val = 1; if (val > pdfDoc.numPages) val = pdfDoc.numPages;
-      pageNum = val; queueRenderPage(pageNum);
+      if (!Number.isFinite(val)) val = 1;
+      if (val < 1) val = 1;
+      if (val > pdfDoc.numPages) val = pdfDoc.numPages;
+      pageNum = val;
+      queueRenderPage(pageNum);
     });
-    
+
     zoomInBtn?.addEventListener('click', () => { if (scale < 2.4) { scale += 0.2; queueRenderPage(pageNum); } });
     zoomOutBtn?.addEventListener('click', () => { if (scale > 0.8) { scale -= 0.2; queueRenderPage(pageNum); } });
     zoomResetBtn?.addEventListener('click', () => { scale = 1.25; queueRenderPage(pageNum); });
-    
+
     filterBtn?.addEventListener('click', () => {
       currentFilterMode = (currentFilterMode + 1) % 3;
       canvas.classList.remove('filter-sepia', 'filter-invert');
@@ -2004,6 +1910,7 @@
     });
 
     if (window.pdfjsLib) {
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
       window.pdfjsLib.getDocument({
         url: 'assets/first-aid.pdf',
         cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/',
@@ -2022,35 +1929,47 @@
       });
     }
 
+    /* === SWIPE PDF === */
     let touchXStart = 0;
     const pdfViewport = document.getElementById('pdfViewport');
     pdfViewport?.addEventListener('touchstart', (e) => { touchXStart = e.changedTouches[0].screenX; }, { passive: true });
     pdfViewport?.addEventListener('touchend', (e) => {
       const diffX = touchXStart - e.changedTouches[0].screenX;
-      if (Math.abs(diffX) > 65) { if (diffX > 0) nextBtn?.click(); else prevBtn?.click(); }
+      if (Math.abs(diffX) > 65) {
+        if (diffX > 0) nextBtn?.click();
+        else prevBtn?.click();
+      }
     }, { passive: true });
 
-    // КАРТОЧКИ ПЕРЕВЕРТЫШИ
+    /* === FLIP CARDS === */
     document.querySelectorAll('.flip-card').forEach(card => {
       card.addEventListener('click', () => card.classList.toggle('is-flipped'));
-      card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('is-flipped'); } });
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.classList.toggle('is-flipped');
+        }
+      });
     });
 
-    // ТЕСТ ГЕЙТ
+    /* === ТЕСТ-ГЕЙТ === */
     const consentStudyCheck = document.getElementById('consentStudyCheck');
     const consentDataCheck = document.getElementById('consentDataCheck');
     const startTestBtn = document.getElementById('startTestBtn');
     const startTestBtnText = document.getElementById('startTestBtnText');
     const testLockHint = document.getElementById('testLockHint');
+
     function updateTestGate() {
       const canUnlock = (consentStudyCheck?.checked || false) && (consentDataCheck?.checked || false);
       if (startTestBtn) {
         if (canUnlock) {
-          startTestBtn.classList.remove('is-locked'); startTestBtn.setAttribute('aria-disabled', 'false');
+          startTestBtn.classList.remove('is-locked');
+          startTestBtn.setAttribute('aria-disabled', 'false');
           if (startTestBtnText) startTestBtnText.textContent = 'Пройти итоговый тест по первой помощи';
           if (testLockHint) { testLockHint.textContent = 'Статус: Доступ открыт!'; testLockHint.style.color = '#047857'; }
         } else {
-          startTestBtn.classList.add('is-locked'); startTestBtn.setAttribute('aria-disabled', 'true');
+          startTestBtn.classList.add('is-locked');
+          startTestBtn.setAttribute('aria-disabled', 'true');
           if (startTestBtnText) startTestBtnText.textContent = '🔒 Отметьте галочки для доступа к тесту';
           if (testLockHint) { testLockHint.textContent = 'Статус: Ожидание'; testLockHint.style.color = '#64748b'; }
         }
@@ -2060,7 +1979,17 @@
     consentDataCheck?.addEventListener('change', updateTestGate);
     updateTestGate();
 
-    // МОДАЛКИ (ПОИСК И SOS)
+    /* Заблокированная ссылка не должна активироваться с клавиатуры */
+    startTestBtn?.addEventListener('click', (e) => {
+      if (startTestBtn.classList.contains('is-locked')) e.preventDefault();
+    });
+    startTestBtn?.addEventListener('keydown', (e) => {
+      if (startTestBtn.classList.contains('is-locked') && (e.key === 'Enter' || e.key === ' ')) {
+        e.preventDefault();
+      }
+    });
+
+    /* === МОДАЛКИ === */
     const searchItems = [
       { title: 'Главная страница СДО', tag: 'Дашборд', icon: '🏠', url: 'index.html' },
       { title: 'Каталог всех программ', tag: 'Реестр', icon: '📚', url: 'programs.html' },
@@ -2072,7 +2001,11 @@
     const sosModal = document.getElementById('sosModal');
     let previousFocus = null, activeModal = null;
 
-    function getFocusable(modal) { return Array.from(modal.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])')); }
+    function getFocusable(modal) {
+      return Array.from(modal.querySelectorAll(
+        'button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      ));
+    }
     function trapFocusHandler(e) {
       if (e.key !== 'Tab' || !activeModal) return;
       const focusable = getFocusable(activeModal);
@@ -2082,22 +2015,36 @@
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     }
     function openModal(modal, focusTarget) {
-      closeHeaderPopovers(); previousFocus = document.activeElement; activeModal = modal;
-      modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false');
+      closeHeaderPopovers();
+      previousFocus = document.activeElement;
+      activeModal = modal;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      modal.removeAttribute('inert');
       document.addEventListener('keydown', trapFocusHandler, true);
-      setTimeout(() => { const target = focusTarget || getFocusable(modal)[0]; if (target) target.focus(); }, 60);
+      setTimeout(() => {
+        const target = focusTarget || getFocusable(modal)[0];
+        if (target) target.focus();
+      }, 60);
     }
     function closeModal(modal) {
       if (!modal.classList.contains('open')) return;
-      modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true');
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      modal.setAttribute('inert', '');
       document.removeEventListener('keydown', trapFocusHandler, true);
       if (activeModal === modal) activeModal = null;
-      if (previousFocus && typeof previousFocus.focus === 'function') { previousFocus.focus(); previousFocus = null; }
+      if (previousFocus && typeof previousFocus.focus === 'function') {
+        previousFocus.focus();
+        previousFocus = null;
+      }
     }
     function renderSearchModalList(query = '') {
       const q = query.toLowerCase().trim();
       const filtered = searchItems.filter(i => i.title.toLowerCase().includes(q));
-      searchResultsList.innerHTML = filtered.length === 0 ? `<div style="padding:24px;text-align:center;color:#64748b;">Ничего не найдено</div>` : filtered.map(i => `<a href="${i.url}" class="search-result-item"><div class="sri-left"><span>${i.icon}</span><span>${i.title}</span></div><span class="sri-tag">${i.tag}</span></a>`).join('');
+      searchResultsList.innerHTML = filtered.length === 0
+        ? `<div style="padding:24px;text-align:center;color:#64748b;">Ничего не найдено</div>`
+        : filtered.map(i => `<a href="${i.url}" class="search-result-item"><div class="sri-left"><span>${i.icon}</span><span>${i.title}</span></div><span class="sri-tag">${i.tag}</span></a>`).join('');
     }
     function openSearchModal() { openModal(searchModal, modalSearchInput); modalSearchInput.value = ''; renderSearchModalList(''); }
     function closeSearchModalFn() { closeModal(searchModal); }
@@ -2115,29 +2062,71 @@
     document.getElementById('closeSosModal')?.addEventListener('click', closeSosModalFn);
     sosModal?.addEventListener('click', (e) => { if (e.target === sosModal) closeSosModalFn(); });
 
+    /* === VOICE SEARCH (Web Speech API) === */
+    const voiceSearchBtn = document.getElementById('voiceSearchBtn');
+    voiceSearchBtn?.addEventListener('click', () => {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) {
+        voiceSearchBtn.title = 'Голосовой поиск не поддерживается';
+        voiceSearchBtn.setAttribute('aria-label', 'Голосовой поиск не поддерживается вашим браузером');
+        modalSearchInput?.focus();
+        return;
+      }
+      try {
+        const recognition = new SR();
+        recognition.lang = 'ru-RU';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+        voiceSearchBtn.disabled = true;
+        voiceSearchBtn.textContent = '⏳';
+        recognition.onresult = (e) => {
+          const transcript = e.results[0][0].transcript;
+          if (modalSearchInput) {
+            modalSearchInput.value = transcript;
+            renderSearchModalList(transcript);
+            modalSearchInput.focus();
+          }
+        };
+        recognition.onerror = () => { /* silent */ };
+        recognition.onend = () => {
+          voiceSearchBtn.disabled = false;
+          voiceSearchBtn.textContent = '🎤';
+        };
+        recognition.start();
+      } catch (e) {
+        voiceSearchBtn.disabled = false;
+        voiceSearchBtn.textContent = '🎤';
+      }
+    });
+
+    /* === ESC === */
     document.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); if (searchModal.classList.contains('open')) closeSearchModalFn(); else openSearchModal(); }
-      if (e.key === 'Escape') { closeHeaderPopovers(); if (searchModal.classList.contains('open')) closeSearchModalFn(); if (sosModal.classList.contains('open')) closeSosModalFn(); }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (searchModal.classList.contains('open')) closeSearchModalFn(); else openSearchModal();
+      }
+      if (e.key === 'Escape') {
+        closeHeaderPopovers();
+        if (searchModal.classList.contains('open')) closeSearchModalFn();
+        if (sosModal.classList.contains('open')) closeSosModalFn();
+      }
     });
   });
 </script>
 
-<!-- =======================================================================
-     REACT AR-СИМУЛЯТОР (ИСПРАВЛЕНА ЭКГ И 30 КОМПРЕССИЙ)
-     ======================================================================= -->
 <script type="text/babel" data-type="module">
   import React, { useState, useEffect } from 'react';
   import { createRoot } from 'react-dom/client';
-  import { 
-    AlertTriangle, HeartPulse, PhoneCall, CheckCircle2, XOctagon, 
-    Zap, Wind, Car, Building, Activity, ShieldQuestion, 
+  import {
+    AlertTriangle, HeartPulse, PhoneCall, CheckCircle2, XOctagon,
+    Zap, Wind, Car, Building, Activity, ShieldQuestion,
     Timer, Stethoscope, Hand, Play, RotateCcw, Crosshair, Clock, Zap as ZapIcon,
     ShieldPlus, Droplets, Smartphone, Footprints, Hammer, Flame, AlertOctagon, Heart, Plus, ArrowDown, User, Eye, Skull
   } from 'lucide-react';
 
   const vibrate = (pattern) => {
     if (typeof window !== 'undefined' && 'navigator' in window && window.navigator.vibrate) {
-      window.navigator.vibrate(pattern);
+      try { window.navigator.vibrate(pattern); } catch (e) {}
     }
   };
 
@@ -2154,20 +2143,51 @@
     try {
       const ctx = getAudioContext();
       if (!ctx) return;
-      const osc = ctx.createOscillator(); const gainNode = ctx.createGain();
-      osc.connect(gainNode); gainNode.connect(ctx.destination);
+      const osc = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+      osc.connect(gainNode);
+      gainNode.connect(ctx.destination);
       if (type === 'success') {
-        osc.type = 'sine'; osc.frequency.setValueAtTime(800, ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.1); gainNode.gain.setValueAtTime(0.2, ctx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4); osc.start(); osc.stop(ctx.currentTime + 0.4); vibrate([50, 50, 50]);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(800, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.1);
+        gainNode.gain.setValueAtTime(0.2, ctx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+        osc.start(); osc.stop(ctx.currentTime + 0.4);
+        vibrate([50, 50, 50]);
       } else if (type === 'error') {
-        osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(50, ctx.currentTime + 0.4); gainNode.gain.setValueAtTime(0.3, ctx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4); osc.start(); osc.stop(ctx.currentTime + 0.4); vibrate([150, 50, 150]);
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(150, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(50, ctx.currentTime + 0.4);
+        gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+        osc.start(); osc.stop(ctx.currentTime + 0.4);
+        vibrate([150, 50, 150]);
       } else if (type === 'fatal' || type === 'flatline') {
-        osc.type = 'square'; osc.frequency.setValueAtTime(type === 'flatline' ? 600 : 100, ctx.currentTime); if(type !== 'flatline') osc.frequency.linearRampToValueAtTime(40, ctx.currentTime + 0.8); gainNode.gain.setValueAtTime(0.5, ctx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + (type === 'flatline' ? 3.0 : 0.8)); osc.start(); osc.stop(ctx.currentTime + 3.0); vibrate([500, 100, 500]);
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(type === 'flatline' ? 600 : 100, ctx.currentTime);
+        if (type !== 'flatline') osc.frequency.linearRampToValueAtTime(40, ctx.currentTime + 0.8);
+        gainNode.gain.setValueAtTime(0.5, ctx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + (type === 'flatline' ? 3.0 : 0.8));
+        osc.start(); osc.stop(ctx.currentTime + 3.0);
+        vibrate([500, 100, 500]);
       } else if (type === 'tick') {
-        osc.type = 'sine'; osc.frequency.setValueAtTime(1000, ctx.currentTime); gainNode.gain.setValueAtTime(0.05, ctx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.05); osc.start(); osc.stop(ctx.currentTime + 0.05); vibrate(10);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(1000, ctx.currentTime);
+        gainNode.gain.setValueAtTime(0.05, ctx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.05);
+        osc.start(); osc.stop(ctx.currentTime + 0.05);
+        vibrate(10);
       } else if (type === 'thump') {
-        osc.type = 'sine'; osc.frequency.setValueAtTime(150, ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.1); gainNode.gain.setValueAtTime(0.5, ctx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2); osc.start(); osc.stop(ctx.currentTime + 0.2); vibrate(40);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(150, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.1);
+        gainNode.gain.setValueAtTime(0.5, ctx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
+        osc.start(); osc.stop(ctx.currentTime + 0.2);
+        vibrate(40);
       }
-    } catch (e) {}
+    } catch (e) { /* audio optional */ }
   };
 
   const SCENARIOS = [
@@ -2190,7 +2210,6 @@
         { text: "Останусь рядом с ним, буду держать за руку и успокаивать до приезда МЧС.", isCorrect: false, feedback: "ФАТАЛЬНО! Риск обрушения здания. Вы погибли под завалами.", deadly: true },
         { text: "Оценю свои силы. Если не могу эвакуировать сам — отойду в безопасное место. Вызову МЧС.", isCorrect: true, feedback: "ПРАВИЛЬНО. Ваша жизнь в приоритете. Не рискуйте собой при угрозе обрушения." }
     ]},
-    
     { step: "УРОВЕНЬ 5 / 30 • ШАГ 2: СОСТОЯНИЕ", title: "Проверка сознания", icon: <Activity className="w-12 h-12" style={{color: '#4ade80'}} />, description: "Опасности нет. Вы подходите к лежащему человеку. Что вы сделаете первым делом?", hex: "#4ade80", choices: [
         { text: "Похлопаю его по щекам и брызну водой в лицо.", isCorrect: false, feedback: "ОШИБКА! Вы можете усугубить травму шеи резкими движениями.", deadly: false },
         { text: "Громко окликну его. Буду искать признаки: стон, мычание, жесты.", isCorrect: true, feedback: "ВЕРНО! Наличие реакции на голос — признак сознания." },
@@ -2216,7 +2235,6 @@
         { id: 'wrist', text: "Запястье", isCorrect: false, feedback: "ОШИБКА! Зеркальца, перышки и руки не используются. Зеркало потеет от рук, перышко сдует ветер.", deadly: false },
         { id: 'neck', text: "Шея", isCorrect: false, feedback: "ОШИБКА! Пульс вы уже проверили. Сейчас нужно оценить работу легких.", deadly: false }
     ]},
-    
     { step: "УРОВЕНЬ 10 / 30 • ТРАВМЫ", title: "Кровь бьет фонтаном", icon: <Droplets className="w-12 h-12" style={{color: '#ef4444'}} />, description: "У пострадавшего из раны на ноге пульсирующей струей бьет алая кровь (артериальное кровотечение). Что нужно использовать?", hex: "#ef4444", type: "inventory", items: [
         { id: 'tourniquet', icon: <Timer />, name: "Кровоостанавливающий Жгут", isCorrect: true, feedback: "ВЕРНО! Артериальное кровотечение смертельно опасно. Нужно немедленно наложить жгут выше раны и записать время." },
         { id: 'bandage', icon: <Plus />, name: "Обычный бинт", isCorrect: false, feedback: "ОШИБКА! Обычный бинт не остановит артериальное давление, человек истечет кровью за минуты.", deadly: true },
@@ -2266,7 +2284,7 @@
     ]},
     { step: "УРОВЕНЬ 20 / 30 • ТРАВМЫ", title: "Химия в глазах", icon: <Eye className="w-12 h-12" style={{color: '#facc15'}} />, description: "В глаз попало едкое химическое вещество (растворитель). Что нужно использовать?", hex: "#facc15", type: "inventory", items: [
         { id: 'water', icon: <Droplets />, name: "Много воды", isCorrect: true, feedback: "ВЕРНО! Нужно немедленно промывать глаз проточной водой не менее 20 минут." },
-        { id: 'hand', icon: <Hand />, name: "Потереть рукавом", isCorrect: false, feedback: "ОШИБКА! Трение вотрет химикат глужбе в роговицу.", deadly: false },
+        { id: 'hand', icon: <Hand />, name: "Потереть рукавом", isCorrect: false, feedback: "ОШИБКА! Трение вотрет химикат глубже в роговицу.", deadly: false },
         { id: 'bandage', icon: <Plus />, name: "Сухая повязка", isCorrect: false, feedback: "ОШИБКА! Закрыть глаз с химикатом внутри — значит позволить кислоте/щелочи выжигать глаз дальше.", deadly: true }
     ]},
     { step: "УРОВЕНЬ 21 / 30 • КРИТИЧЕСКИЕ СОСТОЯНИЯ", title: "Боль в сердце", icon: <HeartPulse className="w-12 h-12" style={{color: '#ef4444'}} />, description: "Человек жалуется на резкую, жгучую боль за грудиной, отдающую в левую руку и челюсть. Страх смерти. Подозрение на инфаркт.", hex: "#ef4444", choices: [
@@ -2299,7 +2317,6 @@
         { text: "Срочно вызвать рвоту, засунув два пальца в рот.", isCorrect: false, feedback: "ОШИБКА! Если это была кислота или щелочь, обратный ход жидкости повторно сожжет пищевод.", deadly: true },
         { text: "Никакой самодеятельности. Немедленно вызвать 112, сохранить бутылку для врачей.", isCorrect: true, feedback: "ПРАВИЛЬНО! При неизвестных ядах (особенно бытовой химии) вызывать рвоту опасно." }
     ]},
-    
     { step: "УРОВЕНЬ 28 / 30 • РЕАНИМАЦИЯ", title: "Алгоритм СЛР", icon: <HeartPulse className="w-12 h-12" style={{color: '#ec4899'}} />, description: "Пульса и дыхания нет. Вы приступаете к Сердечно-Легочной Реанимации (СЛР). Какое правильное соотношение?", hex: "#ec4899", choices: [
         { text: "15 нажатий на грудину, затем 2 вдоха.", isCorrect: false, feedback: "ОШИБКА! Это старый и устаревший норматив. Он неэффективен.", deadly: false },
         { text: "30 нажатий на грудину, затем 2 вдоха (глубиной 5-6 см с частотой 100-120 в мин).", isCorrect: true, feedback: "ТОЧНО! Современный международный стандарт СЛР: 30 компрессий к 2 вдохам." }
@@ -2314,12 +2331,10 @@
     ]}
   ];
 
-  // ИСПРАВЛЕННЫЙ КОМПОНЕНТ ЭКГ (БЕЗ ОШИБОК СИНТАКСИСА SVG)
   const ECGLine = ({ health, status }) => {
     const isDead = health <= 0 || status === 'gameover' || status === 'cpr';
     const isDanger = health < 70 && !isDead;
-    
-    // Координаты x,y через пробел (валидно для <polyline>)
+
     const normalPoints = "0,32 10,32 15,25 20,32 30,32 33,40 36,10 40,55 43,32 55,32 65,22 75,32 100,32 110,32 115,25 120,32 130,32 133,40 136,10 140,55 143,32 155,32 165,22 175,32 200,32";
     const dangerPoints = "0,32 5,15 10,45 15,32 25,10 30,55 35,20 40,40 50,32 60,10 65,50 70,25 80,55 85,15 95,45 100,32 105,15 110,45 115,32 125,10 130,55 135,20 140,40 150,32 160,10 165,50 170,25 180,55 185,15 195,45 200,32";
     const flatPoints = "0,32 200,32";
@@ -2330,7 +2345,7 @@
         return () => clearInterval(interval);
       }
     }, [isDead, isDanger, status]);
-    
+
     return (
       <div className="w-full h-12 md:h-16 bg-[#030712]/80 border border-green-500/20 rounded-lg relative overflow-hidden flex items-center shadow-inner">
         <div className="absolute inset-0 flex justify-between opacity-10">
@@ -2340,11 +2355,11 @@
           {[...Array(4)].map((_, i) => <div key={i} className="border-b border-green-500 w-full h-[25%]" />)}
         </div>
         <svg className={`absolute w-[200%] h-full z-10 ${!isDead ? 'ecg-animate' : ''} ${isDanger ? 'ecg-fast' : ''}`} viewBox="0 0 200 64" preserveAspectRatio="none" style={{ left: 0 }}>
-          <polyline 
+          <polyline
             className={`fill-none stroke-[2px] transition-all duration-500 stroke-linecap-round stroke-linejoin-round ${
               isDead ? 'stroke-red-600 opacity-80' : isDanger ? 'stroke-orange-500 drop-shadow-[0_0_6px_rgba(249,115,22,0.8)]' : 'stroke-green-400 drop-shadow-[0_0_6px_rgba(74,222,128,0.8)]'
-            }`} 
-            points={isDead ? flatPoints : isDanger ? dangerPoints : normalPoints} 
+            }`}
+            points={isDead ? flatPoints : isDanger ? dangerPoints : normalPoints}
           />
         </svg>
       </div>
@@ -2424,7 +2439,7 @@
   };
 
   function ARRescueSimulator() {
-    const [gameState, setGameState] = useState('start'); 
+    const [gameState, setGameState] = useState('start');
     const [currentIdx, setCurrentIdx] = useState(0);
     const [score, setScore] = useState(0);
     const [health, setHealth] = useState(100);
@@ -2438,10 +2453,10 @@
 
     const [hasUsedCPR, setHasUsedCPR] = useState(false);
     const [cprClicks, setCprClicks] = useState(0);
-    const [cprTimeLeft, setCprTimeLeft] = useState(8);
-    
-    // ИСПРАВЛЕНО: 30 КОМПРЕССИЙ
-    const CPR_TARGET = 30; 
+    const [cprTimeLeft, setCprTimeLeft] = useState(10);
+
+    const CPR_TARGET = 30;
+    const CPR_TIME = 10;
 
     const isAdrenaline = gameState === 'playing' && !feedback && timeLeft <= 8;
 
@@ -2449,7 +2464,10 @@
       let timer;
       if (gameState === 'playing' && !feedback && timeLeft > 0) {
         timer = setInterval(() => {
-          setTimeLeft(prev => { if (prev <= 7 && prev > 1) playSound('tick'); return prev - 1; });
+          setTimeLeft(prev => {
+            if (prev <= 7 && prev > 1) playSound('tick');
+            return prev - 1;
+          });
         }, 1000);
       } else if (timeLeft === 0 && !feedback && gameState === 'playing') {
         handleTimeout();
@@ -2475,7 +2493,9 @@
     const handleTimeout = () => {
       playSound('error'); setCombo(0);
       setFeedback({ text: "КРИТИЧЕСКАЯ ОШИБКА: Время вышло. В экстренной ситуации промедление равносильно гибели.", isCorrect: false, deadly: false });
-      setHealth(Math.max(0, health - 35)); triggerShake(); setReactionTimes(prev => [...prev, 20]);
+      setHealth(prev => Math.max(0, prev - 35));
+      triggerShake();
+      setReactionTimes(prev => [...prev, 20]);
     };
 
     const triggerShake = () => { setIsShaking(true); setTimeout(() => setIsShaking(false), 500); };
@@ -2486,24 +2506,31 @@
 
       if (choice.isCorrect) {
         playSound('success');
-        const timeBonus = timeLeft * 10; const newCombo = combo + 1; const comboMultiplier = 1 + (newCombo * 0.1);
+        const timeBonus = timeLeft * 10;
+        const newCombo = combo + 1;
+        const comboMultiplier = 1 + (newCombo * 0.1);
         const earned = Math.round((100 + timeBonus) * comboMultiplier);
-        setCombo(newCombo); setScore(score + earned);
+        setCombo(newCombo);
+        setScore(prev => prev + earned);
         setFeedback({ text: choice.feedback, isCorrect: true, stats: `Время: ${timeTaken.toFixed(1)}с | Бонус: +${timeBonus} | Комбо x${comboMultiplier.toFixed(1)} = +${earned} XP` });
       } else {
-        setCombo(0); const damage = choice.deadly ? 100 : 35; 
+        setCombo(0);
+        const damage = choice.deadly ? 100 : 35;
         if (choice.deadly) playSound('fatal'); else playSound('error');
         setFeedback({ text: choice.feedback, isCorrect: false, deadly: choice.deadly });
-        setHealth(Math.max(0, health - damage)); triggerShake();
+        setHealth(prev => Math.max(0, prev - damage));
+        triggerShake();
       }
     };
 
     const handleNext = () => {
       if (health <= 0) {
         if (!hasUsedCPR) {
-          playSound('flatline'); setGameState('cpr'); setCprClicks(0); setCprTimeLeft(8); setHasUsedCPR(true); setFeedback(null);
+          playSound('flatline');
+          setGameState('cpr'); setCprClicks(0); setCprTimeLeft(CPR_TIME); setHasUsedCPR(true); setFeedback(null);
         } else {
-          if (gameState !== 'gameover') playSound('flatline'); setGameState('gameover');
+          if (gameState !== 'gameover') playSound('flatline');
+          setGameState('gameover');
         }
         return;
       }
@@ -2515,11 +2542,16 @@
     };
 
     const doCPR = () => {
-      playSound('thump'); const newClicks = cprClicks + 1; setCprClicks(newClicks);
+      playSound('thump');
+      const newClicks = cprClicks + 1;
+      setCprClicks(newClicks);
       if (newClicks >= CPR_TARGET) {
-        playSound('success'); setHealth(30);
+        playSound('success');
+        setHealth(30);
         setFeedback({ text: "СЕРДЦЕ ЗАПУЩЕНО! Экстренная реанимация прошла успешно. Пациент стабилизирован, но показатели критические. Продолжаем протокол.", isCorrect: true, stats: "Бонус Реанимации: +500 XP" });
-        setScore(score + 500); setGameState('playing'); setLevelStartTime(Date.now());
+        setScore(prev => prev + 500);
+        setGameState('playing');
+        setLevelStartTime(Date.now());
       }
     };
 
@@ -2530,7 +2562,7 @@
 
     return (
       <div className="relative w-full min-h-[750px] md:min-h-[850px] h-auto bg-[#020617] text-slate-100 font-sans flex flex-col items-center justify-center p-4 md:p-8 py-6 md:py-10 overflow-hidden selection:bg-cyan-500/30 rounded-2xl shadow-2xl">
-        
+
         <div className="pointer-events-none absolute inset-0 z-40 transition-opacity duration-1000 rounded-2xl"
           style={{ opacity: isAdrenaline ? 1 : 0, background: 'radial-gradient(circle, transparent 30%, rgba(220, 38, 38, 0.4) 70%, rgba(0,0,0,0.95) 100%)', animation: isAdrenaline ? 'pulse-heavy 1s infinite' : 'none' }}
         />
@@ -2539,7 +2571,7 @@
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_center,rgba(2,6,23,0)_0%,rgba(2,6,23,0.9)_100%)] pointer-events-none z-10 rounded-2xl" />
 
         <div className={`relative z-20 w-full max-w-4xl h-full flex flex-col transition-transform duration-75 ${isShaking ? 'translate-x-3 -translate-y-2 rotate-1 blur-[1px]' : ''}`}>
-          
+
           {(gameState === 'playing' || gameState === 'cpr') && (
             <div className="mb-4 md:mb-6 grid grid-cols-1 sm:grid-cols-3 gap-2 md:gap-4 shrink-0">
               <div className="hud-panel p-3 md:p-4 flex flex-col justify-center space-y-2 border-l-4 border-l-cyan-500 bg-slate-900/40 backdrop-blur-md rounded-lg border border-cyan-500/20">
@@ -2565,7 +2597,7 @@
                 <div className="flex items-center space-x-3 mt-1 md:mt-2">
                   <Clock className={`w-4 h-4 md:w-5 md:h-5 ${(timeLeft <= 8 || gameState === 'cpr') ? 'text-red-500 animate-ping' : 'text-cyan-400'}`} />
                   <div className="flex-1 bg-slate-950 h-2 md:h-3 rounded-sm border border-white/10 overflow-hidden relative">
-                    <div className={`h-full transition-all duration-1000 ease-linear ${gameState === 'cpr' ? 'bg-red-500' : timeLeft <= 8 ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]' : 'bg-cyan-500'}`} style={{ width: `${gameState === 'cpr' ? (cprTimeLeft / 8) * 100 : (timeLeft / 20) * 100}%` }} />
+                    <div className={`h-full transition-all duration-1000 ease-linear ${gameState === 'cpr' ? 'bg-red-500' : timeLeft <= 8 ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]' : 'bg-cyan-500'}`} style={{ width: `${gameState === 'cpr' ? (cprTimeLeft / CPR_TIME) * 100 : (timeLeft / 20) * 100}%` }} />
                   </div>
                   <span className={`font-mono font-bold w-6 md:w-8 text-right text-xs md:text-sm ${(timeLeft <= 8 || gameState === 'cpr') ? 'text-red-500' : 'text-white'}`}>{gameState === 'cpr' ? cprTimeLeft : timeLeft}s</span>
                 </div>
@@ -2582,7 +2614,7 @@
             {gameState === 'playing' && !feedback && <PanicOverlay active={isAdrenaline} />}
 
             <div className="p-4 md:p-10 flex-1 flex flex-col justify-center relative z-10 w-full overflow-y-auto no-scrollbar">
-              
+
               {gameState === 'start' && (
                 <div className="w-full flex flex-col md:flex-row items-center justify-between gap-8 animate-fade-in my-auto">
                   <div className="flex-1 flex justify-center relative hidden md:flex">
@@ -2647,7 +2679,7 @@
                     <h3 className="text-lg md:text-2xl font-bold tracking-tight text-white px-2">{currentScenario.title}</h3>
                     <p className="text-sm md:text-base text-slate-300 font-light leading-relaxed px-2 md:px-0">{currentScenario.description}</p>
                   </div>
-                  
+
                   {currentScenario.type === 'scanner' ? (
                     <AnatomyScanner scenario={currentScenario} onChoice={handleChoice} />
                   ) : currentScenario.type === 'inventory' ? (
@@ -2681,11 +2713,11 @@
                       <XOctagon className={`w-16 h-16 md:w-20 md:h-20 relative z-10 ${feedback.deadly ? 'text-red-500 drop-shadow-[0_0_20px_rgba(239,68,68,0.8)]' : 'text-amber-400 drop-shadow-[0_0_20px_rgba(251,191,36,0.8)]'}`} />
                     </div>
                   )}
-                  
+
                   <h3 className={`text-xl md:text-3xl font-black mb-4 uppercase tracking-widest ${feedback.isCorrect ? 'text-emerald-400' : (feedback.deadly ? 'text-red-500' : 'text-amber-400')}`}>
                     {feedback.isCorrect ? 'РЕШЕНИЕ ВЕРНО' : (feedback.deadly ? 'ФАТАЛЬНЫЙ ИСХОД' : 'ОШИБКА ПРОТОКОЛА')}
                   </h3>
-                  
+
                   {feedback.stats && (
                     <div className="font-mono text-[9px] md:text-xs text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-2 rounded-lg mb-6 inline-flex items-center gap-2 shadow-[0_0_15px_rgba(251,191,36,0.2)]">
                       <ZapIcon className="w-3 h-3 md:w-4 md:h-4" /> {feedback.stats}
