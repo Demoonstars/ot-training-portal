@@ -2,1285 +2,1483 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Кабинет ответственного за обучение — регламент и инструменты | СДО</title>
+  <title>СДО | Ответственным за обучение и ИТР</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Инструментарий для руководителей подразделений и специалистов по охране труда: калькулятор сроков по ПП РФ № 2464, авто-конструктор уведомлений сотрудникам и регламент допуска.">
 
-  <!-- ===== SEO ===== -->
-  <!--
-    БЛОК: SEO-метатеги, Canonical, Open Graph и Twitter Cards.
-    ЗА ЧТО ОТВЕЧАЕТ: Индексация страницы поисковиками и карточка превью при отправке ссылки.
-    ПОЧЕМУ БЕЗОПАСНО: Заглушки https://example.com заменены на реальный URL портала на GitHub Pages
-    и существующее изображение assets/hero-training.jpg.
-  -->
-  <meta name="description" content="Кабинет ответственного за дистанционное обучение: функции, нормативная база, алгоритм организации, калькулятор сроков, интерактивный чек-лист, шаблоны сообщений и полезные материалы.">
-  <meta name="keywords" content="СДО, ответственный за обучение, охрана труда, регламент, проверка знаний, инструктажи, протоколы, нормативная база, калькулятор сроков, чек-лист">
-  <meta name="author" content="Служба Охраны Труда">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-  <meta name="theme-color" content="#7c3aed">
+  <!-- Канонический URL и Open Graph -->
   <link rel="canonical" href="https://demoonstars.github.io/ot-training-portal/for-responsibles.html">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="Кабинет ответственного за обучение — регламент и инструменты">
-  <meta property="og:description" content="Всё для организации дистанционного обучения: алгоритм, чек-лист, калькулятор сроков, шаблоны сообщений и нормативная база.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="СДО | Кабинет ответственного за обучение и ИТР">
+  <meta property="og:description" content="Калькулятор контрольных сроков обучения по ПП РФ № 2464, конструктор рассылок в 1 клик и памятка руководителю.">
   <meta property="og:url" content="https://demoonstars.github.io/ot-training-portal/for-responsibles.html">
-  <meta property="og:site_name" content="СДО — Система дистанционного обучения">
   <meta property="og:locale" content="ru_RU">
-  <meta property="og:image" content="https://demoonstars.github.io/ot-training-portal/assets/hero-training.jpg">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Кабинет ответственного за обучение">
-  <meta name="twitter:description" content="Алгоритм, чек-лист, калькулятор сроков и шаблоны сообщений для ответственного за СДО.">
-  <meta name="twitter:image" content="https://demoonstars.github.io/ot-training-portal/assets/hero-training.jpg">
 
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="assets/Филин от.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Merriweather:ital,wght@1,700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <!-- ===== СТИЛИ СТРАНИЦЫ ===== -->
   <style>
-    /* ---------- ПЕРЕМЕННЫЕ (светлая/тёмная тема) ---------- */
     :root {
-      --c-violet: #7c3aed;
-      --c-violet-hover: #6d28d9;
-      --c-violet-soft: rgba(124,58,237,0.10);
-      --c-violet-border: rgba(124,58,237,0.22);
-      --c-blue: #2563eb;
-      --c-blue-soft: rgba(37,99,235,0.10);
-      --c-orange: #f97316;
-      --c-orange-soft: rgba(249,115,22,0.10);
-      --c-green: #10b981;
-      --c-green-soft: rgba(16,185,129,0.10);
-      --c-card: #ffffff;
-      --c-card-glass: rgba(255,255,255,0.72);
-      --c-card-subtle: #f8fafc;
-      --c-text: #0f172a;
-      --c-text-2: #475569;
-      --c-text-3: #64748b;
-      --c-border: rgba(148,163,184,0.2);
-      --c-border-strong: #ffffff;
-      --c-shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.05);
-      --c-shadow-md: 0 15px 30px -5px rgba(0,0,0,0.10);
-      --c-shadow-lg: 0 20px 40px -10px rgba(124,58,237,0.15);
-      color-scheme: light;
-    }
-    [data-theme="dark"] {
-      color-scheme: dark;
-      --c-violet: #a78bfa;
-      --c-violet-hover: #c4b5fd;
-      --c-violet-soft: rgba(167,139,250,0.15);
-      --c-violet-border: rgba(167,139,250,0.32);
-      --c-blue: #60a5fa;
-      --c-blue-soft: rgba(96,165,250,0.15);
-      --c-orange: #fb923c;
-      --c-orange-soft: rgba(251,146,60,0.15);
-      --c-green: #34d399;
-      --c-green-soft: rgba(52,211,153,0.15);
-      --c-card: #1e293b;
-      --c-card-glass: rgba(30,41,59,0.65);
-      --c-card-subtle: #0f172a;
-      --c-text: #f1f5f9;
-      --c-text-2: #cbd5e1;
-      --c-text-3: #94a3b8;
-      --c-border: rgba(148,163,184,0.25);
-      --c-border-strong: rgba(148,163,184,0.2);
-      --c-shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.3);
-      --c-shadow-md: 0 15px 30px -5px rgba(0,0,0,0.4);
-      --c-shadow-lg: 0 20px 40px -10px rgba(167,139,250,0.25);
-    }
-    [data-theme="dark"] body.masterpiece-theme {
-      background-color: #0f172a;
-      background-image:
-        radial-gradient(1200px 600px at 10% 0%, rgba(124,58,237,0.18), transparent 60%),
-        radial-gradient(800px 400px at 90% 100%, rgba(37,99,235,0.12), transparent 60%);
-    }
-    /*
-     * БЛОК: Поддержка темной темы для шапки сайта (.site-header).
-     * ЗА ЧТО ОТВЕЧАЕТ: Корректный темный фон и светлый текст навигации при включении ночного режима.
-     * ПОЧЕМУ БЕЗОПАСНО: Применяется только при наличии атрибута [data-theme="dark"].
-     */
-    [data-theme="dark"] .site-header {
-      background: rgba(15, 23, 42, 0.85);
-      border-bottom-color: rgba(148, 163, 184, 0.2);
-    }
-    [data-theme="dark"] .site-title-mini {
-      color: var(--c-text);
-    }
-    [data-theme="dark"] .site-subtitle-mini,
-    [data-theme="dark"] .nav-link {
-      color: var(--c-text-2);
-    }
-    [data-theme="dark"] .nav-link:hover,
-    [data-theme="dark"] .nav-link.active,
-    [data-theme="dark"] .nav-link-active {
-      color: var(--c-violet);
-      background: rgba(30, 41, 59, 0.8);
+      --primary: #4f46e5;
+      --primary-glow: rgba(79, 70, 229, 0.35);
+      --emerald: #10b981;
+      --violet: #7c3aed;
+      --rose: #e11d48;
+      --amber: #f59e0b;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-600: #475569;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
-    /* ---------- READING PROGRESS ---------- */
-    .reading-progress {
-      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
-      background: linear-gradient(90deg, #a855f7, #7c3aed);
-      z-index: 9999; transition: width 0.1s linear; pointer-events: none;
+    /* === 1. ЖИВОЙ ФОН И ПОЛОСА ПРОКРУТКИ === */
+    body.masterpiece-theme {
+      background: linear-gradient(-45deg, #eef2ff, #f5f3ff, #e0f2fe, #f0fdf4);
+      background-size: 400% 400%;
+      animation: gradientBG 16s ease infinite;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+      color: var(--slate-800);
     }
 
-    /* ---------- BREADCRUMBS ---------- */
-    .breadcrumbs {
-      font-size: 0.85rem; color: var(--c-text-3);
-      padding: 20px 0 0; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
-    }
-    .breadcrumbs a { color: var(--c-text-3); text-decoration: none; transition: color 0.2s; }
-    .breadcrumbs a:hover { color: var(--c-violet); }
-    .breadcrumbs .sep { opacity: 0.5; }
-    .breadcrumbs [aria-current="page"] { color: var(--c-text); font-weight: 600; }
-
-    /* ---------- HERO ---------- */
-    .admin-hero {
-      text-align: center; padding: 30px 20px 20px; margin-bottom: 20px; position: relative;
-    }
-    .admin-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--c-violet-soft); border: 1px solid var(--c-violet-border);
-      color: var(--c-violet); padding: 6px 14px; border-radius: 99px;
-      font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.06em; margin-bottom: 16px;
-    }
-    .admin-title {
-      font-size: clamp(1.7rem, 4vw, 2.6rem); font-weight: 800;
-      color: var(--c-text); margin: 0 0 14px; line-height: 1.15;
-    }
-    .admin-lead {
-      font-size: 1.08rem; color: var(--c-text-2); max-width: 780px;
-      margin: 0 auto 22px; line-height: 1.65;
-    }
-    .instr-meta {
-      display: flex; flex-wrap: wrap; justify-content: center;
-      gap: 10px 22px; font-size: 0.88rem; color: var(--c-text-3); margin-bottom: 22px;
-    }
-    .instr-meta-item { display: inline-flex; align-items: center; gap: 6px; }
-    .instr-actions {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
-    }
-    .btn-ghost {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 18px; border-radius: 12px; font-size: 0.92rem; font-weight: 600;
-      background: var(--c-card-glass); color: var(--c-text);
-      border: 1px solid var(--c-border-strong); cursor: pointer;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      font-family: inherit;
-      transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
-    }
-    .btn-ghost:hover { transform: translateY(-2px); box-shadow: 0 8px 20px -6px var(--c-shadow-sm); background: var(--c-card); }
-    .btn-ghost:focus-visible { outline: 2px solid var(--c-violet); outline-offset: 2px; }
-    .btn-ghost svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
-    /* ---------- TOC ---------- */
-    .toc {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
-      max-width: 900px; margin: 0 auto 40px;
-    }
-    .toc a {
-      padding: 8px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 600;
-      background: var(--c-card-glass); color: var(--c-text-2); text-decoration: none;
-      border: 1px solid var(--c-border); backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      transition: all 0.2s;
-    }
-    .toc a:hover {
-      background: var(--c-card); color: var(--c-violet);
-      border-color: var(--c-violet-border); transform: translateY(-2px);
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    /* ---------- STATS ---------- */
-    .stats-row {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 16px; max-width: 900px; margin: 0 auto 50px;
-    }
-    .stat-card {
-      background: var(--c-card-glass); border: 1px solid var(--c-border-strong);
-      border-radius: 16px; padding: 20px; backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      text-align: center; box-shadow: 0 8px 20px -8px var(--c-shadow-sm);
-      transition: transform 0.2s, box-shadow 0.3s;
-    }
-    .stat-card:hover { transform: translateY(-3px); box-shadow: 0 12px 26px -8px var(--c-shadow-md); }
-    .stat-value {
-      font-size: 2rem; font-weight: 800; color: var(--c-violet);
-      line-height: 1; margin-bottom: 6px;
-    }
-    .stat-label { font-size: 0.82rem; color: var(--c-text-2); font-weight: 500; line-height: 1.35; }
-
-    /* ---------- SECTION HEADINGS ---------- */
-    .section-h2 {
-      font-size: 1.5rem; font-weight: 800; color: var(--c-text);
-      margin: 0 0 8px; line-height: 1.25;
-    }
-    .section-sub {
-      font-size: 0.95rem; color: var(--c-text-3); margin: 0 0 28px;
-    }
-    .section-head { margin-bottom: 28px; text-align: center; }
-
-    /* ---------- ADMIN CARDS ---------- */
-    .admin-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px; margin-bottom: 60px;
-    }
-    .admin-card {
-      background: var(--c-card); border-radius: 20px; padding: 26px;
-      border: 1px solid var(--c-border);
-      box-shadow: var(--c-shadow-sm);
-      transition: transform 0.3s, box-shadow 0.3s;
-      position: relative; overflow: hidden;
-    }
-    .admin-card:hover { transform: translateY(-5px); box-shadow: var(--c-shadow-md); }
-    .admin-card::after {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
-      background: linear-gradient(90deg, var(--c-violet), #a855f7);
-    }
-    .card-purple::after { background: linear-gradient(90deg, var(--c-violet), #a855f7); }
-    .card-blue::after   { background: linear-gradient(90deg, var(--c-blue), #93c5fd); }
-    .card-orange::after { background: linear-gradient(90deg, var(--c-orange), #fdba74); }
-
-    .card-icon-wrap {
-      width: 52px; height: 52px; border-radius: 14px;
-      background: var(--c-violet-soft); color: var(--c-violet);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem; margin-bottom: 18px;
-    }
-    .icon-blue   { background: var(--c-blue-soft);   color: var(--c-blue); }
-    .icon-orange { background: var(--c-orange-soft); color: var(--c-orange); }
-
-    .card-title {
-      font-size: 1.15rem; font-weight: 700; color: var(--c-text);
-      margin: 0 0 14px;
-    }
-    .task-list { list-style: none; padding: 0; margin: 0; }
-    .task-list li {
-      position: relative; padding-left: 22px; margin-bottom: 10px;
-      font-size: 0.9rem; color: var(--c-text-2); line-height: 1.5;
-    }
-    .task-list li::before {
-      content: ""; position: absolute; left: 4px; top: 8px;
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--c-violet); opacity: 0.55;
-    }
-    .card-blue .task-list li::before   { background: var(--c-blue); }
-    .card-orange .task-list li::before { background: var(--c-orange); }
-    .task-list strong { color: var(--c-text); font-weight: 600; }
-
-    /* ---------- ALGORITHM (HORIZONTAL STEPS) ---------- */
-    .process-steps {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px; margin-bottom: 60px;
-    }
-    .process-card {
-      background: var(--c-card-glass); border: 1px solid var(--c-border-strong);
-      border-radius: 18px; padding: 22px; backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: var(--c-shadow-sm); position: relative;
-      transition: transform 0.25s, box-shadow 0.3s;
-    }
-    .process-card:hover { transform: translateY(-4px); box-shadow: var(--c-shadow-md); }
-    .process-num {
-      font-size: 2.8rem; font-weight: 900; color: var(--c-violet);
-      opacity: 0.14; position: absolute; top: 8px; right: 18px;
-      line-height: 1; font-family: 'Inter', sans-serif;
-    }
-    .process-title { font-weight: 700; color: var(--c-text); margin: 0 0 10px; font-size: 1rem; position: relative; }
-    .process-text  { font-size: 0.87rem; color: var(--c-text-2); line-height: 1.55; position: relative; margin: 0; }
-
-    /* ---------- CALCULATOR ---------- */
-    .calc-card {
-      background: var(--c-card); border-radius: 22px;
-      padding: 30px; border: 1px solid var(--c-border);
-      box-shadow: var(--c-shadow-sm); margin-bottom: 60px;
-    }
-    .calc-header { margin-bottom: 20px; }
-    .calc-title { font-size: 1.2rem; font-weight: 800; color: var(--c-text); margin: 0 0 6px; }
-    .calc-desc { font-size: 0.92rem; color: var(--c-text-3); margin: 0; line-height: 1.55; }
-    .calc-controls {
-      display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end;
-      margin-bottom: 24px; padding-bottom: 24px;
-      border-bottom: 1px dashed var(--c-border);
-    }
-    .calc-field { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 200px; }
-    .calc-field label { font-size: 0.85rem; font-weight: 600; color: var(--c-text-2); }
-    .calc-field input[type="date"] {
-      font-family: inherit; font-size: 0.95rem;
-      padding: 10px 14px; border-radius: 10px;
-      border: 1px solid var(--c-border); background: var(--c-card-subtle);
-      color: var(--c-text); transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .calc-field input[type="date"]:focus {
-      outline: none; border-color: var(--c-violet);
-      box-shadow: 0 0 0 3px var(--c-violet-soft);
-    }
-    .calc-hint {
-      font-size: 0.8rem; color: var(--c-text-3); margin: 0;
-    }
-    .calc-results { display: flex; flex-direction: column; gap: 10px; }
-    .calc-row {
-      display: grid; grid-template-columns: 34px 1fr auto;
-      align-items: center; gap: 14px; padding: 12px 16px;
-      background: var(--c-card-subtle); border-radius: 12px;
-      border: 1px solid var(--c-border);
-      transition: transform 0.2s, border-color 0.2s;
-    }
-    .calc-row:hover { transform: translateX(4px); border-color: var(--c-violet-border); }
-    .calc-icon { font-size: 1.15rem; text-align: center; }
-    .calc-label { font-size: 0.93rem; color: var(--c-text-2); font-weight: 500; }
-    .calc-date { font-size: 0.92rem; font-weight: 700; color: var(--c-violet); white-space: nowrap; }
-
-    /* ---------- CHECKLIST ---------- */
-    .checklist-toolbar {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
-      justify-content: space-between; margin-bottom: 20px;
-      padding-bottom: 20px; border-bottom: 1px dashed var(--c-border);
-    }
-    .checklist-progress {
-      display: flex; align-items: center; gap: 14px; flex: 1; min-width: 220px;
-    }
-    .checklist-progress-text {
-      font-size: 0.92rem; color: var(--c-text); font-weight: 600; white-space: nowrap;
-    }
-    .checklist-progress-text strong { color: var(--c-violet); font-weight: 800; }
-    .checklist-progress-bar {
-      flex: 1; height: 8px; background: rgba(148,163,184,0.2);
-      border-radius: 999px; overflow: hidden; min-width: 100px;
-    }
-    .checklist-progress-fill {
-      height: 100%; width: 0%;
-      background: linear-gradient(90deg, var(--c-violet), var(--c-green));
-      border-radius: 999px;
-      transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .checklist-reset {
-      background: none; border: none; font-family: inherit;
-      font-size: 0.85rem; font-weight: 600; color: var(--c-text-3);
-      padding: 6px 12px; border-radius: 8px; cursor: pointer;
-      transition: color 0.2s, background 0.2s;
-    }
-    .checklist-reset:hover { color: var(--c-text); background: rgba(148,163,184,0.12); }
-
-    .checklist-group { margin-bottom: 28px; }
-    .checklist-group:last-child { margin-bottom: 0; }
-    .checklist-group-title {
-      font-size: 0.82rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.08em; color: var(--c-violet);
-      margin: 0 0 14px; padding-left: 4px;
-    }
-    .checklist-item {
-      display: flex; align-items: flex-start; gap: 12px;
-      padding: 12px 16px; margin-bottom: 8px;
-      background: var(--c-card-subtle); border-radius: 12px;
-      border: 1px solid transparent;
-      cursor: pointer; transition: all 0.2s;
-    }
-    .checklist-item:hover { border-color: var(--c-border); background: var(--c-card); }
-    .checklist-item input[type="checkbox"] { position: absolute; opacity: 0; pointer-events: none; }
-    .checklist-box {
-      flex-shrink: 0; width: 22px; height: 22px; margin-top: 1px;
-      border-radius: 7px; border: 2px solid var(--c-border);
-      background: var(--c-card); position: relative;
-      transition: all 0.2s;
-    }
-    .checklist-box::after {
-      content: ""; position: absolute; left: 6px; top: 2px;
-      width: 6px; height: 11px; border: solid #fff;
-      border-width: 0 2.5px 2.5px 0; transform: rotate(45deg) scale(0);
-      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .checklist-item input:checked ~ .checklist-box {
-      background: var(--c-green); border-color: var(--c-green);
-    }
-    .checklist-item input:checked ~ .checklist-box::after { transform: rotate(45deg) scale(1); }
-    .checklist-item input:focus-visible ~ .checklist-box {
-      outline: 2px solid var(--c-violet); outline-offset: 2px;
-    }
-    .checklist-text {
-      font-size: 0.93rem; color: var(--c-text-2); line-height: 1.5; flex: 1;
-    }
-    .checklist-item input:checked ~ .checklist-text {
-      color: var(--c-text-3); text-decoration: line-through;
-      text-decoration-color: var(--c-text-3); text-decoration-thickness: 1px;
+    .scroll-progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3.5px; width: 0%;
+      background: linear-gradient(90deg, #4f46e5, #8b5cf6, #10b981);
+      z-index: 9999;
+      transition: width 0.1s ease-out;
+      box-shadow: 0 0 12px rgba(79, 70, 229, 0.6);
     }
 
-    /* ---------- DOCS ---------- */
-    .docs-toolbar {
-      display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
+    .reveal-up {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .js-loaded .reveal-up {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    .js-loaded .reveal-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ======================================================================
+       2. ШАПКА QUANTUM COMMAND BAR V2.0 (БЕЗ ВЫЛЕТА ЗА КАПСУЛУ И ДУБЛЕЙ НА ТЕЛЕФОНАХ)
+       ====================================================================== */
+    .site-header.quantum-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+      padding: 10px 0;
+      transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .site-header.quantum-header .header-inner {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 10px !important;
+      box-sizing: border-box !important;
+      transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .site-header.quantum-header .header-brand {
+      display: flex;
       align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      min-width: 0;
     }
-    .docs-search-wrap { position: relative; flex: 1; min-width: 200px; }
-    .docs-search-wrap svg {
-      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-      width: 16px; height: 16px; stroke: var(--c-text-3); fill: none; stroke-width: 2;
-      pointer-events: none;
-    }
-    .docs-search {
-      width: 100%; padding: 12px 14px 12px 42px;
-      font-family: inherit; font-size: 0.92rem;
-      border-radius: 12px; border: 1px solid var(--c-border);
-      background: var(--c-card-subtle); color: var(--c-text);
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .docs-search:focus {
-      outline: none; border-color: var(--c-violet);
-      box-shadow: 0 0 0 3px var(--c-violet-soft);
-    }
-    .docs-filters { display: flex; flex-wrap: wrap; gap: 6px; }
-    .filter-btn {
-      padding: 8px 14px; border-radius: 999px; border: 1px solid var(--c-border);
-      background: var(--c-card-subtle); color: var(--c-text-2);
-      font-family: inherit; font-size: 0.82rem; font-weight: 600;
-      cursor: pointer; transition: all 0.2s;
-    }
-    .filter-btn:hover { border-color: var(--c-violet-border); color: var(--c-violet); }
-    .filter-btn.is-active {
-      background: var(--c-violet); color: #fff; border-color: var(--c-violet);
-    }
-    .filter-btn:focus-visible { outline: 2px solid var(--c-violet); outline-offset: 2px; }
 
-    .docs-list { display: flex; flex-direction: column; gap: 10px; }
-    .doc-item {
-      display: flex; align-items: center; gap: 15px;
-      padding: 16px 18px; background: var(--c-card);
-      border-radius: 14px; border: 1px solid var(--c-border);
-      text-decoration: none; color: inherit;
-      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    .site-header.quantum-header .brand-logo {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
     }
-    .doc-item:hover {
-      transform: translateX(5px); border-color: var(--c-violet-border);
-      box-shadow: var(--c-shadow-sm);
+
+    .site-header.quantum-header .site-title-mini {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin: 0;
+      line-height: 1.1;
+      color: #0f172a;
+      white-space: nowrap;
     }
-    .doc-icon { font-size: 1.6rem; flex-shrink: 0; }
-    .doc-info { flex: 1; min-width: 0; }
-    .doc-info h4 {
-      margin: 0 0 4px; font-size: 0.97rem; color: var(--c-text); font-weight: 700;
+
+    .site-header.quantum-header .site-subtitle-mini {
+      font-size: 0.7rem;
+      color: #64748b;
+      margin: 2px 0 0;
+      white-space: nowrap;
+      max-width: 185px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .doc-info p { margin: 0; font-size: 0.83rem; color: var(--c-text-3); line-height: 1.5; }
-    .doc-badge {
-      flex-shrink: 0; font-size: 0.72rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.05em;
-      padding: 4px 10px; border-radius: 999px; white-space: nowrap;
+
+    .site-header.quantum-header .header-meta {
+      font-size: 0.72rem;
+      color: #64748b;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 0 !important;
+      white-space: nowrap;
+      flex-shrink: 1;
+      min-width: 0;
     }
-    .badge-instruction { background: var(--c-blue-soft); color: var(--c-blue); }
-    .badge-template    { background: var(--c-violet-soft); color: var(--c-violet); }
-    .badge-normative   { background: var(--c-orange-soft); color: var(--c-orange); }
-    .docs-empty {
-      text-align: center; padding: 30px; color: var(--c-text-3);
+
+    @media (max-width: 1260px) {
+      .site-header.quantum-header .header-meta,
+      .site-header.quantum-header .site-subtitle-mini {
+        display: none !important;
+      }
+    }
+
+    .site-header.quantum-header .main-nav {
+      flex: 1 1 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 0;
+      position: relative;
+    }
+
+    .site-header.quantum-header .nav-list {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+      margin: 0;
+      padding: 4px;
+      position: relative;
+      border-radius: 14px;
+      background: rgba(241, 245, 249, 0.7);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .site-header.quantum-header .nav-link {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #475569;
+      padding: 7px 12px;
+      border-radius: 10px;
+      white-space: nowrap;
+      position: relative;
+      z-index: 2;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+
+    .site-header.quantum-header .nav-link:hover,
+    .site-header.quantum-header .nav-link.active,
+    .site-header.quantum-header .nav-link-active {
+      color: #4f46e5;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+    }
+
+    .q-nav-glider {
+      position: absolute;
+      top: 4px;
+      left: 0;
+      height: calc(100% - 8px);
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.12), rgba(124, 58, 237, 0.12));
+      border: 1px solid rgba(79, 70, 229, 0.24);
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0;
+      transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), width 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+    }
+
+    .q-context-radar {
       display: none;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 11px;
+      border-radius: 99px;
+      background: linear-gradient(90deg, rgba(79, 70, 229, 0.09), rgba(16, 185, 129, 0.09));
+      border: 1px solid rgba(79, 70, 229, 0.24);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0f172a;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
-    .docs-empty.is-visible { display: block; }
+    .q-radar-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4f46e5;
+      box-shadow: 0 0 8px #4f46e5;
+      flex-shrink: 0;
+    }
+    .q-radar-section {
+      color: #4f46e5;
+      max-width: 170px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-    /* ---------- TEMPLATES ---------- */
-    .templates-list { display: flex; flex-direction: column; gap: 16px; }
-    .template-card {
-      background: var(--c-card); border: 1px solid var(--c-border);
-      border-radius: 16px; overflow: hidden;
-      transition: box-shadow 0.2s, border-color 0.2s;
+    .q-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      position: relative;
     }
-    .template-card:hover { border-color: var(--c-violet-border); box-shadow: var(--c-shadow-sm); }
-    .template-header {
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-      padding: 14px 20px; background: var(--c-card-subtle);
-      border-bottom: 1px solid var(--c-border);
+
+    .q-cmd-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      height: 36px;
+      padding: 0 10px;
+      border-radius: 99px;
+      border: 1px solid rgba(203, 213, 225, 0.85);
+      background: rgba(255, 255, 255, 0.95);
+      color: #334155;
+      font-size: 0.78rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
-    .template-title {
-      font-size: 0.92rem; font-weight: 700; color: var(--c-text);
-      display: inline-flex; align-items: center; gap: 8px;
+    .q-cmd-btn:hover {
+      border-color: #4f46e5;
+      color: #4f46e5;
+      background: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
     }
-    .template-copy {
-      font-family: inherit; font-size: 0.82rem; font-weight: 600;
-      padding: 6px 14px; border-radius: 8px;
-      background: var(--c-violet-soft); color: var(--c-violet);
-      border: 1px solid var(--c-violet-border); cursor: pointer;
-      transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px;
+    .q-cmd-kbd {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      padding: 2px 5px;
+      border-radius: 5px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      color: #64748b;
     }
-    .template-copy:hover { background: var(--c-violet); color: #fff; }
-    .template-copy:focus-visible { outline: 2px solid var(--c-violet); outline-offset: 2px; }
-    .template-copy svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
-    .template-body {
-      padding: 18px 20px; font-size: 0.9rem; color: var(--c-text-2);
+    .q-cmd-sos {
+      background: #fff1f2;
+      border-color: #fecdd3;
+      color: #be123c;
+    }
+    .q-cmd-sos:hover {
+      background: #e11d48;
+      border-color: #e11d48;
+      color: #ffffff;
+      box-shadow: 0 6px 16px -3px rgba(225, 29, 72, 0.35);
+    }
+
+    .q-passport-wrap {
+      position: relative;
+      display: inline-flex;
+      flex-shrink: 0;
+    }
+    .q-passport-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 36px;
+      padding: 0 11px 0 7px;
+      border-radius: 99px;
+      border: 1px solid rgba(203, 213, 225, 0.85);
+      background: linear-gradient(135deg, #ffffff, #f8fafc);
+      color: #0f172a;
+      font-size: 0.76rem;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      white-space: nowrap;
+    }
+    .q-passport-btn:hover,
+    .q-passport-btn[aria-expanded="true"] {
+      border-color: #10b981;
+      box-shadow: 0 6px 16px -4px rgba(16, 185, 129, 0.28);
+      transform: translateY(-1px);
+    }
+    .q-ring-svg {
+      width: 24px;
+      height: 24px;
+      transform: rotate(-90deg);
+      flex-shrink: 0;
+    }
+    .q-ring-bg { fill: none; stroke: #e2e8f0; stroke-width: 3.2; }
+    .q-ring-fill {
+      fill: none;
+      stroke: #10b981;
+      stroke-width: 3.2;
+      stroke-linecap: round;
+      stroke-dasharray: 62.83;
+      stroke-dashoffset: 62.83;
+      transition: stroke-dashoffset 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Морфинг в «Парящую капсулу» при прокрутке на ПК */
+    @media (min-width: 769px) {
+      .site-header.quantum-header.is-scrolled {
+        background: transparent;
+        border-bottom-color: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        padding: 8px 16px 0;
+        pointer-events: none;
+      }
+
+      .site-header.quantum-header.is-scrolled .header-inner {
+        pointer-events: auto;
+        max-width: 1160px;
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(24px) saturate(200%);
+        -webkit-backdrop-filter: blur(24px) saturate(200%);
+        border: 1px solid rgba(226, 232, 240, 0.95);
+        border-radius: 999px;
+        padding: 7px 14px !important;
+        box-shadow:
+          0 18px 40px -10px rgba(15, 23, 42, 0.14),
+          0 4px 12px -2px rgba(79, 70, 229, 0.08),
+          inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
+      }
+
+      .site-header.quantum-header.is-scrolled .site-subtitle-mini,
+      .site-header.quantum-header.is-scrolled .header-meta {
+        display: none !important;
+      }
+
+      .site-header.quantum-header.is-scrolled .brand-logo {
+        width: 34px;
+        height: 34px;
+      }
+
+      @media (min-width: 1080px) {
+        .site-header.quantum-header.is-scrolled .q-context-radar.has-context {
+          display: inline-flex;
+        }
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 1020px) {
+      .site-header.quantum-header .nav-link {
+        padding: 6px 8px;
+        font-size: 0.8rem;
+      }
+      .q-cmd-kbd { display: none; }
+    }
+
+    /* === 3. HERO СЕКЦИЯ С ПЕЧАТНОЙ МАШИНКОЙ === */
+    .resp-hero {
+      background: radial-gradient(circle at 100% 0%, rgba(79, 70, 229, 0.12) 0%, rgba(255, 255, 255, 0.9) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 28px;
+      padding: clamp(24px, 4vw, 42px);
+      margin: 28px 0 32px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 20px 45px -12px rgba(79, 70, 229, 0.09);
+    }
+
+    .resp-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #eef2ff;
+      color: #4338ca;
+      border: 1px solid #c7d2fe;
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 14px;
+    }
+
+    .resp-title {
+      font-size: clamp(1.8rem, 4vw, 2.55rem);
+      font-weight: 900;
+      color: #0f172a;
+      margin: 0 0 14px;
+      line-height: 1.15;
+      min-height: 1.3em;
+    }
+
+    .cursor-blink {
+      display: inline-block;
+      width: 4px;
+      height: 1em;
+      background: #4f46e5;
+      margin-left: 5px;
+      animation: blinkCursor 0.9s steps(2, start) infinite !important;
+      vertical-align: middle;
+      border-radius: 2px;
+    }
+    @keyframes blinkCursor {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .resp-lead {
+      font-size: 1.04rem;
+      color: #475569;
+      max-width: 820px;
       line-height: 1.65;
-    }
-    .template-body p { margin: 0 0 8px; }
-    .template-body p:last-child { margin-bottom: 0; }
-    .template-body [data-placeholder] {
-      background: var(--c-violet-soft); color: var(--c-violet);
-      padding: 1px 6px; border-radius: 4px;
-      font-family: ui-monospace, monospace; font-size: 0.85em;
+      margin: 0;
     }
 
-    /* ---------- FAQ ---------- */
-    .faq-accordion { max-width: 800px; margin: 0 auto; }
-    .faq-search-wrap { position: relative; margin-bottom: 18px; }
-    .faq-search-wrap svg {
-      position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
-      width: 18px; height: 18px; stroke: var(--c-text-3); fill: none; stroke-width: 2;
-      pointer-events: none;
+    /* === 4. КАЛЬКУЛЯТОР КОНТРОЛЬНЫХ СРОКОВ ОБУЧЕНИЯ (ПП РФ № 2464) === */
+    .calc-card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 26px;
+      padding: clamp(22px, 3.5vw, 34px);
+      margin-bottom: 36px;
+      box-shadow: 0 20px 45px -12px rgba(15, 23, 42, 0.06);
     }
-    .faq-search {
-      width: 100%; padding: 14px 16px 14px 46px;
-      font-family: inherit; font-size: 0.95rem;
-      border-radius: 14px; border: 1px solid var(--c-border);
-      background: var(--c-card-glass); color: var(--c-text);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+
+    .calc-header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .calc-controls-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 16px 20px;
+      margin-bottom: 22px;
+    }
+
+    .calc-date-input {
+      padding: 11px 16px;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #0f172a;
+      font-size: 0.96rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
-    .faq-search:focus {
-      outline: none; border-color: var(--c-violet);
-      box-shadow: 0 0 0 4px var(--c-violet-soft);
+    .calc-date-input:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
     }
-    .faq-item {
-      background: var(--c-card-glass); border: 1px solid var(--c-border);
-      border-radius: 16px; margin-bottom: 12px; overflow: hidden;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      transition: box-shadow 0.3s, border-color 0.3s;
+
+    .calc-today-btn {
+      padding: 11px 16px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      color: #475569;
+      font-size: 0.84rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
     }
-    .faq-item:hover { box-shadow: var(--c-shadow-sm); border-color: var(--c-violet-border); }
-    .faq-trigger {
-      width: 100%; text-align: left; padding: 18px 22px;
-      background: none; border: none; font-weight: 700; color: var(--c-text);
-      cursor: pointer; display: flex; justify-content: space-between;
-      align-items: center; gap: 16px; font-size: 1rem; font-family: inherit;
+    .calc-today-btn:hover {
+      border-color: #4f46e5;
+      color: #4f46e5;
+      background: #eef2ff;
     }
-    .faq-trigger:focus-visible {
-      outline: 2px solid var(--c-violet); outline-offset: -4px; border-radius: 16px;
+
+    .calc-results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
     }
-    .faq-icon {
-      width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
-      background: var(--c-violet-soft); color: var(--c-violet);
-      display: flex; align-items: center; justify-content: center;
+
+    .calc-res-box {
+      border-radius: 20px;
+      padding: 22px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    .calc-res-box.box-internal {
+      background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
+      border-color: #a7f3d0;
+      border-left: 5px solid #10b981;
+    }
+    .calc-res-box.box-legal {
+      background: linear-gradient(135deg, #eef2ff 0%, #ffffff 100%);
+      border-color: #c7d2fe;
+      border-left: 5px solid #4f46e5;
+    }
+
+    .calc-res-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+    .calc-res-date {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1.2;
+    }
+    .calc-res-desc {
+      font-size: 0.84rem;
+      color: #475569;
+      line-height: 1.5;
+      margin: 0;
+    }
+    .calc-ics-export-btn {
+      margin-top: 6px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .calc-ics-export-btn:hover {
+      background: #4f46e5;
+      transform: translateY(-1px);
+    }
+
+    /* === 5. АВТО-КОНСТРУКТОР РАССЫЛОК И 3 ШАБЛОНА СООБЩЕНИЙ === */
+    .templates-section {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 26px;
+      padding: clamp(22px, 3.5vw, 34px);
+      margin-bottom: 36px;
+      box-shadow: 0 20px 45px -12px rgba(15, 23, 42, 0.06);
+    }
+
+    .autofill-bar {
+      background: linear-gradient(135deg, #f8fafc, #eef2ff);
+      border: 1px solid #c7d2fe;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 18px 0 26px;
+    }
+
+    .autofill-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .af-field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .af-field label {
       font-size: 0.75rem;
-      transition: transform 0.3s, background 0.3s, color 0.3s;
+      font-weight: 800;
+      color: #334155;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
     }
-    .faq-trigger[aria-expanded="true"] .faq-icon {
-      transform: rotate(180deg); background: var(--c-violet); color: #fff;
+    .af-input,
+    .af-select {
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #0f172a;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
-    .faq-content {
-      max-height: 0; overflow: hidden;
-      transition: max-height 0.4s ease-out; padding: 0 22px;
-      color: var(--c-text-2); line-height: 1.7; font-size: 0.95rem;
+    .af-input:focus,
+    .af-select:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.14);
     }
-    .faq-trigger[aria-expanded="true"] + .faq-content { padding-bottom: 20px; }
-    .faq-no-results {
-      display: none; text-align: center; padding: 30px;
-      color: var(--c-text-3); font-size: 0.95rem;
-    }
-    .faq-no-results.is-visible { display: block; }
 
-    /* ---------- FLOATING BUTTONS ---------- */
-    .float-stack {
-      position: fixed; right: 20px; bottom: 20px; z-index: 999;
-      display: flex; flex-direction: column; gap: 10px; align-items: center;
+    .templates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
     }
-    .float-btn {
-      width: 46px; height: 46px; border-radius: 50%;
-      background: var(--c-card); border: 1px solid var(--c-border);
-      box-shadow: 0 8px 24px -8px var(--c-shadow-md);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; padding: 0;
-    }
-    .float-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 28px -8px var(--c-shadow-md); }
-    .float-btn svg { width: 20px; height: 20px; stroke: var(--c-text); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .float-btn:focus-visible { outline: 2px solid var(--c-violet); outline-offset: 2px; }
-    #back-to-top { opacity: 0; pointer-events: none; transition: opacity 0.3s; }
-    #back-to-top.is-visible { opacity: 1; pointer-events: auto; }
-    #theme-toggle .icon-sun { display: none; }
-    [data-theme="dark"] #theme-toggle .icon-sun  { display: block; }
-    [data-theme="dark"] #theme-toggle .icon-moon { display: none; }
 
-    /* ---------- TOAST ---------- */
-    .toast {
-      position: fixed; left: 50%; bottom: 30px; transform: translate(-50%, 20px);
-      background: var(--c-text); color: var(--c-card);
-      padding: 12px 22px; border-radius: 12px;
-      font-size: 0.9rem; font-weight: 600;
-      box-shadow: 0 10px 30px -8px rgba(0,0,0,0.35);
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.25s, transform 0.25s;
-      z-index: 10000; max-width: 90vw; text-align: center;
+    .tpl-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 22px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: 0 8px 20px -6px rgba(15, 23, 42, 0.04);
+      transition: border-color 0.25s, transform 0.25s;
     }
-    .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+    .tpl-card:hover {
+      border-color: #a5b4fc;
+      transform: translateY(-3px);
+    }
 
-    /* ---------- HEADER STATUS (совместимость) ---------- */
-    .system-status-pulse {
-      display: inline-block; width: 8px; height: 8px;
-      background-color: #10b981; border-radius: 50%;
-      box-shadow: 0 0 0 rgba(16,185,129,0.7);
-      animation: pulse-green 2s infinite; margin-right: 6px;
+    .tpl-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: #eef2ff;
+      color: #4f46e5;
+      width: fit-content;
     }
-    @keyframes pulse-green {
-      0%   { box-shadow: 0 0 0 0 rgba(16,185,129,0.7); }
-      70%  { box-shadow: 0 0 0 6px rgba(16,185,129,0); }
-      100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
-    }
-    .header-meta {
-      font-size: 0.75rem; color: var(--c-text-3); font-weight: 500;
-      display: flex; align-items: center; gap: 15px; margin-left: auto;
-    }
-    @media (max-width: 900px) { .header-meta { display: none; } }
 
-    /* ---------- REVEAL (безопасная анимация с защитой от отключения JS) ---------- */
-    /*
-     * БЛОК: Плавное появление секций при скролле (.reveal-up).
-     * ЗА ЧТО ОТВЕЧАЕТ: Скрытие секций до попадания во вьюпорт и плавный подъем.
-     * ПОЧЕМУ БЕЗОПАСНО: Скрытие (opacity: 0) активно только при наличии класса body.js-loaded,
-     * поэтому при сбое или блокировке JS все блоки страницы остаются видимыми.
-     */
-    .reveal-up { opacity: 1; transform: none; }
-    body.js-loaded .reveal-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    body.js-loaded .reveal-up.visible { opacity: 1; transform: translateY(0); }
-    .reveal-up.delay-100 { transition-delay: 0.1s; }
-    .reveal-up.delay-200 { transition-delay: 0.2s; }
-    .reveal-up.delay-300 { transition-delay: 0.3s; }
+    .tpl-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 6px 0 0;
+    }
 
-    /* ---------- REDUCED MOTION ---------- */
+    .tpl-body {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 0.86rem;
+      color: #334155;
+      line-height: 1.58;
+      white-space: pre-wrap;
+      word-break: break-word;
+      flex-grow: 1;
+    }
+    .tpl-highlight {
+      background: #dbeafe;
+      color: #1e40af;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    .tpl-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-copy-tpl {
+      flex: 1;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: none;
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 0.84rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-copy-tpl:hover { background: #4f46e5; }
+    .btn-copy-tpl.copied {
+      background: #10b981;
+      color: #ffffff;
+    }
+
+    .btn-share-tg {
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid #bae6fd;
+      background: #f0f9ff;
+      color: #0284c7;
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+    .btn-share-tg:hover {
+      background: #0284c7;
+      color: #ffffff;
+      opacity: 1;
+    }
+
+    /* === 6. АЛГОРИТМ КОНТРОЛЯ (4 ШАГА РУКОВОДИТЕЛЯ) И RED ALERT === */
+    .itr-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+    .itr-step-card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 10px 25px -8px rgba(15, 23, 42, 0.04);
+    }
+    .itr-step-num {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: #eef2ff;
+      color: #4f46e5;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .alert-zone {
+      background: #fff1f2;
+      border: 1px solid #fecdd3;
+      border-left: 5px solid #e11d48;
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 38px;
+    }
+    .alert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .alert-item {
+      font-size: 0.92rem;
+      color: #881337;
+      font-weight: 600;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    /* ======================================================================
+       7. КАРТОЧКИ «МИФ / РЕАЛЬНОСТЬ» (БЕЗ ЗАЛИПАНИЯ НА ТЕЛЕФОНАХ!)
+       ====================================================================== */
+    .flip-section-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 8px;
+      text-align: center;
+    }
+    .flip-section-sub {
+      text-align: center;
+      color: #64748b;
+      font-size: 0.9rem;
+      margin: 0 0 22px;
+    }
+    .flip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 42px;
+    }
+    .flip-card {
+      background-color: transparent;
+      height: 255px;
+      perspective: 1000px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .flip-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+      transform-style: preserve-3d !important;
+      box-shadow: 0 10px 25px -8px rgba(15, 23, 42, 0.08);
+      border-radius: 22px;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .flip-card:hover .flip-inner,
+      .flip-card:focus-visible .flip-inner {
+        transform: rotateY(180deg) !important;
+      }
+    }
+    .flip-card.is-flipped .flip-inner {
+      transform: rotateY(180deg) !important;
+    }
+
+    .flip-front,
+    .flip-back {
+      position: absolute !important;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden !important;
+      backface-visibility: hidden !important;
+      border-radius: 22px;
+      padding: 22px;
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #e2e8f0;
+    }
+    .flip-front {
+      background-color: #ffffff;
+      color: #1e293b;
+      transform: rotateY(0deg) !important;
+    }
+    .flip-back {
+      background: linear-gradient(135deg, #312e81, #0f172a);
+      color: #ffffff;
+      transform: rotateY(180deg) !important;
+    }
+    .flip-icon { font-size: 2.5rem; margin-bottom: 10px; }
+    .flip-label {
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      padding: 3px 10px;
+      border-radius: 99px;
+      background: rgba(79, 70, 229, 0.1);
+      color: #4f46e5;
+    }
+    .flip-back .flip-label {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+    }
+    .flip-text { font-size: 0.95rem; font-weight: 600; line-height: 1.45; }
+    .flip-tap-hint {
+      margin-top: 10px;
+      font-size: 0.7rem;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    /* === 8. КНОПКА .BTN-MAGIC С БЕГУЩЕЙ ЗМЕЙКОЙ (РАБОТАЕТ НА ТЕЛЕФОНАХ) === */
+    .cta-zone {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid #ffffff;
+      border-radius: 28px;
+      padding: 40px 24px;
+      text-align: center;
+      box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.08);
+      margin-bottom: 40px;
+    }
+
+    .btn-magic {
+      position: relative;
+      isolation: isolate;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 34px;
+      min-height: 54px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: #0f172a;
+      border-radius: 99px;
+      text-decoration: none;
+      overflow: hidden;
+      z-index: 1;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.28);
+    }
+    .btn-magic::before {
+      content: "";
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 800px; height: 800px;
+      background: conic-gradient(transparent 0deg, transparent 220deg, #4f46e5 260deg, #a855f7 310deg, #ec4899 360deg);
+      transform: translate3d(-50%, -50%, 0) rotate(0deg);
+      animation: rotate-border-gpu 3.5s linear infinite !important;
+      will-change: transform;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .btn-magic::after {
+      content: "";
+      position: absolute;
+      inset: 2.5px;
+      background: #0f172a;
+      border-radius: 99px;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .btn-magic > span { position: relative; z-index: 2; }
+    .btn-magic:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 16px 32px -6px rgba(79, 70, 229, 0.38);
+      opacity: 1;
+    }
+    @keyframes rotate-border-gpu {
+      0% { transform: translate3d(-50%, -50%, 0) rotate(0deg); }
+      100% { transform: translate3d(-50%, -50%, 0) rotate(360deg); }
+    }
+
+    /* === 9. МОДАЛЬНЫЕ ОКНА И НИЖНИЙ МОБИЛЬНЫЙ БАР === */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      z-index: 10000; display: flex; align-items: flex-start; justify-content: center;
+      padding: 8vh 16px 24px; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; overflow-y: auto;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-box {
+      width: 100%; max-width: 600px; background: #ffffff; border-radius: 24px;
+      border: 1px solid #e2e8f0; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      overflow: hidden; transform: scale(0.96) translateY(-10px); transition: transform 0.2s ease;
+    }
+    .modal-overlay.open .modal-box { transform: scale(1) translateY(0); }
+    .search-modal-header { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-bottom: 1px solid #e2e8f0; }
+    .search-modal-input { flex: 1; border: none; outline: none; font-size: 1rem; font-weight: 600; color: #0f172a; background: transparent; min-width: 0; font-family: inherit; }
+    .voice-mic-btn { width: 38px; height: 38px; border-radius: 10px; border: 1px solid #e2e8f0; background: #f8fafc; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; flex-shrink: 0; }
+    .modal-close { background: #f1f5f9; border: none; padding: 8px 12px; border-radius: 10px; font-size: 0.78rem; font-weight: 800; color: #475569; cursor: pointer; }
+    .search-results-list { max-height: 60vh; overflow-y: auto; padding: 10px; }
+    .search-result-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 12px; text-decoration: none; color: #1e293b; }
+    .search-result-item:hover { background: #eef2ff; color: #4f46e5; opacity: 1; }
+    .sri-left { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 0.92rem; }
+    .sri-tag { font-size: 0.72rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; background: #f1f5f9; color: #475569; white-space: nowrap; }
+
+    .sos-modal-top { background: linear-gradient(135deg, #be123c, #0f172a); color: #ffffff; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .sos-modal-body { padding: 20px 24px 24px; display: grid; gap: 12px; max-height: 75vh; overflow-y: auto; }
+    .sos-card { padding: 14px 16px; border-radius: 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #e11d48; }
+    .sos-card h4 { margin: 0 0 5px; font-size: 0.95rem; color: #0f172a; font-weight: 800; }
+    .sos-card p { margin: 0; font-size: 0.85rem; color: #475569; line-height: 1.5; }
+    .call-112-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 14px; border-radius: 14px; background: #e11d48; color: #ffffff; font-weight: 800; font-size: 1rem; text-decoration: none; }
+
+    .mobile-bottom-nav {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0;
+      background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(203, 213, 225, 0.85); padding: 6px 8px calc(6px + var(--safe-bottom));
+      z-index: 9000; box-shadow: 0 -8px 25px rgba(15, 23, 42, 0.08); justify-content: space-around; align-items: center;
+    }
+    .mob-nav-item {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 3px; padding: 6px 10px; min-width: 56px; min-height: 44px; border-radius: 12px;
+      text-decoration: none; color: #475569; font-size: 0.68rem; font-weight: 700;
+      border: none; background: transparent; cursor: pointer; font-family: inherit;
+    }
+    .mob-nav-item span.mob-icon { font-size: 1.2rem; line-height: 1; }
+    .mob-nav-item.active { color: #4f46e5; background: #eef2ff; }
+    .mob-nav-item.sos-mob { color: #be123c; }
+
+    .to-top-btn {
+      position: fixed; right: 20px; bottom: 24px; width: 44px; height: 44px;
+      border-radius: 50%; background: #ffffff; border: 1px solid #cbd5e1; color: #1e293b;
+      font-weight: 800; font-size: 1.1rem; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      cursor: pointer; opacity: 0; pointer-events: none; transition: all 0.25s ease;
+      z-index: 8500; display: flex; align-items: center; justify-content: center;
+    }
+    .to-top-btn.visible { opacity: 1; pointer-events: auto; }
+
+    /* === 10. МОБИЛЬНАЯ АДАПТАЦИЯ (<= 768px) === */
+    @media (max-width: 768px) {
+      body.masterpiece-theme { padding-bottom: calc(74px + var(--safe-bottom)); }
+      .mobile-bottom-nav { display: flex; }
+      .to-top-btn { bottom: calc(84px + var(--safe-bottom)); right: 16px; }
+      .btn-magic { width: 100%; }
+      .calc-date-input, .calc-today-btn { width: 100%; }
+
+      .site-header.quantum-header { padding: 8px 0 !important; }
+      .site-header.quantum-header .header-inner {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 8px !important;
+      }
+      .site-header.quantum-header .header-brand { width: auto !important; gap: 8px !important; }
+      .site-header.quantum-header .brand-logo { width: 34px !important; height: 34px !important; }
+      .site-header.quantum-header .site-title-mini { font-size: 1rem !important; }
+      .site-header.quantum-header .main-nav,
+      .site-header.quantum-header .header-meta,
+      .site-header.quantum-header .site-subtitle-mini,
+      #qHeaderSearchBtn,
+      #qHeaderSosBtn {
+        display: none !important;
+      }
+      .q-passport-popover {
+        position: fixed !important;
+        top: 62px !important;
+        left: 12px !important;
+        right: 12px !important;
+        width: auto !important;
+        max-width: none !important;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-      .reveal-up,
-      body.js-loaded .reveal-up {
-        opacity: 1 !important;
-        transform: none !important;
-      }
-    }
-
-    /* ---------- PRINT ---------- */
-    @media print {
-      .site-header, .glass-footer, .float-stack, .reading-progress,
-      .breadcrumbs, .toc, .instr-actions, .stats-row,
-      .calc-controls, .calc-hint, .checklist-toolbar, .checklist-reset,
-      .docs-toolbar, .template-copy, .faq-search-wrap, .toast,
-      .btn-ghost { display: none !important; }
-      body { background: #fff !important; color: #000 !important; }
-      .reveal-up, body.js-loaded .reveal-up { opacity: 1 !important; transform: none !important; }
-      .admin-card, .process-card, .calc-card, .doc-item, .template-card,
-      .faq-item, .stat-card {
-        background: #fff !important; border: 1px solid #ccc !important;
-        box-shadow: none !important; backdrop-filter: none !important;
-        break-inside: avoid;
-      }
-      .admin-card::after { display: none !important; }
-      .process-num { color: #666 !important; opacity: 0.3 !important; }
-      .faq-content { max-height: none !important; padding: 0 22px 20px !important; }
-      .faq-icon { display: none !important; }
-      .checklist-item { border: 1px solid #ddd !important; background: #fff !important; }
-      .checklist-box { display: none !important; }
-      .checklist-item input:checked ~ .checklist-text::before { content: "☑  "; font-weight: 700; }
-      .checklist-item input:not(:checked) ~ .checklist-text::before { content: "☐  "; }
-      .checklist-item input:checked ~ .checklist-text { text-decoration: none !important; color: #333 !important; }
-      .checklist-progress-bar { display: none !important; }
-      .admin-title, .section-h2, .calc-title, .card-title, .process-title,
-      .faq-trigger, .doc-info h4 { color: #000 !important; }
-      .admin-lead, .section-sub, .calc-desc, .process-text, .task-list li,
-      .doc-info p, .faq-content, .template-body, .checklist-text { color: #333 !important; }
+      body.masterpiece-theme { animation: none !important; background-size: 100% 100% !important; }
+      .system-status-pulse { animation: none !important; }
+      .cursor-blink { animation: blinkCursor 0.9s steps(2, start) infinite !important; }
+      .btn-magic::before { animation: rotate-border-gpu 3.5s linear infinite !important; }
+      .flip-front { display: flex !important; position: absolute !important; transform: rotateY(0deg) !important; -webkit-backface-visibility: hidden !important; backface-visibility: hidden !important; }
+      .flip-back { display: flex !important; position: absolute !important; transform: rotateY(180deg) !important; -webkit-backface-visibility: hidden !important; backface-visibility: hidden !important; }
+      .flip-card.is-flipped .flip-inner { transform: rotateY(180deg) !important; }
     }
   </style>
-
-  <!-- ===== СТРУКТУРИРОВАННЫЕ ДАННЫЕ (SEO) ===== -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": "https://demoonstars.github.io/ot-training-portal/for-responsibles.html#webpage",
-        "url": "https://demoonstars.github.io/ot-training-portal/for-responsibles.html",
-        "name": "Кабинет ответственного за обучение — регламент и инструменты",
-        "description": "Инструкции, чек-лист, калькулятор сроков, шаблоны сообщений и полезные материалы для ответственного за дистанционное обучение.",
-        "inLanguage": "ru-RU",
-        "isPartOf": { "@id": "https://demoonstars.github.io/ot-training-portal/#website" }
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://demoonstars.github.io/ot-training-portal/for-responsibles.html#breadcrumb",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://demoonstars.github.io/ot-training-portal/index.html" },
-          { "@type": "ListItem", "position": 2, "name": "Ответственным", "item": "https://demoonstars.github.io/ot-training-portal/for-responsibles.html" }
-        ]
-      },
-      {
-        "@type": "HowTo",
-        "name": "Алгоритм организации дистанционного обучения",
-        "description": "4 этапа: планирование, информирование, контроль и оформление документов.",
-        "totalTime": "P15D",
-        "step": [
-          { "@type": "HowToStep", "position": 1, "name": "Планирование", "text": "Определите категории работников и необходимые программы (ОТ, ПБ, Первая помощь) согласно штатному расписанию." },
-          { "@type": "HowToStep", "position": 2, "name": "Информирование", "text": "Направьте сотрудникам ссылки на портал и установите дедлайн сдачи тестов." },
-          { "@type": "HowToStep", "position": 3, "name": "Контроль", "text": "Отслеживайте прохождение через сводную таблицу результатов, напоминайте должникам." },
-          { "@type": "HowToStep", "position": 4, "name": "Оформление", "text": "На основании успешных тестов подпишите протоколы и внесите записи в журналы инструктажей." }
-        ]
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Что делать, если сотрудник не уложился в срок?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Зафиксируйте факт нарушения в служебной записке. Продлите срок один раз по согласованию с руководителем подразделения. Если сотрудник систематически уклоняется — направьте докладную в отдел кадров." }
-          },
-          {
-            "@type": "Question",
-            "name": "Как аннулировать результат при подлоге данных?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Составьте акт об аннулировании с указанием причины (несовпадение ФИО, участие третьих лиц). Заверьте у руководителя. Сотрудник проходит тест повторно после устранения причин." }
-          },
-          {
-            "@type": "Question",
-            "name": "Нужно ли хранить протоколы в бумажном виде?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Да, протоколы проверки знаний и журналы инструктажей ведутся в бумажном виде (допускается электронная копия). Срок хранения — не менее 5 лет либо до конца трудовой деятельности сотрудника на предприятии." }
-          },
-          {
-            "@type": "Question",
-            "name": "Как проверить корректность ФИО перед занесением в протокол?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Сверьте данные из Google Forms со штатным расписанием и паспортом сотрудника. Допускается только полное совпадение: ФИО полностью, должность — по штатке, подразделение — по структуре предприятия." }
-          }
-        ]
-      }
-    ]
-  }
-  </script>
 </head>
-
 <body class="masterpiece-theme">
 
-<div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+<div class="scroll-progress-bar" id="scrollProgress" aria-hidden="true"></div>
+
 <a class="skip-link" href="#main-content">Перейти к контенту</a>
 
 <div class="glass-wrapper">
 
-  <!-- ===== ШАПКА ===== -->
-  <header class="site-header transparent-header">
+  <!-- СУПЕР-ШАПКА «QUANTUM COMMAND BAR V2.0» (Без ссылки на Софрино) -->
+  <header class="site-header transparent-header quantum-header" id="quantumHeader">
     <div class="container header-inner">
+
       <div class="header-brand">
-        <div class="brand-logo">
-          <img src="assets/Филин от.png" alt="Логотип СДО" width="42" height="42" style="width:100%;height:100%;object-fit:contain;">
+        <div class="q-app-switcher">
+          <button type="button" class="q-app-btn" id="qAppBtn" aria-expanded="false" aria-haspopup="true" title="Быстрый навигатор разделов и тестов СДО" aria-label="Открыть быстрый навигатор СДО">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="5" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="5" r="2"/>
+              <circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/>
+              <circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="19" r="2"/>
+            </svg>
+          </button>
+
+          <div class="q-app-dropdown" id="qAppDropdown" role="menu" aria-label="Экосистема СДО">
+            <span class="q-dropdown-label">Разделы портала СДО</span>
+            <div class="q-app-grid">
+              <a href="index.html" class="q-app-tile" role="menuitem">
+                <span class="q-app-tile-icon" aria-hidden="true">🏠</span>
+                <span class="q-app-tile-title">Главная СДО</span>
+                <span class="q-app-tile-sub">Дашборд и календарь</span>
+              </a>
+              <a href="programs.html" class="q-app-tile" role="menuitem">
+                <span class="q-app-tile-icon" aria-hidden="true">📚</span>
+                <span class="q-app-tile-title">Реестр (9)</span>
+                <span class="q-app-tile-sub">Все курсы и тренажеры</span>
+              </a>
+              <a href="instructions.html" class="q-app-tile" role="menuitem">
+                <span class="q-app-tile-icon" aria-hidden="true">📋</span>
+                <span class="q-app-tile-title">Инструкции</span>
+                <span class="q-app-tile-sub">4 шага аттестации</span>
+              </a>
+              <a href="for-responsibles.html" class="q-app-tile" role="menuitem">
+                <span class="q-app-tile-icon" aria-hidden="true">👔</span>
+                <span class="q-app-tile-title">Ответственным</span>
+                <span class="q-app-tile-sub">Калькулятор и шаблоны</span>
+              </a>
+            </div>
+
+            <span class="q-dropdown-label">Прямой переход к итоговым тестам</span>
+            <div class="q-tests-Sublist">
+              <a href="https://demoonstars.github.io/Test_OT_b/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🛡️ Тест: Охрана труда (Вводный)</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/Test_OT_Programm_A/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>⚖️ Тест: ОТ Программа А</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/Test_-_-_b/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🔥 Тест: Пожарная безопасность</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/First_aid/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🩹 Тест: Первая помощь</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/UAV_Threat_Test/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🚁 Тест: Угроза атаки БПЛА</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/GO_ChS_Test/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>📢 Тест: ГО и ЧС</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/Electrical_Safety_Test/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>⚡ Тест: Электробезопасность</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/hygiene-training/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🧼 Тест: Санминимум</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/mentoring-quiz/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🛎️ Тест: Наставничество</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/conflict-management/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🧠 Тест: Управление конфликтами</span><span>➔</span></a>
+            </div>
+          </div>
         </div>
+
+        <a href="index.html" class="brand-logo" title="На главную СДО">
+          <img src="assets/Филин от.png" alt="Логотип СДО" width="42" height="42" style="width: 100%; height: 100%; object-fit: contain;">
+        </a>
         <div>
-          <!-- Бренд в шапке: div вместо h1, чтобы главный заголовок страницы был один -->
           <div class="site-title-mini">СДО</div>
-          <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
+          <p class="site-subtitle-mini">Портал обучения и ОТ</p>
+        </div>
+
+        <div class="q-context-radar has-context" id="qContextRadar" aria-live="polite">
+          <span class="q-radar-dot" aria-hidden="true"></span>
+          <span class="q-radar-section" id="qRadarText">👔 Кабинет ИТР</span>
         </div>
       </div>
 
       <div class="header-meta">
         <span id="current-date">Загрузка...</span>
-        <span style="display:flex;align-items:center;">
+        <span style="display:flex; align-items:center;">
           <span class="system-status-pulse" aria-hidden="true"></span> Online
         </span>
       </div>
 
       <nav class="main-nav" aria-label="Основная навигация">
-        <ul class="nav-list">
+        <ul class="nav-list" id="qNavList">
+          <span class="q-nav-glider" id="qNavGlider" aria-hidden="true"></span>
           <li><a href="index.html" class="nav-link">Главная</a></li>
           <li><a href="programs.html" class="nav-link">Каталог программ</a></li>
           <li><a href="instructions.html" class="nav-link">Инструкции</a></li>
           <li><a href="for-responsibles.html" class="nav-link nav-link-active active" aria-current="page">Ответственным</a></li>
         </ul>
       </nav>
+
+      <div class="q-header-actions">
+        <button type="button" class="q-cmd-btn" id="qHeaderSearchBtn" title="Быстрый поиск курса или теста (Ctrl + K)" aria-label="Открыть быстрый поиск">
+          <span aria-hidden="true">🔍</span>
+          <span class="q-cmd-kbd" aria-hidden="true">Ctrl+K</span>
+        </button>
+
+        <div class="q-passport-wrap">
+          <button type="button" class="q-passport-btn" id="qPassportBtn" aria-expanded="false" aria-haspopup="true" title="Цифровой паспорт обучения сотрудника" aria-label="Открыть цифровой паспорт обучения">
+            <svg class="q-ring-svg" viewBox="0 0 24 24" aria-hidden="true">
+              <circle class="q-ring-bg" cx="12" cy="12" r="10"></circle>
+              <circle class="q-ring-fill" id="qRingFill" cx="12" cy="12" r="10"></circle>
+            </svg>
+            <span id="qPassportPct">0%</span>
+          </button>
+
+          <div class="q-passport-popover" id="qPassportPopover" role="region" aria-label="Цифровой паспорт обучения">
+            <div class="q-pass-header">
+              <h4 class="q-pass-title"><span aria-hidden="true">🎓</span> Цифровой паспорт СДО</h4>
+              <span class="q-pass-rank" id="qPassportRank">Старт обучения</span>
+            </div>
+            <div style="font-size: 0.76rem; color: #64748b; margin-bottom: 10px;">
+              Автоматическая сводка изученных материалов в вашем браузере:
+            </div>
+            <div class="q-pass-list" id="qPassportList"></div>
+            <div class="q-pass-footer">
+              <button type="button" class="q-pass-action-btn" id="qPrintPassportBtn">🖨️ Печать сводки</button>
+              <a href="programs.html" class="q-pass-action-btn" style="text-align:center; text-decoration:none;">Все курсы ➔</a>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="q-cmd-btn q-cmd-sos" id="qHeaderSosBtn" title="Экстренная памятка ЧС и БПЛА (112)" aria-label="Открыть экстренную памятку ЧС">
+          <span aria-hidden="true">🚨</span>
+          <span class="q-cmd-label-desktop">112</span>
+        </button>
+      </div>
+
     </div>
   </header>
 
-  <!-- ===== КОНТЕНТ ===== -->
   <main id="main-content" class="site-main">
     <div class="container">
 
-      <!-- Хлебные крошки -->
-      <nav class="breadcrumbs" aria-label="Хлебные крошки">
-        <a href="index.html">Главная</a>
-        <span class="sep" aria-hidden="true">›</span>
-        <span aria-current="page">Ответственным</span>
-      </nav>
-
-      <!-- HERO -->
-      <section class="admin-hero">
-        <div class="admin-badge">Зона ответственности</div>
-        <!-- Единственный h1 на странице -->
-        <h1 class="admin-title">Кабинет ответственного за обучение</h1>
-        <p class="admin-lead">
-          Всё для организации дистанционного обучения: нормативная база, пошаговый алгоритм,
-          интерактивный чек-лист, калькулятор сроков и готовые шаблоны сообщений.
+      <!-- HERO БЛОК С ПЕЧАТНОЙ МАШИНКОЙ -->
+      <section class="resp-hero reveal-up" data-radar-title="👔 Памятка ответственным">
+        <span class="resp-badge">👔 Инструментарий руководителя и ИТР</span>
+        <h1 class="resp-title" aria-label="Ответственным за организацию обучения">
+          <span id="typing-text" data-text="Ответственным за организацию обучения" aria-hidden="true"></span><span class="cursor-blink" aria-hidden="true"></span>
+        </h1>
+        <p class="resp-lead">
+          Цифровая панель для руководителей подразделений и лиц, ответственных за проведение инструктажей и допуск персонала к самостоятельной работе. Рассчитывайте контрольные даты по <strong>Постановлению Правительства РФ № 2464</strong> и формируйте персональные направления на обучение в один клик.
         </p>
-        <div class="instr-meta">
-          <span class="instr-meta-item">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            ~7 мин чтения
-          </span>
-          <span class="instr-meta-item">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            Обновлено: <time datetime="2026-01-15">15 января 2026</time>
-          </span>
-        </div>
-        <div class="instr-actions">
-          <button type="button" class="btn-ghost" id="share-btn">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-            Поделиться
-          </button>
-          <button type="button" class="btn-ghost" id="print-btn">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-            Печать / PDF
-          </button>
-        </div>
       </section>
 
-      <!-- TOC -->
-      <nav class="toc" aria-label="Содержание страницы">
-        <a href="#admin-cards">Функции и НПА</a>
-        <a href="#algorithm">Алгоритм</a>
-        <a href="#calculator">Калькулятор сроков</a>
-        <a href="#checklist">Чек-лист</a>
-        <a href="#docs">Документы</a>
-        <a href="#templates">Шаблоны</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-
-      <!-- STATS -->
-      <section class="stats-row" aria-label="Ключевые цифры">
-        <div class="stat-card">
-          <div class="stat-value">4</div>
-          <div class="stat-label">этапа организации обучения</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">~15</div>
-          <div class="stat-label">рабочих дней до готовых протоколов</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">6</div>
-          <div class="stat-label">нормативных актов в базе</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">3</div>
-          <div class="stat-label">готовых шаблона сообщений</div>
-        </div>
-      </section>
-
-      <!-- ADMIN CARDS -->
-      <section id="admin-cards" class="section reveal-up">
-        <div class="section-head">
-          <h2 class="section-h2">Функции, нормативы, работа с результатами</h2>
-          <p class="section-sub">Три блока, которые нужно держать в голове каждому ответственному.</p>
-        </div>
-        <div class="admin-grid">
-
-          <div class="admin-card card-purple">
-            <div class="card-icon-wrap" aria-hidden="true">📋</div>
-            <h3 class="card-title">Функции ответственного</h3>
-            <ul class="task-list">
-              <li>Формирование <strong>списков на обучение</strong> по штатному расписанию.</li>
-              <li>Рассылка <strong>персональных ссылок</strong> на тесты с учётом видов программ.</li>
-              <li>Контроль сроков сдачи и <strong>напоминания должникам</strong>.</li>
-              <li>Проверка корректности <strong>ФИО</strong> (совпадение с паспортом).</li>
-              <li>Сбор и выгрузка <strong>протоколов</strong> из Google Forms / Excel.</li>
-              <li>Оформление <strong>журналов инструктажа</strong> и архивирование.</li>
-            </ul>
-          </div>
-
-          <div class="admin-card card-blue">
-            <div class="card-icon-wrap icon-blue" aria-hidden="true">⚖️</div>
-            <h3 class="card-title">Нормативная база</h3>
-            <ul class="task-list">
-              <li><strong>ТК РФ</strong>, ст. 214 и 219 — обязанности работодателя по обучению.</li>
-              <li><strong>Постановление Правительства РФ № 2464</strong> от 24.12.2021 — порядок обучения по ОТ.</li>
-              <li><strong>Приказ МЧС России № 1120</strong> (ранее № 806) — инструктажи по пожарной безопасности.</li>
-              <li><strong>Приказ Минтруда № 776н</strong> — примерное положение о СУОТ.</li>
-              <li><strong>ГОСТ 12.0.004-2015</strong> — организация обучения по безопасности труда.</li>
-              <li><strong>Локальные акты</strong> — положение об обучении, приказы о комиссии.</li>
-            </ul>
-          </div>
-
-          <div class="admin-card card-orange">
-            <div class="card-icon-wrap icon-orange" aria-hidden="true">⚙️</div>
-            <h3 class="card-title">Работа с результатами</h3>
-            <ul class="task-list">
-              <li>Выгрузка из Google Forms / Excel в формате CSV.</li>
-              <li>Верификация: <strong>полное совпадение ФИО</strong> с паспортом.</li>
-              <li>Проверка проходного балла <strong>≥ 85%</strong> по каждому.</li>
-              <li>Формирование <strong>сводной ведомости</strong> по подразделению.</li>
-              <li>Оформление <strong>протоколов заседания комиссии</strong>.</li>
-              <li>Архивирование (срок хранения — <strong>не менее 5 лет</strong>).</li>
-            </ul>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ALGORITHM -->
-      <section id="algorithm" class="section reveal-up">
-        <div class="section-head">
-          <h2 class="section-h2">Алгоритм организации обучения</h2>
-          <p class="section-sub">4 этапа — от планирования до готовых протоколов.</p>
-        </div>
-        <div class="process-steps">
-          <div class="process-card">
-            <div class="process-num" aria-hidden="true">1</div>
-            <h4 class="process-title">Планирование</h4>
-            <p class="process-text">Определите категории работников и необходимые программы (ОТ, ПБ, Первая помощь) согласно штатному расписанию.</p>
-          </div>
-          <div class="process-card">
-            <div class="process-num" aria-hidden="true">2</div>
-            <h4 class="process-title">Информирование</h4>
-            <p class="process-text">Направьте сотрудникам ссылки на соответствующие страницы портала. Установите дедлайн сдачи тестов.</p>
-          </div>
-          <div class="process-card">
-            <div class="process-num" aria-hidden="true">3</div>
-            <h4 class="process-title">Контроль</h4>
-            <p class="process-text">Отслеживайте прохождение через сводную таблицу результатов. Напоминайте должникам за 3 дня до дедлайна.</p>
-          </div>
-          <div class="process-card">
-            <div class="process-num" aria-hidden="true">4</div>
-            <h4 class="process-title">Оформление</h4>
-            <p class="process-text">На основании успешных тестов подпишите протоколы и внесите записи в журналы инструктажей.</p>
+      <!-- 1. ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР СРОКОВ ПО ПП РФ № 2464 -->
+      <section class="calc-card reveal-up" data-radar-title="📅 Калькулятор сроков 2464" aria-label="Калькулятор сроков обучения">
+        <div class="calc-header-row">
+          <div>
+            <span class="resp-badge" style="background: #ecfdf5; color: #047857; border-color: #a7f3d0; margin-bottom: 8px;">📅 Автоматический расчёт с учётом праздников РФ</span>
+            <h2 style="font-size: 1.55rem; font-weight: 800; color: #0f172a; margin: 0 0 6px;">Калькулятор контрольных сроков обучения</h2>
+            <p style="font-size: 0.92rem; color: #64748b; margin: 0;">Выберите дату приёма на работу или перевода сотрудника — система рассчитает внутренний дедлайн и крайний срок по закону</p>
           </div>
         </div>
-      </section>
 
-      <!-- CALCULATOR -->
-      <section id="calculator" class="section reveal-up">
-        <div class="calc-card">
-          <div class="calc-header">
-            <h3 class="calc-title">🧮 Калькулятор сроков обучения</h3>
-            <p class="calc-desc">Укажите дату старта — получите рекомендуемые контрольные точки. Учитываются только рабочие дни (без выходных).</p>
-          </div>
-          <div class="calc-controls">
-            <div class="calc-field">
-              <label for="calc-start">Дата начала обучения</label>
-              <input type="date" id="calc-start" aria-label="Выберите дату начала обучения">
+        <div class="calc-controls-bar">
+          <label for="hireDateInput" style="font-size: 0.9rem; font-weight: 800; color: #1e293b;">Дата приёма / перевода сотрудника:</label>
+          <input type="date" id="hireDateInput" class="calc-date-input" aria-label="Дата приёма или перевода сотрудника">
+          <button type="button" class="calc-today-btn" id="setTodayDateBtn">Сегодняшняя дата</button>
+        </div>
+
+        <div class="calc-results-grid" aria-live="polite">
+          <div class="calc-res-box box-internal">
+            <div>
+              <div class="calc-res-tag" style="color: #047857;">✅ Рекомендуемый внутренний срок (+13 раб. дней)</div>
+              <div class="calc-res-date" id="resWork13Date">--.--.----</div>
+              <p class="calc-res-desc">
+                Оптимальный контрольный рубеж для завершения изучения материалов, сдачи теста в СДО и оформления протокола без риска просрочки (праздничные и выходные дни РФ исключены).
+              </p>
             </div>
-            <p class="calc-hint">Сроки рассчитаны по стандартному регламенту: 15 рабочих дней на полный цикл.</p>
+            <button type="button" class="calc-ics-export-btn" id="exportWork13IcsBtn">
+              📅 Сохранить в календарь (.ics)
+            </button>
           </div>
-          <div class="calc-results" id="calc-results" aria-live="polite"></div>
+
+          <div class="calc-res-box box-legal">
+            <div>
+              <div class="calc-res-tag" style="color: #4f46e5;">⚖️ Предельный срок по закону (+60 кал. дней)</div>
+              <div class="calc-res-date" id="resCal60Date">--.--.----</div>
+              <p class="calc-res-desc">
+                Абсолютный крайний срок прохождения обучения требованиям охраны труда и первой помощи согласно <strong>п. 62 Постановления Правительства РФ № 2464</strong>. При пропуске срока сотрудник подлежит отстранению (ст. 76 ТК РФ).
+              </p>
+            </div>
+            <button type="button" class="calc-ics-export-btn" id="exportCal60IcsBtn" style="background: #4f46e5;">
+              📅 Сохранить крайний срок (.ics)
+            </button>
+          </div>
         </div>
       </section>
 
-      <!-- CHECKLIST -->
-      <section id="checklist" class="section reveal-up">
-        <div class="calc-card">
-          <div class="calc-header">
-            <h3 class="calc-title">✅ Интерактивный чек-лист ответственного</h3>
-            <p class="calc-desc">Отмечайте выполненные задачи — прогресс сохранится в браузере. В конце можно распечатать чек-лист с отметками.</p>
-          </div>
+      <!-- 2. АВТО-КОНСТРУКТОР РАССЫЛОК И 3 ГОТОВЫХ ШАБЛОНА СООБЩЕНИЙ -->
+      <section class="templates-section reveal-up" data-radar-title="✉️ Конструктор рассылок" aria-label="Конструктор сообщений сотрудникам">
+        <div>
+          <span class="resp-badge" style="margin-bottom: 8px;">✉️ Авто-подстановка данных и отправка в 1 клик</span>
+          <h2 style="font-size: 1.55rem; font-weight: 800; color: #0f172a; margin: 0 0 6px;">Готовые шаблоны уведомлений для сотрудников</h2>
+          <p style="font-size: 0.92rem; color: #64748b; margin: 0;">Заполните поля ниже — имя сотрудника, выбранный курс, прямые ссылки и дата из калькулятора автоматически подставятся во все 3 шаблона</p>
+        </div>
 
-          <div class="checklist-toolbar">
-            <div class="checklist-progress">
-              <span class="checklist-progress-text">Выполнено: <strong id="cl-count">0</strong> из <span id="cl-total">0</span></span>
-              <div class="checklist-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Прогресс чек-листа">
-                <div class="checklist-progress-fill" id="cl-fill"></div>
+        <div class="autofill-bar">
+          <div style="font-size: 0.85rem; font-weight: 800; color: #1e293b;">⚡ Быстрое заполнение шаблонов:</div>
+          <div class="autofill-grid">
+            <div class="af-field">
+              <label for="afEmployeeName">Имя и Отчество сотрудника</label>
+              <input type="text" id="afEmployeeName" class="af-input" placeholder="Например: Иван Иванович" value="коллега">
+            </div>
+            <div class="af-field">
+              <label for="afProgramSelect">Назначаемая программа обучения</label>
+              <select id="afProgramSelect" class="af-select">
+                <option value="ot-intro">🛡️ Вводный инструктаж по Охране труда</option>
+                <option value="ot-prog-a">⚖️ Охрана труда (Программа А)</option>
+                <option value="fire">🔥 Пожарная безопасность (МЧС № 1120)</option>
+                <option value="first-aid">🩹 Оказание первой помощи пострадавшим</option>
+                <option value="bpla">🚁 Действия при угрозе атаки БПЛА</option>
+                <option value="gochs">📢 ГО и защита от ЧС (Вводный)</option>
+                <option value="el">⚡ Электробезопасность (I–V группы)</option>
+                <option value="hygiene">🧼 Гигиеническое обучение (Санминимум)</option>
+                <option value="mentor">🛎️ Наставничество и адаптация</option>
+                <option value="conflict">🧠 Управление конфликтами</option>
+              </select>
+            </div>
+            <div class="af-field">
+              <label for="afResponsibleName">Подпись руководителя / ИТР</label>
+              <input type="text" id="afResponsibleName" class="af-input" placeholder="Например: Служба охраны труда" value="Служба охраны труда">
+            </div>
+          </div>
+        </div>
+
+        <div class="templates-grid">
+
+          <!-- Шаблон 1: Первичное направление -->
+          <article class="tpl-card">
+            <div>
+              <span class="tpl-badge">Шаблон № 1 • При приёме / переводе</span>
+              <h3 class="tpl-title">Первичное направление на обучение</h3>
+            </div>
+            <div class="tpl-body" id="tplBody1"></div>
+            <div class="tpl-actions">
+              <button type="button" class="btn-copy-tpl" data-copy-target="tplBody1">
+                <span>📋 Скопировать текст</span>
+              </button>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-share-tg" id="tgShareBtn1" title="Отправить в Telegram">
+                ✈️ Telegram
+              </a>
+            </div>
+          </article>
+
+          <!-- Шаблон 2: Напоминание о контрольном сроке -->
+          <article class="tpl-card">
+            <div>
+              <span class="tpl-badge" style="background: #fffbeb; color: #b45309;">Шаблон № 2 • За 3 дня до срока</span>
+              <h3 class="tpl-title">Напоминание о дедлайне</h3>
+            </div>
+            <div class="tpl-body" id="tplBody2"></div>
+            <div class="tpl-actions">
+              <button type="button" class="btn-copy-tpl" data-copy-target="tplBody2">
+                <span>📋 Скопировать текст</span>
+              </button>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-share-tg" id="tgShareBtn2" title="Отправить в Telegram">
+                ✈️ Telegram
+              </a>
+            </div>
+          </article>
+
+          <!-- Шаблон 3: Повторная сдача / Подпись в журнале -->
+          <article class="tpl-card">
+            <div>
+              <span class="tpl-badge" style="background: #ecfdf5; color: #047857;">Шаблон № 3 • Завершение и подпись</span>
+              <h3 class="tpl-title">Приглашение на подпись в журнале</h3>
+            </div>
+            <div class="tpl-body" id="tplBody3"></div>
+            <div class="tpl-actions">
+              <button type="button" class="btn-copy-tpl" data-copy-target="tplBody3">
+                <span>📋 Скопировать текст</span>
+              </button>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-share-tg" id="tgShareBtn3" title="Отправить в Telegram">
+                ✈️ Telegram
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- 3. РЕГЛАМЕНТ ДЕЙСТВИЙ РУКОВОДИТЕЛЯ (4 ЭТАПА КОНТРОЛЯ) -->
+      <section class="reveal-up" data-radar-title="📋 Регламент контроля" style="margin-bottom: 36px;">
+        <h2 style="font-size: 1.55rem; font-weight: 800; color: #0f172a; margin: 0 0 18px;">Порядок контроля со стороны руководителя подразделения</h2>
+        <div class="itr-steps-grid">
+          <div class="itr-step-card">
+            <div class="itr-step-num">01</div>
+            <h3 style="font-size: 1.08rem; font-weight: 800; color: #0f172a; margin: 0 0 8px;">Назначение программы</h3>
+            <p style="font-size: 0.9rem; color: #475569; margin: 0; line-height: 1.55;">
+              В день приёма или перевода направьте сотруднику ссылку на профильный курс из конструктора выше и зафиксируйте контрольную дату (+13 рабочих дней).
+            </p>
+          </div>
+          <div class="itr-step-card">
+            <div class="itr-step-num">02</div>
+            <h3 style="font-size: 1.08rem; font-weight: 800; color: #0f172a; margin: 0 0 8px;">Выделение времени</h3>
+            <p style="font-size: 0.9rem; color: #475569; margin: 0; line-height: 1.55;">
+              Обеспечьте работнику возможность изучить лекцию, пройти интерактивный тренажёр и сдать итоговый тест со смартфона или рабочего ПК.
+            </p>
+          </div>
+          <div class="itr-step-card">
+            <div class="itr-step-num">03</div>
+            <h3 style="font-size: 1.08rem; font-weight: 800; color: #0f172a; margin: 0 0 8px;">Проверка результата</h3>
+            <p style="font-size: 0.9rem; color: #475569; margin: 0; line-height: 1.55;">
+              Убедитесь в успешном прохождении электронного тестирования (по сводке Службы охраны труда или Цифровому паспорту сотрудника).
+            </p>
+          </div>
+          <div class="itr-step-card">
+            <div class="itr-step-num">04</div>
+            <h3 style="font-size: 1.08rem; font-weight: 800; color: #0f172a; margin: 0 0 8px;">Подпись в журнале / протоколе</h3>
+            <p style="font-size: 0.9rem; color: #475569; margin: 0; line-height: 1.55;">
+              Оформите живые подписи инструктируемого и инструктирующего в журнале регистрации инструктажа на рабочем месте до начала самостоятельной работы.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. КРАСНАЯ ЗОНА ОТВЕТСТВЕННОСТИ (СТ. 76 ТК РФ / СТ. 5.27.1 КОАП РФ) -->
+      <section class="alert-zone reveal-up" data-radar-title="⚠️ Запреты и КоАП РФ" aria-label="Недопустимые нарушения">
+        <h3 style="font-size: 1.2rem; font-weight: 900; color: #9f1239; margin: 0 0 6px;">⚠️ Категорически запрещается руководителям и ИТР</h3>
+        <p style="font-size: 0.88rem; color: #881337; margin: 0;">Нарушение порядка обучения и допуска к работе влечёт административную ответственность по <strong>ч. 3 ст. 5.27.1 КоАП РФ</strong>:</p>
+        <div class="alert-grid">
+          <div class="alert-item"><span aria-hidden="true">⛔</span><span>Допускать сотрудника к самостоятельной работе без вводного и первичного инструктажа на рабочем месте (ст. 76 и ст. 214 ТК РФ).</span></div>
+          <div class="alert-item"><span aria-hidden="true">⛔</span><span>Оформлять подписи в журналах «задним числом» или без фактической проверки знаний.</span></div>
+          <div class="alert-item"><span aria-hidden="true">⛔</span><span>Пропускать предельный 60-дневный срок обучения по охране труда и оказанию первой помощи (п. 62 ПП РФ № 2464).</span></div>
+        </div>
+      </section>
+
+      <!-- 5. МИФ ИЛИ РЕАЛЬНОСТЬ ДЛЯ РУКОВОДИТЕЛЕЙ (ТАП НА ТЕЛЕФОНАХ РАБОТАЕТ БЕЗ ЗАЛИПАНИЙ) -->
+      <section class="reveal-up" data-radar-title="🤔 Мифы руководителей" style="margin-bottom: 42px;">
+        <h2 class="flip-section-title">🤔 Заблуждения при организации обучения</h2>
+        <p class="flip-section-sub">Наведите курсор мыши или нажмите пальцем на карточку, чтобы перевернуть её</p>
+
+        <div class="flip-grid">
+
+          <div class="flip-card" tabindex="0" role="button" aria-label="Миф 1: Нажмите, чтобы узнать реальность">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="flip-icon" aria-hidden="true">📋</div>
+                <div class="flip-label">Миф № 1</div>
+                <div class="flip-text">«За своевременное обучение сотрудников полностью отвечает только специалист по охране труда».</div>
+                <span class="flip-tap-hint">👆 Нажмите для переворота</span>
+              </div>
+              <div class="flip-back">
+                <div class="flip-icon" aria-hidden="true">⚖️</div>
+                <div class="flip-label">Реальность</div>
+                <div class="flip-text">За первичный инструктаж на рабочем месте, стажировку и недопуск необученного сотрудника в смене несёт прямую ответственность непосредственный руководитель подразделения.</div>
               </div>
             </div>
-            <button type="button" class="checklist-reset" id="cl-reset">Сбросить всё</button>
           </div>
 
-          <div id="checklist-body">
-
-            <div class="checklist-group">
-              <h4 class="checklist-group-title">Фаза 1. Подготовка</h4>
-              <label class="checklist-item">
-                <input type="checkbox" data-check-id="p1-1">
-                <span class="checklist-box" aria-hidden="true"></span>
-                <span class="checklist-text">Проверить актуальность штатного расписания и структуры подразделений</span>
-              </label>
-              <label class="checklist-item">
-                <input type="checkbox" data-check-id="p1-2">
-                <span class="checklist-box" aria-hidden="true"></span>
-                <span class="checklist-text">Определить категории работников и виды обучения (ОТ, ПБ, Первая помощь)</span>
-              </label>
-              <label class="checklist-item">
-                <input type="checkbox" data-check-id="p1-3">
-                <span class="checklist-box" aria-hidden="true"></span>
-                <span class="checklist-text">Сформировать список обучаемых: ФИО, должность, подразделение</span>
-              </label>
-              <label class="checklist-item">
-                <input type="checkbox" data-check-id="p1-4">
-                <span class="checklist-box" aria-hidden="true"></span>
-                <span class="checklist-text">Согласовать сроки с руководителем подразделения</span>
-              </label>
-              <label class="checklist-item">
-                <input type="checkbox" data-check-id="p1-5">
-                <span class="checklist-box" aria-hidden="true"></span>
-                <span class="checklist-text">Назначить ответственного за техническую поддержку тестирования</span>
-              </label>
-            </div>
-
-            <div class="checklist-group">
-              <h4 class="checklist-group-title">Фаза 2. Организация</h4>
-              <label class="checklist-item">
-                <input type="checkbox" data-check-id="p2-1">
-                <span class="checklist-box" aria-hidden="true"></span>
-                <span class="checklist-text">Разослать сотрудникам персональные ссылки на тесты</span>
-              </label>
-              <label class="checklist-item">
-                <input type="checkbox" data-check-id="p2-2">
-                <span class="checklist-box" aria-hidden="true"></span>
-                <span class="checklist-text">Провести инструктаж по работе с порталом (краткий или по инструкции)</span>
-              </label>
-              <label class="checklist-item">
-                <input type="checkbox" data-check-id="p2-3">
-                <span class="checklist-box" aria-hidden="true"></span>
-                <span class="checklist-text">Установить и зафиксировать дедлайн сдачи в приказе или служебной записке</span>
-              </label>
-              <label class="checklist-item">
-                <input type="checkbox" data-check-id="p2-4">
-                <span class="checklist-box" aria-hidden="true"></span>
-                <span class="checklist-text">Проверить техническую готовность сотрудников (интернет, доступ)</span>
-              </label>
-            </div>
-
-            <div class="checklist-group">
-              <h4 class="checklist-group-title">Фаза 3. Контроль и оформление</h4>
-              <label class="checklist-item">
-                <input type="checkbox" data-check-id="p3-1">
-                <span class="checklist-box" aria-hidden="true"></span>
-                <span class="checklist-text">Отслеживать прохождение в сводной таблице результатов</span>
-              </label>
-              <label class="checklist-item">
-                <input type="checkbox" data-check-id="p3-2">
-                <span class="checklist-box" aria-hidden="true"></span>
-                <span class="checklist-text">Напомнить должникам за 3 рабочих дня до дедлайна</span>
-              </label>
-              <label class="checklist-item">
-                <input type="checkbox" data-check-id="p3-3">
-                <span class="checklist-box" aria-hidden="true"></span>
-                <span class="checklist-text">Сверить ФИО и должности в протоколах с документами сотрудников</span>
-              </label>
-              <label class="checklist-item">
-                <input type="checkbox" data-check-id="p3-4">
-                <span class="checklist-box" aria-hidden="true"></span>
-                <span class="checklist-text">Убедиться, что у всех сотрудников проходной балл ≥ 85%</span>
-              </label>
-              <label class="checklist-item">
-                <input type="checkbox" data-check-id="p3-5">
-                <span class="checklist-box" aria-hidden="true"></span>
-                <span class="checklist-text">Оформить протоколы и внести записи в журналы инструктажей</span>
-              </label>
-              <label class="checklist-item">
-                <input type="checkbox" data-check-id="p3-6">
-                <span class="checklist-box" aria-hidden="true"></span>
-                <span class="checklist-text">Заархивировать результаты (срок хранения — не менее 5 лет)</span>
-              </label>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- DOCS -->
-      <section id="docs" class="section reveal-up">
-        <div class="section-head">
-          <h2 class="section-h2">Полезные материалы</h2>
-          <p class="section-sub">Инструкции, шаблоны и нормативные документы — с поиском и фильтрами.</p>
-        </div>
-
-        <div class="docs-toolbar">
-          <div class="docs-search-wrap">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="search" class="docs-search" id="docs-search" placeholder="Поиск по документам…" aria-label="Поиск по документам">
-          </div>
-          <div class="docs-filters" role="group" aria-label="Фильтр по категориям">
-            <button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true">Все</button>
-            <button type="button" class="filter-btn" data-filter="instruction" aria-pressed="false">Инструкции</button>
-            <button type="button" class="filter-btn" data-filter="template" aria-pressed="false">Шаблоны</button>
-            <button type="button" class="filter-btn" data-filter="normative" aria-pressed="false">Нормативные</button>
-          </div>
-        </div>
-
-        <div class="docs-list" id="docs-list">
-
-          <a href="#" class="doc-item" data-category="instruction" data-doc-name="Памятка по выгрузке отчётов">
-            <span class="doc-icon" aria-hidden="true">📑</span>
-            <div class="doc-info">
-              <h4>Памятка по выгрузке отчётов</h4>
-              <p>Пошаговая инструкция по экспорту данных из Google Forms в Excel для секретарей.</p>
-            </div>
-            <span class="doc-badge badge-instruction">Инструкция</span>
-          </a>
-
-          <a href="#" class="doc-item" data-category="instruction" data-doc-name="Инструкция по работе с протоколами">
-            <span class="doc-icon" aria-hidden="true">📄</span>
-            <div class="doc-info">
-              <h4>Инструкция по работе с протоколами</h4>
-              <p>Порядок заполнения, подписания и архивирования протоколов проверки знаний.</p>
-            </div>
-            <span class="doc-badge badge-instruction">Инструкция</span>
-          </a>
-
-          <a href="#" class="doc-item" data-category="template" data-doc-name="Образец приказа о допуске">
-            <span class="doc-icon" aria-hidden="true">📎</span>
-            <div class="doc-info">
-              <h4>Образец приказа о допуске</h4>
-              <p>Шаблон документа для оформления допуска сотрудника после проверки знаний.</p>
-            </div>
-            <span class="doc-badge badge-template">Шаблон</span>
-          </a>
-
-          <a href="#" class="doc-item" data-category="template" data-doc-name="Шаблон протокола проверки знаний">
-            <span class="doc-icon" aria-hidden="true">📝</span>
-            <div class="doc-info">
-              <h4>Шаблон протокола проверки знаний</h4>
-              <p>Готовая форма протокола заседания комиссии по проверке знаний требований ОТ.</p>
-            </div>
-            <span class="doc-badge badge-template">Шаблон</span>
-          </a>
-
-          <a href="#" class="doc-item" data-category="template" data-doc-name="Форма журнала инструктажей">
-            <span class="doc-icon" aria-hidden="true">📒</span>
-            <div class="doc-info">
-              <h4>Форма журнала инструктажей</h4>
-              <p>Стандартная форма журнала регистрации инструктажей по охране труда.</p>
-            </div>
-            <span class="doc-badge badge-template">Шаблон</span>
-          </a>
-
-          <a href="#" class="doc-item" data-category="normative" data-doc-name="Положение об обучении по ОТ">
-            <span class="doc-icon" aria-hidden="true">📜</span>
-            <div class="doc-info">
-              <h4>Положение об обучении по ОТ</h4>
-              <p>Локальный акт предприятия, регламентирующий обучение и проверку знаний.</p>
-            </div>
-            <span class="doc-badge badge-normative">Нормативный</span>
-          </a>
-
-          <a href="#" class="doc-item" data-category="normative" data-doc-name="Регламент защиты данных">
-            <span class="doc-icon" aria-hidden="true">🔒</span>
-            <div class="doc-info">
-              <h4>Регламент защиты персональных данных</h4>
-              <p>Правила обработки и хранения персональных данных при тестировании.</p>
-            </div>
-            <span class="doc-badge badge-normative">Нормативный</span>
-          </a>
-
-        </div>
-
-        <div class="docs-empty" id="docs-empty" role="status" aria-live="polite">По запросу ничего не найдено. Попробуйте изменить фильтр.</div>
-      </section>
-
-      <!-- TEMPLATES -->
-      <section id="templates" class="section reveal-up">
-        <div class="section-head">
-          <h2 class="section-h2">Шаблоны сообщений</h2>
-          <p class="section-sub">Скопируйте текст и отправьте сотруднику — впишите свои данные вместо подсвеченных плейсхолдеров.</p>
-        </div>
-
-        <div class="templates-list">
-
-          <div class="template-card">
-            <div class="template-header">
-              <span class="template-title">📣 Информирование о назначении</span>
-              <button type="button" class="template-copy" data-template-id="info">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                Копировать
-              </button>
-            </div>
-            <div class="template-body" id="template-info">
-              <p>Уважаемый(ая) <span data-placeholder>[Имя Отчество]</span>!</p>
-              <p>Вам назначено дистанционное обучение по программе <span data-placeholder>[Название программы]</span>. Срок прохождения — до <span data-placeholder>[дата]</span>.</p>
-              <p>Ссылка на тест: <span data-placeholder>[ссылка]</span><br>Инструкция по работе с порталом: instructions.html</p>
-              <p>После завершения теста результат придёт автоматически. Проходной балл — 85%.</p>
+          <div class="flip-card" tabindex="0" role="button" aria-label="Миф 2: Нажмите, чтобы узнать реальность">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="flip-icon" aria-hidden="true">⏳</div>
+                <div class="flip-label">Миф № 2</div>
+                <div class="flip-text">«Если у нового сотрудника большой опыт работы на прошлом месте, первичный инструктаж можно не проводить».</div>
+                <span class="flip-tap-hint">👆 Нажмите для переворота</span>
+              </div>
+              <div class="flip-back">
+                <div class="flip-icon" aria-hidden="true">🛡️</div>
+                <div class="flip-label">Реальность</div>
+                <div class="flip-text">Предыдущий стаж не освобождает от инструктажей у нового работодателя: на каждом объекте свои локальные риски, маршруты эвакуации и инструкции.</div>
+              </div>
             </div>
           </div>
 
-          <div class="template-card">
-            <div class="template-header">
-              <span class="template-title">⏰ Напоминание о дедлайне</span>
-              <button type="button" class="template-copy" data-template-id="remind">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                Копировать
-              </button>
-            </div>
-            <div class="template-body" id="template-remind">
-              <p>Уважаемый(ая) <span data-placeholder>[Имя Отчество]</span>!</p>
-              <p>Напоминаю, что до <span data-placeholder>[дата]</span> необходимо пройти итоговое тестирование по программе <span data-placeholder>[Название]</span>.</p>
-              <p>Проходной балл — 85%. Количество попыток не ограничено.<br>Ссылка на тест: <span data-placeholder>[ссылка]</span></p>
-            </div>
-          </div>
-
-          <div class="template-card">
-            <div class="template-header">
-              <span class="template-title">🔄 Неудовлетворительный результат</span>
-              <button type="button" class="template-copy" data-template-id="fail">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                Копировать
-              </button>
-            </div>
-            <div class="template-body" id="template-fail">
-              <p>Уважаемый(ая) <span data-placeholder>[Имя Отчество]</span>!</p>
-              <p>К сожалению, по результатам тестирования вы набрали <span data-placeholder>[балл]</span>%. Для повторной попытки рекомендуем повторить материалы по ссылке: <span data-placeholder>[ссылка на курс]</span>.</p>
-              <p>Пересдача доступна до <span data-placeholder>[дата]</span>. Если нужна помощь с материалами — обращайтесь.</p>
+          <div class="flip-card" tabindex="0" role="button" aria-label="Миф 3: Нажмите, чтобы узнать реальность">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="flip-icon" aria-hidden="true">🔥</div>
+                <div class="flip-label">Миф № 3</div>
+                <div class="flip-text">«Повторный противопожарный инструктаж достаточно проводить один раз в год для всех категорий».</div>
+                <span class="flip-tap-hint">👆 Нажмите для переворота</span>
+              </div>
+              <div class="flip-back">
+                <div class="flip-icon" aria-hidden="true">🚒</div>
+                <div class="flip-label">Реальность</div>
+                <div class="flip-text">На объектах с массовым пребыванием людей (включая гостиницы, от 50 человек) повторный противопожарный инструктаж проводится не реже 1 раза в полгода (Приказ МЧС № 1120).</div>
+              </div>
             </div>
           </div>
 
         </div>
       </section>
 
-      <!-- FAQ -->
-      <section id="faq" class="section reveal-up">
-        <div class="section-head">
-          <h2 class="section-h2">Частые вопросы</h2>
-          <p class="section-sub">Ответы на типовые ситуации ответственного.</p>
-        </div>
-
-        <div class="faq-accordion">
-          <div class="faq-search-wrap">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="search" class="faq-search" id="faq-search" placeholder="Поиск по вопросам…" aria-label="Поиск по часто задаваемым вопросам">
-          </div>
-
-          <div class="faq-item">
-            <button type="button" class="faq-trigger" aria-expanded="false">
-              Что делать, если сотрудник не уложился в срок?
-              <span class="faq-icon" aria-hidden="true">▼</span>
-            </button>
-            <div class="faq-content">
-              <p>Зафиксируйте факт нарушения в служебной записке. Продлите срок один раз по согласованию с руководителем подразделения. Если сотрудник систематически уклоняется — направьте докладную в отдел кадров.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button type="button" class="faq-trigger" aria-expanded="false">
-              Как аннулировать результат при подлоге данных?
-              <span class="faq-icon" aria-hidden="true">▼</span>
-            </button>
-            <div class="faq-content">
-              <p>Составьте акт об аннулировании с указанием причины (несовпадение ФИО, участие третьих лиц). Заверьте у руководителя. Сотрудник проходит тест повторно после устранения причин.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button type="button" class="faq-trigger" aria-expanded="false">
-              Нужно ли хранить протоколы в бумажном виде?
-              <span class="faq-icon" aria-hidden="true">▼</span>
-            </button>
-            <div class="faq-content">
-              <p>Да, протоколы проверки знаний и журналы инструктажей ведутся в бумажном виде (допускается электронная копия). Срок хранения — не менее 5 лет либо до конца трудовой деятельности сотрудника на предприятии.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button type="button" class="faq-trigger" aria-expanded="false">
-              Как проверить корректность ФИО перед занесением в протокол?
-              <span class="faq-icon" aria-hidden="true">▼</span>
-            </button>
-            <div class="faq-content">
-              <p>Сверьте данные из Google Forms со штатным расписанием и паспортом сотрудника. Допускается только полное совпадение: ФИО полностью, должность — по штатке, подразделение — по структуре предприятия.</p>
-            </div>
-          </div>
-
-          <div class="faq-no-results" id="faq-no-results" role="status" aria-live="polite">Ничего не найдено. Попробуйте другой запрос.</div>
-        </div>
-      </section>
+      <!-- 6. ФИНАЛЬНЫЙ БЛОК ПЕРЕХОДА В КАТАЛОГ С БЕГУЩЕЙ ЗМЕЙКОЙ -->
+      <div class="cta-zone reveal-up" data-radar-title="🚀 Переход к программам">
+        <h2 style="font-size: 1.85rem; font-weight: 900; color: #0f172a; margin: 0 0 12px;">Перейти к учебным программам и тестам</h2>
+        <p style="color: #64748b; max-width: 600px; margin: 0 auto 26px; font-size: 1.02rem; line-height: 1.6;">
+          Откройте полный реестр курсов для проверки учебных материалов или прямого перехода к тестированию ИТР.
+        </p>
+        <a href="programs.html" class="btn-magic">
+          <span>Открыть реестр программ (9)</span>
+          <span aria-hidden="true">➔</span>
+        </a>
+      </div>
 
     </div>
   </main>
 
-  <!-- ===== ПОДВАЛ ===== -->
   <footer class="glass-footer">
     <div class="container">
       <p>© 2026 Служба Охраны Труда. Внутренний ресурс.</p>
@@ -1289,369 +1487,778 @@
 
 </div>
 
-<!-- Плавающие кнопки -->
-<div class="float-stack">
-  <button type="button" class="float-btn" id="theme-toggle" aria-label="Переключить тёмную/светлую тему" title="Сменить тему">
-    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+<button type="button" class="to-top-btn" id="toTopBtn" aria-label="Наверх" title="Наверх">↑</button>
+
+<nav class="mobile-bottom-nav" aria-label="Мобильная навигация">
+  <a href="index.html" class="mob-nav-item">
+    <span class="mob-icon" aria-hidden="true">🏠</span>
+    <span>Главная</span>
+  </a>
+  <a href="programs.html" class="mob-nav-item">
+    <span class="mob-icon" aria-hidden="true">📚</span>
+    <span>Курсы</span>
+  </a>
+  <button type="button" class="mob-nav-item" id="mobSearchBtn" aria-label="Открыть поиск">
+    <span class="mob-icon" aria-hidden="true">🔍</span>
+    <span>Поиск</span>
   </button>
-  <button type="button" class="float-btn" id="back-to-top" aria-label="Наверх" title="Наверх">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+  <a href="instructions.html" class="mob-nav-item">
+    <span class="mob-icon" aria-hidden="true">📋</span>
+    <span>Инструкции</span>
+  </a>
+  <button type="button" class="mob-nav-item sos-mob" id="mobSosBtn" aria-label="Открыть экстренную памятку ЧС и 112">
+    <span class="mob-icon" aria-hidden="true">🚨</span>
+    <span>ЧС / 112</span>
   </button>
+</nav>
+
+<div class="modal-overlay" id="searchModal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-label="Быстрый поиск по порталу">
+    <div class="search-modal-header">
+      <span style="font-size: 1.2rem;" aria-hidden="true">🔍</span>
+      <input type="text" class="search-modal-input" id="searchModalInput"
+             placeholder="Поиск курса или теста (например: БПЛА, Первая помощь)..."
+             aria-label="Поиск курса или теста">
+      <button type="button" class="voice-mic-btn" id="voiceSearchBtn" title="Голосовой поиск" aria-label="Голосовой поиск">🎤</button>
+      <button type="button" class="modal-close" id="closeSearchModal" aria-label="Закрыть поиск">Закрыть</button>
+    </div>
+    <div class="search-results-list" id="searchResultsList"></div>
+  </div>
 </div>
 
-<!-- Тост -->
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="modal-overlay" id="sosModal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-label="Экстренная памятка ЧС">
+    <div class="sos-modal-top">
+      <div>
+        <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.85; font-weight: 700;">Оперативная памятка безопасности</div>
+        <h3 style="margin: 4px 0 0; font-size: 1.2rem; font-weight: 900; color: #fff;">🚨 Алгоритмы экстренных действий</h3>
+      </div>
+      <button type="button" class="modal-close" id="closeSosModal" style="background: rgba(255,255,255,0.2); color: #fff;" aria-label="Закрыть памятку">✕</button>
+    </div>
+    <div class="sos-modal-body">
+      <a href="tel:112" class="call-112-btn">📞 Экстренный вызов 112 (С мобильного)</a>
+      <div class="sos-card">
+        <h4>🧱 В здании при угрозе БПЛА: Правило «Двух стен»</h4>
+        <p>Отойдите от окон! Переместитесь в коридор, лестничный пролет или санузел. Сядьте на пол у несущей стены, пригните голову, приоткройте рот. Лифтом пользоваться запрещено.</p>
+      </div>
+      <div class="sos-card">
+        <h4>🚗 На улице или в транспорте</h4>
+        <p>Остановите автомобиль, заглушите мотор и отбегите на 15–30 метров. Укройтесь в канаве, кювете или за бетонным блоком. Лягте лицом вниз, скрестите ноги, закройте голову руками.</p>
+      </div>
+      <div class="sos-card">
+        <h4>📵 При обнаружении обломков БПЛА</h4>
+        <p>НЕ подходить, НЕ трогать, НЕ снимать и НЕ звонить рядом с местом падения! Отойдите назад по своим следам минимум на 100 метров за укрытие и сообщите по номеру 112.</p>
+      </div>
+      <div class="sos-card" style="border-left-color: #10b981;">
+        <h4>🩹 Первая помощь (СЛР)</h4>
+        <p>Оцените безопасность → Проверьте сознание и дыхание (метод «Вижу-Слышу-Ощущаю» 10 сек) → Вызовите 112 → Начните компрессии грудной клетки: <strong>30 нажатий / 2 вдоха</strong>.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-<script>
-(function () {
-  'use strict';
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.body.classList.add('js-loaded');
 
-  document.body.classList.add('js-loaded');
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* ===== Безопасный localStorage ===== */
-  const storage = {
-    get(key, fallback) {
-      try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
-      catch (e) { return fallback; }
-    },
-    set(key, value) {
-      try { localStorage.setItem(key, JSON.stringify(value)); return true; }
-      catch (e) { return false; }
+    // === 1. ДАТА В ШАПКЕ, ПРОГРЕСС-БАР СКРОЛЛА И МОРФИНГ ШАПКИ ===
+    const now = new Date();
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateStr = now.toLocaleDateString('ru-RU', dateOptions);
+    const dateEl = document.getElementById('current-date');
+    if (dateEl) {
+      dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
     }
-  };
 
-  const THEME_KEY = 'sdo_theme';
-  const CHECKLIST_KEY = 'sdo_responsibles_checklist_v1';
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
 
-  const $ = (sel, ctx = document) => ctx.querySelector(sel);
-  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+    const scrollProgress = document.getElementById('scrollProgress');
+    const toTopBtn = document.getElementById('toTopBtn');
+    const quantumHeader = document.getElementById('quantumHeader');
 
-  /* ===== Тост ===== */
-  const toastEl = $('#toast');
-  let toastTimer;
-  function showToast(msg) {
-    if (!toastEl) return;
-    toastEl.textContent = msg;
-    toastEl.classList.add('is-visible');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toastEl.classList.remove('is-visible'), 2400);
-  }
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (scrollHeight > 0 && scrollProgress) {
+        scrollProgress.style.width = (scrollTop / scrollHeight) * 100 + "%";
+      }
+      if (toTopBtn) {
+        toTopBtn.classList.toggle('visible', scrollTop > 400);
+      }
+      if (quantumHeader) {
+        quantumHeader.classList.toggle('is-scrolled', scrollTop > 60);
+      }
+    }, { passive: true });
 
-  /* ===== 1. Дата в шапке ===== */
-  const dateEl = $('#current-date');
-  if (dateEl) {
-    const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const s = new Date().toLocaleDateString('ru-RU', opts);
-    dateEl.textContent = s.charAt(0).toUpperCase() + s.slice(1);
-  }
-
-  /* ===== 2. Тема ===== */
-  const themeToggle = $('#theme-toggle');
-  function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    document.body.setAttribute('data-theme', theme);
-  }
-  const savedTheme = storage.get(THEME_KEY, null);
-  if (savedTheme === 'dark' || savedTheme === 'light') {
-    applyTheme(savedTheme);
-  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    applyTheme('dark');
-  }
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-      const next = current === 'dark' ? 'light' : 'dark';
-      applyTheme(next);
-      storage.set(THEME_KEY, next);
+    toTopBtn?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
     });
-  }
 
-  /* ===== 3. Буфер обмена ===== */
-  function copyToClipboard(text) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      return navigator.clipboard.writeText(text);
-    }
-    return new Promise((resolve, reject) => {
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      try { document.execCommand('copy'); resolve(); }
-      catch (e) { reject(e); }
-      document.body.removeChild(ta);
-    });
-  }
-
-  /* ===== 4. Кнопки Поделиться / Печать ===== */
-  const shareBtn = $('#share-btn');
-  if (shareBtn) {
-    shareBtn.addEventListener('click', async () => {
-      const data = {
-        title: document.title,
-        text: 'Кабинет ответственного за обучение — регламент и инструменты',
-        url: location.href
+    // === 2. ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ В HERO ===
+    const typingEl = document.getElementById('typing-text');
+    if (typingEl) {
+      const heroText = typingEl.getAttribute('data-text') || "Ответственным за организацию обучения";
+      typingEl.textContent = "";
+      let charIdx = 0;
+      const typeStep = () => {
+        if (charIdx < heroText.length) {
+          typingEl.textContent += heroText.charAt(charIdx);
+          charIdx++;
+          setTimeout(typeStep, 45);
+        }
       };
-      if (navigator.share) {
-        try { await navigator.share(data); } catch (e) { /* отмена */ }
-      } else {
-        try { await copyToClipboard(data.url); showToast('Ссылка скопирована'); }
-        catch (e) { showToast('Не удалось поделиться'); }
+      setTimeout(typeStep, 160);
+    }
+
+    // === 3. ШАПКА QUANTUM COMMAND BAR V2.0 (Магнитная капсула, Радар, Лаунчер, Паспорт СДО) ===
+    const qNavList = document.getElementById('qNavList');
+    const qNavGlider = document.getElementById('qNavGlider');
+    const qNavLinks = qNavList ? Array.from(qNavList.querySelectorAll('.nav-link')) : [];
+
+    function moveNavGlider(targetLink) {
+      if (!qNavGlider || !targetLink || window.innerWidth <= 768) {
+        if (qNavGlider) qNavGlider.style.opacity = '0';
+        return;
+      }
+      const listRect = qNavList.getBoundingClientRect();
+      const linkRect = targetLink.getBoundingClientRect();
+      const offsetLeft = linkRect.left - listRect.left;
+      qNavGlider.style.width = `${linkRect.width}px`;
+      qNavGlider.style.transform = `translateX(${offsetLeft}px)`;
+      qNavGlider.style.opacity = '1';
+    }
+
+    const activeNavLink = qNavList?.querySelector('.nav-link.active') || qNavLinks[3] || qNavLinks[0];
+    if (activeNavLink) {
+      setTimeout(() => moveNavGlider(activeNavLink), 100);
+    }
+
+    qNavLinks.forEach(link => {
+      link.addEventListener('mouseenter', () => moveNavGlider(link));
+      link.addEventListener('focus', () => moveNavGlider(link));
+    });
+    qNavList?.addEventListener('mouseleave', () => moveNavGlider(activeNavLink));
+    window.addEventListener('resize', () => moveNavGlider(activeNavLink), { passive: true });
+
+    // Контекстный радар секций при скролле
+    const radarText = document.getElementById('qRadarText');
+    const radarSections = document.querySelectorAll('[data-radar-title]');
+    if (radarText && radarSections.length > 0) {
+      const radarObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const title = entry.target.getAttribute('data-radar-title');
+            if (title) radarText.textContent = title;
+          }
+        });
+      }, { rootMargin: '-25% 0px -55% 0px', threshold: 0.05 });
+      radarSections.forEach(sec => radarObserver.observe(sec));
+    }
+
+    const qAppBtn = document.getElementById('qAppBtn');
+    const qAppDropdown = document.getElementById('qAppDropdown');
+    const qPassportBtn = document.getElementById('qPassportBtn');
+    const qPassportPopover = document.getElementById('qPassportPopover');
+
+    function closeHeaderPopovers() {
+      if (qAppDropdown) {
+        qAppDropdown.classList.remove('open');
+        qAppBtn?.setAttribute('aria-expanded', 'false');
+      }
+      if (qPassportPopover) {
+        qPassportPopover.classList.remove('open');
+        qPassportBtn?.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    qAppBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = !qAppDropdown.classList.contains('open');
+      closeHeaderPopovers();
+      if (willOpen) {
+        qAppDropdown.classList.add('open');
+        qAppBtn.setAttribute('aria-expanded', 'true');
       }
     });
-  }
-  const printBtn = $('#print-btn');
-  if (printBtn) printBtn.addEventListener('click', () => window.print());
 
-  /* ===== 5. Калькулятор сроков ===== */
-  const calcStart = $('#calc-start');
-  const calcResults = $('#calc-results');
-
-  function addWorkDays(dateStr, days) {
-    const d = new Date(dateStr + 'T00:00:00');
-    let added = 0;
-    while (added < days) {
-      d.setDate(d.getDate() + 1);
-      const dow = d.getDay();
-      if (dow !== 0 && dow !== 6) added++;
-    }
-    return d;
-  }
-  function formatDate(d) {
-    return d.toLocaleDateString('ru-RU', { day: '2-digit', month: 'long', year: 'numeric' });
-  }
-  function renderCalc() {
-    if (!calcStart || !calcResults) return;
-    const val = calcStart.value;
-    if (!val) {
-      calcResults.innerHTML = '<p style="color:var(--c-text-3);font-size:0.9rem;margin:0;">Выберите дату начала обучения.</p>';
-      return;
-    }
-    const start = new Date(val + 'T00:00:00');
-    const milestones = [
-      { icon: '🚀', label: 'Старт обучения', date: start },
-      { icon: '📣', label: 'Информирование сотрудников', date: addWorkDays(val, 2) },
-      { icon: '📚', label: 'Изучение материалов', date: addWorkDays(val, 7) },
-      { icon: '📝', label: 'Тестирование', date: addWorkDays(val, 10) },
-      { icon: '✅', label: 'Оформление документов', date: addWorkDays(val, 15) }
-    ];
-    calcResults.innerHTML = milestones.map(m =>
-      '<div class="calc-row">' +
-        '<span class="calc-icon" aria-hidden="true">' + m.icon + '</span>' +
-        '<span class="calc-label">' + m.label + '</span>' +
-        '<span class="calc-date">' + formatDate(m.date) + '</span>' +
-      '</div>'
-    ).join('');
-  }
-  if (calcStart) {
-    // Сегодня по умолчанию
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const dd = String(today.getDate()).padStart(2, '0');
-    calcStart.value = yyyy + '-' + mm + '-' + dd;
-    calcStart.addEventListener('input', renderCalc);
-    renderCalc();
-  }
-
-  /* ===== 6. Чек-лист ===== */
-  const checklistBoxes = $$('#checklist-body input[type="checkbox"][data-check-id]');
-  const clCount = $('#cl-count');
-  const clTotal = $('#cl-total');
-  const clFill = $('#cl-fill');
-  const clBar = document.querySelector('.checklist-progress-bar');
-  const clReset = $('#cl-reset');
-
-  let checkState = storage.get(CHECKLIST_KEY, {});
-
-  function updateChecklist() {
-    const total = checklistBoxes.length;
-    let done = 0;
-    checklistBoxes.forEach(cb => {
-      const id = cb.dataset.checkId;
-      cb.checked = !!checkState[id];
-      if (cb.checked) done++;
-    });
-    if (clCount) clCount.textContent = done;
-    if (clTotal) clTotal.textContent = total;
-    const pct = total ? Math.round((done / total) * 100) : 0;
-    if (clFill) clFill.style.width = pct + '%';
-    if (clBar) clBar.setAttribute('aria-valuenow', pct);
-  }
-
-  checklistBoxes.forEach(cb => {
-    cb.addEventListener('change', () => {
-      const id = cb.dataset.checkId;
-      checkState[id] = cb.checked;
-      storage.set(CHECKLIST_KEY, checkState);
-      updateChecklist();
-    });
-  });
-  updateChecklist();
-
-  if (clReset) {
-    clReset.addEventListener('click', () => {
-      checkState = {};
-      storage.set(CHECKLIST_KEY, checkState);
-      updateChecklist();
-      showToast('Чек-лист сброшен');
-    });
-  }
-
-  /* ===== 7. Документы: поиск + фильтр ===== */
-  const docsSearch = $('#docs-search');
-  const filterBtns = $$('.filter-btn');
-  const docItems = $$('.doc-item');
-  const docsEmpty = $('#docs-empty');
-  let currentFilter = 'all';
-
-  function applyDocsFilter() {
-    const q = (docsSearch ? docsSearch.value.trim().toLowerCase() : '');
-    let visible = 0;
-    docItems.forEach(item => {
-      const cat = item.dataset.category;
-      const text = item.textContent.toLowerCase();
-      const matchCat = currentFilter === 'all' || cat === currentFilter;
-      const matchQ = !q || text.includes(q);
-      const show = matchCat && matchQ;
-      item.style.display = show ? '' : 'none';
-      if (show) visible++;
-    });
-    if (docsEmpty) docsEmpty.classList.toggle('is-visible', visible === 0);
-  }
-  if (docsSearch) docsSearch.addEventListener('input', applyDocsFilter);
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => {
-        b.classList.remove('is-active');
-        b.setAttribute('aria-pressed', 'false');
-      });
-      btn.classList.add('is-active');
-      btn.setAttribute('aria-pressed', 'true');
-      currentFilter = btn.dataset.filter;
-      applyDocsFilter();
-    });
-  });
-  applyDocsFilter();
-
-  // Клик по документу (если href="#")
-  docItems.forEach(item => {
-    item.addEventListener('click', (e) => {
-      const href = item.getAttribute('href');
-      if (!href || href === '#') {
-        e.preventDefault();
-        const name = item.dataset.docName || 'документ';
-        showToast('Документ «' + name + '» — обратитесь к администратору СДО');
+    qPassportBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = !qPassportPopover.classList.contains('open');
+      closeHeaderPopovers();
+      if (willOpen) {
+        qPassportPopover.classList.add('open');
+        qPassportBtn.setAttribute('aria-expanded', 'true');
       }
     });
-  });
 
-  /* ===== 8. Шаблоны сообщений ===== */
-  $$('.template-copy').forEach(btn => {
-    btn.addEventListener('click', async () => {
-      const id = btn.dataset.templateId;
-      const body = $('#template-' + id);
-      if (!body) return;
-      const text = body.innerText.trim();
+    qAppDropdown?.addEventListener('click', (e) => e.stopPropagation());
+    qPassportPopover?.addEventListener('click', (e) => e.stopPropagation());
+    document.addEventListener('click', closeHeaderPopovers);
+
+    function readStorageKey(key) {
       try {
-        await copyToClipboard(text);
-        showToast('Шаблон скопирован');
+        const val = parseInt(localStorage.getItem(key), 10);
+        return Number.isFinite(val) && val >= 1 ? val : null;
       } catch (e) {
-        showToast('Не удалось скопировать');
+        return null;
       }
-    });
-  });
+    }
 
-  /* ===== 9. FAQ ===== */
-  const faqTriggers = $$('.faq-trigger');
-  faqTriggers.forEach(trigger => {
-    trigger.addEventListener('click', () => {
-      const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
-      const content = trigger.nextElementSibling;
-      trigger.setAttribute('aria-expanded', !isExpanded);
-      if (!isExpanded) {
-        content.style.maxHeight = content.scrollHeight + 'px';
-      } else {
-        content.style.maxHeight = null;
-      }
-    });
-  });
+    const passportCourses = [
+      { title: 'Охрана труда (Комплекс)', icon: '🛡️', url: 'course-ot.html', page: readStorageKey('program_a_pdf_page') || readStorageKey('ot_intro_pdf_page') },
+      { title: 'Пожарная безопасность', icon: '🔥', url: 'course-fire-safety.html', page: readStorageKey('fire_intro_pdf_page') },
+      { title: 'Первая помощь', icon: '🩹', url: 'course-first-aid.html', page: readStorageKey('firstaid_pdf_page') },
+      { title: 'Действия при угрозе БПЛА', icon: '🚁', url: 'course-bpla.html', page: readStorageKey('bpla_pdf_page') },
+      { title: 'ГО и защита от ЧС', icon: '📢', url: 'course-gochs.html', page: readStorageKey('gochs_pdf_page') },
+      { title: 'Электробезопасность', icon: '⚡', url: 'course-electrical-safety.html', page: readStorageKey('el_group1_pdf_page') },
+      { title: 'Гигиеническое обучение', icon: '🧼', url: 'course-hygiene.html', page: readStorageKey('hygiene_pdf_page') },
+      { title: 'Наставничество', icon: '🛎️', url: 'course-mentorship.html', page: readStorageKey('mentor_pdf_page') },
+      { title: 'Управление конфликтами', icon: '🧠', url: 'course-conflict.html', page: readStorageKey('conflict_pdf_page') }
+    ];
 
-  // Пересчет высоты открытых пунктов FAQ при изменении ширины экрана
-  window.addEventListener('resize', () => {
-    faqTriggers.forEach(trigger => {
-      if (trigger.getAttribute('aria-expanded') === 'true') {
-        const content = trigger.nextElementSibling;
-        if (content) content.style.maxHeight = content.scrollHeight + 'px';
-      }
-    });
-  }, { passive: true });
+    const qRingFill = document.getElementById('qRingFill');
+    const qPassportPct = document.getElementById('qPassportPct');
+    const qPassportRank = document.getElementById('qPassportRank');
+    const qPassportList = document.getElementById('qPassportList');
+    const qPrintPassportBtn = document.getElementById('qPrintPassportBtn');
 
-  const faqSearch = $('#faq-search');
-  const faqItems = $$('.faq-item');
-  const faqNoResults = $('#faq-no-results');
-  if (faqSearch) {
-    faqSearch.addEventListener('input', () => {
-      const q = faqSearch.value.trim().toLowerCase();
-      let visible = 0;
-      faqItems.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        const match = !q || text.includes(q);
-        item.style.display = match ? '' : 'none';
-        if (match) visible++;
+    function renderDigitalPassport() {
+      let activeCount = 0;
+      passportCourses.forEach(c => {
+        if (c.page !== null && c.page >= 1) activeCount++;
       });
-      if (faqNoResults) faqNoResults.classList.toggle('is-visible', visible === 0 && q.length > 0);
+
+      const pct = Math.round((activeCount / passportCourses.length) * 100);
+      if (qPassportPct) qPassportPct.textContent = `${pct}%`;
+
+      if (qRingFill) {
+        const circumference = 62.83;
+        const offset = circumference - (pct / 100) * circumference;
+        qRingFill.style.strokeDashoffset = `${offset}`;
+      }
+
+      if (qPassportRank) {
+        if (pct === 0) qPassportRank.textContent = 'Готов к старту';
+        else if (pct < 40) qPassportRank.textContent = `В процессе (${activeCount}/9)`;
+        else if (pct < 80) qPassportRank.textContent = `Активный (${activeCount}/9)`;
+        else qPassportRank.textContent = `Профи ОТ (${activeCount}/9)`;
+      }
+
+      if (qPassportList) {
+        qPassportList.innerHTML = passportCourses.map(c => `
+          <a href="${c.url}" class="q-pass-item">
+            <div class="q-pass-item-left">
+              <span aria-hidden="true">${c.icon}</span>
+              <span class="q-pass-item-title">${c.title}</span>
+            </div>
+            <span class="q-pass-item-status ${c.page ? 'in-progress' : ''}">
+              ${c.page ? `Стр. ${c.page}` : 'Не начат'}
+            </span>
+          </a>
+        `).join('');
+      }
+    }
+    renderDigitalPassport();
+
+    qPrintPassportBtn?.addEventListener('click', () => {
+      closeHeaderPopovers();
+      window.print();
     });
-  }
 
-  /* ===== 10. Прокрутка: индикатор + наверх ===== */
-  const readingProgress = $('#reading-progress');
-  const backToTop = $('#back-to-top');
-  function onScroll() {
-    const doc = document.documentElement;
-    const scrolled = doc.scrollTop || document.body.scrollTop;
-    const total = doc.scrollHeight - doc.clientHeight;
-    const pct = total > 0 ? (scrolled / total) * 100 : 0;
-    if (readingProgress) readingProgress.style.width = pct + '%';
-    if (backToTop) backToTop.classList.toggle('is-visible', scrolled > 400);
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-  if (backToTop) {
-    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }));
-  }
+    // === 4. КАЛЬКУЛЯТОР СРОКОВ ОБУЧЕНИЯ (ПП РФ № 2464) И ЭКСПОРТ .ICS ===
+    const officialHolidays = {
+      '1.1': true, '2.1': true, '3.1': true, '4.1': true, '5.1': true,
+      '6.1': true, '7.1': true, '8.1': true, '9.1': true,
+      '23.2': true, '8.3': true, '1.5': true, '9.5': true,
+      '12.6': true, '4.11': true, '31.12': true
+    };
 
-  /* ===== 11. Появление секций (IntersectionObserver) ===== */
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
+    function isWorkingDay(d) {
+      const day = d.getDay();
+      const key = `${d.getDate()}.${d.getMonth() + 1}`;
+      return day !== 0 && day !== 6 && !officialHolidays[key];
+    }
+
+    function addWorkingDays(startDate, count) {
+      const result = new Date(startDate.getTime());
+      let added = 0;
+      while (added < count) {
+        result.setDate(result.getDate() + 1);
+        if (isWorkingDay(result)) added++;
+      }
+      return result;
+    }
+
+    const hireDateInput = document.getElementById('hireDateInput');
+    const setTodayDateBtn = document.getElementById('setTodayDateBtn');
+    const resWork13DateEl = document.getElementById('resWork13Date');
+    const resCal60DateEl = document.getElementById('resCal60Date');
+    const exportWork13IcsBtn = document.getElementById('exportWork13IcsBtn');
+    const exportCal60IcsBtn = document.getElementById('exportCal60IcsBtn');
+
+    let currentWork13DateObj = new Date();
+    let currentCal60DateObj = new Date();
+    let formattedWork13Str = '';
+    let formattedCal60Str = '';
+
+    function formatInputDate(dt) {
+      const pad = (n) => String(n).padStart(2, '0');
+      return `${dt.getFullYear()}-${pad(dt.getMonth() + 1)}-${pad(dt.getDate())}`;
+    }
+
+    function downloadIcsEvent(targetDate, summaryTitle, descriptionText, filenamePrefix) {
+      const pad = (n) => String(n).padStart(2, '0');
+      const dStr = `${targetDate.getFullYear()}${pad(targetDate.getMonth() + 1)}${pad(targetDate.getDate())}`;
+      const icsContent = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//SDO Portal//OT Training//RU',
+        'BEGIN:VEVENT',
+        `DTSTART;VALUE=DATE:${dStr}`,
+        `DTEND;VALUE=DATE:${dStr}`,
+        `SUMMARY:${summaryTitle}`,
+        `DESCRIPTION:${descriptionText}`,
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+
+      const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `${filenamePrefix}-${dStr}.ics`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    }
+
+    // === 5. АВТО-КОНСТРУКТОР ШАБЛОНОВ УВЕДОМЛЕНИЙ ДЛЯ СОТРУДНИКОВ ===
+    const BASE_PORTAL_URL = 'https://demoonstars.github.io/ot-training-portal/';
+    const programsCatalog = {
+      'ot-intro': {
+        title: 'Вводный инструктаж по охране труда',
+        courseUrl: `${BASE_PORTAL_URL}ot-intro.html`,
+        testUrl: 'https://demoonstars.github.io/Test_OT_b/'
+      },
+      'ot-prog-a': {
+        title: 'Охрана труда (Программа А — общие вопросы и СУОТ)',
+        courseUrl: `${BASE_PORTAL_URL}ot-program-a.html`,
+        testUrl: 'https://demoonstars.github.io/Test_OT_Programm_A/'
+      },
+      'fire': {
+        title: 'Пожарная безопасность (Приказ МЧС РФ № 1120)',
+        courseUrl: `${BASE_PORTAL_URL}course-fire-safety.html`,
+        testUrl: 'https://demoonstars.github.io/Test_-_-_b/'
+      },
+      'first-aid': {
+        title: 'Оказание первой помощи пострадавшим',
+        courseUrl: `${BASE_PORTAL_URL}course-first-aid.html`,
+        testUrl: 'https://demoonstars.github.io/First_aid/'
+      },
+      'bpla': {
+        title: 'Действия персонала при угрозе атаки БПЛА',
+        courseUrl: `${BASE_PORTAL_URL}course-bpla.html`,
+        testUrl: 'https://demoonstars.github.io/UAV_Threat_Test/'
+      },
+      'gochs': {
+        title: 'Гражданская оборона и защита от ЧС',
+        courseUrl: `${BASE_PORTAL_URL}course-gochs.html`,
+        testUrl: 'https://demoonstars.github.io/GO_ChS_Test/'
+      },
+      'el': {
+        title: 'Электробезопасность (I–V группы допуска)',
+        courseUrl: `${BASE_PORTAL_URL}course-electrical-safety.html`,
+        testUrl: 'https://demoonstars.github.io/Electrical_Safety_Test/'
+      },
+      'hygiene': {
+        title: 'Гигиеническое обучение (Санминимум)',
+        courseUrl: `${BASE_PORTAL_URL}course-hygiene.html`,
+        testUrl: 'https://demoonstars.github.io/hygiene-training/'
+      },
+      'mentor': {
+        title: 'Наставничество и адаптация персонала',
+        courseUrl: `${BASE_PORTAL_URL}course-mentorship.html`,
+        testUrl: 'https://demoonstars.github.io/mentoring-quiz/'
+      },
+      'conflict': {
+        title: 'Управление конфликтами и стрессоустойчивость',
+        courseUrl: `${BASE_PORTAL_URL}course-conflict.html`,
+        testUrl: 'https://demoonstars.github.io/conflict-management/'
+      }
+    };
+
+    const afEmployeeName = document.getElementById('afEmployeeName');
+    const afProgramSelect = document.getElementById('afProgramSelect');
+    const afResponsibleName = document.getElementById('afResponsibleName');
+    const tplBody1 = document.getElementById('tplBody1');
+    const tplBody2 = document.getElementById('tplBody2');
+    const tplBody3 = document.getElementById('tplBody3');
+    const tgShareBtn1 = document.getElementById('tgShareBtn1');
+    const tgShareBtn2 = document.getElementById('tgShareBtn2');
+    const tgShareBtn3 = document.getElementById('tgShareBtn3');
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function renderTemplates() {
+      const empName = (afEmployeeName?.value || '').trim() || 'коллега';
+      const respName = (afResponsibleName?.value || '').trim() || 'Служба охраны труда';
+      const progKey = afProgramSelect?.value || 'ot-intro';
+      const prog = programsCatalog[progKey] || programsCatalog['ot-intro'];
+
+      const safeEmp = `<span class="tpl-highlight">${escapeHtml(empName)}</span>`;
+      const safeProg = `<span class="tpl-highlight">«${escapeHtml(prog.title)}»</span>`;
+      const safeDate13 = `<span class="tpl-highlight">${escapeHtml(formattedWork13Str)}</span>`;
+      const safeDate60 = `<span class="tpl-highlight">${escapeHtml(formattedCal60Str)}</span>`;
+      const safeCourseUrl = `<span class="tpl-highlight">${escapeHtml(prog.courseUrl)}</span>`;
+      const safeTestUrl = `<span class="tpl-highlight">${escapeHtml(prog.testUrl)}</span>`;
+      const safeResp = `<span class="tpl-highlight">${escapeHtml(respName)}</span>`;
+
+      if (tplBody1) {
+        tplBody1.innerHTML =
+`Здравствуйте, ${safeEmp}!
+
+Направляю вам материалы для обязательного дистанционного обучения по курсу ${safeProg}.
+
+1. Изучите учебное пособие и практикум по ссылке:
+${safeCourseUrl}
+2. После изучения пройдите итоговое тестирование:
+${safeTestUrl}
+
+Рекомендуемый контрольный срок сдачи теста: до ${safeDate13} (предельный срок по ПП РФ № 2464 — до ${safeDate60}).
+
+С уважением, ${safeResp}.`;
+      }
+
+      if (tplBody2) {
+        tplBody2.innerHTML =
+`Здравствуйте, ${safeEmp}!
+
+Напоминаю, что до ${safeDate13} вам необходимо завершить изучение материалов и сдать итоговый тест по программе ${safeProg}.
+
+• Ссылка на учебные материалы: ${safeCourseUrl}
+• Прямая ссылка на итоговый тест: ${safeTestUrl}
+
+Пожалуйста, укажите при тестировании полные ФИО и должность. После сдачи сообщите для оформления записи в журнале.
+
+С уважением, ${safeResp}.`;
+      }
+
+      if (tplBody3) {
+        tplBody3.innerHTML =
+`Здравствуйте, ${safeEmp}!
+
+Ваш результат электронного тестирования по курсу ${safeProg} успешно зафиксирован в системе СДО.
+
+Для завершения процедуры допуска к самостоятельной работе (в соответствии с Постановлением Правительства РФ № 2464) прошу подойти для оформления личной подписи в журнале регистрации инструктажа / протоколе проверки знаний.
+
+С уважением, ${safeResp}.`;
+      }
+
+      if (tgShareBtn1 && tplBody1) {
+        tgShareBtn1.href = `https://t.me/share/url?url=${encodeURIComponent(prog.courseUrl)}&text=${encodeURIComponent(tplBody1.innerText)}`;
+      }
+      if (tgShareBtn2 && tplBody2) {
+        tgShareBtn2.href = `https://t.me/share/url?url=${encodeURIComponent(prog.testUrl)}&text=${encodeURIComponent(tplBody2.innerText)}`;
+      }
+      if (tgShareBtn3 && tplBody3) {
+        tgShareBtn3.href = `https://t.me/share/url?url=${encodeURIComponent( BASE_PORTAL_URL )}&text=${encodeURIComponent(tplBody3.innerText)}`;
+      }
+    }
+
+    function updateCalculatorAndTemplates() {
+      let baseDate = now;
+      if (hireDateInput && hireDateInput.value) {
+        const parts = hireDateInput.value.split('-');
+        if (parts.length === 3) {
+          baseDate = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+        }
+      }
+
+      currentWork13DateObj = addWorkingDays(baseDate, 13);
+      currentCal60DateObj = new Date(baseDate.getTime());
+      currentCal60DateObj.setDate(currentCal60DateObj.getDate() + 60);
+
+      formattedWork13Str = currentWork13DateObj.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+      formattedCal60Str = currentCal60DateObj.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      if (resWork13DateEl) resWork13DateEl.textContent = formattedWork13Str;
+      if (resCal60DateEl) resCal60DateEl.textContent = formattedCal60Str;
+
+      renderTemplates();
+    }
+
+    if (hireDateInput) {
+      hireDateInput.value = formatInputDate(now);
+      hireDateInput.addEventListener('change', updateCalculatorAndTemplates);
+    }
+
+    setTodayDateBtn?.addEventListener('click', () => {
+      if (hireDateInput) {
+        hireDateInput.value = formatInputDate(new Date());
+        updateCalculatorAndTemplates();
       }
     });
-  }, { threshold: 0.08 });
-  $$('.reveal-up').forEach(el => observer.observe(el));
 
-  /* ===== 12. Плавный скролл по якорям ===== */
-  document.addEventListener('click', (e) => {
-    const link = e.target.closest('a[href^="#"]');
-    if (!link) return;
-    const href = link.getAttribute('href');
-    if (href === '#') return; // «документы» — обрабатываются отдельно
-    const id = href.slice(1);
-    if (!id) return;
-    const target = document.getElementById(id);
-    if (!target) return;
-    e.preventDefault();
-    target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
-    history.replaceState(null, '', '#' + id);
+    exportWork13IcsBtn?.addEventListener('click', () => {
+      const emp = (afEmployeeName?.value || 'сотрудника').trim();
+      downloadIcsEvent(
+        currentWork13DateObj,
+        `СДО: Контрольный срок (+13 раб. дней) — ${emp}`,
+        'Внутренний контрольный рубеж проверки знаний и сдачи теста в СДО.',
+        'sdo-work13'
+      );
+    });
+
+    exportCal60IcsBtn?.addEventListener('click', () => {
+      const emp = (afEmployeeName?.value || 'сотрудника').trim();
+      downloadIcsEvent(
+        currentCal60DateObj,
+        `СДО: Предельный срок 60 дней (ПП № 2464) — ${emp}`,
+        'Крайний срок обучения по охране труда (п. 62 ПП РФ № 2464). При пропуске срока — отстранение от работы (ст. 76 ТК РФ).',
+        'sdo-legal60'
+      );
+    });
+
+    afEmployeeName?.addEventListener('input', renderTemplates);
+    afProgramSelect?.addEventListener('change', renderTemplates);
+    afResponsibleName?.addEventListener('input', renderTemplates);
+
+    updateCalculatorAndTemplates();
+
+    // Копирование текста шаблонов в буфер обмена
+    document.querySelectorAll('.btn-copy-tpl[data-copy-target]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-copy-target');
+        const targetEl = targetId ? document.getElementById(targetId) : null;
+        if (!targetEl) return;
+
+        const textToCopy = targetEl.innerText;
+        const labelSpan = btn.querySelector('span');
+        const originalLabel = labelSpan ? labelSpan.textContent : '📋 Скопировать текст';
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(textToCopy).then(() => {
+            btn.classList.add('copied');
+            if (labelSpan) labelSpan.textContent = '✅ Скопировано в буфер!';
+            setTimeout(() => {
+              btn.classList.remove('copied');
+              if (labelSpan) labelSpan.textContent = originalLabel;
+            }, 2200);
+          });
+        } else {
+          const tempArea = document.createElement('textarea');
+          tempArea.value = textToCopy;
+          document.body.appendChild(tempArea);
+          tempArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(tempArea);
+          btn.classList.add('copied');
+          if (labelSpan) labelSpan.textContent = '✅ Скопировано!';
+          setTimeout(() => {
+            btn.classList.remove('copied');
+            if (labelSpan) labelSpan.textContent = originalLabel;
+          }, 2200);
+        }
+      });
+    });
+
+    // === 6. КАРТОЧКИ «МИФ / РЕАЛЬНОСТЬ» — ПЕРЕВОРОТ ПО ТАПУ НА СМАРТФОНАХ И КЛАВИАТУРЕ ===
+    document.querySelectorAll('.flip-card').forEach(card => {
+      card.addEventListener('click', () => {
+        card.classList.toggle('is-flipped');
+      });
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.classList.toggle('is-flipped');
+        }
+      });
+    });
+
+    // === 7. МОДАЛЬНЫЕ ОКНА (Глобальный поиск Ctrl+K и Памятка ЧС 112) ===
+    const searchItems = [
+      { title: 'Главная страница СДО', tag: 'Дашборд', icon: '🏠', url: 'index.html' },
+      { title: 'Каталог всех программ обучения (9)', tag: 'Реестр', icon: '📚', url: 'programs.html' },
+      { title: 'Инструкции по прохождению обучения', tag: 'Регламент', icon: '📋', url: 'instructions.html' },
+      { title: 'Охрана труда (Комплексная программа)', tag: 'ПП № 2464', icon: '🛡️', url: 'course-ot.html' },
+      { title: 'Итоговый тест: Охрана труда (Вводный)', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/Test_OT_b/' },
+      { title: 'Итоговый тест: ОТ Программа А', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/Test_OT_Programm_A/' },
+      { title: 'Пожарная безопасность', tag: 'МЧС № 1120', icon: '🔥', url: 'course-fire-safety.html' },
+      { title: 'Итоговый тест: Пожарная безопасность', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/Test_-_-_b/' },
+      { title: 'Оказание первой помощи пострадавшим', tag: 'Минздрав 220н', icon: '🩹', url: 'course-first-aid.html' },
+      { title: 'Итоговый тест: Первая помощь', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/First_aid/' },
+      { title: 'Действия при угрозе атаки БПЛА', tag: 'ФЗ-35 / 68-ФЗ', icon: '🚁', url: 'course-bpla.html' },
+      { title: 'Итоговый тест: Действия при угрозе БПЛА', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/UAV_Threat_Test/' },
+      { title: 'ГО и защита от чрезвычайных ситуаций', tag: 'ФЗ № 28', icon: '📢', url: 'course-gochs.html' },
+      { title: 'Итоговый тест: ГО и ЧС', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/GO_ChS_Test/' },
+      { title: 'Электробезопасность (I–V группы)', tag: 'Приказ № 903н', icon: '⚡', url: 'course-electrical-safety.html' },
+      { title: 'Итоговый тест: Электробезопасность', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/Electrical_Safety_Test/' },
+      { title: 'Гигиеническое обучение (Санминимум)', tag: 'СанПиН', icon: '🧼', url: 'course-hygiene.html' },
+      { title: 'Итоговый тест: Гигиеническое обучение', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/hygiene-training/' },
+      { title: 'Наставничество и адаптация', tag: 'Сервис', icon: '🛎️', url: 'course-mentorship.html' },
+      { title: 'Итоговый тест: Наставничество', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/mentoring-quiz/' },
+      { title: 'Управление конфликтами', tag: 'Психология', icon: '🧠', url: 'course-conflict.html' },
+      { title: 'Итоговый тест: Управление конфликтами', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/conflict-management/' }
+    ];
+
+    const searchModal = document.getElementById('searchModal');
+    const modalSearchInput = document.getElementById('searchModalInput');
+    const searchResultsList = document.getElementById('searchResultsList');
+    const sosModal = document.getElementById('sosModal');
+
+    let previousFocus = null;
+    let activeModal = null;
+
+    function getFocusable(modal) {
+      return Array.from(modal.querySelectorAll(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      ));
+    }
+
+    function trapFocusHandler(e) {
+      if (e.key !== 'Tab' || !activeModal) return;
+      const focusable = getFocusable(activeModal);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    }
+
+    function openModal(modal, focusTarget) {
+      closeHeaderPopovers();
+      previousFocus = document.activeElement;
+      activeModal = modal;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.addEventListener('keydown', trapFocusHandler, true);
+      setTimeout(() => {
+        const target = focusTarget || getFocusable(modal)[0];
+        if (target) target.focus();
+      }, 60);
+    }
+
+    function closeModal(modal) {
+      if (!modal.classList.contains('open')) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.removeEventListener('keydown', trapFocusHandler, true);
+      if (activeModal === modal) activeModal = null;
+      if (previousFocus && typeof previousFocus.focus === 'function') {
+        previousFocus.focus();
+        previousFocus = null;
+      }
+    }
+
+    function renderSearchModalList(query = '') {
+      if (!searchResultsList) return;
+      const q = query.toLowerCase().trim();
+      const filtered = searchItems.filter(i => i.title.toLowerCase().includes(q) || i.tag.toLowerCase().includes(q));
+      if (filtered.length === 0) {
+        searchResultsList.innerHTML = '';
+        const msg = document.createElement('div');
+        msg.style.cssText = 'padding: 24px; text-align: center; color: #64748b;';
+        msg.textContent = `Ничего не найдено по запросу «${query}»`;
+        searchResultsList.appendChild(msg);
+        return;
+      }
+      searchResultsList.innerHTML = filtered.map(i => {
+        const isExternal = i.url.startsWith('http');
+        const extAttr = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
+        return `
+          <a href="${i.url}" class="search-result-item" ${extAttr}>
+            <div class="sri-left">
+              <span style="font-size: 1.25rem;" aria-hidden="true">${i.icon}</span>
+              <span>${i.title}</span>
+            </div>
+            <span class="sri-tag">${i.tag}</span>
+          </a>
+        `;
+      }).join('');
+    }
+
+    function openSearchModal(initialText = '') {
+      openModal(searchModal, modalSearchInput);
+      modalSearchInput.value = initialText;
+      renderSearchModalList(initialText);
+    }
+
+    function closeSearchModalFn() {
+      closeModal(searchModal);
+    }
+
+    function openSosModal() {
+      openModal(sosModal, document.getElementById('closeSosModal'));
+    }
+
+    function closeSosModalFn() {
+      closeModal(sosModal);
+    }
+
+    document.getElementById('qHeaderSearchBtn')?.addEventListener('click', () => openSearchModal(''));
+    document.getElementById('mobSearchBtn')?.addEventListener('click', () => openSearchModal(''));
+    document.getElementById('closeSearchModal')?.addEventListener('click', closeSearchModalFn);
+    searchModal?.addEventListener('click', (e) => { if (e.target === searchModal) closeSearchModalFn(); });
+    modalSearchInput?.addEventListener('input', (e) => renderSearchModalList(e.target.value));
+
+    document.getElementById('qHeaderSosBtn')?.addEventListener('click', openSosModal);
+    document.getElementById('mobSosBtn')?.addEventListener('click', openSosModal);
+    document.getElementById('closeSosModal')?.addEventListener('click', closeSosModalFn);
+    sosModal?.addEventListener('click', (e) => { if (e.target === sosModal) closeSosModalFn(); });
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (searchModal.classList.contains('open')) closeSearchModalFn();
+        else openSearchModal('');
+      }
+      if (e.key === 'Escape') {
+        closeHeaderPopovers();
+        if (searchModal.classList.contains('open')) closeSearchModalFn();
+        if (sosModal.classList.contains('open')) closeSosModalFn();
+      }
+    });
+
+    const voiceBtn = document.getElementById('voiceSearchBtn');
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition && voiceBtn) {
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'ru-RU';
+      recognition.interimResults = false;
+      voiceBtn.addEventListener('click', () => {
+        try {
+          recognition.start();
+          voiceBtn.classList.add('listening');
+        } catch (err) {}
+      });
+      recognition.onresult = (e) => {
+        const text = e.results[0][0].transcript;
+        voiceBtn.classList.remove('listening');
+        modalSearchInput.value = text;
+        renderSearchModalList(text);
+      };
+      recognition.onerror = () => voiceBtn.classList.remove('listening');
+      recognition.onend = () => voiceBtn.classList.remove('listening');
+    } else if (voiceBtn) {
+      voiceBtn.style.display = 'none';
+    }
   });
-
-})();
 </script>
 
 </body>
