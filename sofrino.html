@@ -111,7 +111,6 @@
     }
     #stars-container { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; }
     
-    /* Более живые звезды */
     .star {
       position: absolute; background: #fff; border-radius: 50%;
       animation: twinkle var(--duration) infinite ease-in-out, breathe var(--breathe-duration) infinite alternate;
@@ -127,7 +126,6 @@
       100% { transform: scale(1.5); }
     }
 
-    /* Метеориты (Звездопад) */
     .shooting-star {
       position: absolute;
       top: -10%;
@@ -150,14 +148,19 @@
 
     .solar-system { position: relative; width: 240px; height: 240px; display: flex; justify-content: center; align-items: center; z-index: 10; }
     
-    /* Увеличенный логотип прелоадера */
+    /* ИСПРАВЛЕНО: Анимация для iOS/Android через псевдоэлемент и transform */
     .planet-logo { 
       width: 170px; 
       height: auto; 
       z-index: 10; 
       object-fit: contain; 
-      filter: drop-shadow(0 0 40px rgba(0, 255, 204, 0.7)); 
       animation: floatPlanet 4s infinite ease-in-out; 
+      will-change: transform; /* Принудительно на GPU */
+    }
+    
+    @keyframes floatPlanet {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.05); }
     }
 
     .orbit { position: absolute; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.08); display: flex; justify-content: center; align-items: center; pointer-events: none; box-shadow: inset 0 0 10px rgba(255,255,255,0.02); }
@@ -175,10 +178,6 @@
 
     @keyframes pulseText { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
     @keyframes orbitSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    @keyframes floatPlanet {
-      0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 30px rgba(0,255,204,0.6)); }
-      50% { transform: translateY(-10px) scale(1.05); filter: drop-shadow(0 0 60px rgba(0,255,204,1)); }
-    }
 
     /* === 3. ШАПКА === */
     .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.75); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-bottom: 1px solid rgba(255,255,255,0.5); padding: 12px 0; box-shadow: 0 4px 30px rgba(0,0,0,0.03); }
@@ -198,9 +197,9 @@
       flex-shrink: 0;
     }
     .logo-wrap img { 
-      height: 120px; /* Увеличен в 2 раза */
+      height: 160px; /* Увеличен до максимума */
       width: auto; 
-      max-width: 250px;
+      min-width: 160px;
       display: block;
       object-fit: contain;
       object-position: left center;
@@ -228,76 +227,70 @@
     .hud-dot { width: 6px; height: 6px; background: #10B981; border-radius: 50%; box-shadow: 0 0 6px #10B981; animation: blink 1s infinite; }
     @keyframes blink { 50% { opacity: 0.4; } }
 
-    /* Инновационные кнопки */
+    /* === ИННОВАЦИОННЫЕ СТЕКЛЯННЫЕ КНОПКИ === */
     .actions { display: flex; gap: 16px; align-items: center; }
     
-    .btn-neon {
+    .btn-glass {
       position: relative;
       display: flex;
       align-items: center;
       gap: 14px;
       padding: 0 24px;
-      height: 48px;
-      border-radius: 14px;
-      background: #0f172a;
-      color: #fff;
+      height: 52px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      color: #0f172a;
       text-decoration: none;
       overflow: hidden;
-      box-shadow: 0 8px 25px rgba(15, 23, 42, 0.3), inset 0 0 0 1px rgba(255,255,255,0.1);
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.07), inset 0 0 0 1px rgba(255,255,255,0.5);
       transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
       z-index: 1;
     }
     
-    .btn-neon::before {
+    /* Градиентная заливка при наведении */
+    .btn-glass::before {
       content: '';
       position: absolute;
-      inset: -2px;
-      background: linear-gradient(45deg, #00d2ff, #7C3AED, #00d2ff);
-      background-size: 200% 200%;
-      z-index: -2;
-      animation: gradientFlow 4s linear infinite;
-      border-radius: 16px;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0, 150, 136, 0.1), rgba(37, 99, 235, 0.1));
       opacity: 0;
       transition: opacity 0.4s;
-    }
-    
-    .btn-neon::after {
-      content: '';
-      position: absolute;
-      inset: 1px;
-      background: #0f172a;
-      border-radius: 13px;
       z-index: -1;
-      transition: background 0.4s;
     }
 
-    .btn-neon:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 15px 35px rgba(0, 210, 255, 0.4);
+    .btn-glass:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 15px 35px rgba(0, 150, 136, 0.2), inset 0 0 0 1px rgba(255,255,255,0.9);
+      background: rgba(255, 255, 255, 0.6);
     }
-    .btn-neon:hover::before { opacity: 1; }
-    .btn-neon:hover::after { background: #1e293b; }
+    .btn-glass:hover::before { opacity: 1; }
+    .btn-glass:hover .btn-ico { transform: scale(1.2) rotate(5deg); }
 
-    .btn-neon .btn-ico { font-size: 1.4rem; transition: transform 0.3s; }
-    .btn-neon:hover .btn-ico { transform: scale(1.2) rotate(5deg); }
-
-    .btn-site-neon {
-      background: #fff;
-      color: #0f172a;
-      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.15), inset 0 0 0 1px rgba(37, 99, 235, 0.1);
+    .btn-glass .btn-ico { 
+      font-size: 1.5rem; 
+      transition: transform 0.3s;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
     }
-    .btn-site-neon::after { background: #fff; }
-    .btn-site-neon:hover { box-shadow: 0 15px 35px rgba(255, 0, 128, 0.3); }
-    .btn-site-neon:hover::after { background: #f8fafc; }
     
     .btn-col { display: flex; flex-direction: column; line-height: 1.2; text-align: left; }
-    .btn-t1 { font-size: 0.9rem; font-weight: 800; }
-    .btn-t2 { font-size: 0.65rem; opacity: 0.7; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+    .btn-t1 { font-size: 0.95rem; font-weight: 800; color: #0f172a; }
+    .btn-t2 { font-size: 0.7rem; opacity: 0.7; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; color: #475569; }
+
+    @media (max-width: 900px) {
+      .logo-wrap img { height: 100px; min-width: 100px; }
+      .brand-txt h1 { font-size: 1.2rem; }
+      .btn-glass { padding: 0 16px; height: 44px; gap: 10px; }
+      .btn-t1 { font-size: 0.85rem; }
+      .btn-t2 { font-size: 0.6rem; }
+    }
 
     @media (max-width: 768px) {
-      .logo-wrap img { height: 90px; max-width: 180px; }
-      .brand-txt h1 { font-size: 1.2rem; }
-      .btn-neon { padding: 0; width: 48px; justify-content: center; }
+      .logo-wrap img { height: 80px; min-width: 80px; }
+      .brand-txt h1 { font-size: 1.1rem; }
+      .btn-glass { padding: 0; width: 48px; height: 48px; justify-content: center; border-radius: 14px; }
       .btn-col { display: none; }
       .actions { gap: 10px; }
       .brand-meta span:first-child { display: none; }
@@ -317,7 +310,6 @@
     }
     @keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-    /* Эффект «Маяк» */
     .hero h2 {
       font-size: clamp(2rem, 6vw, 3.8rem);
       font-weight: 900;
@@ -579,7 +571,6 @@
 
     /* Hover-эффекты только для мыши */
     @media (hover: hover) {
-      .btn-neon:hover { transform: translateY(-3px) scale(1.02); }
       .chip:hover { background: #fff; color: var(--c-green); box-shadow: 0 5px 15px rgba(0, 150, 136, 0.15); border-color: var(--c-green); }
       .folder:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); border-color: #fff; }
       .f-head:hover { background: rgba(255,255,255,0.4); }
@@ -597,7 +588,7 @@
       .file:active { background: #fff; border-left-color: var(--c-green); }
       .chip:active { background: #fff; color: var(--c-green); border-color: var(--c-green); }
       .folder:active { box-shadow: 0 15px 30px -10px rgba(0,0,0,0.1); }
-      .btn-neon:active { transform: scale(0.98); }
+      .btn-glass:active { transform: scale(0.96); background: rgba(255,255,255,0.8); }
       .tool-btn:active { background: rgba(255,255,255,0.35); }
       .f-head:active, .sub-head:active { background: rgba(0,0,0,0.03); }
     }
@@ -612,7 +603,8 @@
       .folder.active.orange .f-icon { animation: iconPulse 2s infinite; }
       .folder.active.blue .f-icon { animation: iconPulse 2s infinite; }
       .folder.active.purple .f-icon { animation: iconPulse 2s infinite; }
-      .planet-logo { animation: none; }
+      /* Убираем filter: drop-shadow на мобильных для прелоадера, оставляем только transform */
+      .planet-logo { animation: floatPlanet 4s infinite ease-in-out; }
       .cursor { display: none; }
       .pdf-toolbar { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
     }
@@ -652,6 +644,7 @@
   <header class="header">
     <div class="container nav">
       <div class="brand">
+        <!-- Огромный логотип с блеском -->
         <div class="logo-wrap">
           <img src="assets/Logo_Sofrino.png" alt="Логотип Софрино Парк">
         </div>
@@ -666,13 +659,12 @@
         </div>
       </div>
       <div class="actions">
-        <!-- Инновационная кнопка СДО -->
-        <a href="index.html" class="btn-neon" title="Перейти в Учебный Портал СДО">
+        <!-- Стеклянные кнопки -->
+        <a href="index.html" class="btn-glass" title="Перейти в Учебный Портал СДО">
           <span class="btn-ico" aria-hidden="true">🎓</span>
           <div class="btn-col"><span class="btn-t1">Учебный Портал</span><span class="btn-t2">СДО</span></div>
         </a>
-        <!-- Инновационная кнопка Сайта -->
-        <a href="https://sofrino-park.com/" target="_blank" rel="noopener noreferrer" class="btn-neon btn-site-neon" title="Официальный сайт Софрино Парк">
+        <a href="https://sofrino-park.com/" target="_blank" rel="noopener noreferrer" class="btn-glass" title="Официальный сайт Софрино Парк">
           <span class="btn-ico" aria-hidden="true">🌐</span>
           <div class="btn-col"><span class="btn-t1">Софрино Парк</span><span class="btn-t2">Официальный Сайт</span></div>
         </a>
@@ -686,7 +678,6 @@
       <h2>Документационный центр</h2>
       <p>Все документы по охране труда в одном месте: приказы, положения, СОУТ. Быстрый поиск и просмотр онлайн.</p>
       
-      <!-- Поиск обернут в форму для поддержки Enter -->
       <form class="search-form" onsubmit="event.preventDefault(); triggerSearch();">
         <div class="search-wrap">
           <div class="search-icon" aria-hidden="true">🔍</div>
@@ -990,8 +981,6 @@
         preloader.style.visibility = 'hidden';
       }
       startTypewriter();
-      
-      // Запуск логики кнопки MAX после прелоадера
       setTimeout(initMaxFab, 1000);
     }
 
@@ -1013,7 +1002,6 @@
           sc.appendChild(star);
         }
 
-        // Добавляем метеориты в прелоадер
         for (let i = 0; i < 6; i++) {
           const meteor = document.createElement('div');
           meteor.className = 'shooting-star';
@@ -1024,11 +1012,9 @@
           sc.appendChild(meteor);
         }
       }
-      // Увеличенное время прелоадера (4 секунды)
       setTimeout(finishPreloader, prefersReducedMotion ? 300 : 4000);
     });
 
-    // Страховка на случай долгой загрузки
     setTimeout(finishPreloader, 5000);
 
     setTimeout(() => {
@@ -1100,7 +1086,6 @@
       let visibleCount = 0;
       let firstMatch = null;
 
-      // Сброс подсветки
       document.querySelectorAll('.folder').forEach(f => f.classList.remove('highlight'));
 
       files.forEach(file => {
@@ -1147,7 +1132,6 @@
         searchEmpty.classList.remove('visible');
       }
 
-      // Если нашли совпадение, скроллим к нему
       if (query !== "" && firstMatch) {
         setTimeout(() => {
           firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1157,13 +1141,8 @@
       }
     }
 
-    // Обработка ввода (с задержкой)
     searchInput.addEventListener('input', debounce(performSearch, 200));
-    
-    // Обработка нажатия Enter (мгновенно)
-    window.triggerSearch = function() {
-      performSearch();
-    };
+    window.triggerSearch = function() { performSearch(); };
 
     function filterDocs(type, btn) {
       document.querySelectorAll('.chip').forEach(c => {
@@ -1220,7 +1199,6 @@
     function initMaxFab() {
         if (window.innerWidth > 768) return;
         
-        // Показываем на 30 секунд при загрузке
         if (!maxFabUserClosed) {
             maxFab.classList.add('is-expanded');
             maxFabInitialShowEndTime = Date.now() + 30000; // 30 секунд
@@ -1233,13 +1211,11 @@
             }, 30000);
         }
 
-        // Закрываем по клику навсегда
         maxFab.addEventListener('click', () => {
             maxFabUserClosed = true;
             maxFab.classList.remove('is-expanded');
         });
 
-        // Отслеживаем скролл
         window.addEventListener('scroll', () => {
             if (maxFabUserClosed) return;
             const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50;
@@ -1247,7 +1223,6 @@
             if (isAtBottom) {
                 maxFab.classList.add('is-expanded');
             } else {
-                // Если 30 секунд уже прошли и мы не внизу - прячем
                 if (Date.now() > maxFabInitialShowEndTime) {
                     maxFab.classList.remove('is-expanded');
                 }
