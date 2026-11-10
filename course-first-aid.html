@@ -71,13 +71,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Merriweather:ital,wght@1,700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 
   <!-- PDF.js: defer + crossorigin (SRI — требуется добавить перед прод-релизом) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
 
   <!-- React-тренажёр: Tailwind CDN + importmap + Babel (требуется предкомпиляция в прод) -->
-  <script src="https://cdn.tailwindcss.com" crossorigin="anonymous"></script>
-  <script>
-    tailwind.config = { corePlugins: { preflight: false } };
-  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { corePlugins: { preflight: false } };
+</script>
   <script type="importmap">
     {
       "imports": {
@@ -87,7 +87,7 @@
       }
     }
   </script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <style>
     :root {
