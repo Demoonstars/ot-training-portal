@@ -9,6 +9,19 @@
   <!-- ИСПРАВЛЕНИЕ ОШИБКИ 404 (Favicon) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩹</text></svg>">
 
+  <!-- Фильтр предупреждений в консоли (Tailwind и Babel) -->
+  <script>
+    (function() {
+      const originalWarn = console.warn;
+      console.warn = function(...args) {
+        if (args[0] && typeof args[0] === 'string') {
+          if (args[0].includes('cdn.tailwindcss.com') || args[0].includes('babel.min.js')) return;
+        }
+        originalWarn.apply(console, args);
+      };
+    })();
+  </script>
+
   <!-- Канонический URL и Open Graph -->
   <link rel="canonical" href="https://demoonstars.github.io/ot-training-portal/course-first-aid.html">
   <meta property="og:type" content="article">
@@ -30,11 +43,11 @@
     }
   </script>
 
-  <!-- Зависимости для React-тренажера (Tailwind, React, Babel) -->
+  <!-- Зависимости для React-тренажера -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      corePlugins: { preflight: false } // Отключаем глобальный сброс Tailwind, чтобы не сломать стили сайта
+      corePlugins: { preflight: false } // Отключаем глобальный сброс Tailwind
     }
   </script>
   <script type="importmap">
@@ -102,7 +115,7 @@
       transform: translateY(0);
     }
 
-    /* === 2. ШАПКА === */
+    /* === 2. ШАПКА (ИСПРАВЛЕНА ГЕОМЕТРИЯ) === */
     .site-header.quantum-header {
       position: sticky;
       top: 0;
@@ -126,7 +139,7 @@
       flex-wrap: nowrap !important;
       align-items: center !important;
       justify-content: space-between !important;
-      gap: 10px !important;
+      gap: 15px !important; /* Отступы между блоками */
       box-sizing: border-box !important;
       transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -172,7 +185,8 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-left: 0 !important;
+      margin-left: auto; /* Прижимаем вправо, но перед навигацией */
+      margin-right: 15px;
       white-space: nowrap;
       flex-shrink: 1;
       min-width: 0;
@@ -186,12 +200,12 @@
     }
 
     .site-header.quantum-header .main-nav {
-      flex: 1 1 auto;
       display: flex;
       justify-content: center;
       align-items: center;
       min-width: 0;
       position: relative;
+      flex-shrink: 0;
     }
 
     .site-header.quantum-header .nav-list {
@@ -752,7 +766,7 @@
       line-height: 1.55;
     }
 
-    /* === 7. НЕЙРО-ЧИТАЛКА PDF === */
+    /* === 7. НЕЙРО-ЧИТАЛКА PDF (ИСПРАВЛЕНА) === */
     .reader-section {
       background: rgba(255, 255, 255, 0.94);
       border: 1px solid #e2e8f0;
@@ -795,6 +809,7 @@
       align-items: center;
       gap: 8px;
       flex-wrap: wrap;
+      pointer-events: auto; /* Гарантируем кликабельность */
     }
 
     .r-btn {
@@ -813,6 +828,8 @@
       justify-content: center;
       gap: 6px;
       transition: all 0.2s;
+      pointer-events: auto; /* Гарантируем кликабельность на мобилках */
+      -webkit-tap-highlight-color: transparent;
     }
     .r-btn:hover:not(:disabled) {
       border-color: #e11d48;
@@ -846,7 +863,7 @@
       position: relative;
       overflow: auto;
       padding: 16px;
-      touch-action: pan-y pinch-zoom;
+      touch-action: pan-x pan-y; /* Убираем конфликт с pinch-zoom */
     }
 
     #pdf-render-canvas {
@@ -857,8 +874,9 @@
       background: #ffffff;
       transition: filter 0.25s ease;
     }
-    #pdf-render-canvas.filter-sepia { filter: sepia(0.38) contrast(0.95); }
-    #pdf-render-canvas.filter-invert { filter: invert(0.9) hue-rotate(180deg); }
+    /* Жесткое применение фильтров */
+    #pdf-render-canvas.filter-sepia { filter: sepia(0.38) contrast(0.95) !important; }
+    #pdf-render-canvas.filter-invert { filter: invert(0.9) hue-rotate(180deg) !important; }
 
     /* === 8. КАРТОЧКИ «МИФ / РЕАЛЬНОСТЬ» === */
     .flip-section-title {
@@ -1317,7 +1335,6 @@
           <a href="#cpr-simulator" class="hero-pill-link">❤️ Тренажёр СЛР (30:2)</a>
           <a href="#emergency-algorithms" class="hero-pill-link">🩸 Алгоритмы помощи</a>
           <a href="#materials" class="hero-pill-link">📖 Читать конспект PDF</a>
-          <!-- НОВАЯ ССЫЛКА НА СИМУЛЯТОР -->
           <a href="#ar-simulator" class="hero-pill-link" style="border-color: #0ea5e9; color: #0284c7;">🚑 AR-Симулятор (30 сценариев)</a>
           <a href="#test-gate" class="hero-pill-link primary-pill">🎯 Перейти к тесту ➔</a>
         </div>
@@ -1455,7 +1472,7 @@
         </div>
       </section>
 
-      <!-- 5. REACT AR-СИМУЛЯТОР (НОВЫЙ БЛОК) -->
+      <!-- 5. REACT AR-СИМУЛЯТОР -->
       <section class="reveal-up" id="ar-simulator" data-radar-title="🚑 AR-Симулятор" aria-label="Интерактивный тренажер спасения">
         <div style="text-align: center; margin-bottom: 30px;">
           <span class="course-badge" style="background: #e0f2fe; color: #0284c7; border-color: #bae6fd; padding: 8px 16px; font-size: 0.9rem;">
@@ -1897,6 +1914,12 @@
           canvas.style.display = 'block';
           if (pdfStatusBox) pdfStatusBox.style.display = 'none';
           if (pageInput) pageInput.value = num;
+          
+          // Обновляем текст на кнопке сброса масштаба
+          if (zoomResetBtn) {
+            zoomResetBtn.textContent = `${Math.round(scale * 100)}%`;
+          }
+
           if (pageNumPending !== null) { renderPage(pageNumPending); pageNumPending = null; }
           try { localStorage.setItem(PDF_STORAGE_KEY, String(num)); if (readerSavedStatus) readerSavedStatus.textContent = `💾 Стр. ${num} сохранена`; } catch (e) {}
         }).catch((err) => {
@@ -1925,9 +1948,11 @@
       if (isNaN(val)) val = 1; if (val < 1) val = 1; if (val > pdfDoc.numPages) val = pdfDoc.numPages;
       pageNum = val; queueRenderPage(pageNum);
     });
+    
     zoomInBtn?.addEventListener('click', () => { if (scale < 2.4) { scale += 0.2; queueRenderPage(pageNum); } });
     zoomOutBtn?.addEventListener('click', () => { if (scale > 0.8) { scale -= 0.2; queueRenderPage(pageNum); } });
     zoomResetBtn?.addEventListener('click', () => { scale = 1.25; queueRenderPage(pageNum); });
+    
     filterBtn?.addEventListener('click', () => {
       currentFilterMode = (currentFilterMode + 1) % 3;
       canvas.classList.remove('filter-sepia', 'filter-invert');
@@ -2060,7 +2085,7 @@
 </script>
 
 <!-- =======================================================================
-     REACT AR-СИМУЛЯТОР (30 СЦЕНАРИЕВ)
+     REACT AR-СИМУЛЯТОР (30 СЦЕНАРИЕВ, 30 КОМПРЕССИЙ)
      ======================================================================= -->
 <script type="text/babel" data-type="module">
   import React, { useState, useEffect } from 'react';
@@ -2368,7 +2393,9 @@
     const [hasUsedCPR, setHasUsedCPR] = useState(false);
     const [cprClicks, setCprClicks] = useState(0);
     const [cprTimeLeft, setCprTimeLeft] = useState(8);
-    const CPR_TARGET = 15; 
+    
+    // ИСПРАВЛЕНО: 30 КОМПРЕССИЙ
+    const CPR_TARGET = 30; 
 
     const isAdrenaline = gameState === 'playing' && !feedback && timeLeft <= 8;
 
