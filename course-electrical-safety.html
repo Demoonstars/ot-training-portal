@@ -2,129 +2,595 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>СДО | Электробезопасность</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Обучение по электробезопасности. Инструктаж на I группу, подготовка на II-V группы допуска.">
+  <title>СДО | Электробезопасность (Приказ № 903н ПОТЭУ)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Обучение по электробезопасности по Приказу Минтруда № 903н (ПОТЭУ) и Приказу Минэнерго № 811 (ПТЭЭП). Инструктаж на I группу, подготовка на II–V группы допуска и интерактивный тренажёр.">
+  <meta name="theme-color" content="#eab308">
 
-  <!--
-    БЛОК: Канонический URL и мета-теги Open Graph.
-    ЗА ЧТО ОТВЕЧАЕТ: Индексация страницы курса и корректное превью при пересылке ссылки в мессенджерах.
-    ПОЧЕМУ БЕЗОПАСНО: Мета-теги в <head> не влияют на верстку и работу скриптов.
-  -->
+  <!-- Favicon (SVG data URI) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <!-- Канонический URL, Open Graph, Twitter -->
   <link rel="canonical" href="https://demoonstars.github.io/ot-training-portal/course-electrical-safety.html">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="СДО | Электробезопасность">
-  <meta property="og:description" content="Обучение по электробезопасности. Инструктаж на I группу, подготовка на II-V группы допуска.">
+  <meta property="og:title" content="СДО | Электробезопасность (I–V группы допуска)">
+  <meta property="og:description" content="Обучение по электробезопасности: инструктаж на I группу, программы подготовки на II–V группы допуска, тренажёр 5 технических мероприятий ПОТЭУ и итоговый тест.">
   <meta property="og:url" content="https://demoonstars.github.io/ot-training-portal/course-electrical-safety.html">
   <meta property="og:locale" content="ru_RU">
+  <meta property="og:image" content="https://demoonstars.github.io/ot-training-portal/assets/og-electrical.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Курс «Электробезопасность» — СДО">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="СДО | Электробезопасность (Приказ № 903н)">
+  <meta name="twitter:description" content="Инструктаж на I группу, подготовка на II–V группы допуска и тренажёр ПОТЭУ.">
+  <meta name="twitter:image" content="https://demoonstars.github.io/ot-training-portal/assets/og-electrical.jpg">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Обучение по электробезопасности (I–V группы допуска)",
+    "description": "Подготовка электротехнического и неэлектротехнического персонала к проверке знаний норм и правил работы в электроустановках (Приказ Минтруда № 903н ПОТЭУ, Приказ Минэнерго № 811 ПТЭЭП).",
+    "inLanguage": "ru-RU",
+    "url": "https://demoonstars.github.io/ot-training-portal/course-electrical-safety.html",
+    "provider": {
+      "@type": "Organization",
+      "name": "Служба Охраны Труда",
+      "url": "https://demoonstars.github.io/ot-training-portal/"
+    },
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "courseMode": "online",
+      "courseWorkload": "PT4H"
+    },
+    "educationalLevel": "Basic",
+    "teaches": "Инструктаж на I группу по электробезопасности, подготовка на II-V группы, технические мероприятия со снятием напряжения, защита от шагового напряжения"
+  }
+  </script>
 
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Merriweather:ital,wght@1,700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* === ТЕМА: ЭЛЕКТРИЧЕСТВО (Желтый/Янтарный) === */
+    :root {
+      --primary: #ca8a04;
+      --primary-hover: #a16207;
+      --primary-glow: rgba(234, 179, 8, 0.35);
+      --emerald: #10b981;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-600: #475569;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    /* === 0. SKIP-LINK === */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 16px;
+      z-index: 10001;
+      padding: 12px 20px;
+      background: #0f172a;
+      color: #ffffff;
+      border-radius: 10px;
+      font-weight: 700;
+      font-family: inherit;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.35);
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus,
+    .skip-link:focus-visible {
+      top: 12px;
+      outline: 2px solid #eab308;
+      outline-offset: 2px;
+    }
+
+    /* === 1. ТЕМА: ЭЛЕКТРИЧЕСТВО (Желтый/Янтарный) И ПРОГРЕСС-БАР === */
     body.masterpiece-theme {
-      background: linear-gradient(-45deg, #fefce8, #fff7ed, #fefce8, #fff);
+      background: linear-gradient(-45deg, #fefce8, #fff7ed, #fef9c3, #ffffff);
       background-size: 400% 400%;
       animation: gradientBG 15s ease infinite;
       min-height: 100vh;
+      min-height: 100dvh;
+      position: relative;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+      color: var(--slate-800);
     }
+    @supports (overflow-x: clip) {
+      body.masterpiece-theme { overflow-x: clip; }
+    }
+
     @keyframes gradientBG {
-      0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; }
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    /*
-     * БЛОК: Защитная анимация появления секций (.reveal-up).
-     * ЗА ЧТО ОТВЕЧАЕТ: Скрывает элементы до прокрутки только при активном JS (класс .js-loaded на <body>).
-     * ПОЧЕМУ БЕЗОПАСНО: Гарантирует видимость контента, если JS отключен или заблокирован.
-     */
-    .reveal-up { opacity: 1 !important; transform: none !important; }
-    .js-loaded .reveal-up { opacity: 0 !important; transform: translateY(30px) !important; }
-    .js-loaded .reveal-up.visible { opacity: 1 !important; transform: translateY(0) !important; transition: 0.6s ease-out; }
+    .scroll-progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3.5px; width: 0%;
+      background: linear-gradient(90deg, #eab308, #f59e0b, #10b981);
+      z-index: 9999;
+      transition: width 0.1s ease-out;
+      box-shadow: 0 0 12px rgba(234, 179, 8, 0.6);
+    }
 
-    /* === LMS LAYOUT === */
+    .reveal-up {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .js-loaded .reveal-up {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    .js-loaded .reveal-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* === 2. ГЛОБАЛЬНЫЕ УТИЛИТЫ === */
+    button, a, [role="button"], .q-cmd-btn, .q-passport-btn, .q-app-btn,
+    .btn-start-big, .btn-prog-link, .npa-link, .poteu-step-btn, .poteu-reset-btn,
+    .volt-tab-btn, .to-top-btn, .modal-close, .voice-mic-btn, .mob-nav-item, .call-112-btn, .toast-close {
+      touch-action: manipulation;
+    }
+
+    /* === 3. ШАПКА QUANTUM COMMAND BAR V2.0 === */
+    .site-header.quantum-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+      padding: 10px 0;
+      transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .site-header.quantum-header .header-inner {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 15px !important;
+      box-sizing: border-box !important;
+      transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .site-header.quantum-header .header-brand {
+      display: flex; align-items: center; gap: 10px;
+      flex-shrink: 0; min-width: 0;
+    }
+    .site-header.quantum-header .brand-logo {
+      width: 38px; height: 38px; flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+    .site-header.quantum-header .site-title-mini {
+      font-size: 1.05rem; font-weight: 800; margin: 0;
+      line-height: 1.1; color: #0f172a; white-space: nowrap;
+    }
+    .site-header.quantum-header .site-subtitle-mini {
+      font-size: 0.7rem; color: #64748b; margin: 2px 0 0;
+      white-space: nowrap; max-width: 185px;
+      overflow: hidden; text-overflow: ellipsis;
+    }
+    .site-header.quantum-header .header-meta {
+      font-size: 0.72rem; color: #64748b; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+      margin-left: auto; margin-right: 10px; white-space: nowrap;
+      flex-shrink: 1; min-width: 0;
+    }
+    @media (max-width: 1260px) {
+      .site-header.quantum-header .header-meta,
+      .site-header.quantum-header .site-subtitle-mini { display: none !important; }
+    }
+
+    .site-header.quantum-header .main-nav {
+      display: flex; justify-content: center; align-items: center;
+      min-width: 0; position: relative; flex-shrink: 0;
+    }
+    .site-header.quantum-header .nav-list {
+      display: flex; align-items: center; gap: 4px; list-style: none;
+      margin: 0; padding: 4px; position: relative; border-radius: 14px;
+      background: rgba(241, 245, 249, 0.7);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+    .site-header.quantum-header .nav-link {
+      font-size: 0.86rem; font-weight: 600; color: #475569;
+      padding: 7px 12px; border-radius: 10px; white-space: nowrap;
+      position: relative; z-index: 2;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .site-header.quantum-header .nav-link:hover {
+        color: #b45309; background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+      }
+    }
+    .site-header.quantum-header .nav-link.active,
+    .site-header.quantum-header .nav-link-active {
+      color: #b45309; background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+    }
+
+    .q-nav-glider {
+      position: absolute; top: 4px; left: 0;
+      height: calc(100% - 8px); border-radius: 10px;
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.18), rgba(245, 158, 11, 0.12));
+      border: 1px solid rgba(234, 179, 8, 0.35);
+      pointer-events: none; z-index: 1; opacity: 0;
+      will-change: transform, width;
+      transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), width 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+    }
+
+    .q-context-radar {
+      display: none; align-items: center; gap: 7px;
+      padding: 5px 11px; border-radius: 99px;
+      background: linear-gradient(90deg, rgba(234, 179, 8, 0.14), rgba(16, 185, 129, 0.09));
+      border: 1px solid rgba(234, 179, 8, 0.35);
+      font-size: 0.75rem; font-weight: 700; color: #0f172a;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .q-radar-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #eab308; box-shadow: 0 0 8px #eab308; flex-shrink: 0;
+    }
+    .q-radar-section {
+      color: #a16207; max-width: 170px;
+      overflow: hidden; text-overflow: ellipsis;
+    }
+
+    .q-header-actions {
+      display: flex; align-items: center; gap: 6px;
+      flex-shrink: 0; position: relative;
+    }
+    .q-cmd-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      height: 36px; padding: 0 10px; border-radius: 99px;
+      border: 1px solid rgba(203, 213, 225, 0.85);
+      background: rgba(255, 255, 255, 0.95);
+      color: #334155; font-size: 0.78rem; font-weight: 700;
+      font-family: inherit; cursor: pointer;
+      transition: all 0.2s ease; white-space: nowrap; flex-shrink: 0;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .q-cmd-btn:hover {
+        border-color: #eab308; color: #a16207; background: #ffffff;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(234, 179, 8, 0.2);
+      }
+    }
+    .q-cmd-btn:active { transform: translateY(0); }
+
+    .q-cmd-kbd {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+      padding: 2px 5px; border-radius: 5px;
+      background: #f1f5f9; border: 1px solid #e2e8f0; color: #64748b;
+    }
+    .q-cmd-sos {
+      background: #fff1f2; border-color: #fecdd3; color: #be123c;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .q-cmd-sos:hover {
+        background: #e11d48; border-color: #e11d48; color: #ffffff;
+        box-shadow: 0 6px 16px -3px rgba(225, 29, 72, 0.35);
+      }
+    }
+
+    .q-passport-wrap {
+      position: relative; display: inline-flex; flex-shrink: 0;
+    }
+    .q-passport-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      height: 36px; padding: 0 11px 0 7px; border-radius: 99px;
+      border: 1px solid rgba(203, 213, 225, 0.85);
+      background: linear-gradient(135deg, #ffffff, #f8fafc);
+      color: #0f172a; font-size: 0.76rem; font-weight: 800;
+      font-family: inherit; cursor: pointer;
+      transition: all 0.22s ease; white-space: nowrap;
+    }
+    .q-passport-btn[aria-expanded="true"] {
+      border-color: #10b981;
+      box-shadow: 0 6px 16px -4px rgba(16, 185, 129, 0.28);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .q-passport-btn:hover {
+        border-color: #10b981;
+        box-shadow: 0 6px 16px -4px rgba(16, 185, 129, 0.28);
+        transform: translateY(-1px);
+      }
+    }
+    .q-ring-svg {
+      width: 24px; height: 24px; transform: rotate(-90deg); flex-shrink: 0;
+    }
+    .q-ring-bg { fill: none; stroke: #e2e8f0; stroke-width: 3.2; }
+    .q-ring-fill {
+      fill: none; stroke: #10b981; stroke-width: 3.2;
+      stroke-linecap: round; stroke-dasharray: 62.83; stroke-dashoffset: 62.83;
+      transition: stroke-dashoffset 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .q-app-dropdown, .q-passport-popover {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      z-index: 1200;
+      display: none;
+    }
+    .q-app-dropdown.open, .q-passport-popover.open { display: block; }
+
+    @media (min-width: 769px) {
+      .site-header.quantum-header.is-scrolled {
+        background: transparent;
+        border-bottom-color: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        padding: 8px 16px 0;
+        pointer-events: none;
+      }
+      .site-header.quantum-header.is-scrolled .header-inner {
+        pointer-events: auto;
+        max-width: 1160px;
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(24px) saturate(200%);
+        -webkit-backdrop-filter: blur(24px) saturate(200%);
+        border: 1px solid rgba(226, 232, 240, 0.95);
+        border-radius: 999px;
+        padding: 7px 14px !important;
+        box-shadow:
+          0 18px 40px -10px rgba(15, 23, 42, 0.14),
+          0 4px 12px -2px rgba(234, 179, 8, 0.1),
+          inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
+      }
+      .site-header.quantum-header.is-scrolled .site-subtitle-mini,
+      .site-header.quantum-header.is-scrolled .header-meta {
+        display: none !important;
+      }
+      .site-header.quantum-header.is-scrolled .brand-logo { width: 34px; height: 34px; }
+
+      @media (min-width: 1080px) {
+        .site-header.quantum-header.is-scrolled .q-context-radar.has-context {
+          display: inline-flex;
+        }
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 1020px) {
+      .site-header.quantum-header .nav-link { padding: 6px 8px; font-size: 0.8rem; }
+      .q-cmd-kbd { display: none; }
+    }
+
+    /* === 4. LMS LAYOUT & HERO CARD === */
     .course-layout {
-      display: grid; grid-template-columns: 1fr 300px; gap: 30px; margin-top: 30px; align-items: start;
+      display: grid;
+      grid-template-columns: 1fr 310px;
+      gap: 30px;
+      margin-top: 24px;
+      align-items: start;
     }
 
-    /* === HERO CARD === */
     .course-hero {
-      background: radial-gradient(circle at 100% 0%, rgba(234, 179, 8, 0.15) 0%, rgba(255, 255, 255, 0.9) 100%);
-      border: 1px solid rgba(255,255,255,0.9);
-      border-radius: 24px; padding: 40px; margin-bottom: 30px;
-      position: relative; overflow: hidden; backdrop-filter: blur(20px);
+      background: radial-gradient(circle at 100% 0%, rgba(234, 179, 8, 0.18) 0%, rgba(255, 255, 255, 0.92) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 26px;
+      padding: clamp(26px, 4vw, 40px);
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 20px 40px -10px rgba(234, 179, 8, 0.1);
+      box-shadow: 0 20px 40px -10px rgba(234, 179, 8, 0.12);
       transform-style: preserve-3d;
       transform: perspective(1000px);
     }
     .course-hero::before {
-      content: "⚡"; position: absolute; right: -20px; bottom: -40px; font-size: 12rem;
-      opacity: 0.1; transform: rotate(-15deg); pointer-events: none;
+      content: "⚡";
+      position: absolute;
+      right: -20px;
+      bottom: -40px;
+      font-size: 12rem;
+      opacity: 0.1;
+      transform: rotate(-15deg);
+      pointer-events: none;
     }
     .hero-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: #fefce8; color: #854d0e; border: 1px solid #fde047;
-      padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700;
-      margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;
-      position: relative; z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fefce8;
+      color: #854d0e;
+      border: 1px solid #fde047;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: relative;
+      z-index: 1;
     }
-    .hero-title { font-size: 2rem; font-weight: 800; color: #0f172a; margin: 0 0 15px; line-height: 1.1; position: relative; z-index: 1; }
-    .hero-desc { font-size: 1.05rem; color: #475569; max-width: 650px; line-height: 1.6; position: relative; z-index: 1; }
+    .hero-title {
+      font-size: clamp(1.7rem, 3.8vw, 2.25rem);
+      font-weight: 900;
+      color: #0f172a;
+      margin: 0 0 15px;
+      line-height: 1.15;
+      min-height: 1.3em;
+      position: relative;
+      z-index: 1;
+    }
+    .cursor-blink {
+      display: inline-block;
+      width: 4px;
+      height: 1em;
+      background: #ca8a04;
+      margin-left: 5px;
+      animation: blinkCursor 0.9s steps(2, start) infinite;
+      vertical-align: middle;
+      border-radius: 2px;
+    }
+    @keyframes blinkCursor {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .hero-desc {
+      font-size: 1.03rem;
+      color: #475569;
+      max-width: 660px;
+      line-height: 1.6;
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
 
-    /* === MANDATORY BLOCK (I Группа - Акцент) === */
+    /* === 5. MANDATORY BLOCK (I ГРУППА - АКЦЕНТ) === */
     .mandatory-block {
-      background: #ffffff; border-radius: 24px; padding: 30px;
-      border: 2px solid #eab308; /* Желтая рамка */
-      box-shadow: 0 10px 30px -5px rgba(234, 179, 8, 0.15);
-      position: relative; overflow: hidden; margin-bottom: 40px;
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 30px;
+      border: 2px solid #eab308;
+      box-shadow: 0 10px 30px -5px rgba(234, 179, 8, 0.16);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 36px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .mandatory-block:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -5px rgba(234, 179, 8, 0.25); }
-    .mandatory-label {
-      position: absolute; top: 0; right: 0;
-      background: #eab308; color: #fff;
-      font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
-      padding: 6px 16px; border-bottom-left-radius: 16px;
+    @media (hover: hover) and (pointer: fine) {
+      .mandatory-block:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 20px 40px -5px rgba(234, 179, 8, 0.25);
+      }
     }
-    .mandatory-title { font-size: 1.5rem; font-weight: 800; color: #0f172a; margin: 0 0 10px; display: flex; align-items: center; gap: 10px; }
-    .mandatory-text { font-size: 1rem; color: #64748b; margin-bottom: 25px; max-width: 90%; }
+    .mandatory-label {
+      position: absolute;
+      top: 0; right: 0;
+      background: #eab308;
+      color: #0f172a;
+      font-size: 0.75rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-bottom-left-radius: 16px;
+    }
+    .mandatory-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .telemetry-badge {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+    }
+    .telemetry-badge.active { display: inline-flex; }
+    .mandatory-text {
+      font-size: 0.98rem;
+      color: #64748b;
+      margin-bottom: 24px;
+      max-width: 92%;
+      line-height: 1.6;
+    }
 
     .btn-start-big {
-      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      width: 100%; padding: 16px; background: #eab308; color: #fff;
-      font-size: 1.1rem; font-weight: 700; border-radius: 16px; text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px;
+      background: #eab308;
+      color: #0f172a;
+      font-size: 1.08rem;
+      font-weight: 800;
+      border-radius: 16px;
+      text-decoration: none;
       box-shadow: 0 10px 20px -5px rgba(234, 179, 8, 0.4);
-      transition: all 0.3s; position: relative; overflow: hidden;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
     }
-    .btn-start-big:hover { background: #ca8a04; transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(234, 179, 8, 0.5); }
+    @media (hover: hover) and (pointer: fine) {
+      .btn-start-big:hover {
+        background: #ca8a04;
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px -5px rgba(234, 179, 8, 0.5);
+      }
+    }
+    .btn-start-big:active { transform: translateY(0); }
     .btn-start-big::after {
-      content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); animation: shine 3s infinite;
+      content: "";
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+      animation: shine 3s infinite;
     }
 
-    /* === SPECIAL PROGRAMS GRID === */
-    .programs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    /* === 6. SPECIAL PROGRAMS GRID (II–V ГРУППЫ) === */
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+      gap: 20px;
+      margin-bottom: 36px;
+    }
     .prog-card {
-      background: rgba(255,255,255,0.9); border-radius: 20px; padding: 24px;
-      border: 1px solid rgba(226, 232, 240, 0.8); position: relative; overflow: hidden;
-      display: flex; flex-direction: column; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid rgba(226, 232, 240, 0.85);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
     }
     .prog-card::before {
-      content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(234, 179, 8, 0.1), transparent 40%);
-      opacity: 0; transition: opacity 0.5s; pointer-events: none; z-index: 0;
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(600px circle at var(--mouse-x, center) var(--mouse-y, center), rgba(234, 179, 8, 0.12), transparent 40%);
+      opacity: 0;
+      transition: opacity 0.5s;
+      pointer-events: none;
+      z-index: 0;
     }
-    .prog-card:hover::before { opacity: 1; }
-    .prog-card:hover { transform: translateY(-4px); border-color: #facc15; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
+    @media (hover: hover) and (pointer: fine) {
+      .prog-card:hover::before { opacity: 1; }
+      .prog-card:hover {
+        transform: translateY(-4px);
+        border-color: #facc15;
+        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+      }
+    }
 
-    /*
-     * БЛОК: Внутренняя flex-обертка карточки группы допуска (.prog-content).
-     * ЗА ЧТО ОТВЕЧАЕТ: Выравнивание кнопок «Перейти к обучению» по нижнему краю во всех карточках сетки.
-     * ПОЧЕМУ БЕЗОПАСНО: Передает flex-контекст от .prog-card к дочерним элементам, позволяя .prog-desc растягиваться.
-     */
     .prog-content {
       display: flex;
       flex-direction: column;
@@ -133,106 +599,666 @@
       position: relative;
       z-index: 1;
     }
-
-    .prog-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
-    .prog-icon { font-size: 2rem; background: #fefce8; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: 1px solid #fef08a; }
-    .prog-badge { font-size: 0.7rem; font-weight: 700; color: #a16207; background: #fff; padding: 4px 8px; border-radius: 6px; border: 1px solid #fef08a; }
-    .prog-title { font-size: 1.1rem; font-weight: 700; color: #1e293b; margin: 0 0 8px; }
-    .prog-desc { font-size: 0.9rem; color: #64748b; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
-
+    .prog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+    .prog-icon {
+      font-size: 2rem;
+      background: #fefce8;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      border: 1px solid #fef08a;
+      flex-shrink: 0;
+    }
+    .prog-badge {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: #a16207;
+      background: #ffffff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid #fef08a;
+    }
+    .prog-title {
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin: 0 0 8px;
+    }
+    .prog-desc {
+      font-size: 0.9rem;
+      color: #64748b;
+      line-height: 1.55;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
     .btn-prog-link {
       margin-top: auto;
-      display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px;
-      background: #f8fafc; color: #334155; border: 1px solid #e2e8f0;
-      border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px;
+      background: #f8fafc;
+      color: #334155;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: 0.2s;
     }
-    .btn-prog-link:hover { background: #eab308; color: #fff; border-color: #eab308; }
+    @media (hover: hover) and (pointer: fine) {
+      .btn-prog-link:hover {
+        background: #eab308;
+        color: #0f172a;
+        border-color: #eab308;
+      }
+    }
+    .btn-prog-link:active { background: #fef08a; }
 
-    /* === SIDEBAR === */
+    /* ======================================================================
+       7. ПРОФИЛЬНЫЙ ТРЕНАЖЁР «ЩИТ ПОТЭУ: 5 ТЕХНИЧЕСКИХ МЕРОПРИЯТИЙ И РАДАР НАПРЯЖЕНИЯ»
+       ====================================================================== */
+    .poteu-sim-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      border-radius: 26px;
+      padding: clamp(22px, 3.5vw, 32px);
+      margin-bottom: 36px;
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.3);
+      border: 1px solid rgba(250, 204, 21, 0.25);
+    }
+
+    .poteu-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .poteu-status-banner {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-left: 4px solid #facc15;
+      border-radius: 14px;
+      padding: 13px 16px;
+      margin-bottom: 18px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .poteu-status-banner.status-error {
+      background: rgba(225, 29, 72, 0.2);
+      border-color: rgba(244, 63, 94, 0.45);
+      border-left-color: #f43f5e;
+      color: #ffe4e6;
+    }
+    .poteu-status-banner.status-ok {
+      background: rgba(16, 185, 129, 0.18);
+      border-color: rgba(52, 211, 153, 0.45);
+      border-left-color: #10b981;
+      color: #d1fae5;
+    }
+
+    .poteu-steps-list {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .poteu-step-btn {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(15, 23, 42, 0.75);
+      color: #f8fafc;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: all 0.2s ease;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .poteu-step-btn:hover:not(.step-done) {
+        border-color: #facc15;
+        background: rgba(30, 41, 59, 0.95);
+        transform: translateX(3px);
+      }
+    }
+    .poteu-step-btn.step-done {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: #10b981;
+      color: #a7f3d0;
+      cursor: default;
+    }
+    .poteu-step-btn.step-wrong {
+      background: rgba(225, 29, 72, 0.28);
+      border-color: #f43f5e;
+      color: #fecdd3;
+    }
+    .poteu-step-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      padding: 4px 9px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #facc15;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .poteu-step-btn.step-done .poteu-step-badge {
+      background: #10b981;
+      color: #0f172a;
+      font-weight: 800;
+    }
+
+    .poteu-reset-btn {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.08);
+      color: #f8fafc;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .poteu-reset-btn:hover { background: rgba(255, 255, 255, 0.18); }
+    }
+
+    /* Вкладки безопасных расстояний ПОТЭУ */
+    .volt-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 6px;
+      background: rgba(2, 6, 23, 0.55);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 14px;
+    }
+    .volt-tab-btn {
+      flex: 1 1 auto;
+      padding: 9px 12px;
+      border-radius: 10px;
+      border: none;
+      background: transparent;
+      color: #cbd5e1;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .volt-tab-btn.active {
+      background: #eab308;
+      color: #0f172a;
+      font-weight: 800;
+    }
+    .volt-info-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+    }
+    .volt-distance-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.35rem;
+      font-weight: 900;
+      padding: 12px 18px;
+      border-radius: 14px;
+      background: rgba(250, 204, 21, 0.16);
+      border: 1px solid rgba(250, 204, 21, 0.4);
+      color: #fde047;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    /* === 8. SIDEBAR === */
     .course-sidebar {
-      position: sticky; top: 100px;
-      background: rgba(255,255,255,0.6); backdrop-filter: blur(15px);
+      position: sticky;
+      top: 90px;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(15px);
       -webkit-backdrop-filter: blur(15px);
-      border: 1px solid rgba(255,255,255,0.8); border-radius: 20px; padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: 0 15px 35px -10px rgba(15, 23, 42, 0.05);
     }
-    .npa-title { font-size: 0.9rem; font-weight: 700; color: #0f172a; margin: 0 0 15px; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .npa-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
     .npa-link {
-      display: flex; align-items: flex-start; gap: 10px; padding: 12px;
-      background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
-      text-decoration: none; color: #334155; font-size: 0.85rem; margin-bottom: 10px; transition: 0.2s;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #334155;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+      transition: 0.2s;
     }
-    .npa-link:last-child { margin-bottom: 0; }
-    .npa-link:hover { border-color: #eab308; transform: translateX(3px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    .npa-link:last-of-type { margin-bottom: 0; }
+    @media (hover: hover) and (pointer: fine) {
+      .npa-link:hover {
+        border-color: #eab308;
+        transform: translateX(3px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      }
+    }
     .npa-icon { font-size: 1.2rem; flex-shrink: 0; }
 
-    /* === TOAST === */
+    /* === 9. TOAST === */
     .toast-notification {
-      position: fixed; bottom: 30px; right: 30px;
-      background: #fff; border-left: 4px solid #eab308;
-      padding: 16px 20px; border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.15); z-index: 100;
-      display: flex; align-items: flex-start; gap: 12px;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #ffffff;
+      border-left: 4px solid #eab308;
+      padding: 16px 20px;
+      border-radius: 14px;
+      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.16);
+      z-index: 8600;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      max-width: 360px;
       animation: slideIn 0.5s ease-out forwards;
     }
     .toast-close {
-      margin-left: auto; cursor: pointer; color: #94a3b8;
-      background: none; border: none; padding: 2px 6px; font-size: 1rem; line-height: 1;
-      border-radius: 6px; transition: color 0.2s, background 0.2s;
+      margin-left: auto;
+      cursor: pointer;
+      color: #94a3b8;
+      background: none;
+      border: none;
+      padding: 2px 6px;
+      font-size: 1rem;
+      line-height: 1;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
     }
-    .toast-close:hover { color: #0f172a; background: #f1f5f9; }
+    @media (hover: hover) and (pointer: fine) {
+      .toast-close:hover { color: #0f172a; background: #f1f5f9; }
+    }
     .toast-close:focus-visible { outline: 2px solid #eab308; outline-offset: 2px; }
 
     @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     @keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
 
+    /* === 10. МОДАЛКИ И НИЖНИЙ БАР === */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      z-index: 10000;
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: 8vh 16px 24px;
+      opacity: 0; pointer-events: none;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+      overflow-y: auto;
+    }
+    .modal-overlay.open {
+      opacity: 1; pointer-events: auto; visibility: visible;
+      transition: opacity 0.2s ease, visibility 0s;
+    }
+    .modal-box {
+      width: 100%; max-width: 600px;
+      background: #ffffff; border-radius: 24px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      transform: scale(0.96) translateY(-10px);
+      transition: transform 0.2s ease;
+    }
+    .modal-overlay.open .modal-box { transform: scale(1) translateY(0); }
+    .search-modal-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 18px; border-bottom: 1px solid #e2e8f0;
+    }
+    .search-modal-input {
+      flex: 1; border: none; outline: none;
+      font-size: 1rem; font-weight: 600; color: #0f172a;
+      background: transparent; min-width: 0; font-family: inherit;
+    }
+    .search-modal-input:focus-visible {
+      outline: 2px solid #eab308; outline-offset: 2px;
+      border-radius: 6px;
+    }
+    .voice-mic-btn {
+      width: 38px; height: 38px; border-radius: 10px;
+      border: 1px solid #e2e8f0; background: #f8fafc;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: 1.05rem; flex-shrink: 0;
+    }
+    .voice-mic-btn:active { background: #e2e8f0; }
+    .modal-close {
+      background: #f1f5f9; border: none;
+      padding: 8px 12px; border-radius: 10px;
+      font-size: 0.78rem; font-weight: 800; color: #475569; cursor: pointer;
+    }
+    .search-results-list {
+      max-height: 60vh; overflow-y: auto; padding: 10px;
+    }
+    .search-result-item {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; padding: 12px 14px; border-radius: 12px;
+      text-decoration: none; color: #1e293b;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .search-result-item:hover { background: #fefce8; color: #a16207; }
+    }
+    .search-result-item:active { background: #fefce8; }
+    .sri-left {
+      display: flex; align-items: center; gap: 12px;
+      font-weight: 600; font-size: 0.92rem;
+    }
+    .sri-tag {
+      font-size: 0.72rem; font-weight: 700;
+      padding: 4px 8px; border-radius: 6px;
+      background: #f1f5f9; color: #475569; white-space: nowrap;
+    }
+    .sos-modal-top {
+      background: linear-gradient(135deg, #be123c, #0f172a);
+      color: #ffffff; padding: 20px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
+    }
+    .sos-modal-body {
+      padding: 20px 24px 24px;
+      display: grid; gap: 12px;
+      max-height: 75vh; overflow-y: auto;
+    }
+    .sos-card {
+      padding: 14px 16px; border-radius: 14px;
+      background: #f8fafc; border: 1px solid #e2e8f0;
+      border-left: 4px solid #e11d48;
+    }
+    .sos-card h4 {
+      margin: 0 0 5px; font-size: 0.95rem;
+      color: #0f172a; font-weight: 800;
+    }
+    .sos-card p {
+      margin: 0; font-size: 0.85rem;
+      color: #475569; line-height: 1.5;
+    }
+    .call-112-btn {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; width: 100%; padding: 14px; border-radius: 14px;
+      background: #e11d48; color: #ffffff;
+      font-weight: 800; font-size: 1rem; text-decoration: none;
+    }
+
+    .mobile-bottom-nav {
+      display: none; position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(203, 213, 225, 0.85);
+      padding: 6px 8px calc(6px + var(--safe-bottom));
+      z-index: 9000;
+      box-shadow: 0 -8px 25px rgba(15, 23, 42, 0.08);
+      justify-content: space-around; align-items: center;
+    }
+    .mob-nav-item {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 3px; padding: 6px 10px;
+      min-width: 56px; min-height: 44px;
+      border-radius: 12px; text-decoration: none;
+      color: #475569; font-size: 0.68rem; font-weight: 700;
+      border: none; background: transparent;
+      cursor: pointer; font-family: inherit;
+    }
+    .mob-nav-item span.mob-icon { font-size: 1.2rem; line-height: 1; }
+    .mob-nav-item.active { color: #a16207; background: #fefce8; }
+    .mob-nav-item.sos-mob { color: #be123c; }
+    .mob-nav-item:active { background: #fefce8; }
+
+    .to-top-btn {
+      position: fixed; right: 20px; bottom: 24px;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: #ffffff; border: 1px solid #cbd5e1;
+      color: #1e293b; font-weight: 800; font-size: 1.1rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      cursor: pointer; opacity: 0; pointer-events: none;
+      transition: all 0.25s ease;
+      z-index: 8500;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .to-top-btn.visible { opacity: 1; pointer-events: auto; }
+    .to-top-btn:active { transform: scale(0.94); }
+
+    /* === 11. МОБИЛЬНАЯ АДАПТАЦИЯ === */
     @media (max-width: 900px) {
       .course-layout { grid-template-columns: 1fr; }
       .course-sidebar { position: relative; top: 0; margin-bottom: 30px; }
-      .toast-notification { left: 20px; right: 20px; bottom: 20px; }
+      .volt-info-box { grid-template-columns: 1fr; }
     }
 
-    /* Header & Pulse */
-    .system-status-pulse {
-      display: inline-block; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%;
-      box-shadow: 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse-green 2s infinite; margin-right: 6px;
+    @media (max-width: 768px) {
+      body.masterpiece-theme { padding-bottom: calc(74px + var(--safe-bottom)); }
+      .mobile-bottom-nav { display: flex; }
+      .to-top-btn { bottom: calc(84px + var(--safe-bottom)); right: 16px; }
+      .toast-notification {
+        left: 16px;
+        right: 16px;
+        bottom: calc(82px + var(--safe-bottom));
+        max-width: none;
+      }
+
+      .site-header.quantum-header {
+        backdrop-filter: blur(10px) saturate(160%);
+        -webkit-backdrop-filter: blur(10px) saturate(160%);
+        padding: 8px 0 !important;
+      }
+      .course-hero {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .modal-overlay {
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+
+      .site-header.quantum-header .header-inner {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 8px !important;
+      }
+      .site-header.quantum-header .header-brand { width: auto !important; gap: 8px !important; }
+      .site-header.quantum-header .brand-logo { width: 34px !important; height: 34px !important; }
+      .site-header.quantum-header .site-title-mini { font-size: 1rem !important; }
+      .site-header.quantum-header .main-nav,
+      .site-header.quantum-header .header-meta,
+      .site-header.quantum-header .site-subtitle-mini,
+      #qHeaderSearchBtn,
+      #qHeaderSosBtn { display: none !important; }
+      .q-passport-popover {
+        position: fixed !important;
+        top: 62px !important;
+        left: 12px !important;
+        right: 12px !important;
+        width: auto !important;
+        max-width: none !important;
+      }
     }
-    @keyframes pulse-green {
-      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+
+    /* === 12. PREFERS-REDUCED-MOTION === */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      body.masterpiece-theme {
+        animation: none !important;
+        background-size: 100% 100% !important;
+      }
+      .cursor-blink {
+        animation: none !important;
+        opacity: 1 !important;
+      }
+      .btn-start-big::after { animation: none !important; }
+      .js-loaded .reveal-up {
+        opacity: 1 !important;
+        transform: none !important;
+      }
     }
-    .header-meta { font-size: 0.75rem; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 15px; margin-left: auto; }
-    @media (max-width: 900px) { .header-meta { display: none; } }
   </style>
 </head>
 <body class="masterpiece-theme">
 
+<div class="scroll-progress-bar" id="scrollProgress" aria-hidden="true"></div>
 <a class="skip-link" href="#main-content">Перейти к контенту</a>
 
 <div class="glass-wrapper">
-  
-  <header class="site-header transparent-header">
+
+  <header class="site-header transparent-header quantum-header" id="quantumHeader">
     <div class="container header-inner">
       <div class="header-brand">
-        <div class="brand-logo">
-          <img src="assets/Филин от.png" alt="Логотип СДО" width="42" height="42" style="width: 100%; height: 100%; object-fit: contain;">
+        <div class="q-app-switcher">
+          <button type="button" class="q-app-btn" id="qAppBtn" aria-expanded="false" aria-haspopup="true" title="Быстрый навигатор разделов и тестов СДО" aria-label="Открыть быстрый навигатор СДО">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="5" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="5" r="2"/>
+              <circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/>
+              <circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="19" r="2"/>
+            </svg>
+          </button>
+          <div class="q-app-dropdown" id="qAppDropdown" role="menu" aria-label="Экосистема СДО">
+            <span class="q-dropdown-label">Разделы портала СДО</span>
+            <div class="q-app-grid">
+              <a href="index.html" class="q-app-tile" role="menuitem">
+                <span class="q-app-tile-icon" aria-hidden="true">🏠</span>
+                <span class="q-app-tile-title">Главная СДО</span>
+                <span class="q-app-tile-sub">Дашборд и календарь</span>
+              </a>
+              <a href="programs.html" class="q-app-tile" role="menuitem">
+                <span class="q-app-tile-icon" aria-hidden="true">📚</span>
+                <span class="q-app-tile-title">Реестр (9)</span>
+                <span class="q-app-tile-sub">Все курсы и тренажеры</span>
+              </a>
+              <a href="instructions.html" class="q-app-tile" role="menuitem">
+                <span class="q-app-tile-icon" aria-hidden="true">📋</span>
+                <span class="q-app-tile-title">Инструкции</span>
+                <span class="q-app-tile-sub">4 шага аттестации</span>
+              </a>
+              <a href="for-responsibles.html" class="q-app-tile" role="menuitem">
+                <span class="q-app-tile-icon" aria-hidden="true">👔</span>
+                <span class="q-app-tile-title">Ответственным</span>
+                <span class="q-app-tile-sub">Калькулятор и шаблоны</span>
+              </a>
+            </div>
+            <span class="q-dropdown-label">Прямой переход к итоговым тестам</span>
+            <div class="q-tests-Sublist">
+              <a href="https://demoonstars.github.io/Test_OT_b/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🛡️ Тест: Охрана труда (Вводный)</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/Test_OT_Programm_A/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>⚖️ Тест: ОТ Программа А</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/Test_-_-_b/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🔥 Тест: Пожарная безопасность</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/First_aid/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🩹 Тест: Первая помощь</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/UAV_Threat_Test/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🚁 Тест: Угроза атаки БПЛА</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/GO_ChS_Test/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>📢 Тест: ГО и ЧС</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/Electrical_Safety_Test/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>⚡ Тест: Электробезопасность</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/hygiene-training/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🧼 Тест: Санминимум</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/mentoring-quiz/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🛎️ Тест: Наставничество</span><span>➔</span></a>
+              <a href="https://demoonstars.github.io/conflict-management/" target="_blank" rel="noopener noreferrer" class="q-test-quick-link"><span>🧠 Тест: Управление конфликтами</span><span>➔</span></a>
+            </div>
+          </div>
         </div>
+        <a href="index.html" class="brand-logo" title="На главную СДО">
+          <img src="assets/Филин от.png" alt="Логотип СДО" width="42" height="42" style="width: 100%; height: 100%; object-fit: contain;" decoding="async">
+        </a>
         <div>
-          <!-- Бренд в шапке: div вместо h1, чтобы главный заголовок страницы был один -->
           <div class="site-title-mini">СДО</div>
-          <p class="site-subtitle-mini">Система дистанционного обучения и проверки знаний</p>
+          <p class="site-subtitle-mini">Портал обучения и ОТ</p>
+        </div>
+        <div class="q-context-radar has-context" id="qContextRadar" aria-live="polite">
+          <span class="q-radar-dot" aria-hidden="true"></span>
+          <span class="q-radar-section" id="qRadarText">⚡ Электробезопасность</span>
         </div>
       </div>
+
       <div class="header-meta">
         <span id="current-date">Загрузка...</span>
-        <span style="display:flex; align-items:center;"><span class="system-status-pulse" aria-hidden="true"></span> Online</span>
       </div>
+
       <nav class="main-nav" aria-label="Основная навигация">
-        <ul class="nav-list">
+        <ul class="nav-list" id="qNavList">
+          <span class="q-nav-glider" id="qNavGlider" aria-hidden="true"></span>
           <li><a href="index.html" class="nav-link">Главная</a></li>
           <li><a href="programs.html" class="nav-link nav-link-active active">Каталог программ</a></li>
           <li><a href="instructions.html" class="nav-link">Инструкции</a></li>
           <li><a href="for-responsibles.html" class="nav-link">Ответственным</a></li>
         </ul>
       </nav>
+
+      <div class="q-header-actions">
+        <button type="button" class="q-cmd-btn" id="qHeaderSearchBtn" title="Быстрый поиск курса или теста (Ctrl + K)" aria-label="Открыть быстрый поиск">
+          <span aria-hidden="true">🔍</span>
+          <span class="q-cmd-kbd" aria-hidden="true">Ctrl+K</span>
+        </button>
+        <div class="q-passport-wrap">
+          <button type="button" class="q-passport-btn" id="qPassportBtn" aria-expanded="false" aria-haspopup="true" title="Цифровой паспорт обучения сотрудника" aria-label="Открыть цифровой паспорт обучения">
+            <svg class="q-ring-svg" viewBox="0 0 24 24" aria-hidden="true">
+              <circle class="q-ring-bg" cx="12" cy="12" r="10"></circle>
+              <circle class="q-ring-fill" id="qRingFill" cx="12" cy="12" r="10"></circle>
+            </svg>
+            <span id="qPassportPct">0%</span>
+          </button>
+          <div class="q-passport-popover" id="qPassportPopover" role="region" aria-label="Цифровой паспорт обучения">
+            <div class="q-pass-header">
+              <h4 class="q-pass-title"><span aria-hidden="true">🎓</span> Цифровой паспорт СДО</h4>
+              <span class="q-pass-rank" id="qPassportRank">Старт обучения</span>
+            </div>
+            <div style="font-size: 0.76rem; color: #64748b; margin-bottom: 10px;">Автоматическая сводка изученных материалов в вашем браузере:</div>
+            <div class="q-pass-list" id="qPassportList"></div>
+          </div>
+        </div>
+        <button type="button" class="q-cmd-btn q-cmd-sos" id="qHeaderSosBtn" title="Экстренная памятка ЧС и БПЛА (112)" aria-label="Открыть экстренную памятку ЧС">
+          <span aria-hidden="true">🚨</span>
+          <span class="q-cmd-label-desktop">112</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -246,45 +1272,52 @@
       </nav>
 
       <div class="course-layout">
-        
+
         <div class="course-content">
-          
-          <div class="course-hero reveal-up" id="tilt-hero">
-            <span class="hero-badge">Приказ № 903н (ПОТЭУ)</span>
-            <h1 class="hero-title">Обучение по электробезопасности</h1>
+
+          <div class="course-hero reveal-up" id="tilt-hero" data-radar-title="⚡ Приказ № 903н ПОТЭУ">
+            <span class="hero-badge">⚡ Приказ Минтруда № 903н (ПОТЭУ) • ПТЭЭП № 811</span>
+            <h1 class="hero-title" aria-label="Обучение по электробезопасности">
+              <span id="typing-text" data-text="Обучение по электробезопасности" aria-hidden="true"></span><span class="cursor-blink" aria-hidden="true"></span>
+            </h1>
             <p class="hero-desc">
               Подготовка персонала к проверке знаний норм и правил работы в электроустановках.
-              Инструктаж на I группу и программы для присвоения II–V групп.
+              Инструктаж на I группу и программы для присвоения II–V групп допуска.
             </p>
           </div>
 
-          <div class="mandatory-block reveal-up delay-100">
+          <div class="mandatory-block reveal-up" data-radar-title="⚡ I группа допуска">
             <div class="mandatory-label">Самый массовый инструктаж</div>
             <h2 class="mandatory-title">
-              <span style="font-size: 2rem;" aria-hidden="true">⚡</span> I группа по электробезопасности
+              <span style="font-size: 2rem;" aria-hidden="true">⚡</span>
+              <span>I группа по электробезопасности</span>
+              <span class="telemetry-badge" id="elGroup1TelemetryBadge">📖 Стр. 1</span>
             </h2>
             <p class="mandatory-text">
               Для неэлектротехнического персонала (офисные сотрудники, пользователи ПК, оргтехники и бытовых приборов).
-              Проводится ежегодно для предотвращения поражения током на рабочем месте.
+              Проводится ежегодно для предотвращения поражения электрическим током на рабочем месте.
             </p>
-            
-            <a href="el-group-1.html" class="btn-start-big">
-              Начать инструктаж (I гр.) <span aria-hidden="true">➔</span>
+
+            <a href="el-group-1.html" class="btn-start-big" id="elGroup1StartBtn">
+              <span id="elGroup1BtnLabel">Начать инструктаж (I гр.)</span> <span aria-hidden="true">➔</span>
             </a>
           </div>
 
-          <h2 style="margin-bottom: 20px; font-size: 1.4rem; color: #0f172a;" class="reveal-up delay-200">
+          <h2 style="margin-bottom: 20px; font-size: 1.4rem; font-weight: 800; color: #0f172a;" class="reveal-up" data-radar-title="🔌 Группы допуска II–V">
             Электротехнический персонал
-            <span style="font-size:0.9rem; color:#64748b; font-weight:400; margin-left:10px;">(II, III, IV, V группы)</span>
+            <span style="font-size: 0.9rem; color: #64748b; font-weight: 500; margin-left: 10px;">(II, III, IV, V группы)</span>
           </h2>
 
-          <div class="programs-grid reveal-up delay-200">
-            
+          <div class="programs-grid reveal-up">
+
             <div class="prog-card">
               <div class="prog-content">
                 <div class="prog-header">
                   <div class="prog-icon" aria-hidden="true">🔧</div>
-                  <span class="prog-badge">Базовая</span>
+                  <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
+                    <span class="prog-badge">Базовая</span>
+                    <span class="telemetry-badge" id="elGroup2TelemetryBadge">📖 Стр. 1</span>
+                  </div>
                 </div>
                 <h3 class="prog-title">II Группа</h3>
                 <p class="prog-desc">Для работы с электроинструментом, ручными электрическими машинами, сварщиков, лифтеров.</p>
@@ -296,7 +1329,10 @@
               <div class="prog-content">
                 <div class="prog-header">
                   <div class="prog-icon" aria-hidden="true">🔌</div>
-                  <span class="prog-badge">до 1000В</span>
+                  <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
+                    <span class="prog-badge">до 1000В</span>
+                    <span class="telemetry-badge" id="elGroup3TelemetryBadge">📖 Стр. 1</span>
+                  </div>
                 </div>
                 <h3 class="prog-title">III Группа</h3>
                 <p class="prog-desc">Самостоятельное обслуживание, осмотр, подключение и отключение электроустановок.</p>
@@ -308,7 +1344,10 @@
               <div class="prog-content">
                 <div class="prog-header">
                   <div class="prog-icon" aria-hidden="true">🏭</div>
-                  <span class="prog-badge">Выше 1000В</span>
+                  <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
+                    <span class="prog-badge">Выше 1000В</span>
+                    <span class="telemetry-badge" id="elGroup4TelemetryBadge">📖 Стр. 1</span>
+                  </div>
                 </div>
                 <h3 class="prog-title">IV Группа</h3>
                 <p class="prog-desc">Для ответственных за электрохозяйство, производителей работ и допускающих.</p>
@@ -320,7 +1359,10 @@
               <div class="prog-content">
                 <div class="prog-header">
                   <div class="prog-icon" aria-hidden="true">👷</div>
-                  <span class="prog-badge">Высшая</span>
+                  <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
+                    <span class="prog-badge">Высшая</span>
+                    <span class="telemetry-badge" id="elGroup5TelemetryBadge">📖 Стр. 1</span>
+                  </div>
                 </div>
                 <h3 class="prog-title">V Группа</h3>
                 <p class="prog-desc">Для инженерно-технического персонала в установках напряжением выше 1000В.</p>
@@ -330,26 +1372,93 @@
 
           </div>
 
+          <!-- ПРОФИЛЬНЫЙ ТРЕНАЖЁР ПО ЭЛЕКТРОБЕЗОПАСНОСТИ (РАЗДЕЛ IV ПРИКАЗА № 903Н ПОТЭУ) -->
+          <section class="poteu-sim-card reveal-up" id="poteu-trainer" data-radar-title="🛡️ Тренажёр ПОТЭУ" aria-label="Интерактивный тренажёр по электробезопасности">
+            <div class="poteu-header-row">
+              <div>
+                <span class="hero-badge" style="background: rgba(250, 204, 21, 0.18); color: #fde047; border-color: rgba(250, 204, 21, 0.35); margin-bottom: 6px;">🛡️ Интерактивный тренажёр ПОТЭУ (Приказ № 903н)</span>
+                <h2 style="font-size: 1.45rem; font-weight: 900; color: #ffffff; margin: 0;">Золотая пятёрка: подготовка рабочего места со снятием напряжения</h2>
+              </div>
+              <button type="button" class="poteu-reset-btn" id="poteuResetBtn">↻ Сбросить порядок</button>
+            </div>
+
+            <div class="poteu-status-banner" id="poteuStatusBanner" aria-live="polite">
+              <span id="poteuStatusText">⚡ <strong>Задача:</strong> Нажмите по очереди на все 5 технических мероприятий в строгой последовательности Раздела IV ПОТЭУ (шаг 1 из 5).</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-weight: 800; color: #fde047;" id="poteuProgressCounter">0 / 5</span>
+            </div>
+
+            <div class="poteu-steps-list" id="poteuStepsList" role="group" aria-label="Технические мероприятия ПОТЭУ">
+              <button type="button" class="poteu-step-btn" data-step-order="3">
+                <span>🔍 Проверить отсутствие напряжения на токоведущих частях указателем напряжения</span>
+                <span class="poteu-step-badge">Выбрать</span>
+              </button>
+              <button type="button" class="poteu-step-btn" data-step-order="1">
+                <span>🔌 Произвести необходимые отключения и принять меры против ошибочного включения</span>
+                <span class="poteu-step-badge">Выбрать</span>
+              </button>
+              <button type="button" class="poteu-step-btn" data-step-order="4">
+                <span>⛓️ Установить заземление (включить заземляющие ножи или переносные заземления)</span>
+                <span class="poteu-step-badge">Выбрать</span>
+              </button>
+              <button type="button" class="poteu-step-btn" data-step-order="2">
+                <span>🚫 Вывесить запрещающие плакаты на приводах и ключах («Не включать! Работают люди»)</span>
+                <span class="poteu-step-badge">Выбрать</span>
+              </button>
+              <button type="button" class="poteu-step-btn" data-step-order="5">
+                <span>🚧 Оградить рабочее место и вывесить предупреждающие плакаты («Стой! Напряжение», «Работать здесь»)</span>
+                <span class="poteu-step-badge">Выбрать</span>
+              </button>
+            </div>
+
+            <div style="border-top: 1px solid rgba(255, 255, 255, 0.12); padding-top: 18px;">
+              <div style="font-size: 0.82rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #fde047; margin-bottom: 10px;">
+                📏 Радар допустимых расстояний до токоведущих частей (Таблица № 1 ПОТЭУ) и Шаговое напряжение:
+              </div>
+              <div class="volt-tabs" id="voltTabs" role="group" aria-label="Классы напряжения">
+                <button type="button" class="volt-tab-btn active" data-volt="step" aria-pressed="true">👣 Шаговое напряжение (Провод на земле)</button>
+                <button type="button" class="volt-tab-btn" data-volt="v1" aria-pressed="false">⚡ 1 – 35 кВ</button>
+                <button type="button" class="volt-tab-btn" data-volt="v110" aria-pressed="false">🗼 110 кВ</button>
+                <button type="button" class="volt-tab-btn" data-volt="v220" aria-pressed="false">🏭 220 кВ</button>
+              </div>
+              <div class="volt-info-box" aria-live="polite">
+                <div>
+                  <h3 style="font-size: 1.05rem; font-weight: 800; color: #ffffff; margin: 0 0 6px;" id="voltTitle">Зона шагового напряжения вокруг оборванного провода</h3>
+                  <p style="font-size: 0.86rem; color: #cbd5e1; line-height: 1.5; margin: 0;" id="voltDesc">
+                    Запрещается приближаться к лежащему на земле проводу ВЛ ближе чем на <strong>8 метров</strong> (в закрытых РУ — не менее 4 метров). Выходить из опасной зоны необходимо <strong>«гусиным шагом»</strong> — приставляя пятку одной ноги к носку другой, не отрывая подошвы от земли.
+                  </p>
+                </div>
+                <div class="volt-distance-pill" id="voltPill">8,0 м</div>
+              </div>
+            </div>
+          </section>
+
         </div>
 
-        <aside class="course-sidebar reveal-up delay-100">
-          
+        <aside class="course-sidebar reveal-up">
+
           <h4 class="npa-title"><span aria-hidden="true">⚖️</span> Нормативная база</h4>
-          
-          <!-- Добавлен rel="noopener noreferrer" для безопасности при открытии внешних ссылок -->
+
           <a href="https://www.consultant.ru/document/cons_doc_LAW_372952/" target="_blank" rel="noopener noreferrer" class="npa-link">
             <span class="npa-icon" aria-hidden="true">📜</span>
             <div>
-              <div style="font-weight: 600;">Приказ Минтруда России №903н</div>
-              <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Правила охраны труда (ПОТЭУ)</div>
+              <div style="font-weight: 700;">Приказ Минтруда России №903н</div>
+              <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Правила по охране труда при эксплуатации электроустановок (ПОТЭУ)</div>
             </div>
           </a>
-          
+
           <a href="https://www.consultant.ru/document/cons_doc_LAW_428583/" target="_blank" rel="noopener noreferrer" class="npa-link">
             <span class="npa-icon" aria-hidden="true">🔧</span>
             <div>
-              <div style="font-weight: 600;">Приказ Минэнерго РФ №811</div>
-              <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">ПТЭЭП</div>
+              <div style="font-weight: 700;">Приказ Минэнерго РФ №811</div>
+              <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Правила технической эксплуатации электроустановок потребителей (ПТЭЭП)</div>
+            </div>
+          </a>
+
+          <a href="https://demoonstars.github.io/Electrical_Safety_Test/" target="_blank" rel="noopener noreferrer" class="npa-link" style="background: #fefce8; border-color: #fde047; margin-top: 12px;">
+            <span class="npa-icon" aria-hidden="true">🎯</span>
+            <div>
+              <div style="font-weight: 800; color: #854d0e;">Итоговый тест по ЭБ</div>
+              <div style="font-size: 0.75rem; color: #a16207; margin-top: 2px;">Прямой переход к тестированию ➔</div>
             </div>
           </a>
 
@@ -377,36 +1486,287 @@
 
 </div>
 
+<button type="button" class="to-top-btn" id="toTopBtn" aria-label="Наверх" title="Наверх">↑</button>
+
+<nav class="mobile-bottom-nav" aria-label="Мобильная навигация">
+  <a href="index.html" class="mob-nav-item">
+    <span class="mob-icon" aria-hidden="true">🏠</span><span>Главная</span>
+  </a>
+  <a href="programs.html" class="mob-nav-item active">
+    <span class="mob-icon" aria-hidden="true">📚</span><span>Курсы</span>
+  </a>
+  <button type="button" class="mob-nav-item" id="mobSearchBtn" aria-label="Открыть поиск">
+    <span class="mob-icon" aria-hidden="true">🔍</span><span>Поиск</span>
+  </button>
+  <a href="instructions.html" class="mob-nav-item">
+    <span class="mob-icon" aria-hidden="true">📋</span><span>Инструкции</span>
+  </a>
+  <button type="button" class="mob-nav-item sos-mob" id="mobSosBtn" aria-label="Открыть экстренную памятку ЧС и 112">
+    <span class="mob-icon" aria-hidden="true">🚨</span><span>ЧС / 112</span>
+  </button>
+</nav>
+
+<div class="modal-overlay" id="searchModal" aria-hidden="true" inert>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-label="Быстрый поиск по порталу">
+    <div class="search-modal-header">
+      <span style="font-size: 1.2rem;" aria-hidden="true">🔍</span>
+      <input type="text" class="search-modal-input" id="searchModalInput" placeholder="Поиск курса или теста (например: Электробезопасность, БПЛА)..." aria-label="Поиск курса или теста">
+      <button type="button" class="voice-mic-btn" id="voiceSearchBtn" title="Голосовой поиск" aria-label="Голосовой поиск">🎤</button>
+      <button type="button" class="modal-close" id="closeSearchModal" aria-label="Закрыть поиск">Закрыть</button>
+    </div>
+    <div class="search-results-list" id="searchResultsList"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="sosModal" aria-hidden="true" inert>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-label="Экстренная памятка ЧС">
+    <div class="sos-modal-top">
+      <div>
+        <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.85; font-weight: 700;">Оперативная памятка безопасности</div>
+        <h3 style="margin: 4px 0 0; font-size: 1.2rem; font-weight: 900; color: #fff;">🚨 Алгоритмы экстренных действий</h3>
+      </div>
+      <button type="button" class="modal-close" id="closeSosModal" style="background: rgba(255,255,255,0.2); color: #fff;" aria-label="Закрыть памятку">✕</button>
+    </div>
+    <div class="sos-modal-body">
+      <a href="tel:112" class="call-112-btn">📞 Экстренный вызов 112 (С мобильного)</a>
+      <div class="sos-card">
+        <h4>🧱 В здании при угрозе БПЛА: Правило «Двух стен»</h4>
+        <p>Отойдите от окон! Переместитесь в коридор, лестничный пролет или санузел. Сядьте на пол у несущей стены, пригните голову, приоткройте рот. Лифтом пользоваться запрещено.</p>
+      </div>
+      <div class="sos-card">
+        <h4>🚗 На улице или в транспорте</h4>
+        <p>Остановите автомобиль, заглушите мотор и отбегите на 15–30 метров. Укройтесь в канаве, кювете или за бетонным блоком. Лягте лицом вниз, скрестите ноги, закройте голову руками.</p>
+      </div>
+      <div class="sos-card">
+        <h4>📵 При обнаружении обломков БПЛА</h4>
+        <p>НЕ подходить, НЕ трогать, НЕ снимать и НЕ звонить рядом с местом падения! Отойдите назад по своим следам минимум на 100 метров за укрытие и сообщите по номеру 112.</p>
+      </div>
+      <div class="sos-card" style="border-left-color: #10b981;">
+        <h4>🩹 Первая помощь (СЛР)</h4>
+        <p>Оцените безопасность → Проверьте сознание и дыхание (метод «Вижу-Слышу-Ощущаю» 10 сек) → Вызовите 112 → Начните компрессии грудной клетки: <strong>30 нажатий / 2 вдоха</strong>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     document.body.classList.add('js-loaded');
-    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
-    // 1. Дата
+    /* === 1. ДАТА === */
     const now = new Date();
     const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const dateStr = now.toLocaleDateString('ru-RU', dateOptions);
     const dateEl = document.getElementById('current-date');
-    if(dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+    if (dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
 
-    // 2. Анимация появления
+    /* === 2. REVEAL === */
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
     document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
 
-    // 3. Эффекты мыши (3D Tilt + Spotlight)
-    if (!prefersReducedMotion && window.matchMedia("(min-width: 768px)").matches) {
-      
+    /* === 3. СКРОЛЛ И КАПСУЛА ШАПКИ === */
+    const scrollProgress = document.getElementById('scrollProgress');
+    const toTopBtn = document.getElementById('toTopBtn');
+    const quantumHeader = document.getElementById('quantumHeader');
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (scrollHeight > 0 && scrollProgress) scrollProgress.style.width = (scrollTop / scrollHeight) * 100 + "%";
+      if (toTopBtn) toTopBtn.classList.toggle('visible', scrollTop > 400);
+      if (quantumHeader) quantumHeader.classList.toggle('is-scrolled', scrollTop > 60);
+    }, { passive: true });
+
+    if (toTopBtn) toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }));
+
+    /* === 4. TYPING (3-фазное приветствие по времени МСК) === */
+    const typingEl = document.getElementById('typing-text');
+    if (typingEl) {
+      const FINAL_TEXT = "Обучение по электробезопасности";
+      if (prefersReducedMotion) {
+        typingEl.textContent = FINAL_TEXT;
+      } else {
+        const mskTime = new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"}));
+        const hour = mskTime.getHours();
+        let greeting = "Добрый день, коллега!";
+        if (hour >= 5 && hour < 12) greeting = "Доброе утро, коллега!";
+        else if (hour >= 18 && hour < 23) greeting = "Добрый вечер, коллега!";
+        else if (hour >= 23 || hour < 5) greeting = "Доброй ночи, коллега!";
+
+        const messages = [greeting, "Вы находитесь на курсе...", FINAL_TEXT];
+        let msgIndex = 0, charIndex = 0, isDeleting = false;
+
+        function type() {
+          const currentMsg = messages[msgIndex];
+          if (isDeleting) {
+            typingEl.textContent = currentMsg.substring(0, charIndex - 1); charIndex--;
+          } else {
+            typingEl.textContent = currentMsg.substring(0, charIndex + 1); charIndex++;
+          }
+          let typeSpeed = isDeleting ? 30 : 65;
+          if (!isDeleting && charIndex === currentMsg.length) {
+            typeSpeed = 10000; isDeleting = true;
+          } else if (isDeleting && charIndex === 0) {
+            isDeleting = false; msgIndex = (msgIndex + 1) % messages.length; typeSpeed = 900;
+          }
+          setTimeout(type, typeSpeed);
+        }
+        setTimeout(type, 450);
+      }
+    }
+
+    /* === 5. NAV GLIDER & RADAR === */
+    const qNavList = document.getElementById('qNavList');
+    const qNavGlider = document.getElementById('qNavGlider');
+    const qNavLinks = qNavList ? Array.from(qNavList.querySelectorAll('.nav-link')) : [];
+
+    function moveNavGlider(targetLink) {
+      if (!qNavGlider || !targetLink || window.innerWidth <= 768) {
+        if (qNavGlider) qNavGlider.style.opacity = '0';
+        return;
+      }
+      const listRect = qNavList.getBoundingClientRect();
+      const linkRect = targetLink.getBoundingClientRect();
+      qNavGlider.style.width = `${linkRect.width}px`;
+      qNavGlider.style.transform = `translateX(${linkRect.left - listRect.left}px)`;
+      qNavGlider.style.opacity = '1';
+    }
+    const activeNavLink = qNavList?.querySelector('.nav-link.active') || qNavLinks[1] || qNavLinks[0];
+    if (activeNavLink) setTimeout(() => moveNavGlider(activeNavLink), 100);
+    qNavLinks.forEach(link => {
+      link.addEventListener('mouseenter', () => moveNavGlider(link));
+      link.addEventListener('focus', () => moveNavGlider(link));
+    });
+    qNavList?.addEventListener('mouseleave', () => moveNavGlider(activeNavLink));
+    window.addEventListener('resize', () => moveNavGlider(activeNavLink), { passive: true });
+
+    const radarText = document.getElementById('qRadarText');
+    const radarSections = document.querySelectorAll('[data-radar-title]');
+    if (radarText && radarSections.length > 0) {
+      const radarObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const title = entry.target.getAttribute('data-radar-title');
+            if (title) radarText.textContent = title;
+          }
+        });
+      }, { rootMargin: '-25% 0px -55% 0px', threshold: 0.05 });
+      radarSections.forEach(sec => radarObserver.observe(sec));
+    }
+
+    /* === 6. HEADER POPOVERS & ПАСПОРТ СДО === */
+    const qAppBtn = document.getElementById('qAppBtn');
+    const qAppDropdown = document.getElementById('qAppDropdown');
+    const qPassportBtn = document.getElementById('qPassportBtn');
+    const qPassportPopover = document.getElementById('qPassportPopover');
+
+    function closeHeaderPopovers() {
+      if (qAppDropdown) { qAppDropdown.classList.remove('open'); qAppBtn?.setAttribute('aria-expanded', 'false'); }
+      if (qPassportPopover) { qPassportPopover.classList.remove('open'); qPassportBtn?.setAttribute('aria-expanded', 'false'); }
+    }
+    qAppBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = !qAppDropdown.classList.contains('open');
+      closeHeaderPopovers();
+      if (willOpen) { qAppDropdown.classList.add('open'); qAppBtn.setAttribute('aria-expanded', 'true'); }
+    });
+    qPassportBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = !qPassportPopover.classList.contains('open');
+      closeHeaderPopovers();
+      if (willOpen) { qPassportPopover.classList.add('open'); qPassportBtn.setAttribute('aria-expanded', 'true'); }
+    });
+    qAppDropdown?.addEventListener('click', (e) => e.stopPropagation());
+    qPassportPopover?.addEventListener('click', (e) => e.stopPropagation());
+    document.addEventListener('click', closeHeaderPopovers);
+
+    function readStorageKey(key) {
+      try {
+        const val = parseInt(localStorage.getItem(key), 10);
+        return Number.isFinite(val) && val >= 1 ? val : null;
+      } catch (e) { return null; }
+    }
+
+    // Отображение живого прогресса на карточках I–V групп по электробезопасности
+    const groupTelemetryMap = [
+      { key: 'el_group1_pdf_page', badgeId: 'elGroup1TelemetryBadge', labelId: 'elGroup1BtnLabel', prefix: 'Продолжить инструктаж (I гр. — Стр. ' },
+      { key: 'el_group2_pdf_page', badgeId: 'elGroup2TelemetryBadge' },
+      { key: 'el_group3_pdf_page', badgeId: 'elGroup3TelemetryBadge' },
+      { key: 'el_group4_pdf_page', badgeId: 'elGroup4TelemetryBadge' },
+      { key: 'el_group5_pdf_page', badgeId: 'elGroup5TelemetryBadge' }
+    ];
+
+    groupTelemetryMap.forEach(item => {
+      const savedPage = readStorageKey(item.key);
+      if (savedPage) {
+        const badgeEl = document.getElementById(item.badgeId);
+        if (badgeEl) {
+          badgeEl.textContent = `📖 Стр. ${savedPage}`;
+          badgeEl.classList.add('active');
+        }
+        if (item.labelId && savedPage > 1) {
+          const labelEl = document.getElementById(item.labelId);
+          if (labelEl) labelEl.textContent = `${item.prefix}${savedPage})`;
+        }
+      }
+    });
+
+    const passportCourses = [
+      { title: 'Охрана труда (Комплекс)', icon: '🛡️', url: 'course-ot.html', page: readStorageKey('program_a_pdf_page') || readStorageKey('ot_intro_pdf_page') },
+      { title: 'Пожарная безопасность', icon: '🔥', url: 'course-fire-safety.html', page: readStorageKey('fire_intro_pdf_page') },
+      { title: 'Первая помощь', icon: '🩹', url: 'course-first-aid.html', page: readStorageKey('firstaid_pdf_page') },
+      { title: 'Действия при угрозе БПЛА', icon: '🚁', url: 'course-bpla.html', page: readStorageKey('bpla_pdf_page') },
+      { title: 'ГО и защита от ЧС', icon: '📢', url: 'course-gochs.html', page: readStorageKey('gochs_pdf_page') },
+      { title: 'Электробезопасность', icon: '⚡', url: 'course-electrical-safety.html', page: readStorageKey('el_group1_pdf_page') || readStorageKey('el_group2_pdf_page') || readStorageKey('el_group3_pdf_page') },
+      { title: 'Гигиеническое обучение', icon: '🧼', url: 'course-hygiene.html', page: readStorageKey('hygiene_pdf_page') },
+      { title: 'Наставничество', icon: '🛎️', url: 'course-mentorship.html', page: readStorageKey('mentor_pdf_page') },
+      { title: 'Управление конфликтами', icon: '🧠', url: 'course-conflict.html', page: readStorageKey('conflict_pdf_page') }
+    ];
+    const qRingFill = document.getElementById('qRingFill');
+    const qPassportPct = document.getElementById('qPassportPct');
+    const qPassportRank = document.getElementById('qPassportRank');
+    const qPassportList = document.getElementById('qPassportList');
+
+    function renderDigitalPassport() {
+      let activeCount = 0;
+      passportCourses.forEach(c => { if (c.page !== null && c.page >= 1) activeCount++; });
+      const pct = Math.round((activeCount / passportCourses.length) * 100);
+      if (qPassportPct) qPassportPct.textContent = `${pct}%`;
+      if (qRingFill) {
+        const circumference = 62.83;
+        const offset = circumference - (pct / 100) * circumference;
+        qRingFill.style.strokeDashoffset = `${offset}`;
+      }
+      if (qPassportRank) {
+        if (pct === 0) qPassportRank.textContent = 'Готов к старту';
+        else if (pct < 40) qPassportRank.textContent = `В процессе (${activeCount}/9)`;
+        else if (pct < 80) qPassportRank.textContent = `Активный (${activeCount}/9)`;
+        else qPassportRank.textContent = `Профи ОТ (${activeCount}/9)`;
+      }
+      if (qPassportList) {
+        qPassportList.innerHTML = passportCourses.map(c => `
+          <a href="${c.url}" class="q-pass-item">
+            <div class="q-pass-item-left"><span aria-hidden="true">${c.icon}</span><span class="q-pass-item-title">${c.title}</span></div>
+            <span class="q-pass-item-status ${c.page ? 'in-progress' : ''}">${c.page ? `Стр. ${c.page}` : 'Не начат'}</span>
+          </a>
+        `).join('');
+      }
+    }
+    renderDigitalPassport();
+
+    /* === 7. ЭФФЕКТЫ МЫШИ (3D TILT + SPOTLIGHT) === */
+    if (!prefersReducedMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
       const hero = document.getElementById('tilt-hero');
-      if(hero) {
+      if (hero) {
         hero.addEventListener('mousemove', (e) => {
           const rect = hero.getBoundingClientRect();
-          const x = e.clientX - rect.left; const y = e.clientY - rect.top;
-          const centerX = rect.width / 2; const centerY = rect.height / 2;
-          const rotateX = ((y - centerY) / centerY) * -2; 
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -2;
           const rotateY = ((x - centerX) / centerX) * 2;
           hero.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         });
@@ -424,16 +1784,270 @@
       });
     }
 
-    // 4. Авто-скрытие уведомления
-    setTimeout(() => {
-        const toast = document.getElementById('courseToast');
-        if(toast) {
-            toast.style.transition = "opacity 0.5s, transform 0.5s";
-            toast.style.opacity = "0";
-            toast.style.transform = "translateX(100%)";
-            setTimeout(() => toast.style.display = 'none', 500);
+    /* ======================================================================
+       8. ЛОГИКА ПРОФИЛЬНОГО ТРЕНАЖЁРА ПОТЭУ (5 ШАГОВ + РАДАР НАПРЯЖЕНИЯ)
+       ====================================================================== */
+    let elAudioCtx = null;
+    function playElBeep(ok = true) {
+      try {
+        if (!elAudioCtx) elAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (elAudioCtx.state === 'suspended') elAudioCtx.resume();
+        const osc = elAudioCtx.createOscillator();
+        const gain = elAudioCtx.createGain();
+        osc.type = ok ? 'sine' : 'sawtooth';
+        osc.frequency.setValueAtTime(ok ? 780 : 180, elAudioCtx.currentTime);
+        gain.gain.setValueAtTime(0.11, elAudioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, elAudioCtx.currentTime + (ok ? 0.14 : 0.28));
+        osc.connect(gain); gain.connect(elAudioCtx.destination);
+        osc.start(); osc.stop(elAudioCtx.currentTime + (ok ? 0.14 : 0.28));
+      } catch (e) { /* audio optional */ }
+    }
+
+    const poteuStepBtns = Array.from(document.querySelectorAll('#poteuStepsList .poteu-step-btn'));
+    const poteuStatusBanner = document.getElementById('poteuStatusBanner');
+    const poteuStatusText = document.getElementById('poteuStatusText');
+    const poteuProgressCounter = document.getElementById('poteuProgressCounter');
+    const poteuResetBtn = document.getElementById('poteuResetBtn');
+    let currentExpectedStep = 1;
+
+    poteuStepBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.classList.contains('step-done')) return;
+        const stepOrder = parseInt(btn.getAttribute('data-step-order'), 10);
+
+        poteuStepBtns.forEach(b => b.classList.remove('step-wrong'));
+        poteuStatusBanner?.classList.remove('status-error', 'status-ok');
+
+        if (stepOrder === currentExpectedStep) {
+          playElBeep(true);
+          btn.classList.add('step-done');
+          const badge = btn.querySelector('.poteu-step-badge');
+          if (badge) badge.textContent = `✓ Шаг ${stepOrder}`;
+          if (poteuProgressCounter) poteuProgressCounter.textContent = `${stepOrder} / 5`;
+
+          currentExpectedStep++;
+          if (currentExpectedStep > 5) {
+            poteuStatusBanner?.classList.add('status-ok');
+            if (poteuStatusText) {
+              poteuStatusText.innerHTML = '✅ <strong>Безупречно!</strong> Все 5 технических мероприятий Раздела IV ПОТЭУ выполнены в строгом порядке. Рабочее место безопасно!';
+            }
+          } else {
+            if (poteuStatusText) {
+              poteuStatusText.innerHTML = `👍 <strong>Верно!</strong> Шаг ${stepOrder} выполнен. Теперь выберите мероприятие <strong>№ ${currentExpectedStep} из 5</strong>.`;
+            }
+          }
+        } else {
+          playElBeep(false);
+          btn.classList.add('step-wrong');
+          poteuStatusBanner?.classList.add('status-error');
+          if (poteuStatusText) {
+            poteuStatusText.innerHTML = `⛔ <strong>Опасное нарушение последовательности ПОТЭУ!</strong> Нельзя выполнять это действие до шага № ${currentExpectedStep}. Попробуйте ещё раз.`;
+          }
         }
+      });
+    });
+
+    poteuResetBtn?.addEventListener('click', () => {
+      currentExpectedStep = 1;
+      poteuStepBtns.forEach(btn => {
+        btn.classList.remove('step-done', 'step-wrong');
+        const badge = btn.querySelector('.poteu-step-badge');
+        if (badge) badge.textContent = 'Выбрать';
+      });
+      poteuStatusBanner?.classList.remove('status-error', 'status-ok');
+      if (poteuProgressCounter) poteuProgressCounter.textContent = '0 / 5';
+      if (poteuStatusText) {
+        poteuStatusText.innerHTML = '⚡ <strong>Задача:</strong> Нажмите по очереди на все 5 технических мероприятий в строгой последовательности Раздела IV ПОТЭУ (шаг 1 из 5).';
+      }
+    });
+
+    const voltData = {
+      step: {
+        title: 'Зона шагового напряжения вокруг оборванного провода',
+        desc: 'Запрещается приближаться к лежащему на земле проводу ВЛ ближе чем на <strong>8 метров</strong> (в закрытых РУ — не менее 4 метров). Выходить из опасной зоны необходимо <strong>«гусиным шагом»</strong> — приставляя пятку одной ноги к носку другой, не отрывая подошвы от земли.',
+        pill: '8,0 м'
+      },
+      v1: {
+        title: 'Электроустановки напряжением от 1 до 35 кВ',
+        desc: 'Минимально допустимое расстояние от людей и применяемых ими инструментов и приспособлений до неограждённых токоведущих частей под напряжением <strong>1–35 кВ</strong> составляет <strong>0,6 метра</strong> (Таблица № 1 Приказа Минтруда № 903н).',
+        pill: '0,6 м'
+      },
+      v110: {
+        title: 'Электроустановки и ВЛ напряжением 110 кВ',
+        desc: 'При работе вблизи токоведущих частей под напряжением <strong>110 кВ</strong> минимально допустимое расстояние до человека и инструмента составляет <strong>1,0 метр</strong> (для грузоподъёмных машин и механизмов — 1,5 метра).',
+        pill: '1,0 м'
+      },
+      v220: {
+        title: 'Магистральные электроустановки напряжением 220 кВ',
+        desc: 'Для установок <strong>220 кВ</strong> минимально допустимое расстояние до людей и ручного инструмента составляет <strong>2,0 метра</strong> (для подъёмных механизмов и стропов — 2,5 метра).',
+        pill: '2,0 м'
+      }
+    };
+
+    const voltTabs = Array.from(document.querySelectorAll('#voltTabs .volt-tab-btn'));
+    const voltTitle = document.getElementById('voltTitle');
+    const voltDesc = document.getElementById('voltDesc');
+    const voltPill = document.getElementById('voltPill');
+
+    voltTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        voltTabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-pressed', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-pressed', 'true');
+        const info = voltData[tab.getAttribute('data-volt')];
+        if (!info) return;
+        if (voltTitle) voltTitle.textContent = info.title;
+        if (voltDesc) voltDesc.innerHTML = info.desc;
+        if (voltPill) voltPill.textContent = info.pill;
+      });
+    });
+
+    /* === 9. АВТО-СКРЫТИЕ ТОСТ-УВЕДОМЛЕНИЯ === */
+    setTimeout(() => {
+      const toast = document.getElementById('courseToast');
+      if (toast) {
+        toast.style.transition = "opacity 0.5s, transform 0.5s";
+        toast.style.opacity = "0";
+        toast.style.transform = "translateX(100%)";
+        setTimeout(() => { toast.style.display = 'none'; }, 500);
+      }
     }, 8000);
+
+    /* === 10. МОДАЛКИ И ГОЛОСОВОЙ ПОИСК === */
+    const searchItems = [
+      { title: 'Главная страница СДО', tag: 'Дашборд', icon: '🏠', url: 'index.html' },
+      { title: 'Каталог всех программ (9)', tag: 'Реестр', icon: '📚', url: 'programs.html' },
+      { title: 'Инструкции по обучению', tag: 'Регламент', icon: '📋', url: 'instructions.html' },
+      { title: 'Раздел «Ответственным»', tag: 'ИТР', icon: '👔', url: 'for-responsibles.html' },
+      { title: 'I группа по электробезопасности (Инструктаж)', tag: 'ПОТЭУ 903н', icon: '⚡', url: 'el-group-1.html' },
+      { title: 'II группа по электробезопасности', tag: 'ПОТЭУ 903н', icon: '🔧', url: 'el-group-2-materials.html' },
+      { title: 'III группа по электробезопасности (до 1000В)', tag: 'ПОТЭУ 903н', icon: '🔌', url: 'el-group-3.html' },
+      { title: 'IV группа по электробезопасности', tag: 'ПОТЭУ 903н', icon: '🏭', url: 'el-group-4.html' },
+      { title: 'V группа по электробезопасности', tag: 'ПОТЭУ 903н', icon: '👷', url: 'el-group-5.html' },
+      { title: 'Итоговый тест: Электробезопасность', tag: 'Тестирование', icon: '🎯', url: 'https://demoonstars.github.io/Electrical_Safety_Test/' },
+      { title: 'Охрана труда (Комплекс)', tag: 'ПП № 2464', icon: '🛡️', url: 'course-ot.html' },
+      { title: 'Пожарная безопасность', tag: 'МЧС № 1120', icon: '🔥', url: 'course-fire-safety.html' },
+      { title: 'Первая помощь пострадавшим', tag: 'Минздрав 220н', icon: '🩹', url: 'course-first-aid.html' },
+      { title: 'Действия при угрозе атаки БПЛА', tag: 'ФЗ-35 / 68-ФЗ', icon: '🚁', url: 'course-bpla.html' },
+      { title: 'ГО и защита от ЧС', tag: 'ФЗ № 28', icon: '📢', url: 'course-gochs.html' }
+    ];
+    const searchModal = document.getElementById('searchModal');
+    const modalSearchInput = document.getElementById('searchModalInput');
+    const searchResultsList = document.getElementById('searchResultsList');
+    const sosModal = document.getElementById('sosModal');
+    let previousFocus = null, activeModal = null;
+
+    function getFocusable(modal) {
+      return Array.from(modal.querySelectorAll(
+        'button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      ));
+    }
+    function trapFocusHandler(e) {
+      if (e.key !== 'Tab' || !activeModal) return;
+      const focusable = getFocusable(activeModal);
+      if (focusable.length === 0) return;
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+    function openModal(modal, focusTarget) {
+      closeHeaderPopovers();
+      previousFocus = document.activeElement;
+      activeModal = modal;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      modal.removeAttribute('inert');
+      document.addEventListener('keydown', trapFocusHandler, true);
+      setTimeout(() => {
+        const target = focusTarget || getFocusable(modal)[0];
+        if (target) target.focus();
+      }, 60);
+    }
+    function closeModal(modal) {
+      if (!modal.classList.contains('open')) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      modal.setAttribute('inert', '');
+      document.removeEventListener('keydown', trapFocusHandler, true);
+      if (activeModal === modal) activeModal = null;
+      if (previousFocus && typeof previousFocus.focus === 'function') {
+        previousFocus.focus();
+        previousFocus = null;
+      }
+    }
+    function renderSearchModalList(query = '') {
+      const q = query.toLowerCase().trim();
+      const filtered = searchItems.filter(i => i.title.toLowerCase().includes(q) || i.tag.toLowerCase().includes(q));
+      searchResultsList.innerHTML = filtered.length === 0
+        ? `<div style="padding:24px;text-align:center;color:#64748b;">Ничего не найдено</div>`
+        : filtered.map(i => `<a href="${i.url}" class="search-result-item" ${i.url.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : ''}><div class="sri-left"><span>${i.icon}</span><span>${i.title}</span></div><span class="sri-tag">${i.tag}</span></a>`).join('');
+    }
+    function openSearchModal() { openModal(searchModal, modalSearchInput); modalSearchInput.value = ''; renderSearchModalList(''); }
+    function closeSearchModalFn() { closeModal(searchModal); }
+    function openSosModal() { openModal(sosModal, document.getElementById('closeSosModal')); }
+    function closeSosModalFn() { closeModal(sosModal); }
+
+    document.getElementById('qHeaderSearchBtn')?.addEventListener('click', openSearchModal);
+    document.getElementById('mobSearchBtn')?.addEventListener('click', openSearchModal);
+    document.getElementById('closeSearchModal')?.addEventListener('click', closeSearchModalFn);
+    searchModal?.addEventListener('click', (e) => { if (e.target === searchModal) closeSearchModalFn(); });
+    modalSearchInput?.addEventListener('input', (e) => renderSearchModalList(e.target.value));
+
+    document.getElementById('qHeaderSosBtn')?.addEventListener('click', openSosModal);
+    document.getElementById('mobSosBtn')?.addEventListener('click', openSosModal);
+    document.getElementById('closeSosModal')?.addEventListener('click', closeSosModalFn);
+    sosModal?.addEventListener('click', (e) => { if (e.target === sosModal) closeSosModalFn(); });
+
+    const voiceSearchBtn = document.getElementById('voiceSearchBtn');
+    voiceSearchBtn?.addEventListener('click', () => {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) {
+        voiceSearchBtn.title = 'Голосовой поиск не поддерживается';
+        voiceSearchBtn.setAttribute('aria-label', 'Голосовой поиск не поддерживается вашим браузером');
+        modalSearchInput?.focus();
+        return;
+      }
+      try {
+        const recognition = new SR();
+        recognition.lang = 'ru-RU';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+        voiceSearchBtn.disabled = true;
+        voiceSearchBtn.textContent = '⏳';
+        recognition.onresult = (e) => {
+          const transcript = e.results[0][0].transcript;
+          if (modalSearchInput) {
+            modalSearchInput.value = transcript;
+            renderSearchModalList(transcript);
+            modalSearchInput.focus();
+          }
+        };
+        recognition.onerror = () => { /* silent */ };
+        recognition.onend = () => {
+          voiceSearchBtn.disabled = false;
+          voiceSearchBtn.textContent = '🎤';
+        };
+        recognition.start();
+      } catch (e) {
+        voiceSearchBtn.disabled = false;
+        voiceSearchBtn.textContent = '🎤';
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (searchModal.classList.contains('open')) closeSearchModalFn(); else openSearchModal();
+      }
+      if (e.key === 'Escape') {
+        closeHeaderPopovers();
+        if (searchModal.classList.contains('open')) closeSearchModalFn();
+        if (sosModal.classList.contains('open')) closeSosModalFn();
+      }
+    });
   });
 </script>
 
